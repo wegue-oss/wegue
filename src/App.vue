@@ -2,9 +2,10 @@
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
     <app-header />
-    <ol-map zoom=4>
 
-      <ol-layer-osm slot="single-layer"> </ol-layer-osm>
+    <ol-map zoom=4 >
+
+      <ol-layer-osm slot="single-layer" :opacity="1.0"/>
 
     </ol-map>
     <info-window></info-window>
@@ -29,6 +30,7 @@ export default {
 </script>
 
 <style>
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   /*-webkit-font-smoothing: antialiased;
