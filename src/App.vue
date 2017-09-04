@@ -7,6 +7,12 @@
 
       <ol-layer-osm slot="single-layer" :opacity="1.0"/>
 
+      <ol-layer-tilewms slot="single-layer"
+        url="https://ahocevar.com/geoserver/wms"
+        layers="topp:states"
+        tiled
+      />
+
     </ol-map>
     <info-window></info-window>
   </div>
@@ -15,6 +21,7 @@
 <script>
 import OlMap from './components/ol/OlMap'
 import OsmLayer from './components/ol/OlLayerOsm'
+import TileWmsLayer from './components/ol/OlLayerTileWms'
 import InfoWindow from './components/InfoWindow'
 import AppHeader from './components/AppHeader'
 
@@ -23,6 +30,7 @@ export default {
   components: {
     OlMap,
     'ol-layer-osm': OsmLayer,
+    'ol-layer-tilewms': TileWmsLayer,
     InfoWindow,
     AppHeader
   }
