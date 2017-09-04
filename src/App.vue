@@ -5,7 +5,7 @@
 
     <v-webgis-top-logo logoSrc="http://via.placeholder.com/100x100"/>
 
-    <ol-map zoom=4 >
+    <ol-map :zoom="2" >
 
       <ol-layer-osm slot="single-layer" :opacity="1.0"/>
 

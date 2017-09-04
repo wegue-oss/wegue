@@ -13,11 +13,10 @@ import View from 'ol/view'
 
 export default {
   name: 'ol-map',
-  data () {
-    return {
-    }
+  props: {
+    zoom: {type: Number, default: 0},
+    center: {type: Array}
   },
-  props: ['zoom'],
   mounted () {
     this.map.setTarget(document.getElementById('map'))
   },
@@ -27,7 +26,7 @@ export default {
       layers: [
       ],
       view: new View({
-        center: [0, 0],
+        center: this.center || [0, 0],
         zoom: this.zoom
       })
     })
