@@ -47,7 +47,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-.map {
-  flex-grow: 1
-}
+  .map {
+    flex-grow: 1
+  }
+
+  .ol-zoom {
+    top: auto;
+    left:auto;
+    bottom: 3em;
+    right: 0.5em;
+  }
 </style>
