@@ -3,6 +3,8 @@
     <!-- <img src="./assets/logo.png"> -->
     <app-header />
 
+    <v-webgis-top-logo logoSrc="http://via.placeholder.com/100x100"/>
+
     <ol-map zoom=4 >
 
       <ol-layer-osm slot="single-layer" :opacity="1.0"/>
@@ -24,6 +26,7 @@ import OsmLayer from './components/ol/OlLayerOsm'
 import TileWmsLayer from './components/ol/OlLayerTileWms'
 import InfoWindow from './components/InfoWindow'
 import AppHeader from './components/AppHeader'
+import TopLogo from './components/TopLogo'
 
 export default {
   name: 'app',
@@ -32,7 +35,8 @@ export default {
     'ol-layer-osm': OsmLayer,
     'ol-layer-tilewms': TileWmsLayer,
     InfoWindow,
-    AppHeader
+    AppHeader,
+    'v-webgis-top-logo': TopLogo
   }
 }
 </script>
