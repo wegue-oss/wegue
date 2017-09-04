@@ -7,9 +7,9 @@
 
     <ol-map :zoom="2" >
 
-      <ol-layer-osm slot="single-layer" :opacity="1.0"/>
+      <ol-layer-osm slot="map-layers" :opacity="1.0"/>
 
-      <ol-layer-tilewms slot="single-layer"
+      <ol-layer-tilewms slot="map-layers"
         url="https://ahocevar.com/geoserver/wms"
         layers="topp:states"
         tiled

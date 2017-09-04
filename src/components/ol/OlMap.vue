@@ -1,8 +1,8 @@
 <template>
     <div class="map" id="map">
-
-      <slot name="single-layer">LAYER SLOT DEFAULT / FALLBACK</slot>
-
+      <!--This <slot> is going to be replaced by the map-layer configuration
+          tags in the app (see App.vue) -->
+      <slot name="map-layers">No map layers provided!</slot>
     </div>
 </template>
 
