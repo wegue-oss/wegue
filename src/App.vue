@@ -1,22 +1,25 @@
 <template>
   <div id="app">
-    <!-- <img src="./assets/logo.png"> -->
-    <app-header />
+      <!-- <img src="./assets/logo.png"> -->
+      <app-header />
 
-    <v-webgis-top-logo logoSrc="http://via.placeholder.com/100x100"/>
+      <v-webgis-top-logo logoSrc="http://via.placeholder.com/100x100"/>
 
-    <ol-map :zoom="2" >
+      <ol-map :zoom="2">
 
-      <ol-layer-osm slot="map-layers" :opacity="1.0"/>
+        <ol-layer-osm slot="map-layers" :opacity="1.0" name="OSM"/>
 
-      <ol-layer-tilewms slot="map-layers"
-        url="https://ahocevar.com/geoserver/wms"
-        layers="topp:states"
-        tiled
-      />
+        <ol-layer-tilewms slot="map-layers"
+          name="WMS (ahocevar)"
+          url="https://ahocevar.com/geoserver/wms"
+          layers="topp:states"
+          tiled
+        />
 
-    </ol-map>
-    <info-window></info-window>
+      </ol-map>
+      <info-window></info-window>
+
+
   </div>
 </template>
 
