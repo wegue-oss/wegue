@@ -19,6 +19,7 @@
       </ol-map>
       <info-window></info-window>
 
+      <layer-list />
 
   </div>
 </template>
@@ -30,6 +31,7 @@ import TileWmsLayer from './components/ol/OlLayerTileWms'
 import InfoWindow from './components/InfoWindow'
 import AppHeader from './components/AppHeader'
 import TopLogo from './components/TopLogo'
+import LayerList from './components/LayerList'
 
 export default {
   name: 'app',
@@ -39,7 +41,8 @@ export default {
     'ol-layer-tilewms': TileWmsLayer,
     InfoWindow,
     AppHeader,
-    'v-webgis-top-logo': TopLogo
+    'v-webgis-top-logo': TopLogo,
+    LayerList
   }
 }
 </script>
