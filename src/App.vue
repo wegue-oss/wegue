@@ -16,6 +16,13 @@
           tiled
         />
 
+        <ol-layer-vector slot="map-layers"
+          name="Earthquakes"
+          url="./static/data/2012_Earthquakes_Mag5.kml"
+          format="KML"
+          :formatConfig="{extractStyles: false}"
+        />
+
       </ol-map>
       <info-window></info-window>
 
@@ -28,6 +35,7 @@
 import OlMap from './components/ol/OlMap'
 import OsmLayer from './components/ol/OlLayerOsm'
 import TileWmsLayer from './components/ol/OlLayerTileWms'
+import VectorLayer from './components/ol/OlLayerVector'
 import InfoWindow from './components/InfoWindow'
 import AppHeader from './components/AppHeader'
 import TopLogo from './components/TopLogo'
@@ -39,6 +47,7 @@ export default {
     OlMap,
     'ol-layer-osm': OsmLayer,
     'ol-layer-tilewms': TileWmsLayer,
+    'ol-layer-vector': VectorLayer,
     InfoWindow,
     AppHeader,
     'v-webgis-top-logo': TopLogo,
