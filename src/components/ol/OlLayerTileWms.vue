@@ -4,7 +4,7 @@ import TileLayer from 'ol/layer/tile'
 import TileWmsSource from 'ol/source/tilewms'
 import OlLayerBase from './OlLayerBase'
 
-var OlLayerOsm = OlLayerBase.extend({
+var OlLayerWms = OlLayerBase.extend({
   name: 'ol-layer-tilewms',
   props: {
     url: {type: String, required: true},
@@ -18,7 +18,7 @@ var OlLayerOsm = OlLayerBase.extend({
         extent: this.extent,
         source: new TileWmsSource({
           url: this.url,
-          params: {'LAYERS': this.layers, 'TILED': this.false},
+          params: {'LAYERS': this.layers, 'TILED': this.tiled},
           serverType: this.serverType
         })
       })
@@ -28,7 +28,7 @@ var OlLayerOsm = OlLayerBase.extend({
   }
 })
 
-export default OlLayerOsm
+export default OlLayerWms
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
