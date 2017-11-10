@@ -64,6 +64,11 @@ export default {
 
 <style>
 
+html {
+  /* otherwise we have always vertical scrollbars */
+  overflow-y: auto;
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   /*-webkit-font-smoothing: antialiased;
@@ -76,4 +81,5 @@ export default {
   display: flex;
   flex-direction: column;
 }
+
 </style>
