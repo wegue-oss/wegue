@@ -4,23 +4,9 @@
       <v-toolbar-side-icon></v-toolbar-side-icon>
       <v-toolbar-title>Layers</v-toolbar-title>
       <v-spacer></v-spacer>
-      <!-- <v-btn icon>
-        <v-icon>more_vert</v-icon>
-      </v-btn> -->
     </v-toolbar>
     <v-list>
       <v-list-group v-for="item in items" :value="item.active" v-bind:key="item.title">
-        <v-list-tile slot="item" @click="">
-          <v-list-tile-action>
-            <v-icon>{{ item.action }}</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-          </v-list-tile-content>
-          <v-list-tile-action>
-            <v-icon>keyboard_arrow_down</v-icon>
-          </v-list-tile-action>
-        </v-list-tile>
         <v-list-tile v-for="subItem in item.items" v-bind:key="subItem.title" @click="">
           <input type="checkbox" class="vwg-layer-viz-cb" v-bind:value="subItem.title" v-model="visibleLayers" @change="layerVizChanged">
           <v-list-tile-content>
