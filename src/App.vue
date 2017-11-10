@@ -1,7 +1,7 @@
 <template>
   <div id="app">
       <!-- <img src="./assets/logo.png"> -->
-      <app-header />
+      <app-header title="Vue.js / OpenLayers WebGIS"/>
 
       <v-webgis-top-logo logoSrc="http://via.placeholder.com/100x100"/>
 

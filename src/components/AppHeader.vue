@@ -15,9 +15,11 @@
 
 export default {
   name: 'app-header',
+  props: {
+    title: {type: String, required: false, default: ''}
+  },
   data () {
     return {
-      title: 'Unsere schönsten Plätze'
     }
   },
   mounted () {
