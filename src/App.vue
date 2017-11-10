@@ -17,14 +17,18 @@
         />
 
         <ol-layer-vector slot="map-layers"
-          name="Earthquakes"
-          url="./static/data/2012_Earthquakes_Mag5.kml"
-          format="KML"
-          :formatConfig="{extractStyles: false}"
+          name="Shops"
+          url="./static/data/shops-dannstadt.geojson"
+          format="GeoJSON"
+          :formatConfig="{}"
+          selectable
         />
 
       </ol-map>
-      <info-window></info-window>
+      <!-- <info-window></info-window> -->
+      <feature-info-window
+        layerId="Shops"
+      />
 
       <layer-list />
 
@@ -37,6 +41,7 @@ import OsmLayer from './components/ol/OlLayerOsm'
 import TileWmsLayer from './components/ol/OlLayerTileWms'
 import VectorLayer from './components/ol/OlLayerVector'
 import InfoWindow from './components/InfoWindow'
+import FeatureInfoWindow from './components/FeatureInfoWindow'
 import AppHeader from './components/AppHeader'
 import TopLogo from './components/TopLogo'
 import LayerList from './components/LayerList'
@@ -49,6 +54,7 @@ export default {
     'ol-layer-tilewms': TileWmsLayer,
     'ol-layer-vector': VectorLayer,
     InfoWindow,
+    FeatureInfoWindow,
     AppHeader,
     'v-webgis-top-logo': TopLogo,
     LayerList
