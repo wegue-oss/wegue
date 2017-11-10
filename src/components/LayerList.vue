@@ -58,7 +58,10 @@
     },
     mounted: function () {
       // go over all layers from the map and list them up
-      var layers = this.map.getLayers()
+      var layers = this.map.getLayers();
+      // clone to only reverse the order for the list
+      var layerArrClone = layers.getArray().slice(0);
+      layers = layerArrClone.reverse();
 
       var layerItems = []
       var visibleLayers = []
