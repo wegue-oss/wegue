@@ -1,7 +1,17 @@
 <template>
   <div id="app">
       <!-- <img src="./assets/logo.png"> -->
-      <app-header title="Vue.js / OpenLayers WebGIS"/>
+      <app-header
+        title="Vue.js / OpenLayers WebGIS">
+
+        <v-toolbar-items slot="tb-buttons" class="hidden-sm-and-down">
+            <v-webgis-menubutton
+              icon="terrain"
+              text="Foo"
+            />
+
+        </v-toolbar-items>
+      </app-header>
 
       <v-webgis-top-logo logoSrc="http://via.placeholder.com/100x100"/>
 
@@ -44,6 +54,7 @@ import InfoWindow from './components/InfoWindow'
 import FeatureInfoWindow from './components/FeatureInfoWindow'
 import AppHeader from './components/AppHeader'
 import TopLogo from './components/TopLogo'
+import MenuButton from './components/MenuButton'
 import LayerList from './components/LayerList'
 
 export default {
@@ -57,6 +68,7 @@ export default {
     FeatureInfoWindow,
     AppHeader,
     'v-webgis-top-logo': TopLogo,
+    'v-webgis-menubutton': MenuButton,
     LayerList
   }
 }
