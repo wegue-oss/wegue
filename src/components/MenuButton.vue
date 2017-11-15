@@ -1,6 +1,6 @@
 <template>
 
-  <v-btn icon @click="openUi">
+  <v-btn icon @click="onClick">
     <v-icon>{{icon}}</v-icon>
     {{text}}
   </v-btn>
@@ -18,18 +18,14 @@ export default {
   mounted () {
   },
   methods: {
-    openUi () {
-      // console.log('openUI of menubutton not overitten - this componnet will not work properly');
-
-      // TODO show / toggle child UI
-      console.log(this.$children[0]);
+    onClick () {
+      console.warn('"onClick" of v-webgis-menubutton not overitten');
     }
   }
 }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-
-
 </style>
