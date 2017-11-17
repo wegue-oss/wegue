@@ -14,8 +14,8 @@
   },
   "dependencies": {
     "ol": "^4.3.2",
-    "vue": "^2.4.2",
-    "vuetify": "^0.15.0-beta.5"
+    "vue": "^2.5.5",
+    "vuetify": "^0.16.9"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -70,9 +70,9 @@
     "ora": "^1.2.0",
     "rimraf": "^2.6.0",
     "url-loader": "^0.5.8",
-    "vue-loader": "^13.0.4",
-    "vue-style-loader": "^3.0.1",
-    "vue-template-compiler": "^2.4.2",
+    "vue-loader": "^13.5.0",
+    "vue-style-loader": "^3.0.3",
+    "vue-template-compiler": "^2.5.5",
     "webpack": "^2.6.1",
     "webpack-dev-middleware": "^1.10.0",
     "webpack-hot-middleware": "^2.18.0",
