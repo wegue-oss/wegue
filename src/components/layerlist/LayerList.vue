@@ -59,12 +59,16 @@
       var layerItems = []
       var visibleLayers = []
       layers.forEach(function (layer) {
+        var visible = layer.getVisible();
+        var name = layer.get('name');
         layerItems.push({
-          title: layer.get('name'),
-          visible: layer.getVisible()
+          title: name,
+          visible: visible
         })
 
-        visibleLayers.push(layer.get('name'))
+        if (visible) {
+          visibleLayers.push(name);
+        }
       })
 
       // set the initial state of visible layers
