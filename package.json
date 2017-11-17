@@ -1,7 +1,7 @@
 {
   "name": "vue-ol-boilerplate",
-  "version": "1.0.0",
-  "description": "A Vue.js project",
+  "version": "0.1.0-dev",
+  "description": "Template project for a WebGIS client with OpenLayers and Vue.js",
   "author": "Christian Mayer <chris@meggsimum.de>",
   "private": true,
   "scripts": {
