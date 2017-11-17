@@ -4,17 +4,17 @@ import { EventBus } from '../../EventBus.js'
 import ToggleUiButton from '../ToggleUiButton'
 
 export default ToggleUiButton.extend({
-  name: 'v-webgis-toggle-layerlist-button',
+  name: 'v-webgis-toggle-helpwin-button',
   mounted () {
   },
   methods: {
     toggleUi () {
       // TODO check how to call the super method
-      // show / toggle child UI
+      // how / toggle child UI
       this.showUi = !this.showUi;
 
       // inform sub component (layer list)
-      EventBus.$emit('toggle-layerlist', this.showUi);
+      EventBus.$emit('toggle-helpwin', this.showUi);
     }
   }
 });

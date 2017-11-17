@@ -16,6 +16,11 @@
               text=""
             />
 
+            <v-webgis-toggle-helpwin-button
+              icon="help"
+              text=""
+            />
+
         </v-toolbar-items>
       </app-header>
 
@@ -41,12 +46,14 @@
         />
 
       </ol-map>
-      <!-- <info-window></info-window> -->
+
       <feature-info-window
         layerId="Shops"
       />
 
       <layer-list />
+
+      <v-webgis-helpwin />
 
   </div>
 </template>
@@ -63,6 +70,8 @@ import TopLogo from './components/TopLogo'
 import MenuButton from './components/MenuButton'
 import LayerListToggleButton from './components/layerlist/ToggleButton'
 import LayerList from './components/layerlist/LayerList'
+import HelpWinToggleButton from './components/helpwin/ToggleButton'
+import HelpWin from './components/helpwin/HelpWin'
 
 export default {
   name: 'app',
@@ -78,7 +87,9 @@ export default {
     'v-webgis-menubutton': MenuButton,
     // 'v-webgis-toggle-ui-button': ToggleUiButton,
     'v-webgis-toggle-layerlist-button': LayerListToggleButton,
-    LayerList
+    LayerList,
+    'v-webgis-toggle-helpwin-button': HelpWinToggleButton,
+    'v-webgis-helpwin': HelpWin
   }
 }
 </script>
