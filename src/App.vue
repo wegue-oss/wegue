@@ -5,9 +5,15 @@
         title="Vue.js / OpenLayers WebGIS">
 
         <v-toolbar-items slot="tb-buttons" class="hidden-sm-and-down">
+
             <v-webgis-menubutton
               icon="terrain"
               text="Foo"
+            />
+
+            <v-webgis-toggle-layerlist-button
+              icon="layers"
+              text=""
             />
 
         </v-toolbar-items>
@@ -55,7 +61,8 @@ import FeatureInfoWindow from './components/FeatureInfoWindow'
 import AppHeader from './components/AppHeader'
 import TopLogo from './components/TopLogo'
 import MenuButton from './components/MenuButton'
-import LayerList from './components/LayerList'
+import LayerListToggleButton from './components/layerlist/ToggleButton'
+import LayerList from './components/layerlist/LayerList'
 
 export default {
   name: 'app',
@@ -69,6 +76,8 @@ export default {
     AppHeader,
     'v-webgis-top-logo': TopLogo,
     'v-webgis-menubutton': MenuButton,
+    // 'v-webgis-toggle-ui-button': ToggleUiButton,
+    'v-webgis-toggle-layerlist-button': LayerListToggleButton,
     LayerList
   }
 }

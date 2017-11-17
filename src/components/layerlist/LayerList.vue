@@ -1,5 +1,5 @@
 <template>
-  <v-card class="vwg-layertree">
+  <v-card class="vwg-layertree" v-if=show>
     <v-toolbar class="teal white--text" dark>
       <v-toolbar-side-icon></v-toolbar-side-icon>
       <v-toolbar-title>Layers</v-toolbar-title>
@@ -23,7 +23,7 @@
 
 <script>
   // Import the EventBus
-  import { EventBus } from '../EventBus.js'
+  import { EventBus } from '../../EventBus.js'
 
   export default {
     data () {
@@ -31,16 +31,23 @@
         // will be filled in mounted
         items: [],
         // will be filled in mounted and adapted by the layer checkboxes
-        visibleLayers: []
+        visibleLayers: [],
+
+        show: false
       }
     },
     created: function () {
       var me = this
-      // Listen for the ol-map-mounted event ans receive the OL map instance
+      // Listen to the ol-map-mounted event and receive the OL map instance
       EventBus.$on('ol-map-mounted', function (olMap) {
         // make the OL map accesible in this component
         me.map = olMap
-      })
+      });
+
+      // Listen to the 'toggle-sub-ui' event of a connected toggle button
+      EventBus.$on('toggle-layerlist', function (show) {
+        me.show = show;
+      });
     },
     mounted: function () {
       // go over all layers from the map and list them up
