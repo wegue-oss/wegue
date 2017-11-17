@@ -30,6 +30,13 @@
 
         <ol-layer-osm slot="map-layers" :opacity="1.0" name="OSM"/>
 
+        <ol-layer-vectortiles slot="map-layers"
+          name="Vector Tile Layer"
+          url="https://basemaps.arcgis.com/v1/arcgis/rest/services/World_Basemap/VectorTileServer/tile/{z}/{y}/{x}.pbf"
+          format="MVT"
+          hidden
+        />
+
         <ol-layer-tilewms slot="map-layers"
           name="WMS (ahocevar)"
           url="https://ahocevar.com/geoserver/wms"
@@ -63,6 +70,7 @@ import OlMap from './components/ol/OlMap'
 import OsmLayer from './components/ol/OlLayerOsm'
 import TileWmsLayer from './components/ol/OlLayerTileWms'
 import VectorLayer from './components/ol/OlLayerVector'
+import VectorTileLayer from './components/ol/OlLayerVectorTiles'
 import InfoWindow from './components/InfoWindow'
 import FeatureInfoWindow from './components/FeatureInfoWindow'
 import AppHeader from './components/AppHeader'
@@ -80,6 +88,7 @@ export default {
     'ol-layer-osm': OsmLayer,
     'ol-layer-tilewms': TileWmsLayer,
     'ol-layer-vector': VectorLayer,
+    'ol-layer-vectortiles': VectorTileLayer,
     InfoWindow,
     FeatureInfoWindow,
     AppHeader,
