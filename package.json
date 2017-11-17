@@ -13,7 +13,7 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs"
   },
   "dependencies": {
-    "ol": "^4.3.2",
+    "ol": "^4.5.0",
     "vue": "^2.5.5",
     "vuetify": "^0.16.9"
   },
