@@ -6,12 +6,14 @@ import OlLayerBase from './OlLayerBase'
 import MvtFormat from 'ol/format/mvt'
 import GeoJsonFormat from 'ol/format/geojson'
 import TopoJsonFormat from 'ol/format/topojson'
+import OlStyleDefs from '../../style/OlStyleDefs'
 
 var OlLayerVectorTiles = OlLayerBase.extend({
   name: 'ol-layer-vectortiles',
   props: {
     url: {type: String, required: true},
-    format: {type: String, required: true}
+    format: {type: String, required: true},
+    styleRef: {type: String, required: false}
   },
   methods: {
     createLayer () {
@@ -26,7 +28,8 @@ var OlLayerVectorTiles = OlLayerBase.extend({
         source: new VectorTileSource({
           url: this.url,
           format: new formatMapping[this.format]()
-        })
+        }),
+        style: OlStyleDefs[this.styleRef]
       });
 
       return vtLayer;

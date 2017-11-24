@@ -6,6 +6,7 @@ import KmlFormat from 'ol/format/kml'
 import GeoJsonFormat from 'ol/format/geojson'
 import OlLayerBase from './OlLayerBase'
 import SelectInteraction from 'ol/interaction/select'
+import OlStyleDefs from '../../style/OlStyleDefs'
 import { EventBus } from '../../EventBus.js'
 
 var OlLayerVector = OlLayerBase.extend({
@@ -14,7 +15,8 @@ var OlLayerVector = OlLayerBase.extend({
     url: {type: String, required: true},
     format: {type: String, required: true},
     formatConfig: {type: Object, required: false, default: {}},
-    selectable: {type: Boolean, required: false, default: false}
+    selectable: {type: Boolean, required: false, default: false},
+    styleRef: {type: String, required: false}
   },
   created: function () {
     var me = this
@@ -58,7 +60,8 @@ var OlLayerVector = OlLayerBase.extend({
         source: new VectorSource({
           url: this.url,
           format: new formatMapping[this.format](this.formatConfig)
-        })
+        }),
+        style: OlStyleDefs[this.styleRef]
       });
 
       return vectorLayer

@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" data-app>
       <!-- <img src="./assets/logo.png"> -->
       <app-header
         title="Vue.js / OpenLayers WebGIS">
@@ -50,6 +50,7 @@
           format="GeoJSON"
           :formatConfig="{}"
           selectable
+          styleRef="shopStyle"
         />
 
       </ol-map>
