@@ -1,28 +1,27 @@
 <template>
   <v-navigation-drawer
-      v-if="this.feature !== null"
-       class="pb-0 wgu-feature-infowindow"
-       permanent
-       absolute
-       height="100%"
-       light
-       right
+    v-if="this.feature !== null"
+    class="pb-0 wgu-feature-infowindow"
+    permanent
+    absolute
+    height="100%"
+    light
+    right
   >
-      <v-card
-        class="info-card">
-         <v-card-media v-if="attributes[imageProp]" :src="attributes[imageProp]" height="200px">
-         </v-card-media>
-         <v-card-title primary-title>
-           <div>
-             <h3 v-if="attributes[titleProp]" class="headline mb-0">{{attributes[titleProp]}}</h3>
-           </div>
-         </v-card-title>
-         <v-card-actions>
-           <v-btn flat class="orange--text">More info...</v-btn>
-         </v-card-actions>
+    <v-card
+      class="info-card">
+        <v-card-media v-if="attributes[imageProp]" :src="attributes[imageProp]" height="200px" />
+        <v-card-title primary-title>
+          <div>
+            <h3 v-if="attributes[titleProp]" class="headline mb-0">{{attributes[titleProp]}}</h3>
+          </div>
+        </v-card-title>
+        <v-card-actions>
+          <v-btn flat class="orange--text">More info...</v-btn>
+        </v-card-actions>
     </v-card>
-
   </v-navigation-drawer>
+
 </template>
 
 <script>
