@@ -16,7 +16,7 @@
 import Vue from 'vue'
 
 export default Vue.extend({
-  name: 'v-webgis-menubutton',
+  name: 'wgu-menubutton',
   props: {
     icon: {type: String, required: false},
     text: {type: String, required: false}
@@ -25,10 +25,6 @@ export default Vue.extend({
     return {
       showUi: false
     }
-  },
-  components: {
-  },
-  mounted () {
   },
   methods: {
     toggleUi () {

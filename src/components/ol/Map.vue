@@ -10,11 +10,11 @@
 
 import Map from 'ol/map'
 import View from 'ol/view'
-// the app-wide EventBus
-import { EventBus } from '../../EventBus.js'
+// import the app-wide EventBus
+import { WguEventBus } from '../../WguEventBus.js'
 
 export default {
-  name: 'ol-map',
+  name: 'wgu-map',
   props: {
     zoom: {type: Number, default: 0},
     center: {type: Array}
@@ -23,7 +23,7 @@ export default {
     this.map.setTarget(document.getElementById('map'))
 
     // Send the event 'ol-map-mounted' with the OL map as payload
-    EventBus.$emit('ol-map-mounted', this.map)
+    WguEventBus.$emit('ol-map-mounted', this.map)
   },
   created () {
     this.map = new Map({

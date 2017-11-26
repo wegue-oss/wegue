@@ -3,9 +3,9 @@
   <v-avatar
      :tile="true"
      size="12"
-     class="grey lighten-4 v-webgis-top-logo"
+     class="grey lighten-4 wgu-top-logo"
    >
-     <img v-bind:src="logoSrc" alt="avatar">
+     <img v-bind:src="logoSrc" alt="top-logo">
    </v-avatar>
 
 </template>
@@ -13,11 +13,9 @@
 <script>
 
 export default {
-  name: 'v-webgis-top-logo',
+  name: 'wgu-top-logo',
   props: {
     logoSrc: {type: String, required: true}
-  },
-  mounted () {
   }
 }
 </script>
@@ -25,7 +23,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 
-  .v-webgis-top-logo {
+  .wgu-top-logo {
     position: absolute;
     left: 25px;
     top: 50px;

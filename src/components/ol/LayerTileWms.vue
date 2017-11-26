@@ -2,7 +2,7 @@
 
 import TileLayer from 'ol/layer/tile'
 import TileWmsSource from 'ol/source/tilewms'
-import OlLayerBase from './OlLayerBase'
+import OlLayerBase from './LayerBase'
 
 var OlLayerWms = OlLayerBase.extend({
   name: 'ol-layer-tilewms',

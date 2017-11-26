@@ -4,10 +4,10 @@ import VectorLayer from 'ol/layer/vector'
 import VectorSource from 'ol/source/vector'
 import KmlFormat from 'ol/format/kml'
 import GeoJsonFormat from 'ol/format/geojson'
-import OlLayerBase from './OlLayerBase'
 import SelectInteraction from 'ol/interaction/select'
+import OlLayerBase from './LayerBase'
 import OlStyleDefs from '../../style/OlStyleDefs'
-import { EventBus } from '../../EventBus.js'
+import { WguEventBus } from '../../WguEventBus.js'
 
 var OlLayerVector = OlLayerBase.extend({
   name: 'ol-layer-vector',
@@ -22,7 +22,7 @@ var OlLayerVector = OlLayerBase.extend({
     var me = this
     // listen for the ol-map-mounted event and receive the OL map
     // instance
-    EventBus.$on('ol-map-mounted', function (olMap) {
+    WguEventBus.$on('ol-map-mounted', function (olMap) {
       // make the OL map accesible in this component
       me.map = olMap;
 
@@ -35,7 +35,7 @@ var OlLayerVector = OlLayerBase.extend({
         // forward an event if feature selection changes
         selectClick.on('select', function (evt) {
           // TODO use identifier for layer (once its implemented)
-          EventBus.$emit(
+          WguEventBus.$emit(
             'map-selectionchange',
             me.layer.get('name'),
             evt.selected,

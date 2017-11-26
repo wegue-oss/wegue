@@ -1,18 +1,18 @@
 <template>
-  <v-toolbar class="vt-webgis-tb">
+  <v-toolbar class="wgu-app-toolbar">
       <v-toolbar-title>{{title}}</v-toolbar-title>
       <v-spacer></v-spacer>
 
       <!--This <slot> is going to be replaced by the toolbar buttons in the
           app configuration tags (see App.vue) -->
-      <slot name="tb-buttons"></slot>
+      <slot name="wgu-tb-buttons"></slot>
     </v-toolbar>
 </template>
 
 <script>
 
 export default {
-  name: 'app-header',
+  name: 'wgu-app-header',
   props: {
     title: {type: String, required: false, default: ''}
   },
@@ -29,7 +29,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 
-  .vt-webgis-tb {
+  .wgu-app-toolbar {
     /*background-color: red;*/
     z-index: 1;
   }

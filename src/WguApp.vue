@@ -1,50 +1,50 @@
 <template>
   <div id="app" data-app>
-      <!-- <img src="./assets/logo.png"> -->
-      <app-header
+
+      <wgu-app-header
         title="Vue.js / OpenLayers WebGIS">
 
-        <v-toolbar-items slot="tb-buttons" class="hidden-sm-and-down">
+        <v-toolbar-items slot="wgu-tb-buttons" class="hidden-sm-and-down">
 
-            <v-webgis-menubutton
+            <wgu-menubutton
               icon="terrain"
               text="Foo"
             />
 
-            <v-webgis-toggle-layerlist-button
+            <wgu-toggle-layerlist-button
               icon="layers"
               text=""
             />
 
-            <v-webgis-toggle-helpwin-button
+            <wgu-toggle-helpwin-button
               icon="help"
               text=""
             />
 
         </v-toolbar-items>
-      </app-header>
+      </wgu-app-header>
 
-      <v-webgis-top-logo logoSrc="http://via.placeholder.com/100x100"/>
+      <wgu-top-logo logoSrc="http://via.placeholder.com/100x100"/>
 
-      <ol-map :zoom="2">
+      <wgu-map :zoom="2">
 
-        <ol-layer-osm slot="map-layers" :opacity="1.0" name="OSM"/>
+        <wgu-layer-osm slot="map-layers" :opacity="1.0" name="OSM"/>
 
-        <ol-layer-vectortiles slot="map-layers"
+        <wgu-layer-vectortiles slot="map-layers"
           name="Vector Tile Layer"
           url="https://basemaps.arcgis.com/v1/arcgis/rest/services/World_Basemap/VectorTileServer/tile/{z}/{y}/{x}.pbf"
           format="MVT"
           hidden
         />
 
-        <ol-layer-tilewms slot="map-layers"
+        <wgu-layer-tilewms slot="map-layers"
           name="WMS (ahocevar)"
           url="https://ahocevar.com/geoserver/wms"
           layers="topp:states"
           tiled
         />
 
-        <ol-layer-vector slot="map-layers"
+        <wgu-layer-vector slot="map-layers"
           name="Shops"
           url="./static/data/shops-dannstadt.geojson"
           format="GeoJSON"
@@ -53,25 +53,25 @@
           styleRef="shopStyle"
         />
 
-      </ol-map>
+      </wgu-map>
 
-      <feature-info-window
+      <wgu-feature-infowindow
         layerId="Shops"
       />
 
-      <layer-list />
+      <wgu-layerlist />
 
-      <v-webgis-helpwin />
+      <wgu-helpwin />
 
   </div>
 </template>
 
 <script>
-import OlMap from './components/ol/OlMap'
-import OsmLayer from './components/ol/OlLayerOsm'
-import TileWmsLayer from './components/ol/OlLayerTileWms'
-import VectorLayer from './components/ol/OlLayerVector'
-import VectorTileLayer from './components/ol/OlLayerVectorTiles'
+import OlMap from './components/ol/Map'
+import OsmLayer from './components/ol/LayerOsm'
+import TileWmsLayer from './components/ol/LayerTileWms'
+import VectorLayer from './components/ol/LayerVector'
+import VectorTileLayer from './components/ol/LayerVectorTiles'
 import InfoWindow from './components/InfoWindow'
 import FeatureInfoWindow from './components/FeatureInfoWindow'
 import AppHeader from './components/AppHeader'
@@ -85,21 +85,20 @@ import HelpWin from './components/helpwin/HelpWin'
 export default {
   name: 'app',
   components: {
-    OlMap,
-    'ol-layer-osm': OsmLayer,
-    'ol-layer-tilewms': TileWmsLayer,
-    'ol-layer-vector': VectorLayer,
-    'ol-layer-vectortiles': VectorTileLayer,
-    InfoWindow,
-    FeatureInfoWindow,
-    AppHeader,
-    'v-webgis-top-logo': TopLogo,
-    'v-webgis-menubutton': MenuButton,
-    // 'v-webgis-toggle-ui-button': ToggleUiButton,
-    'v-webgis-toggle-layerlist-button': LayerListToggleButton,
-    LayerList,
-    'v-webgis-toggle-helpwin-button': HelpWinToggleButton,
-    'v-webgis-helpwin': HelpWin
+    'wgu-map': OlMap,
+    'wgu-layer-osm': OsmLayer,
+    'wgu-layer-tilewms': TileWmsLayer,
+    'wgu-layer-vector': VectorLayer,
+    'wgu-layer-vectortiles': VectorTileLayer,
+    'wgu-info-window': InfoWindow,
+    'wgu-feature-infowindow': FeatureInfoWindow,
+    'wgu-app-header': AppHeader,
+    'wgu-top-logo': TopLogo,
+    'wgu-menubutton': MenuButton,
+    'wgu-toggle-layerlist-button': LayerListToggleButton,
+    'wgu-layerlist': LayerList,
+    'wgu-toggle-helpwin-button': HelpWinToggleButton,
+    'wgu-helpwin': HelpWin
   }
 }
 </script>
@@ -113,11 +112,6 @@ html {
 
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  /*-webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;*/
-  /*margin-top: 60px;*/
   width: 100vw;
   height: 100vh;
   display: flex;

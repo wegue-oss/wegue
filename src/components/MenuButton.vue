@@ -10,12 +10,10 @@
 <script>
 
 export default {
-  name: 'v-webgis-menubutton',
+  name: 'wgu-menubutton',
   props: {
     icon: {type: String, required: false},
     text: {type: String, required: false}
-  },
-  mounted () {
   },
   methods: {
     onClick () {

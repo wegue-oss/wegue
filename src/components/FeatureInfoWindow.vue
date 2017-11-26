@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer
       v-if="this.feature !== null"
-       class="pb-0 vt-webgis-infowindow"
+       class="pb-0 wgu-feature-infowindow"
        permanent
        absolute
        height="100%"
@@ -27,10 +27,10 @@
 
 <script>
 
-import { EventBus } from '../EventBus.js'
+import { WguEventBus } from '../WguEventBus.js'
 
 export default {
-  name: 'feature-info-window',
+  name: 'wgu-feature-info-window',
   props: {
     layerId: {type: String, required: true}
   },
@@ -45,7 +45,7 @@ export default {
     var me = this;
 
     // listen to selection events of connected layer and apply attributes
-    EventBus.$on('map-selectionchange', function (layerName, selected, deselected) {
+    WguEventBus.$on('map-selectionchange', function (layerName, selected, deselected) {
       if (me.layerId === layerName) {
         me.setFeature(selected[0]);
       }
@@ -73,11 +73,11 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 
-  .vt-webgis-infowindow {
+  .wgu-feature-infowindow {
     padding: 75px 5px 5px 5px
   }
 
-  .vt-webgis-infowindow .info-card {
+  .wgu-feature-infowindow .info-card {
     background-color: white;
     padding: 5px;
     height: 100%;

@@ -1,5 +1,5 @@
 <template>
-  <v-card class="vwg-layertree" v-if=show>
+  <v-card class="wgu-layerlist" v-if=show>
     <v-toolbar class="teal white--text" dark>
       <v-toolbar-side-icon></v-toolbar-side-icon>
       <v-toolbar-title>Layers</v-toolbar-title>
@@ -8,7 +8,7 @@
     <v-list>
       <v-list-group v-for="item in items" :value="item.active" v-bind:key="item.title">
         <v-list-tile v-for="subItem in item.items" v-bind:key="subItem.title" @click="">
-          <input type="checkbox" class="vwg-layer-viz-cb" v-bind:value="subItem.title" v-model="visibleLayers" @change="layerVizChanged">
+          <input type="checkbox" class="wgu-layer-viz-cb" v-bind:value="subItem.title" v-model="visibleLayers" @change="layerVizChanged">
           <v-list-tile-content>
               <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
           </v-list-tile-content>
@@ -23,7 +23,7 @@
 
 <script>
   // Import the EventBus
-  import { EventBus } from '../../EventBus.js'
+  import { WguEventBus } from '../../WguEventBus.js'
 
   export default {
     data () {
@@ -39,13 +39,13 @@
     created: function () {
       var me = this
       // Listen to the ol-map-mounted event and receive the OL map instance
-      EventBus.$on('ol-map-mounted', function (olMap) {
+      WguEventBus.$on('ol-map-mounted', function (olMap) {
         // make the OL map accesible in this component
         me.map = olMap
       });
 
       // Listen to the 'toggle-sub-ui' event of a connected toggle button
-      EventBus.$on('toggle-layerlist', function (show) {
+      WguEventBus.$on('toggle-layerlist', function (show) {
         me.show = show;
       });
     },
@@ -125,7 +125,7 @@
 
 <style>
 
-  .vwg-layertree {
+  .wgu-layerlist {
     position: absolute;
     bottom: 130px;
     left: 10px;
@@ -133,7 +133,7 @@
     z-index: 2;
   }
 
-  .vwg-layer-viz-cb {
+  .wgu-layer-viz-cb {
     width: 45px;
   }
 

@@ -1,12 +1,10 @@
 <script>
 
-import { EventBus } from '../../EventBus.js'
+import { WguEventBus } from '../../WguEventBus.js'
 import ToggleUiButton from '../ToggleUiButton'
 
 export default ToggleUiButton.extend({
-  name: 'v-webgis-toggle-helpwin-button',
-  mounted () {
-  },
+  name: 'wgu-toggle-helpwin-button',
   methods: {
     toggleUi () {
       // TODO check how to call the super method
@@ -14,7 +12,7 @@ export default ToggleUiButton.extend({
       this.showUi = !this.showUi;
 
       // inform sub component (layer list)
-      EventBus.$emit('toggle-helpwin', this.showUi);
+      WguEventBus.$emit('toggle-helpwin', this.showUi);
     }
   }
 });

@@ -2,7 +2,7 @@
 
 import TileLayer from 'ol/layer/tile'
 import OsmSource from 'ol/source/osm'
-import OlLayerBase from './OlLayerBase'
+import OlLayerBase from './LayerBase'
 
 var OlLayerOsm = OlLayerBase.extend({
   name: 'ol-layer-osm',

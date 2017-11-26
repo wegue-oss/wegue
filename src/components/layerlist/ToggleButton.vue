@@ -1,6 +1,6 @@
 <script>
 
-import { EventBus } from '../../EventBus.js'
+import { WguEventBus } from '../../WguEventBus.js'
 import ToggleUiButton from '../ToggleUiButton'
 
 export default ToggleUiButton.extend({
@@ -14,7 +14,7 @@ export default ToggleUiButton.extend({
       this.showUi = !this.showUi;
 
       // inform sub component (layer list)
-      EventBus.$emit('toggle-layerlist', this.showUi);
+      WguEventBus.$emit('toggle-layerlist', this.showUi);
     }
   }
 });

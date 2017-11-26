@@ -1,6 +1,6 @@
 <template>
   <v-navigation-drawer
-       class="pb-0 vt-webgis-infowindow"
+       class="pb-0 wgu-infowindow"
        permanent
        absolute
        height="100%"
@@ -29,28 +29,22 @@
 <script>
 
 export default {
-  name: 'info-window',
+  name: 'wgu-info-window',
   data () {
     return {
-      title: 'Zentrum Alte Schule',
-      description1: 'Gemeindezentrum Zur Alten Schule',
-      description2: 'Foo bar test ...'
     }
-  },
-  mounted () {
   }
-
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 
-  .vt-webgis-infowindow {
+  .wgu-infowindow {
     padding: 75px 5px 5px 5px
   }
 
-  .vt-webgis-infowindow .info-card {
+  .wgu-infowindow .info-card {
     background-color: white;
     padding: 5px;
     height: 100%;

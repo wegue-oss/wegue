@@ -1,5 +1,5 @@
 <template>
-  <v-card class="vwg-helpwin" v-if=show>
+  <v-card class="wgu-helpwin" v-if=show>
     <v-toolbar class="teal white--text" dark>
       <v-toolbar-side-icon></v-toolbar-side-icon>
       <v-toolbar-title>Help</v-toolbar-title>
@@ -22,7 +22,7 @@
 
 <script>
   // Import the EventBus
-  import { EventBus } from '../../EventBus.js'
+  import { WguEventBus } from '../../WguEventBus.js'
 
   export default {
     data () {
@@ -33,20 +33,16 @@
     created: function () {
       var me = this
       // Listen to the 'toggle-helpwin' event of a connected toggle button
-      EventBus.$on('toggle-helpwin', function (show) {
+      WguEventBus.$on('toggle-helpwin', function (show) {
         me.show = show;
       });
-    },
-    mounted: function () {
-    },
-    methods: {
     }
   }
 </script>
 
 <style>
 
-  .vwg-helpwin {
+  .wgu-helpwin {
     position: absolute;
     bottom: 10px;
     left: calc(50% - 150px);

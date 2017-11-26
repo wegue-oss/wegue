@@ -2,10 +2,10 @@
 
 import VectorTileLayer from 'ol/layer/vectortile'
 import VectorTileSource from 'ol/source/vectortile'
-import OlLayerBase from './OlLayerBase'
 import MvtFormat from 'ol/format/mvt'
 import GeoJsonFormat from 'ol/format/geojson'
 import TopoJsonFormat from 'ol/format/topojson'
+import OlLayerBase from './LayerBase'
 import OlStyleDefs from '../../style/OlStyleDefs'
 
 var OlLayerVectorTiles = OlLayerBase.extend({
