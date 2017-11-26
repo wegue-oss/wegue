@@ -10,11 +10,11 @@
   >
       <v-card
         class="info-card">
-         <v-card-media src="http://via.placeholder.com/200x200?text=" height="200px">
+         <v-card-media v-if="attributes[imageProp]" :src="attributes[imageProp]" height="200px">
          </v-card-media>
          <v-card-title primary-title>
            <div>
-             <h3 class="headline mb-0">{{attributes.name}}</h3>
+             <h3 v-if="attributes[titleProp]" class="headline mb-0">{{attributes[titleProp]}}</h3>
            </div>
          </v-card-title>
          <v-card-actions>
@@ -32,7 +32,9 @@ import { WguEventBus } from '../WguEventBus.js'
 export default {
   name: 'wgu-feature-info-window',
   props: {
-    layerId: {type: String, required: true}
+    layerId: {type: String, required: true},
+    imageProp: {type: String, required: false},
+    titleProp: {type: String, required: false}
   },
   data () {
     return {
@@ -60,6 +62,8 @@ export default {
       if (feature) {
         this.feature = feature;
         this.attributes = feature.getProperties();
+        // TODO replace this ... only debug
+        this.attributes.image = 'http://via.placeholder.com/200x200?text=';
       } else {
         this.feature = null;
         this.attributes = null;

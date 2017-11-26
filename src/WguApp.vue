@@ -57,6 +57,8 @@
 
       <wgu-feature-infowindow
         layerId="Shops"
+        imageProp="image"
+        titleProp="name"
       />
 
       <wgu-layerlist />
