@@ -8,7 +8,7 @@
 
             <wgu-menubutton
               icon="terrain"
-              text="Foo"
+              text=" Test"
             />
 
             <wgu-toggle-layerlist-button

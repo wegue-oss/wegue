@@ -1,9 +1,13 @@
 <template>
 
-  <v-btn icon @click="onClick">
-    <v-icon>{{icon}}</v-icon>
-    {{text}}
-  </v-btn>
+  <div class="">
+
+    <v-btn icon @click="onClick">
+      <v-icon>{{icon}}</v-icon>
+      {{text}}
+    </v-btn>
+
+  </div>
 
 </template>
 
