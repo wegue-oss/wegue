@@ -1,5 +1,5 @@
-# ol-vuejs-boilerplate
-[Work-In-Progress] Boilerplate and guide for a Webmapping application with OpenLayers and Vue.js
+# Wegue (WebGIS with OpenLayers and Vue.js)
+Template and re-usable components for webmapping applications with OpenLayers and Vue.js
 
 
 ## Build Setup
