@@ -1,7 +1,7 @@
 <template>
   <v-card class="wgu-layerlist" v-if=show>
     <v-toolbar class="teal white--text" dark>
-      <v-toolbar-side-icon></v-toolbar-side-icon>
+      <v-toolbar-side-icon><v-icon>layers</v-icon></v-toolbar-side-icon>
       <v-toolbar-title>Layers</v-toolbar-title>
       <v-spacer></v-spacer>
     </v-toolbar>
@@ -126,11 +126,13 @@
 <style>
 
   .wgu-layerlist {
-    position: absolute;
     bottom: 130px;
     left: 10px;
     background-color: white;
     z-index: 2;
+  }
+  .wgu-layerlist.card {
+      position: absolute;
   }
 
   .wgu-layer-viz-cb {

@@ -1,5 +1,5 @@
 <template>
-    <div class="map" id="map">
+    <div class="map wgu-map" id="map">
       <!--This <slot> is going to be replaced by the map-layer configuration
           tags in the app (see App.vue) -->
       <slot name="map-layers">No map layers provided!</slot>
@@ -42,11 +42,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-  .map {
+  .wgu-map.map {
     flex-grow: 1
   }
 
-  .ol-zoom {
+  .wgu-map .ol-zoom {
     top: auto;
     left:auto;
     bottom: 3em;

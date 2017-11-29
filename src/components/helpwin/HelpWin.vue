@@ -1,7 +1,7 @@
 <template>
   <v-card class="wgu-helpwin" v-if=show>
     <v-toolbar class="teal white--text" dark>
-      <v-toolbar-side-icon></v-toolbar-side-icon>
+      <v-toolbar-side-icon><v-icon>help</v-icon></v-toolbar-side-icon>
       <v-toolbar-title>Help</v-toolbar-title>
       <v-spacer></v-spacer>
     </v-toolbar>
@@ -43,11 +43,14 @@
 <style>
 
   .wgu-helpwin {
-    position: absolute;
     bottom: 10px;
     left: calc(50% - 150px);
     background-color: white;
     z-index: 2;
+  }
+
+  .wgu-helpwin.card {
+      position: absolute;
   }
 
 </style>

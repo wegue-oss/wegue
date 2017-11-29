@@ -109,7 +109,7 @@ export default {
 
 html {
   /* otherwise we have always vertical scrollbars */
-  overflow-y: auto;
+  overflow-y: auto !important;
 }
 
 #app {
