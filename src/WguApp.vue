@@ -59,6 +59,8 @@
         layerId="Shops"
         imageProp="image"
         titleProp="name"
+        icon="info"
+        title="Information"
       />
 
       <wgu-layerlist />

@@ -1,15 +1,15 @@
 <template>
-  <v-navigation-drawer
-    v-if="this.feature !== null"
-    class="pb-0 wgu-feature-infowindow"
-    permanent
-    absolute
-    height="100%"
-    light
-    right
-  >
+
     <v-card
-      class="info-card">
+      class="wgu-feature-infowindow info-card"
+      v-if="this.feature !== null" >
+
+        <v-toolbar class="teal white--text" dark>
+          <v-toolbar-side-icon><v-icon>{{icon}}</v-icon></v-toolbar-side-icon>
+          <v-toolbar-title>{{title}}</v-toolbar-title>
+          <v-spacer></v-spacer>
+        </v-toolbar>
+
         <v-card-media v-if="attributes[imageProp]" :src="attributes[imageProp]" height="200px" />
         <v-card-title primary-title>
           <div>
@@ -20,7 +20,6 @@
           <v-btn flat class="orange--text">More info...</v-btn>
         </v-card-actions>
     </v-card>
-  </v-navigation-drawer>
 
 </template>
 
@@ -33,7 +32,9 @@ export default {
   props: {
     layerId: {type: String, required: true},
     imageProp: {type: String, required: false},
-    titleProp: {type: String, required: false}
+    titleProp: {type: String, required: false},
+    icon: {type: String, required: false},
+    title: {type: String, required: false}
   },
   data () {
     return {
@@ -76,14 +77,12 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 
-  .wgu-feature-infowindow {
-    padding: 75px 5px 5px 5px
-  }
-
-  .wgu-feature-infowindow .info-card {
+  .wgu-feature-infowindow.info-card {
+    position: absolute;
+    bottom: 130px;
+    right: 10px;
+    width: 300px;
     background-color: white;
-    padding: 5px;
-    height: 100%;
   }
 
 </style>
