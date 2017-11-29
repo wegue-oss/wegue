@@ -10,6 +10,8 @@
 
 import Map from 'ol/map'
 import View from 'ol/view'
+import Attribution from 'ol/control/attribution';
+import Zoom from 'ol/control/zoom';
 // import the app-wide EventBus
 import { WguEventBus } from '../../WguEventBus.js'
 
@@ -17,7 +19,8 @@ export default {
   name: 'wgu-map',
   props: {
     zoom: {type: Number, default: 0},
-    center: {type: Array}
+    center: {type: Array},
+    collapsibleAttribution: {type: Boolean, default: false}
   },
   mounted () {
     this.map.setTarget(document.getElementById('map'))
@@ -30,11 +33,17 @@ export default {
       target: 'map',
       layers: [
       ],
+      controls: [
+        new Zoom(),
+        new Attribution({
+          collapsible: this.collapsibleAttribution
+        })
+      ],
       view: new View({
         center: this.center || [0, 0],
         zoom: this.zoom
       })
-    })
+    });
   }
 
 }
