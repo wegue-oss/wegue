@@ -1,6 +1,8 @@
 # Wegue (WebGIS with OpenLayers and Vue.js)
 Template and re-usable components for webmapping applications with OpenLayers and Vue.js
 
+[![Build Status](https://travis-ci.org/meggsimum/wegue.svg?branch=master)](https://travis-ci.org/meggsimum/wegue)
+
 
 ## Build Setup
 
