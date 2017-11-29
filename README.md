@@ -5,6 +5,7 @@ Template and re-usable components for webmapping applications with OpenLayers an
 [![Known Vulnerabilities](https://snyk.io/test/github/meggsimum/wegue/badge.svg)](https://snyk.io/test/github/meggsimum/wegue)
 [![license: 2-Clause BSD](https://img.shields.io/badge/license-2--Clause%20BSD-brightgreen.svg)](https://opensource.org/licenses/BSD-2-Clause)
 
+<img align="left" src="screenshots/wegue-app-1.png" />
 
 ## Build Setup
 
