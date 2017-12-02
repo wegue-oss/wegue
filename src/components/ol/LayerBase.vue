@@ -4,13 +4,20 @@ import Vue from 'vue'
 export default Vue.extend({
   template: '<div class="hidden-layer"></div>',
   props: {
+    lid: {type: String},
     name: {type: String, default: 'Unknown layer'},
     hidden: {type: Boolean},
     opacity: {type: Number, default: 1},
     extent: {type: Array}
   },
   created () {
-    this.layer = this.createLayer()
+    this.layer = this.createLayer();
+    var lid = this.lid;
+    if (!lid) {
+      var now = new Date();
+      lid = now.getTime();
+    }
+    this.layer.set('lid', lid);
     this.layer.set('name', this.name)
     this.layer.setVisible(!this.hidden)
     this.layer.setOpacity(this.opacity)
