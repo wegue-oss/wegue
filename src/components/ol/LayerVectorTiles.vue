@@ -27,7 +27,8 @@ var OlLayerVectorTiles = OlLayerBase.extend({
       var vtLayer = new VectorTileLayer({
         source: new VectorTileSource({
           url: this.url,
-          format: new formatMapping[this.format]()
+          format: new formatMapping[this.format](),
+          attributions: this.attributions
         }),
         style: OlStyleDefs[this.styleRef]
       });

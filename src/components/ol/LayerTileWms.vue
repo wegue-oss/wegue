@@ -19,7 +19,8 @@ var OlLayerWms = OlLayerBase.extend({
         source: new TileWmsSource({
           url: this.url,
           params: {'LAYERS': this.layers, 'TILED': this.tiled},
-          serverType: this.serverType
+          serverType: this.serverType,
+          attributions: this.attributions
         })
       })
 

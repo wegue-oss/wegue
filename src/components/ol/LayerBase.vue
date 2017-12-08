@@ -8,7 +8,8 @@ export default Vue.extend({
     name: {type: String, default: 'Unknown layer'},
     hidden: {type: Boolean},
     opacity: {type: Number, default: 1},
-    extent: {type: Array}
+    extent: {type: Array},
+    attributions: {type: String}
   },
   created () {
     this.layer = this.createLayer();

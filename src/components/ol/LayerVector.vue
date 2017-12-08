@@ -59,7 +59,8 @@ var OlLayerVector = OlLayerBase.extend({
         extent: this.extent,
         source: new VectorSource({
           url: this.url,
-          format: new formatMapping[this.format](this.formatConfig)
+          format: new formatMapping[this.format](this.formatConfig),
+          attributions: this.attributions
         }),
         style: OlStyleDefs[this.styleRef]
       });

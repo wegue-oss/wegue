@@ -14,7 +14,8 @@ var OlLayerXyz = OlLayerBase.extend({
       var xyzLayer = new TileLayer({
         extent: this.extent,
         source: new TileWmsSource({
-          url: this.url
+          url: this.url,
+          attributions: this.attributions
         })
       })
 
