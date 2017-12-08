@@ -7,7 +7,7 @@
     </v-toolbar>
     <v-list>
       <v-list-group v-for="item in items" :value="item.active" v-bind:key="item.title">
-        <v-list-tile v-for="subItem in item.items" v-bind:key="subItem.title" @click="">
+        <v-list-tile class="wgu-layerlist-item" v-for="subItem in item.items" v-bind:key="subItem.title" @click="">
           <input type="checkbox" class="wgu-layer-viz-cb" v-bind:value="subItem.title" v-model="visibleLayers" @change="layerVizChanged">
           <v-list-tile-content>
               <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
@@ -133,6 +133,10 @@
   }
   .wgu-layerlist.card {
       position: absolute;
+  }
+
+  .wgu-layerlist-item a.list__tile {
+    padding-left: 0;
   }
 
   .wgu-layer-viz-cb {
