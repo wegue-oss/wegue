@@ -61,4 +61,8 @@ export default {
     bottom: 3em;
     right: 0.5em;
   }
+
+  .wgu-map .ol-control button {
+    background-color: #c62828;
+  }
 </style>

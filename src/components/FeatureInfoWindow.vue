@@ -4,7 +4,7 @@
       class="wgu-feature-infowindow info-card"
       v-if="this.feature !== null" >
 
-        <v-toolbar class="teal white--text" dark>
+        <v-toolbar class="red darken-3 white--text" dark>
           <v-toolbar-side-icon><v-icon>{{icon}}</v-icon></v-toolbar-side-icon>
           <v-toolbar-title>{{title}}</v-toolbar-title>
           <v-spacer></v-spacer>

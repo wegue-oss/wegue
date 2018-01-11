@@ -1,6 +1,6 @@
 <template>
   <v-card class="wgu-layerlist" v-if=show>
-    <v-toolbar class="teal white--text" dark>
+    <v-toolbar class="red darken-3 white--text" dark>
       <v-toolbar-side-icon><v-icon>layers</v-icon></v-toolbar-side-icon>
       <v-toolbar-title>Layers</v-toolbar-title>
       <v-spacer></v-spacer>
@@ -9,7 +9,7 @@
       <v-list-group v-for="item in items" :value="item.active" v-bind:key="item.title">
         <v-list-tile class="wgu-layerlist-item" v-for="subItem in item.items" v-bind:key="subItem.title" @click="">
           <input type="checkbox" class="wgu-layer-viz-cb" v-bind:value="subItem.title" v-model="visibleLayers" @change="layerVizChanged">
-          <v-list-tile-content>
+          <v-list-tile-content class="black--text">
               <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
           </v-list-tile-content>
           <v-list-tile-action>
