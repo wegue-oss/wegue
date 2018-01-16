@@ -4,7 +4,7 @@
       <wgu-app-header
         title="Vue.js / OpenLayers WebGIS">
 
-        <v-toolbar-items slot="wgu-tb-buttons" class="hidden-sm-and-down">
+        <v-toolbar-items slot="wgu-tb-buttons" class="">
 
             <wgu-menubutton
               icon="terrain"
