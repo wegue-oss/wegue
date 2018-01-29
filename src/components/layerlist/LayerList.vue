@@ -36,7 +36,7 @@
         show: false
       }
     },
-    created: function () {
+    created () {
       var me = this
       // Listen to the ol-map-mounted event and receive the OL map instance
       WguEventBus.$on('ol-map-mounted', function (olMap) {
@@ -49,7 +49,7 @@
         me.show = show;
       });
     },
-    mounted: function () {
+    mounted () {
       // go over all layers from the map and list them up
       var layers = this.map.getLayers();
       // clone to only reverse the order for the list
@@ -86,7 +86,7 @@
       /**
        * Handles the 'change' event of the visibility checkboxes of the layers
        */
-      layerVizChanged: function () {
+      layerVizChanged () {
         var me = this
 
         me.map.getLayers().forEach(function (layer) {
@@ -108,7 +108,7 @@
        * @param {Object} value - Value to filter layers
        * @return {ol.layer.Base[]} Array of matching layers
        */
-      getLayersBy: function (key, value) {
+      getLayersBy (key, value) {
         var layerMatches = []
         var allLayers = this.map.getLayers()
         allLayers.forEach(function (layer) {

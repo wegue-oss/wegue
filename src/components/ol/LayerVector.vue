@@ -18,7 +18,7 @@ var OlLayerVector = OlLayerBase.extend({
     selectable: {type: Boolean, required: false, default: false},
     styleRef: {type: String, required: false}
   },
-  created: function () {
+  created () {
     var me = this
     // listen for the ol-map-mounted event and receive the OL map
     // instance

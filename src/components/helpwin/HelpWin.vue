@@ -30,8 +30,8 @@
         show: false
       }
     },
-    created: function () {
-      var me = this
+    created () {
+      var me = this;
       // Listen to the 'toggle-helpwin' event of a connected toggle button
       WguEventBus.$on('toggle-helpwin', function (show) {
         me.show = show;
