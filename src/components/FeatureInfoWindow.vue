@@ -2,7 +2,9 @@
 
     <v-card
       class="wgu-feature-infowindow info-card"
-      v-if="this.feature !== null" >
+      v-draggable-win
+      v-if="this.feature !== null"
+      v-bind:style="{ left: left, top: top }" >
 
         <v-toolbar class="red darken-3 white--text" dark>
           <v-toolbar-side-icon><v-icon>{{icon}}</v-icon></v-toolbar-side-icon>
@@ -25,10 +27,14 @@
 
 <script>
 
-import { WguEventBus } from '../WguEventBus.js'
+import { WguEventBus } from '../WguEventBus.js';
+import { DraggableWin } from '../directives/DraggableWin.js';
 
 export default {
   name: 'wgu-feature-info-window',
+  directives: {
+    DraggableWin
+  },
   props: {
     layerId: {type: String, required: true},
     imageProp: {type: String, required: false},
@@ -40,7 +46,9 @@ export default {
     return {
       // will be filled in mounted
       feature: null,
-      attributes: null
+      attributes: null,
+      left: '300px',
+      top: '200px'
     }
   },
   mounted () {
@@ -79,10 +87,12 @@ export default {
 
   .wgu-feature-infowindow.info-card {
     position: absolute;
-    bottom: 130px;
-    right: 10px;
     width: 300px;
     background-color: white;
+  }
+
+  .wgu-feature-infowindow > nav {
+    cursor: move;
   }
 
 </style>
