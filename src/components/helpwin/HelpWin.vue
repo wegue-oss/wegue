@@ -1,5 +1,5 @@
 <template>
-  <v-card class="wgu-helpwin" v-if=show>
+  <v-card v-draggable-win class="wgu-helpwin" v-if=show v-bind:style="{ left: left, top: top }">
     <v-toolbar class="red darken-3 white--text" dark>
       <v-toolbar-side-icon><v-icon>help</v-icon></v-toolbar-side-icon>
       <v-toolbar-title>Help</v-toolbar-title>
@@ -22,12 +22,18 @@
 
 <script>
   // Import the EventBus
-  import { WguEventBus } from '../../WguEventBus.js'
+  import { WguEventBus } from '../../WguEventBus.js';
+  import { DraggableWin } from '../../directives/DraggableWin.js';
 
   export default {
+    directives: {
+      DraggableWin
+    },
     data () {
       return {
-        show: false
+        show: false,
+        left: '200px',
+        top: '200px'
       }
     },
     created () {
@@ -43,14 +49,16 @@
 <style>
 
   .wgu-helpwin {
-    bottom: 10px;
-    left: calc(50% - 150px);
     background-color: white;
     z-index: 2;
   }
 
   .wgu-helpwin.card {
       position: absolute;
+  }
+
+  .wgu-helpwin.card > nav {
+    cursor: move;
   }
 
 </style>
