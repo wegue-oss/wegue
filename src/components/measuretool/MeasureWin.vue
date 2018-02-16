@@ -1,5 +1,5 @@
 <template>
-  <v-card class="vwg-measurewin" v-if=show>
+  <v-card v-draggable-win class="vwg-measurewin" v-if=show v-bind:style="{ left: left, top: top }">
     <v-toolbar class="red darken-3 white--text" dark>
       <v-toolbar-side-icon><v-icon>photo_size_select_small</v-icon></v-toolbar-side-icon>
       <v-toolbar-title>Measure</v-toolbar-title>
@@ -37,6 +37,7 @@
 <script>
   // Import the EventBus
   import { WguEventBus } from '../../WguEventBus.js'
+  import { DraggableWin } from '../../directives/DraggableWin.js';
   import DrawInteraction from 'ol/interaction/draw'
   import LineStringGeom from 'ol/geom/linestring'
   import PolygonGeom from 'ol/geom/polygon'
@@ -50,12 +51,17 @@
   import Fill from 'ol/style/fill'
 
   export default {
+    directives: {
+      DraggableWin
+    },
     data () {
       return {
         area: ' -- ',
         distance: ' -- ',
         measureType: 'distance',
-        show: false
+        show: false,
+        left: '10px',
+        top: '130px'
       }
     },
     created () {
@@ -239,8 +245,6 @@
 
   .vwg-measurewin {
     position: absolute;
-    top: 130px;
-    right: 10px;
     background-color: white;
     z-index: 2;
   }

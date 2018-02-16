@@ -1,5 +1,5 @@
 <template>
-  <v-card class="wgu-layerlist" v-if=show>
+  <v-card v-draggable-win class="wgu-layerlist" v-if=show v-bind:style="{ left: left, top: top }">
     <v-toolbar class="red darken-3 white--text" dark>
       <v-toolbar-side-icon><v-icon>layers</v-icon></v-toolbar-side-icon>
       <v-toolbar-title>Layers</v-toolbar-title>
@@ -24,8 +24,12 @@
 <script>
   // Import the EventBus
   import { WguEventBus } from '../../WguEventBus.js'
+  import { DraggableWin } from '../../directives/DraggableWin.js';
 
   export default {
+    directives: {
+      DraggableWin
+    },
     data () {
       return {
         // will be filled in mounted
@@ -33,7 +37,10 @@
         // will be filled in mounted and adapted by the layer checkboxes
         visibleLayers: [],
 
-        show: false
+        show: false,
+
+        left: '300px',
+        top: '70px'
       }
     },
     created () {
@@ -126,8 +133,6 @@
 <style>
 
   .wgu-layerlist {
-    bottom: 130px;
-    left: 10px;
     background-color: white;
     z-index: 2;
   }
