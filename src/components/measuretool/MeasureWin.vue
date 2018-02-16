@@ -1,7 +1,8 @@
 <template>
+
   <v-card v-draggable-win class="vwg-measurewin" v-if=show v-bind:style="{ left: left, top: top }">
     <v-toolbar class="red darken-3 white--text" dark>
-      <v-toolbar-side-icon><v-icon>photo_size_select_small</v-icon></v-toolbar-side-icon>
+      <v-toolbar-side-icon><v-icon>{{icon}}</v-icon></v-toolbar-side-icon>
       <v-toolbar-title>Measure</v-toolbar-title>
       <v-spacer></v-spacer>
     </v-toolbar>
@@ -32,6 +33,7 @@
 
     </v-card-actions>
   </v-card>
+
 </template>
 
 <script>
@@ -54,27 +56,19 @@
     directives: {
       DraggableWin
     },
+    props: ['icon'],
     data () {
       return {
         area: ' -- ',
         distance: ' -- ',
         measureType: 'distance',
         show: false,
-        left: '10px',
-        top: '130px'
+        left: '50%',
+        top: '100px'
       }
     },
     created () {
       var me = this;
-      // Listen to the 'toggle-measurewin' event of a connected toggle button
-      WguEventBus.$on('toggle-measurewin', (show) => {
-        me.show = show;
-        if (show === true) {
-          me.addInteraction();
-        } else {
-          me.removeInteraction();
-        }
-      });
       // Listen to the ol-map-mounted event and receive the OL map instance
       WguEventBus.$on('ol-map-mounted', (olMap) => {
         // make the OL map accesible in this component
@@ -84,6 +78,14 @@
       });
     },
     watch: {
+      show () {
+        var me = this;
+        if (me.show === true) {
+          me.addInteraction();
+        } else {
+          me.removeInteraction();
+        }
+      },
       // listen to changed measurement type
       measureType (newVal, oldVal) {
         this.addInteraction();

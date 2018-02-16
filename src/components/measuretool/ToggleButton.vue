@@ -1,23 +1,50 @@
+<template>
+
+  <div class="">
+
+    <v-btn icon @click="toggleUi">
+      <v-icon>{{icon}}</v-icon>
+      {{text}}
+    </v-btn>
+
+    <wgu-measuretool-win
+      ref="measurewin"
+      :icon="icon"
+      :left="left"
+      :top="top"
+    />
+
+  </div>
+
+</template>
+
+
 <script>
 
-import { WguEventBus } from '../../WguEventBus.js'
-import ToggleUiButton from '../ToggleUiButton'
+import MeasureWin from './MeasureWin'
 
-export default ToggleUiButton.extend({
+export default {
   name: 'wgu-toggle-measurewin-button',
-  mounted () {
+  components: {
+    'wgu-measuretool-win': MeasureWin
+  },
+  data: function () {
+    return {
+      show: false,
+      icon: 'photo_size_select_small',
+      text: '',
+      left: '300px',
+      top: '300px'
+    }
   },
   methods: {
     toggleUi () {
-      // TODO check how to call the super method
-      // show / toggle child UI
-      this.showUi = !this.showUi;
-
-      // inform sub component (layer list)
-      WguEventBus.$emit('toggle-measurewin', this.showUi);
+      this.show = !this.show;
+      // forward property 'show' to window child componnet
+      this.$refs.measurewin.show = this.show;
     }
   }
-});
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

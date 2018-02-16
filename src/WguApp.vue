@@ -68,12 +68,6 @@
         title="Information"
       />
 
-      <wgu-layerlist />
-
-      <wgu-measuretool-win />
-
-      <wgu-helpwin />
-
   </div>
 </template>
 
@@ -89,11 +83,8 @@ import AppHeader from './components/AppHeader'
 import TopLogo from './components/TopLogo'
 import MenuButton from './components/MenuButton'
 import LayerListToggleButton from './components/layerlist/ToggleButton'
-import LayerList from './components/layerlist/LayerList'
 import HelpWinToggleButton from './components/helpwin/ToggleButton'
-import HelpWin from './components/helpwin/HelpWin'
 import MeasureToolToggleButton from './components/measuretool/ToggleButton'
-import MeasureToolWin from './components/measuretool/MeasureWin'
 
 export default {
   name: 'app',
@@ -109,11 +100,8 @@ export default {
     'wgu-top-logo': TopLogo,
     'wgu-menubutton': MenuButton,
     'wgu-toggle-layerlist-button': LayerListToggleButton,
-    'wgu-layerlist': LayerList,
     'wgu-toggle-helpwin-button': HelpWinToggleButton,
-    'wgu-helpwin': HelpWin,
-    'wgu-toggle-measuretool-button': MeasureToolToggleButton,
-    'wgu-measuretool-win': MeasureToolWin
+    'wgu-toggle-measuretool-button': MeasureToolToggleButton
   }
 }
 </script>

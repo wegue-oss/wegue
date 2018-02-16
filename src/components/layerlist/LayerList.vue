@@ -1,7 +1,8 @@
 <template>
+
   <v-card v-draggable-win class="wgu-layerlist" v-if=show v-bind:style="{ left: left, top: top }">
     <v-toolbar class="red darken-3 white--text" dark>
-      <v-toolbar-side-icon><v-icon>layers</v-icon></v-toolbar-side-icon>
+      <v-toolbar-side-icon><v-icon>{{icon}}</v-icon></v-toolbar-side-icon>
       <v-toolbar-title>Layers</v-toolbar-title>
       <v-spacer></v-spacer>
     </v-toolbar>
@@ -19,6 +20,7 @@
       </v-list-group>
     </v-list>
   </v-card>
+
 </template>
 
 <script>
@@ -30,15 +32,14 @@
     directives: {
       DraggableWin
     },
+    props: ['icon'],
     data () {
       return {
-        // will be filled in mounted
+        // will be filled in createLayerItems
         items: [],
-        // will be filled in mounted and adapted by the layer checkboxes
+        // will be filled in createLayerItems a. adapted by the layer checkboxes
         visibleLayers: [],
-
         show: false,
-
         left: '300px',
         top: '70px'
       }
@@ -48,47 +49,48 @@
       // Listen to the ol-map-mounted event and receive the OL map instance
       WguEventBus.$on('ol-map-mounted', function (olMap) {
         // make the OL map accesible in this component
-        me.map = olMap
+        me.map = olMap;
+        // create the layer items from the OL map
+        me.createLayerItems();
       });
-
-      // Listen to the 'toggle-sub-ui' event of a connected toggle button
-      WguEventBus.$on('toggle-layerlist', function (show) {
-        me.show = show;
-      });
-    },
-    mounted () {
-      // go over all layers from the map and list them up
-      var layers = this.map.getLayers();
-      // clone to only reverse the order for the list
-      var layerArrClone = layers.getArray().slice(0);
-      layers = layerArrClone.reverse();
-
-      var layerItems = []
-      var visibleLayers = []
-      layers.forEach(function (layer) {
-        var visible = layer.getVisible();
-        var name = layer.get('name');
-        layerItems.push({
-          title: name,
-          visible: visible
-        })
-
-        if (visible) {
-          visibleLayers.push(name);
-        }
-      })
-
-      // set the initial state of visible layers
-      this.visibleLayers = visibleLayers
-
-      // set the layer list
-      this.items = [{
-        title: '',
-        items: layerItems,
-        active: true
-      }]
     },
     methods: {
+
+      /**
+       * Creates the layer items from the OpenLayers map.
+       */
+      createLayerItems () {
+        // go over all layers from the map and list them up
+        var layers = this.map.getLayers();
+        // clone to only reverse the order for the list
+        var layerArrClone = layers.getArray().slice(0);
+        layers = layerArrClone.reverse();
+
+        var layerItems = []
+        var visibleLayers = []
+        layers.forEach(function (layer) {
+          var visible = layer.getVisible();
+          var name = layer.get('name');
+          layerItems.push({
+            title: name,
+            visible: visible
+          })
+
+          if (visible) {
+            visibleLayers.push(name);
+          }
+        })
+
+        // set the initial state of visible layers
+        this.visibleLayers = visibleLayers
+
+        // set the layer list
+        this.items = [{
+          title: '',
+          items: layerItems,
+          active: true
+        }]
+      },
 
       /**
        * Handles the 'change' event of the visibility checkboxes of the layers
