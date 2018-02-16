@@ -140,10 +140,6 @@
       position: absolute;
   }
 
-  .wgu-layerlist > nav {
-    cursor: move;
-  }
-
   .wgu-layerlist-item a.list__tile {
     padding-left: 0;
   }

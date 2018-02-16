@@ -249,10 +249,6 @@
     z-index: 2;
   }
 
-  .vwg-measurewin > nav {
-    cursor: move;
-  }
-
   .measure-result {
     font-size: 14px;
     padding-left: 8px;

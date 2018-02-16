@@ -57,8 +57,4 @@
       position: absolute;
   }
 
-  .wgu-helpwin.card > nav {
-    cursor: move;
-  }
-
 </style>

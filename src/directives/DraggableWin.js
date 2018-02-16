@@ -16,6 +16,10 @@ export const DraggableWin = {
     if (!header) {
       return;
     }
+
+    // set cursor so it's signal that the user can drag the window
+    header.style.cursor = 'move';
+
     header.onmousedown = dragMouseDown;
 
     function dragMouseDown (e) {

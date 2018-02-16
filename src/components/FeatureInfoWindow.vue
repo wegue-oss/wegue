@@ -91,8 +91,4 @@ export default {
     background-color: white;
   }
 
-  .wgu-feature-infowindow > nav {
-    cursor: move;
-  }
-
 </style>
