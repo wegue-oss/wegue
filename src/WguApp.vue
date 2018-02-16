@@ -16,6 +16,8 @@
               text=""
             />
 
+            <wgu-infoclick />
+
             <wgu-toggle-measuretool-button
               icon="photo_size_select_small"
               text=""
@@ -72,8 +74,6 @@
 
       <wgu-measuretool-win />
 
-      <wgu-helpwin />
-
   </div>
 </template>
 
@@ -91,9 +91,9 @@ import MenuButton from './components/MenuButton'
 import LayerListToggleButton from './components/layerlist/ToggleButton'
 import LayerList from './components/layerlist/LayerList'
 import HelpWinToggleButton from './components/helpwin/ToggleButton'
-import HelpWin from './components/helpwin/HelpWin'
 import MeasureToolToggleButton from './components/measuretool/ToggleButton'
 import MeasureToolWin from './components/measuretool/MeasureWin'
+import InfoClick from './components/infoclick/InfoClick'
 
 export default {
   name: 'app',
@@ -111,9 +111,9 @@ export default {
     'wgu-toggle-layerlist-button': LayerListToggleButton,
     'wgu-layerlist': LayerList,
     'wgu-toggle-helpwin-button': HelpWinToggleButton,
-    'wgu-helpwin': HelpWin,
     'wgu-toggle-measuretool-button': MeasureToolToggleButton,
-    'wgu-measuretool-win': MeasureToolWin
+    'wgu-measuretool-win': MeasureToolWin,
+    'wgu-infoclick': InfoClick
   }
 }
 </script>

@@ -1,47 +1,43 @@
 <template>
+
   <v-card v-draggable-win class="wgu-helpwin" v-if=show v-bind:style="{ left: left, top: top }">
     <v-toolbar class="red darken-3 white--text" dark>
-      <v-toolbar-side-icon><v-icon>help</v-icon></v-toolbar-side-icon>
+      <v-toolbar-side-icon><v-icon>{{icon}}</v-icon></v-toolbar-side-icon>
       <v-toolbar-title>Help</v-toolbar-title>
       <v-spacer></v-spacer>
     </v-toolbar>
+
     <v-card-title primary-title>
       <div>
-        <h3 class="headline mb-0">Über OL / Vue.js WebGIS</h3>
+        <h3 class="headline mb-0">{{ headline }}</h3>
         <div class="">
-          Lorem Ipsum, Macco foo bar, etc.
+          <span v-html="content"></span>
         </div>
       </div>
-
     </v-card-title>
+
     <v-card-actions>
-      <v-btn flat class="orange--text">More info...</v-btn>
+      <a class="info-link red--text darken3"
+        :href="infoLink" target="_blank">{{ infoLinkText }}</a>
     </v-card-actions>
   </v-card>
+
 </template>
 
 <script>
-  // Import the EventBus
-  import { WguEventBus } from '../../WguEventBus.js';
   import { DraggableWin } from '../../directives/DraggableWin.js';
 
   export default {
     directives: {
       DraggableWin
     },
+    props: ['icon', 'headline', 'content', 'infoLink', 'infoLinkText'],
     data () {
       return {
         show: false,
-        left: '200px',
-        top: '200px'
+        left: '300px',
+        top: '300px'
       }
-    },
-    created () {
-      var me = this;
-      // Listen to the 'toggle-helpwin' event of a connected toggle button
-      WguEventBus.$on('toggle-helpwin', function (show) {
-        me.show = show;
-      });
     }
   }
 </script>
@@ -54,7 +50,11 @@
   }
 
   .wgu-helpwin.card {
-      position: absolute;
+    position: absolute;
+  }
+
+  .wgu-helpwin .info-link {
+    padding-left: 15px;
   }
 
 </style>
