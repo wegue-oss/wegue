@@ -70,8 +70,6 @@
         title="Information"
       />
 
-      <wgu-measuretool-win />
-
   </div>
 </template>
 
@@ -89,7 +87,6 @@ import MenuButton from './components/MenuButton'
 import LayerListToggleButton from './components/layerlist/ToggleButton'
 import HelpWinToggleButton from './components/helpwin/ToggleButton'
 import MeasureToolToggleButton from './components/measuretool/ToggleButton'
-import MeasureToolWin from './components/measuretool/MeasureWin'
 import InfoClick from './components/infoclick/InfoClick'
 
 export default {
@@ -108,7 +105,6 @@ export default {
     'wgu-toggle-layerlist-button': LayerListToggleButton,
     'wgu-toggle-helpwin-button': HelpWinToggleButton,
     'wgu-toggle-measuretool-button': MeasureToolToggleButton,
-    'wgu-measuretool-win': MeasureToolWin,
     'wgu-infoclick': InfoClick
   }
 }
