@@ -6,18 +6,27 @@ html {
 
 .wgu-app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  position: relative;
   width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
+}
+.wgu-app-embedded {
+  width: 100%;
+  height: 100%;
+  border: 2px solid grey;
 }
 
 .wgu-app .wgu-map {
   /* temp. solution since flex: 1 doe not work as expected */
   height: calc(100vh - 56px);
 }
+.wgu-app-embedded .wgu-map {
+  height: calc(100% - 56px);
+}
 
 .wgu-top-logo {
   left: 25px;
-  top: 50px;
+  top: 45px;
 }

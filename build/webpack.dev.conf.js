@@ -30,6 +30,11 @@ module.exports = merge(baseWebpackConfig, {
       template: 'index.html',
       inject: true
     }),
+    new HtmlWebpackPlugin({
+      filename: 'embedded.html',
+      template: 'embedded.html',
+      inject: true
+    }),
     new FriendlyErrorsPlugin()
   ]
 })

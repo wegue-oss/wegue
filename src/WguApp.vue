@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="wgu-app" data-app>
+  <div id="app" data-app :class="{ 'wgu-app': true, 'wgu-app-embedded': isEmbedded }">
 
       <wgu-app-header
         title="Vue.js / OpenLayers WebGIS">
@@ -72,6 +72,7 @@
 </template>
 
 <script>
+
 import OlMap from './components/ol/Map'
 import OsmLayer from './components/ol/LayerOsm'
 import TileWmsLayer from './components/ol/LayerTileWms'
@@ -102,6 +103,15 @@ export default {
     'wgu-toggle-layerlist-button': LayerListToggleButton,
     'wgu-toggle-helpwin-button': HelpWinToggleButton,
     'wgu-toggle-measuretool-button': MeasureToolToggleButton
+  },
+  data () {
+    return {
+      isEmbedded: false
+    }
+  },
+  mounted () {
+    // apply the isEmbedded state to the member var
+    this.isEmbedded = this.$isEmbedded;
   }
 }
 </script>
