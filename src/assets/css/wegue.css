@@ -1,0 +1,23 @@
+
+html {
+  /* otherwise we have always vertical scrollbars */
+  overflow-y: auto !important;
+}
+
+.wgu-app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.wgu-app .wgu-map {
+  /* temp. solution since flex: 1 doe not work as expected */
+  height: calc(100vh - 56px);
+}
+
+.wgu-top-logo {
+  left: 25px;
+  top: 50px;
+}

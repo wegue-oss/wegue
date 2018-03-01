@@ -25,8 +25,6 @@ export default {
 
   .wgu-top-logo {
     position: absolute;
-    left: 25px;
-    top: 50px;
     z-index: 1;
     padding: 5px;
   }

@@ -1,5 +1,5 @@
 <template>
-  <div id="app" data-app>
+  <div id="app" class="wgu-app" data-app>
 
       <wgu-app-header
         title="Vue.js / OpenLayers WebGIS">
@@ -107,18 +107,5 @@ export default {
 </script>
 
 <style>
-
-html {
-  /* otherwise we have always vertical scrollbars */
-  overflow-y: auto !important;
-}
-
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
 
 </style>

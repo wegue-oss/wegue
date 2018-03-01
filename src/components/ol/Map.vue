@@ -51,12 +51,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-  .wgu-map.map {
-    /* flex: 1; */
-    /* temp. solution since flex: 1 doe not work as expected */
-    height: calc(100vh - 56px);
-  }
-
   .wgu-map .ol-zoom {
     top: auto;
     left:auto;

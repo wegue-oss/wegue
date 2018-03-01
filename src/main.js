@@ -9,6 +9,8 @@ Vue.use(Vuetify)
 
 require('../node_modules/ol/ol.css')
 
+require('./assets/css/wegue.css')
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
