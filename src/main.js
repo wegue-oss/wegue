@@ -13,9 +13,15 @@ require('./assets/css/wegue.css')
 
 Vue.config.productionTip = false
 
+// Detect isEmbedded state by attribute embedded and
+// make accessible for all components
+// recommended by https://vuejs.org/v2/cookbook/adding-instance-properties.html
+const appEl = document.querySelector('#app');
+Vue.prototype.$isEmbedded = appEl.hasAttribute('embedded');
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   template: '<wgu-app/>',
   components: { WguApp }
-})
+});
