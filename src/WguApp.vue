@@ -23,7 +23,7 @@
         </v-toolbar-items>
       </wgu-app-header>
 
-      <wgu-top-logo logoSrc="https://www.placecage.com/100/100" />
+      <wgu-top-logo />
 
       <wgu-map :zoom="2" />
 
