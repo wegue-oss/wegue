@@ -43,6 +43,8 @@ export const LayerFactory = {
     // create correct layer type
     if (lConf.type === 'WMS') {
       return this.createWmsLayer(lConf);
+    } else if (lConf.type === 'XYZ') {
+      return this.createXyzLayer(lConf);
     } else if (lConf.type === 'OSM') {
       return this.createOsmLayer(lConf);
     } else if (lConf.type === 'VECTOR') {
@@ -79,6 +81,24 @@ export const LayerFactory = {
     });
 
     return layer;
+  },
+
+  /**
+   * Returns an OpenLayers XYZ layer instance due to given config.
+   *
+   * @param  {Object} lConf  Layer config object
+   * @return {ol.layer.Tile} OL XYZ layer instance
+   */
+  createXyzLayer (lConf) {
+    const xyzLayer = new TileLayer({
+      extent: lConf.extent,
+      source: new TileWmsSource({
+        url: lConf.url,
+        attributions: lConf.attributions
+      })
+    });
+
+    return xyzLayer;
   },
 
   /**
