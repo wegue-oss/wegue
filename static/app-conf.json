@@ -1,5 +1,8 @@
 {
 
+  "mapZoom": 2,
+  "mapCenter": [0, 0],
+
   "mapLayers": [
 
     {

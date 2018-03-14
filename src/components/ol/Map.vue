@@ -15,9 +15,13 @@ import { LayerFactory } from '../../factory/Layer.js'
 export default {
   name: 'wgu-map',
   props: {
-    zoom: {type: Number, default: 0},
-    center: {type: Array},
     collapsibleAttribution: {type: Boolean, default: false}
+  },
+  data () {
+    return {
+      zoom: this.$appConfig.mapZoom,
+      center: this.$appConfig.mapCenter
+    }
   },
   mounted () {
     this.map.setTarget(document.getElementById('ol-map'))
