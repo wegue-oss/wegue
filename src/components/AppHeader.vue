@@ -15,11 +15,9 @@
 
 export default {
   name: 'wgu-app-header',
-  props: {
-    title: {type: String, required: false, default: ''}
-  },
   data () {
     return {
+      title: this.$appConfig.title
     }
   },
   mounted () {

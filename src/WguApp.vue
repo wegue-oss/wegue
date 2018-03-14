@@ -1,8 +1,7 @@
 <template>
   <div id="app" data-app :class="{ 'wgu-app': true, 'wgu-app-embedded': isEmbedded }">
 
-      <wgu-app-header
-        title="Vue.js / OpenLayers WebGIS">
+      <wgu-app-header>
 
         <v-toolbar-items slot="wgu-tb-buttons" class="">
 

@@ -1,5 +1,7 @@
 {
 
+  "title": "Vue.js / OpenLayers WebGIS",
+
   "mapZoom": 2,
   "mapCenter": [0, 0],
 
