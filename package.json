@@ -15,7 +15,7 @@
   "dependencies": {
     "ol": "^4.6.5",
     "vue": "^2.5.16",
-    "vuetify": "^0.17.6"
+    "vuetify": "^1.0.8"
   },
   "devDependencies": {
     "autoprefixer": "^7.2.5",

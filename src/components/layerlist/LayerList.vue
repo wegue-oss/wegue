@@ -139,7 +139,7 @@
     z-index: 2;
   }
   .wgu-layerlist.card {
-      position: absolute;
+    position: absolute;
   }
 
   .wgu-layerlist-item a.list__tile {
@@ -148,6 +148,11 @@
 
   .wgu-layer-viz-cb {
     width: 45px;
+  }
+
+  .wgu-layerlist.card .list__group__header {
+    border: 1px solid red;
+    display: none;
   }
 
 </style>
