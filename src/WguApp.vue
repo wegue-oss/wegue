@@ -6,11 +6,6 @@
 
         <v-toolbar-items slot="wgu-tb-buttons" class="">
 
-            <wgu-menubutton
-              icon="terrain"
-              text=" Test"
-            />
-
             <wgu-toggle-layerlist-button
               icon="layers"
               text=""
