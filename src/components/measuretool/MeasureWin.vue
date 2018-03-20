@@ -10,10 +10,10 @@
     <v-card-title primary-title>
       <div class="">
         <v-btn-toggle v-model="measureType">
-           <v-btn  value="distance">
+           <v-btn large value="distance">
              Distance
            </v-btn>
-           <v-btn value="area">
+           <v-btn large value="area">
              Area
            </v-btn>
          </v-btn-toggle>

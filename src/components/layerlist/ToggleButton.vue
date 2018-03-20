@@ -3,7 +3,7 @@
   <div class="">
 
     <v-btn icon @click="toggleUi">
-      <v-icon>{{icon}}</v-icon>
+      <v-icon medium>{{icon}}</v-icon>
       {{text}}
     </v-btn>
 

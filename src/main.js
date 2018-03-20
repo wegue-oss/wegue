@@ -4,7 +4,8 @@ import Vue from 'vue'
 import Vuetify from 'vuetify'
 import WguApp from './WguApp'
 
-require('../node_modules/vuetify/dist/vuetify.min.css')
+import 'vuetify/dist/vuetify.min.css'
+
 Vue.use(Vuetify)
 
 require('../node_modules/ol/ol.css')

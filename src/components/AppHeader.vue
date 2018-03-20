@@ -5,7 +5,9 @@
 
       <!--This <slot> is going to be replaced by the toolbar buttons in the
           app configuration tags (see App.vue) -->
-      <slot name="wgu-tb-buttons"></slot>
+      <v-layout justify-end class="">
+        <slot name="wgu-tb-buttons"></slot>
+      </v-layout>
     </v-toolbar>
 </template>
 
