@@ -33,8 +33,8 @@ export default {
       show: false,
       icon: 'photo_size_select_small',
       text: '',
-      left: '300px',
-      top: '300px'
+      left: '100px',
+      top: '200px'
     }
   },
   methods: {

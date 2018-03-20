@@ -6,8 +6,8 @@
       <v-toolbar-title>Measure</v-toolbar-title>
       <v-spacer></v-spacer>
     </v-toolbar>
-    <v-card-title primary-title>
 
+    <v-card-title primary-title>
       <div class="">
         <v-btn-toggle v-model="measureType">
            <v-btn  value="distance">
@@ -63,8 +63,8 @@
         distance: ' -- ',
         measureType: 'distance',
         show: false,
-        left: '50%',
-        top: '100px'
+        left: '100px',
+        top: '200px'
       }
     },
     created () {
@@ -246,9 +246,12 @@
 <style>
 
   .vwg-measurewin {
-    position: absolute;
     background-color: white;
     z-index: 2;
+  }
+
+  .vwg-measurewin.card {
+    position: absolute;
   }
 
   .measure-result {
