@@ -11,7 +11,8 @@ Template and re-usable components for webmapping applications with OpenLayers an
 Go to the online demo at https://meggsimum.github.io/wegue/
 
 ## About
-Wegue (**We**b**G**IS with OpenLayers and V**ue**) combines the porwer of [Vue.js](https://vuejs.org/) and the geospatial savvy of [OpenLayers](https://openlayers.org) to make lightweight webmapping applications.
+Wegue (**We**b**G**IS with OpenLayers and V**ue**) combines the porwer of [Vue.js](https://vuejs.org/) and the geospatial savvy of [OpenLayers](https://openlayers.org) to make lightweight webmapping applications. For styling and pre-defined UI-components the Material Design
+Component Framework [Vuetify](https://vuetifyjs.com/) is used.
 
 It acts as a template to reduce boilerplate work for browser-based mapping application.
 
