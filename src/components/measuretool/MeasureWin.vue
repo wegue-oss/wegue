@@ -1,6 +1,6 @@
 <template>
 
-  <v-card v-draggable-win class="vwg-measurewin" v-if=show v-bind:style="{ left: left, top: top }">
+  <v-card v-draggable-win class="wgu-measurewin" v-if=show v-bind:style="{ left: left, top: top }">
     <v-toolbar class="red darken-3 white--text" dark>
       <v-toolbar-side-icon><v-icon>{{icon}}</v-icon></v-toolbar-side-icon>
       <v-toolbar-title>Measure</v-toolbar-title>
@@ -245,12 +245,12 @@
 
 <style>
 
-  .vwg-measurewin {
+  .wgu-measurewin {
     background-color: white;
     z-index: 2;
   }
 
-  .vwg-measurewin.card {
+  .wgu-measurewin.card {
     position: absolute;
   }
 
