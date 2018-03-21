@@ -1,11 +1,11 @@
 <template>
 
   <v-avatar
-     :size={logoSize}
-     tile="false"
+     :size="logoSize"
+     :tile="true"
      class="wgu-top-logo"
     >
-    <img src="http://via.placeholder.com/100x100?text=A%20Logo" alt="App Logo">
+    <img :src="logoSrc" alt="App Logo">
   </v-avatar>
 
 </template>
@@ -16,7 +16,7 @@ export default {
   name: 'wgu-top-logo',
   props: {
     logoSrc: {type: String, required: true},
-    logoSize: {type: Number, required: false}
+    logoSize: {type: Number, required: false, default: 100}
   }
 }
 </script>
