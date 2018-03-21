@@ -24,7 +24,7 @@
         </v-toolbar-items>
       </wgu-app-header>
 
-      <wgu-top-logo logoSrc="http://via.placeholder.com/100x100?text=A%20Logo"/>
+      <wgu-top-logo logoSrc="https://www.placecage.com/100/100" />
 
       <wgu-map :zoom="2">
 
