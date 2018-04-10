@@ -12,6 +12,7 @@
 
     {
       "type": "VECTOR",
+      "lid": "Shops",
       "name": "Shops DaSchau",
       "url": "./static/data/shops-dannstadt.geojson",
       "formatConfig": {

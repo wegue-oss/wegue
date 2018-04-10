@@ -11,6 +11,7 @@ import Zoom from 'ol/control/zoom';
 // import the app-wide EventBus
 import { WguEventBus } from '../../WguEventBus.js'
 import { LayerFactory } from '../../factory/Layer.js'
+import SelectInteraction from 'ol/interaction/select'
 
 export default {
   name: 'wgu-map',
@@ -35,10 +36,8 @@ export default {
     }, 100);
   },
   created () {
-    const layers = this.createLayers();
-
     this.map = new Map({
-      layers: layers,
+      layers: [],
       controls: [
         new Zoom(),
         new Attribution({
@@ -50,6 +49,10 @@ export default {
         zoom: this.zoom
       })
     });
+
+    // create layers from config and add them to map
+    const layers = this.createLayers();
+    this.map.getLayers().extend(layers);
   },
 
   methods: {
@@ -58,10 +61,30 @@ export default {
      * @return {ol.layer.Base[]} Array of OL layer instances
      */
     createLayers () {
+      const me = this;
       let layers = [];
       this.$appConfig.mapLayers.reverse().forEach(function (lConf) {
         let layer = LayerFactory.getInstance(lConf);
         layers.push(layer);
+
+        // if layer is selectable register a select interaction
+        if (lConf.selectable) {
+          const selectClick = new SelectInteraction({
+            layers: [layer]
+          });
+          // forward an event if feature selection changes
+          selectClick.on('select', function (evt) {
+            // TODO use identifier for layer (once its implemented)
+            WguEventBus.$emit(
+              'map-selectionchange',
+              layer.get('lid'),
+              evt.selected,
+              evt.deselected
+            );
+          });
+          // register/activate interaction on map
+          me.map.addInteraction(selectClick);
+        }
       });
 
       return layers;

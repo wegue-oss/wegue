@@ -9,6 +9,7 @@ import TopoJsonFormat from 'ol/format/topojson'
 import KmlFormat from 'ol/format/kml'
 import VectorLayer from 'ol/layer/vector'
 import VectorSource from 'ol/source/vector'
+import OlStyleDefs from '../style/OlStyleDefs'
 
 /**
  * Factory, which creates OpenLayers layer instances according to a given config
@@ -126,7 +127,7 @@ export const LayerFactory = {
    * @return {ol.layer.Vector} OL vector layer instance
    */
   createVectorLayer (lConf) {
-    var vectorLayer = new VectorLayer({
+    const vectorLayer = new VectorLayer({
       name: lConf.name,
       lid: lConf.lid,
       extent: lConf.extent,
@@ -136,7 +137,8 @@ export const LayerFactory = {
         url: lConf.url,
         format: new this.formatMapping[lConf.format](lConf.formatConfig),
         attributions: lConf.attributions
-      })
+      }),
+      style: OlStyleDefs[lConf.styleRef]
     });
 
     return vectorLayer;
