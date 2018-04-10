@@ -25,7 +25,7 @@
 
       <wgu-top-logo />
 
-      <wgu-map :zoom="2" />
+      <wgu-map />
 
       <wgu-feature-infowindow
         layerId="Shops"
