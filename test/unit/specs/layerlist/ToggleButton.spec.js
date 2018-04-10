@@ -4,15 +4,18 @@ import LayerListToggleBtn from '@/components/layerlist/ToggleButton'
 describe('layerlist/ToggleButton.vue', () => {
   // Check methods
   it('has a method toggleUi', () => {
-    const lltb = new LayerListToggleBtn();
+    const Constructor = Vue.extend(LayerListToggleBtn);
+    const lltb = new Constructor({
+    }).$mount();
     expect(typeof lltb.toggleUi).to.equal('function');
   });
 
   // Evaluate the results of functions
   it('sets the correct default data', () => {
-    const lltb = new LayerListToggleBtn();
-    lltb.toggleUi();
-    expect(lltb.showUi).to.equal(true);
+    expect(typeof LayerListToggleBtn.data).to.equal('function');
+    const defaultData = LayerListToggleBtn.data();
+    expect(typeof defaultData).to.equal('object');
+    expect(defaultData.show).to.equal(false);
   });
 
   // Mount an instance and inspect the render output

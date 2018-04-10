@@ -4,15 +4,18 @@ import HelpWinToggleBtn from '@/components/helpwin/ToggleButton'
 describe('helpwin/ToggleButton.vue', () => {
   // Check methods
   it('has a method toggleUi', () => {
-    const hwtb = new HelpWinToggleBtn();
+    const Constructor = Vue.extend(HelpWinToggleBtn);
+    const hwtb = new Constructor({
+    }).$mount();
     expect(typeof hwtb.toggleUi).to.equal('function');
   });
 
   // Evaluate the results of functions
   it('sets the correct default data', () => {
-    const hwtb = new HelpWinToggleBtn();
-    hwtb.toggleUi();
-    expect(hwtb.showUi).to.equal(true);
+    expect(typeof HelpWinToggleBtn.data).to.equal('function');
+    const defaultData = HelpWinToggleBtn.data();
+    expect(typeof defaultData).to.equal('object');
+    expect(defaultData.show).to.equal(false);
   });
 
   // Mount an instance and inspect the render output
