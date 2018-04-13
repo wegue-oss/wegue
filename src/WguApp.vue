@@ -15,6 +15,11 @@
               text=""
             />
 
+            <wgu-toggle-infoclick-button
+              icon="info"
+              text=""
+            />
+
             <wgu-toggle-helpwin-button
               icon="help"
               text=""
@@ -49,6 +54,7 @@ import MenuButton from './components/MenuButton'
 import LayerListToggleButton from './components/layerlist/ToggleButton'
 import HelpWinToggleButton from './components/helpwin/ToggleButton'
 import MeasureToolToggleButton from './components/measuretool/ToggleButton'
+import InfoClickButton from './components/infoclick/ToggleButton'
 
 export default {
   name: 'app',
@@ -61,7 +67,8 @@ export default {
     'wgu-menubutton': MenuButton,
     'wgu-toggle-layerlist-button': LayerListToggleButton,
     'wgu-toggle-helpwin-button': HelpWinToggleButton,
-    'wgu-toggle-measuretool-button': MeasureToolToggleButton
+    'wgu-toggle-measuretool-button': MeasureToolToggleButton,
+    'wgu-toggle-infoclick-button': InfoClickButton
   },
   data () {
     return {
