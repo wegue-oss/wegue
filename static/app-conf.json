@@ -1,0 +1,61 @@
+{
+
+  "title": "Vue.js / OpenLayers WebGIS",
+
+  "logo": "https://www.placecage.com/100/100",
+  "logoSize": "200",
+
+  "mapZoom": 2,
+  "mapCenter": [0, 0],
+
+  "mapLayers": [
+
+    {
+      "type": "VECTOR",
+      "lid": "Shops",
+      "name": "Shops DaSchau",
+      "url": "./static/data/shops-dannstadt.geojson",
+      "formatConfig": {
+      },
+      "format": "GeoJSON",
+      "visible": true,
+      "selectable": true,
+      "styleRef": "shopStyle"
+    },
+
+    {
+      "type": "VECTORTILE",
+      "name": "Vector Tile Layer",
+      "url": "https://basemaps.arcgis.com/v1/arcgis/rest/services/World_Basemap/VectorTileServer/tile/{z}/{y}/{x}.pbf",
+      "format": "MVT",
+      "visible": false
+    },
+
+    {
+      "type": "WMS",
+      "lid": "ahocevar-wms",
+      "name": "WMS (ahocevar)",
+      "format": "image/png",
+      "layers": "topp:states",
+      "url": "https://ahocevar.com/geoserver/wms",
+      "transparent": true,
+      "singleTile": false,
+      "projection": "EPSG:3857",
+      "attribution": "",
+      "isBaseLayer": false,
+      "visibility": false,
+      "displayInLayerList": true
+    },
+
+    {
+      "type": "OSM",
+      "lid": "osm-bg",
+      "name": "OSM",
+      "isBaseLayer": false,
+      "visibility": true,
+      "displayInLayerList": true
+    }
+
+  ]
+
+}
