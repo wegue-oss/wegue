@@ -1,12 +1,7 @@
 import Vue from 'vue'
 import HelpWin from '@/components/helpwin/HelpWin'
 
-describe('HelpWin.vue', () => {
-  // Inspect the raw component options
-  it('has a created hook', () => {
-    expect(typeof HelpWin.created).to.equal('function');
-  });
-
+describe('helpwin/HelpWin.vue', () => {
   // Evaluate the results of functions in
   // the raw component options
   it('sets the correct default data', () => {
