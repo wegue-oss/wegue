@@ -14,9 +14,11 @@
 
 export default {
   name: 'wgu-top-logo',
-  props: {
-    logoSrc: {type: String, required: true},
-    logoSize: {type: Number, required: false, default: 100}
+  data () {
+    return {
+      logoSrc: this.$appConfig.logo,
+      logoSize: this.$appConfig.logoSize
+    }
   }
 }
 </script>

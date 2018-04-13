@@ -8,11 +8,11 @@ import 'vuetify/dist/vuetify.min.css'
 
 Vue.use(Vuetify)
 
-require('../node_modules/ol/ol.css')
+require('../node_modules/ol/ol.css');
 
-require('./assets/css/wegue.css')
+require('./assets/css/wegue.css');
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 // Detect isEmbedded state by attribute embedded and
 // make accessible for all components
@@ -20,9 +20,18 @@ Vue.config.productionTip = false
 const appEl = document.querySelector('#app');
 Vue.prototype.$isEmbedded = appEl.hasAttribute('embedded');
 
-/* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  template: '<wgu-app/>',
-  components: { WguApp }
-});
+fetch('static/app-conf.json')
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (appConfig) {
+    // make app config accessible for all components
+    Vue.prototype.$appConfig = appConfig;
+
+    /* eslint-disable no-new */
+    new Vue({
+      el: '#app',
+      template: '<wgu-app/>',
+      components: { WguApp }
+    });
+  });

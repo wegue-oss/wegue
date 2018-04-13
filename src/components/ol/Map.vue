@@ -1,9 +1,5 @@
 <template>
-    <div class="map wgu-map" id="ol-map">
-      <!--This <slot> is going to be replaced by the map-layer configuration
-          tags in the app (see App.vue) -->
-      <slot name="map-layers">No map layers provided!</slot>
-    </div>
+    <div class="map wgu-map" id="ol-map"></div>
 </template>
 
 <script>
@@ -14,13 +10,19 @@ import Attribution from 'ol/control/attribution';
 import Zoom from 'ol/control/zoom';
 // import the app-wide EventBus
 import { WguEventBus } from '../../WguEventBus.js'
+import { LayerFactory } from '../../factory/Layer.js'
+import SelectInteraction from 'ol/interaction/select'
 
 export default {
   name: 'wgu-map',
   props: {
-    zoom: {type: Number, default: 0},
-    center: {type: Array},
     collapsibleAttribution: {type: Boolean, default: false}
+  },
+  data () {
+    return {
+      zoom: this.$appConfig.mapZoom,
+      center: this.$appConfig.mapCenter
+    }
   },
   mounted () {
     this.map.setTarget(document.getElementById('ol-map'))
@@ -35,8 +37,7 @@ export default {
   },
   created () {
     this.map = new Map({
-      layers: [
-      ],
+      layers: [],
       controls: [
         new Zoom(),
         new Attribution({
@@ -48,6 +49,46 @@ export default {
         zoom: this.zoom
       })
     });
+
+    // create layers from config and add them to map
+    const layers = this.createLayers();
+    this.map.getLayers().extend(layers);
+  },
+
+  methods: {
+    /**
+     * Creates the OL layers due to the "mapLayers" array in app config.
+     * @return {ol.layer.Base[]} Array of OL layer instances
+     */
+    createLayers () {
+      const me = this;
+      let layers = [];
+      this.$appConfig.mapLayers.reverse().forEach(function (lConf) {
+        let layer = LayerFactory.getInstance(lConf);
+        layers.push(layer);
+
+        // if layer is selectable register a select interaction
+        if (lConf.selectable) {
+          const selectClick = new SelectInteraction({
+            layers: [layer]
+          });
+          // forward an event if feature selection changes
+          selectClick.on('select', function (evt) {
+            // TODO use identifier for layer (once its implemented)
+            WguEventBus.$emit(
+              'map-selectionchange',
+              layer.get('lid'),
+              evt.selected,
+              evt.deselected
+            );
+          });
+          // register/activate interaction on map
+          me.map.addInteraction(selectClick);
+        }
+      });
+
+      return layers;
+    }
   }
 
 }

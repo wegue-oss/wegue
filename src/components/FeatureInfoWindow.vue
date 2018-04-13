@@ -55,8 +55,8 @@ export default {
     var me = this;
 
     // listen to selection events of connected layer and apply attributes
-    WguEventBus.$on('map-selectionchange', function (layerName, selected, deselected) {
-      if (me.layerId === layerName) {
+    WguEventBus.$on('map-selectionchange', function (layerId, selected, deselected) {
+      if (me.layerId === layerId) {
         me.setFeature(selected[0]);
       }
     });
