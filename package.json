@@ -3,6 +3,10 @@
   "version": "0.1.0-dev",
   "description": "Template project for a WebGIS client with OpenLayers and Vue.js",
   "author": "Christian Mayer <chris@meggsimum.de>",
+  "contributors": {
+    "name": "See github contributors",
+    "url": "https://github.com/meggsimum/wegue/graphs/contributors"
+  },
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
