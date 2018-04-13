@@ -24,14 +24,6 @@
     },
 
     {
-      "type": "VECTORTILE",
-      "name": "Vector Tile Layer",
-      "url": "https://basemaps.arcgis.com/v1/arcgis/rest/services/World_Basemap/VectorTileServer/tile/{z}/{y}/{x}.pbf",
-      "format": "MVT",
-      "visible": false
-    },
-
-    {
       "type": "WMS",
       "lid": "ahocevar-wms",
       "name": "WMS (ahocevar)",
@@ -45,6 +37,15 @@
       "isBaseLayer": false,
       "visibility": false,
       "displayInLayerList": true
+    },
+
+    {
+      "type": "VECTORTILE",
+      "name": "Vector Tile Layer",
+      "url": "https://ahocevar.com/geoserver/gwc/service/tms/1.0.0/ne:ne_10m_admin_0_countries@EPSG%3A900913@pbf/{z}/{x}/{-y}.pbf",
+      "format": "MVT",
+      "visible": true,
+      "styleRef": "neWorldMvt"
     },
 
     {
