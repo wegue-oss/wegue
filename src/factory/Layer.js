@@ -160,7 +160,8 @@ export const LayerFactory = {
         url: lConf.url,
         format: new this.formatMapping[lConf.format](),
         attributions: lConf.attributions
-      })
+      }),
+      style: OlStyleDefs[lConf.styleRef]
     });
 
     return vtLayer;
