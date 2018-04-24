@@ -37,9 +37,8 @@
 </template>
 
 <script>
-  // Import the EventBus
-  import { WguEventBus } from '../../WguEventBus.js'
-  import { DraggableWin } from '../../directives/DraggableWin.js';
+  import { DraggableWin } from '../../directives/DraggableWin';
+  import { Mapable } from '../../mixins/Mapable';
   import DrawInteraction from 'ol/interaction/draw'
   import LineStringGeom from 'ol/geom/linestring'
   import PolygonGeom from 'ol/geom/polygon'
@@ -56,6 +55,7 @@
     directives: {
       DraggableWin
     },
+    mixins: [Mapable],
     props: ['icon'],
     data () {
       return {
@@ -66,16 +66,6 @@
         left: '100px',
         top: '200px'
       }
-    },
-    created () {
-      var me = this;
-      // Listen to the ol-map-mounted event and receive the OL map instance
-      WguEventBus.$on('ol-map-mounted', (olMap) => {
-        // make the OL map accesible in this component
-        me.map = olMap;
-
-        me.createMeasureLayer();
-      });
     },
     watch: {
       show () {
@@ -92,6 +82,12 @@
       }
     },
     methods: {
+      /**
+       * This function is executed, after the map is bound (see mixins/Mapable)
+       */
+      onMapBound () {
+        this.createMeasureLayer();
+      },
       /**
        * Creates a vector layer for the measurement results and adds it to the
        * map.
