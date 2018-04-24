@@ -1,0 +1,62 @@
+{
+
+  "title": "Vue.js / OpenLayers WebGIS",
+
+  "logo": "https://www.placecage.com/100/100",
+  "logoSize": "100",
+
+  "mapZoom": 2,
+  "mapCenter": [0, 0],
+
+  "mapLayers": [
+
+    {
+      "type": "VECTOR",
+      "lid": "Shops",
+      "name": "Shops DaSchau",
+      "url": "./static/data/shops-dannstadt.geojson",
+      "formatConfig": {
+      },
+      "format": "GeoJSON",
+      "visible": true,
+      "selectable": true,
+      "styleRef": "shopStyle"
+    },
+
+    {
+      "type": "WMS",
+      "lid": "ahocevar-wms",
+      "name": "WMS (ahocevar)",
+      "format": "image/png",
+      "layers": "topp:states",
+      "url": "https://ahocevar.com/geoserver/wms",
+      "transparent": true,
+      "singleTile": false,
+      "projection": "EPSG:3857",
+      "attribution": "",
+      "isBaseLayer": false,
+      "visibility": false,
+      "displayInLayerList": true
+    },
+
+    {
+      "type": "VECTORTILE",
+      "name": "Vector Tile Layer",
+      "url": "https://ahocevar.com/geoserver/gwc/service/tms/1.0.0/ne:ne_10m_admin_0_countries@EPSG%3A900913@pbf/{z}/{x}/{-y}.pbf",
+      "format": "MVT",
+      "visible": true,
+      "styleRef": "neWorldMvt"
+    },
+
+    {
+      "type": "OSM",
+      "lid": "osm-bg",
+      "name": "OSM",
+      "isBaseLayer": false,
+      "visibility": true,
+      "displayInLayerList": true
+    }
+
+  ]
+
+}
