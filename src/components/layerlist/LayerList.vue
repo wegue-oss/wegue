@@ -24,14 +24,14 @@
 </template>
 
 <script>
-  // Import the EventBus
-  import { WguEventBus } from '../../WguEventBus.js'
   import { DraggableWin } from '../../directives/DraggableWin.js';
+  import { Mapable } from '../../mixins/Mapable';
 
   export default {
     directives: {
       DraggableWin
     },
+    mixins: [Mapable],
     props: ['icon'],
     data () {
       return {
@@ -44,18 +44,13 @@
         top: '70px'
       }
     },
-    created () {
-      var me = this
-      // Listen to the ol-map-mounted event and receive the OL map instance
-      WguEventBus.$on('ol-map-mounted', function (olMap) {
-        // make the OL map accesible in this component
-        me.map = olMap;
-        // create the layer items from the OL map
-        me.createLayerItems();
-      });
-    },
     methods: {
-
+      /**
+       * This function is executed, after the map is bound (see mixins/Mapable)
+       */
+      onMapBound () {
+        this.createLayerItems();
+      },
       /**
        * Creates the layer items from the OpenLayers map.
        */

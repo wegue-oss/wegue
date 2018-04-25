@@ -2,11 +2,6 @@ import Vue from 'vue'
 import LayerList from '@/components/layerlist/LayerList'
 
 describe('layerlist/LayerList.vue', () => {
-  // Inspect the raw component options
-  it('has a created hook', () => {
-    expect(typeof LayerList.created).to.equal('function');
-  });
-
   // Evaluate the results of functions in
   // the raw component options
   it('sets the correct default data', () => {
