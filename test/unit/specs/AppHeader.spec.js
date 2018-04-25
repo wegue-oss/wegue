@@ -2,7 +2,6 @@ import Vue from 'vue'
 import AppHeader from '@/components/AppHeader'
 
 describe('AppHeader.vue', () => {
-
   // Evaluate the results of functions in
   // the raw component options
   it('sets the correct default data', () => {
@@ -21,7 +20,7 @@ describe('AppHeader.vue', () => {
     };
     const Constructor = Vue.extend(AppHeader);
     const vm = new Constructor({
-      title: 'foo',
+      title: 'foo'
     }).$mount();
 
     expect(vm.$el.querySelector('v-toolbar-title') !== null).to.equal(true);
