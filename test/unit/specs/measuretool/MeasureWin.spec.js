@@ -2,11 +2,6 @@ import Vue from 'vue'
 import MeasureWin from '@/components/measuretool/MeasureWin'
 
 describe('measuretool/MeasureWin.vue', () => {
-  // Inspect the raw component options
-  it('has a created hook', () => {
-    expect(typeof MeasureWin.created).to.equal('function');
-  });
-
   // Evaluate the results of functions in
   // the raw component options
   it('sets the correct default data', () => {
