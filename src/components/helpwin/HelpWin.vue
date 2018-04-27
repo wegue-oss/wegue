@@ -5,6 +5,7 @@
       <v-toolbar-side-icon><v-icon>{{icon}}</v-icon></v-toolbar-side-icon>
       <v-toolbar-title>Help</v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-toolbar-side-icon @click="show = false"><v-icon>close</v-icon></v-toolbar-side-icon>
     </v-toolbar>
 
     <v-card-title primary-title>

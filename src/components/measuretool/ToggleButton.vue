@@ -39,9 +39,9 @@ export default {
   },
   methods: {
     toggleUi () {
-      this.show = !this.show;
-      // forward property 'show' to window child componnet
-      this.$refs.measurewin.show = this.show;
+      // TODO move to a father class
+      this.$refs.measurewin.show = !this.$refs.measurewin.show;
+      this.show = this.$refs.measurewin.show;
     }
   }
 };
