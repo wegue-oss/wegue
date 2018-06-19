@@ -10,7 +10,7 @@
 
     <v-card-title primary-title>
       <div class="">
-        <v-btn-toggle v-model="measureType">
+        <v-btn-toggle v-model="measureType" mandatory>
            <v-btn large value="distance">
              Distance
            </v-btn>
