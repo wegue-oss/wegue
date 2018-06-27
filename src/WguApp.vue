@@ -5,6 +5,11 @@
 
         <v-toolbar-items slot="wgu-tb-buttons" class="">
 
+            <wgu-zoomtomaxextent-button
+              icon="zoom_out_map"
+              text=""
+            />
+
             <wgu-toggle-layerlist-button
               icon="layers"
               text=""
@@ -55,6 +60,7 @@ import LayerListToggleButton from './components/layerlist/ToggleButton'
 import HelpWinToggleButton from './components/helpwin/ToggleButton'
 import MeasureToolToggleButton from './components/measuretool/ToggleButton'
 import InfoClickButton from './components/infoclick/ToggleButton'
+import ZoomToMaxExtentButton from './components/maxextentbutton/ZoomToMaxExtentButton'
 
 export default {
   name: 'app',
@@ -68,7 +74,8 @@ export default {
     'wgu-toggle-layerlist-button': LayerListToggleButton,
     'wgu-toggle-helpwin-button': HelpWinToggleButton,
     'wgu-toggle-measuretool-button': MeasureToolToggleButton,
-    'wgu-toggle-infoclick-button': InfoClickButton
+    'wgu-toggle-infoclick-button': InfoClickButton,
+    'wgu-zoomtomaxextent-button': ZoomToMaxExtentButton
   },
   data () {
     return {
