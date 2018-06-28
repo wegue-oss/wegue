@@ -1,14 +1,14 @@
-import TileLayer from 'ol/layer/tile'
-import TileWmsSource from 'ol/source/tilewms'
-import OsmSource from 'ol/source/osm'
-import VectorTileLayer from 'ol/layer/vectortile'
-import VectorTileSource from 'ol/source/vectortile'
-import MvtFormat from 'ol/format/mvt'
-import GeoJsonFormat from 'ol/format/geojson'
-import TopoJsonFormat from 'ol/format/topojson'
-import KmlFormat from 'ol/format/kml'
-import VectorLayer from 'ol/layer/vector'
-import VectorSource from 'ol/source/vector'
+import TileLayer from 'ol/layer/Tile';
+import TileWmsSource from 'ol/source/TileWMS';
+import OsmSource from 'ol/source/OSM';
+import VectorTileLayer from 'ol/layer/VectorTile'
+import VectorTileSource from 'ol/source/VectorTile'
+import MvtFormat from 'ol/format/MVT'
+import GeoJsonFormat from 'ol/format/GeoJSON'
+import TopoJsonFormat from 'ol/format/TopoJSON'
+import KmlFormat from 'ol/format/KML'
+import VectorLayer from 'ol/layer/Vector'
+import VectorSource from 'ol/source/Vector'
 import OlStyleDefs from '../style/OlStyleDefs'
 
 /**

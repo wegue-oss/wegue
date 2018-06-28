@@ -1,6 +1,6 @@
-import OlStyle from 'ol/style/style'
-import OlStroke from 'ol/style/stroke'
-import OlFill from 'ol/style/fill'
+import OlStyle from 'ol/style/Style';
+import OlStroke from 'ol/style/Stroke';
+import OlFill from 'ol/style/Fill';
 
 export default {
   shopStyle: new OlStyle({

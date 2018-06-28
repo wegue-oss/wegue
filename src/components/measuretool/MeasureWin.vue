@@ -38,19 +38,19 @@
 </template>
 
 <script>
+  import DrawInteraction from 'ol/interaction/Draw';
+  import LineStringGeom from 'ol/geom/LineString';
+  import PolygonGeom from 'ol/geom/Polygon';
+  import {unByKey} from 'ol/Observable.js';
+  import VectorSource from 'ol/source/Vector';
+  import VectorLayer from 'ol/layer/Vector';
+  import Style from 'ol/style/Style';
+  import Stroke from 'ol/style/Stroke';
+  import Circle from 'ol/style/Circle';
+  import Fill from 'ol/style/Fill';
+  import {getArea, getLength} from 'ol/sphere.js';
   import { DraggableWin } from '../../directives/DraggableWin';
   import { Mapable } from '../../mixins/Mapable';
-  import DrawInteraction from 'ol/interaction/draw'
-  import LineStringGeom from 'ol/geom/linestring'
-  import PolygonGeom from 'ol/geom/polygon'
-  import Sphere from 'ol/sphere'
-  import Observable from 'ol/observable'
-  import VectorSource from 'ol/source/vector'
-  import VectorLayer from 'ol/layer/vector'
-  import Style from 'ol/style/style'
-  import Stroke from 'ol/style/stroke'
-  import Circle from 'ol/style/circle'
-  import Fill from 'ol/style/fill'
 
   export default {
     directives: {
@@ -178,7 +178,7 @@
         draw.on('drawend', () => {
           // unset sketch
           sketch = null;
-          Observable.unByKey(listener);
+          unByKey(listener);
         }, this);
 
         // make draw interaction available as member
@@ -204,8 +204,8 @@
        * @param  {ol.geom.LineString} line The LineString object to calculate length for
        */
       formatLength (line) {
-        var length = Sphere.getLength(line);
-        var output;
+        const length = getLength(line);
+        let output;
         if (length > 100) {
           output = (Math.round(length / 1000 * 100) / 100) +
               ' ' + 'km';
@@ -221,8 +221,8 @@
        * @param  {ol.geom.Polygon} polygon The Polygon object to calculate area for
        */
       formatArea (polygon) {
-        var area = Sphere.getArea(polygon);
-        var output;
+        const area = getArea(polygon);
+        let output;
         if (area > 10000) {
           output = (Math.round(area / 1000000 * 100) / 100) +
               ' ' + 'km²';
