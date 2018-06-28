@@ -4,7 +4,7 @@ Template and re-usable components for webmapping applications with OpenLayers an
 [![Build Status](https://travis-ci.org/meggsimum/wegue.svg?branch=master)](https://travis-ci.org/meggsimum/wegue)
 [![Known Vulnerabilities](https://snyk.io/test/github/meggsimum/wegue/badge.svg)](https://snyk.io/test/github/meggsimum/wegue)
 [![dependencies Status](https://david-dm.org/meggsimum/wegue/status.svg)](https://david-dm.org/meggsimum/wegue)
-[![license: 2-Clause BSD](https://img.shields.io/badge/license-2--Clause%20BSD-brightgreen.svg)](https://opensource.org/licenses/BSD-2-Clause)
+[![license: 2-Clause BSD](https://img.shields.io/badge/license-2--Clause%20BSD-brightgreen.svg)](https://opensource.org/licenses/BSD-2-Clause) [![Greenkeeper badge](https://badges.greenkeeper.io/meggsimum/wegue.svg)](https://greenkeeper.io/)
 
 <img align="left" style="padding-bottom: 20px;" src="screenshots/wegue-app-1.png" />
 
