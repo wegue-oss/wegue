@@ -50,7 +50,13 @@
        * This function is executed, after the map is bound (see mixins/Mapable)
        */
       onMapBound () {
-        this.createLayerItems();
+        var me = this;
+        me.createLayerItems();
+
+        // react on added / removed layers
+        me.map.getLayers().on('change:length', function (evt) {
+          me.createLayerItems();
+        });
       },
       /**
        * Creates the layer items from the OpenLayers map.
