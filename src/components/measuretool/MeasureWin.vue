@@ -94,7 +94,8 @@
        * map.
        */
       createMeasureLayer () {
-        var me = this;
+        const me = this;
+        const measureConf = me.$appConfig.modules.wgumeasure || {};
         // create a vector layer to
         var source = new VectorSource();
         var vector = new VectorLayer({
@@ -102,16 +103,16 @@
           source: source,
           style: new Style({
             fill: new Fill({
-              color: 'rgba(255, 255, 255, 0.2)'
+              color: measureConf.fillColor || 'rgba(255, 255, 255, 0.2)'
             }),
             stroke: new Stroke({
-              color: 'rgba(0, 0, 0, 0.7)',
+              color: measureConf.strokeColor || 'rgba(0, 0, 0, 0.5)',
               width: 2
             }),
             image: new Circle({
               radius: 7,
               fill: new Fill({
-                color: 'rgba(0, 0, 0, 0.7)'
+                color: measureConf.vertexFillColor || 'rgba(0, 0, 0, 0.7)'
               })
             })
           })
@@ -126,7 +127,8 @@
        * Creates and adds the necessary draw interaction and adds it to the map.
        */
       addInteraction () {
-        var me = this;
+        const me = this;
+        const measureConf = me.$appConfig.modules.wgumeasure || {};
         // cleanup possible old draw interaction
         if (me.draw) {
           me.removeInteraction();
@@ -138,20 +140,20 @@
           type: type,
           style: new Style({
             fill: new Fill({
-              color: 'rgba(255, 255, 255, 0.2)'
+              color: measureConf.sketchFillColor || 'rgba(255, 255, 255, 0.2)'
             }),
             stroke: new Stroke({
-              color: 'rgba(0, 0, 0, 0.5)',
+              color: measureConf.sketchStrokeColor || 'rgba(0, 0, 0, 0.5)',
               lineDash: [10, 10],
               width: 2
             }),
             image: new Circle({
               radius: 5,
               stroke: new Stroke({
-                color: 'rgba(0, 0, 0, 0.7)'
+                color: measureConf.sketchVertexStrokeColor || 'rgba(0, 0, 0, 0.7)'
               }),
               fill: new Fill({
-                color: 'rgba(255, 255, 255, 0.2)'
+                color: measureConf.sketchVertexFillColor || 'rgba(255, 255, 255, 0.2)'
               })
             })
           })
