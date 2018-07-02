@@ -108,12 +108,6 @@
             stroke: new Stroke({
               color: measureConf.strokeColor || 'rgba(0, 0, 0, 0.5)',
               width: 2
-            }),
-            image: new Circle({
-              radius: 7,
-              fill: new Fill({
-                color: measureConf.vertexFillColor || 'rgba(0, 0, 0, 0.7)'
-              })
             })
           })
         });
