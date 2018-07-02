@@ -57,6 +57,17 @@
       "displayInLayerList": true
     }
 
-  ]
+  ],
+
+  "modules": {
+    "wgumeasure": {
+      "strokeColor": "#c62828",
+      "fillColor": "rgba(198,40,40,0.2)",
+      "sketchStrokeColor": "rgba(198,40,40,0.8)",
+      "sketchFillColor": "rgba(198,40,40,0.1)",
+      "sketchVertexStrokeColor": "#c62828",
+      "sketchVertexFillColor": "rgba(198,40,40,0.2)"
+    }
+  }
 
 }
