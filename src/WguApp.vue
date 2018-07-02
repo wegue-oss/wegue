@@ -33,7 +33,7 @@
         </v-toolbar-items>
       </wgu-app-header>
 
-      <wgu-top-logo />
+      <wgu-app-logo />
 
       <wgu-map />
 
@@ -54,7 +54,7 @@ import OlMap from './components/ol/Map'
 import InfoWindow from './components/InfoWindow'
 import FeatureInfoWindow from './components/FeatureInfoWindow'
 import AppHeader from './components/AppHeader'
-import TopLogo from './components/TopLogo'
+import AppLogo from './components/AppLogo'
 import MenuButton from './components/MenuButton'
 import LayerListToggleButton from './components/layerlist/ToggleButton'
 import HelpWinToggleButton from './components/helpwin/ToggleButton'
@@ -69,7 +69,7 @@ export default {
     'wgu-info-window': InfoWindow,
     'wgu-feature-infowindow': FeatureInfoWindow,
     'wgu-app-header': AppHeader,
-    'wgu-top-logo': TopLogo,
+    'wgu-app-logo': AppLogo,
     'wgu-menubutton': MenuButton,
     'wgu-toggle-layerlist-button': LayerListToggleButton,
     'wgu-toggle-helpwin-button': HelpWinToggleButton,
