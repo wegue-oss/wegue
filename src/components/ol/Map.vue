@@ -30,6 +30,16 @@ export default {
     // Send the event 'ol-map-mounted' with the OL map as payload
     WguEventBus.$emit('ol-map-mounted', this.map)
 
+    const appHeaderEl = document.querySelector('.wgu-app-toolbar');
+    if (appHeaderEl) {
+      const headerHeight = appHeaderEl.offsetHeight;
+      if (this.$isEmbedded) {
+        this.map.getTarget().style.height = 'calc(100% - ' + headerHeight + 'px)';
+      } else {
+        this.map.getTarget().style.height = 'calc(100vh - ' + headerHeight + 'px)';
+      }
+    }
+
     // resize the map, so it fits to parent
     window.setTimeout(() => {
       this.map.updateSize();
