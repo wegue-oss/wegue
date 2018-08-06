@@ -151,11 +151,11 @@ export default {
     z-index: 2;
   }
 
-  .wgu-infoclick-win.card {
+  .wgu-infoclick-win {
       position: absolute;
   }
 
-  .wgu-infoclick-win .card__title {
+  .wgu-infoclick-win .v-card__title {
     display: inherit;
   }
 
