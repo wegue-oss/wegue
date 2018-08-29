@@ -140,7 +140,7 @@
     background-color: white;
     z-index: 2;
   }
-  .wgu-layerlist {
+  .v-card.wgu-layerlist {
     position: absolute;
   }
 

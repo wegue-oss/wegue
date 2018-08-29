@@ -151,7 +151,7 @@ export default {
     z-index: 2;
   }
 
-  .wgu-infoclick-win {
+  .v-card.wgu-infoclick-win {
       position: absolute;
   }
 
