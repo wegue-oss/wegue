@@ -243,7 +243,7 @@
     z-index: 2;
   }
 
-  .wgu-measurewin {
+  .v-card.wgu-measurewin {
     position: absolute;
   }
 
