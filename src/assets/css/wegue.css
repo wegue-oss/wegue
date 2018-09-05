@@ -7,10 +7,7 @@ html {
 .wgu-app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   position: relative;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
+  width: 100%;
 }
 .wgu-app-embedded {
   width: 100%;
@@ -19,14 +16,11 @@ html {
 }
 
 .wgu-app .wgu-map {
-  /* temp. solution since flex: 1 doe not work as expected */
-  height: calc(100vh - 56px);
 }
 .wgu-app-embedded .wgu-map {
-  height: calc(100% - 56px);
 }
 
-.wgu-top-logo {
+.wgu-app-logo {
   left: 25px;
   top: 45px;
 }

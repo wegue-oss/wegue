@@ -4,14 +4,14 @@
 
 <script>
 
-import Map from 'ol/map'
-import View from 'ol/view'
-import Attribution from 'ol/control/attribution';
-import Zoom from 'ol/control/zoom';
+import Map from 'ol/Map'
+import View from 'ol/View'
+import Attribution from 'ol/control/Attribution';
+import Zoom from 'ol/control/Zoom';
+import SelectInteraction from 'ol/interaction/Select';
 // import the app-wide EventBus
-import { WguEventBus } from '../../WguEventBus.js'
-import { LayerFactory } from '../../factory/Layer.js'
-import SelectInteraction from 'ol/interaction/select'
+import { WguEventBus } from '../../WguEventBus.js';
+import { LayerFactory } from '../../factory/Layer.js';
 
 export default {
   name: 'wgu-map',
@@ -29,6 +29,16 @@ export default {
 
     // Send the event 'ol-map-mounted' with the OL map as payload
     WguEventBus.$emit('ol-map-mounted', this.map)
+
+    const appHeaderEl = document.querySelector('.wgu-app-toolbar');
+    if (appHeaderEl) {
+      const headerHeight = appHeaderEl.offsetHeight;
+      if (this.$isEmbedded) {
+        this.map.getTarget().style.height = 'calc(100% - ' + headerHeight + 'px)';
+      } else {
+        this.map.getTarget().style.height = 'calc(100vh - ' + headerHeight + 'px)';
+      }
+    }
 
     // resize the map, so it fits to parent
     window.setTimeout(() => {

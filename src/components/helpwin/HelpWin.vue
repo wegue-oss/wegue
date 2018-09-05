@@ -50,7 +50,7 @@
     z-index: 2;
   }
 
-  .wgu-helpwin.card {
+  .v-card.wgu-helpwin {
     position: absolute;
   }
 

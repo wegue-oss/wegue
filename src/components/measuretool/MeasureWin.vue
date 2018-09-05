@@ -38,19 +38,19 @@
 </template>
 
 <script>
+  import DrawInteraction from 'ol/interaction/Draw';
+  import LineStringGeom from 'ol/geom/LineString';
+  import PolygonGeom from 'ol/geom/Polygon';
+  import {unByKey} from 'ol/Observable.js';
+  import VectorSource from 'ol/source/Vector';
+  import VectorLayer from 'ol/layer/Vector';
+  import Style from 'ol/style/Style';
+  import Stroke from 'ol/style/Stroke';
+  import Circle from 'ol/style/Circle';
+  import Fill from 'ol/style/Fill';
+  import {getArea, getLength} from 'ol/sphere.js';
   import { DraggableWin } from '../../directives/DraggableWin';
   import { Mapable } from '../../mixins/Mapable';
-  import DrawInteraction from 'ol/interaction/draw'
-  import LineStringGeom from 'ol/geom/linestring'
-  import PolygonGeom from 'ol/geom/polygon'
-  import Sphere from 'ol/sphere'
-  import Observable from 'ol/observable'
-  import VectorSource from 'ol/source/vector'
-  import VectorLayer from 'ol/layer/vector'
-  import Style from 'ol/style/style'
-  import Stroke from 'ol/style/stroke'
-  import Circle from 'ol/style/circle'
-  import Fill from 'ol/style/fill'
 
   export default {
     directives: {
@@ -94,7 +94,8 @@
        * map.
        */
       createMeasureLayer () {
-        var me = this;
+        const me = this;
+        const measureConf = me.$appConfig.modules.wgumeasure || {};
         // create a vector layer to
         var source = new VectorSource();
         var vector = new VectorLayer({
@@ -102,17 +103,11 @@
           source: source,
           style: new Style({
             fill: new Fill({
-              color: 'rgba(255, 255, 255, 0.2)'
+              color: measureConf.fillColor || 'rgba(255, 255, 255, 0.2)'
             }),
             stroke: new Stroke({
-              color: 'rgba(0, 0, 0, 0.7)',
+              color: measureConf.strokeColor || 'rgba(0, 0, 0, 0.5)',
               width: 2
-            }),
-            image: new Circle({
-              radius: 7,
-              fill: new Fill({
-                color: 'rgba(0, 0, 0, 0.7)'
-              })
             })
           })
         });
@@ -126,7 +121,8 @@
        * Creates and adds the necessary draw interaction and adds it to the map.
        */
       addInteraction () {
-        var me = this;
+        const me = this;
+        const measureConf = me.$appConfig.modules.wgumeasure || {};
         // cleanup possible old draw interaction
         if (me.draw) {
           me.removeInteraction();
@@ -138,20 +134,20 @@
           type: type,
           style: new Style({
             fill: new Fill({
-              color: 'rgba(255, 255, 255, 0.2)'
+              color: measureConf.sketchFillColor || 'rgba(255, 255, 255, 0.2)'
             }),
             stroke: new Stroke({
-              color: 'rgba(0, 0, 0, 0.5)',
+              color: measureConf.sketchStrokeColor || 'rgba(0, 0, 0, 0.5)',
               lineDash: [10, 10],
               width: 2
             }),
             image: new Circle({
               radius: 5,
               stroke: new Stroke({
-                color: 'rgba(0, 0, 0, 0.7)'
+                color: measureConf.sketchVertexStrokeColor || 'rgba(0, 0, 0, 0.7)'
               }),
               fill: new Fill({
-                color: 'rgba(255, 255, 255, 0.2)'
+                color: measureConf.sketchVertexFillColor || 'rgba(255, 255, 255, 0.2)'
               })
             })
           })
@@ -182,7 +178,7 @@
         draw.on('drawend', () => {
           // unset sketch
           sketch = null;
-          Observable.unByKey(listener);
+          unByKey(listener);
         }, this);
 
         // make draw interaction available as member
@@ -208,8 +204,8 @@
        * @param  {ol.geom.LineString} line The LineString object to calculate length for
        */
       formatLength (line) {
-        var length = Sphere.getLength(line);
-        var output;
+        const length = getLength(line);
+        let output;
         if (length > 100) {
           output = (Math.round(length / 1000 * 100) / 100) +
               ' ' + 'km';
@@ -225,8 +221,8 @@
        * @param  {ol.geom.Polygon} polygon The Polygon object to calculate area for
        */
       formatArea (polygon) {
-        var area = Sphere.getArea(polygon);
-        var output;
+        const area = getArea(polygon);
+        let output;
         if (area > 10000) {
           output = (Math.round(area / 1000000 * 100) / 100) +
               ' ' + 'km²';
@@ -247,7 +243,7 @@
     z-index: 2;
   }
 
-  .wgu-measurewin.card {
+  .v-card.wgu-measurewin {
     position: absolute;
   }
 

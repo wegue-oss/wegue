@@ -30,8 +30,8 @@ export default {
 <style>
 
   .wgu-app-toolbar {
-    /*background-color: red;*/
     z-index: 1;
+    display: block;
   }
 
 </style>

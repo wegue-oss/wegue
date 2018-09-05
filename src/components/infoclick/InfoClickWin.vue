@@ -63,9 +63,9 @@
 
 <script>
 
-import { WguEventBus } from '../../WguEventBus.js'
-import olProj from 'ol/proj'
-import olCoordinate from 'ol/coordinate'
+import { WguEventBus } from '../../WguEventBus.js';
+import {transform} from 'ol/proj.js';
+import {toStringHDMS} from 'ol/coordinate';
 
 export default {
   name: 'wgu-infoclick-win',
@@ -118,8 +118,8 @@ export default {
         var coordinates = evt.coordinate;
         var mapProjCode = me.map.getView().getProjection().getCode();
         var coordinatesWgs84 =
-          olProj.transform(coordinates, mapProjCode, 'EPSG:4326')
-        var hdms = olCoordinate.toStringHDMS(coordinatesWgs84);
+            transform(coordinates, mapProjCode, 'EPSG:4326');
+        var hdms = toStringHDMS(coordinatesWgs84);
 
         me.coordsMapProj = coordinates[1].toFixed(2) + ' ' + coordinates[0].toFixed(2);
         me.coordsWgs84 = coordinatesWgs84[1].toFixed(7) + ' ' + coordinatesWgs84[0].toFixed(7);
@@ -151,11 +151,11 @@ export default {
     z-index: 2;
   }
 
-  .wgu-infoclick-win.card {
+  .v-card.wgu-infoclick-win {
       position: absolute;
   }
 
-  .wgu-infoclick-win .card__title {
+  .wgu-infoclick-win .v-card__title {
     display: inherit;
   }
 

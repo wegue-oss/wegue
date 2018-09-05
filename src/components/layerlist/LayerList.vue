@@ -140,11 +140,11 @@
     background-color: white;
     z-index: 2;
   }
-  .wgu-layerlist.card {
+  .v-card.wgu-layerlist {
     position: absolute;
   }
 
-  .wgu-layerlist-item a.list__tile {
+  .wgu-layerlist-item a.v-list__tile {
     padding-left: 0;
   }
 
@@ -152,8 +152,7 @@
     width: 45px;
   }
 
-  .wgu-layerlist.card .list__group__header {
-    border: 1px solid red;
+  .wgu-layerlist .v-list__group__header {
     display: none;
   }
 

@@ -3,7 +3,7 @@
   <v-avatar
      :size="logoSize"
      :tile="true"
-     class="wgu-top-logo"
+     class="wgu-app-logo"
     >
     <img :src="logoSrc" alt="App Logo">
   </v-avatar>
@@ -13,7 +13,7 @@
 <script>
 
 export default {
-  name: 'wgu-top-logo',
+  name: 'wgu-app-logo',
   data () {
     return {
       logoSrc: this.$appConfig.logo,
@@ -26,7 +26,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 
-  .wgu-top-logo {
+  .v-avatar.v-avatar--tile.wgu-app-logo {
     position: absolute;
     z-index: 1000;
     border: 2px solid white;

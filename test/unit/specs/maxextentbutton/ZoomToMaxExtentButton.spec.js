@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import ZoomToMaxExtentButton from '@/components/maxextentbutton/ZoomToMaxExtentButton'
-import OlMap from 'ol/map';
-import OlView from 'ol/view';
+import OlMap from 'ol/Map';
+import OlView from 'ol/View';
 
 describe('maxextentbutton/ZoomToMaxExtentButton.vue', () => {
   // Check methods
