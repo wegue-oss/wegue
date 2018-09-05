@@ -18,9 +18,9 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
-    "ol": "5.1.3",
-    "vue": "^2.5.16",
-    "vuetify": "^1.0.8"
+    "ol": "5.2.0",
+    "vue": "2.5.17",
+    "vuetify": "1.1.9"
   },
   "devDependencies": {
     "autoprefixer": "^7.2.5",
