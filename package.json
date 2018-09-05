@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "ol": "5.2.0",
-    "vue": "^2.5.16",
+    "vue": "2.5.17",
     "vuetify": "1.1.9"
   },
   "devDependencies": {
