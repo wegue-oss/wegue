@@ -2,7 +2,7 @@
 
   <v-dialog v-model="show" max-width="300" :hide-overlay="false">
 
-    <v-btn icon slot="activator">
+    <v-btn icon slot="activator" dark>
       <v-icon medium>{{icon}}</v-icon>
       {{text}}
     </v-btn>
@@ -26,7 +26,7 @@
 import HelpWin from './HelpWin'
 
 export default {
-  name: 'wgu-toggle-helpwin-button',
+  name: 'wgu-helpwin-btn',
   components: {
     'wgu-helpwin': HelpWin
   },

@@ -1,6 +1,6 @@
 <template>
 
-  <v-card v-draggable-win class="wgu-measurewin" v-if=show v-bind:style="{ left: left, top: top }">
+  <v-card class="wgu-measurewin" v-draggable-win v-if="show" v-bind:style="{ left: left, top: top }">
     <v-toolbar class="red darken-3 white--text" dark>
       <v-toolbar-side-icon><v-icon>{{icon}}</v-icon></v-toolbar-side-icon>
       <v-toolbar-title>Measure</v-toolbar-title>
@@ -53,6 +53,7 @@
   import { Mapable } from '../../mixins/Mapable';
 
   export default {
+    name: 'wgu-measuretool-win',
     directives: {
       DraggableWin
     },
@@ -64,8 +65,9 @@
         distance: ' -- ',
         measureType: 'distance',
         show: false,
-        left: '100px',
-        top: '200px'
+        left: '10px',
+        top: '70px',
+        moduleName: 'wgu-measuretool'
       }
     },
     watch: {
@@ -95,7 +97,7 @@
        */
       createMeasureLayer () {
         const me = this;
-        const measureConf = me.$appConfig.modules.wgumeasure || {};
+        const measureConf = me.$appConfig.modules[me.moduleName] || {};
         // create a vector layer to
         var source = new VectorSource();
         var vector = new VectorLayer({
@@ -122,7 +124,7 @@
        */
       addInteraction () {
         const me = this;
-        const measureConf = me.$appConfig.modules.wgumeasure || {};
+        const measureConf = me.$appConfig.modules[me.moduleName] || {};
         // cleanup possible old draw interaction
         if (me.draw) {
           me.removeInteraction();

@@ -23,7 +23,7 @@
 import InfoClickWin from './InfoClickWin.vue'
 
 export default {
-  name: 'wgu-toggle-infoclick-button',
+  name: 'wgu-infoclick-btn',
   components: {
     'wgu-infoclick-win': InfoClickWin
   },

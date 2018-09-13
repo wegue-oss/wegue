@@ -1,7 +1,7 @@
 
 html {
   /* otherwise we have always vertical scrollbars */
-  overflow-y: auto !important;
+  overflow-y: hidden !important;
 }
 
 .wgu-app {

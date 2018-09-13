@@ -1,47 +1,43 @@
 <template>
 
-  <div class="">
-
-    <v-btn icon @click="toggleUi">
-      <v-icon medium>{{icon}}</v-icon>
-      {{text}}
-    </v-btn>
-
-    <wgu-measuretool-win
-      ref="measurewin"
-      :icon="icon"
-      :left="left"
-      :top="top"
-    />
-
-  </div>
+  <v-btn icon @click="toggleUi">
+    <v-icon medium>{{icon}}</v-icon>
+    {{text}}
+  </v-btn>
 
 </template>
 
 
 <script>
 
+import Vue from 'vue';
 import MeasureWin from './MeasureWin'
+import { WguEventBus } from '../../WguEventBus'
 
 export default {
-  name: 'wgu-toggle-measurewin-button',
+  name: 'wgu-measuretool-btn',
   components: {
     'wgu-measuretool-win': MeasureWin
   },
   data: function () {
     return {
-      show: false,
+      moduleName: 'wgu-measuretool',
+      // TODO move to props with default
       icon: 'photo_size_select_small',
-      text: '',
-      left: '100px',
-      top: '200px'
+      text: ''
     }
+  },
+  created () {
+    var me = this;
+    // TODO move to a father class
+    WguEventBus.$on('app-mounted', () => {
+      me.win = Vue.prototype.cmpLookup[me.moduleName + '-win'];
+    });
   },
   methods: {
     toggleUi () {
       // TODO move to a father class
-      this.$refs.measurewin.show = !this.$refs.measurewin.show;
-      this.show = this.$refs.measurewin.show;
+      this.win.show = !this.win.show;
     }
   }
 };

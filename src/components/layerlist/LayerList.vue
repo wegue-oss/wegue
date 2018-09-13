@@ -41,7 +41,7 @@
         // will be filled in createLayerItems a. adapted by the layer checkboxes
         visibleLayers: [],
         show: false,
-        left: '300px',
+        left: '10px',
         top: '70px'
       }
     },
