@@ -24,7 +24,10 @@ module.exports = {
   },
   dev: {
     env: require('./dev.env'),
-    port: 8080,
+    port: 8081,
+    // define a special browser to open the dev app (false = default browser)
+    // 'google chrome' on macOS, 'google-chrome' on Linux and 'chrome' on Win
+    browser: false,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
