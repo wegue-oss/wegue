@@ -1,11 +1,11 @@
 <template>
 
-  <v-card v-draggable-win class="wgu-helpwin" v-if=show v-bind:style="{ left: left, top: top }">
+  <v-card class="wgu-helpwin">
     <v-toolbar class="red darken-3 white--text" dark>
       <v-toolbar-side-icon><v-icon>{{icon}}</v-icon></v-toolbar-side-icon>
-      <v-toolbar-title>Help</v-toolbar-title>
+      <v-toolbar-title>About</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-toolbar-side-icon @click="show = false"><v-icon>close</v-icon></v-toolbar-side-icon>
+      <v-toolbar-side-icon @click="onWinXClose"><v-icon>close</v-icon></v-toolbar-side-icon>
     </v-toolbar>
 
     <v-card-title primary-title>
@@ -26,36 +26,21 @@
 </template>
 
 <script>
-  import { DraggableWin } from '../../directives/DraggableWin.js';
-
   export default {
-    directives: {
-      DraggableWin
-    },
     props: ['icon', 'headline', 'content', 'infoLink', 'infoLinkText'],
     data () {
       return {
-        show: false,
-        left: '300px',
-        top: '300px'
+        show: false
+      }
+    },
+    methods: {
+      onWinXClose: function () {
+        this.$emit('winxclose');
       }
     }
   }
 </script>
 
 <style>
-
-  .wgu-helpwin {
-    background-color: white;
-    z-index: 2;
-  }
-
-  .v-card.wgu-helpwin {
-    position: absolute;
-  }
-
-  .wgu-helpwin .info-link {
-    padding-left: 15px;
-  }
 
 </style>
