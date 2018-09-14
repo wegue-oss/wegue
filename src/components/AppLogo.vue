@@ -28,8 +28,7 @@ export default {
 
   .v-avatar.v-avatar--tile.wgu-app-logo {
     position: absolute;
-    z-index: 1000;
-    border: 2px solid white;
+    z-index: 2;
   }
 
 </style>

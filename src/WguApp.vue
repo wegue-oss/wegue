@@ -3,6 +3,8 @@
 
     <wgu-app-header />
 
+    <wgu-app-logo />
+
     <v-content>
       <v-container id="ol-map-container" fluid fill-height style="padding: 0">
          <wgu-map />
@@ -26,6 +28,7 @@
   import { WguEventBus } from './WguEventBus'
   import OlMap from './components/ol/Map'
   import AppHeader from './components/AppHeader'
+  import AppLogo from './components/AppLogo'
   import MeasureWin from './components/measuretool/MeasureWin'
   import LayerListWin from './components/layerlist/LayerList'
 
@@ -34,6 +37,7 @@
     components: {
       'wgu-map': OlMap,
       'wgu-app-header': AppHeader,
+      'wgu-app-logo': AppLogo,
       'wgu-measuretool-win': MeasureWin,
       'wgu-layerlist-win': LayerListWin
     },
