@@ -31,6 +31,7 @@
   import AppLogo from './components/AppLogo'
   import MeasureWin from './components/measuretool/MeasureWin'
   import LayerListWin from './components/layerlist/LayerList'
+  import InfoClickWin from './components/infoclick/InfoClickWin'
 
   export default {
     name: 'wgu-app',
@@ -39,7 +40,8 @@
       'wgu-app-header': AppHeader,
       'wgu-app-logo': AppLogo,
       'wgu-measuretool-win': MeasureWin,
-      'wgu-layerlist-win': LayerListWin
+      'wgu-layerlist-win': LayerListWin,
+      'wgu-infoclick-win': InfoClickWin
     },
     data () {
       return {

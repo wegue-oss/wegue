@@ -1,63 +1,59 @@
 <template>
 
-  <div class="">
+  <v-card v-draggable-win class="wgu-infoclick-win" v-if=show v-bind:style="{ left: left, top: top }">
+    <v-toolbar class="red darken-3 white--text" dark>
+      <v-toolbar-side-icon><v-icon>{{icon}}</v-icon></v-toolbar-side-icon>
+      <v-toolbar-title>{{title}}</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-side-icon @click="show = false"><v-icon>close</v-icon></v-toolbar-side-icon>
+    </v-toolbar>
+    <v-card-title primary-title>
 
-    <v-card v-draggable-win class="wgu-infoclick-win" v-if=show v-bind:style="{ left: left, top: top }">
-      <v-toolbar class="red darken-3 white--text" dark>
-        <v-toolbar-side-icon><v-icon>{{icon}}</v-icon></v-toolbar-side-icon>
-        <v-toolbar-title>{{title}}</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-toolbar-side-icon @click="show = false"><v-icon>close</v-icon></v-toolbar-side-icon>
-      </v-toolbar>
-      <v-card-title primary-title>
+      <div v-if="this.gridData === null && this.coordsData === null" class="no-data">
+        Click on the map to get information for the clicked map position.
+      </div>
 
-        <div v-if="this.gridData === null && this.coordsData === null" class="no-data">
-          Click on the map to get information for the clicked map position.
-        </div>
+      <!-- feature property grid -->
+      <table v-if="this.gridData !== null">
+        <thead>
+          <tr>
+            <th v-for="entry in gridData"
+            </th>
+          </tr>
+        </thead>
+        <tbody class="attr-tbody">
+          <tr v-for="(value, key) in gridData">
+            <td>
+              {{key}}
+            </td>
+            <td>
+              {{value}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-        <!-- feature property grid -->
-        <table v-if="this.gridData !== null">
-          <thead>
-            <tr>
-              <th v-for="entry in gridData"
-              </th>
-            </tr>
-          </thead>
-          <tbody class="attr-tbody">
-            <tr v-for="(value, key) in gridData">
-              <td>
-                {{key}}
-              </td>
-              <td>
-                {{value}}
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <table class="coords" v-if="this.coordsData !== null">
+        <thead>
+          <tr>
+            <th v-for="entry in coordsData"
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(value, key) in coordsData">
+            <td>
+              {{key}}
+            </td>
+            <td>
+              {{value}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-        <table class="coords" v-if="this.coordsData !== null">
-          <thead>
-            <tr>
-              <th v-for="entry in coordsData"
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(value, key) in coordsData">
-              <td>
-                {{key}}
-              </td>
-              <td>
-                {{value}}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-      </v-card-title>
-    </v-card>
-
-  </div>
+    </v-card-title>
+  </v-card>
 
 </template>
 
@@ -76,8 +72,8 @@ export default {
   data: function () {
     return {
       show: false,
-      left: '10px',
-      top: '70px',
+      left: '2px',
+      top: '270px',
       coordsMapProj: '',
       coordsWgs84: '',
       coordsHdms: '',
@@ -159,10 +155,6 @@ export default {
 
   .wgu-infoclick-win .v-card__title {
     display: inherit;
-  }
-
-  .wgu-infoclick-win .no-data {
-    width: 335px;
   }
 
   .wgu-infoclick-win table {

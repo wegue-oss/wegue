@@ -44,7 +44,7 @@
       "name": "Vector Tile Layer",
       "url": "https://ahocevar.com/geoserver/gwc/service/tms/1.0.0/ne:ne_10m_admin_0_countries@EPSG%3A900913@pbf/{z}/{x}/{-y}.pbf",
       "format": "MVT",
-      "visible": true,
+      "visible": false,
       "styleRef": "neWorldMvt"
     },
 
@@ -75,7 +75,8 @@
       "sketchVertexFillColor": "rgba(198,40,40,0.2)"
     },
     "wgu-infoclick": {
-      "target": "menu"
+      "target": "menu",
+      "win": true
     },
     "wgu-zoomtomaxextent": {
       "target": "toolbar"

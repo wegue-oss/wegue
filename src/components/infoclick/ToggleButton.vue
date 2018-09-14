@@ -1,30 +1,18 @@
 <template>
 
-  <div class="">
-
-    <v-btn icon @click="toggleUi">
-      <v-icon medium>{{icon}}</v-icon>
-      {{text}}
-    </v-btn>
-
-    <wgu-infoclick-win
-      ref="infoClickWin"
-      :icon="icon"
-    />
-
-  </div>
+  <v-btn icon @click="toggleUi">
+    <v-icon medium>{{icon}}</v-icon>
+    {{text}}
+  </v-btn>
 
 </template>
 
 <script>
-
-import InfoClickWin from './InfoClickWin.vue'
+import Vue from 'vue'
+import { WguEventBus } from '../../WguEventBus'
 
 export default {
   name: 'wgu-infoclick-btn',
-  components: {
-    'wgu-infoclick-win': InfoClickWin
-  },
   props: {
     icon: {type: String, required: false, default: 'info'},
     text: {type: String, required: false, default: ''}
@@ -34,11 +22,17 @@ export default {
       moduleName: 'wgu-infoclick'
     }
   },
+  created () {
+    var me = this;
+    // TODO move to a father class
+    WguEventBus.$on('app-mounted', () => {
+      me.win = Vue.prototype.cmpLookup[me.moduleName + '-win'];
+    });
+  },
   methods: {
     toggleUi () {
       // TODO move to a father class
-      this.$refs.infoClickWin.show = !this.$refs.infoClickWin.show;
-      this.show = this.$refs.infoClickWin.show;
+      this.win.show = !this.win.show;
     }
   }
 };
