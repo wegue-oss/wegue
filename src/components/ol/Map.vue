@@ -106,4 +106,8 @@ export default {
   .ol-control button:hover, .ol-control button:active, .ol-control button:focus {
     background-color: #d82828;
   }
+
+  .ol-attribution.ol-uncollapsible {
+    bottom: 12px;
+  }
 </style>

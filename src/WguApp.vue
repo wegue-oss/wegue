@@ -17,7 +17,7 @@
 
     <v-footer color="red darken-3" class="white--text" app>
       <v-spacer></v-spacer>
-      <span>meggsimum &copy; {{ new Date().getFullYear() }}</span>
+      <span class="wgu-copyright">meggsimum &copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
 
   </v-app>
