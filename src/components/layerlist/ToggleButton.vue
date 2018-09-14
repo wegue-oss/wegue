@@ -22,10 +22,12 @@ export default {
   components: {
     'wgu-layerlist-win': LayerListWin
   },
+  props: {
+    icon: {type: String, required: false, default: 'layers'},
+    text: {type: String, required: false, default: ''}
+  },
   data: function () {
     return {
-      icon: 'layers',
-      text: '',
       moduleName: 'wgu-layerlist'
     }
   },

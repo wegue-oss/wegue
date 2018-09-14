@@ -3,7 +3,7 @@
   <v-card class="wgu-measurewin" v-draggable-win v-if="show" v-bind:style="{ left: left, top: top }">
     <v-toolbar class="red darken-3 white--text" dark>
       <v-toolbar-side-icon><v-icon>{{icon}}</v-icon></v-toolbar-side-icon>
-      <v-toolbar-title>Measure</v-toolbar-title>
+      <v-toolbar-title>{{title}}</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-side-icon @click="show = false"><v-icon>close</v-icon></v-toolbar-side-icon>
     </v-toolbar>
@@ -58,16 +58,19 @@
       DraggableWin
     },
     mixins: [Mapable],
-    props: ['icon'],
+    props: {
+      icon: {type: String, required: false, default: 'photo_size_select_small'},
+      title: {type: String, required: false, default: 'Measure'}
+    },
     data () {
       return {
+        moduleName: 'wgu-measuretool',
         area: ' -- ',
         distance: ' -- ',
         measureType: 'distance',
         show: false,
         left: '10px',
-        top: '70px',
-        moduleName: 'wgu-measuretool'
+        top: '70px'
       }
     },
     watch: {

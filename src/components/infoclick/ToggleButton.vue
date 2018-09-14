@@ -10,8 +10,6 @@
     <wgu-infoclick-win
       ref="infoClickWin"
       :icon="icon"
-      :left="left"
-      :top="top"
     />
 
   </div>
@@ -27,13 +25,13 @@ export default {
   components: {
     'wgu-infoclick-win': InfoClickWin
   },
+  props: {
+    icon: {type: String, required: false, default: 'info'},
+    text: {type: String, required: false, default: ''}
+  },
   data: function () {
     return {
-      show: false,
-      icon: 'info',
-      text: '',
-      left: '30px',
-      top: '30px'
+      moduleName: 'wgu-infoclick'
     }
   },
   methods: {

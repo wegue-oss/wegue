@@ -19,12 +19,13 @@ export default {
   components: {
     'wgu-measuretool-win': MeasureWin
   },
+  props: {
+    icon: {type: String, required: false, default: 'photo_size_select_small'},
+    text: {type: String, required: false}
+  },
   data: function () {
     return {
-      moduleName: 'wgu-measuretool',
-      // TODO move to props with default
-      icon: 'photo_size_select_small',
-      text: ''
+      moduleName: 'wgu-measuretool'
     }
   },
   created () {

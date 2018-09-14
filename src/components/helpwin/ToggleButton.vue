@@ -10,6 +10,7 @@
     <wgu-helpwin
       ref="helpwin"
       :icon="icon"
+      :title="text"
       :headline="headline"
       :content="content"
       :infoLink="infoLink"
@@ -30,15 +31,17 @@ export default {
   components: {
     'wgu-helpwin': HelpWin
   },
+  props: {
+    icon: {type: String, required: false, default: 'help'},
+    text: {type: String, required: false},
+    headline: {type: String, required: false},
+    content: {type: String, required: false},
+    infoLink: {type: String, required: false},
+    infoLinkText: {type: String, required: false}
+  },
   data: function () {
     return {
-      show: false,
-      icon: 'help',
-      text: '',
-      headline: 'About Wegue',
-      content: '<h3>WebGIS with OpenLayers and Vue.js</h3> Template and re-usable components for webmapping applications with OpenLayers and Vue.js',
-      infoLink: 'https://github.com/meggsimum/wegue',
-      infoLinkText: 'More info'
+      show: false
     }
   }
 };
