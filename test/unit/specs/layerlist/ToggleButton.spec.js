@@ -15,7 +15,6 @@ describe('layerlist/ToggleButton.vue', () => {
     expect(typeof LayerListToggleBtn.data).to.equal('function');
     const defaultData = LayerListToggleBtn.data();
     expect(typeof defaultData).to.equal('object');
-    expect(defaultData.show).to.equal(false);
   });
 
   // Mount an instance and inspect the render output
@@ -26,7 +25,5 @@ describe('layerlist/ToggleButton.vue', () => {
     }).$mount();
     const btn = vm.$el.querySelector('v-btn');
     expect(btn !== null).to.equal(true);
-    const icon = vm.$el.querySelector('v-icon');
-    expect(icon !== null).to.equal(true);
   });
 });

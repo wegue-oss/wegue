@@ -15,20 +15,5 @@ describe('infoclick/ToggleButton.vue', () => {
     expect(typeof InfoClickToggleBtn.data).to.equal('function');
     const defaultData = InfoClickToggleBtn.data();
     expect(typeof defaultData).to.equal('object');
-    expect(defaultData.show).to.equal(false);
-    expect(defaultData.icon).to.equal('info');
-    expect(defaultData.text).to.equal('');
-  });
-
-  // Mount an instance and inspect the render output
-  it('renders the right sub-components', () => {
-    const Constructor = Vue.extend(InfoClickToggleBtn);
-    const vm = new Constructor({
-      icon: 'info'
-    }).$mount();
-    const btn = vm.$el.querySelector('v-btn');
-    expect(btn !== null).to.equal(true);
-    const icon = vm.$el.querySelector('v-icon');
-    expect(icon !== null).to.equal(true);
   });
 });

@@ -15,16 +15,5 @@ describe('measuretool/ToggleButton.vue', () => {
     expect(typeof MeasureToggleBtn.data).to.equal('function');
     const defaultData = MeasureToggleBtn.data();
     expect(typeof defaultData).to.equal('object');
-    expect(defaultData.show).to.equal(false);
-  });
-
-  // Mount an instance and inspect the render output
-  it('renders the right sub-components', () => {
-    const Constructor = Vue.extend(MeasureToggleBtn);
-    const vm = new Constructor().$mount();
-    const btn = vm.$el.querySelector('v-btn');
-    expect(btn !== null).to.equal(true);
-    const icon = vm.$el.querySelector('v-icon');
-    expect(icon !== null).to.equal(true);
   });
 });
