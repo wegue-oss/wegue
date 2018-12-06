@@ -93,21 +93,21 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-  .ol-zoom {
+  div.ol-zoom {
     top: auto;
     left: auto;
     bottom: 3em;
     right: 0.5em;
   }
 
-  .ol-control button {
+  div.ol-control button {
     background-color: #c62828;
   }
-  .ol-control button:hover, .ol-control button:active, .ol-control button:focus {
+  div.ol-control button:hover, .ol-control button:active, .ol-control button:focus {
     background-color: #d82828;
   }
 
-  .ol-attribution.ol-uncollapsible {
+  div.ol-attribution.ol-uncollapsible {
     bottom: 12px;
   }
 </style>
