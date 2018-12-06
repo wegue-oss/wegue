@@ -1,7 +1,7 @@
 
 html {
   /* otherwise we have always vertical scrollbars */
-  overflow-y: auto !important;
+  overflow-y: hidden !important;
 }
 
 .wgu-app {
@@ -15,12 +15,16 @@ html {
   border: 2px solid grey;
 }
 
-.wgu-app .wgu-map {
+.wgu-map {
 }
 .wgu-app-embedded .wgu-map {
 }
 
 .wgu-app-logo {
-  left: 25px;
-  top: 45px;
+  left: 8px;
+  bottom: 50px;
+}
+
+.wgu-copyright {
+  padding-right: 5px;
 }

@@ -1,9 +1,9 @@
 <template>
 
-  <v-card v-draggable-win class="wgu-measurewin" v-if=show v-bind:style="{ left: left, top: top }">
+  <v-card class="wgu-measurewin" v-draggable-win v-if="show" v-bind:style="{ left: left, top: top }">
     <v-toolbar class="red darken-3 white--text" dark>
       <v-toolbar-side-icon><v-icon>{{icon}}</v-icon></v-toolbar-side-icon>
-      <v-toolbar-title>Measure</v-toolbar-title>
+      <v-toolbar-title>{{title}}</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-side-icon @click="show = false"><v-icon>close</v-icon></v-toolbar-side-icon>
     </v-toolbar>
@@ -53,19 +53,24 @@
   import { Mapable } from '../../mixins/Mapable';
 
   export default {
+    name: 'wgu-measuretool-win',
     directives: {
       DraggableWin
     },
     mixins: [Mapable],
-    props: ['icon'],
+    props: {
+      icon: {type: String, required: false, default: 'photo_size_select_small'},
+      title: {type: String, required: false, default: 'Measure'}
+    },
     data () {
       return {
+        moduleName: 'wgu-measuretool',
         area: ' -- ',
         distance: ' -- ',
         measureType: 'distance',
         show: false,
-        left: '100px',
-        top: '200px'
+        left: '10px',
+        top: '70px'
       }
     },
     watch: {
@@ -95,7 +100,7 @@
        */
       createMeasureLayer () {
         const me = this;
-        const measureConf = me.$appConfig.modules.wgumeasure || {};
+        const measureConf = me.$appConfig.modules[me.moduleName] || {};
         // create a vector layer to
         var source = new VectorSource();
         var vector = new VectorLayer({
@@ -122,7 +127,7 @@
        */
       addInteraction () {
         const me = this;
-        const measureConf = me.$appConfig.modules.wgumeasure || {};
+        const measureConf = me.$appConfig.modules[me.moduleName] || {};
         // cleanup possible old draw interaction
         if (me.draw) {
           me.removeInteraction();

@@ -1,8 +1,8 @@
 <template>
 
-  <div class="">
+  <v-dialog v-model="show" max-width="300" :hide-overlay="false">
 
-    <v-btn icon @click="toggleUi">
+    <v-btn icon slot="activator" dark>
       <v-icon medium>{{icon}}</v-icon>
       {{text}}
     </v-btn>
@@ -10,15 +10,15 @@
     <wgu-helpwin
       ref="helpwin"
       :icon="icon"
+      :title="text"
       :headline="headline"
       :content="content"
       :infoLink="infoLink"
       :infoLinkText="infoLinkText"
-      :left="left"
-      :top="top"
+      v-on:winxclose="show=false"
     />
 
-  </div>
+  </v-dialog>
 
 </template>
 
@@ -27,28 +27,21 @@
 import HelpWin from './HelpWin'
 
 export default {
-  name: 'wgu-toggle-helpwin-button',
+  name: 'wgu-helpwin-btn',
   components: {
     'wgu-helpwin': HelpWin
   },
+  props: {
+    icon: {type: String, required: false, default: 'help'},
+    text: {type: String, required: false},
+    headline: {type: String, required: false},
+    content: {type: String, required: false},
+    infoLink: {type: String, required: false},
+    infoLinkText: {type: String, required: false}
+  },
   data: function () {
     return {
-      show: false,
-      icon: 'help',
-      text: '',
-      headline: 'About Wegue',
-      content: '<h3>WebGIS with OpenLayers and Vue.js</h3> Template and re-usable components for webmapping applications with OpenLayers and Vue.js',
-      infoLink: 'https://github.com/meggsimum/wegue',
-      infoLinkText: 'More info',
-      left: '300px',
-      top: '300px'
-    }
-  },
-  methods: {
-    toggleUi () {
-      // TODO move to a father class
-      this.$refs.helpwin.show = !this.$refs.helpwin.show;
-      this.show = this.$refs.helpwin.show;
+      show: false
     }
   }
 };

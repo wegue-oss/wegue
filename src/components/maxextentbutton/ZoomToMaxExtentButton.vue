@@ -1,13 +1,13 @@
 <template>
 
-  <div class="">
+  <!-- <div class=""> -->
 
-    <v-btn icon @click="onClick">
+    <v-btn icon @click="onClick" dark>
       <v-icon medium>{{icon}}</v-icon>
       {{text}}
     </v-btn>
 
-  </div>
+  <!-- </div> -->
 
 </template>
 
@@ -16,11 +16,11 @@
 import { Mapable } from '../../mixins/Mapable';
 
 export default {
-  name: 'wgu-zoomtomaxextent-button',
+  name: 'wgu-zoomtomaxextent-btn',
   mixins: [Mapable],
   props: {
-    icon: {type: String, required: false},
-    text: {type: String, required: false}
+    icon: {type: String, required: false, default: 'zoom_out_map'},
+    text: {type: String, required: false, default: ''}
   },
   methods: {
     onClick () {

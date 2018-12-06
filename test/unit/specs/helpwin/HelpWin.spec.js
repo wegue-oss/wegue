@@ -15,6 +15,6 @@ describe('helpwin/HelpWin.vue', () => {
     const Constructor = Vue.extend(HelpWin)
     const vm = new Constructor().$mount();
     // el is not undefined but this tests that it is not rendered
-    expect(vm.$el.textContent).to.equal('');
+    expect(vm.$el.textContent).to.equal('help About  close About Wegue WebGIS with OpenLayers and Vue.js Template and re-usable components for webmapping applications with OpenLayers and Vue.js More info');
   });
 });

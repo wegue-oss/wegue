@@ -1,6 +1,4 @@
-<template>
-    <div class="map wgu-map" id="ol-map"></div>
-</template>
+<template></template>
 
 <script>
 
@@ -25,25 +23,14 @@ export default {
     }
   },
   mounted () {
-    this.map.setTarget(document.getElementById('ol-map'))
-
     // Send the event 'ol-map-mounted' with the OL map as payload
     WguEventBus.$emit('ol-map-mounted', this.map)
 
-    const appHeaderEl = document.querySelector('.wgu-app-toolbar');
-    if (appHeaderEl) {
-      const headerHeight = appHeaderEl.offsetHeight;
-      if (this.$isEmbedded) {
-        this.map.getTarget().style.height = 'calc(100% - ' + headerHeight + 'px)';
-      } else {
-        this.map.getTarget().style.height = 'calc(100vh - ' + headerHeight + 'px)';
-      }
-    }
-
     // resize the map, so it fits to parent
     window.setTimeout(() => {
+      this.map.setTarget(document.getElementById('ol-map-container'));
       this.map.updateSize();
-    }, 100);
+    }, 200);
   },
   created () {
     this.map = new Map({
@@ -106,14 +93,21 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-  .wgu-map .ol-zoom {
+  div.ol-zoom {
     top: auto;
     left: auto;
     bottom: 3em;
     right: 0.5em;
   }
 
-  .wgu-map .ol-control button {
+  div.ol-control button {
     background-color: #c62828;
+  }
+  div.ol-control button:hover, .ol-control button:active, .ol-control button:focus {
+    background-color: #d82828;
+  }
+
+  div.ol-attribution.ol-uncollapsible {
+    bottom: 12px;
   }
 </style>

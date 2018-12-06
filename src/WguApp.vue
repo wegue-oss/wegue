@@ -1,94 +1,87 @@
 <template>
-  <div id="app" data-app :class="{ 'wgu-app': true, 'wgu-app-embedded': isEmbedded }">
+  <v-app id="wgu-app" data-app :class="{ 'wgu-app': true, 'wgu-app-embedded': isEmbedded }">
 
-      <wgu-app-header>
+    <wgu-app-header />
 
-        <v-toolbar-items slot="wgu-tb-buttons" class="">
+    <wgu-app-logo />
 
-            <wgu-zoomtomaxextent-button
-              icon="zoom_out_map"
-              text=""
-            />
+    <v-content>
+      <v-container id="ol-map-container" fluid fill-height style="padding: 0">
+         <wgu-map />
+      </v-container>
+    </v-content>
 
-            <wgu-toggle-layerlist-button
-              icon="layers"
-              text=""
-            />
+    <template v-for="(moduleWin, index) in moduleWins">
+      <component :is="moduleWin.type" :key="index" :ref="moduleWin.type" />
+    </template>
 
-            <wgu-toggle-measuretool-button
-              icon="photo_size_select_small"
-              text=""
-            />
+    <v-footer color="red darken-3" class="white--text" app>
+      <v-spacer></v-spacer>
+      <span class="wgu-copyright">meggsimum &copy; {{ new Date().getFullYear() }}</span>
+    </v-footer>
 
-            <wgu-toggle-infoclick-button
-              icon="info"
-              text=""
-            />
-
-            <wgu-toggle-helpwin-button
-              icon="help"
-              text=""
-            />
-
-        </v-toolbar-items>
-      </wgu-app-header>
-
-      <wgu-app-logo />
-
-      <wgu-map />
-
-      <wgu-feature-infowindow
-        layerId="Shops"
-        imageProp="image"
-        titleProp="name"
-        icon="info"
-        title="Information"
-      />
-
-  </div>
+  </v-app>
 </template>
 
 <script>
+  import Vue from 'vue'
+  import { WguEventBus } from './WguEventBus'
+  import OlMap from './components/ol/Map'
+  import AppHeader from './components/AppHeader'
+  import AppLogo from './components/AppLogo'
+  import MeasureWin from './components/measuretool/MeasureWin'
+  import LayerListWin from './components/layerlist/LayerList'
+  import InfoClickWin from './components/infoclick/InfoClickWin'
 
-import OlMap from './components/ol/Map'
-import InfoWindow from './components/InfoWindow'
-import FeatureInfoWindow from './components/FeatureInfoWindow'
-import AppHeader from './components/AppHeader'
-import AppLogo from './components/AppLogo'
-import MenuButton from './components/MenuButton'
-import LayerListToggleButton from './components/layerlist/ToggleButton'
-import HelpWinToggleButton from './components/helpwin/ToggleButton'
-import MeasureToolToggleButton from './components/measuretool/ToggleButton'
-import InfoClickButton from './components/infoclick/ToggleButton'
-import ZoomToMaxExtentButton from './components/maxextentbutton/ZoomToMaxExtentButton'
-
-export default {
-  name: 'app',
-  components: {
-    'wgu-map': OlMap,
-    'wgu-info-window': InfoWindow,
-    'wgu-feature-infowindow': FeatureInfoWindow,
-    'wgu-app-header': AppHeader,
-    'wgu-app-logo': AppLogo,
-    'wgu-menubutton': MenuButton,
-    'wgu-toggle-layerlist-button': LayerListToggleButton,
-    'wgu-toggle-helpwin-button': HelpWinToggleButton,
-    'wgu-toggle-measuretool-button': MeasureToolToggleButton,
-    'wgu-toggle-infoclick-button': InfoClickButton,
-    'wgu-zoomtomaxextent-button': ZoomToMaxExtentButton
-  },
-  data () {
-    return {
-      isEmbedded: false
+  export default {
+    name: 'wgu-app',
+    components: {
+      'wgu-map': OlMap,
+      'wgu-app-header': AppHeader,
+      'wgu-app-logo': AppLogo,
+      'wgu-measuretool-win': MeasureWin,
+      'wgu-layerlist-win': LayerListWin,
+      'wgu-infoclick-win': InfoClickWin
+    },
+    data () {
+      return {
+        isEmbedded: false,
+        moduleWins: this.getModuleWinData()
+      }
+    },
+    mounted () {
+      // make the refs (floating module window, which are not connected to their
+      // related components, e.g. buttons to toggle them)
+      const refs = this.$refs;
+      let cmpLookup = {};
+      for (const key of Object.keys(refs)) {
+        cmpLookup[key] = refs[key][0];
+      }
+      Vue.prototype.cmpLookup = cmpLookup;
+      // inform registered cmps that the app is mounted and the dynamic
+      // components are available
+      WguEventBus.$emit('app-mounted');
+    },
+    methods: {
+      /**
+       * Determines the module window configuration objects from app-config:
+       *     moduleWins: [
+       *       {type: 'wgu-layerlist-win'},
+       *       {type: 'wgu-measuretool-win'}
+       *     ]
+       * @return {Array} module window configuration objects
+       */
+      getModuleWinData () {
+        const appConfig = Vue.prototype.$appConfig;
+        let moduleWins = [];
+        for (const key of Object.keys(appConfig.modules)) {
+          const moduleOpts = appConfig.modules[key];
+          if (moduleOpts.win === true) {
+            moduleWins.push({type: key + '-win'});
+          }
+        }
+        return moduleWins;
+      }
     }
-  },
-  mounted () {
-    // apply the isEmbedded state to the member var
-    this.isEmbedded = this.$isEmbedded;
   }
-}
 </script>
-
-<style>
-
-</style>

@@ -1,18 +1,11 @@
 <template>
 
-  <div class="">
+  <div class="" dark>
 
     <v-btn icon @click="toggleUi">
       <v-icon medium>{{icon}}</v-icon>
       {{text}}
     </v-btn>
-
-    <wgu-layerlist
-      ref="layerlist"
-      :icon="icon"
-      :left="left"
-      :top="top"
-    />
 
   </div>
 
@@ -20,27 +13,35 @@
 
 <script>
 
+import Vue from 'vue';
 import LayerListWin from './LayerList'
+import { WguEventBus } from '../../WguEventBus'
 
 export default {
-  name: 'v-webgis-toggle-layerlist-button',
+  name: 'wgu-layerlist-btn',
   components: {
-    'wgu-layerlist': LayerListWin
+    'wgu-layerlist-win': LayerListWin
+  },
+  props: {
+    icon: {type: String, required: false, default: 'layers'},
+    text: {type: String, required: false, default: ''}
   },
   data: function () {
     return {
-      show: false,
-      icon: 'layers',
-      text: '',
-      left: '30px',
-      top: '30px'
+      moduleName: 'wgu-layerlist'
     }
+  },
+  created () {
+    var me = this;
+    // TODO move to a father class
+    WguEventBus.$on('app-mounted', () => {
+      me.win = Vue.prototype.cmpLookup[me.moduleName + '-win'];
+    });
   },
   methods: {
     toggleUi () {
       // TODO move to a father class
-      this.$refs.layerlist.show = !this.$refs.layerlist.show;
-      this.show = this.$refs.layerlist.show;
+      this.win.show = !this.win.show;
     }
   }
 };

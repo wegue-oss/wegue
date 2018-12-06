@@ -2,6 +2,15 @@ import Vue from 'vue'
 import AppHeader from '@/components/AppHeader'
 
 describe('AppHeader.vue', () => {
+  //
+  it('has a method toggleUi', () => {
+    const Constructor = Vue.extend(AppHeader);
+    const ah = new Constructor({
+    }).$mount();
+    expect(typeof ah.getModuleButtonData).to.equal('function');
+    expect(typeof ah.getToolbarButtons).to.equal('function');
+  });
+
   // Evaluate the results of functions in
   // the raw component options
   it('sets the correct default data', () => {
@@ -9,8 +18,6 @@ describe('AppHeader.vue', () => {
       title: 'foo'
     };
     expect(typeof AppHeader.data).to.equal('function');
-    const defaultData = AppHeader.data();
-    expect(typeof defaultData).to.equal('object');
   });
 
   // Mount an instance and inspect the render output
