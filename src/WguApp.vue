@@ -50,6 +50,9 @@
       }
     },
     mounted () {
+      // apply the isEmbedded state to the member var
+      this.isEmbedded = this.$isEmbedded;
+
       // make the refs (floating module window, which are not connected to their
       // related components, e.g. buttons to toggle them)
       const refs = this.$refs;
