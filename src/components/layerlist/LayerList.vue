@@ -3,7 +3,7 @@
   <v-card v-draggable-win class="wgu-layerlist" v-if=show v-bind:style="{ left: left, top: top }">
     <v-toolbar class="red darken-3 white--text" dark>
       <v-toolbar-side-icon><v-icon>{{icon}}</v-icon></v-toolbar-side-icon>
-      <v-toolbar-title>{{title}}</v-toolbar-title>
+      <v-toolbar-title class="wgu-win-title">{{title}}</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-side-icon @click="show = false"><v-icon>close</v-icon></v-toolbar-side-icon>
     </v-toolbar>
