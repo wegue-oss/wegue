@@ -17,7 +17,7 @@
 
     <v-footer color="red darken-3" class="white--text" app>
       <v-spacer></v-spacer>
-      <span class="wgu-copyright">meggsimum &copy; {{ new Date().getFullYear() }}</span>
+      <span class="wgu-copyright">{{footerText}} <span v-if="showCopyrightYear" >&copy; {{ new Date().getFullYear() }}</span></span>
     </v-footer>
 
   </v-app>
@@ -46,7 +46,9 @@
     data () {
       return {
         isEmbedded: false,
-        moduleWins: this.getModuleWinData()
+        moduleWins: this.getModuleWinData(),
+        footerText: Vue.prototype.$appConfig.footerText,
+        showCopyrightYear: Vue.prototype.$appConfig.showCopyrightYear
       }
     },
     mounted () {
