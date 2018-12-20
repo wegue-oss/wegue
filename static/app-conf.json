@@ -5,6 +5,9 @@
   "logo": "https://dummyimage.com/100x100/aaa/fff&text=Wegue",
   "logoSize": "100",
 
+  "footerText": "meggsimum",
+  "showCopyrightYear": true,
+
   "mapZoom": 2,
   "mapCenter": [0, 0],
 
