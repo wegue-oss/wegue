@@ -1,6 +1,7 @@
 <template>
 
   <v-avatar
+     v-if="!!logoSrc"
      :size="logoSize"
      :tile="true"
      class="wgu-app-logo"
