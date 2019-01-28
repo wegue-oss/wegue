@@ -8,7 +8,7 @@
       <v-toolbar-side-icon @click="show=false"><v-icon>close</v-icon></v-toolbar-side-icon>
     </v-toolbar>
     <v-list>
-      <v-list-tile class="wgu-layerlist-item" v-for="layerItem in layerItems" v-bind:key="layerItem.lid">
+      <v-list-tile class="wgu-layerlist-item" v-for="layerItem in layerItems" v-bind:key="layerItem.lid" @click="onItemClick($event, layerItem)">
         <input type="checkbox" :key="layerItem.lid" class="wgu-layer-viz-cb" v-model="layerItem.visible" @change="layerVizChanged">
         <v-list-tile-content class="black--text">
             <v-list-tile-title>{{ layerItem.title }}</v-list-tile-title>
@@ -82,6 +82,19 @@
         });
 
         this.layerItems = layerItems;
+      },
+
+      /**
+       * Handler for click on item in layer list:
+       * Toggles the corresponding visibility and calls this.layerVizChanged.
+       *
+       * @param  {Object} ect       Original vue click event
+       * @param  {Object} layerItem Layer item data object
+       */
+      onItemClick (evt, layerItem) {
+        layerItem.visible = !layerItem.visible;
+
+        this.layerVizChanged();
       },
 
       /**
