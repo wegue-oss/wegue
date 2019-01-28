@@ -30,7 +30,7 @@
   import AppHeader from './components/AppHeader'
   import AppLogo from './components/AppLogo'
   import MeasureWin from './components/measuretool/MeasureWin'
-  import LayerListWin from './components/layerlist/LayerList'
+  import LayerListWin from './components/layerlist/LayerListWin'
   import InfoClickWin from './components/infoclick/InfoClickWin'
 
   export default {
