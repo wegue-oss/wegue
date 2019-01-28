@@ -27,6 +27,7 @@
 <script>
   import { DraggableWin } from '../../directives/DraggableWin.js';
   import { Mapable } from '../../mixins/Mapable';
+  import LayerUtil from '../../util/Layer';
 
   export default {
     name: 'wgu-layerlist-win',
@@ -115,30 +116,11 @@
         })
 
         me.visibleLayers.forEach(function (layerNode) {
-          var layer = me.getLayersBy('name', layerNode)[0]
+          const layer = LayerUtil.getLayersBy('name', layerNode, me.map)[0];
           if (layer) {
             layer.setVisible(true)
           }
         })
-      },
-
-      /**
-       * Returns a set of map layers which matches the given key value pair.
-       *
-       * @param {String} key - Key to filter layers
-       * @param {Object} value - Value to filter layers
-       * @return {ol.layer.Base[]} Array of matching layers
-       */
-      getLayersBy (key, value) {
-        var layerMatches = []
-        var allLayers = this.map.getLayers()
-        allLayers.forEach(function (layer) {
-          if (layer.get(key) === value) {
-            layerMatches.push(layer)
-          }
-        })
-
-        return layerMatches
       }
     }
   }
