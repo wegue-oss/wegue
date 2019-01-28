@@ -67,6 +67,7 @@ export const LayerFactory = {
     const layer = new TileLayer({
       name: lConf.name,
       lid: lConf.lid,
+      displayInLayerList: lConf.displayInLayerList,
       extent: lConf.extent,
       visible: lConf.visible,
       opacity: lConf.opacity,
@@ -92,6 +93,7 @@ export const LayerFactory = {
    */
   createXyzLayer (lConf) {
     const xyzLayer = new TileLayer({
+      displayInLayerList: lConf.displayInLayerList,
       extent: lConf.extent,
       source: new TileWmsSource({
         url: lConf.url,
@@ -112,6 +114,7 @@ export const LayerFactory = {
     const layer = new TileLayer({
       name: lConf.name,
       lid: lConf.lid,
+      displayInLayerList: lConf.displayInLayerList,
       visible: lConf.visible,
       opacity: lConf.opacity,
       source: new OsmSource()
@@ -130,6 +133,7 @@ export const LayerFactory = {
     const vectorLayer = new VectorLayer({
       name: lConf.name,
       lid: lConf.lid,
+      displayInLayerList: lConf.displayInLayerList,
       extent: lConf.extent,
       visible: lConf.visible,
       opacity: lConf.opacity,
@@ -154,6 +158,7 @@ export const LayerFactory = {
     const vtLayer = new VectorTileLayer({
       name: lConf.name,
       lid: lConf.lid,
+      displayInLayerList: lConf.displayInLayerList,
       visible: lConf.visible,
       opacity: lConf.opacity,
       source: new VectorTileSource({
