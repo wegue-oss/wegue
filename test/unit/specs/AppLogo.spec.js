@@ -1,15 +1,22 @@
-import Vue from 'vue'
 import AppLogo from '@/components/AppLogo'
 
 describe('AppLogo.vue', () => {
-  it('should render an <img> tag', () => {
-    const Constructor = Vue.extend(AppLogo);
-    const AppLogoComponent = new Constructor({
-      logoSrc: 'foosrc'
-    }).$mount();
+  it('sets the correct default data', () => {
+    AppLogo.$appConfig = {};
+    expect(typeof AppLogo.data).to.equal('function');
+    const data = AppLogo.data();
+    expect(data.logoSrc).to.equal(undefined);
+    expect(data.logoSize).to.equal(undefined);
+  });
 
-    // assert that component has an img tag
-    const avatarImg = AppLogoComponent.$el.querySelector('img');
-    expect(avatarImg.src !== null).to.equal(true);
+  it('applies correct data from $appConfig', () => {
+    AppLogo.$appConfig = {
+      logo: 'foobar',
+      logoSize: 100
+    };
+    expect(typeof AppLogo.data).to.equal('function');
+    const data = AppLogo.data();
+    expect(data.logoSrc).to.equal('foobar');
+    expect(data.logoSize).to.equal(100);
   });
 });
