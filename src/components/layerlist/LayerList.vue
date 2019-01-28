@@ -77,6 +77,10 @@
         var layerItems = []
         var visibleLayers = []
         layers.forEach(function (layer) {
+          // skip if layer should not be listed
+          if (layer.get('displayInLayerList') === false) {
+            return;
+          }
           var visible = layer.getVisible();
           var name = layer.get('name');
           layerItems.push({
