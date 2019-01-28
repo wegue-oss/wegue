@@ -1,21 +1,21 @@
 <template>
   <v-app id="wgu-app" data-app :class="{ 'wgu-app': true, 'wgu-app-embedded': isEmbedded }">
 
-    <wgu-app-header />
+    <wgu-app-header :color="baseColor" />
 
     <wgu-app-logo />
 
     <v-content>
       <v-container id="ol-map-container" fluid fill-height style="padding: 0">
-         <wgu-map />
+         <wgu-map :color="baseColor" />
       </v-container>
     </v-content>
 
     <template v-for="(moduleWin, index) in moduleWins">
-      <component :is="moduleWin.type" :key="index" :ref="moduleWin.type" />
+      <component :is="moduleWin.type" :key="index" :ref="moduleWin.type" :color="baseColor" />
     </template>
 
-    <v-footer color="red darken-3" class="white--text" app>
+    <v-footer :color="baseColor" class="white--text" app>
       <v-spacer></v-spacer>
       <span class="wgu-copyright">{{footerText}} <span v-if="showCopyrightYear" >&copy; {{ new Date().getFullYear() }}</span></span>
     </v-footer>
@@ -48,7 +48,8 @@
         isEmbedded: false,
         moduleWins: this.getModuleWinData(),
         footerText: Vue.prototype.$appConfig.footerText,
-        showCopyrightYear: Vue.prototype.$appConfig.showCopyrightYear
+        showCopyrightYear: Vue.prototype.$appConfig.showCopyrightYear,
+        baseColor: Vue.prototype.$appConfig.baseColor
       }
     },
     mounted () {

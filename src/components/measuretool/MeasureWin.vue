@@ -1,7 +1,7 @@
 <template>
 
   <v-card class="wgu-measurewin" v-draggable-win v-if="show" v-bind:style="{ left: left, top: top }">
-    <v-toolbar class="red darken-3 white--text" dark>
+    <v-toolbar :color="color" class="" dark>
       <v-toolbar-side-icon><v-icon>{{icon}}</v-icon></v-toolbar-side-icon>
       <v-toolbar-title class="wgu-win-title">{{title}}</v-toolbar-title>
       <v-spacer></v-spacer>
@@ -59,6 +59,7 @@
     },
     mixins: [Mapable],
     props: {
+      color: {type: String, required: false, default: 'red darken-3'},
       icon: {type: String, required: false, default: 'photo_size_select_small'},
       title: {type: String, required: false, default: 'Measure'}
     },
