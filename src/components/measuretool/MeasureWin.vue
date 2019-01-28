@@ -106,6 +106,7 @@
         var source = new VectorSource();
         var vector = new VectorLayer({
           name: 'Measure Layer',
+          displayInLayerList: false,
           source: source,
           style: new Style({
             fill: new Fill({
