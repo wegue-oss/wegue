@@ -14,7 +14,7 @@
 <script>
 
 import Vue from 'vue';
-import LayerListWin from './LayerList'
+import LayerListWin from './LayerListWin'
 import { WguEventBus } from '../../WguEventBus'
 
 export default {

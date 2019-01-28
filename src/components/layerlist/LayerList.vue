@@ -1,48 +1,28 @@
 <template>
 
-  <v-card v-draggable-win class="wgu-layerlist" v-if=show v-bind:style="{ left: left, top: top }">
-    <v-toolbar :color="color" class="" dark>
-      <v-toolbar-side-icon><v-icon>{{icon}}</v-icon></v-toolbar-side-icon>
-      <v-toolbar-title class="wgu-win-title">{{title}}</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-toolbar-side-icon @click="show=false"><v-icon>close</v-icon></v-toolbar-side-icon>
-    </v-toolbar>
-    <v-list>
-      <v-list-tile class="wgu-layerlist-item" v-for="layerItem in layerItems" v-bind:key="layerItem.lid" @click="onItemClick($event, layerItem)">
-        <input type="checkbox" :key="layerItem.lid" class="wgu-layer-viz-cb" v-model="layerItem.visible" @change="layerVizChanged">
-        <v-list-tile-content class="black--text">
-            <v-list-tile-title>{{ layerItem.title }}</v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
-    </v-list>
-  </v-card>
+  <v-list>
+    <v-list-tile class="wgu-layerlist-item" v-for="layerItem in layerItems" v-bind:key="layerItem.lid" @click="onItemClick($event, layerItem)">
+      <input type="checkbox" :key="layerItem.lid" class="wgu-layer-viz-cb" v-model="layerItem.visible" @change="layerVizChanged">
+      <v-list-tile-content class="black--text">
+          <v-list-tile-title>{{ layerItem.title }}</v-list-tile-title>
+      </v-list-tile-content>
+    </v-list-tile>
+  </v-list>
 
 </template>
 
 <script>
-  import { DraggableWin } from '../../directives/DraggableWin.js';
   import { Mapable } from '../../mixins/Mapable';
   import LayerUtil from '../../util/Layer';
 
   export default {
-    name: 'wgu-layerlist-win',
-    directives: {
-      DraggableWin
-    },
+    name: 'wgu-layerlist',
     mixins: [Mapable],
     props: {
-      color: {type: String, required: false, default: 'red darken-3'},
-      icon: {type: String, required: false, default: 'layers'},
-      title: {type: String, required: false, default: 'Layers'}
     },
     data () {
       return {
-        moduleName: 'wgu-layerlist',
-        // will be filled in createLayerItems
-        layerItems: [],
-        show: false,
-        left: '10px',
-        top: '70px'
+        layerItems: []
       }
     },
     methods: {
@@ -116,10 +96,6 @@
 </script>
 
 <style>
-
-  .v-card.wgu-layerlist {
-    position: absolute;
-  }
 
   .wgu-layer-viz-cb {
     width: 45px;
