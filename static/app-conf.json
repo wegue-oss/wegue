@@ -2,6 +2,8 @@
 
   "title": "Vue.js / OpenLayers WebGIS",
 
+  "baseColor": "red darken-3",
+
   "logo": "https://dummyimage.com/100x100/aaa/fff&text=Wegue",
   "logoSize": "100",
 

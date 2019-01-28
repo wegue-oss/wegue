@@ -1,7 +1,7 @@
 <template>
 
   <v-card class="wgu-helpwin">
-    <v-toolbar class="red darken-3 white--text" dark>
+    <v-toolbar :color="color" class="" dark>
       <v-toolbar-side-icon><v-icon>{{ icon }}</v-icon></v-toolbar-side-icon>
       <v-toolbar-title>{{ title }}</v-toolbar-title>
       <v-spacer></v-spacer>
@@ -28,6 +28,7 @@
 <script>
   export default {
     props: {
+      color: {type: String, required: false, default: 'red darken-3'},
       icon: {type: String, required: false, default: 'help'},
       title: {type: String, required: false, default: 'About'},
       headline: {type: String, required: false, default: 'About Wegue'},

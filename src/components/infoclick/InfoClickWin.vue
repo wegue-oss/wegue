@@ -1,7 +1,7 @@
 <template>
 
   <v-card v-draggable-win class="wgu-infoclick-win" v-if=show v-bind:style="{ left: left, top: top }">
-    <v-toolbar class="red darken-3 white--text" dark>
+    <v-toolbar :color="color" class="" dark>
       <v-toolbar-side-icon><v-icon>{{icon}}</v-icon></v-toolbar-side-icon>
       <v-toolbar-title class="wgu-win-title">{{title}}</v-toolbar-title>
       <v-spacer></v-spacer>
@@ -14,7 +14,7 @@
       </div>
 
       <!-- feature property grid -->
-      <table v-if="this.gridData !== null">
+      <table v-if="this.gridData !== null" :style="tableStyles">
         <thead>
           <tr>
             <th v-for="entry in gridData"
@@ -33,7 +33,7 @@
         </tbody>
       </table>
 
-      <table class="coords" v-if="this.coordsData !== null">
+      <table class="coords" v-if="this.coordsData !== null" :style="tableStyles">
         <thead>
           <tr>
             <th v-for="entry in coordsData"
@@ -58,6 +58,11 @@
 </template>
 
 <script>
+// helper function to detect a CSS color
+function isCssColor (color) {
+  return !!color && !!color.match(/^(#|(rgb|hsl)a?\()/)
+}
+import vColors from 'vuetify/es5/util/colors';
 
 import { WguEventBus } from '../../WguEventBus.js';
 import {transform} from 'ol/proj.js';
@@ -66,6 +71,7 @@ import {toStringHDMS} from 'ol/coordinate';
 export default {
   name: 'wgu-infoclick-win',
   props: {
+    color: {type: String, required: false, default: 'red darken-3'},
     icon: {type: String, required: false, default: 'info'},
     title: {type: String, required: false, default: 'Map Click Info'}
   },
@@ -79,6 +85,23 @@ export default {
       coordsHdms: '',
       gridData: null,
       coordsData: null
+    }
+  },
+  computed: {
+    tableStyles () {
+      // calculate border color of tables due to current color property
+      let borderColor = this.color;
+      if (!isCssColor(this.color)) {
+        let [colorName, colorModifier] = this.color.toString().trim().split(' ', 2);
+        borderColor = vColors[colorName];
+        if (colorModifier) {
+          colorModifier = colorModifier.replace('-', '');
+          borderColor = vColors[colorName];
+        }
+      }
+      return {
+        'border': '2px solid ' + borderColor
+      };
     }
   },
   created () {

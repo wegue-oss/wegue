@@ -1,7 +1,7 @@
 <template>
   <v-toolbar
     class="wgu-app-toolbar white--text"
-    color="red darken-3"
+    :color="color"
     fixed
     app
     clipped-right
@@ -16,7 +16,7 @@
     </v-layout> -->
 
     <template v-for="(tbButton, index) in tbButtons">
-      <component :is="tbButton.type" :key="index" :icon="tbButton.icon" :text="tbButton.text"/>
+      <component :is="tbButton.type" :key="index" :icon="tbButton.icon" :text="tbButton.text" :color="color" />
     </template>
 
     <v-menu offset-y>
@@ -26,7 +26,7 @@
       <v-list>
           <template v-for="(tbButton, index) in menuButtons">
               <v-list-tile>
-                <component :is="tbButton.type" :key="index" :icon="tbButton.icon" :text="tbButton.text" />
+                <component :is="tbButton.type" :key="index" :icon="tbButton.icon" :text="tbButton.text" :color="color" />
               </v-list-tile>
           </template>
       </v-list>
@@ -52,6 +52,9 @@ export default {
     'wgu-helpwin-btn': HelpWinToggleButton,
     'wgu-measuretool-btn': MeasureToolToggleButton,
     'wgu-infoclick-btn': InfoClickButton
+  },
+  props: {
+    color: {type: String, required: false, default: 'red darken-3'}
   },
   data () {
     return {

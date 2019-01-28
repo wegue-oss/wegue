@@ -9,6 +9,7 @@
 
     <wgu-helpwin
       ref="helpwin"
+      :color="color"
       :icon="icon"
       :title="text"
       :headline="headline"
@@ -32,6 +33,7 @@ export default {
     'wgu-helpwin': HelpWin
   },
   props: {
+    color: {type: String, required: false, default: 'red darken-3'},
     icon: {type: String, required: false, default: 'help'},
     text: {type: String, required: false},
     headline: {type: String, required: false},

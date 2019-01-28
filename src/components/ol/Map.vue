@@ -1,6 +1,10 @@
 <template></template>
 
 <script>
+// helper function to detect a CSS color
+function isCssColor (color) {
+  return !!color && !!color.match(/^(#|(rgb|hsl)a?\()/)
+}
 
 import Map from 'ol/Map'
 import View from 'ol/View'
@@ -14,6 +18,7 @@ import { LayerFactory } from '../../factory/Layer.js';
 export default {
   name: 'wgu-map',
   props: {
+    color: {type: String, required: false, default: 'red darken-3'},
     collapsibleAttribution: {type: Boolean, default: false}
   },
   data () {
@@ -23,13 +28,19 @@ export default {
     }
   },
   mounted () {
+    var me = this;
     // Send the event 'ol-map-mounted' with the OL map as payload
-    WguEventBus.$emit('ol-map-mounted', this.map)
+    WguEventBus.$emit('ol-map-mounted', me.map);
 
     // resize the map, so it fits to parent
     window.setTimeout(() => {
-      this.map.setTarget(document.getElementById('ol-map-container'));
-      this.map.updateSize();
+      me.map.setTarget(document.getElementById('ol-map-container'));
+      me.map.updateSize();
+
+      // adjust the bg color of the OL zoom buttons (if existing)
+      if (document.querySelector('.ol-zoom')) {
+        me.setZoomButtonColor();
+      }
     }, 200);
   },
   created () {
@@ -85,6 +96,26 @@ export default {
       });
 
       return layers;
+    },
+    /**
+     * Sets the background color of the OL zoom buttons to the color property.
+     */
+    setZoomButtonColor () {
+      var me = this;
+
+      if (isCssColor(me.color)) {
+        // directly apply the given CSS color
+        document.querySelector('.ol-zoom .ol-zoom-in').style.backgroundColor = me.color;
+        document.querySelector('.ol-zoom .ol-zoom-out').style.backgroundColor = me.color;
+      } else {
+        // apply vuetify color by transforming the color to the corresponding
+        // CSS class (see https://vuetifyjs.com/en/framework/colors)
+        const [colorName, colorModifier] = me.color.toString().trim().split(' ', 2);
+        document.querySelector('.ol-zoom .ol-zoom-in').classList.add(colorName);
+        document.querySelector('.ol-zoom .ol-zoom-in').classList.add(colorModifier);
+        document.querySelector('.ol-zoom .ol-zoom-out').classList.add(colorName);
+        document.querySelector('.ol-zoom .ol-zoom-out').classList.add(colorModifier);
+      }
     }
   }
 
@@ -98,13 +129,6 @@ export default {
     left: auto;
     bottom: 3em;
     right: 0.5em;
-  }
-
-  div.ol-control button {
-    background-color: #c62828;
-  }
-  div.ol-control button:hover, .ol-control button:active, .ol-control button:focus {
-    background-color: #d82828;
   }
 
   div.ol-attribution.ol-uncollapsible {
