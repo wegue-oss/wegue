@@ -6,6 +6,8 @@ function isCssColor (color) {
   return !!color && !!color.match(/^(#|(rgb|hsl)a?\()/)
 }
 
+import Vue from 'vue';
+
 import Map from 'ol/Map'
 import View from 'ol/View'
 import Attribution from 'ol/control/Attribution';
@@ -29,6 +31,9 @@ export default {
   },
   mounted () {
     var me = this;
+    // Make the OL map accessible for Mapable mixin even 'ol-map-mounted' has
+    // already been fired. Don not use directly in cmps, use Mapable instead.
+    Vue.prototype.$map = me.map;
     // Send the event 'ol-map-mounted' with the OL map as payload
     WguEventBus.$emit('ol-map-mounted', me.map);
 
