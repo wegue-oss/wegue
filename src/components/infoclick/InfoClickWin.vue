@@ -59,11 +59,13 @@
 
 <script>
 // helper function to detect a CSS color
+// Taken from Vuetify sources
+// https://github.com/vuetifyjs/vuetify/blob/master/packages/vuetify/src/mixins/colorable.ts
 function isCssColor (color) {
   return !!color && !!color.match(/^(#|(rgb|hsl)a?\()/)
 }
-import vColors from 'vuetify/es5/util/colors';
 
+import vColors from 'vuetify/es5/util/colors';
 import { WguEventBus } from '../../WguEventBus.js';
 import {transform} from 'ol/proj.js';
 import {toStringHDMS} from 'ol/coordinate';
@@ -96,7 +98,7 @@ export default {
         borderColor = vColors[colorName];
         if (colorModifier) {
           colorModifier = colorModifier.replace('-', '');
-          borderColor = vColors[colorName];
+          borderColor = vColors[colorName][colorModifier];
         }
       }
       return {
@@ -181,7 +183,6 @@ export default {
   }
 
   .wgu-infoclick-win table {
-    border: 2px solid #c62828;
     border-radius: 3px;
     background-color: #fff;
   }

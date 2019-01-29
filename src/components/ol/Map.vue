@@ -2,12 +2,13 @@
 
 <script>
 // helper function to detect a CSS color
+// Taken from Vuetify sources
+// https://github.com/vuetifyjs/vuetify/blob/master/packages/vuetify/src/mixins/colorable.ts
 function isCssColor (color) {
   return !!color && !!color.match(/^(#|(rgb|hsl)a?\()/)
 }
 
 import Vue from 'vue';
-
 import Map from 'ol/Map'
 import View from 'ol/View'
 import Attribution from 'ol/control/Attribution';
