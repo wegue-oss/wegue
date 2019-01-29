@@ -96,7 +96,7 @@ export default {
         borderColor = vColors[colorName];
         if (colorModifier) {
           colorModifier = colorModifier.replace('-', '');
-          borderColor = vColors[colorName];
+          borderColor = vColors[colorName][colorModifier];
         }
       }
       return {
@@ -181,7 +181,6 @@ export default {
   }
 
   .wgu-infoclick-win table {
-    border: 2px solid #c62828;
     border-radius: 3px;
     background-color: #fff;
   }
