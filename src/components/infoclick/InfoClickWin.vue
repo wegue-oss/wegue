@@ -33,6 +33,7 @@
         </tbody>
       </table>
 
+<<<<<<< HEAD
       <table class="coords" v-if="this.coordsData !== null" :style="tableStyles">
         <thead>
           <tr>
@@ -51,6 +52,10 @@
           </tr>
         </tbody>
       </table>
+=======
+      <!-- click coodinate info grid -->
+      <wgu-coords-table :coordsData="coordsData" :color="color" />
+>>>>>>> 08eed3b... Separate CoordsTable into own component
 
     </v-card-title>
   </v-card>
@@ -67,11 +72,13 @@ function isCssColor (color) {
 
 import vColors from 'vuetify/es5/util/colors';
 import { WguEventBus } from '../../WguEventBus.js';
-import {transform} from 'ol/proj.js';
-import {toStringHDMS} from 'ol/coordinate';
+import CoordsTable from './CoordsTable';
 
 export default {
   name: 'wgu-infoclick-win',
+  components: {
+    'wgu-coords-table': CoordsTable
+  },
   props: {
     color: {type: String, required: false, default: 'red darken-3'},
     icon: {type: String, required: false, default: 'info'},
@@ -82,9 +89,6 @@ export default {
       show: false,
       left: '2px',
       top: '270px',
-      coordsMapProj: '',
-      coordsWgs84: '',
-      coordsHdms: '',
       gridData: null,
       coordsData: null
     }
@@ -138,21 +142,11 @@ export default {
           me.gridData = null;
         }
 
-        var coordinates = evt.coordinate;
-        var mapProjCode = me.map.getView().getProjection().getCode();
-        var coordinatesWgs84 =
-            transform(coordinates, mapProjCode, 'EPSG:4326');
-        var hdms = toStringHDMS(coordinatesWgs84);
-
-        me.coordsMapProj = coordinates[1].toFixed(2) + ' ' + coordinates[0].toFixed(2);
-        me.coordsWgs84 = coordinatesWgs84[1].toFixed(7) + ' ' + coordinatesWgs84[0].toFixed(7);
-        me.coordsHdms = hdms;
-
+        // collect click coordinate + projection --> CoordsTable
         me.coordsData = {
-          'POS': coordinates[1].toFixed(2) + ' ' + coordinates[0].toFixed(2),
-          'WGS 84': coordinatesWgs84[1].toFixed(7) + ' ' + coordinatesWgs84[0].toFixed(7),
-          'HDMS': hdms
-        }
+          coordinate: evt.coordinate,
+          projection: me.map.getView().getProjection().getCode()
+        };
       });
     }
   },
@@ -191,11 +185,6 @@ export default {
     display: block;
     max-height: 300px;
     overflow-y: scroll;
-  }
-
-  .wgu-infoclick-win table.coords {
-    margin-top: 12px;
-    width: 100%;
   }
 
   .wgu-infoclick-win td {
