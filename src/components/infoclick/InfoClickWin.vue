@@ -122,38 +122,57 @@ export default {
     toggleUi () {
       this.show = !this.show;
     },
-    registerMapClick () {
+    registerMapClick (unregister) {
       var me = this;
 
-      me.map.on('singleclick', (evt) => {
-        var featureLayer = me.map.forEachFeatureAtPixel(evt.pixel,
-          function (feature, layer) {
-            return [feature, layer];
-          });
+      if (unregister === true) {
+        me.map.un('singleclick', me.onMapClick);
+      } else {
+        me.map.on('singleclick', me.onMapClick);
+      }
+    },
+    /**
+     * Handler for 'singleclick' on the map.
+     * Collects data and passes it to corresponding objects.
+     *
+     * @param  {ol/MapBrowserEvent} evt The OL event of 'singleclick' on the map
+     */
+    onMapClick (evt) {
+      const me = this;
+      let featureLayer = me.map.forEachFeatureAtPixel(evt.pixel,
+        (feature, layer) => {
+          return [feature, layer];
+        });
 
-        if (featureLayer) {
-          var feat = featureLayer[0];
-          var props = feat.getProperties();
+      // collect feature attributes --> PropertyTable
+      if (featureLayer) {
+        const feat = featureLayer[0];
+        let props = feat.getProperties();
+        // do not show geometry property
+        delete props.geometry;
 
-          delete props.geometry;
+        me.attributeData = props;
+      } else {
+        me.attributeData = null;
+      }
 
-          me.gridData = props;
-        } else {
-          me.gridData = null;
-        }
-
-        // collect click coordinate + projection --> CoordsTable
-        me.coordsData = {
-          coordinate: evt.coordinate,
-          projection: me.map.getView().getProjection().getCode()
-        };
-      });
+      // collect click coordinate + projection --> CoordsTable
+      me.coordsData = {
+        coordinate: evt.coordinate,
+        projection: me.map.getView().getProjection().getCode()
+      };
     }
   },
   watch: {
     show () {
       if (this.show === true) {
-        this.registerMapClick();
+        me.registerMapClick();
+      } else {
+        // unregister map click
+        me.registerMapClick(true);
+        // cleanup old data
+        me.attributeData = null;
+        me.coordsData = null;
       }
     }
   }
