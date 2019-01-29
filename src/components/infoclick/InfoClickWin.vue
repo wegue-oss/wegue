@@ -33,29 +33,8 @@
         </tbody>
       </table>
 
-<<<<<<< HEAD
-      <table class="coords" v-if="this.coordsData !== null" :style="tableStyles">
-        <thead>
-          <tr>
-            <th v-for="entry in coordsData"
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(value, key) in coordsData">
-            <td>
-              {{key}}
-            </td>
-            <td>
-              {{value}}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-=======
       <!-- click coodinate info grid -->
       <wgu-coords-table :coordsData="coordsData" :color="color" />
->>>>>>> 08eed3b... Separate CoordsTable into own component
 
     </v-card-title>
   </v-card>

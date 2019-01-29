@@ -1,0 +1,63 @@
+<template>
+
+  <table v-if="this.properties" :style="tableStyles">
+    <thead>
+      <tr>
+        <th v-for="entry in properties"
+        </th>
+      </tr>
+    </thead>
+    <tbody class="attr-tbody">
+      <tr v-for="(value, key) in properties">
+        <td class="key-td">
+          {{key}}
+        </td>
+        <td class="val-td">
+          {{value}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</template>
+
+<script>
+// helper function to detect a CSS color
+// Taken from Vuetify sources
+// https://github.com/vuetifyjs/vuetify/blob/master/packages/vuetify/src/mixins/colorable.ts
+function isCssColor (color) {
+  return !!color && !!color.match(/^(#|(rgb|hsl)a?\()/)
+}
+
+import vColors from 'vuetify/es5/util/colors';
+
+export default {
+  name: 'wgu-property-table',
+  props: {
+    color: {type: String, required: false, default: 'red darken-3'},
+    properties: {type: Object}
+  },
+  computed: {
+    tableStyles () {
+      // calculate border color of tables due to current color property
+      let borderColor = this.color;
+      if (!isCssColor(this.color)) {
+        let [colorName, colorModifier] = this.color.toString().trim().split(' ', 2);
+        borderColor = vColors[colorName];
+        if (colorModifier) {
+          colorModifier = colorModifier.replace('-', '');
+          borderColor = vColors[colorName][colorModifier];
+        }
+      }
+      return {
+        'border': '2px solid ' + borderColor
+      };
+    }
+  }
+};
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style>
+
+</style>
