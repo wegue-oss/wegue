@@ -37,7 +37,10 @@ export default {
   name: 'wgu-coords-table',
   props: {
     color: {type: String, required: false, default: 'red darken-3'},
-    coordsData: {type: Object}
+    coordsData: {type: Object},
+    showMapPos: {type: Boolean, required: false, default: true},
+    showWgsPos: {type: Boolean, required: false, default: true},
+    showHdms: {type: Boolean, required: false, default: true}
   },
   data: function () {
     return {
@@ -68,16 +71,27 @@ export default {
       const me = this;
       const coordinate = me.coordsData.coordinate;
       const projection = me.coordsData.projection;
+      const coordinateWgs84 = transform(coordinate, projection, 'EPSG:4326');
+      let coordRows = {};
 
-      var coordinateWgs84 =
-          transform(coordinate, projection, 'EPSG:4326');
-      var hdms = toStringHDMS(coordinateWgs84);
-
-      me.coordRows = {
-        'POS': coordinate[1].toFixed(2) + ' ' + coordinate[0].toFixed(2),
-        'WGS 84': coordinateWgs84[1].toFixed(7) + ' ' + coordinateWgs84[0].toFixed(7),
-        'HDMS': hdms
+      if (me.showMapPos) {
+        // show coordinate in map' SRS
+        coordRows['MAP PROJ'] =
+          coordinate[1].toFixed(2) + ' ' + coordinate[0].toFixed(2);
       }
+      if (me.showWgsPos) {
+        // show coordinate in WGS 84
+        const coordinateWgs84 = transform(coordinate, projection, 'EPSG:4326');
+        coordRows['WGS 84'] =
+          coordinateWgs84[1].toFixed(7) + '° ' + coordinateWgs84[0].toFixed(7) + '°'
+      }
+      if (me.showHdms) {
+        // show coordinate in WGS 84 as formatted deegree / min / secs
+        const hdms = toStringHDMS(coordinateWgs84);
+        coordRows['HDMS'] = hdms
+      }
+
+      me.coordRows = coordRows;
     }
   }
 };
