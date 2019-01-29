@@ -59,11 +59,13 @@
 
 <script>
 // helper function to detect a CSS color
+// Taken from Vuetify sources
+// https://github.com/vuetifyjs/vuetify/blob/master/packages/vuetify/src/mixins/colorable.ts
 function isCssColor (color) {
   return !!color && !!color.match(/^(#|(rgb|hsl)a?\()/)
 }
-import vColors from 'vuetify/es5/util/colors';
 
+import vColors from 'vuetify/es5/util/colors';
 import { WguEventBus } from '../../WguEventBus.js';
 import {transform} from 'ol/proj.js';
 import {toStringHDMS} from 'ol/coordinate';
