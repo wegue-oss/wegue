@@ -9,29 +9,12 @@
     </v-toolbar>
     <v-card-title primary-title>
 
-      <div v-if="this.gridData === null && this.coordsData === null" class="no-data">
+      <div v-if="!this.attributeData && !this.coordsData" class="no-data">
         Click on the map to get information for the clicked map position.
       </div>
 
       <!-- feature property grid -->
-      <table v-if="this.gridData !== null" :style="tableStyles">
-        <thead>
-          <tr>
-            <th v-for="entry in gridData"
-            </th>
-          </tr>
-        </thead>
-        <tbody class="attr-tbody">
-          <tr v-for="(value, key) in gridData">
-            <td>
-              {{key}}
-            </td>
-            <td>
-              {{value}}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <wgu-property-table :properties="attributeData" :color="color" />
 
       <!-- click coodinate info grid -->
       <wgu-coords-table :coordsData="coordsData" :color="color" />
@@ -42,20 +25,15 @@
 </template>
 
 <script>
-// helper function to detect a CSS color
-// Taken from Vuetify sources
-// https://github.com/vuetifyjs/vuetify/blob/master/packages/vuetify/src/mixins/colorable.ts
-function isCssColor (color) {
-  return !!color && !!color.match(/^(#|(rgb|hsl)a?\()/)
-}
 
-import vColors from 'vuetify/es5/util/colors';
 import { WguEventBus } from '../../WguEventBus.js';
+import PropertyTable from './PropertyTable';
 import CoordsTable from './CoordsTable';
 
 export default {
   name: 'wgu-infoclick-win',
   components: {
+    'wgu-property-table': PropertyTable,
     'wgu-coords-table': CoordsTable
   },
   props: {
@@ -68,25 +46,8 @@ export default {
       show: false,
       left: '2px',
       top: '270px',
-      gridData: null,
+      attributeData: null,
       coordsData: null
-    }
-  },
-  computed: {
-    tableStyles () {
-      // calculate border color of tables due to current color property
-      let borderColor = this.color;
-      if (!isCssColor(this.color)) {
-        let [colorName, colorModifier] = this.color.toString().trim().split(' ', 2);
-        borderColor = vColors[colorName];
-        if (colorModifier) {
-          colorModifier = colorModifier.replace('-', '');
-          borderColor = vColors[colorName][colorModifier];
-        }
-      }
-      return {
-        'border': '2px solid ' + borderColor
-      };
     }
   },
   created () {
@@ -144,11 +105,10 @@ export default {
   },
   watch: {
     show () {
+      const me = this;
       if (this.show === true) {
         me.registerMapClick();
       } else {
-        // unregister map click
-        me.registerMapClick(true);
         // cleanup old data
         me.attributeData = null;
         me.coordsData = null;
