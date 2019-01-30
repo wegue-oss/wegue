@@ -2,6 +2,24 @@ import Vue from 'vue'
 import InfoClickToggleBtn from '@/components/infoclick/ToggleButton'
 
 describe('infoclick/ToggleButton.vue', () => {
+  // Inspect the raw component options
+  it('is defined', () => {
+    expect(typeof InfoClickToggleBtn).to.not.equal('undefined');
+  });
+
+  it('has the correct properties', () => {
+    // Extend the component to get the constructor, which we can then
+    // initialize directly.
+    const Constructor = Vue.extend(InfoClickToggleBtn);
+    const comp = new Constructor({
+      // Props are passed in "propsData"
+      propsData: {}
+    }).$mount();
+
+    expect(comp.icon).to.equal('info');
+    expect(comp.text).to.equal('');
+  });
+
   // Check methods
   it('has a method toggleUi', () => {
     const Constructor = Vue.extend(InfoClickToggleBtn);
@@ -15,5 +33,7 @@ describe('infoclick/ToggleButton.vue', () => {
     expect(typeof InfoClickToggleBtn.data).to.equal('function');
     const defaultData = InfoClickToggleBtn.data();
     expect(typeof defaultData).to.equal('object');
+    expect(defaultData.moduleName).to.equal('wgu-infoclick');
+    expect(defaultData.useDarkTheme).to.equal(false);
   });
 });

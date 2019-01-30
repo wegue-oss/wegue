@@ -9,48 +9,15 @@
     </v-toolbar>
     <v-card-title primary-title>
 
-      <div v-if="this.gridData === null && this.coordsData === null" class="no-data">
+      <div v-if="!this.attributeData && !this.coordsData" class="no-data">
         Click on the map to get information for the clicked map position.
       </div>
 
       <!-- feature property grid -->
-      <table v-if="this.gridData !== null" :style="tableStyles">
-        <thead>
-          <tr>
-            <th v-for="entry in gridData"
-            </th>
-          </tr>
-        </thead>
-        <tbody class="attr-tbody">
-          <tr v-for="(value, key) in gridData">
-            <td>
-              {{key}}
-            </td>
-            <td>
-              {{value}}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <wgu-property-table :properties="attributeData" :color="color" />
 
-      <table class="coords" v-if="this.coordsData !== null" :style="tableStyles">
-        <thead>
-          <tr>
-            <th v-for="entry in coordsData"
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(value, key) in coordsData">
-            <td>
-              {{key}}
-            </td>
-            <td>
-              {{value}}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <!-- click coodinate info grid -->
+      <wgu-coords-table :coordsData="coordsData" :color="color" />
 
     </v-card-title>
   </v-card>
@@ -58,20 +25,17 @@
 </template>
 
 <script>
-// helper function to detect a CSS color
-// Taken from Vuetify sources
-// https://github.com/vuetifyjs/vuetify/blob/master/packages/vuetify/src/mixins/colorable.ts
-function isCssColor (color) {
-  return !!color && !!color.match(/^(#|(rgb|hsl)a?\()/)
-}
 
-import vColors from 'vuetify/es5/util/colors';
 import { WguEventBus } from '../../WguEventBus.js';
-import {transform} from 'ol/proj.js';
-import {toStringHDMS} from 'ol/coordinate';
+import PropertyTable from './PropertyTable';
+import CoordsTable from './CoordsTable';
 
 export default {
   name: 'wgu-infoclick-win',
+  components: {
+    'wgu-property-table': PropertyTable,
+    'wgu-coords-table': CoordsTable
+  },
   props: {
     color: {type: String, required: false, default: 'red darken-3'},
     icon: {type: String, required: false, default: 'info'},
@@ -82,28 +46,8 @@ export default {
       show: false,
       left: '2px',
       top: '270px',
-      coordsMapProj: '',
-      coordsWgs84: '',
-      coordsHdms: '',
-      gridData: null,
+      attributeData: null,
       coordsData: null
-    }
-  },
-  computed: {
-    tableStyles () {
-      // calculate border color of tables due to current color property
-      let borderColor = this.color;
-      if (!isCssColor(this.color)) {
-        let [colorName, colorModifier] = this.color.toString().trim().split(' ', 2);
-        borderColor = vColors[colorName];
-        if (colorModifier) {
-          colorModifier = colorModifier.replace('-', '');
-          borderColor = vColors[colorName][colorModifier];
-        }
-      }
-      return {
-        'border': '2px solid ' + borderColor
-      };
     }
   },
   created () {
@@ -118,48 +62,56 @@ export default {
     toggleUi () {
       this.show = !this.show;
     },
-    registerMapClick () {
+    registerMapClick (unregister) {
       var me = this;
 
-      me.map.on('singleclick', (evt) => {
-        var featureLayer = me.map.forEachFeatureAtPixel(evt.pixel,
-          function (feature, layer) {
-            return [feature, layer];
-          });
+      if (unregister === true) {
+        me.map.un('singleclick', me.onMapClick);
+      } else {
+        me.map.on('singleclick', me.onMapClick);
+      }
+    },
+    /**
+     * Handler for 'singleclick' on the map.
+     * Collects data and passes it to corresponding objects.
+     *
+     * @param  {ol/MapBrowserEvent} evt The OL event of 'singleclick' on the map
+     */
+    onMapClick (evt) {
+      const me = this;
+      let featureLayer = me.map.forEachFeatureAtPixel(evt.pixel,
+        (feature, layer) => {
+          return [feature, layer];
+        });
 
-        if (featureLayer) {
-          var feat = featureLayer[0];
-          var props = feat.getProperties();
+      // collect feature attributes --> PropertyTable
+      if (featureLayer) {
+        const feat = featureLayer[0];
+        let props = feat.getProperties();
+        // do not show geometry property
+        delete props.geometry;
 
-          delete props.geometry;
+        me.attributeData = props;
+      } else {
+        me.attributeData = null;
+      }
 
-          me.gridData = props;
-        } else {
-          me.gridData = null;
-        }
-
-        var coordinates = evt.coordinate;
-        var mapProjCode = me.map.getView().getProjection().getCode();
-        var coordinatesWgs84 =
-            transform(coordinates, mapProjCode, 'EPSG:4326');
-        var hdms = toStringHDMS(coordinatesWgs84);
-
-        me.coordsMapProj = coordinates[1].toFixed(2) + ' ' + coordinates[0].toFixed(2);
-        me.coordsWgs84 = coordinatesWgs84[1].toFixed(7) + ' ' + coordinatesWgs84[0].toFixed(7);
-        me.coordsHdms = hdms;
-
-        me.coordsData = {
-          'POS': coordinates[1].toFixed(2) + ' ' + coordinates[0].toFixed(2),
-          'WGS 84': coordinatesWgs84[1].toFixed(7) + ' ' + coordinatesWgs84[0].toFixed(7),
-          'HDMS': hdms
-        }
-      });
+      // collect click coordinate + projection --> CoordsTable
+      me.coordsData = {
+        coordinate: evt.coordinate,
+        projection: me.map.getView().getProjection().getCode()
+      };
     }
   },
   watch: {
     show () {
+      const me = this;
       if (this.show === true) {
-        this.registerMapClick();
+        me.registerMapClick();
+      } else {
+        // cleanup old data
+        me.attributeData = null;
+        me.coordsData = null;
       }
     }
   }
@@ -191,11 +143,6 @@ export default {
     display: block;
     max-height: 300px;
     overflow-y: scroll;
-  }
-
-  .wgu-infoclick-win table.coords {
-    margin-top: 12px;
-    width: 100%;
   }
 
   .wgu-infoclick-win td {
