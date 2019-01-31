@@ -38,9 +38,6 @@ describe('measuretool/MeasureWin.vue', () => {
     const vm = new Constructor().$mount();
     expect(typeof vm.applyMeasureType).to.equal('function');
     expect(typeof vm.onMapBound).to.equal('function');
-    expect(typeof vm.createMeasureLayer).to.equal('function');
-    expect(typeof vm.addInteraction).to.equal('function');
-    expect(typeof vm.removeInteraction).to.equal('function');
   });
 
   // Mount an instance and inspect the render output
