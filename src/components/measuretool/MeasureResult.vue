@@ -38,6 +38,9 @@
         } else if (geom instanceof LineStringGeom) {
           output = me.formatLength(geom);
           me.distance = output;
+        } else {
+          me.area = ' -- ';
+          me.distance = ' -- ';
         }
       }
     },
