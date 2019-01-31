@@ -14,6 +14,8 @@ import View from 'ol/View'
 import Attribution from 'ol/control/Attribution';
 import Zoom from 'ol/control/Zoom';
 import SelectInteraction from 'ol/interaction/Select';
+import {defaults as defaultInteractions} from 'ol/interaction';
+import RotateControl from 'ol/control/Rotate';
 // import the app-wide EventBus
 import { WguEventBus } from '../../WguEventBus.js';
 import { LayerFactory } from '../../factory/Layer.js';
@@ -22,7 +24,8 @@ export default {
   name: 'wgu-map',
   props: {
     color: {type: String, required: false, default: 'red darken-3'},
-    collapsibleAttribution: {type: Boolean, default: false}
+    collapsibleAttribution: {type: Boolean, default: false},
+    rotateableMap: {type: Boolean, required: false, default: false}
   },
   data () {
     return {
@@ -43,30 +46,42 @@ export default {
       me.map.setTarget(document.getElementById('ol-map-container'));
       me.map.updateSize();
 
-      // adjust the bg color of the OL zoom buttons (if existing)
-      if (document.querySelector('.ol-zoom')) {
-        me.setZoomButtonColor();
-      }
+      // adjust the bg color of the OL buttons (like zoom, rotate north, ...)
+      me.setOlButtonColor();
     }, 200);
   },
   created () {
-    this.map = new Map({
+    var me = this;
+
+    // make map rotateable according to property
+    const interactions = defaultInteractions({
+      altShiftDragRotate: me.rotateableMap,
+      pinchRotate: me.rotateableMap
+    });
+    let controls = [
+      new Zoom(),
+      new Attribution({
+        collapsible: me.collapsibleAttribution
+      })
+    ];
+    // add a button control to reset rotation to 0, if map is rotateable
+    if (me.rotateableMap) {
+      controls.push(new RotateControl());
+    }
+
+    me.map = new Map({
       layers: [],
-      controls: [
-        new Zoom(),
-        new Attribution({
-          collapsible: this.collapsibleAttribution
-        })
-      ],
+      controls: controls,
+      interactions: interactions,
       view: new View({
-        center: this.center || [0, 0],
-        zoom: this.zoom
+        center: me.center || [0, 0],
+        zoom: me.zoom
       })
     });
 
     // create layers from config and add them to map
-    const layers = this.createLayers();
-    this.map.getLayers().extend(layers);
+    const layers = me.createLayers();
+    me.map.getLayers().extend(layers);
   },
 
   methods: {
@@ -104,23 +119,34 @@ export default {
       return layers;
     },
     /**
-     * Sets the background color of the OL zoom buttons to the color property.
+     * Sets the background color of the OL buttons to the color property.
      */
-    setZoomButtonColor () {
+    setOlButtonColor () {
       var me = this;
 
       if (isCssColor(me.color)) {
         // directly apply the given CSS color
-        document.querySelector('.ol-zoom .ol-zoom-in').style.backgroundColor = me.color;
-        document.querySelector('.ol-zoom .ol-zoom-out').style.backgroundColor = me.color;
+        if (document.querySelector('.ol-zoom')) {
+          document.querySelector('.ol-zoom .ol-zoom-in').style.backgroundColor = me.color;
+          document.querySelector('.ol-zoom .ol-zoom-out').style.backgroundColor = me.color;
+        }
+        if (document.querySelector('.ol-rotate')) {
+          document.querySelector('.ol-rotate .ol-rotate-reset').style.backgroundColor = me.color;
+        }
       } else {
         // apply vuetify color by transforming the color to the corresponding
         // CSS class (see https://vuetifyjs.com/en/framework/colors)
         const [colorName, colorModifier] = me.color.toString().trim().split(' ', 2);
-        document.querySelector('.ol-zoom .ol-zoom-in').classList.add(colorName);
-        document.querySelector('.ol-zoom .ol-zoom-in').classList.add(colorModifier);
-        document.querySelector('.ol-zoom .ol-zoom-out').classList.add(colorName);
-        document.querySelector('.ol-zoom .ol-zoom-out').classList.add(colorModifier);
+        if (document.querySelector('.ol-zoom')) {
+          document.querySelector('.ol-zoom .ol-zoom-in').classList.add(colorName);
+          document.querySelector('.ol-zoom .ol-zoom-in').classList.add(colorModifier);
+          document.querySelector('.ol-zoom .ol-zoom-out').classList.add(colorName);
+          document.querySelector('.ol-zoom .ol-zoom-out').classList.add(colorModifier);
+        }
+        if (document.querySelector('.ol-rotate')) {
+          document.querySelector('.ol-rotate .ol-rotate-reset').classList.add(colorName);
+          document.querySelector('.ol-rotate .ol-rotate-reset').classList.add(colorModifier);
+        }
       }
     }
   }
