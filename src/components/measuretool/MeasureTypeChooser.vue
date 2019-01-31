@@ -1,6 +1,6 @@
 <template>
 
-  <v-btn-toggle v-model="measureType" mandatory>
+  <v-btn-toggle v-model="measureTypeData" mandatory>
      <v-btn large value="distance">
        Distance
      </v-btn>
@@ -14,15 +14,17 @@
 <script>
   export default {
     name: 'wgu-measure-type-chooser',
-    props: {},
+    props: {
+      measureType: {type: String, default: 'distance'}
+    },
     data () {
       return {
-        measureType: 'distance'
+        measureTypeData: this.measureType
       }
     },
     watch: {
       // listen to changed measurement type and forward to parent component
-      measureType (newVal, oldVal) {
+      measureTypeData (newVal, oldVal) {
         this.$emit('wgu-measuretype-change', newVal, oldVal);
       }
     }
