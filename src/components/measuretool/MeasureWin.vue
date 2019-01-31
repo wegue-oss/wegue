@@ -2,35 +2,26 @@
 
   <v-card class="wgu-measurewin" v-draggable-win v-if="show" v-bind:style="{ left: left, top: top }">
     <v-toolbar :color="color" class="" dark>
-      <v-toolbar-side-icon><v-icon>{{icon}}</v-icon></v-toolbar-side-icon>
-      <v-toolbar-title class="wgu-win-title">{{title}}</v-toolbar-title>
+      <v-toolbar-side-icon><v-icon>{{ icon }}</v-icon></v-toolbar-side-icon>
+      <v-toolbar-title class="wgu-win-title">{{ title }}</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-toolbar-side-icon @click="show = false"><v-icon>close</v-icon></v-toolbar-side-icon>
+      <v-toolbar-side-icon @click="show=false"><v-icon>close</v-icon></v-toolbar-side-icon>
     </v-toolbar>
 
     <v-card-title primary-title>
-      <div class="">
-        <v-btn-toggle v-model="measureType" mandatory>
-           <v-btn large value="distance">
-             Distance
-           </v-btn>
-           <v-btn large value="area">
-             Area
-           </v-btn>
-         </v-btn-toggle>
-      </div>
+
+      <!-- toggle button to choose measure type -->
+      <wgu-measure-type-chooser
+        :measureType="measureType"
+        @wgu-measuretype-change="applyMeasureType"
+      />
 
     </v-card-title>
 
     <v-card-actions>
-      <div class="">
-        <div class="measure-result">
-          LENGTH: {{distance}}
-        </div>
-        <div class="measure-result">
-          AREA: {{area}}
-        </div>
-      </div>
+
+      <!-- result display -->
+      <wgu-measure-result :measureGeom="measureGeom" />
 
     </v-card-actions>
   </v-card>
@@ -39,8 +30,6 @@
 
 <script>
   import DrawInteraction from 'ol/interaction/Draw';
-  import LineStringGeom from 'ol/geom/LineString';
-  import PolygonGeom from 'ol/geom/Polygon';
   import {unByKey} from 'ol/Observable.js';
   import VectorSource from 'ol/source/Vector';
   import VectorLayer from 'ol/layer/Vector';
@@ -48,14 +37,19 @@
   import Stroke from 'ol/style/Stroke';
   import Circle from 'ol/style/Circle';
   import Fill from 'ol/style/Fill';
-  import {getArea, getLength} from 'ol/sphere.js';
   import { DraggableWin } from '../../directives/DraggableWin';
   import { Mapable } from '../../mixins/Mapable';
+  import MeasureTypeChooser from './MeasureTypeChooser';
+  import MeasureResult from './MeasureResult';
 
   export default {
     name: 'wgu-measuretool-win',
     directives: {
       DraggableWin
+    },
+    components: {
+      'wgu-measure-type-chooser': MeasureTypeChooser,
+      'wgu-measure-result': MeasureResult
     },
     mixins: [Mapable],
     props: {
@@ -66,8 +60,7 @@
     data () {
       return {
         moduleName: 'wgu-measuretool',
-        area: ' -- ',
-        distance: ' -- ',
+        measureGeom: null,
         measureType: 'distance',
         show: false,
         left: '10px',
@@ -83,12 +76,21 @@
           me.removeInteraction();
         }
       },
-      // listen to changed measurement type
-      measureType (newVal, oldVal) {
+      measureType () {
         this.addInteraction();
       }
     },
     methods: {
+      /**
+       * Applies the changed measure value to this.measureType.
+       * Called as callback of MeasureTypeChooser
+       *
+       * @param  {String} newMeasureType New measure type
+       * @param  {String} oldMeasureType Old measure type
+       */
+      applyMeasureType (newMeasureType, oldMeasureType) {
+        this.measureType = newMeasureType;
+      },
       /**
        * This function is executed, after the map is bound (see mixins/Mapable)
        */
@@ -127,7 +129,7 @@
       /**
        * Creates and adds the necessary draw interaction and adds it to the map.
        */
-      addInteraction () {
+      addInteraction (newMeasureType) {
         const me = this;
         const measureConf = me.$appConfig.modules[me.moduleName] || {};
         // cleanup possible old draw interaction
@@ -135,7 +137,7 @@
           me.removeInteraction();
         }
 
-        var type = (this.measureType === 'area' ? 'Polygon' : 'LineString');
+        var type = (me.measureType === 'area' ? 'Polygon' : 'LineString');
         var draw = new DrawInteraction({
           source: me.source,
           type: type,
@@ -164,29 +166,26 @@
         var listener;
         var sketch;
         draw.on('drawstart', (evt) => {
-          // clear old measure ffeatures
+          // clear old measure features
           me.source.clear();
           // preserve sketch
           sketch = evt.feature;
 
           listener = me.map.on('click', (evt) => {
-            var geom = sketch.getGeometry();
-            var output;
-            if (geom instanceof PolygonGeom) {
-              output = me.formatArea(geom);
-              me.area = output;
-            } else if (geom instanceof LineStringGeom) {
-              output = me.formatLength(geom);
-              me.distance = output;
-            }
+            const geom = sketch.getGeometry();
+            // wrap geom into object, otherwise the injection into childs does
+            // not work. Maybe the OL object does not feel changed for Vue
+            me.measureGeom = {
+              geom: geom
+            };
           });
-        }, this);
+        }, me);
 
         draw.on('drawend', () => {
           // unset sketch
           sketch = null;
           unByKey(listener);
-        }, this);
+        }, me);
 
         // make draw interaction available as member
         me.draw = draw;
@@ -202,42 +201,6 @@
         if (me.source) {
           me.source.clear();
         }
-        me.distance = ' -- ';
-        me.area = ' -- ';
-      },
-      /**
-       * Calculates and formats the length of the given line.
-       *
-       * @param  {ol.geom.LineString} line The LineString object to calculate length for
-       */
-      formatLength (line) {
-        const length = getLength(line);
-        let output;
-        if (length > 100) {
-          output = (Math.round(length / 1000 * 100) / 100) +
-              ' ' + 'km';
-        } else {
-          output = (Math.round(length * 100) / 100) +
-              ' ' + 'm';
-        }
-        return output;
-      },
-      /**
-       * Calculates and formats the area of the given polygon.
-       *
-       * @param  {ol.geom.Polygon} polygon The Polygon object to calculate area for
-       */
-      formatArea (polygon) {
-        const area = getArea(polygon);
-        let output;
-        if (area > 10000) {
-          output = (Math.round(area / 1000000 * 100) / 100) +
-              ' ' + 'km²';
-        } else {
-          output = (Math.round(area * 100) / 100) +
-              ' ' + 'm²';
-        }
-        return output;
       }
     }
   }
@@ -252,12 +215,6 @@
 
   .v-card.wgu-measurewin {
     position: absolute;
-  }
-
-  .measure-result {
-    font-size: 14px;
-    padding-left: 8px;
-    padding-bottom: 8px;
   }
 
 </style>
