@@ -46,10 +46,8 @@ export default {
       me.map.setTarget(document.getElementById('ol-map-container'));
       me.map.updateSize();
 
-      // adjust the bg color of the OL zoom buttons (if existing)
-      if (document.querySelector('.ol-zoom')) {
-        me.setZoomButtonColor();
-      }
+      // adjust the bg color of the OL buttons (like zoom, rotate north, ...)
+      me.setOlButtonColor();
     }, 200);
   },
   created () {
@@ -121,23 +119,34 @@ export default {
       return layers;
     },
     /**
-     * Sets the background color of the OL zoom buttons to the color property.
+     * Sets the background color of the OL buttons to the color property.
      */
-    setZoomButtonColor () {
+    setOlButtonColor () {
       var me = this;
 
       if (isCssColor(me.color)) {
         // directly apply the given CSS color
-        document.querySelector('.ol-zoom .ol-zoom-in').style.backgroundColor = me.color;
-        document.querySelector('.ol-zoom .ol-zoom-out').style.backgroundColor = me.color;
+        if (document.querySelector('.ol-zoom')) {
+          document.querySelector('.ol-zoom .ol-zoom-in').style.backgroundColor = me.color;
+          document.querySelector('.ol-zoom .ol-zoom-out').style.backgroundColor = me.color;
+        }
+        if (document.querySelector('.ol-rotate')) {
+          document.querySelector('.ol-rotate .ol-rotate-reset').style.backgroundColor = me.color;
+        }
       } else {
         // apply vuetify color by transforming the color to the corresponding
         // CSS class (see https://vuetifyjs.com/en/framework/colors)
         const [colorName, colorModifier] = me.color.toString().trim().split(' ', 2);
-        document.querySelector('.ol-zoom .ol-zoom-in').classList.add(colorName);
-        document.querySelector('.ol-zoom .ol-zoom-in').classList.add(colorModifier);
-        document.querySelector('.ol-zoom .ol-zoom-out').classList.add(colorName);
-        document.querySelector('.ol-zoom .ol-zoom-out').classList.add(colorModifier);
+        if (document.querySelector('.ol-zoom')) {
+          document.querySelector('.ol-zoom .ol-zoom-in').classList.add(colorName);
+          document.querySelector('.ol-zoom .ol-zoom-in').classList.add(colorModifier);
+          document.querySelector('.ol-zoom .ol-zoom-out').classList.add(colorName);
+          document.querySelector('.ol-zoom .ol-zoom-out').classList.add(colorModifier);
+        }
+        if (document.querySelector('.ol-rotate')) {
+          document.querySelector('.ol-rotate .ol-rotate-reset').classList.add(colorName);
+          document.querySelector('.ol-rotate .ol-rotate-reset').classList.add(colorModifier);
+        }
       }
     }
   }
