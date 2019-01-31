@@ -14,6 +14,8 @@ import View from 'ol/View'
 import Attribution from 'ol/control/Attribution';
 import Zoom from 'ol/control/Zoom';
 import SelectInteraction from 'ol/interaction/Select';
+import {defaults as defaultInteractions} from 'ol/interaction';
+import RotateControl from 'ol/control/Rotate';
 // import the app-wide EventBus
 import { WguEventBus } from '../../WguEventBus.js';
 import { LayerFactory } from '../../factory/Layer.js';
@@ -22,7 +24,8 @@ export default {
   name: 'wgu-map',
   props: {
     color: {type: String, required: false, default: 'red darken-3'},
-    collapsibleAttribution: {type: Boolean, default: false}
+    collapsibleAttribution: {type: Boolean, default: false},
+    rotateableMap: {type: Boolean, required: false, default: false}
   },
   data () {
     return {
@@ -50,23 +53,37 @@ export default {
     }, 200);
   },
   created () {
-    this.map = new Map({
+    var me = this;
+
+    // make map rotateable according to property
+    const interactions = defaultInteractions({
+      altShiftDragRotate: me.rotateableMap,
+      pinchRotate: me.rotateableMap
+    });
+    let controls = [
+      new Zoom(),
+      new Attribution({
+        collapsible: me.collapsibleAttribution
+      })
+    ];
+    // add a button control to reset rotation to 0, if map is rotateable
+    if (me.rotateableMap) {
+      controls.push(new RotateControl());
+    }
+
+    me.map = new Map({
       layers: [],
-      controls: [
-        new Zoom(),
-        new Attribution({
-          collapsible: this.collapsibleAttribution
-        })
-      ],
+      controls: controls,
+      interactions: interactions,
       view: new View({
-        center: this.center || [0, 0],
-        zoom: this.zoom
+        center: me.center || [0, 0],
+        zoom: me.zoom
       })
     });
 
     // create layers from config and add them to map
-    const layers = this.createLayers();
-    this.map.getLayers().extend(layers);
+    const layers = me.createLayers();
+    me.map.getLayers().extend(layers);
   },
 
   methods: {
