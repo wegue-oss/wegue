@@ -20,6 +20,10 @@ describe('infoclick/ToggleButton.vue', () => {
     expect(comp.text).to.equal('');
   });
 
+  it('has a created hook', () => {
+    expect(typeof InfoClickToggleBtn.created).to.equal('function');
+  });
+
   // Check methods
   it('has a method toggleUi', () => {
     const Constructor = Vue.extend(InfoClickToggleBtn);
@@ -34,6 +38,5 @@ describe('infoclick/ToggleButton.vue', () => {
     const defaultData = InfoClickToggleBtn.data();
     expect(typeof defaultData).to.equal('object');
     expect(defaultData.moduleName).to.equal('wgu-infoclick');
-    expect(defaultData.useDarkTheme).to.equal(false);
   });
 });
