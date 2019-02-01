@@ -18,6 +18,8 @@ describe('measuretool/MeasureWin.vue', () => {
     expect(comp.color).to.equal('red darken-3');
     expect(comp.icon).to.equal('photo_size_select_small');
     expect(comp.title).to.equal('Measure');
+    expect(comp.draggable).to.equal(true);
+    expect(comp.initPos).to.equal(undefined);
   });
 
   // Evaluate the results of functions in
@@ -29,8 +31,8 @@ describe('measuretool/MeasureWin.vue', () => {
     expect(defaultData.measureGeom).to.equal(null);
     expect(defaultData.measureType).to.equal('distance');
     expect(defaultData.show).to.equal(false);
-    expect(defaultData.left).to.equal('10px');
-    expect(defaultData.top).to.equal('70px');
+    expect(defaultData.left).to.equal('0');
+    expect(defaultData.top).to.equal('0');
   });
 
   it('has the correct functions', () => {

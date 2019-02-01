@@ -2,6 +2,22 @@ import Vue from 'vue'
 import LayerListWin from '@/components/layerlist/LayerListWin'
 
 describe('layerlist/LayerListWin.vue', () => {
+  it('has the correct properties', () => {
+    // Extend the component to get the constructor, which we can then
+    // initialize directly.
+    const Constructor = Vue.extend(LayerListWin);
+    const comp = new Constructor({
+      // Props are passed in "propsData"
+      propsData: {}
+    }).$mount();
+
+    expect(comp.color).to.equal('red darken-3');
+    expect(comp.icon).to.equal('layers');
+    expect(comp.title).to.equal('Layers');
+    expect(comp.draggable).to.equal(true);
+    expect(comp.initPos).to.equal(undefined);
+  });
+
   // Evaluate the results of functions in
   // the raw component options
   it('sets the correct default data', () => {
