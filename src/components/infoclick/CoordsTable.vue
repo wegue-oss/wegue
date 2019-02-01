@@ -1,6 +1,6 @@
 <template>
 
-  <table class="coords" v-if="coordRows" :style="tableStyles">
+  <table class="wgu-coordstable" v-if="coordRows" :style="tableStyles">
     <thead>
       <tr>
         <th v-for="entry in coordRows"
@@ -100,9 +100,23 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 
-.wgu-infoclick-win table.coords {
+table.wgu-coordstable {
   margin-top: 12px;
   width: 100%;
+}
+
+.wgu-coordstable table {
+  border-radius: 3px;
+  background-color: #fff;
+}
+
+.wgu-coordstable td {
+  background-color: #f9f9f9;
+}
+
+.wgu-coordstable th, .wgu-coordstable td {
+  width: 200px;
+  padding: 10px 20px;
 }
 
 </style>

@@ -136,28 +136,15 @@ export default {
     display: inherit;
   }
 
-  .wgu-infoclick-win .v-card__title {
-    display: inherit;
-  }
-
-  .wgu-infoclick-win table {
-    border-radius: 3px;
-    background-color: #fff;
-  }
-
-  .wgu-infoclick-win .attr-tbody {
-    display: block;
-    max-height: 300px;
-    overflow-y: scroll;
-  }
-
-  .wgu-infoclick-win td {
-    background-color: #f9f9f9;
-  }
-
-  .wgu-infoclick-win th, .wgu-infoclick-win td {
-    width: 200px;
-    padding: 10px 20px;
+  @media (max-width: 600px) {
+    /* tmp. approach to position on small screens */
+    .v-card.wgu-infoclick-win {
+      /* tmp. fix */
+      left: 0 !important;
+      top: 45% !important;
+      width: 100%;
+      max-width: 600px;
+    }
   }
 
 </style>
