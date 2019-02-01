@@ -1,6 +1,6 @@
 <template>
 
-  <v-card v-draggable-win class="wgu-infoclick-win" v-if=show v-bind:style="{ left: left, top: top }">
+  <v-card class="wgu-infoclick-win" v-draggable-win="draggable"  v-if=show v-bind:style="{ left: left, top: top }">
     <v-toolbar :color="color" class="" dark>
       <v-toolbar-side-icon><v-icon>{{icon}}</v-icon></v-toolbar-side-icon>
       <v-toolbar-title class="wgu-win-title">{{title}}</v-toolbar-title>
@@ -39,7 +39,8 @@ export default {
   props: {
     color: {type: String, required: false, default: 'red darken-3'},
     icon: {type: String, required: false, default: 'info'},
-    title: {type: String, required: false, default: 'Map Click Info'}
+    title: {type: String, required: false, default: 'Map Click Info'},
+    draggable: {type: Boolean, required: false, default: true}
   },
   data: function () {
     return {

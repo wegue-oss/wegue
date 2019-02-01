@@ -1,6 +1,6 @@
 <template>
 
-  <v-card v-draggable-win class="wgu-layerlist" v-if=show v-bind:style="{ left: left, top: top }">
+  <v-card v-draggable-win="draggable" class="wgu-layerlist" v-if=show v-bind:style="{ left: left, top: top }">
     <v-toolbar :color="color" class="" dark>
       <v-toolbar-side-icon><v-icon>{{icon}}</v-icon></v-toolbar-side-icon>
       <v-toolbar-title class="wgu-win-title">{{title}}</v-toolbar-title>
@@ -29,7 +29,8 @@
     props: {
       color: {type: String, required: false, default: 'red darken-3'},
       icon: {type: String, required: false, default: 'layers'},
-      title: {type: String, required: false, default: 'Layers'}
+      title: {type: String, required: false, default: 'Layers'},
+      draggable: {type: Boolean, required: false, default: true}
     },
     data () {
       return {
