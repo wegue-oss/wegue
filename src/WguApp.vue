@@ -12,7 +12,7 @@
     </v-content>
 
     <template v-for="(moduleWin, index) in moduleWins">
-      <component :is="moduleWin.type" :key="index" :ref="moduleWin.type" :color="baseColor" />
+      <component :is="moduleWin.type" :key="index" :ref="moduleWin.type" :color="baseColor" :draggable="moduleWin.draggable"/>
     </template>
 
     <v-footer :color="baseColor" class="white--text" app>
@@ -83,7 +83,10 @@
         for (const key of Object.keys(appConfig.modules)) {
           const moduleOpts = appConfig.modules[key];
           if (moduleOpts.win === true) {
-            moduleWins.push({type: key + '-win'});
+            moduleWins.push({
+              type: key + '-win',
+              draggable: moduleOpts.draggable
+            });
           }
         }
         return moduleWins;

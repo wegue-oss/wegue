@@ -25,6 +25,10 @@ export const DraggableWin = {
     initialZIndex: undefined
   },
   bind (elmnt, binding, vnode) {
+    if (binding.value === false) {
+      // disable this directive if set to v-draggable-win="false"
+      return;
+    }
     // get the header element to bind the events on it
     var header = elmnt.querySelector('div.wgu-win-title');
     if (!header) {
