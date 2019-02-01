@@ -1,6 +1,6 @@
 <template>
 
-  <table v-if="this.properties" :style="tableStyles">
+  <table class="wgu-proptable" v-if="this.properties" :style="tableStyles">
     <thead>
       <tr>
         <th v-for="entry in properties"
@@ -59,5 +59,25 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+
+.wgu-proptable .attr-tbody {
+  display: block;
+  max-height: 225px;
+  overflow-y: scroll;
+}
+
+.wgu-proptable table {
+ border-radius: 3px;
+ background-color: #fff;
+}
+
+.wgu-proptable td {
+ background-color: #f9f9f9;
+}
+
+.wgu-proptable th, .wgu-proptable td {
+ width: 200px;
+ padding: 10px 20px;
+}
 
 </style>

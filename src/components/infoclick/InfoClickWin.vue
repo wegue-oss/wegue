@@ -40,13 +40,14 @@ export default {
     color: {type: String, required: false, default: 'red darken-3'},
     icon: {type: String, required: false, default: 'info'},
     title: {type: String, required: false, default: 'Map Click Info'},
-    draggable: {type: Boolean, required: false, default: true}
+    draggable: {type: Boolean, required: false, default: true},
+    initPos: {type: Object, required: false}
   },
   data: function () {
     return {
       show: false,
-      left: '2px',
-      top: '270px',
+      left: this.initPos ? this.initPos.left + 'px' : '0',
+      top: this.initPos ? this.initPos.top + 'px' : '0',
       attributeData: null,
       coordsData: null
     }
@@ -128,35 +129,22 @@ export default {
   }
 
   .v-card.wgu-infoclick-win {
-      position: absolute;
+    position: absolute;
   }
 
   .wgu-infoclick-win .v-card__title {
     display: inherit;
   }
 
-  .wgu-infoclick-win table {
-    border-radius: 3px;
-    background-color: #fff;
-  }
-
-  .wgu-infoclick-win .attr-tbody {
-    display: block;
-    max-height: 300px;
-    overflow-y: scroll;
-  }
-
-  .wgu-infoclick-win td {
-    background-color: #f9f9f9;
-  }
-
-  .wgu-infoclick-win th, .wgu-infoclick-win td {
-    width: 200px;
-    padding: 10px 20px;
-  }
-
-  .wgu-infoclick-win th.active {
-    color: #fff;
+  @media (max-width: 600px) {
+    /* tmp. approach to position on small screens */
+    .v-card.wgu-infoclick-win {
+      /* tmp. fix */
+      left: 0 !important;
+      top: 45% !important;
+      width: 100%;
+      max-width: 600px;
+    }
   }
 
 </style>

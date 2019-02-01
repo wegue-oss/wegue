@@ -49,7 +49,8 @@
       color: {type: String, required: false, default: 'red darken-3'},
       icon: {type: String, required: false, default: 'photo_size_select_small'},
       title: {type: String, required: false, default: 'Measure'},
-      draggable: {type: Boolean, required: false, default: true}
+      draggable: {type: Boolean, required: false, default: true},
+      initPos: {type: Object, required: false}
     },
     data () {
       return {
@@ -57,8 +58,8 @@
         measureGeom: null,
         measureType: 'distance',
         show: false,
-        left: '10px',
-        top: '70px'
+        left: this.initPos ? this.initPos.left + 'px' : '0',
+        top: this.initPos ? this.initPos.top + 'px' : '0'
       }
     },
     watch: {
