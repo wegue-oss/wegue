@@ -2,25 +2,42 @@ import Vue from 'vue'
 import MeasureWin from '@/components/measuretool/MeasureWin'
 
 describe('measuretool/MeasureWin.vue', () => {
+  it('is defined', () => {
+    expect(typeof MeasureWin).to.not.equal('undefined');
+  });
+
+  it('has the correct properties', () => {
+    // Extend the component to get the constructor, which we can then
+    // initialize directly.
+    const Constructor = Vue.extend(MeasureWin);
+    const comp = new Constructor({
+      // Props are passed in "propsData"
+      propsData: {}
+    }).$mount();
+
+    expect(comp.color).to.equal('red darken-3');
+    expect(comp.icon).to.equal('photo_size_select_small');
+    expect(comp.title).to.equal('Measure');
+  });
+
   // Evaluate the results of functions in
   // the raw component options
   it('sets the correct default data', () => {
     expect(typeof MeasureWin.data).to.equal('function');
     const defaultData = MeasureWin.data();
-    expect(defaultData.area).to.equal(' -- ');
-    expect(defaultData.distance).to.equal(' -- ');
+    expect(defaultData.moduleName).to.equal('wgu-measuretool');
+    expect(defaultData.measureGeom).to.equal(null);
     expect(defaultData.measureType).to.equal('distance');
     expect(defaultData.show).to.equal(false);
+    expect(defaultData.left).to.equal('10px');
+    expect(defaultData.top).to.equal('70px');
   });
 
   it('has the correct functions', () => {
     const Constructor = Vue.extend(MeasureWin);
     const vm = new Constructor().$mount();
-    expect(typeof vm.createMeasureLayer).to.equal('function');
-    expect(typeof vm.addInteraction).to.equal('function');
-    expect(typeof vm.removeInteraction).to.equal('function');
-    expect(typeof vm.formatLength).to.equal('function');
-    expect(typeof vm.formatArea).to.equal('function');
+    expect(typeof vm.applyMeasureType).to.equal('function');
+    expect(typeof vm.onMapBound).to.equal('function');
   });
 
   // Mount an instance and inspect the render output
