@@ -6,20 +6,28 @@
     app
     clipped-right
   >
+
+    <!-- slot to inject components at the beginning (before title) -->
+    <slot name="wgu-tb-start"></slot>
+
     <v-toolbar-title>{{title}}</v-toolbar-title>
+
+    <!-- slot to inject components after the title text -->
+    <slot name="wgu-tb-after-title"></slot>
+
     <v-spacer></v-spacer>
 
-    <!--This <slot> is going to be replaced by the toolbar buttons in the
-      app configuration tags (see App.vue) -->
-    <!-- <v-layout justify-end class="">
-      <slot name="wgu-tb-buttons"></slot>
-    </v-layout> -->
+    <!-- slot to inject components before the auto-generated buttons (by config) -->
+    <slot name="wgu-tb-before-auto-buttons"></slot>
 
     <template v-for="(tbButton, index) in tbButtons">
       <component :is="tbButton.type" :key="index" :icon="tbButton.icon" :text="tbButton.text" :color="color" />
     </template>
 
-    <v-menu offset-y>
+    <!-- slot to inject components after the auto-generated buttons (by config) -->
+    <slot name="wgu-tb-after-auto-buttons"></slot>
+
+    <v-menu v-if="menuButtons.length" offset-y>
       <v-btn icon dark slot="activator">
         <v-icon medium>menu</v-icon>
       </v-btn>
@@ -31,6 +39,9 @@
           </template>
       </v-list>
     </v-menu>
+
+    <!-- slot to inject components at the end of the toolbar (after menu) -->
+    <slot name="wgu-tb-end"></slot>
 
   </v-toolbar>
 </template>
