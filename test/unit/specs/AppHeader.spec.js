@@ -2,13 +2,21 @@ import Vue from 'vue'
 import AppHeader from '@/components/AppHeader'
 
 describe('AppHeader.vue', () => {
-  //
-  it('has a method toggleUi', () => {
+  // Inspect the raw component options
+  it('is defined', () => {
+    expect(typeof AppHeader).to.not.equal('undefined');
+  });
+
+  it('has the correct properties', () => {
+    // Extend the component to get the constructor, which we can then
+    // initialize directly.
     const Constructor = Vue.extend(AppHeader);
-    const ah = new Constructor({
+    const comp = new Constructor({
+      // Props are passed in "propsData"
+      propsData: {}
     }).$mount();
-    expect(typeof ah.getModuleButtonData).to.equal('function');
-    expect(typeof ah.getToolbarButtons).to.equal('function');
+
+    expect(comp.color).to.equal('red darken-3');
   });
 
   // Evaluate the results of functions in
@@ -17,19 +25,21 @@ describe('AppHeader.vue', () => {
     AppHeader.$appConfig = {
       title: 'foo'
     };
-    expect(typeof AppHeader.data).to.equal('function');
+    // mock some functions used in data()
+    AppHeader.getModuleButtonData = () => { return [] };
+    AppHeader.getToolbarButtons = () => { return [] };
+    const defaultData = AppHeader.data();
+    expect(defaultData.title).to.equal('foo');
+    expect(defaultData.menuButtons).to.deep.equal([]);
+    expect(defaultData.tbButtons).to.deep.equal([]);
   });
 
-  // Mount an instance and inspect the render output
-  it('renders the correct title', () => {
-    AppHeader.$appConfig = {
-      title: 'foo'
-    };
+  // Check methods
+  it('has the correct functions', () => {
     const Constructor = Vue.extend(AppHeader);
-    const vm = new Constructor({
-      title: 'foo'
+    const ah = new Constructor({
     }).$mount();
-
-    expect(vm.$el.querySelector('v-toolbar-title') !== null).to.equal(true);
+    expect(typeof ah.getModuleButtonData).to.equal('function');
+    expect(typeof ah.getToolbarButtons).to.equal('function');
   });
 });
