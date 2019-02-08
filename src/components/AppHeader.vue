@@ -27,7 +27,7 @@
     <!-- slot to inject components after the auto-generated buttons (by config) -->
     <slot name="wgu-tb-after-auto-buttons"></slot>
 
-    <v-menu offset-y>
+    <v-menu v-if="menuButtons.length" offset-y>
       <v-btn icon dark slot="activator">
         <v-icon medium>menu</v-icon>
       </v-btn>
