@@ -25,8 +25,14 @@ html {
   bottom: 50px;
 }
 
-.wgu-copyright {
+.wgu-footer-left {
+  padding-left: 5px;
+}
+.wgu-footer-right {
   padding-right: 5px;
+}
+.wgu-footer-left a, .wgu-footer-right a {
+  color: inherit;
 }
 
 .wgu-win-title {
