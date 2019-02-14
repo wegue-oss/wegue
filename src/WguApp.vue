@@ -21,8 +21,12 @@
     </template>
 
     <v-footer :color="baseColor" class="white--text" app>
+      <span class="wgu-footer-left" v-html="footerTextLeft"></span>
       <v-spacer></v-spacer>
-      <span class="wgu-copyright">{{footerText}} <span v-if="showCopyrightYear" >&copy; {{ new Date().getFullYear() }}</span></span>
+      <div class="wgu-footer-right">
+        <span  v-html="footerTextRight"></span>
+        <span v-if="showCopyrightYear" >&copy; {{ new Date().getFullYear() }}</span>
+      </div>
     </v-footer>
 
   </v-app>
@@ -52,7 +56,8 @@
       return {
         isEmbedded: false,
         moduleWins: this.getModuleWinData(),
-        footerText: Vue.prototype.$appConfig.footerText,
+        footerTextLeft: Vue.prototype.$appConfig.footerTextLeft,
+        footerTextRight: Vue.prototype.$appConfig.footerTextRight,
         showCopyrightYear: Vue.prototype.$appConfig.showCopyrightYear,
         baseColor: Vue.prototype.$appConfig.baseColor
       }

@@ -7,7 +7,8 @@
   "logo": "https://dummyimage.com/100x100/aaa/fff&text=Wegue",
   "logoSize": "100",
 
-  "footerText": "meggsimum",
+  "footerTextLeft": "Powered by <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>",
+  "footerTextRight": "meggsimum",
   "showCopyrightYear": true,
 
   "mapZoom": 2,
