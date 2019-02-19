@@ -36,6 +36,21 @@ const LayerUtil = {
    */
   getLayerByLid (lid, olMap) {
     return LayerUtil.getLayersBy('lid', lid, olMap)[0];
+  },
+
+  /**
+   * Zooms to the given layer's extent.
+   * Will only work if the layer has kind of vector source.
+   *
+   * @param  {ol.layer.Base} vecLayer OL vector layer
+   * @param  {ol.Map} olMap           The map to perform the zoom on
+   */
+  zoomToLayerExtent (vecLayer, olMap) {
+    if (!vecLayer || !vecLayer.getSource().getExtent || !olMap) {
+      return;
+    }
+    const extent = vecLayer.getSource().getExtent();
+    olMap.getView().fit(extent);
   }
 }
 
