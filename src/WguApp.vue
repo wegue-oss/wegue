@@ -20,14 +20,16 @@
     />
     </template>
 
-    <v-footer :color="baseColor" class="white--text" app>
+    <wgu-app-footer />
+
+    <!-- <v-footer :color="baseColor" class="whitetext" app>
       <span class="wgu-footer-left" v-html="footerTextLeft"></span>
       <v-spacer></v-spacer>
       <div class="wgu-footer-right">
         <span  v-html="footerTextRight"></span>
         <span v-if="showCopyrightYear" >&copy; {{ new Date().getFullYear() }}</span>
       </div>
-    </v-footer>
+    </v-footer> -->
 
   </v-app>
 </template>
@@ -37,6 +39,7 @@
   import { WguEventBus } from './WguEventBus'
   import OlMap from './components/ol/Map'
   import AppHeader from './components/AppHeader'
+  import AppFooter from './components/AppFooter'
   import AppLogo from './components/AppLogo'
   import MeasureWin from './components/measuretool/MeasureWin'
   import LayerListWin from './components/layerlist/LayerListWin'
@@ -47,6 +50,7 @@
     components: {
       'wgu-map': OlMap,
       'wgu-app-header': AppHeader,
+      'wgu-app-footer': AppFooter,
       'wgu-app-logo': AppLogo,
       'wgu-measuretool-win': MeasureWin,
       'wgu-layerlist-win': LayerListWin,
