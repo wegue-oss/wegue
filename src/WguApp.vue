@@ -27,15 +27,6 @@
       :showCopyrightYear="showCopyrightYear"
     />
 
-    <!-- <v-footer :color="baseColor" class="whitetext" app>
-      <span class="wgu-footer-left" v-html="footerTextLeft"></span>
-      <v-spacer></v-spacer>
-      <div class="wgu-footer-right">
-        <span  v-html="footerTextRight"></span>
-        <span v-if="showCopyrightYear" >&copy; {{ new Date().getFullYear() }}</span>
-      </div>
-    </v-footer> -->
-
   </v-app>
 </template>
 
