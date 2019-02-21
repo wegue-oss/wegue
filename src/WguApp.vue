@@ -20,7 +20,12 @@
     />
     </template>
 
-    <wgu-app-footer />
+    <wgu-app-footer
+      :color="baseColor"
+      :footerTextLeft="footerTextLeft"
+      :footerTextRight="footerTextRight"
+      :showCopyrightYear="showCopyrightYear"
+    />
 
     <!-- <v-footer :color="baseColor" class="whitetext" app>
       <span class="wgu-footer-left" v-html="footerTextLeft"></span>
