@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import WguApp from './WguApp'
+import UrlUtil from './util/Url'
 
 import 'vuetify/dist/vuetify.min.css'
 
@@ -20,7 +21,15 @@ Vue.config.productionTip = false;
 const appEl = document.querySelector('#app');
 Vue.prototype.$isEmbedded = appEl.hasAttribute('embedded');
 
-fetch('static/app-conf.json')
+// Detect an URL parameter for a custom app context
+const appCtx = UrlUtil.getQueryParam('appCtx');
+let appCtxFile = '';
+if (appCtx) {
+  // simple aproach to avoid path traversal
+  appCtxFile = '-' + appCtx.replace(/(\.\.[/])+/g, '');
+}
+
+fetch('static/app-conf' + appCtxFile + '.json')
   .then(function (response) {
     return response.json();
   })
