@@ -9,6 +9,7 @@ import TopoJsonFormat from 'ol/format/TopoJSON'
 import KmlFormat from 'ol/format/KML'
 import VectorLayer from 'ol/layer/Vector'
 import VectorSource from 'ol/source/Vector'
+import { OlStyleFactory } from './OlStyle'
 import OlStyleDefs from '../style/OlStyleDefs'
 
 /**
@@ -142,7 +143,7 @@ export const LayerFactory = {
         format: new this.formatMapping[lConf.format](lConf.formatConfig),
         attributions: lConf.attributions
       }),
-      style: OlStyleDefs[lConf.styleRef]
+      style: OlStyleFactory.getInstance(lConf.style) || OlStyleDefs[lConf.styleRef]
     });
 
     return vectorLayer;
@@ -166,7 +167,7 @@ export const LayerFactory = {
         format: new this.formatMapping[lConf.format](),
         attributions: lConf.attributions
       }),
-      style: OlStyleDefs[lConf.styleRef]
+      style: OlStyleFactory.getInstance(lConf.style) || OlStyleDefs[lConf.styleRef]
     });
 
     return vtLayer;
