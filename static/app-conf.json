@@ -30,6 +30,26 @@
     },
 
     {
+      "type": "VECTOR",
+      "lid": "earthquakes",
+      "name": "Earthquakes 2012 (Mag 5)",
+      "url": "./static/data/2012_Earthquakes_Mag5.kml",
+      "formatConfig": {
+        "extractStyles": false
+      },
+      "format": "KML",
+      "visible": true,
+      "attributions": "U.S. Geological Survey",
+      "selectable": true,
+      "style": {
+        "radius": 4,
+        "strokeColor": "rgb(207, 16, 32)",
+        "strokeWidth": 1,
+        "fillColor": "rgba(207, 16, 32, 0.6)"
+      }
+    },
+
+    {
       "type": "WMS",
       "lid": "ahocevar-wms",
       "name": "WMS (ahocevar)",
