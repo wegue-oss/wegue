@@ -110,8 +110,8 @@ export const DraggableWin = {
       if (_data.overlay) {
         _data.overlay.remove();
       }
-       // set the width each click
-       // just in case it changed since last time (by external plugin, for example)
+      // set the width each click
+      // just in case it changed since last time (by external plugin, for example)
       _data.width = el.offsetWidth;
       _data.height = el.offsetHeight;
       _data.down = true;

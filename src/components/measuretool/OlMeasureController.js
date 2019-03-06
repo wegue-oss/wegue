@@ -12,7 +12,6 @@ import Fill from 'ol/style/Fill';
  * Class holding the OpenLayers related logic for the measure tool.
  */
 export default class OlMeasureController {
-
   /* the OL map we want to measure on */
   map = null;
 
