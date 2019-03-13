@@ -41,6 +41,8 @@
       "visible": true,
       "attributions": "U.S. Geological Survey",
       "selectable": true,
+      "hoverable": true,
+      "hoverAttribute": "name",
       "style": {
         "radius": 4,
         "strokeColor": "rgb(207, 16, 32)",

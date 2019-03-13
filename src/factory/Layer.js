@@ -143,7 +143,9 @@ export const LayerFactory = {
         format: new this.formatMapping[lConf.format](lConf.formatConfig),
         attributions: lConf.attributions
       }),
-      style: OlStyleFactory.getInstance(lConf.style) || OlStyleDefs[lConf.styleRef]
+      style: OlStyleFactory.getInstance(lConf.style) || OlStyleDefs[lConf.styleRef],
+      hoverable: lConf.hoverable,
+      hoverAttribute: lConf.hoverAttribute
     });
 
     return vectorLayer;
@@ -167,7 +169,9 @@ export const LayerFactory = {
         format: new this.formatMapping[lConf.format](),
         attributions: lConf.attributions
       }),
-      style: OlStyleFactory.getInstance(lConf.style) || OlStyleDefs[lConf.styleRef]
+      style: OlStyleFactory.getInstance(lConf.style) || OlStyleDefs[lConf.styleRef],
+      hoverable: lConf.hoverable,
+      hoverAttribute: lConf.hoverAttribute
     });
 
     return vtLayer;
