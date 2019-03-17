@@ -7,7 +7,7 @@
       <v-spacer></v-spacer>
       <v-toolbar-side-icon @click="show = false"><v-icon>close</v-icon></v-toolbar-side-icon>
     </v-toolbar>
-    <v-card-title primary-title>
+    <v-card-title primary-title class="wgu-infoclick-win-title">
 
       <div v-if="!this.attributeData && !this.coordsData" class="no-data">
         Click on the map to get information for the clicked map position.
@@ -141,9 +141,14 @@ export default {
     .v-card.wgu-infoclick-win {
       /* tmp. fix */
       left: 0 !important;
-      top: 45% !important;
+      top: 40% !important;
       width: 100%;
       max-width: 600px;
+    }
+
+    .wgu-infoclick-win-title {
+      overflow: scroll;
+      max-height: 300px;
     }
   }
 

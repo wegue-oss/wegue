@@ -107,10 +107,10 @@
     "wgu-infoclick": {
       "target": "menu",
       "win": true,
-      "draggable": true,
+      "draggable": false,
       "initPos": {
         "left": 8,
-        "top": 340
+        "top": 74
       }
     },
     "wgu-zoomtomaxextent": {
