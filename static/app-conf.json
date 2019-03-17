@@ -91,20 +91,12 @@
     "wgu-layerlist": {
       "target": "menu",
       "win": true,
-      "draggable": true,
-      "initPos": {
-        "left": 8,
-        "top": 70
-      }
+      "draggable": false
     },
     "wgu-measuretool": {
       "target": "menu",
       "win": true,
-      "draggable": true,
-      "initPos": {
-        "left": 8,
-        "top": 340
-      },
+      "draggable": false,
       "strokeColor": "#c62828",
       "fillColor": "rgba(198,40,40,0.2)",
       "sketchStrokeColor": "rgba(198,40,40,0.8)",
