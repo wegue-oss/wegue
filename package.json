@@ -19,8 +19,8 @@
   },
   "dependencies": {
     "ol": "5.3.1",
-    "vue": "2.6.8",
-    "vuetify": "1.5.5"
+    "vue": "2.6.9",
+    "vuetify": "1.5.6"
   },
   "devDependencies": {
     "autoprefixer": "^7.2.5",
@@ -77,7 +77,7 @@
     "url-loader": "^1.1.2",
     "vue-loader": "^13.7.0",
     "vue-style-loader": "^3.1.0",
-    "vue-template-compiler": "2.6.8",
+    "vue-template-compiler": "2.6.9",
     "webpack": "^2.6.1",
     "webpack-bundle-analyzer": "^2.9.2",
     "webpack-dev-middleware": "^1.12.2",
