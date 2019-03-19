@@ -60,12 +60,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 
-.wgu-proptable .attr-tbody {
-  display: block;
-  max-height: 225px;
-  overflow-y: scroll;
-}
-
 .wgu-proptable table {
  border-radius: 3px;
  background-color: #fff;

@@ -25,6 +25,19 @@ html {
   bottom: 50px;
 }
 
+.wgu-measurewin {
+  left: auto !important;
+  top: auto !important;
+  right: 10px;
+  bottom: 4.8em;
+}
+
+.wgu-layerlist {
+  left: auto !important;
+  top: 75px !important;
+  right: 10px;
+}
+
 .wgu-footer-left {
   padding-left: 5px;
 }
