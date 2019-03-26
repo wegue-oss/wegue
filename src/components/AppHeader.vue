@@ -21,7 +21,12 @@
     <slot name="wgu-tb-before-auto-buttons"></slot>
 
     <template v-for="(tbButton, index) in tbButtons">
-      <component :is="tbButton.type" :key="index" :icon="tbButton.icon" :text="tbButton.text" :color="color" />
+      <component
+        :is="tbButton.type" :key="index"
+        :icon="tbButton.icon" :text="tbButton.text"
+        :color="color"
+        :dark="tbButton.dark"
+      />
     </template>
 
     <!-- slot to inject components after the auto-generated buttons (by config) -->
@@ -90,7 +95,10 @@ export default {
       for (const key of Object.keys(appConfig.modules)) {
         const moduleOpts = appConfig.modules[key];
         if (moduleOpts.target === 'menu') {
-          moduleWins.push({type: key + '-btn', target: moduleOpts.target});
+          moduleWins.push({
+            type: key + '-btn',
+            target: moduleOpts.target
+          });
         }
       }
       return moduleWins;
@@ -110,7 +118,11 @@ export default {
       for (const key of Object.keys(appConfig.modules)) {
         const moduleOpts = appConfig.modules[key];
         if (moduleOpts.target === 'toolbar') {
-          moduleWins.push({type: key + '-btn', target: moduleOpts.target});
+          moduleWins.push({
+            type: key + '-btn',
+            target: moduleOpts.target,
+            dark: moduleOpts.darkLayout
+          });
         }
       }
       return moduleWins;

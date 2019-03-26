@@ -114,10 +114,12 @@
       }
     },
     "wgu-zoomtomaxextent": {
-      "target": "toolbar"
+      "target": "toolbar",
+      "darkLayout": true
     },
     "wgu-helpwin": {
-      "target": "toolbar"
+      "target": "toolbar",
+      "darkLayout": true
     }
   }
 

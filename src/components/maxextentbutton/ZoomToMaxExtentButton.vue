@@ -1,6 +1,6 @@
 <template>
 
-  <v-btn icon @click="onClick" dark>
+  <v-btn icon :dark="dark" @click="onClick">
     <v-icon medium>{{icon}}</v-icon>
     {{text}}
   </v-btn>
@@ -16,7 +16,8 @@ export default {
   mixins: [Mapable],
   props: {
     icon: {type: String, required: false, default: 'zoom_out_map'},
-    text: {type: String, required: false, default: ''}
+    text: {type: String, required: false, default: ''},
+    dark: {type: Boolean, required: false, default: false}
   },
   methods: {
     onClick () {
