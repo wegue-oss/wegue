@@ -1,13 +1,9 @@
 <template>
 
-  <div class="" dark>
-
-    <v-btn icon @click="toggleUi">
-      <v-icon medium>{{icon}}</v-icon>
-      {{text}}
-    </v-btn>
-
-  </div>
+  <v-btn icon @click="toggleUi">
+    <v-icon medium>{{icon}}</v-icon>
+    {{text}}
+  </v-btn>
 
 </template>
 
