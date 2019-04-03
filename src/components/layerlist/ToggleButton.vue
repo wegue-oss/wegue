@@ -1,13 +1,9 @@
 <template>
 
-  <div class="" dark>
-
-    <v-btn icon @click="toggleUi">
-      <v-icon medium>{{icon}}</v-icon>
-      {{text}}
-    </v-btn>
-
-  </div>
+  <v-btn icon :dark="dark" @click="toggleUi">
+    <v-icon medium>{{icon}}</v-icon>
+    {{text}}
+  </v-btn>
 
 </template>
 
@@ -24,7 +20,8 @@ export default {
   },
   props: {
     icon: {type: String, required: false, default: 'layers'},
-    text: {type: String, required: false, default: ''}
+    text: {type: String, required: false, default: ''},
+    dark: {type: Boolean, required: false, default: false}
   },
   data: function () {
     return {

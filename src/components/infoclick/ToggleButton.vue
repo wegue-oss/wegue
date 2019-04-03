@@ -1,6 +1,6 @@
 <template>
 
-  <v-btn icon @click="toggleUi">
+  <v-btn icon :dark="dark" @click="toggleUi">
     <v-icon medium>{{icon}}</v-icon>
     {{text}}
   </v-btn>
@@ -15,7 +15,8 @@ export default {
   name: 'wgu-infoclick-btn',
   props: {
     icon: {type: String, required: false, default: 'info'},
-    text: {type: String, required: false, default: ''}
+    text: {type: String, required: false, default: ''},
+    dark: {type: Boolean, required: false, default: false}
   },
   data: function () {
     return {

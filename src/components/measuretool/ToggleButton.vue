@@ -1,6 +1,6 @@
 <template>
 
-  <v-btn icon @click="toggleUi">
+  <v-btn icon :dark="dark" @click="toggleUi">
     <v-icon medium>{{icon}}</v-icon>
     {{text}}
   </v-btn>
@@ -21,7 +21,8 @@ export default {
   },
   props: {
     icon: {type: String, required: false, default: 'photo_size_select_small'},
-    text: {type: String, required: false}
+    text: {type: String, required: false},
+    dark: {type: Boolean, required: false, default: false}
   },
   data: function () {
     return {

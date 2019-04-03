@@ -2,7 +2,7 @@
 
   <v-dialog v-model="show" max-width="300" :hide-overlay="false">
 
-    <v-btn icon slot="activator" dark>
+    <v-btn icon :dark="dark" slot="activator">
       <v-icon medium>{{icon}}</v-icon>
       {{text}}
     </v-btn>
@@ -36,6 +36,7 @@ export default {
     color: {type: String, required: false, default: 'red darken-3'},
     icon: {type: String, required: false, default: 'help'},
     text: {type: String, required: false},
+    dark: {type: Boolean, required: false, default: false},
     headline: {type: String, required: false},
     content: {type: String, required: false},
     infoLink: {type: String, required: false},
