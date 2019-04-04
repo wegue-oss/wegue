@@ -23,7 +23,6 @@ describe('layerlist/ToggleButton.vue', () => {
     const vm = new Constructor({
       icon: 'terrain'
     }).$mount();
-    const btn = vm.$el.querySelector('v-btn');
-    expect(btn !== null).to.equal(true);
+    expect(vm.$el.textContent.indexOf('layers')).to.equal(0);
   });
 });
