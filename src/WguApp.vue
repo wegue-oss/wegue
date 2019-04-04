@@ -8,6 +8,8 @@
     <v-content>
       <v-container id="ol-map-container" fluid fill-height style="padding: 0">
          <wgu-map :color="baseColor" />
+         <!-- layer loading indicator -->
+         <wgu-maploading-status :color="baseColor" />
       </v-container>
     </v-content>
 
@@ -40,6 +42,7 @@
   import MeasureWin from './components/measuretool/MeasureWin'
   import LayerListWin from './components/layerlist/LayerListWin'
   import InfoClickWin from './components/infoclick/InfoClickWin'
+  import MapLoadingStatus from './components/progress/MapLoadingStatus'
 
   export default {
     name: 'wgu-app',
@@ -50,7 +53,8 @@
       'wgu-app-logo': AppLogo,
       'wgu-measuretool-win': MeasureWin,
       'wgu-layerlist-win': LayerListWin,
-      'wgu-infoclick-win': InfoClickWin
+      'wgu-infoclick-win': InfoClickWin,
+      'wgu-maploading-status': MapLoadingStatus
     },
     data () {
       return {
