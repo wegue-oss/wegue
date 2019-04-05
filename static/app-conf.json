@@ -63,7 +63,7 @@
       "projection": "EPSG:3857",
       "attribution": "",
       "isBaseLayer": false,
-      "visibility": false,
+      "visible": false,
       "displayInLayerList": true
     },
 
@@ -81,7 +81,7 @@
       "lid": "osm-bg",
       "name": "OSM",
       "isBaseLayer": false,
-      "visibility": true,
+      "visible": true,
       "displayInLayerList": true
     }
 
