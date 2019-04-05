@@ -15,6 +15,32 @@ describe('OlStyleFactory', () => {
     expect(typeof OlStyleFactory.createFill).to.equal('function');
   });
 
+  it('getInstance returns correct point Style instance', () => {
+    const styleConf = {
+      radius: 8,
+      strokeColor: '#d4de24',
+      strokeWidth: 2,
+      fillColor: 'rgba(255, 255, 255, 0.4)'
+    };
+    const style = OlStyleFactory.getInstance(styleConf);
+    const circleStyle = style.getImage();
+    expect((circleStyle instanceof CircleStyle)).to.equal(true);
+    expect(circleStyle.getFill().getColor()).to.equal('rgba(255, 255, 255, 0.4)');
+    expect(circleStyle.getStroke().getColor()).to.equal('#d4de24');
+    expect(circleStyle.getStroke().getWidth()).to.equal(2);
+  });
+
+  it('getInstance returns correct line Style instance', () => {
+    const styleConf = {
+      strokeColor: '#d4de24',
+      strokeWidth: 2
+    };
+    const style = OlStyleFactory.getInstance(styleConf);
+    expect((style instanceof Style)).to.equal(true);
+    expect(style.getStroke().getColor()).to.equal('#d4de24');
+    expect(style.getStroke().getWidth()).to.equal(2);
+  });
+
   it('getInstance returns correct polygon Style instance', () => {
     const styleConf = {
       strokeColor: '#d4de24',

@@ -24,7 +24,7 @@ export const OlStyleFactory = {
     } else if (styleConf.fillColor) {
       return OlStyleFactory.createPolygonStyle(styleConf);
     } else if (styleConf.strokeColor || styleConf.strokeWidth) {
-      return OlStyleFactory.createLineStyle();
+      return OlStyleFactory.createLineStyle(styleConf);
     }
   },
 
