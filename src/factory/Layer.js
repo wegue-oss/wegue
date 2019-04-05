@@ -9,6 +9,7 @@ import TopoJsonFormat from 'ol/format/TopoJSON'
 import KmlFormat from 'ol/format/KML'
 import VectorLayer from 'ol/layer/Vector'
 import VectorSource from 'ol/source/Vector'
+import XyzSource from 'ol/source/XYZ'
 import { OlStyleFactory } from './OlStyle'
 import OlStyleDefs from '../style/OlStyleDefs'
 
@@ -87,18 +88,20 @@ export const LayerFactory = {
   },
 
   /**
-   * Returns an OpenLayers XYZ layer instance due to given config.
+   * Returns an XYZ based tile layer instance due to given config.
    *
    * @param  {Object} lConf  Layer config object
    * @return {ol.layer.Tile} OL XYZ layer instance
    */
   createXyzLayer (lConf) {
     const xyzLayer = new TileLayer({
+      name: lConf.name,
+      lid: lConf.lid,
       displayInLayerList: lConf.displayInLayerList,
-      extent: lConf.extent,
-      source: new TileWmsSource({
-        url: lConf.url,
-        attributions: lConf.attributions
+      visible: lConf.visible,
+      opacity: lConf.opacity,
+      source: new XyzSource({
+        url: lConf.url
       })
     });
 
