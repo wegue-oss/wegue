@@ -22,7 +22,8 @@
     },
     data () {
       return {
-        layerItems: []
+        layerItems: [],
+        changeVisByClickUpdate: false
       }
     },
     methods: {
@@ -42,6 +43,7 @@
        * Creates the layer items from the OpenLayers map.
        */
       createLayerItems () {
+        const me = this;
         // go over all layers from the map and list them up
         var layers = this.map.getLayers();
         // clone to only reverse the order for the list
@@ -58,10 +60,32 @@
             title: layer.get('name'),
             lid: layer.get('lid'),
             visible: layer.getVisible()
-          })
+          });
+
+          // synchronize visibility with UI when changed programatically
+          layer.on('change:visible', me.onOlLayerVizChange);
         });
 
-        this.layerItems = layerItems;
+        me.layerItems = layerItems;
+      },
+
+      /**
+       * Handles the 'change:visible' event of the layer in order to
+       * apply the current visibility state to the corresponding checkbox in
+       * case the 'change:visible' wasn't triggered by click.
+       *
+       * @param  {ol/Object.ObjectEvent} evt The OL event of 'change:visible'
+       */
+      onOlLayerVizChange (evt) {
+        const me = this;
+        if (!me.changeVisByClickUpdate) {
+          me.layerItems.forEach(function (layerItem, idx) {
+            if (layerItem.lid === evt.target.get('lid')) {
+              // execute click handler to change visibility
+              me.onItemClick(null, layerItem);
+            }
+          });
+        }
       },
 
       /**
@@ -72,9 +96,12 @@
        * @param  {Object} layerItem Layer item data object
        */
       onItemClick (evt, layerItem) {
+        const me = this;
         layerItem.visible = !layerItem.visible;
 
+        me.changeVisByClickUpdate = true;
         this.layerVizChanged();
+        me.changeVisByClickUpdate = false;
       },
 
       /**

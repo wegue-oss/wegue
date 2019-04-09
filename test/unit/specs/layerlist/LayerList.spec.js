@@ -9,15 +9,16 @@ describe('layerlist/LayerList.vue', () => {
     const defaultData = LayerList.data();
     expect(defaultData.layerItems).to.be.an('array');
     expect(defaultData.layerItems.length).to.eql(0);
+    expect(defaultData.changeVisByClickUpdate).to.eql(false);
   });
 
-  // Mount an instance and inspect the render output
-  it('does not render on startup', () => {
-    const Constructor = Vue.extend(LayerList)
+  it('has the correct functions', () => {
+    const Constructor = Vue.extend(LayerList);
     const vm = new Constructor().$mount();
-
-    // no layers should bring up no list entries
-    const layerListDomItems = vm.$el.querySelector('.wgu-layerlist-item');
-    expect(layerListDomItems).to.equal(null);
+    expect(typeof vm.onMapBound).to.equal('function');
+    expect(typeof vm.createLayerItems).to.equal('function');
+    expect(typeof vm.onOlLayerVizChange).to.equal('function');
+    expect(typeof vm.onItemClick).to.equal('function');
+    expect(typeof vm.layerVizChanged).to.equal('function');
   });
 });
