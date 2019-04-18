@@ -11,7 +11,6 @@ import VectorLayer from 'ol/layer/Vector'
 import VectorSource from 'ol/source/Vector'
 import XyzSource from 'ol/source/XYZ'
 import { OlStyleFactory } from './OlStyle'
-import OlStyleDefs from '../style/OlStyleDefs'
 
 /**
  * Factory, which creates OpenLayers layer instances according to a given config
@@ -146,7 +145,7 @@ export const LayerFactory = {
         format: new this.formatMapping[lConf.format](lConf.formatConfig),
         attributions: lConf.attributions
       }),
-      style: OlStyleFactory.getInstance(lConf.style) || OlStyleDefs[lConf.styleRef],
+      style: OlStyleFactory.getInstance(lConf.style),
       hoverable: lConf.hoverable,
       hoverAttribute: lConf.hoverAttribute
     });
@@ -172,7 +171,7 @@ export const LayerFactory = {
         format: new this.formatMapping[lConf.format](),
         attributions: lConf.attributions
       }),
-      style: OlStyleFactory.getInstance(lConf.style) || OlStyleDefs[lConf.styleRef],
+      style: OlStyleFactory.getInstance(lConf.style),
       hoverable: lConf.hoverable,
       hoverAttribute: lConf.hoverAttribute
     });
