@@ -1,12 +1,6 @@
 <template></template>
 
 <script>
-// helper function to detect a CSS color
-// Taken from Vuetify sources
-// https://github.com/vuetifyjs/vuetify/blob/master/packages/vuetify/src/mixins/colorable.ts
-function isCssColor (color) {
-  return !!color && !!color.match(/^(#|(rgb|hsl)a?\()/)
-}
 
 import Vue from 'vue';
 import Map from 'ol/Map'
@@ -20,6 +14,7 @@ import Overlay from 'ol/Overlay';
 // import the app-wide EventBus
 import { WguEventBus } from '../../WguEventBus.js';
 import { LayerFactory } from '../../factory/Layer.js';
+import ColorUtil from '../../util/Color';
 
 export default {
   name: 'wgu-map',
@@ -128,7 +123,7 @@ export default {
     setOlButtonColor () {
       var me = this;
 
-      if (isCssColor(me.color)) {
+      if (ColorUtil.isCssColor(me.color)) {
         // directly apply the given CSS color
         if (document.querySelector('.ol-zoom')) {
           document.querySelector('.ol-zoom .ol-zoom-in').style.backgroundColor = me.color;
