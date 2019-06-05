@@ -1,28 +1,53 @@
-import Vue from 'vue'
+import { shallowMount } from '@vue/test-utils';
 import LayerListToggleBtn from '@/components/layerlist/ToggleButton'
 
-describe('layerlist/ToggleButton.vue', () => {
-  // Check methods
-  it('has a method toggleUi', () => {
-    const Constructor = Vue.extend(LayerListToggleBtn);
-    const lltb = new Constructor({
-    }).$mount();
-    expect(typeof lltb.toggleUi).to.equal('function');
+describe('infoclick/ToggleButton.vue', () => {
+  // Inspect the raw component options
+  it('is defined', () => {
+    expect(typeof LayerListToggleBtn).to.not.equal('undefined');
   });
 
-  // Evaluate the results of functions
-  it('sets the correct default data', () => {
-    expect(typeof LayerListToggleBtn.data).to.equal('function');
-    const defaultData = LayerListToggleBtn.data();
-    expect(typeof defaultData).to.equal('object');
+  it('has a created hook', () => {
+    expect(typeof LayerListToggleBtn.created).to.equal('function');
   });
 
-  // Mount an instance and inspect the render output
-  it('renders the right sub-components', () => {
-    const Constructor = Vue.extend(LayerListToggleBtn);
-    const vm = new Constructor({
-      icon: 'terrain'
-    }).$mount();
-    expect(vm.$el.textContent.indexOf('layers')).to.equal(0);
+  describe('props', () => {
+    let comp;
+    beforeEach(() => {
+      comp = shallowMount(LayerListToggleBtn);
+    });
+
+    it('has correct default props', () => {
+      expect(comp.vm.icon).to.equal('layers');
+      expect(comp.vm.text).to.equal('');
+      expect(comp.vm.dark).to.equal(false);
+    });
+  });
+
+  describe('data', () => {
+    let comp;
+    beforeEach(() => {
+      comp = shallowMount(LayerListToggleBtn);
+    });
+
+    it('has correct default data', () => {
+      expect(comp.vm.moduleName).to.equal('wgu-layerlist');
+    });
+  });
+
+  describe('methods', () => {
+    let comp;
+    let vm;
+    beforeEach(() => {
+      comp = shallowMount(LayerListToggleBtn);
+      vm = comp.vm;
+    });
+
+    it('toggleUi switches show', () => {
+      // mock a window UI instance
+      vm.win = {show: false};
+      vm.toggleUi();
+      expect(vm.win.show).to.equal(true);
+    });
   });
 });
