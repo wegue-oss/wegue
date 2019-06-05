@@ -1,36 +1,86 @@
-import Vue from 'vue'
-import MeasureResult from '@/components/measuretool/MeasureResult'
+import { shallowMount } from '@vue/test-utils';
+import MeasureResult from '@/components/measuretool/MeasureResult';
+import PolygonGeom from 'ol/geom/Polygon'
+import LineStringGeom from 'ol/geom/LineString';
 
-describe('measuretool/MeasureWin.vue', () => {
+describe('measuretool/MeasureResult.vue', () => {
+  // Inspect the raw component options
   it('is defined', () => {
     expect(typeof MeasureResult).to.not.equal('undefined');
   });
 
-  it('has the correct properties', () => {
-    // Extend the component to get the constructor, which we can then
-    // initialize directly.
-    const Constructor = Vue.extend(MeasureResult);
-    const comp = new Constructor({
-      // Props are passed in "propsData"
-      propsData: {}
-    }).$mount();
+  describe('props', () => {
+    let comp;
+    beforeEach(() => {
+      comp = shallowMount(MeasureResult);
+    });
 
-    expect(comp.measureGeom).to.equal(undefined);
+    it('has correct default props', () => {
+      expect(comp.vm.measureGeom).to.equal(undefined);
+    });
   });
 
-  // Evaluate the results of functions in
-  // the raw component options
-  it('sets the correct default data', () => {
-    expect(typeof MeasureResult.data).to.equal('function');
-    const defaultData = MeasureResult.data();
-    expect(defaultData.area).to.equal(' -- ');
-    expect(defaultData.distance).to.equal(' -- ');
+  describe('data', () => {
+    let comp;
+    beforeEach(() => {
+      comp = shallowMount(MeasureResult);
+    });
+
+    it('has correct default data', () => {
+      expect(comp.vm.area).to.equal(' -- ');
+      expect(comp.vm.distance).to.equal(' -- ');
+    });
   });
 
-  it('has the correct functions', () => {
-    const Constructor = Vue.extend(MeasureResult);
-    const vm = new Constructor().$mount();
-    expect(typeof vm.formatLength).to.equal('function');
-    expect(typeof vm.formatArea).to.equal('function');
+  describe('methods', () => {
+    let comp;
+    let vm;
+    beforeEach(() => {
+      comp = shallowMount(MeasureResult);
+      vm = comp.vm;
+    });
+
+    it('are implemented', () => {
+      expect(typeof vm.formatLength).to.equal('function');
+      expect(typeof vm.formatArea).to.equal('function');
+    });
+
+    it('formatLength returns the correct formatted text for length', () => {
+      const lineGeom = new LineStringGeom([[0, 0], [1000, 0], [1000, 1000], [0, 1000]]);
+      const fLenText = vm.formatLength(lineGeom);
+      expect(fLenText).to.equal('3 km');
+    });
+
+    it('formatArea returns the correct formatted text for area', () => {
+      const polyGeom = new PolygonGeom([[[0, 0], [1000, 0], [1000, 1000], [0, 1000], [0, 0]]]);
+      const fLenText = vm.formatArea(polyGeom);
+      expect(fLenText).to.equal('1 km²');
+    });
+  });
+
+  describe('watchers', () => {
+    let comp;
+    beforeEach(() => {
+      comp = shallowMount(MeasureResult);
+    });
+
+    it('watches measureGeom Polygon', () => {
+      const polyGeom = new PolygonGeom([[[0, 0], [1, 0], [1, 1], [0, 1], [0, 0]]]);
+
+      comp.vm.measureGeom = {geom: polyGeom};
+      expect(comp.vm.area).to.equal('1 m²');
+    });
+
+    it('watches measureGeom LineString', () => {
+      const lineGeom = new LineStringGeom([[0, 0], [1, 0], [1, 1], [0, 1]]);
+
+      comp.vm.measureGeom = {geom: lineGeom};
+      expect(comp.vm.distance).to.equal('3 m');
+    });
+
+    it('watches measureGeom non supported geom', () => {
+      comp.vm.measureGeom = {geom: null};
+      expect(comp.vm.distance).to.equal(' -- ');
+    });
   });
 });

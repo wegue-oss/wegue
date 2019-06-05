@@ -1,28 +1,46 @@
-import Vue from 'vue'
-import MeasureTypeChooser from '@/components/measuretool/MeasureTypeChooser'
+import { shallowMount } from '@vue/test-utils';
+import MeasureTypeChooser from '@/components/measuretool/MeasureTypeChooser';
 
-describe('measuretool/MeasureWin.vue', () => {
+describe('measuretool/MeasureTypeChooser.vue', () => {
   it('is defined', () => {
     expect(typeof MeasureTypeChooser).to.not.equal('undefined');
   });
 
-  it('has the correct properties', () => {
-    // Extend the component to get the constructor, which we can then
-    // initialize directly.
-    const Constructor = Vue.extend(MeasureTypeChooser);
-    const comp = new Constructor({
-      // Props are passed in "propsData"
-      propsData: {}
-    }).$mount();
+  describe('props', () => {
+    let comp;
+    beforeEach(() => {
+      comp = shallowMount(MeasureTypeChooser);
+    });
 
-    expect(comp.measureType).to.equal('distance');
+    it('has correct default props', () => {
+      expect(comp.vm.measureType).to.equal('distance');
+    });
   });
 
-  // Evaluate the results of functions in
-  // the raw component options
-  it('sets the correct default data', () => {
-    expect(typeof MeasureTypeChooser.data).to.equal('function');
-    const defaultData = MeasureTypeChooser.data();
-    expect(defaultData.measureTypeData).to.equal(undefined);
+  describe('data', () => {
+    let comp;
+    beforeEach(() => {
+      comp = shallowMount(MeasureTypeChooser);
+    });
+
+    it('has correct default data', () => {
+      expect(comp.vm.measureTypeData).to.equal('distance');
+    });
+  });
+
+  describe('watchers', () => {
+    let comp;
+    beforeEach(() => {
+      comp = shallowMount(MeasureTypeChooser);
+    });
+
+    it('watches measureTypeData fires event "wgu-measuretype-change"', () => {
+      let cnt = 0;
+      comp.vm.$on('wgu-measuretype-change', () => {
+        cnt++;
+      });
+      comp.vm.measureTypeData = 'kalle';
+      expect(cnt).to.equal(1);
+    });
   });
 });
