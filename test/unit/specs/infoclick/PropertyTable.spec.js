@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import { shallowMount } from '@vue/test-utils';
 import PropertyTable from '@/components/infoclick/PropertyTable'
 
 describe('infoclick/PropertyTable.vue', () => {
@@ -7,18 +7,29 @@ describe('infoclick/PropertyTable.vue', () => {
     expect(typeof PropertyTable).to.not.equal('undefined');
   });
 
-  it('has the correct properties', () => {
-    // Extend the component to get the constructor, which we can then
-    // initialize directly.
-    const Constructor = Vue.extend(PropertyTable);
-    const comp = new Constructor({
-      // Props are passed in "propsData"
-      propsData: {
-        properties: null
-      }
-    }).$mount();
+  describe('props', () => {
+    let comp;
+    beforeEach(() => {
+      comp = shallowMount(PropertyTable);
+    });
 
-    expect(comp.color).to.equal('red darken-3');
-    expect(comp.properties).to.equal(null);
+    it('has correct default props', () => {
+      expect(comp.vm.color).to.equal('red darken-3');
+      expect(comp.vm.properties).to.equal(undefined);
+    });
+  });
+
+  describe('computed properties', () => {
+    let comp;
+    beforeEach(() => {
+      comp = shallowMount(PropertyTable);
+    });
+
+    it('tableStyles returning correct color for given color', () => {
+      expect(comp.vm.tableStyles.border).to.equal('2px solid #c62828');
+      const color = 'rgb(0,0,0)';
+      comp.setData({ color: color });
+      expect(comp.vm.tableStyles.border).to.equal('2px solid ' + color);
+    });
   });
 });
