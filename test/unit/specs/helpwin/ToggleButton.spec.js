@@ -1,29 +1,34 @@
-import Vue from 'vue'
-import HelpWinToggleBtn from '@/components/helpwin/ToggleButton'
+import { shallowMount } from '@vue/test-utils';
+import HelpWinToggleBtn from '@/components/helpwin/ToggleButton';
 
 describe('helpwin/ToggleButton.vue', () => {
-  // Check methods
-  it('has a method toggleUi', () => {
-    const Constructor = Vue.extend(HelpWinToggleBtn);
-    const hwtb = new Constructor({
-    }).$mount();
-    expect(hwtb.icon).to.equal('help');
+  // Inspect the raw component options
+  it('is defined', () => {
+    expect(typeof HelpWinToggleBtn).to.not.equal('undefined');
   });
 
-  // Evaluate the results of functions
-  it('sets the correct default data', () => {
-    expect(typeof HelpWinToggleBtn.data).to.equal('function');
-    const defaultData = HelpWinToggleBtn.data();
-    expect(typeof defaultData).to.equal('object');
+  describe('props', () => {
+    let comp;
+    beforeEach(() => {
+      comp = shallowMount(HelpWinToggleBtn);
+    });
+
+    it('has correct default props', () => {
+      expect(comp.vm.color).to.equal('red darken-3');
+      expect(comp.vm.icon).to.equal('help');
+      expect(comp.vm.text).to.equal(undefined);
+      expect(comp.vm.dark).to.equal(false);
+    });
   });
 
-  // Mount an instance and inspect the render output
-  it('renders the right sub-components', () => {
-    const Constructor = Vue.extend(HelpWinToggleBtn);
-    const vm = new Constructor({
-      icon: 'help'
-    }).$mount();
-    const btn = vm.$el.querySelector('v-btn');
-    expect(btn !== null).to.equal(true);
+  describe('data', () => {
+    let comp;
+    beforeEach(() => {
+      comp = shallowMount(HelpWinToggleBtn);
+    });
+
+    it('has correct default data', () => {
+      expect(comp.vm.show).to.equal(false);
+    });
   });
 });
