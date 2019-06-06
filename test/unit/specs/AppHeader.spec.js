@@ -1,5 +1,6 @@
-import Vue from 'vue'
-import AppHeader from '@/components/AppHeader'
+import Vue from 'vue';
+import { shallowMount } from '@vue/test-utils';
+import AppHeader from '@/components/AppHeader';
 
 describe('AppHeader.vue', () => {
   // Inspect the raw component options
@@ -7,39 +8,83 @@ describe('AppHeader.vue', () => {
     expect(typeof AppHeader).to.not.equal('undefined');
   });
 
-  it('has the correct properties', () => {
-    // Extend the component to get the constructor, which we can then
-    // initialize directly.
-    const Constructor = Vue.extend(AppHeader);
-    const comp = new Constructor({
-      // Props are passed in "propsData"
-      propsData: {}
-    }).$mount();
+  describe('props', () => {
+    let comp;
+    let vm;
+    beforeEach(() => {
+      Vue.prototype.$appConfig = {modules: {}};
+      comp = shallowMount(AppHeader);
+      vm = comp.vm;
+    });
 
-    expect(comp.color).to.equal('red darken-3');
+    it('has correct default props', () => {
+      expect(vm.color).to.equal('red darken-3');
+    });
   });
 
-  // Evaluate the results of functions in
-  // the raw component options
-  it('sets the correct default data', () => {
-    AppHeader.$appConfig = {
-      title: 'foo'
-    };
-    // mock some functions used in data()
-    AppHeader.getModuleButtonData = () => { return [] };
-    AppHeader.getToolbarButtons = () => { return [] };
-    const defaultData = AppHeader.data();
-    expect(defaultData.title).to.equal('foo');
-    expect(defaultData.menuButtons).to.deep.equal([]);
-    expect(defaultData.tbButtons).to.deep.equal([]);
+  describe('data', () => {
+    let comp;
+    let vm;
+    beforeEach(() => {
+      comp = shallowMount(AppHeader);
+      vm = comp.vm;
+    });
+
+    it('has correct default data', () => {
+      expect(vm.title).to.equal(undefined);
+      expect(vm.menuButtons).to.be.an('array');
+      expect(vm.menuButtons.length).to.equal(0);
+      expect(vm.tbButtons).to.be.an('array');
+      expect(vm.tbButtons.length).to.equal(0);
+    });
   });
 
-  // Check methods
-  it('has the correct functions', () => {
-    const Constructor = Vue.extend(AppHeader);
-    const ah = new Constructor({
-    }).$mount();
-    expect(typeof ah.getModuleButtonData).to.equal('function');
-    expect(typeof ah.getToolbarButtons).to.equal('function');
+  describe('methods', () => {
+    let comp;
+    let vm;
+    beforeEach(() => {
+      comp = shallowMount(AppHeader);
+      vm = comp.vm;
+    });
+
+    it('getModuleButtonData returns always an array', () => {
+      // mock a window UI instance
+      const moduleData = vm.getModuleButtonData();
+      expect(moduleData).to.be.an('array');
+    });
+
+    it('getModuleButtonData returns correct data', () => {
+      // mock a module conf
+      Vue.prototype.$appConfig = {modules: {
+        'wgu-zoomtomaxextent': {
+          target: 'menu',
+          darkLayout: true
+        }}};
+      const moduleData = vm.getModuleButtonData();
+      expect(moduleData).to.be.an('array');
+      expect(moduleData.length).to.equal(1);
+      expect(moduleData[0].type).to.equal('wgu-zoomtomaxextent-btn');
+      expect(moduleData[0].target).to.equal('menu');
+    });
+
+    it('getToolbarButtons returns always an array', () => {
+      // mock a window UI instance
+      const moduleData = vm.getToolbarButtons();
+      expect(moduleData).to.be.an('array');
+    });
+
+    it('getToolbarButtons returns correct data', () => {
+      // mock a module conf
+      Vue.prototype.$appConfig = {modules: {
+        'wgu-zoomtomaxextent': {
+          target: 'toolbar',
+          darkLayout: true
+        }}};
+      const moduleData = vm.getToolbarButtons();
+      expect(moduleData).to.be.an('array');
+      expect(moduleData.length).to.equal(1);
+      expect(moduleData[0].type).to.equal('wgu-zoomtomaxextent-btn');
+      expect(moduleData[0].target).to.equal('toolbar');
+    });
   });
 });
