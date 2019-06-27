@@ -91,7 +91,9 @@ export default {
     createLayers () {
       const me = this;
       let layers = [];
-      this.$appConfig.mapLayers.reverse().forEach(function (lConf) {
+      const appConfig = this.$appConfig;
+      const mapLayersConfig = appConfig.mapLayers || [];
+      mapLayersConfig.reverse().forEach(function (lConf) {
         let layer = LayerFactory.getInstance(lConf);
         layers.push(layer);
 
