@@ -112,9 +112,10 @@
        * @return {Array} module window configuration objects
        */
       getModuleWinData () {
-        const appConfig = Vue.prototype.$appConfig;
+        const appConfig = Vue.prototype.$appConfig || {};
+        const modulesConfs = appConfig.modules || {};
         let moduleWins = [];
-        for (const key of Object.keys(appConfig.modules)) {
+        for (const key of Object.keys(modulesConfs)) {
           const moduleOpts = appConfig.modules[key];
           if (moduleOpts.win === true) {
             moduleWins.push({
