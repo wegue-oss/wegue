@@ -1,4 +1,4 @@
-import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
+import { Circle as CircleStyle, Icon as IconStyle, Fill, Stroke, Style } from 'ol/style';
 
 /**
  * Factory, which creates OpenLayers style instances according to a given config
@@ -19,7 +19,7 @@ export const OlStyleFactory = {
   getInstance (styleConf) {
     if (!styleConf) {
       return;
-    } else if (styleConf.radius) {
+    } else if (styleConf.radius || styleConf.iconUrl) {
       return OlStyleFactory.createPointStyle(styleConf);
     } else if (styleConf.fillColor) {
       return OlStyleFactory.createPolygonStyle(styleConf);
@@ -35,13 +35,27 @@ export const OlStyleFactory = {
    * @return {Style}             OL style instance
    */
   createPointStyle (styleConf) {
-    return new Style({
-      image: new CircleStyle({
-        radius: styleConf.radius,
-        fill: OlStyleFactory.createFill(styleConf),
-        stroke: OlStyleFactory.createStroke(styleConf)
+    let pointStyle;
+    if (styleConf.iconUrl) {
+      pointStyle = new Style({
+        image: new IconStyle(({
+          src: styleConf.iconUrl,
+          anchor: styleConf.iconAnchor,
+          anchorXUnits: styleConf.iconAnchorXUnits,
+          anchorYUnits: styleConf.iconAnchorYUnits
+        }))
       })
-    });
+    } else {
+      pointStyle = new Style({
+        image: new CircleStyle({
+          radius: styleConf.radius,
+          fill: OlStyleFactory.createFill(styleConf),
+          stroke: OlStyleFactory.createStroke(styleConf)
+        })
+      });
+    }
+
+    return pointStyle;
   },
 
   /**
