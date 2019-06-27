@@ -160,7 +160,6 @@ export default {
     setupMapHover () {
       const me = this;
       const map = me.map;
-      let overlay;
       let overlayEl;
 
       // create a span to show map tooltip
@@ -168,35 +167,49 @@ export default {
       overlayEl.classList.add('wgu-hover-tooltiptext');
       map.getTarget().append(overlayEl);
 
+      me.overlayEl = overlayEl;
+
       // wrap the tooltip span in a OL overlay and add it to map
-      overlay = new Overlay({
+      me.overlay = new Overlay({
         element: overlayEl,
         autoPan: true,
         autoPanAnimation: {
           duration: 250
         }
       });
-      map.addOverlay(overlay);
+      map.addOverlay(me.overlay);
 
-      map.on('pointermove', function (event) {
-        let hoverAttr;
-        const features = map.getFeaturesAtPixel(event.pixel, {layerFilter: (layer) => {
-          if (layer.get('hoverable')) {
-            hoverAttr = layer.get('hoverAttribute');
-          }
-          return layer.get('hoverable');
-        }});
-        if (!features || !hoverAttr) {
-          hoverAttr = null;
-          overlayEl.innerHTML = null;
-          overlay.setPosition(undefined);
-          return;
+      // show tooltip if a hoverable feature gets hit with the mouse
+      map.on('pointermove', me.onPointerMove, me);
+    },
+
+    /**
+     * Shows the hover tooltip on the map if an appropriate feature of a
+     * 'hoverable' layer was hit with the mouse.
+     *
+     * @param  {Object} event The OL event for pointermove
+     */
+    onPointerMove (event) {
+      const me = this;
+      const map = me.map;
+      const overlayEl = me.overlayEl;
+      let hoverAttr;
+      const features = map.getFeaturesAtPixel(event.pixel, {layerFilter: (layer) => {
+        if (layer.get('hoverable')) {
+          hoverAttr = layer.get('hoverAttribute');
         }
-        const feature = features[0];
-        var attr = feature.get(hoverAttr);
-        overlayEl.innerHTML = attr;
-        overlay.setPosition(event.coordinate);
-      });
+        return layer.get('hoverable');
+      }});
+      if (!features || !hoverAttr) {
+        hoverAttr = null;
+        overlayEl.innerHTML = null;
+        me.overlay.setPosition(undefined);
+        return;
+      }
+      const feature = features[0];
+      var attr = feature.get(hoverAttr);
+      overlayEl.innerHTML = attr;
+      me.overlay.setPosition(event.coordinate);
     }
   }
 
