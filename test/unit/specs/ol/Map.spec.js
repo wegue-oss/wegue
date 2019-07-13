@@ -34,12 +34,16 @@ describe('ol/Map.vue', () => {
   it('sets the correct default data', () => {
     Map.$appConfig = {
       zoom: undefined,
-      center: undefined
+      center: undefined,
+      projectionDefs: undefined,
+      projection: undefined
     };
     expect(typeof Map.data).to.equal('function');
     const defaultData = Map.data();
     expect(defaultData.zoom).to.equal(undefined);
     expect(defaultData.center).to.equal(undefined);
+    expect(defaultData.projection).to.equal(undefined);
+    expect(defaultData.projectionDefs).to.equal(undefined);
   });
 
   it('has a the correct functions', () => {

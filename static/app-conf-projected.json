@@ -1,0 +1,99 @@
+{
+
+  "title": "Vue.js / OpenLayers WebGIS",
+
+  "baseColor": "orange darken-3",
+
+  "logo": "https://dummyimage.com/100x100/aaa/fff&text=Wegue",
+  "logoSize": "100",
+
+  "footerTextLeft": "Powered by <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>",
+  "footerTextRight": "meggsimum",
+  "showCopyrightYear": true,
+
+  "mapZoom": 3,
+  "mapCenter": [155000,463000],
+  "mapProjection":
+    {
+    "code": "EPSG:28992",
+    "units": "m",
+    "extent": [-285401.920, 22598.080, 595401.920, 903401.920]
+    },
+
+  "projectionDefs": [
+    [
+    "EPSG:28992",
+    "+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.999908 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +towgs84=565.2369,50.0087,465.658,-0.406857330322398,0.350732676542563,-1.8703473836068,4.0812 +no_defs"
+    ]
+  ],
+
+  "mapLayers": [
+    {
+      "type": "WMS",
+      "lid": "pdok-natura2000-wms",
+      "name": "WMS (Natura 2000 Areas PDOK)",
+      "format": "image/png",
+      "layers": "natura2000",
+      "url": "https://geodata.nationaalgeoregister.nl/natura2000/wms",
+      "transparent": true,
+      "singleTile": false,
+      "projection": "EPSG:28992",
+      "attribution": "Dutch Kadaster PDOK",
+      "isBaseLayer": false,
+      "visible": false,
+      "displayInLayerList": true
+    },
+    {
+      "type": "WMS",
+      "lid": "pdok-lufo-wms",
+      "name": "WMS (Dutch Arial Map PDOK)",
+      "format": "image/jpeg",
+      "layers": "2018_ortho25",
+      "url": "http://geodata.nationaalgeoregister.nl/luchtfoto/rgb/wms",
+      "transparent": false,
+      "singleTile": false,
+      "projection": "EPSG:28992",
+      "attribution": "Dutch Kadaster PDOK",
+      "isBaseLayer": true,
+      "visible": true,
+      "displayInLayerList": true
+    }
+  ],
+
+  "modules": {
+    "wgu-layerlist": {
+      "target": "menu",
+      "win": true,
+      "draggable": false
+    },
+    "wgu-measuretool": {
+      "target": "menu",
+      "win": true,
+      "draggable": false,
+      "strokeColor": "#c62828",
+      "fillColor": "rgba(198,40,40,0.2)",
+      "sketchStrokeColor": "rgba(198,40,40,0.8)",
+      "sketchFillColor": "rgba(198,40,40,0.1)",
+      "sketchVertexStrokeColor": "#c62828",
+      "sketchVertexFillColor": "rgba(198,40,40,0.2)"
+    },
+    "wgu-infoclick": {
+      "target": "menu",
+      "win": true,
+      "draggable": false,
+      "initPos": {
+        "left": 8,
+        "top": 74
+      }
+    },
+    "wgu-zoomtomaxextent": {
+      "target": "toolbar",
+      "darkLayout": true
+    },
+    "wgu-helpwin": {
+      "target": "toolbar",
+      "darkLayout": true
+    }
+  }
+
+}
