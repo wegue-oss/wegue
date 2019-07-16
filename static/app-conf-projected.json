@@ -1,6 +1,6 @@
 {
 
-  "title": "Vue.js / OpenLayers WebGIS",
+  "title": "Wegue - Projected Map",
 
   "baseColor": "orange darken-3",
 
@@ -38,7 +38,7 @@
       "transparent": true,
       "singleTile": false,
       "projection": "EPSG:28992",
-      "attribution": "Dutch Kadaster PDOK",
+      "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> by Dutch Kadaster",
       "isBaseLayer": false,
       "visible": false,
       "displayInLayerList": true
@@ -53,7 +53,7 @@
       "transparent": false,
       "singleTile": false,
       "projection": "EPSG:28992",
-      "attribution": "Dutch Kadaster PDOK",
+      "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> by Dutch Kadaster",
       "isBaseLayer": true,
       "visible": true,
       "displayInLayerList": true

@@ -90,7 +90,7 @@ export default {
     if (!me.projection) {
       me.projection = {code: 'EPSG:3857', units: 'm'}
     }
-    let projection = new Projection(me.projection);
+    const projection = new Projection(me.projection);
 
     me.map = new Map({
       layers: [],
