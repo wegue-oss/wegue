@@ -16,6 +16,9 @@ import Zoom from 'ol/control/Zoom';
 import SelectInteraction from 'ol/interaction/Select';
 import {defaults as defaultInteractions} from 'ol/interaction';
 import RotateControl from 'ol/control/Rotate';
+import Projection from 'ol/proj/Projection';
+import {register as olproj4} from 'ol/proj/proj4';
+import proj4 from 'proj4'
 import Overlay from 'ol/Overlay';
 // import the app-wide EventBus
 import { WguEventBus } from '../../WguEventBus.js';
@@ -31,7 +34,9 @@ export default {
   data () {
     return {
       zoom: this.$appConfig.mapZoom,
-      center: this.$appConfig.mapCenter
+      center: this.$appConfig.mapCenter,
+      projection: this.$appConfig.mapProjection,
+      projectionDefs: this.$appConfig.projectionDefs
     }
   },
   mounted () {
@@ -73,13 +78,28 @@ export default {
       controls.push(new RotateControl());
     }
 
+    // Optional projection (EPSG) definitions for Proj4
+    if (me.projectionDefs) {
+      // Add all (array of array)
+      proj4.defs(me.projectionDefs);
+      // Register with OpenLayers
+      olproj4(proj4);
+    }
+
+    // Projection for Map, default is Web Mercator
+    if (!me.projection) {
+      me.projection = {code: 'EPSG:3857', units: 'm'}
+    }
+    const projection = new Projection(me.projection);
+
     me.map = new Map({
       layers: [],
       controls: controls,
       interactions: interactions,
       view: new View({
         center: me.center || [0, 0],
-        zoom: me.zoom
+        zoom: me.zoom,
+        projection: projection
       })
     });
 
