@@ -47,6 +47,40 @@ npm test
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
+## Run with Docker
+
+At a later stage we will make Docker images available via DockerHub. For now
+you can build/run as follows:
+
+``` bash
+docker build -t meggsimum/wegue:latest .
+
+docker run -it -p 8080:80 meggsimum/wegue:latest
+```
+
+Open
+  - http://127.0.0.1:8080/ or
+  - http://localhost:8080/?appCtx=minimal or
+  - http://localhost:8080/?appCtx=projected
+
+in a browser. 
+
+Use Docker Volume Mapping to run with your custom Wegue JSON config:
+
+``` bash
+docker run -it -p 8080:80 -v $(pwd)/app-conf-mine.json:/usr/share/nginx/html/static/app-conf-mine.json meggsimum/wegue:latest
+```
+
+and open http://localhost:8080/?appCtx=mine.
+
+You can even overwrite the default config `app-conf.json`:
+
+``` bash
+docker run -it -p 8080:80 -v $(pwd)/app-conf-mine.json:/usr/share/nginx/html/static/app-conf.json meggsimum/wegue:latest
+```
+
+and then open http://localhost:8080/.
+  
 ## Who do I talk to? ###
 You need more information or support? Please contact us at:
 
