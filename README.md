@@ -57,7 +57,17 @@ docker build -t meggsimum/wegue:latest .
 
 docker run -it -p 8080:80 meggsimum/wegue:latest
 
-# in browser: open http:/127.0.0.1:8080
+``` bash
+docker build -t meggsimum/wegue:latest .
+
+docker run -it -p 8080:80 meggsimum/wegue:latest
+
+Open
+  - http://127.0.0.1:8080/ or
+  - http://localhost:8080/?appCtx=minimal or
+  - http://localhost:8080/?appCtx=projected
+
+in a browser. 
 
 ```
 
