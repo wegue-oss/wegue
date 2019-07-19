@@ -56,11 +56,7 @@ you can build/run as follows:
 docker build -t meggsimum/wegue:latest .
 
 docker run -it -p 8080:80 meggsimum/wegue:latest
-
-``` bash
-docker build -t meggsimum/wegue:latest .
-
-docker run -it -p 8080:80 meggsimum/wegue:latest
+```
 
 Open
   - http://127.0.0.1:8080/ or
@@ -69,14 +65,22 @@ Open
 
 in a browser. 
 
+Use Docker Volume Mapping to run with your custom Wegue JSON config:
+
+``` bash
+docker run -it -p 8080:80 -v $(pwd)/app-conf-mine.json:/usr/share/nginx/html/static/app-conf-mine.json meggsimum/wegue:latest
 ```
 
-To run with a custom Wegue JSON config, use Docker Volume Mapping to override the default config:
+and open http://localhost:8080/?appCtx=mine.
+
+You can even overwrite the default config `app-conf.json`:
 
 ``` bash
 docker run -it -p 8080:80 -v $(pwd)/app-conf-mine.json:/usr/share/nginx/html/static/app-conf.json meggsimum/wegue:latest
 ```
 
+and then open http://localhost:8080/.
+  
 ## Who do I talk to? ###
 You need more information or support? Please contact us at:
 
