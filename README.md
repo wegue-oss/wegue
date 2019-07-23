@@ -49,12 +49,10 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 
 ## Run with Docker
 
-At a later stage we will make Docker images available via DockerHub. For now
-you can build/run as follows:
+Versioned Docker images are available on [DockerHub](https://hub.docker.com/r/meggsimum/wegue/tags). 
+Run the `latest` (`master`) version of the Wegue Docker Image as follows:
 
 ``` bash
-docker build -t meggsimum/wegue:latest .
-
 docker run -it -p 8080:80 meggsimum/wegue:latest
 ```
 
@@ -80,8 +78,14 @@ docker run -it -p 8080:80 -v $(pwd)/app-conf-mine.json:/usr/share/nginx/html/sta
 ```
 
 and then open http://localhost:8080/.
+
+Build a Wegue Docker Image as follows:
+
+``` bash
+docker build -t meggsimum/wegue:latest .
+```
   
-## Who do I talk to? ###
+## Who do I talk to?
 You need more information or support? Please contact us at:
 
 `info__(at)__meggsimum__(dot)__de`
