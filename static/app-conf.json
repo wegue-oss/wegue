@@ -113,6 +113,10 @@
         "top": 74
       }
     },
+    "wgu-geocoder": {
+      "target": "toolbar",
+      "darkLayout": true
+    },
     "wgu-zoomtomaxextent": {
       "target": "toolbar",
       "darkLayout": true
