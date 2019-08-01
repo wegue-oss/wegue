@@ -58,23 +58,29 @@ export class OpenStreet {
 
   handleResponse (results) {
     if (!results.length) return;
-    return results.map(result => ({
-      lon: result.lon,
-      lat: result.lat,
-      boundingbox: result.boundingbox,
-      address: {
-        name: result.display_name,
-        road: result.address.road || '',
-        houseNumber: result.address.house_number || '',
-        postcode: result.address.postcode,
-        city: result.address.city || result.address.town,
-        state: result.address.state,
-        country: result.address.country
-      },
-      original: {
-        formatted: result.display_name,
-        details: result.address
-      }
-    }));
+    return results.map(function (result) {
+      result = {
+        lon: Number.parseFloat(result.lon),
+        lat: Number.parseFloat(result.lat),
+        boundingbox: result.boundingbox.map(x => Number.parseFloat(x)),
+        address: {
+          name: result.display_name,
+          road: result.address.road || '',
+          houseNumber: result.address.house_number || '',
+          postcode: result.address.postcode,
+          city: result.address.city || result.address.town,
+          state: result.address.state,
+          country: result.address.country
+        },
+        original: {
+          formatted: result.display_name,
+          details: result.address
+        }
+      };
+      // Make bbox llx,lly,urx,ury
+      const bbox = result.boundingbox;
+      result.boundingbox = [bbox[2], bbox[0], bbox[3], bbox[1]];
+      return result;
+    });
   }
 }

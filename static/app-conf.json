@@ -115,7 +115,18 @@
     },
     "wgu-geocoder": {
       "target": "toolbar",
-      "darkLayout": true
+      "darkLayout": true,
+      "minChars": 3,
+      "queryDelay": 200,
+      "selectZoom": 16,
+      "debug": false,
+      "provider": "osm",
+      "providerOptions": {
+        "key": "",
+        "lang": "en-US",
+        "countrycodes": "",
+        "limit": 6
+      }
     },
     "wgu-zoomtomaxextent": {
       "target": "toolbar",
@@ -126,5 +137,4 @@
       "darkLayout": true
     }
   }
-
 }

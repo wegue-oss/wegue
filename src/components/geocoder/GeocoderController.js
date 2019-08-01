@@ -26,8 +26,8 @@
 // import Point from 'ol/geom/Point';
 // import Feature from 'ol/Feature';
 // import proj from 'ol/proj';
-// import { Photon } from './providers/photon';
 import { OpenStreet } from './providers/osm';
+import { Photon } from './providers/photon';
 // import { MapQuest } from './providers/mapquest';
 // import { Bing } from './providers/bing';
 // import { OpenCage } from './providers/opencage';
@@ -54,9 +54,9 @@ export const PROVIDERS = {
 };
 
 export const DEFAULT_OPTIONS = {
-  provider: PROVIDERS.OSM,
+  provider: PROVIDERS.PHOTON,
   placeholder: 'Search for an address',
-  featureStyle: null,
+  // featureStyle: null,
   // targetType: TARGET_TYPE.GLASS,
   lang: 'en-US',
   limit: 5,
@@ -68,17 +68,17 @@ export const DEFAULT_OPTIONS = {
 };
 
 /**
- * @class Nominatim
+ * @class GeocoderController
  */
-export class Nominatim {
+export class GeocoderController {
   /**
    * @constructor
    * @param {Function} base Base class.
    */
-  constructor (options) {
+  constructor (providerName, options) {
     this.lastResult = null;
-    this.options = DEFAULT_OPTIONS;
-    this.provider = this.newProvider();
+    this.options = options;
+    this.provider = this.newProvider(providerName);
   }
 
   query (q) {
@@ -91,9 +91,12 @@ export class Nominatim {
       limit: this.options.limit
     });
 
-    if (this.lastQuery === q && this.lastResult) return;
+    if (this.lastQuery === q && this.lastResult) {
+      return;
+    }
 
     this.lastQuery = q;
+    this.lastResult = null;
 
     let ajax = {
       url: parameters.url,
@@ -110,13 +113,10 @@ export class Nominatim {
         // eslint-disable-next-line no-console
         this.options.debug && console.info(res);
 
-        // removeClass(this.els.reset, klasses.spin);
-
         // will be fullfiled according to provider
         let res_ = this.provider.handleResponse(res);
         if (res_) {
           this.createList(res_);
-          // this.listenMapClick();
         }
       })
       .catch(err => {
@@ -128,31 +128,25 @@ export class Nominatim {
 
   createList (response) {
     response.forEach(row => {
-      switch (this.options.provider) {
-        case PROVIDERS.OSM:
-          this.result.push({text: row.address.name, value: row});
-          break;
-        default:
-          this.result.push({text: row.address.name, value: row});
-      }
+      this.result.push({text: row.address.name, value: row});
     });
     this.lastResult = this.result;
   }
 
-  newProvider () {
-    switch (this.options.provider) {
+  newProvider (providerName) {
+    switch (providerName) {
       case PROVIDERS.OSM:
         return new OpenStreet();
-      // case PROVIDERS.MAPQUEST:
-      //   return new MapQuest();
-      // case PROVIDERS.PHOTON:
-      //   return new Photon();
+      case PROVIDERS.PHOTON:
+        return new Photon();
       // case PROVIDERS.BING:
       //   return new Bing();
+      // case PROVIDERS.MAPQUEST:
+      //   return new MapQuest();
       // case PROVIDERS.OPENCAGE:
       //   return new OpenCage();
       default:
-        return this.options.provider;
+        return null;
     }
   }
 }

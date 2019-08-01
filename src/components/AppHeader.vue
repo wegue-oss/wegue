@@ -59,7 +59,7 @@ import HelpWinToggleButton from './helpwin/ToggleButton'
 import MeasureToolToggleButton from './measuretool/ToggleButton'
 import InfoClickButton from './infoclick/ToggleButton'
 import ZoomToMaxExtentButton from './maxextentbutton/ZoomToMaxExtentButton'
-import Geocoder from './search/Geocoder'
+import Geocoder from './geocoder/Geocoder'
 
 export default {
   name: 'wgu-app-header',

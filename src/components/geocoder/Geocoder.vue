@@ -23,9 +23,9 @@
 
 <script>
   import {Mapable} from '../../mixins/Mapable';
-  import {PROVIDERS, Nominatim} from './nominatim';
+  import {GeocoderController} from './GeocoderController';
   import {applyTransform} from 'ol/extent';
-  import {getTransform} from 'ol/proj';
+  import {getTransform, fromLonLat} from 'ol/proj';
 
   export default {
     name: 'wgu-geocoder-input',
@@ -36,11 +36,7 @@
       rounded: {type: Boolean, required: false, default: true},
       autofocus: {type: Boolean, required: false, default: true},
       dark: {type: Boolean, required: false, default: false},
-      persistentHint: {type: Boolean, required: false, default: true},
-      provider: {type: String, required: false, default: PROVIDERS.OSM},
-      minChars: {type: Number, required: false, default: 5},
-      queryDelayMillis: {type: Number, required: false, default: 300},
-      debug: {type: Boolean, required: false, default: false}
+      persistentHint: {type: Boolean, required: false, default: true}
     },
     data () {
       return {
@@ -64,7 +60,7 @@
           // items (item.text fields) will be shown in suggestions
           this.debug && console.info('issueQuery:', str);
           this.items = this.geocoder.query(str);
-        }, this.queryDelayMillis);
+        }, this.queryDelay);
       }
     },
     watch: {
@@ -82,21 +78,41 @@
       },
       // User has selected entry from suggested items
       selected (item) {
-        if (!item.hasOwnProperty('text')) {
+        if (!item.hasOwnProperty('text') || !item.hasOwnProperty('value')) {
           return;
         }
 
         this.debug && console.log(`selected=${item.text}`);
-        // bbox is in EPSG:4326, needs to be transformed to Map Projection (e.g. EPSG:3758)
-        // TODO: not all Providers return a bbox, need view.setCenter()/.setZoom() then
-        const bbox = item.value.boundingbox.map(x => Number.parseFloat(x));
-        let extent = [bbox[2], bbox[0], bbox[3], bbox[1]];
-        extent = applyTransform(extent, getTransform('EPSG:4326', this.map.getView().getProjection()));
-        this.map.getView().fit(extent);
+
+        // Position Map on result
+        const result = item.value;
+        const mapProjection = this.map.getView().getProjection();
+        const coords = fromLonLat([result.lon, result.lat], mapProjection);
+
+        // Prefer zooming to bounding box if present in result
+        if (result.hasOwnProperty('boundingbox')) {
+          // Result with bounding box.
+          // bbox is in EPSG:4326, needs to be transformed to Map Projection (e.g. EPSG:3758)
+          const extent = applyTransform(result.boundingbox, getTransform('EPSG:4326', mapProjection));
+          this.map.getView().fit(extent);
+        } else {
+          // No bbox in result: center on lon/lat from result and zoom in
+          this.map.getView().setZoom(this.selectZoom);
+        }
+        this.map.getView().setCenter(coords);
       }
     },
     mounted () {
-      this.geocoder = new Nominatim()
+      this.config = this.$appConfig.modules['wgu-geocoder'] || null;
+      if (!this.config) {
+        alert('No geocoder config defined')
+      }
+      this.debug = this.config.debug || false;
+      this.minChars = this.config.minChars || 5;
+      this.queryDelay = this.config.queryDelay || 300;
+      this.selectZoom = this.config.selectZoom || 16;
+
+      this.geocoder = new GeocoderController(this.config.provider, this.config.providerOptions)
     }
   }
 </script>

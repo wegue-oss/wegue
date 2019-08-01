@@ -88,7 +88,18 @@
     },
     "wgu-geocoder": {
       "target": "toolbar",
-      "darkLayout": true
+      "darkLayout": true,
+      "minChars": 4,
+      "queryDelay": 200,
+      "selectZoom": 16,
+      "debug": true,
+      "provider": "osm",
+      "providerOptions": {
+        "key": "",
+        "lang": "nl-NL",
+        "countrycodes": "nl",
+        "limit": 5
+      }
     },
     "wgu-zoomtomaxextent": {
       "target": "toolbar",
