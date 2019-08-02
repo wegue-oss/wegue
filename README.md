@@ -5,6 +5,7 @@ Template and re-usable components for webmapping applications with OpenLayers an
 [![Known Vulnerabilities](https://snyk.io/test/github/meggsimum/wegue/badge.svg)](https://snyk.io/test/github/meggsimum/wegue)
 [![dependencies Status](https://david-dm.org/meggsimum/wegue/status.svg)](https://david-dm.org/meggsimum/wegue)
 [![license: 2-Clause BSD](https://img.shields.io/badge/license-2--Clause%20BSD-brightgreen.svg)](https://opensource.org/licenses/BSD-2-Clause)
+[![Join the chat at https://gitter.im/wegue/community](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/wegue/community) 
 
 <img align="left" style="padding-bottom: 20px;" src="screenshots/wegue-app-1.png" />
 
@@ -47,7 +48,45 @@ npm test
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
-## Who do I talk to? ###
+## Run with Docker
+
+Versioned Docker images are available on [DockerHub](https://hub.docker.com/r/meggsimum/wegue/tags). 
+Run the `latest` (`master`) version of the Wegue Docker Image as follows:
+
+``` bash
+docker run -it -p 8080:80 meggsimum/wegue:latest
+```
+
+Open
+  - http://127.0.0.1:8080/ or
+  - http://localhost:8080/?appCtx=minimal or
+  - http://localhost:8080/?appCtx=projected
+
+in a browser. 
+
+Use Docker Volume Mapping to run with your custom Wegue JSON config:
+
+``` bash
+docker run -it -p 8080:80 -v $(pwd)/app-conf-mine.json:/usr/share/nginx/html/static/app-conf-mine.json meggsimum/wegue:latest
+```
+
+and open http://localhost:8080/?appCtx=mine.
+
+You can even overwrite the default config `app-conf.json`:
+
+``` bash
+docker run -it -p 8080:80 -v $(pwd)/app-conf-mine.json:/usr/share/nginx/html/static/app-conf.json meggsimum/wegue:latest
+```
+
+and then open http://localhost:8080/.
+
+Build a Wegue Docker Image as follows:
+
+``` bash
+docker build -t meggsimum/wegue:latest .
+```
+  
+## Who do I talk to?
 You need more information or support? Please contact us at:
 
 `info__(at)__meggsimum__(dot)__de`
