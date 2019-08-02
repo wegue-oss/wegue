@@ -3,8 +3,10 @@ var webpack = require('webpack')
 var config = require('../config')
 var merge = require('webpack-merge')
 var baseWebpackConfig = require('./webpack.base.conf')
+var path = require('path')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+var CopyWebpackPlugin = require('copy-webpack-plugin')
 
 // add hot-reload related code to entry chunks
 Object.keys(baseWebpackConfig.entry).forEach(function (name) {
@@ -35,6 +37,14 @@ module.exports = merge(baseWebpackConfig, {
       template: 'embedded.html',
       inject: true
     }),
-    new FriendlyErrorsPlugin()
+    new FriendlyErrorsPlugin(),
+    // copy project- / app-specific static assets
+    new CopyWebpackPlugin([
+      {
+        context: path.resolve(__dirname, '../app/static'),
+        from: "*",
+        to: config.build.assetsSubDirectory
+      }
+    ])
   ]
 })
