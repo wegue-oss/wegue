@@ -12,6 +12,11 @@ require('../node_modules/ol/ol.css');
 
 require('./assets/css/wegue.css');
 
+// try to load an optional app specific CSS file (set project-specific styles)
+try {
+  require('../app/css/app.css');
+} catch (e) {}
+
 Vue.config.productionTip = false;
 
 // Detect isEmbedded state by attribute embedded and
