@@ -15,7 +15,8 @@
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit/specs",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "init:app": "node util/init-app.js"
   },
   "dependencies": {
     "ol": "5.3.3",
