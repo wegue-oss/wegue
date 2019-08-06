@@ -5,7 +5,7 @@ Template and re-usable components for webmapping applications with OpenLayers an
 [![Known Vulnerabilities](https://snyk.io/test/github/meggsimum/wegue/badge.svg)](https://snyk.io/test/github/meggsimum/wegue)
 [![dependencies Status](https://david-dm.org/meggsimum/wegue/status.svg)](https://david-dm.org/meggsimum/wegue)
 [![license: 2-Clause BSD](https://img.shields.io/badge/license-2--Clause%20BSD-brightgreen.svg)](https://opensource.org/licenses/BSD-2-Clause)
-[![Join the chat at https://gitter.im/wegue/community](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/wegue/community) 
+[![Join the chat at https://gitter.im/wegue/community](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/wegue/community)
 
 <img align="left" style="padding-bottom: 20px;" src="screenshots/wegue-app-1.png" />
 
@@ -15,7 +15,7 @@ Go to the online demo at https://meggsimum.github.io/wegue/
 Wegue (**We**b**G**IS with OpenLayers and V**ue**) combines the porwer of [Vue.js](https://vuejs.org/) and the geospatial savvy of [OpenLayers](https://openlayers.org) to make lightweight webmapping applications. For styling and pre-defined UI-components the Material Design
 Component Framework [Vuetify](https://vuetifyjs.com/) is used.
 
-It acts as a template to reduce boilerplate work for browser-based mapping application.
+It acts as a template to reduce boilerplate work for browser-based mapping applications.
 
 ### Want to contribute? Yes, please :grinning:
 If you want to contribute, please open a Pull Request in the repository.
@@ -24,33 +24,73 @@ Ensure that you have clean commits (and messages) and a meaningful description i
 
 We look forward to your contributions!
 
-## Development Setup
+## Development
+
+Prerequisites: Node.js and npm need to be available on your system.
+
+### Dev Setup
+
+  - Checkout / download this repository and navigate to the   checkout / download in a terminal (e.g. by `cd /path/to/checkout`).
+
+  - Install the JS dependencies:
 
 ``` bash
 # install dependencies
 npm install
+```
 
-# serve with hot reload at localhost:8080
+  - Create a file `app/WguApp.vue` acting as a base application for your project with the following content:
+
+``` html
+<template>
+  <wgu-app-tpl>
+    <!-- insert your app slots here  -->
+  </wgu-app-tpl>
+</template>
+
+<script>
+  import WguAppTemplate from '../src/WguAppTemplate.vue';
+  export default {
+    name: 'my-wgu-app',
+    components: {
+      'wgu-app-tpl': WguAppTemplate
+    }
+    // add Vue methods and hooks here
+  }
+</script>
+```
+  - Optionally create a file `app/css/app.css` in order to add custom styling for your project
+
+  - Start the dev server with auto reload at http://localhost:8081 (will be opened automatically):
+
+``` bash
+# serve with hot reload at localhost:8081
 npm run dev
+```
 
-# build for production with minification
-npm run build
+### Unit tests
 
-# build for production and view the bundle analyzer report
-npm run build --report
+To run all unit tests execute the following:
 
-# run unit tests
-npm run unit
-
+``` bash
 # run all tests
 npm test
+```
+
+### Production build
+
+Run the build script in order to create a production build, which can be copied / deployed to a web server. The output will be placed in the `dist/` folder
+
+``` bash
+# build for production with minification
+npm run build
 ```
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
 ## Run with Docker
 
-Versioned Docker images are available on [DockerHub](https://hub.docker.com/r/meggsimum/wegue/tags). 
+Versioned Docker images are available on [DockerHub](https://hub.docker.com/r/meggsimum/wegue/tags).
 Run the `latest` (`master`) version of the Wegue Docker Image as follows:
 
 ``` bash
@@ -62,7 +102,7 @@ Open
   - http://localhost:8080/?appCtx=minimal or
   - http://localhost:8080/?appCtx=projected
 
-in a browser. 
+in a browser.
 
 Use Docker Volume Mapping to run with your custom Wegue JSON config:
 
@@ -85,7 +125,7 @@ Build a Wegue Docker Image as follows:
 ``` bash
 docker build -t meggsimum/wegue:latest .
 ```
-  
+
 ## Who do I talk to?
 You need more information or support? Please contact us at:
 

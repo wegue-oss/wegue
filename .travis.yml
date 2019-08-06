@@ -4,6 +4,7 @@ install:
 - npm install
 script:
 - npm run test
+- npm run init:app
 - npm run build
 after_success:
 - ./ci/update-gh-pages.sh > /dev/null 2>&1

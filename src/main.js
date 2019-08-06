@@ -1,17 +1,21 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue'
-import Vuetify from 'vuetify'
-import WguApp from './WguApp'
-import UrlUtil from './util/Url'
+import Vue from 'vue';
+import Vuetify from 'vuetify';
+import WguApp from '../app/WguApp';
+import UrlUtil from './util/Url';
+import 'vuetify/dist/vuetify.min.css';
 
-import 'vuetify/dist/vuetify.min.css'
-
-Vue.use(Vuetify)
+Vue.use(Vuetify);
 
 require('../node_modules/ol/ol.css');
 
 require('./assets/css/wegue.css');
+
+// try to load an optional app specific CSS file (set project-specific styles)
+try {
+  require('../app/css/app.css');
+} catch (e) {}
 
 Vue.config.productionTip = false;
 
@@ -36,7 +40,6 @@ fetch('static/app-conf' + appCtxFile + '.json')
   .then(function (appConfig) {
     // make app config accessible for all components
     Vue.prototype.$appConfig = appConfig;
-
     /* eslint-disable no-new */
     new Vue({
       el: '#app',

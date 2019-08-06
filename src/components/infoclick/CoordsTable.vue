@@ -22,14 +22,9 @@
 </template>
 
 <script>
-// helper function to detect a CSS color
-// Taken from Vuetify sources
-// https://github.com/vuetifyjs/vuetify/blob/master/packages/vuetify/src/mixins/colorable.ts
-function isCssColor (color) {
-  return !!color && !!color.match(/^(#|(rgb|hsl)a?\()/)
-}
 
 import vColors from 'vuetify/es5/util/colors';
+import ColorUtil from '../../util/Color';
 import {transform} from 'ol/proj.js';
 import {toStringHDMS} from 'ol/coordinate';
 
@@ -51,7 +46,7 @@ export default {
     tableStyles () {
       // calculate border color of tables due to current color property
       let borderColor = this.color;
-      if (!isCssColor(this.color)) {
+      if (!ColorUtil.isCssColor(this.color)) {
         let [colorName, colorModifier] = this.color.toString().trim().split(' ', 2);
         borderColor = vColors[colorName];
         if (colorModifier) {

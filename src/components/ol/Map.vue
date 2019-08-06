@@ -1,12 +1,6 @@
 <template></template>
 
 <script>
-// helper function to detect a CSS color
-// Taken from Vuetify sources
-// https://github.com/vuetifyjs/vuetify/blob/master/packages/vuetify/src/mixins/colorable.ts
-function isCssColor (color) {
-  return !!color && !!color.match(/^(#|(rgb|hsl)a?\()/)
-}
 
 import Vue from 'vue';
 import Map from 'ol/Map'
@@ -23,6 +17,7 @@ import Overlay from 'ol/Overlay';
 // import the app-wide EventBus
 import { WguEventBus } from '../../WguEventBus.js';
 import { LayerFactory } from '../../factory/Layer.js';
+import ColorUtil from '../../util/Color';
 
 export default {
   name: 'wgu-map',
@@ -116,7 +111,9 @@ export default {
     createLayers () {
       const me = this;
       let layers = [];
-      this.$appConfig.mapLayers.reverse().forEach(function (lConf) {
+      const appConfig = this.$appConfig;
+      const mapLayersConfig = appConfig.mapLayers || [];
+      mapLayersConfig.reverse().forEach(function (lConf) {
         let layer = LayerFactory.getInstance(lConf);
         layers.push(layer);
 
@@ -148,7 +145,7 @@ export default {
     setOlButtonColor () {
       var me = this;
 
-      if (isCssColor(me.color)) {
+      if (ColorUtil.isCssColor(me.color)) {
         // directly apply the given CSS color
         if (document.querySelector('.ol-zoom')) {
           document.querySelector('.ol-zoom .ol-zoom-in').style.backgroundColor = me.color;
@@ -183,7 +180,6 @@ export default {
     setupMapHover () {
       const me = this;
       const map = me.map;
-      let overlay;
       let overlayEl;
 
       // create a span to show map tooltip
@@ -191,35 +187,49 @@ export default {
       overlayEl.classList.add('wgu-hover-tooltiptext');
       map.getTarget().append(overlayEl);
 
+      me.overlayEl = overlayEl;
+
       // wrap the tooltip span in a OL overlay and add it to map
-      overlay = new Overlay({
+      me.overlay = new Overlay({
         element: overlayEl,
         autoPan: true,
         autoPanAnimation: {
           duration: 250
         }
       });
-      map.addOverlay(overlay);
+      map.addOverlay(me.overlay);
 
-      map.on('pointermove', function (event) {
-        let hoverAttr;
-        const features = map.getFeaturesAtPixel(event.pixel, {layerFilter: (layer) => {
-          if (layer.get('hoverable')) {
-            hoverAttr = layer.get('hoverAttribute');
-          }
-          return layer.get('hoverable');
-        }});
-        if (!features || !hoverAttr) {
-          hoverAttr = null;
-          overlayEl.innerHTML = null;
-          overlay.setPosition(undefined);
-          return;
+      // show tooltip if a hoverable feature gets hit with the mouse
+      map.on('pointermove', me.onPointerMove, me);
+    },
+
+    /**
+     * Shows the hover tooltip on the map if an appropriate feature of a
+     * 'hoverable' layer was hit with the mouse.
+     *
+     * @param  {Object} event The OL event for pointermove
+     */
+    onPointerMove (event) {
+      const me = this;
+      const map = me.map;
+      const overlayEl = me.overlayEl;
+      let hoverAttr;
+      const features = map.getFeaturesAtPixel(event.pixel, {layerFilter: (layer) => {
+        if (layer.get('hoverable')) {
+          hoverAttr = layer.get('hoverAttribute');
         }
-        const feature = features[0];
-        var attr = feature.get(hoverAttr);
-        overlayEl.innerHTML = attr;
-        overlay.setPosition(event.coordinate);
-      });
+        return layer.get('hoverable');
+      }});
+      if (!features || !hoverAttr) {
+        hoverAttr = null;
+        overlayEl.innerHTML = null;
+        me.overlay.setPosition(undefined);
+        return;
+      }
+      const feature = features[0];
+      var attr = feature.get(hoverAttr);
+      overlayEl.innerHTML = attr;
+      me.overlay.setPosition(event.coordinate);
     }
   }
 

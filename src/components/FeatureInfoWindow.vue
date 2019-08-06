@@ -70,8 +70,6 @@ export default {
       if (feature) {
         this.feature = feature;
         this.attributes = feature.getProperties();
-        // TODO replace this ... only debug
-        this.attributes.image = 'http://via.placeholder.com/200x200?text=';
       } else {
         this.feature = null;
         this.attributes = null;

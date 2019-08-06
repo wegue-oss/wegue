@@ -75,8 +75,8 @@ export default {
   data () {
     return {
       title: this.$appConfig.title,
-      menuButtons: this.getModuleButtonData(),
-      tbButtons: this.getToolbarButtons()
+      menuButtons: this.getModuleButtonData() || [],
+      tbButtons: this.getToolbarButtons() || []
     }
   },
   methods: {
@@ -90,9 +90,10 @@ export default {
      * @return {Array} module button configuration objects for the menu
      */
     getModuleButtonData () {
-      const appConfig = Vue.prototype.$appConfig;
+      const appConfig = Vue.prototype.$appConfig || {};
+      const modulesConfs = appConfig.modules || {};
       let moduleWins = [];
-      for (const key of Object.keys(appConfig.modules)) {
+      for (const key of Object.keys(modulesConfs)) {
         const moduleOpts = appConfig.modules[key];
         if (moduleOpts.target === 'menu') {
           moduleWins.push({
@@ -113,9 +114,10 @@ export default {
      * @return {Array} module button configuration objects for the toolbar
      */
     getToolbarButtons () {
-      const appConfig = Vue.prototype.$appConfig;
+      const appConfig = Vue.prototype.$appConfig || {};
+      const modulesConfs = appConfig.modules || {};
       let moduleWins = [];
-      for (const key of Object.keys(appConfig.modules)) {
+      for (const key of Object.keys(modulesConfs)) {
         const moduleOpts = appConfig.modules[key];
         if (moduleOpts.target === 'toolbar') {
           moduleWins.push({
