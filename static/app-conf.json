@@ -26,7 +26,12 @@
       "format": "GeoJSON",
       "visible": true,
       "selectable": true,
-      "styleRef": "shopStyle"
+      "style": {
+        "radius": 4,
+        "strokeColor": "purple",
+        "strokeWidth": 2,
+        "fillColor": "rgba(155,153,51,0.5)"
+      }
     },
 
     {
@@ -73,7 +78,11 @@
       "url": "https://ahocevar.com/geoserver/gwc/service/tms/1.0.0/ne:ne_10m_admin_0_countries@EPSG%3A900913@pbf/{z}/{x}/{-y}.pbf",
       "format": "MVT",
       "visible": false,
-      "styleRef": "neWorldMvt"
+      "style": {
+        "strokeColor": "gray",
+        "strokeWidth": 1,
+        "fillColor": "rgba(20,20,20,0.1)"
+      }
     },
 
     {

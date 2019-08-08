@@ -33,7 +33,8 @@
 
   "modules": {
     "wgu-helpwin": {
-      "target": "toolbar"
+      "target": "toolbar",
+      "darkLayout": true
     }
   }
 

@@ -24,6 +24,7 @@ export const DraggableWin = {
     draggableEl: null,
     initialZIndex: undefined
   },
+
   bind (elmnt, binding, vnode) {
     if (binding.value === false) {
       // disable this directive if set to v-draggable-win="false"
@@ -35,20 +36,22 @@ export const DraggableWin = {
       return;
     }
     const dragConfig = DraggableWin.dragConfig;
+
     // restrict the dragging at least to window title
     dragConfig.draggableElementSelector = binding.arg || 'wgu-win-title';
 
     // set cursor so it's signal that the user can drag the window
     header.style.cursor = 'move';
 
-    elmnt.addEventListener('mouseup', (e) => mouseup(e, elmnt, dragConfig));
-    elmnt.addEventListener('mousedown', (e) => mousedown(e, elmnt, dragConfig));
-    elmnt.addEventListener('mousemove', (e) => mousemove(e, elmnt, dragConfig));
+    elmnt.addEventListener('mouseup', (e) => DraggableWin.mouseup(e, elmnt, dragConfig));
+    elmnt.addEventListener('mousedown', (e) => DraggableWin.mousedown(e, elmnt, dragConfig));
+    elmnt.addEventListener('mousemove', (e) => DraggableWin.mousemove(e, elmnt, dragConfig));
     setDraggerOffset(elmnt, dragConfig);
     dragConfig.initialZIndex = elmnt.style.zIndex;
 
     /**
      * Creates an overlay in order to bind the mouse events to it.
+     * @private
      */
     function createOverlay (e, el, _data) {
       const overlay = document.createElement('div');
@@ -121,6 +124,7 @@ export const DraggableWin = {
       _data.overlay = overlay;
       adjustElementZIndex(el, 10001);
     }
+    DraggableWin.mousedown = mousedown;
 
     /**
      * Event handler for mouse up.
@@ -144,6 +148,7 @@ export const DraggableWin = {
       vnode.componentInstance.$parent.top = (_data.draggerOffsetTop) + 'px';
       vnode.componentInstance.$parent.left = (_data.draggerOffsetLeft) + 'px';
     }
+    DraggableWin.mouseup = mouseup;
 
     /**
      * Checks if left window boundary is reached.
@@ -197,6 +202,7 @@ export const DraggableWin = {
       _data.cursorPreviousX = e.clientX;
       _data.cursorPreviousY = e.clientY;
     }
+    DraggableWin.mousemove = mousemove;
 
     /**
      * Applies the offset values of the element.
