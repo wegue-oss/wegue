@@ -39,27 +39,12 @@ Prerequisites: Node.js and npm need to be available on your system.
 npm install
 ```
 
-  - Create a file `app/WguApp.vue` acting as a base application for your project with the following content:
+  - Run the init script, which creates a base application for your project in `app/WguApp.vue` and a CSS file `app/css/app.css` to place custom styling for your project.
 
-``` html
-<template>
-  <wgu-app-tpl>
-    <!-- insert your app slots here  -->
-  </wgu-app-tpl>
-</template>
-
-<script>
-  import WguAppTemplate from '../src/WguAppTemplate.vue';
-  export default {
-    name: 'my-wgu-app',
-    components: {
-      'wgu-app-tpl': WguAppTemplate
-    }
-    // add Vue methods and hooks here
-  }
-</script>
+``` bash
+# initializes the Wegue app
+npm run init:app
 ```
-  - Optionally create a file `app/css/app.css` in order to add custom styling for your project
 
   - Start the dev server with auto reload at http://localhost:8081 (will be opened automatically):
 
