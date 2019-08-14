@@ -2,10 +2,12 @@
 
   <v-toolbar-items>
     <v-combobox
+      return-object
+      :no-filter="noFilter"
       v-model="selected"
       :autofocus="autofocus"
-      :items="items"
-      :label="label"
+      :items="resultItems"
+      :label="placeHolder"
       append-icon=""
       :dark="dark"
       :persistent-hint="persistentHint"
@@ -32,7 +34,6 @@
     mixins: [Mapable],
     props: {
       buttonIcon: {type: String, required: false, default: 'search'},
-      label: {type: String, required: false, default: 'Nominatim Search'},
       rounded: {type: Boolean, required: false, default: true},
       autofocus: {type: Boolean, required: false, default: true},
       dark: {type: Boolean, required: false, default: false},
@@ -40,49 +41,97 @@
     },
     data () {
       return {
-        items: [],
-        lastSearch: '',
-        search: '',
+        placeHolder: '',
+        results: [],
+        lastQueryStr: '',
+        noFilter: true,
+        search: null,
+        selecting: false,
         selected: null,
         showSearch: true,
         timeout: null
       }
     },
+    computed: {
+      resultItems () {
+        let items = [];
+        if (!this.results) {
+          return items;
+        }
+        this.trace(`computed.resultItems() - cur results len=${this.results.length}`);
+
+        // Convert results to Combobox Items
+        this.results.forEach(result => {
+          this.trace(`add to this.items: ${result.address.name}`);
+          items.push({text: result.address.name, value: result});
+        });
+
+        // One time only
+        // this.results = null;
+        return items;
+      }
+    },
     methods: {
+      trace (str) {
+        this.debug && console.info(str);
+      },
       toggle () {
         this.showSearch = !this.showSearch
       },
-      querySelections (str) {
-        this.debug && console.info('querySelections:', str);
-        this.timeout && clearTimeout(this.timeout);
+      querySelections (queryStr) {
         this.timeout = setTimeout(() => {
           // Let Geocoder Provider do the query
           // items (item.text fields) will be shown in suggestions
-          this.debug && console.info('issueQuery:', str);
-          this.items = this.geocoder.query(str);
+          this.trace(`geocoderController.query: ${queryStr}`);
+          this.geocoderController.query(queryStr);
         }, this.queryDelay);
+      },
+      onQueryResult (results, err) {
+        this.timeout && clearTimeout(this.timeout);
+        this.timeout = null;
+        this.results = null;
+
+        if (err) {
+          console.info(`onQueryResult error: ${err}`);
+          return;
+        }
+        if (!results || results.length === 0) {
+          return;
+        }
+
+        // ASSERT: results is defined and at least one result
+        this.trace(`results ok: len=${results.length}`);
+        this.results = results;
       }
     },
     watch: {
       // Input string value changed
-      search (str) {
-        if (!str || str.length === 0) {
-          this.items = [];
+      search (queryStr) {
+        if (this.timeout || this.selecting) {
+          // Query or selection in progress
+          this.trace(`query or selection in progress...`);
           return;
         }
+        if (!queryStr || queryStr.length === 0) {
+          // Query reset
+          this.trace(`queryStr none`);
+          this.results = null;
+          return
+        }
 
-        this.debug && console.info('search:', str);
-        // Only query when input changed from last with minimum number of chars
-        str && str !== this.lastSearch && str.length >= this.minChars && this.querySelections(str);
-        this.lastSearch = str;
+        // ASSERT queryStr is valid
+        queryStr = queryStr.trim();
+
+        queryStr.length >= this.minChars && queryStr !== this.lastQueryStr && this.querySelections(queryStr);
+        this.lastQueryStr = queryStr;
       },
       // User has selected entry from suggested items
       selected (item) {
         if (!item.hasOwnProperty('text') || !item.hasOwnProperty('value')) {
           return;
         }
-
-        this.debug && console.log(`selected=${item.text}`);
+        this.selecting = true;
+        this.trace(`selected=${item.text}`);
 
         // Position Map on result
         const result = item.value;
@@ -100,6 +149,7 @@
           this.map.getView().setZoom(this.selectZoom);
         }
         this.map.getView().setCenter(coords);
+        this.selecting = false;
       }
     },
     mounted () {
@@ -111,8 +161,9 @@
       this.minChars = this.config.minChars || 5;
       this.queryDelay = this.config.queryDelay || 300;
       this.selectZoom = this.config.selectZoom || 16;
-
-      this.geocoder = new GeocoderController(this.config.provider, this.config.providerOptions)
+      this.placeHolder = this.config.placeHolder || 'Search for an address';
+      this.config.providerOptions.debug = this.config.debug;
+      this.geocoderController = new GeocoderController(this.config.provider, this.config.providerOptions, this)
     }
   }
 </script>

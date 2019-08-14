@@ -125,13 +125,13 @@
     "wgu-geocoder": {
       "target": "toolbar",
       "darkLayout": true,
-      "minChars": 3,
+      "minChars": 2,
       "queryDelay": 200,
       "selectZoom": 16,
-      "debug": false,
+      "debug": true,
       "provider": "osm",
+      "placeHolder": "Search address",
       "providerOptions": {
-        "key": "",
         "lang": "en-US",
         "countrycodes": "",
         "limit": 6

@@ -93,6 +93,7 @@
       "queryDelay": 200,
       "selectZoom": 16,
       "debug": true,
+      "placeHolder": "Zoek plaats of adres",
       "provider": "osm",
       "providerOptions": {
         "key": "",

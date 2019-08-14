@@ -28,9 +28,9 @@
 // import proj from 'ol/proj';
 import { OpenStreet } from './providers/osm';
 import { Photon } from './providers/photon';
+import { OpenCage } from './providers/opencage';
 // import { MapQuest } from './providers/mapquest';
 // import { Bing } from './providers/bing';
-// import { OpenCage } from './providers/opencage';
 // import { VARS, TARGET_TYPE, PROVIDERS, EVENT_TYPE } from 'konstants';
 // import { randomId, flyTo } from 'helpers/mix';
 import { json } from './helpers/ajax';
@@ -47,9 +47,7 @@ import { json } from './helpers/ajax';
 
 export const PROVIDERS = {
   OSM: 'osm',
-  MAPQUEST: 'mapquest',
   PHOTON: 'photon',
-  BING: 'bing',
   OPENCAGE: 'opencage'
 };
 
@@ -75,14 +73,17 @@ export class GeocoderController {
    * @constructor
    * @param {Function} base Base class.
    */
-  constructor (providerName, options) {
-    this.lastResult = null;
+  constructor (providerName, options, parent) {
     this.options = options;
     this.provider = this.newProvider(providerName);
+    this.parent = parent;
+  }
+
+  trace (str) {
+    this.options.debug && console.info(str);
   }
 
   query (q) {
-    this.result = [];
     const parameters = this.provider.getParameters({
       query: q,
       key: this.options.key,
@@ -90,13 +91,6 @@ export class GeocoderController {
       countrycodes: this.options.countrycodes,
       limit: this.options.limit
     });
-
-    if (this.lastQuery === q && this.lastResult) {
-      return;
-    }
-
-    this.lastQuery = q;
-    this.lastResult = null;
 
     let ajax = {
       url: parameters.url,
@@ -109,28 +103,14 @@ export class GeocoderController {
     }
 
     json(ajax)
-      .then(res => {
-        // eslint-disable-next-line no-console
-        this.options.debug && console.info(res);
-
-        // will be fullfiled according to provider
-        let res_ = this.provider.handleResponse(res);
-        if (res_) {
-          this.createList(res_);
-        }
+      .then(response => {
+        // will be fullfilled according to provider
+        this.trace('response ok');
+        this.parent.onQueryResult(this.provider.handleResponse(response));
       })
       .catch(err => {
-        console.info(err)
+        this.parent.onQueryResult(undefined, err);
       });
-
-    return this.result;
-  }
-
-  createList (response) {
-    response.forEach(row => {
-      this.result.push({text: row.address.name, value: row});
-    });
-    this.lastResult = this.result;
   }
 
   newProvider (providerName) {
@@ -139,12 +119,8 @@ export class GeocoderController {
         return new OpenStreet();
       case PROVIDERS.PHOTON:
         return new Photon();
-      // case PROVIDERS.BING:
-      //   return new Bing();
-      // case PROVIDERS.MAPQUEST:
-      //   return new MapQuest();
-      // case PROVIDERS.OPENCAGE:
-      //   return new OpenCage();
+      case PROVIDERS.OPENCAGE:
+        return new OpenCage();
       default:
         return null;
     }
