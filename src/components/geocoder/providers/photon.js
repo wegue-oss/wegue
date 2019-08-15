@@ -23,6 +23,8 @@
 //
 
 /**
+ * Photon Provider. See https://photon.komoot.de.
+ *
  * @class Photon
  */
 export class Photon {
@@ -60,24 +62,28 @@ export class Photon {
   handleResponse (results) {
     if (!results.features.length) return;
     return results.features.map(function (feature) {
+      // Response is GeoJSON
+      const geometry = feature.geometry;
+      const properties = feature.properties;
+      const displayName = `${properties.name} ${properties.city || ''} ${properties.postcode || ''} ${properties.state || ''} ${properties.country || ''}`;
       let result = {
-        lon: feature.geometry.coordinates[0],
-        lat: feature.geometry.coordinates[1],
+        lon: geometry.coordinates[0],
+        lat: geometry.coordinates[1],
         address: {
-          name: feature.properties.name,
-          postcode: feature.properties.postcode,
-          city: feature.properties.city,
-          state: feature.properties.state,
-          country: feature.properties.country
+          name: displayName,
+          postcode: properties.postcode || '',
+          city: properties.city || '',
+          state: properties.state || '',
+          country: properties.country || ''
         },
         original: {
-          formatted: feature.properties.name,
-          details: feature.properties
+          formatted: displayName,
+          details: properties
         }
       };
       // Sometimes has bbox
-      if (feature.properties.extent) {
-        result.boundingbox = feature.properties.extent;
+      if (properties.extent) {
+        result.boundingbox = properties.extent;
       }
       return result;
     });

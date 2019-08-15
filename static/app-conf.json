@@ -128,9 +128,9 @@
       "minChars": 2,
       "queryDelay": 200,
       "selectZoom": 16,
-      "debug": true,
-      "provider": "osm",
+      "debug": false,
       "placeHolder": "Search address",
+      "provider": "osm",
       "providerOptions": {
         "lang": "en-US",
         "countrycodes": "",

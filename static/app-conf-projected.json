@@ -92,7 +92,7 @@
       "minChars": 4,
       "queryDelay": 200,
       "selectZoom": 16,
-      "debug": true,
+      "debug": false,
       "placeHolder": "Zoek plaats of adres",
       "provider": "osm",
       "providerOptions": {

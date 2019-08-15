@@ -22,6 +22,8 @@
 // SOFTWARE.
 
 /**
+ * OpenStreetMap Nominatim Provider. See https://nominatim.openstreetmap.org.
+ *
  * @class OpenStreet
  */
 export class OpenStreet {

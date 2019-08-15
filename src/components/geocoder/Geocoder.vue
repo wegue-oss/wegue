@@ -11,7 +11,7 @@
       append-icon=""
       :dark="dark"
       :persistent-hint="persistentHint"
-      :hidden="showSearch"
+      :hidden="hideSearch"
       :rounded="rounded"
       :search-input.sync="search"
     ></v-combobox>
@@ -48,7 +48,7 @@
         search: null,
         selecting: false,
         selected: null,
-        showSearch: true,
+        hideSearch: true,
         timeout: null
       }
     },
@@ -60,14 +60,12 @@
         }
         this.trace(`computed.resultItems() - cur results len=${this.results.length}`);
 
-        // Convert results to Combobox Items
+        // Convert results to v-combobox (text, value) Items
         this.results.forEach(result => {
           this.trace(`add to this.items: ${result.address.name}`);
           items.push({text: result.address.name, value: result});
         });
 
-        // One time only
-        // this.results = null;
         return items;
       }
     },
@@ -76,17 +74,19 @@
         this.debug && console.info(str);
       },
       toggle () {
-        this.showSearch = !this.showSearch
+        // Show/hide search combobox
+        this.hideSearch = !this.hideSearch
       },
       querySelections (queryStr) {
         this.timeout = setTimeout(() => {
           // Let Geocoder Provider do the query
-          // items (item.text fields) will be shown in suggestions
+          // items (item.text fields) will be shown in combobox dropdown suggestions
           this.trace(`geocoderController.query: ${queryStr}`);
           this.geocoderController.query(queryStr);
         }, this.queryDelay);
       },
       onQueryResult (results, err) {
+        // Callback from GeocoderController
         this.timeout && clearTimeout(this.timeout);
         this.timeout = null;
         this.results = null;
@@ -122,6 +122,7 @@
         // ASSERT queryStr is valid
         queryStr = queryStr.trim();
 
+        // Only query if minimal number chars typed and querystring has changed
         queryStr.length >= this.minChars && queryStr !== this.lastQueryStr && this.querySelections(queryStr);
         this.lastQueryStr = queryStr;
       },
@@ -158,12 +159,13 @@
         alert('No geocoder config defined')
       }
       this.debug = this.config.debug || false;
-      this.minChars = this.config.minChars || 5;
+      this.minChars = this.config.minChars || 3;
       this.queryDelay = this.config.queryDelay || 300;
       this.selectZoom = this.config.selectZoom || 16;
       this.placeHolder = this.config.placeHolder || 'Search for an address';
-      this.config.providerOptions.debug = this.config.debug;
-      this.geocoderController = new GeocoderController(this.config.provider, this.config.providerOptions, this)
+
+      // Setup GeocoderController to which we delegate Provider and query-handling
+      this.geocoderController = new GeocoderController(this.config.provider || 'osm', this.config.providerOptions || {}, this)
     }
   }
 </script>

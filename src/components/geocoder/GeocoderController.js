@@ -21,48 +21,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-// import LayerVector from 'ol/layer/Vector';
-// import SourceVector from 'ol/source/Vector';
-// import Point from 'ol/geom/Point';
-// import Feature from 'ol/Feature';
-// import proj from 'ol/proj';
 import { OpenStreet } from './providers/osm';
 import { Photon } from './providers/photon';
 import { OpenCage } from './providers/opencage';
-// import { MapQuest } from './providers/mapquest';
-// import { Bing } from './providers/bing';
-// import { VARS, TARGET_TYPE, PROVIDERS, EVENT_TYPE } from 'konstants';
-// import { randomId, flyTo } from 'helpers/mix';
 import { json } from './helpers/ajax';
-// import {
-//   hasClass,
-//   addClass,
-//   removeClass,
-//   createElement,
-//   template,
-//   removeAllChildren,
-// } from 'helpers/dom';
-//
-// const klasses = VARS.cssClasses;
 
+// Geocoder Provider types
 export const PROVIDERS = {
-  OSM: 'osm',
-  PHOTON: 'photon',
-  OPENCAGE: 'opencage'
-};
-
-export const DEFAULT_OPTIONS = {
-  provider: PROVIDERS.PHOTON,
-  placeholder: 'Search for an address',
-  // featureStyle: null,
-  // targetType: TARGET_TYPE.GLASS,
-  lang: 'en-US',
-  limit: 5,
-  keepOpen: false,
-  preventDefault: false,
-  autoComplete: false,
-  autoCompleteMinLength: 2,
-  debug: false
+  'osm': OpenStreet,
+  'photon': Photon,
+  'opencage': OpenCage
 };
 
 /**
@@ -71,16 +39,15 @@ export const DEFAULT_OPTIONS = {
 export class GeocoderController {
   /**
    * @constructor
-   * @param {Function} base Base class.
+   * @param {String} providerName name of Provider.
+   * @param {Object} options config options for Provider
+   * @param {Object} parent callback parent
    */
   constructor (providerName, options, parent) {
     this.options = options;
-    this.provider = this.newProvider(providerName);
+    // Create Provider via Factory Method
+    this.provider = new PROVIDERS[providerName]();
     this.parent = parent;
-  }
-
-  trace (str) {
-    this.options.debug && console.info(str);
   }
 
   query (q) {
@@ -97,32 +64,20 @@ export class GeocoderController {
       data: parameters.params
     };
 
+    // Optional XHR with JSONP (Provider-specific)
     if (parameters.callbackName) {
       ajax.jsonp = true;
       ajax.callbackName = parameters.callbackName;
     }
 
+    // Do the query via Ajax XHR, returning JSON. Async callback via Promise.
     json(ajax)
       .then(response => {
-        // will be fullfilled according to provider
-        this.trace('response ok');
+        // Call back parent with data formatted by Provider
         this.parent.onQueryResult(this.provider.handleResponse(response));
       })
       .catch(err => {
         this.parent.onQueryResult(undefined, err);
       });
-  }
-
-  newProvider (providerName) {
-    switch (providerName) {
-      case PROVIDERS.OSM:
-        return new OpenStreet();
-      case PROVIDERS.PHOTON:
-        return new Photon();
-      case PROVIDERS.OPENCAGE:
-        return new OpenCage();
-      default:
-        return null;
-    }
   }
 }

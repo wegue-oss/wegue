@@ -22,7 +22,10 @@
 // SOFTWARE.
 
 /**
+ * OpenCage Provider, needs key. See https://opencagedata.com.
+ *
  * @class OpenCage
+ *
  */
 export class OpenCage {
   /**
