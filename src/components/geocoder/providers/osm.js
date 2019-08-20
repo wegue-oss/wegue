@@ -24,9 +24,9 @@
 /**
  * OpenStreetMap Nominatim Provider. See https://nominatim.openstreetmap.org.
  *
- * @class OpenStreet
+ * @class OpenStreetMap
  */
-export class OpenStreet {
+export class OpenStreetMap {
   /**
    * @constructor
    */

@@ -10,6 +10,7 @@
       :label="placeHolder"
       append-icon=""
       :dark="dark"
+      :color="dark ? 'white': ''"
       :persistent-hint="persistentHint"
       :hidden="hideSearch"
       :rounded="rounded"
@@ -154,10 +155,7 @@
       }
     },
     mounted () {
-      this.config = this.$appConfig.modules['wgu-geocoder'] || null;
-      if (!this.config) {
-        alert('No geocoder config defined')
-      }
+      this.config = this.$appConfig.modules['wgu-geocoder'] || {};
       this.debug = this.config.debug || false;
       this.minChars = this.config.minChars || 3;
       this.queryDelay = this.config.queryDelay || 300;

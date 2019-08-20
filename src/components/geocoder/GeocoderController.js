@@ -21,14 +21,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import { OpenStreet } from './providers/osm';
+import { OpenStreetMap } from './providers/osm';
 import { Photon } from './providers/photon';
 import { OpenCage } from './providers/opencage';
 import { json } from './helpers/ajax';
 
 // Geocoder Provider types
 export const PROVIDERS = {
-  'osm': OpenStreet,
+  'osm': OpenStreetMap,
   'photon': Photon,
   'opencage': OpenCage
 };
@@ -45,7 +45,13 @@ export class GeocoderController {
    */
   constructor (providerName, options, parent) {
     this.options = options;
-    // Create Provider via Factory Method
+
+    // Must have Provider class defined for name
+    if (!PROVIDERS.hasOwnProperty(providerName)) {
+      console.warn(`No class defined for Geocoder Provider: '${providerName}'`);
+      return;
+    }
+    // Create Provider from name via Factory Method
     this.provider = new PROVIDERS[providerName]();
     this.parent = parent;
   }
