@@ -34,13 +34,16 @@ describe('measuretool/MeasureTypeChooser.vue', () => {
       comp = shallowMount(MeasureTypeChooser);
     });
 
-    it('watches measureTypeData fires event "wgu-measuretype-change"', () => {
+    it('watches measureTypeData fires event "wgu-measuretype-change"', done => {
       let cnt = 0;
       comp.vm.$on('wgu-measuretype-change', () => {
         cnt++;
       });
       comp.vm.measureTypeData = 'kalle';
-      expect(cnt).to.equal(1);
+      comp.vm.$nextTick(() => {
+        expect(cnt).to.equal(1);
+        done();
+      });
     });
   });
 });

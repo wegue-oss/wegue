@@ -64,18 +64,24 @@ describe('measuretool/MeasureResult.vue', () => {
       comp = shallowMount(MeasureResult);
     });
 
-    it('watches measureGeom Polygon', () => {
+    it('watches measureGeom Polygon', done => {
       const polyGeom = new PolygonGeom([[[0, 0], [1, 0], [1, 1], [0, 1], [0, 0]]]);
 
       comp.vm.measureGeom = {geom: polyGeom};
-      expect(comp.vm.area).to.equal('1 m²');
+      comp.vm.$nextTick(() => {
+        expect(comp.vm.area).to.equal('1 m²');
+        done();
+      });
     });
 
-    it('watches measureGeom LineString', () => {
+    it('watches measureGeom LineString', done => {
       const lineGeom = new LineStringGeom([[0, 0], [1, 0], [1, 1], [0, 1]]);
 
       comp.vm.measureGeom = {geom: lineGeom};
-      expect(comp.vm.distance).to.equal('3 m');
+      comp.vm.$nextTick(() => {
+        expect(comp.vm.distance).to.equal('3 m');
+        done();
+      });
     });
 
     it('watches measureGeom non supported geom', () => {
