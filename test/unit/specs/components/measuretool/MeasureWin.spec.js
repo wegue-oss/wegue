@@ -47,7 +47,7 @@ describe('measuretool/MeasureWin.vue', () => {
       vm = comp.vm;
     });
 
-    it('watches show setting to false', () => {
+    it('watches show setting to false', done => {
       let cnt = 0;
       let mockFn = () => {
         cnt++;
@@ -60,11 +60,18 @@ describe('measuretool/MeasureWin.vue', () => {
       vm.olMapCtrl.removeInteraction = mockFn;
       // toggle to trigger the watcher
       vm.show = true;
+      vm.$nextTick(() => {
+        expect(cnt).to.equal(0);
+        done();
+      });
       vm.show = false;
-      expect(cnt).to.equal(1);
+      vm.$nextTick(() => {
+        expect(cnt).to.equal(1);
+        done();
+      });
     });
 
-    it('watches show setting to true', () => {
+    it('watches show setting to true', done => {
       let cnt = 0;
       let mockFn = () => {
         cnt++;
@@ -76,12 +83,18 @@ describe('measuretool/MeasureWin.vue', () => {
       vm.onMapBound();
       vm.olMapCtrl.addInteraction = mockFn;
       vm.show = true;
-      expect(cnt).to.equal(1);
+      vm.$nextTick(() => {
+        expect(cnt).to.equal(1);
+        done();
+      });
     });
 
-    it('watches measureType resets old data', () => {
-      comp.vm.measureType = 'area';
-      expect(comp.vm.measureGeom).to.be.an('object').that.is.empty;
+    it('watches measureType resets old data', done => {
+      vm.measureType = 'area';
+      vm.$nextTick(() => {
+        expect(vm.measureGeom).to.be.an('object').that.is.empty;
+        done();
+      })
     });
   });
 
