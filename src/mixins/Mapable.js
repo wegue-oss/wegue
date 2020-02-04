@@ -11,7 +11,7 @@ export const Mapable = {
     if (!this.$map) {
       // apply OL map once OL map is mounted
       WguEventBus.$on('ol-map-mounted', (olMap) => {
-        // make the OL map accesible in this component
+        // make the OL map accessible in this component
         this.map = olMap;
 
         if (this.onMapBound) {

@@ -174,7 +174,7 @@ export default {
      * Initializes the map hover functionality:
      * Adds a little tooltip like DOM element, wrapped as OL Overlay to the
      * map.
-     * Registers a 'pointermove' event on the map and shwos the layer's
+     * Registers a 'pointermove' event on the map and shows the layer's
      * 'hoverAttribute' if the layer is configured as 'hoverable'
      */
     setupMapHover () {
