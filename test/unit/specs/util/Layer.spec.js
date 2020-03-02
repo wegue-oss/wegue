@@ -135,7 +135,7 @@ describe('LayerUtil', () => {
       })
     });
     LayerUtil.zoomToLayerExtent(vectorLayer, olMap);
-    expect(olMap.getView().getZoom()).to.equal(20);
+    expect(Math.floor(olMap.getView().getZoom())).to.equal(20);
     expect(olMap.getView().getCenter()[0]).to.equal(4);
     expect(olMap.getView().getCenter()[1]).to.equal(4);
   });
