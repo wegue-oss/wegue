@@ -81,7 +81,7 @@ export default {
           coordinateWgs84[1].toFixed(7) + '° ' + coordinateWgs84[0].toFixed(7) + '°'
       }
       if (me.showHdms) {
-        // show coordinate in WGS 84 as formatted deegree / min / secs
+        // show coordinate in WGS 84 as formatted degree / min / secs
         const hdms = toStringHDMS(coordinateWgs84);
         coordRows['HDMS'] = hdms
       }

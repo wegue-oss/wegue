@@ -56,7 +56,7 @@ export default {
     var me = this;
     // Listen to the ol-map-mounted event and receive the OL map instance
     WguEventBus.$on('ol-map-mounted', (olMap) => {
-      // make the OL map accesible in this component
+      // make the OL map accessible in this component
       me.map = olMap;
     });
   },

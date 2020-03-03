@@ -122,21 +122,27 @@ describe('infoclick/InfoClickWin.vue', () => {
       comp = shallowMount(InfoClickWin);
     });
 
-    it('watches show setting to false', () => {
+    it('watches show setting to false', done => {
       comp.vm.show = true;
       comp.vm.show = false;
-      expect(comp.vm.attributeData).to.equal(null);
-      expect(comp.vm.coordsData).to.equal(null);
+      comp.vm.$nextTick(() => {
+        expect(comp.vm.attributeData).to.equal(null);
+        expect(comp.vm.coordsData).to.equal(null);
+        done();
+      });
     });
 
-    it('watches show setting to true', () => {
+    it('watches show setting to true', done => {
       let cnt = 0;
       let mockFn = () => {
         cnt++;
       };
       comp.vm.registerMapClick = mockFn;
       comp.vm.show = true;
-      expect(cnt).to.equal(1);
+      comp.vm.$nextTick(() => {
+        expect(cnt).to.equal(1);
+        done();
+      });
     });
   });
 });

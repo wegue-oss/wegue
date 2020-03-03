@@ -47,7 +47,7 @@ describe('infoclick/CoordsTable.vue', () => {
     });
   });
 
-  describe('watchers', () => {
+  describe('watchers', done => {
     let comp;
     beforeEach(() => {
       comp = shallowMount(CoordsTable);
@@ -63,9 +63,12 @@ describe('infoclick/CoordsTable.vue', () => {
         'WGS 84': '1.0000000° 1.0000000°',
         'HDMS': '1° 00′ 00″ N 1° 00′ 00″ E'
       };
-      expect(comp.vm.coordRows['MAP PROJ']).to.equal(expextedCoordRows['MAP PROJ']);
-      expect(comp.vm.coordRows['WGS 84']).to.equal(expextedCoordRows['WGS 84']);
-      expect(comp.vm.coordRows['HDMS']).to.equal(expextedCoordRows['HDMS']);
+      comp.vm.$nextTick(() => {
+        expect(comp.vm.coordRows['MAP PROJ']).to.equal(expextedCoordRows['MAP PROJ']);
+        expect(comp.vm.coordRows['WGS 84']).to.equal(expextedCoordRows['WGS 84']);
+        expect(comp.vm.coordRows['HDMS']).to.equal(expextedCoordRows['HDMS']);
+        done();
+      });
     });
   });
 });

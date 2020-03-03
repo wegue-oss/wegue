@@ -36,7 +36,7 @@ export const LayerFactory = {
    * @return {ol.layer.Base} OL layer instance
    */
   getInstance (lConf) {
-    // apply LID (Layer ID) if not existant
+    // apply LID (Layer ID) if not existent
     if (!lConf.lid) {
       var now = new Date();
       lConf.lid = now.getTime();
