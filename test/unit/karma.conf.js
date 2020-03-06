@@ -3,7 +3,20 @@
 // we are also using it with karma-webpack
 //   https://github.com/webpack/karma-webpack
 
-var webpackConfig = require('../../build/webpack.test.conf')
+var webpackConfig = require('../../build/webpack.test.conf');
+
+// Optionally override the specfile index.js
+// Idea from: https://glebbahmutov.com/blog/debugging-karma-unit-tests/
+var specFile = './index.js';
+const preprocessors = ['webpack', 'sourcemap'];
+var preprocessorFiles = { './index.js': preprocessors };
+
+const argSpecFileIndex = process.argv.indexOf('--spec-file');
+if (argSpecFileIndex > -1) {
+  specFile = process.argv[argSpecFileIndex+1];
+  preprocessorFiles = {};
+  preprocessorFiles[specFile] = preprocessors;
+}
 
 module.exports = function (config) {
   config.set({
@@ -14,10 +27,8 @@ module.exports = function (config) {
     browsers: ['ChromeHeadless'],
     frameworks: ['mocha', 'sinon-chai'],
     reporters: ['spec', 'coverage'],
-    files: ['./index.js'],
-    preprocessors: {
-      './index.js': ['webpack', 'sourcemap']
-    },
+    files: [specFile],
+    preprocessors: preprocessorFiles,
     webpack: webpackConfig,
     webpackMiddleware: {
       noInfo: true
