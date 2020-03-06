@@ -7,9 +7,13 @@ import MvtFormat from 'ol/format/MVT'
 import GeoJsonFormat from 'ol/format/GeoJSON'
 import TopoJsonFormat from 'ol/format/TopoJSON'
 import KmlFormat from 'ol/format/KML'
+import GML2Format from 'ol/format/GML2'
+import GML3Format from 'ol/format/GML3'
+import GML32Format from 'ol/format/GML32'
 import VectorLayer from 'ol/layer/Vector'
 import VectorSource from 'ol/source/Vector'
 import XyzSource from 'ol/source/XYZ'
+import {bbox as bboxStrategy} from 'ol/loadingstrategy';
 import { OlStyleFactory } from './OlStyle'
 
 /**
@@ -26,7 +30,21 @@ export const LayerFactory = {
     'MVT': MvtFormat,
     'GeoJSON': GeoJsonFormat,
     'TopoJSON': TopoJsonFormat,
-    'KML': KmlFormat
+    'KML': KmlFormat,
+    'GML2': GML2Format,
+    'GML3': GML3Format,
+    'GML32': GML32Format
+  },
+
+  /**
+   * Maps the format literal of the config to the corresponding WFS outputFormat.
+   * @type {Object}
+   */
+  wfsFormatMapping: {
+    'GeoJSON': 'application/json',
+    'GML2': 'text/xml; subtype=gml/3.2',
+    'GML3': 'text/xml; subtype=gml/3.1.1',
+    'GML32': 'text/xml; subtype=gml/3.2'
   },
 
   /**
@@ -45,6 +63,8 @@ export const LayerFactory = {
     // create correct layer type
     if (lConf.type === 'WMS') {
       return this.createWmsLayer(lConf);
+    } else if (lConf.type === 'WFS') {
+      return this.createWfsLayer(lConf);
     } else if (lConf.type === 'XYZ') {
       return this.createXyzLayer(lConf);
     } else if (lConf.type === 'OSM') {
@@ -84,6 +104,61 @@ export const LayerFactory = {
     });
 
     return layer;
+  },
+
+  /**
+   * Returns an OpenLayers WFS layer instance due to given config.
+   *
+   * @param  {Object} lConf  Layer config object
+   * @return {ol.layer.Tile} OL WFS layer instance
+   */
+  createWfsLayer: function (lConf) {
+    // set a default projection if not set in config
+    if (!lConf.projection) {
+      lConf.projection = 'EPSG:3857';
+    }
+    // set a default WFS version if not set in config
+    if (!lConf.version) {
+      lConf.version = '1.1.0';
+    }
+    if (!lConf.format) {
+      lConf = 'GML3';
+    }
+
+    // detect the WFS output format
+    const outputFormat =
+      this.wfsFormatMapping[lConf.format] || this.wfsFormatMapping['GML3'];
+
+    const vectorSource = new VectorSource({
+      format: new this.formatMapping[lConf.format](lConf.formatConfig),
+      url: function (extent) {
+        let wfsRequest = lConf.url + '?service=WFS&' +
+            'version=' + lConf.version + '&request=GetFeature&' +
+            'typename=' + lConf.typeName + '&' +
+            'outputFormat=' + outputFormat + '&srsname=' + lConf.projection;
+
+        if (lConf.loadOnlyVisible !== false) {
+          wfsRequest += '&bbox=' + extent.join(',') + ',' + lConf.projection + '';
+        }
+
+        return wfsRequest;
+      },
+      strategy: lConf.loadOnlyVisible !== false ? bboxStrategy : undefined,
+      attributions: lConf.attributions
+    });
+
+    var vector = new VectorLayer({
+      name: lConf.name,
+      lid: lConf.lid,
+      displayInLayerList: lConf.displayInLayerList,
+      extent: lConf.extent,
+      visible: lConf.visible,
+      opacity: lConf.opacity,
+      source: vectorSource,
+      style: OlStyleFactory.getInstance(lConf.style)
+    });
+
+    return vector;
   },
 
   /**
