@@ -16,7 +16,7 @@
       :rounded="rounded"
       :search-input.sync="search"
     ></v-combobox>
-    
+
     <v-btn @click='toggle()' icon :dark="dark" slot="activator">
       <v-icon medium>{{buttonIcon}}</v-icon>
     </v-btn>
@@ -72,30 +72,29 @@
     },
     methods: {
       trace (str) {
-        this.debug && console.info(str);
+        this.debug && console && console.info(str);
       },
       toggle () {
         // Show/hide search combobox
         this.hideSearch = !this.hideSearch
       },
+      // Query by string - should return list of selection items (adresses) for ComboBox
       querySelections (queryStr) {
         this.timeout = setTimeout(() => {
           // Let Geocoder Provider do the query
           // items (item.text fields) will be shown in combobox dropdown suggestions
           this.trace(`geocoderController.query: ${queryStr}`);
-          this.geocoderController.query(queryStr);
+          this.geocoderController.query(queryStr)
+            .then(results => this.onQueryResults(results))
+            .catch(err => this.onQueryError(err))
         }, this.queryDelay);
       },
-      onQueryResult (results, err) {
-        // Callback from GeocoderController
+      onQueryResults (results) {
+        // Handle query results from GeocoderController
         this.timeout && clearTimeout(this.timeout);
         this.timeout = null;
         this.results = null;
 
-        if (err) {
-          console.info(`onQueryResult error: ${err}`);
-          return;
-        }
         if (!results || results.length === 0) {
           return;
         }
@@ -103,6 +102,11 @@
         // ASSERT: results is defined and at least one result
         this.trace(`results ok: len=${results.length}`);
         this.results = results;
+      },
+      onQueryError (err) {
+        if (err) {
+          this.trace(`onQueryResult error: ${err}`);
+        }
       }
     },
     watch: {
@@ -120,7 +124,7 @@
           return
         }
 
-        // ASSERT queryStr is valid
+        // ASSERTION: queryStr is valid
         queryStr = queryStr.trim();
 
         // Only query if minimal number chars typed and querystring has changed
@@ -155,15 +159,15 @@
       }
     },
     mounted () {
-      this.config = this.$appConfig.modules['wgu-geocoder'] || {};
-      this.debug = this.config.debug || false;
-      this.minChars = this.config.minChars || 3;
-      this.queryDelay = this.config.queryDelay || 300;
-      this.selectZoom = this.config.selectZoom || 16;
-      this.placeHolder = this.config.placeHolder || 'Search for an address';
+      let config = this.$appConfig.modules['wgu-geocoder'] || {};
+      this.debug = config.debug || false;
+      this.minChars = config.minChars || 3;
+      this.queryDelay = config.queryDelay || 300;
+      this.selectZoom = config.selectZoom || 16;
+      this.placeHolder = config.placeHolder || 'Search for an address';
 
       // Setup GeocoderController to which we delegate Provider and query-handling
-      this.geocoderController = new GeocoderController(this.config.provider || 'osm', this.config.providerOptions || {}, this)
+      this.geocoderController = new GeocoderController(config.provider || 'osm', config.providerOptions || {}, this)
     }
   }
 </script>

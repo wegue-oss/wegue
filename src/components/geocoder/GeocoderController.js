@@ -56,7 +56,7 @@ export class GeocoderController {
     this.parent = parent;
   }
 
-  query (q) {
+  async query (q) {
     const parameters = this.provider.getParameters({
       query: q,
       key: this.options.key,
@@ -76,14 +76,21 @@ export class GeocoderController {
       ajax.callbackName = parameters.callbackName;
     }
 
-    // Do the query via Ajax XHR, returning JSON. Async callback via Promise.
-    json(ajax)
-      .then(response => {
-        // Call back parent with data formatted by Provider
-        this.parent.onQueryResult(this.provider.handleResponse(response));
-      })
-      .catch(err => {
-        this.parent.onQueryResult(undefined, err);
-      });
+    try {
+      const response = await json(ajax);
+      return this.provider.handleResponse(response)
+    } catch (err) {
+      return err
+    }
+
+    // // Do the query via Ajax XHR, returning JSON. Async callback via Promise.
+    // json(ajax)
+    //   .then(response => {
+    //     // Call back parent with data formatted by Provider
+    //     this.parent.onQueryResult(this.provider.handleResponse(response));
+    //   })
+    //   .catch(err => {
+    //     this.parent.onQueryResult(undefined, err);
+    //   });
   }
 }

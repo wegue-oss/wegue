@@ -62,6 +62,17 @@ To run all unit tests execute the following:
 npm test
 ```
 
+NB the unit tests require Chrome or Chromium browser executable to be found.
+
+On Mac OSX with `Homebrew` package manager this should work:
+```
+brew cask install chromium;
+export CHROME_BIN=/Applications/Chromium.app/Contents/MacOS/Chromium;
+npm run test
+```
+
+More testing tips and tricks can be found in the [Unit Test README](test/README.md).
+
 ### Production build
 
 Run the build script in order to create a production build, which can be copied / deployed to a web server. The output will be placed in the `dist/` folder
