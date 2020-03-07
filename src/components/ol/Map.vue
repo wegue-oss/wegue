@@ -220,7 +220,7 @@ export default {
         }
         return layer.get('hoverable');
       }});
-      if (!features || !hoverAttr) {
+      if (!features || features.length === 0 || !hoverAttr) {
         hoverAttr = null;
         overlayEl.innerHTML = null;
         me.overlay.setPosition(undefined);
@@ -247,6 +247,7 @@ export default {
 
   div.ol-attribution.ol-uncollapsible {
     bottom: 12px;
+    font-size: 10px;
   }
 
   /* Hover tooltip */
