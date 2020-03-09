@@ -66,10 +66,10 @@
       "visible": true,
       "selectable": true,
       "style": {
-        "radius": 4,
-        "strokeColor": "orange",
-        "strokeWidth": 2,
-        "fillColor": "rgba(155,153,51,0.5)"
+        "iconUrl": "./static/icon/windmill2.png",
+        "anchor": [0.5, 37],
+        "anchorXUnits": "fraction",
+        "anchorYUnits": "pixels"
       }
     },
     {
@@ -83,10 +83,10 @@
       "visible": true,
       "selectable": true,
       "style": {
-        "radius": 4,
-        "strokeColor": "blue",
-        "strokeWidth": 2,
-        "fillColor": "rgba(155,153,51,0.5)"
+        "iconUrl": "./static/icon/castle2.png",
+        "anchor": [0.5, 37],
+        "anchorXUnits": "fraction",
+        "anchorYUnits": "pixels"
       }
     },
     {
@@ -104,7 +104,6 @@
       "visible": false,
       "displayInLayerList": true
     },
-
     {
       "type": "VECTORTILE",
       "name": "Vector Tile Layer",
@@ -117,7 +116,6 @@
         "fillColor": "rgba(20,20,20,0.1)"
       }
     },
-
     {
       "type": "OSM",
       "lid": "osm-bg",
@@ -126,7 +124,6 @@
       "visible": true,
       "displayInLayerList": true
     }
-
   ],
 
   "modules": {
@@ -166,13 +163,16 @@
     "wgu-feature-info-window": {
       "win": true,
       "draggable": true,
+      "width": 360,
+      "icon": "info",
       "layers": [
         {
           "layerId": "dutch_windmills",
           "title": "Dutch Windmills",
           "titleProp": "NAAM",
           "imageProp": "FOTO_GROOT",
-          "infoUrlProp": "INFOLINK"
+          "infoUrlProp": "INFOLINK",
+          "imageWidth": 360
         },
         {
           "layerId": "dutch_castles",

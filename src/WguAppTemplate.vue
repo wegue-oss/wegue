@@ -33,6 +33,7 @@
         :color="baseColor"
         :draggable="moduleWin.draggable"
         :initPos="moduleWin.initPos"
+        :width="moduleWin.width"
         :title="moduleWin.title"
         :icon="moduleWin.icon"
       />
@@ -126,7 +127,9 @@
               type: key + '-win',
               draggable: moduleOpts.draggable,
               initPos: moduleOpts.initPos,
-              title: moduleOpts.title
+              title: moduleOpts.title,
+              width: moduleOpts.width,
+              icon: moduleOpts.icon
             });
           }
         }

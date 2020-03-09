@@ -29,6 +29,42 @@
 
   "mapLayers": [
     {
+      "type": "VECTOR",
+      "lid": "dutch_windmills",
+      "name": "Dutch Windmills",
+      "url": "https://demo.pygeoapi.io/master/collections/dutch_windmills/items",
+      "formatConfig": {
+        "dataProjection": "EPSG:4326"
+       },
+      "format": "GeoJSON",
+      "visible": true,
+      "selectable": true,
+      "style": {
+        "iconUrl": "./static/icon/windmill2.png",
+        "anchor": [0.5, 37],
+        "anchorXUnits": "fraction",
+        "anchorYUnits": "pixels"
+      }
+    },
+    {
+      "type": "VECTOR",
+      "lid": "dutch_castles",
+      "name": "Dutch Castles",
+      "url": "https://demo.pygeoapi.io/master/collections/dutch_castles/items",
+      "formatConfig": {
+        "dataProjection": "EPSG:4326"
+       },
+      "format": "GeoJSON",
+      "visible": true,
+      "selectable": true,
+      "style": {
+        "iconUrl": "./static/icon/castle2.png",
+        "anchor": [0.5, 37],
+        "anchorXUnits": "fraction",
+        "anchorYUnits": "pixels"
+      }
+    },
+    {
       "type": "WMS",
       "lid": "pdok-natura2000-wms",
       "name": "WMS (Natura 2000 Areas PDOK)",
@@ -93,6 +129,28 @@
     "wgu-helpwin": {
       "target": "toolbar",
       "darkLayout": true
+    },
+    "wgu-feature-info-window": {
+      "win": true,
+      "draggable": true,
+      "width": 360,
+      "icon": "info",
+      "layers": [
+        {
+          "layerId": "dutch_windmills",
+          "title": "Dutch Windmills",
+          "titleProp": "NAAM",
+          "imageProp": "FOTO_GROOT",
+          "infoUrlProp": "INFOLINK"
+        },
+        {
+          "layerId": "dutch_castles",
+          "title": "Dutch Castles",
+          "titleProp": "naam",
+          "imageProp": "foto_groot",
+          "infoUrlProp": "info_link"
+        }
+      ]
     }
   }
 
