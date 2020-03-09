@@ -33,6 +33,8 @@
         :color="baseColor"
         :draggable="moduleWin.draggable"
         :initPos="moduleWin.initPos"
+        :title="moduleWin.title"
+        :icon="moduleWin.icon"
       />
     </template>
 
@@ -63,6 +65,7 @@
   import LayerListWin from './components/layerlist/LayerListWin'
   import InfoClickWin from './components/infoclick/InfoClickWin'
   import MapLoadingStatus from './components/progress/MapLoadingStatus'
+  import FeatureInfoWindow from './components/FeatureInfoWindow'
 
   export default {
     name: 'wgu-app-tpl',
@@ -74,7 +77,8 @@
       'wgu-measuretool-win': MeasureWin,
       'wgu-layerlist-win': LayerListWin,
       'wgu-infoclick-win': InfoClickWin,
-      'wgu-maploading-status': MapLoadingStatus
+      'wgu-maploading-status': MapLoadingStatus,
+      'wgu-feature-info-window-win': FeatureInfoWindow
     },
     data () {
       return {
@@ -121,7 +125,8 @@
             moduleWins.push({
               type: key + '-win',
               draggable: moduleOpts.draggable,
-              initPos: moduleOpts.initPos
+              initPos: moduleOpts.initPos,
+              title: moduleOpts.title
             });
           }
         }
