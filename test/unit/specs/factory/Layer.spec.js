@@ -41,6 +41,13 @@ describe('LayerFactory', () => {
     expect((LayerFactory.formatMapping.KML)).to.equal(KmlFormat);
   });
 
+  it('has a correct wfsFormatMapping', () => {
+    expect((LayerFactory.wfsFormatMapping.GeoJSON)).to.equal('application/json');
+    expect((LayerFactory.wfsFormatMapping.GML2)).to.equal('text/xml; subtype=gml/3.2');
+    expect((LayerFactory.wfsFormatMapping.GML3)).to.equal('text/xml; subtype=gml/3.1.1');
+    expect((LayerFactory.wfsFormatMapping.GML32)).to.equal('text/xml; subtype=gml/3.2');
+  });
+
   describe('layer types', () => {
     it('createWmsLayer returns correct layer instance', () => {
       const layerConf = {
@@ -61,6 +68,28 @@ describe('LayerFactory', () => {
       const layer = LayerFactory.createWmsLayer(layerConf);
       expect(layer instanceof TileLayer).to.equal(true);
       expect(layer.getSource() instanceof TileWmsSource);
+    });
+
+    it('createWfsLayer returns correct layer instance', () => {
+      const layerConf = {
+        'type': 'WFS',
+        'lid': 'a-wfs',
+        'name': 'Foo',
+        'url': 'https://a-wfs-url.de',
+        'typeName': 'foo:tn',
+        'version': '2.0.0',
+        'format': 'GeoJSON',
+        'formatConfig': {
+        },
+        'visible': true,
+        'attributions': 'An attribution',
+        'selectable': false
+      };
+      const layer = LayerFactory.createWfsLayer(layerConf);
+      expect(layer instanceof VectorLayer).to.equal(true);
+      expect(layer.getSource() instanceof VectorSource);
+      const createdUrl = layer.getSource().getUrl()([0, 0, 0, 0]);
+      expect(createdUrl).to.equal('https://a-wfs-url.de?service=WFS&version=2.0.0&request=GetFeature&typename=foo:tn&outputFormat=application/json&srsname=EPSG:3857&bbox=0,0,0,0,EPSG:3857');
     });
 
     it('createXyzLayer returns correct layer instance', () => {
