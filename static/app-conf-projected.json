@@ -40,6 +40,7 @@
       },
       "format": "GeoJSON",
       "projection": "EPSG:28992",
+      "loadOnlyVisible": true,
       "visible": false,
       "selectable": true,
       "style": {
