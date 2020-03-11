@@ -122,6 +122,22 @@
         "top": 74
       }
     },
+    "wgu-geocoder": {
+      "target": "toolbar",
+      "darkLayout": true,
+      "minChars": 4,
+      "queryDelay": 200,
+      "selectZoom": 16,
+      "debug": false,
+      "placeHolder": "Zoek plaats of adres",
+      "provider": "osm",
+      "providerOptions": {
+        "key": "",
+        "lang": "nl-NL",
+        "countrycodes": "nl",
+        "limit": 5
+      }
+    },
     "wgu-zoomtomaxextent": {
       "target": "toolbar",
       "darkLayout": true

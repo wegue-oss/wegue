@@ -152,6 +152,21 @@
         "top": 74
       }
     },
+    "wgu-geocoder": {
+      "target": "toolbar",
+      "darkLayout": true,
+      "minChars": 2,
+      "queryDelay": 200,
+      "selectZoom": 16,
+      "debug": false,
+      "placeHolder": "Search address",
+      "provider": "osm",
+      "providerOptions": {
+        "lang": "en-US",
+        "countrycodes": "",
+        "limit": 6
+      }
+    },
     "wgu-zoomtomaxextent": {
       "target": "toolbar",
       "darkLayout": true
