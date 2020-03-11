@@ -48,7 +48,7 @@ export default {
       width: null,
       left: null,
       top: null,
-      title: null,
+      title: 'Feature Info',
       titleProp: null,
       imageProp: null,
       descProp: null,
