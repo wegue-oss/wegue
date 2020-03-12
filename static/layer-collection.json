@@ -1,0 +1,37 @@
+[
+  {
+    "type": "VECTOR",
+    "lid": "portuguese_pois",
+    "name": "Portuguese POIs",
+    "url": "https://demo.pygeoapi.io/master/collections/ogr_gpkg_poi/items",
+    "formatConfig": {
+
+    },
+    "format": "GeoJSON",
+    "visible": true,
+    "selectable": true,
+    "displayInLayerList": true,
+    "style": {
+      "radius": 6,
+      "strokeColor": "blue",
+      "strokeWidth": 2,
+      "fillColor": "rgba(0,0,100,0.5)"
+    }
+  },
+  {
+    "type": "WMS",
+    "lid": "au_administrativeunit",
+    "name": "Dutch Administrative Units",
+    "format": "image/png",
+    "layers": "AU.AdministrativeUnit",
+    "url": "https://geodata.nationaalgeoregister.nl/inspire/au/wms",
+    "transparent": true,
+    "singleTile": false,
+    "projection": "EPSG:3857",
+    "attribution": "",
+    "isBaseLayer": false,
+    "visible": false,
+    "selectable": true,
+    "displayInLayerList": true
+  }
+]

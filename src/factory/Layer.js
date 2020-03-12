@@ -35,7 +35,7 @@ export const LayerFactory = {
    * @param  {Object} lConf  Layer config object
    * @return {ol.layer.Base} OL layer instance
    */
-  getInstance (lConf) {
+  async getInstance (lConf) {
     // apply LID (Layer ID) if not existent
     if (!lConf.lid) {
       var now = new Date();
@@ -53,6 +53,8 @@ export const LayerFactory = {
       return this.createVectorLayer(lConf);
     } else if (lConf.type === 'VECTORTILE') {
       return this.createVectorTileLayer(lConf);
+    } else if (lConf.type === 'WEGUELAYERS') {
+      return this.createWegueLayers(lConf);
     } else {
       return null;
     }
@@ -69,6 +71,7 @@ export const LayerFactory = {
       name: lConf.name,
       lid: lConf.lid,
       displayInLayerList: lConf.displayInLayerList,
+      selectable: lConf.selectable || false,
       extent: lConf.extent,
       visible: lConf.visible,
       opacity: lConf.opacity,
@@ -97,6 +100,7 @@ export const LayerFactory = {
       name: lConf.name,
       lid: lConf.lid,
       displayInLayerList: lConf.displayInLayerList,
+      selectable: lConf.selectable || false,
       visible: lConf.visible,
       opacity: lConf.opacity,
       source: new XyzSource({
@@ -118,6 +122,7 @@ export const LayerFactory = {
       name: lConf.name,
       lid: lConf.lid,
       displayInLayerList: lConf.displayInLayerList,
+      selectable: lConf.selectable || false,
       visible: lConf.visible,
       opacity: lConf.opacity,
       source: new OsmSource()
@@ -137,6 +142,7 @@ export const LayerFactory = {
       name: lConf.name,
       lid: lConf.lid,
       displayInLayerList: lConf.displayInLayerList,
+      selectable: lConf.selectable || false,
       extent: lConf.extent,
       visible: lConf.visible,
       opacity: lConf.opacity,
@@ -164,6 +170,7 @@ export const LayerFactory = {
       name: lConf.name,
       lid: lConf.lid,
       displayInLayerList: lConf.displayInLayerList,
+      selectable: lConf.selectable || false,
       visible: lConf.visible,
       opacity: lConf.opacity,
       source: new VectorTileSource({
@@ -177,6 +184,18 @@ export const LayerFactory = {
     });
 
     return vtLayer;
-  }
+  },
 
+  /**
+   * Returns an array of Wegue Layer objects from given config.
+   *
+   * @param  {Object} lConf Wegue Layer list config object
+   * @return {Array} array of layer instances
+   */
+  async createWegueLayers (lConf) {
+    const response = await (await fetch(lConf.url)).json();
+    return Promise.all(response.map(async layerDef => {
+      return this.getInstance(layerDef);
+    }));
+  }
 }

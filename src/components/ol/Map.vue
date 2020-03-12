@@ -54,7 +54,7 @@ export default {
       me.setupMapHover();
     }, 200);
   },
-  created () {
+  async created () {
     var me = this;
 
     // make map rotateable according to property
@@ -99,7 +99,7 @@ export default {
     });
 
     // create layers from config and add them to map
-    const layers = me.createLayers();
+    const layers = await me.createLayers();
     me.map.getLayers().extend(layers);
   },
 
@@ -108,35 +108,40 @@ export default {
      * Creates the OL layers due to the "mapLayers" array in app config.
      * @return {ol.layer.Base[]} Array of OL layer instances
      */
-    createLayers () {
-      const me = this;
-      let layers = [];
-      const appConfig = this.$appConfig;
-      const mapLayersConfig = appConfig.mapLayers || [];
-      mapLayersConfig.reverse().forEach(function (lConf) {
-        let layer = LayerFactory.getInstance(lConf);
-        layers.push(layer);
-
+    async createLayers () {
+      const addInteraction = (layer) => {
         // if layer is selectable register a select interaction
-        if (lConf.selectable) {
-          const selectClick = new SelectInteraction({
-            layers: [layer]
-          });
-          // forward an event if feature selection changes
-          selectClick.on('select', function (evt) {
-            // TODO use identifier for layer (once its implemented)
-            WguEventBus.$emit(
-              'map-selectionchange',
-              layer.get('lid'),
-              evt.selected,
-              evt.deselected
-            );
-          });
-          // register/activate interaction on map
-          me.map.addInteraction(selectClick);
+        if (layer.get('selectable') === false) {
+          return;
         }
-      });
+        const selectClick = new SelectInteraction({
+          layers: [layer]
+        });
+        // forward an event if feature selection changes
+        selectClick.on('select', function (evt) {
+          // TODO use identifier for layer (once its implemented)
+          WguEventBus.$emit(
+            'map-selectionchange',
+            layer.get('lid'),
+            evt.selected,
+            evt.deselected
+          );
+        });
+        // register/activate interaction on map
+        this.map.addInteraction(selectClick);
+      };
 
+      let layers = [];
+      const mapLayersConfig = this.$appConfig.mapLayers;
+      await Promise.all(mapLayersConfig.reverse().map(async lConf => {
+        let layersToAdd = await LayerFactory.getInstance(lConf);
+        // One layer definition can lead to several layer instances being created
+        if (!Array.isArray(layersToAdd)) {
+          layersToAdd = [layersToAdd];
+        }
+        layersToAdd.forEach(layer => addInteraction(layer));
+        layers.push(...layersToAdd);
+      }));
       return layers;
     },
     /**

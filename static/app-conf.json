@@ -84,7 +84,11 @@
         "fillColor": "rgba(20,20,20,0.1)"
       }
     },
-
+    {
+      "type": "WEGUELAYERS",
+      "url": "./static/layer-collection.json",
+      "baseUrl": ""
+    },
     {
       "type": "OSM",
       "lid": "osm-bg",
