@@ -81,6 +81,26 @@ describe('ol/Map.vue', () => {
       expect(layers.length).to.equal(1);
     });
 
+    it('createLayers expands LAYERCOLLECTION Layer type', async () => {
+      // mock a map layer config
+      Vue.prototype.$appConfig = {mapLayers: [{
+        'type': 'OSM',
+        'lid': 'osm-bg',
+        'name': 'OSM',
+        'isBaseLayer': false,
+        'visible': true,
+        'selectable': false,
+        'displayInLayerList': true}, {
+        'type': 'LAYERCOLLECTION',
+        // should change URL to Wegue GH when ready
+        'url': 'https://raw.githubusercontent.com/Geolicious/wegue/111-dynlayers-wegueformat/static/layer-collection.json'}]
+      };
+      const layers = await vm.createLayers();
+      expect(layers).to.be.an('array');
+      // OSM (1 layer) and LAYERCOLLECTION (2 layers)
+      expect(layers.length).to.equal(3);
+    });
+
     it('createLayers registers a select interaction if configured', async () => {
       // mock a map layer config
       Vue.prototype.$appConfig = {mapLayers: [{

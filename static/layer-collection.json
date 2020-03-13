@@ -28,7 +28,7 @@
     "transparent": true,
     "singleTile": false,
     "projection": "EPSG:3857",
-    "attribution": "",
+    "attribution": "Dutch Kadaster",
     "isBaseLayer": false,
     "visible": false,
     "selectable": true,

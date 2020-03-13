@@ -53,8 +53,8 @@ export const LayerFactory = {
       return this.createVectorLayer(lConf);
     } else if (lConf.type === 'VECTORTILE') {
       return this.createVectorTileLayer(lConf);
-    } else if (lConf.type === 'WEGUELAYERS') {
-      return this.createWegueLayers(lConf);
+    } else if (lConf.type === 'LAYERCOLLECTION') {
+      return this.createLayersFromCollection(lConf);
     } else {
       return null;
     }
@@ -192,7 +192,7 @@ export const LayerFactory = {
    * @param  {Object} lConf Wegue Layer list config object
    * @return {Array} array of layer instances
    */
-  async createWegueLayers (lConf) {
+  async createLayersFromCollection (lConf) {
     const response = await (await fetch(lConf.url)).json();
     return Promise.all(response.map(async layerDef => {
       return this.getInstance(layerDef);

@@ -85,9 +85,8 @@
       }
     },
     {
-      "type": "WEGUELAYERS",
-      "url": "./static/layer-collection.json",
-      "baseUrl": ""
+      "type": "LAYERCOLLECTION",
+      "url": "./static/layer-collection.json"
     },
     {
       "type": "OSM",
