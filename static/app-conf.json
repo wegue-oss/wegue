@@ -70,6 +70,12 @@
         "anchor": [0.5, 37],
         "anchorXUnits": "fraction",
         "anchorYUnits": "pixels"
+      },
+      "styleSelected": {
+        "iconUrl": "./static/icon/windmill2-select.png",
+        "anchor": [0.5, 37],
+        "anchorXUnits": "fraction",
+        "anchorYUnits": "pixels"
       }
     },
     {
@@ -84,6 +90,12 @@
       "selectable": true,
       "style": {
         "iconUrl": "./static/icon/castle2.png",
+        "anchor": [0.5, 37],
+        "anchorXUnits": "fraction",
+        "anchorYUnits": "pixels"
+      },
+      "styleSelected": {
+        "iconUrl": "./static/icon/castle2-select.png",
         "anchor": [0.5, 37],
         "anchorXUnits": "fraction",
         "anchorYUnits": "pixels"
@@ -195,6 +207,12 @@
           "titleProp": "naam",
           "imageProp": "foto_groot",
           "infoUrlProp": "info_link"
+        },
+        {
+          "layerId": "Shops",
+          "title": "Shops Dannstadt",
+          "titleProp": "name",
+          "descProp": "shop"
         }
       ]
     }

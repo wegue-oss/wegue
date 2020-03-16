@@ -43,6 +43,7 @@ export default {
   data () {
     return {
       // will be filled in when mounted and when feature clicked
+      layers: null,
       feature: null,
       attributes: null,
       width: null,
@@ -61,6 +62,10 @@ export default {
   mounted () {
     const config = this.$appConfig.modules['wgu-feature-info-window'] || {};
     this.layers = config.layers;
+    if (this.layers) {
+      // Using a regular expression to Match layers
+      this.layers.forEach(layer => { layer.layerId = new RegExp(layer.layerId) });
+    }
     this.left = config.initPos ? this.initPos.left + 'px' : '300px';
     this.top = config.initPos ? this.initPos.top + 'px' : '200px';
     this.width = config.width ? config.width + 'px' : '350px';
@@ -102,7 +107,7 @@ export default {
      * @param {layerId} layerId layer name
      */
     findLayer (layerId) {
-      const targetLayerArr = this.layers.filter(layer => layer.layerId === layerId);
+      const targetLayerArr = this.layers.filter(layer => layerId.match(layer.layerId));
       return targetLayerArr.length > 0 ? targetLayerArr[0] : null;
     },
     onWinXClose: function () {
