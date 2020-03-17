@@ -139,7 +139,10 @@ export default {
       await Promise.all(mapLayersConfig.reverse().map(async lConf => {
         let layersToAdd = await LayerFactory.getInstance(lConf);
         // One layer definition can lead to several layer instances being created
-        if (!Array.isArray(layersToAdd)) {
+        if (Array.isArray(layersToAdd)) {
+          // Reverse like main config to have Layers added in right stacking order.
+          layersToAdd = layersToAdd.reverse();
+        } else {
           layersToAdd = [layersToAdd];
         }
         layersToAdd.forEach(layer => addInteraction(layer));
