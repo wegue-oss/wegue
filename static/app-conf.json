@@ -1,11 +1,12 @@
 {
 
-  "title": "Vue.js / OpenLayers WebGIS",
+  "title": "<a href='https://github.com/meggsimum/wegue' target='_blank' style='text-decoration: none; color: white'>Vue.js / OpenLayers WebGIS</a>",
 
   "baseColor": "red darken-3",
 
-  "logo": "https://dummyimage.com/100x100/aaa/fff&text=Wegue",
-  "logoSize": "100",
+  "logo": "https://dummyimage.com/92x92/aaa/fff&text=Wegue",
+  "logoSize": "92",
+  "logoText": "<a href='https://meggsimum.de/wegue/' target='_blank' style='text-decoration: none; color: white; background: grey; '>Vue.js WebGIS</a>",
 
   "footerTextLeft": "Powered by <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>",
   "footerTextRight": "meggsimum",
