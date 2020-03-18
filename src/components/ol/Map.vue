@@ -114,7 +114,7 @@ export default {
       const appConfig = this.$appConfig;
       const mapLayersConfig = appConfig.mapLayers || [];
       mapLayersConfig.reverse().forEach(function (lConf) {
-        let layer = LayerFactory.getInstance(lConf);
+        let layer = LayerFactory.getInstance(lConf, me.map);
         layers.push(layer);
 
         // if layer is selectable register a select interaction

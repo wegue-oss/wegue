@@ -51,9 +51,10 @@ export const LayerFactory = {
    * Returns an OpenLayers layer instance due to given config.
    *
    * @param  {Object} lConf  Layer config object
-   * @return {ol.layer.Base} OL layer instance
+   * @param  {ol/Map} olMap  Optional OL map we work on
+   * @return {ol/layer/Base} OL layer instance
    */
-  getInstance (lConf) {
+  getInstance (lConf, olMap) {
     // apply LID (Layer ID) if not existent
     if (!lConf.lid) {
       var now = new Date();
@@ -64,7 +65,7 @@ export const LayerFactory = {
     if (lConf.type === 'WMS') {
       return this.createWmsLayer(lConf);
     } else if (lConf.type === 'WFS') {
-      return this.createWfsLayer(lConf);
+      return this.createWfsLayer(lConf, olMap);
     } else if (lConf.type === 'XYZ') {
       return this.createXyzLayer(lConf);
     } else if (lConf.type === 'OSM') {
@@ -110,12 +111,14 @@ export const LayerFactory = {
    * Returns an OpenLayers WFS layer instance due to given config.
    *
    * @param  {Object} lConf  Layer config object
+   * @param  {ol/Map} olMap  The OpenLayers map we work on
    * @return {ol.layer.Tile} OL WFS layer instance
    */
-  createWfsLayer: function (lConf) {
+  createWfsLayer: function (lConf, olMap) {
     // set a default projection if not set in config
     if (!lConf.projection) {
-      lConf.projection = 'EPSG:3857';
+      const mapSrs = olMap.getView().getProjection().getCode();
+      lConf.projection = mapSrs;
     }
     // set a default WFS version if not set in config
     if (!lConf.version) {
