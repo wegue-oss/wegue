@@ -42,7 +42,7 @@ export const LayerFactory = {
    */
   wfsFormatMapping: {
     'GeoJSON': 'application/json',
-    'GML2': 'text/xml; subtype=gml/3.2',
+    'GML2': 'text/xml; subtype=gml/2.1.2',
     'GML3': 'text/xml; subtype=gml/3.1.1',
     'GML32': 'text/xml; subtype=gml/3.2'
   },
@@ -122,12 +122,11 @@ export const LayerFactory = {
       lConf.version = '1.1.0';
     }
     if (!lConf.format) {
-      lConf = 'GML3';
+      lConf.format = 'GML3';
     }
 
     // detect the WFS output format
-    const outputFormat =
-      this.wfsFormatMapping[lConf.format] || this.wfsFormatMapping['GML3'];
+    const outputFormat = this.wfsFormatMapping[lConf.format];
 
     const vectorSource = new VectorSource({
       format: new this.formatMapping[lConf.format](lConf.formatConfig),

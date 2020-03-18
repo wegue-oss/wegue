@@ -43,7 +43,7 @@ describe('LayerFactory', () => {
 
   it('has a correct wfsFormatMapping', () => {
     expect((LayerFactory.wfsFormatMapping.GeoJSON)).to.equal('application/json');
-    expect((LayerFactory.wfsFormatMapping.GML2)).to.equal('text/xml; subtype=gml/3.2');
+    expect((LayerFactory.wfsFormatMapping.GML2)).to.equal('text/xml; subtype=gml/2.1.2');
     expect((LayerFactory.wfsFormatMapping.GML3)).to.equal('text/xml; subtype=gml/3.1.1');
     expect((LayerFactory.wfsFormatMapping.GML32)).to.equal('text/xml; subtype=gml/3.2');
   });
@@ -81,6 +81,7 @@ describe('LayerFactory', () => {
         'format': 'GeoJSON',
         'formatConfig': {
         },
+        'projection': 'EPSG:3857',
         'visible': true,
         'attributions': 'An attribution',
         'selectable': false
