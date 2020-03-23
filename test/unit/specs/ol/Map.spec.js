@@ -50,11 +50,6 @@ describe('ol/Map.vue', () => {
       expect(vm.zoom).to.equal(undefined);
       expect(vm.center).to.equal(undefined);
     });
-
-    it('has correct default data', () => {
-      expect(vm.zoom).to.equal(undefined);
-      expect(vm.center).to.equal(undefined);
-    });
   });
 
   describe('methods', () => {

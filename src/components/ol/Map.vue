@@ -30,7 +30,7 @@ export default {
   data () {
     return {
       zoom: this.$appConfig.mapZoom,
-      center: this.$appConfig.mapCenter || [0, 0],
+      center: this.$appConfig.mapCenter,
       projection: this.$appConfig.mapProjection,
       projectionObj: null,
       projectionDefs: this.$appConfig.projectionDefs,
