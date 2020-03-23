@@ -18,6 +18,7 @@ import Overlay from 'ol/Overlay';
 import { WguEventBus } from '../../WguEventBus.js';
 import { LayerFactory } from '../../factory/Layer.js';
 import ColorUtil from '../../util/Color';
+import PermalinkController from './PermalinkController';
 
 export default {
   name: 'wgu-map',
@@ -29,9 +30,11 @@ export default {
   data () {
     return {
       zoom: this.$appConfig.mapZoom,
-      center: this.$appConfig.mapCenter,
+      center: this.$appConfig.mapCenter || [0, 0],
       projection: this.$appConfig.mapProjection,
-      projectionDefs: this.$appConfig.projectionDefs
+      projectionObj: null,
+      projectionDefs: this.$appConfig.projectionDefs,
+      permalink: this.$appConfig.permalink
     }
   },
   mounted () {
@@ -55,52 +58,55 @@ export default {
     }, 200);
   },
   created () {
-    var me = this;
-
     // make map rotateable according to property
     const interactions = defaultInteractions({
-      altShiftDragRotate: me.rotateableMap,
-      pinchRotate: me.rotateableMap
+      altShiftDragRotate: this.rotateableMap,
+      pinchRotate: this.rotateableMap
     });
     let controls = [
       new Zoom(),
       new Attribution({
-        collapsible: me.collapsibleAttribution
+        collapsible: this.collapsibleAttribution
       })
     ];
     // add a button control to reset rotation to 0, if map is rotateable
-    if (me.rotateableMap) {
+    if (this.rotateableMap) {
       controls.push(new RotateControl());
     }
 
     // Optional projection (EPSG) definitions for Proj4
-    if (me.projectionDefs) {
+    if (this.projectionDefs) {
       // Add all (array of array)
-      proj4.defs(me.projectionDefs);
+      proj4.defs(this.projectionDefs);
       // Register with OpenLayers
       olproj4(proj4);
     }
 
     // Projection for Map, default is Web Mercator
-    if (!me.projection) {
-      me.projection = {code: 'EPSG:3857', units: 'm'}
+    if (!this.projection) {
+      this.projection = {code: 'EPSG:3857', units: 'm'}
     }
-    const projection = new Projection(me.projection);
 
-    me.map = new Map({
+    this.map = new Map({
       layers: [],
       controls: controls,
       interactions: interactions,
       view: new View({
-        center: me.center || [0, 0],
-        zoom: me.zoom,
-        projection: projection
+        center: this.center,
+        zoom: this.zoom,
+        projection: new Projection(this.projection)
       })
     });
 
+    if (this.$appConfig.permalink) {
+      this.permalinkController = this.createPermalinkController();
+      this.permalinkController.apply();
+      this.permalinkController.setup();
+    }
+
     // create layers from config and add them to map
-    const layers = me.createLayers();
-    me.map.getLayers().extend(layers);
+    const layers = this.createLayers();
+    this.map.getLayers().extend(layers);
   },
 
   methods: {
@@ -139,6 +145,16 @@ export default {
 
       return layers;
     },
+
+    /**
+     * Creates a PermalinkController, override in subclass for specializations.
+     *
+     * @return {PermalinkController} PermalinkController instance.
+     */
+    createPermalinkController () {
+      return new PermalinkController(this.map, this.$appConfig.permalink);
+    },
+
     /**
      * Sets the background color of the OL buttons to the color property.
      */
@@ -202,7 +218,6 @@ export default {
       // show tooltip if a hoverable feature gets hit with the mouse
       map.on('pointermove', me.onPointerMove, me);
     },
-
     /**
      * Shows the hover tooltip on the map if an appropriate feature of a
      * 'hoverable' layer was hit with the mouse.

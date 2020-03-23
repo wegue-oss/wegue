@@ -27,6 +27,12 @@
     ]
   ],
 
+  "permalink": {
+    "location": "search",
+    "paramPrefix": "pl_",
+    "history": true
+  },
+
   "mapLayers": [
     {
       "type": "WMS",
