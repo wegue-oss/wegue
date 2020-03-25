@@ -147,6 +147,7 @@ export const LayerFactory = {
         attributions: lConf.attributions
       }),
       style: OlStyleFactory.getInstance(lConf.style),
+      styleSelected: OlStyleFactory.getInstance(lConf.styleSelected),
       hoverable: lConf.hoverable,
       hoverAttribute: lConf.hoverAttribute
     });
