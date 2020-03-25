@@ -104,7 +104,8 @@ export const LayerFactory = {
       visible: lConf.visible,
       opacity: lConf.opacity,
       source: new XyzSource({
-        url: lConf.url
+        url: lConf.url,
+        attributions: lConf.attributions
       })
     });
 
