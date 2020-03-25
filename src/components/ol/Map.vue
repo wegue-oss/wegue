@@ -35,72 +35,75 @@ export default {
     }
   },
   mounted () {
-    var me = this;
     // Make the OL map accessible for Mapable mixin even 'ol-map-mounted' has
     // already been fired. Don not use directly in cmps, use Mapable instead.
-    Vue.prototype.$map = me.map;
+    Vue.prototype.$map = this.map;
     // Send the event 'ol-map-mounted' with the OL map as payload
-    WguEventBus.$emit('ol-map-mounted', me.map);
+    WguEventBus.$emit('ol-map-mounted', this.map);
 
-    // resize the map, so it fits to parent
-    window.setTimeout(() => {
-      me.map.setTarget(document.getElementById('ol-map-container'));
-      me.map.updateSize();
+    // resize the map, so it fits to parent, may need to wait
+    // until map container element is ready.
+    const timer = setInterval(() => {
+      const mapTarget = document.getElementById('ol-map-container');
+      if (!mapTarget) {
+        return;
+      }
+      clearInterval(timer);
+      this.map.setTarget(mapTarget);
+      this.map.updateSize();
 
       // adjust the bg color of the OL buttons (like zoom, rotate north, ...)
-      me.setOlButtonColor();
+      this.setOlButtonColor();
 
       // initialize map hover functionality
-      me.setupMapHover();
-    }, 200);
+      this.setupMapHover();
+    }, 100);
   },
-  created () {
-    var me = this;
-
+  async created () {
     // make map rotateable according to property
     const interactions = defaultInteractions({
-      altShiftDragRotate: me.rotateableMap,
-      pinchRotate: me.rotateableMap
+      altShiftDragRotate: this.rotateableMap,
+      pinchRotate: this.rotateableMap
     });
     let controls = [
       new Zoom(),
       new Attribution({
-        collapsible: me.collapsibleAttribution
+        collapsible: this.collapsibleAttribution
       })
     ];
     // add a button control to reset rotation to 0, if map is rotateable
-    if (me.rotateableMap) {
+    if (this.rotateableMap) {
       controls.push(new RotateControl());
     }
 
     // Optional projection (EPSG) definitions for Proj4
-    if (me.projectionDefs) {
+    if (this.projectionDefs) {
       // Add all (array of array)
-      proj4.defs(me.projectionDefs);
+      proj4.defs(this.projectionDefs);
       // Register with OpenLayers
       olproj4(proj4);
     }
 
     // Projection for Map, default is Web Mercator
-    if (!me.projection) {
-      me.projection = {code: 'EPSG:3857', units: 'm'}
+    if (!this.projection) {
+      this.projection = {code: 'EPSG:3857', units: 'm'}
     }
-    const projection = new Projection(me.projection);
+    const projection = new Projection(this.projection);
 
-    me.map = new Map({
+    this.map = new Map({
       layers: [],
       controls: controls,
       interactions: interactions,
       view: new View({
-        center: me.center || [0, 0],
-        zoom: me.zoom,
+        center: this.center || [0, 0],
+        zoom: this.zoom,
         projection: projection
       })
     });
 
     // create layers from config and add them to map
-    const layers = me.createLayers();
-    me.map.getLayers().extend(layers);
+    const layers = await this.createLayers();
+    this.map.getLayers().extend(layers);
   },
 
   methods: {
@@ -108,35 +111,43 @@ export default {
      * Creates the OL layers due to the "mapLayers" array in app config.
      * @return {ol.layer.Base[]} Array of OL layer instances
      */
-    createLayers () {
-      const me = this;
-      let layers = [];
-      const appConfig = this.$appConfig;
-      const mapLayersConfig = appConfig.mapLayers || [];
-      mapLayersConfig.reverse().forEach(function (lConf) {
-        let layer = LayerFactory.getInstance(lConf);
-        layers.push(layer);
-
+    async createLayers () {
+      const addInteraction = (layer) => {
         // if layer is selectable register a select interaction
-        if (lConf.selectable) {
-          const selectClick = new SelectInteraction({
-            layers: [layer]
-          });
-          // forward an event if feature selection changes
-          selectClick.on('select', function (evt) {
-            // TODO use identifier for layer (once its implemented)
-            WguEventBus.$emit(
-              'map-selectionchange',
-              layer.get('lid'),
-              evt.selected,
-              evt.deselected
-            );
-          });
-          // register/activate interaction on map
-          me.map.addInteraction(selectClick);
+        if (layer.get('selectable') === false) {
+          return;
         }
-      });
+        const selectClick = new SelectInteraction({
+          layers: [layer]
+        });
+        // forward an event if feature selection changes
+        selectClick.on('select', function (evt) {
+          // TODO use identifier for layer (once its implemented)
+          WguEventBus.$emit(
+            'map-selectionchange',
+            layer.get('lid'),
+            evt.selected,
+            evt.deselected
+          );
+        });
+        // register/activate interaction on map
+        this.map.addInteraction(selectClick);
+      };
 
+      let layers = [];
+      const mapLayersConfig = this.$appConfig.mapLayers;
+      await Promise.all(mapLayersConfig.reverse().map(async lConf => {
+        let layersToAdd = await LayerFactory.getInstance(lConf);
+        // One layer definition can lead to several layer instances being created
+        if (Array.isArray(layersToAdd)) {
+          // Reverse like main config to have Layers added in right stacking order.
+          layersToAdd = layersToAdd.reverse();
+        } else {
+          layersToAdd = [layersToAdd];
+        }
+        layersToAdd.forEach(layer => addInteraction(layer));
+        layers.push(...layersToAdd);
+      }));
       return layers;
     },
     /**
@@ -178,8 +189,7 @@ export default {
      * 'hoverAttribute' if the layer is configured as 'hoverable'
      */
     setupMapHover () {
-      const me = this;
-      const map = me.map;
+      const map = this.map;
       let overlayEl;
 
       // create a span to show map tooltip
@@ -187,20 +197,20 @@ export default {
       overlayEl.classList.add('wgu-hover-tooltiptext');
       map.getTarget().append(overlayEl);
 
-      me.overlayEl = overlayEl;
+      this.overlayEl = overlayEl;
 
       // wrap the tooltip span in a OL overlay and add it to map
-      me.overlay = new Overlay({
+      this.overlay = new Overlay({
         element: overlayEl,
         autoPan: true,
         autoPanAnimation: {
           duration: 250
         }
       });
-      map.addOverlay(me.overlay);
+      map.addOverlay(this.overlay);
 
       // show tooltip if a hoverable feature gets hit with the mouse
-      map.on('pointermove', me.onPointerMove, me);
+      map.on('pointermove', this.onPointerMove, this);
     },
 
     /**

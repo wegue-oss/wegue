@@ -65,7 +65,7 @@ describe('ol/Map.vue', () => {
       vm = comp.vm;
     });
 
-    it('createLayers returns always an array', () => {
+    it('createLayers returns always an array', async () => {
       // mock a map layer config
       Vue.prototype.$appConfig = {mapLayers: [{
         'type': 'OSM',
@@ -76,12 +76,32 @@ describe('ol/Map.vue', () => {
         'selectable': false,
         'displayInLayerList': true}]
       };
-      const layers = vm.createLayers();
+      const layers = await vm.createLayers();
       expect(layers).to.be.an('array');
       expect(layers.length).to.equal(1);
     });
 
-    it('createLayers registers a select interaction if configured', () => {
+    it('createLayers expands LAYERCOLLECTION Layer type', async () => {
+      // mock a map layer config
+      Vue.prototype.$appConfig = {mapLayers: [{
+        'type': 'OSM',
+        'lid': 'osm-bg',
+        'name': 'OSM',
+        'isBaseLayer': false,
+        'visible': true,
+        'selectable': false,
+        'displayInLayerList': true}, {
+        'type': 'LAYERCOLLECTION',
+        // should change URL to Wegue GH when ready
+        'url': 'https://raw.githubusercontent.com/Geolicious/wegue/111-dynlayers-wegueformat/static/layer-collection.json'}]
+      };
+      const layers = await vm.createLayers();
+      expect(layers).to.be.an('array');
+      // OSM (1 layer) and LAYERCOLLECTION (2 layers)
+      expect(layers.length).to.equal(3);
+    });
+
+    it('createLayers registers a select interaction if configured', async () => {
       // mock a map layer config
       Vue.prototype.$appConfig = {mapLayers: [{
         'type': 'OSM',
@@ -92,7 +112,7 @@ describe('ol/Map.vue', () => {
         'selectable': true,
         'displayInLayerList': true}]
       };
-      vm.createLayers();
+      await vm.createLayers();
       let selectIa;
       vm.map.getInteractions().forEach((ia) => {
         if (ia instanceof SelectInteraction) {

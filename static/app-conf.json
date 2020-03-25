@@ -84,7 +84,10 @@
         "fillColor": "rgba(20,20,20,0.1)"
       }
     },
-
+    {
+      "type": "LAYERCOLLECTION",
+      "url": "./static/layer-collection.json"
+    },
     {
       "type": "XYZ",
       "name": "OpenTopoMap",

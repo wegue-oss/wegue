@@ -26,11 +26,11 @@ describe('LayerFactory', () => {
     expect(typeof LayerFactory.createVectorTileLayer).to.equal('function');
   });
 
-  it('getInstance returns correct instance', () => {
+  it('getInstance returns correct instance', async () => {
     let layerConf = {
       type: 'WMS'
     };
-    const style = LayerFactory.getInstance(layerConf);
+    const style = await LayerFactory.getInstance(layerConf);
     expect((style instanceof TileLayer)).to.equal(true);
   });
 
