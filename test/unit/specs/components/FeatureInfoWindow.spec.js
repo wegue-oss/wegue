@@ -17,11 +17,8 @@ describe('InfoWindow.vue', () => {
     });
 
     it('has correct default props', () => {
-      expect(vm.layerId).to.equal(undefined);
-      expect(vm.imageProp).to.equal(undefined);
-      expect(vm.titleProp).to.equal(undefined);
-      expect(vm.icon).to.equal(undefined);
-      expect(vm.title).to.equal(undefined);
+      expect(vm.icon).to.equal('info');
+      expect(vm.title).to.equal('Feature Info');
     });
   });
 
@@ -51,7 +48,7 @@ describe('InfoWindow.vue', () => {
 
     it('setFeature resets if no feature passed', () => {
       vm.setFeature();
-      expect(vm.feature).to.equal(null);
+      expect(vm.feature).to.equal(undefined);
       expect(vm.attributes).to.equal(null);
     });
 

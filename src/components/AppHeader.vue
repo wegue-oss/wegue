@@ -10,7 +10,7 @@
     <!-- slot to inject components at the beginning (before title) -->
     <slot name="wgu-tb-start"></slot>
 
-    <v-toolbar-title>{{title}}</v-toolbar-title>
+    <v-toolbar-title><span v-html="title"/></v-toolbar-title>
 
     <!-- slot to inject components after the title text -->
     <slot name="wgu-tb-after-title"></slot>
