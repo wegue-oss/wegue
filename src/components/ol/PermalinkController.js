@@ -1,6 +1,7 @@
 import Projection from 'ol/proj/Projection';
-import {transform} from 'ol/proj';
+import {getTransform, transform} from 'ol/proj';
 import UrlUtil from '../../util/Url';
+import {applyTransform} from 'ol/extent';
 
 /**
  * Class holding the logic for permalinks.
@@ -20,6 +21,10 @@ export default class PermalinkController {
     this.conf.paramPrefix = this.conf.paramPrefix || '';
     this.conf.location = this.conf.location || 'hash';
     this.conf.separator = this.conf.location === 'hash' ? '#' : '?';
+    this.conf.history = this.conf.history ? this.conf.history : false;
+    this.conf.extent = this.conf.extent ? this.conf.extent : false;
+    this.conf.layers = this.conf.layers ? this.conf.layers : false;
+    this.conf.precision = this.conf.precision ? this.conf.precision : 4;
     this.urlParams = UrlUtil.getParams(this.conf.location);
   }
 
@@ -39,90 +44,198 @@ export default class PermalinkController {
     if (this.conf.history === false) {
       return;
     }
-    // restore the view state when navigating through the history, see
+
+    // restore the view state when navigating through the history (browser back/forward buttons), see
     // https://developer.mozilla.org/en-US/docs/Web/API/WindowEventHandlers/onpopstate
     window.addEventListener('popstate', (event) => {
       if (event.state === null) {
         return;
       }
+
       const view = this.map.getView();
-      let center = event.state.center;
-      if (this.projection) {
-        center = transform(center, this.projection, view.getProjection());
-      }
+      const state = event.state;
 
       this.shouldUpdate = false;
-      view.setCenter(center);
-      view.setZoom(event.state.zoom);
-      view.setRotation(event.state.rotation);
+
+      view.setRotation(state.rotation);
+
+      // Use extent (bbox) or center+zoom based on config
+      if (this.conf.extent) {
+        this.applyExtent(state.extent);
+      } else {
+        this.applyCenter(state.center);
+      }
+
+      // somehow we also need zoom (or resolution) for extent:
+      // See: https://stackoverflow.com/questions/47770782/openlayers-fit-to-current-extent-is-zooming-out
+      view.setZoom(state.zoom);
+
+      if (this.conf.layers) {
+        this.applyLayers(new Map(state.layers.map(lid => [lid, lid])));
+      }
     });
   }
 
+  /**
+   * Applies map (View) rotation, center+zoom-level or extent
+   * from permalink params in current URL 'location'
+   */
   apply () {
     const permalinkParams = UrlUtil.getParams(this.conf.location);
     const prefix = this.conf.paramPrefix;
-
-    // try to modify center, zoom-level and rotation from permalink params in URL
     const mapView = this.map.getView();
+    const r = `${prefix}r`;
+    const c = `${prefix}c`;
+    const e = `${prefix}e`;
+    const z = `${prefix}z`;
+    const l = `${prefix}l`;
 
-    // Permalink coordinates may have specific Projection like WGS84
-    if (permalinkParams[`${prefix}c`]) {
-      let centerMod = permalinkParams[`${prefix}c`].split(',').map((n) => {
+    if (permalinkParams[r]) {
+      mapView.setRotation(parseFloat(permalinkParams[r]));
+    }
+
+    // Both extent (bbox) or center+zoom supported.
+    if (permalinkParams[e]) {
+      let extent = permalinkParams[e].split(',').map((n) => {
         return parseFloat(n);
       });
-
-      if (this.projection) {
-        centerMod = transform(centerMod, this.projection, mapView.getProjection())
-      }
-
-      mapView.setCenter(centerMod);
+      this.applyExtent(extent);
+    } else if (permalinkParams[c]) {
+      let center = permalinkParams[c].split(',').map((n) => {
+        return parseFloat(n);
+      });
+      this.applyCenter(center);
     }
 
-    if (permalinkParams[`${prefix}z`]) {
-      mapView.setZoom(parseInt(permalinkParams[`${prefix}z`]));
+    // Always set zoom, even with extent
+    // See: https://stackoverflow.com/questions/47770782/openlayers-fit-to-current-extent-is-zooming-out
+    if (permalinkParams[z]) {
+      mapView.setZoom(parseFloat(permalinkParams[z]));
     }
 
-    if (permalinkParams[`${prefix}r`]) {
-      mapView.setRotation(parseFloat(permalinkParams[`${prefix}r`]));
+    // Set layer(s) visible
+    if (permalinkParams[l]) {
+      this.applyLayers(new Map(permalinkParams[l].split(',').map(lid => [lid, lid])));
     }
   }
 
+  /**
+   * Make only the layers for given array of layer ids visible.
+   */
+  applyLayers (layers) {
+    if (!layers) {
+      return;
+    }
+    this.map.getLayers().forEach((layer) => {
+      const layerId = layer.get('lid');
+      layer.setVisible(layerId === layers.get(layerId));
+    })
+  }
+
+  /**
+   * Position map at provided center.
+   */
+  applyCenter (center) {
+    if (!center) {
+      return;
+    }
+    const mapView = this.map.getView();
+
+    // Permalink coordinates may have specific Projection like WGS84
+    if (this.projection) {
+      center = transform(center, this.projection, mapView.getProjection())
+    }
+
+    mapView.setCenter(center);
+  }
+
+  /**
+   * Position map at provided map extent.
+   */
+  applyExtent (extent) {
+    if (!extent) {
+      return;
+    }
+    const mapView = this.map.getView();
+    // Permalink coordinates may have specific Projection like WGS84
+    if (this.projection) {
+      extent = applyTransform(extent, getTransform(this.projection, mapView.getProjection()))
+    }
+
+    // Fit the map in extent
+    mapView.fit(extent, this.map.getSize());
+  }
+
+  /**
+   * Get the URL parameter permalink string as query or hash.
+   */
   getParamStr () {
     const round = (num, places) => {
       return +(Math.round(num + 'e+' + places) + 'e-' + places);
     };
 
     const state = this.getState();
-    const prefix = this.conf.paramPrefix || '';
+    const prefix = this.conf.paramPrefix;
+    const prec = this.conf.precision;
 
-    this.urlParams[`${prefix}z`] = `${round(state.zoom, 4)}`;
-    this.urlParams[`${prefix}c`] = `${round(state.center[0], 4)},${round(state.center[1], 4)}`;
-    this.urlParams[`${prefix}r`] = `${round(state.rotation, 4)}`;
+    // Use extent (bbox) or center+zoom based on config
+    this.urlParams[`${prefix}z`] = `${round(state.zoom, prec)}`;
+    if (this.conf.extent) {
+      this.urlParams[`${prefix}e`] = state.extent.map(n => round(n, prec)).join(',');
+    } else {
+      this.urlParams[`${prefix}c`] = state.center.map(n => round(n, prec)).join(',');
+    }
+    this.urlParams[`${prefix}r`] = `${round(state.rotation, prec)}`;
+
+    if (this.conf.layers) {
+      this.urlParams[`${prefix}l`] = state.layers.join(',');
+    }
 
     return this.conf.separator + UrlUtil.toQueryString(this.urlParams);
   }
 
+  /**
+   * Get array of visible layer id's.
+   */
+  getLayerIds () {
+    return this.map.getLayers().getArray().filter(layer => !!layer.get('lid') && layer.getVisible()).map(layer => layer.get('lid'));
+  }
+
+  /**
+   * Get total State of the Map.
+   */
   getState () {
     const mapView = this.map.getView();
     let center = mapView.getCenter();
+    let extent = mapView.calculateExtent();
+
+    // Optionally reproject to permalink projection (e.g. WGS84 on WebMerc).
     if (this.projection) {
       center = transform(center, mapView.getProjection(), this.projection);
+      extent = applyTransform(extent, getTransform(mapView.getProjection(), this.projection));
     }
     return {
       zoom: mapView.getZoom(),
       center: center,
-      rotation: mapView.getRotation()
+      extent: extent,
+      rotation: mapView.getRotation(),
+      layers: this.getLayerIds()
     };
   }
 
+  /**
+   * Callback when Map View has changed, e.g. 'moveend'.
+   */
   onMapChange () {
     if (!this.shouldUpdate) {
       // do not update the URL when the view was changed in the 'popstate' handler
       this.shouldUpdate = true;
       return;
     }
-    if (this.conf.history === true) {
-      window.history.pushState(this.getState(), 'map', this.getParamStr());
+    if (this.conf.history === false) {
+      return;
     }
+    // This changes the URL in address bar.
+    window.history.pushState(this.getState(), 'map', this.getParamStr());
   }
 }

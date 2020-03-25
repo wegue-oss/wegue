@@ -29,8 +29,11 @@
 
   "permalink": {
     "location": "search",
+    "layers": true,
+    "extent": true,
     "paramPrefix": "pl_",
-    "history": true
+    "history": true,
+    "precision": 6
   },
 
   "mapLayers": [

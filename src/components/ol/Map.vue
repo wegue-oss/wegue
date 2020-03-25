@@ -98,15 +98,15 @@ export default {
       })
     });
 
+    // create layers from config and add them to map
+    const layers = this.createLayers();
+    this.map.getLayers().extend(layers);
+
     if (this.$appConfig.permalink) {
       this.permalinkController = this.createPermalinkController();
       this.permalinkController.apply();
       this.permalinkController.setup();
     }
-
-    // create layers from config and add them to map
-    const layers = this.createLayers();
-    this.map.getLayers().extend(layers);
   },
 
   methods: {
