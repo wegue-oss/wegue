@@ -129,6 +129,16 @@
       }
     },
     {
+      "type": "XYZ",
+      "name": "OpenTopoMap",
+      "url": "https://tile.opentopomap.org/{z}/{x}/{y}.png",
+      "attributions": "Map data: <a href=\"https://openstreetmap.org/copyright\">©OpenStreetMap</a>-contributors, SRTM | Map representation (Kartendarstellung): © <a href=\"http://opentopomap.org/\">OpenTopoMap</a> (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC-BY-SA</a>)",
+      "lid": "opentopomap",
+      "displayInLayerList": true, 
+      "visible": false
+    },
+
+    {
       "type": "OSM",
       "lid": "osm-bg",
       "name": "OSM",
