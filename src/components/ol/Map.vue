@@ -104,6 +104,7 @@ export default {
 
     if (this.$appConfig.permalink) {
       this.permalinkController = this.createPermalinkController();
+      this.map.set('permalinkcontroller', this.permalinkController, true);
       this.permalinkController.apply();
       this.permalinkController.setup();
     }

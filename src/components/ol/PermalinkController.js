@@ -195,6 +195,13 @@ export default class PermalinkController {
   }
 
   /**
+   * Get full URL with permalink string for sharing.
+   */
+  getShareUrl () {
+    return location.href.split(this.conf.separator)[0] + this.getParamStr();
+  }
+
+  /**
    * Get array of visible layer id's.
    */
   getLayerIds () {

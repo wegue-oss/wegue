@@ -58,12 +58,14 @@ import LayerListToggleButton from './layerlist/ToggleButton'
 import HelpWinToggleButton from './helpwin/ToggleButton'
 import MeasureToolToggleButton from './measuretool/ToggleButton'
 import InfoClickButton from './infoclick/ToggleButton'
+import ShareButton from './sharebutton/ShareButton'
 import ZoomToMaxExtentButton from './maxextentbutton/ZoomToMaxExtentButton'
 import Geocoder from './geocoder/Geocoder'
 
 export default {
   name: 'wgu-app-header',
   components: {
+    'wgu-share-btn': ShareButton,
     'wgu-geocoder-btn': Geocoder,
     'wgu-zoomtomaxextent-btn': ZoomToMaxExtentButton,
     'wgu-layerlist-btn': LayerListToggleButton,
