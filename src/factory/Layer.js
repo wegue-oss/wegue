@@ -134,11 +134,22 @@ export const LayerFactory = {
     const vectorSource = new VectorSource({
       format: new this.formatMapping[lConf.format](lConf.formatConfig),
       url: function (extent) {
+        // assemble WFS GetFeature request
         let wfsRequest = lConf.url + '?service=WFS&' +
             'version=' + lConf.version + '&request=GetFeature&' +
             'typename=' + lConf.typeName + '&' +
             'outputFormat=' + outputFormat + '&srsname=' + lConf.projection;
 
+        // add WFS version dependent feature limitation
+        if (Number.isInteger(parseInt(lConf.maxFeatures))) {
+          if (lConf.version.startsWith('1.')) {
+            wfsRequest += '&maxFeatures=' + lConf.maxFeatures;
+          } else {
+            wfsRequest += '&count=' + lConf.maxFeatures;
+          }
+        }
+
+        // add bbox filter
         if (lConf.loadOnlyVisible !== false) {
           wfsRequest += '&bbox=' + extent.join(',') + ',' + lConf.projection + '';
         }

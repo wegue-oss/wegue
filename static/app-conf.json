@@ -41,7 +41,7 @@
       "url": "https://ows.terrestris.de/geoserver/osm/wfs",
       "typeName": "osm:osm-fuel",
       "version": "2.0.0",
-      "maxFeatures": "",
+      "maxFeatures": 50,
       "formatConfig": {
       },
       "format": "GML3",
@@ -49,7 +49,7 @@
       "visible": false,
       "selectable": true,
       "style": {
-        "radius": 8,
+        "radius": 6,
         "strokeColor": "blue",
         "strokeWidth": 2,
         "fillColor": "rgba(155,153,51,0.5)"
