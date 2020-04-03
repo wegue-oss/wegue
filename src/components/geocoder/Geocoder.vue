@@ -1,6 +1,5 @@
 <template>
-
-  <v-toolbar-items>
+<v-toolbar-items>
     <v-combobox
       :style='{ display: (hideSearch ? "none" : "block" ) }'
       return-object
@@ -17,11 +16,16 @@
       :rounded="rounded"
       :search-input.sync="search"
     ></v-combobox>
-
-    <v-btn @click='toggle()' icon :dark="dark" slot="activator">
+     
+  <v-toolbar-items>
+    
+    <v-btn @click='toggle()' icon :dark="dark" >
       <v-icon medium>{{buttonIcon}}</v-icon>
     </v-btn>
+    
   </v-toolbar-items>
+  </v-toolbar-items>
+  
 
 </template>
 

@@ -32,7 +32,7 @@ if (appCtx) {
   // simple aproach to avoid path traversal
   appCtxFile = '-' + appCtx.replace(/(\.\.[/])+/g, '');
 }
-
+const opts = {}
 fetch('static/app-conf' + appCtxFile + '.json')
   .then(function (response) {
     return response.json();
@@ -42,6 +42,7 @@ fetch('static/app-conf' + appCtxFile + '.json')
     Vue.prototype.$appConfig = appConfig;
     /* eslint-disable no-new */
     new Vue({
+      vuetify: new Vuetify(opts),
       el: '#app',
       template: '<wgu-app/>',
       components: { WguApp }

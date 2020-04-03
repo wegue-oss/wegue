@@ -5,10 +5,10 @@
     v-if=show v-bind:style="{ left: left, top: top}"
   >
     <v-toolbar :color="color" class="" dark>
-      <v-toolbar-side-icon><v-icon>{{icon}}</v-icon></v-toolbar-side-icon>
+      <v-icon>{{icon}}</v-icon>
       <v-toolbar-title class="wgu-win-title">{{title}}</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-toolbar-side-icon @click="show=false"><v-icon>close</v-icon></v-toolbar-side-icon>
+      <v-app-bar-nav-icon @click="show=false"><v-icon>close </v-icon></v-app-bar-nav-icon>
     </v-toolbar>
 
     <wgu-layerlist />
