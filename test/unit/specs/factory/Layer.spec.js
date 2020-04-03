@@ -11,6 +11,8 @@ import MvtFormat from 'ol/format/MVT'
 import GeoJsonFormat from 'ol/format/GeoJSON'
 import TopoJsonFormat from 'ol/format/TopoJSON'
 import KmlFormat from 'ol/format/KML'
+import Map from 'ol/Map';
+import View from 'ol/View';
 
 describe('LayerFactory', () => {
   it('is defined', () => {
@@ -86,11 +88,16 @@ describe('LayerFactory', () => {
         'attributions': 'An attribution',
         'selectable': false
       };
-      const layer = LayerFactory.createWfsLayer(layerConf);
+      const olMap = new Map({
+        view: new View({
+          center: [0, 0],
+          zoom: 1
+        }),
+        layers: []
+      });
+      const layer = LayerFactory.createWfsLayer(layerConf, olMap);
       expect(layer instanceof VectorLayer).to.equal(true);
       expect(layer.getSource() instanceof VectorSource);
-      const createdUrl = layer.getSource().getUrl()([0, 0, 0, 0]);
-      expect(createdUrl).to.equal('https://a-wfs-url.de?service=WFS&version=2.0.0&request=GetFeature&typename=foo:tn&outputFormat=application/json&srsname=EPSG:3857&bbox=0,0,0,0,EPSG:3857');
     });
 
     it('createXyzLayer returns correct layer instance', () => {
