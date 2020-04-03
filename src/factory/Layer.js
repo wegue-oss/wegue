@@ -15,6 +15,8 @@ import VectorSource from 'ol/source/Vector'
 import XyzSource from 'ol/source/XYZ'
 import {bbox as bboxStrategy} from 'ol/loadingstrategy';
 import { OlStyleFactory } from './OlStyle'
+import {applyTransform} from 'ol/extent';
+import {getTransform} from 'ol/proj';
 
 /**
  * Factory, which creates OpenLayers layer instances according to a given config
@@ -115,9 +117,9 @@ export const LayerFactory = {
    * @return {ol.layer.Tile} OL WFS layer instance
    */
   createWfsLayer: function (lConf, olMap) {
+    const mapSrs = olMap.getView().getProjection().getCode();
     // set a default projection if not set in config
     if (!lConf.projection) {
-      const mapSrs = olMap.getView().getProjection().getCode();
       lConf.projection = mapSrs;
     }
     // set a default WFS version if not set in config
@@ -131,14 +133,20 @@ export const LayerFactory = {
     // detect the WFS output format
     const outputFormat = this.wfsFormatMapping[lConf.format];
 
+    // overwrite format options, so they fit to the SRS (map vs. data)
+    if (mapSrs !== lConf.projection) {
+      lConf.formatConfig.dataProjection = lConf.projection;
+      lConf.formatConfig.featureProjection = mapSrs;
+    }
+
     const vectorSource = new VectorSource({
       format: new this.formatMapping[lConf.format](lConf.formatConfig),
-      url: function (extent) {
+      loader: (extent) => {
         // assemble WFS GetFeature request
         let wfsRequest = lConf.url + '?service=WFS&' +
-            'version=' + lConf.version + '&request=GetFeature&' +
-            'typename=' + lConf.typeName + '&' +
-            'outputFormat=' + outputFormat + '&srsname=' + lConf.projection;
+        'version=' + lConf.version + '&request=GetFeature&' +
+        'typename=' + lConf.typeName + '&' +
+        'outputFormat=' + outputFormat + '&srsname=' + lConf.projection;
 
         // add WFS version dependent feature limitation
         if (Number.isInteger(parseInt(lConf.maxFeatures))) {
@@ -148,13 +156,21 @@ export const LayerFactory = {
             wfsRequest += '&count=' + lConf.maxFeatures;
           }
         }
-
         // add bbox filter
         if (lConf.loadOnlyVisible !== false) {
+          if (mapSrs !== lConf.projection) {
+            extent = applyTransform(extent, getTransform(mapSrs, lConf.projection));
+          }
           wfsRequest += '&bbox=' + extent.join(',') + ',' + lConf.projection + '';
         }
 
-        return wfsRequest;
+        // load data from WFS, parse and add to vector source
+        fetch(wfsRequest).then((response) => {
+          return response.text();
+        }).then((responseText) => {
+          const feats = vectorSource.getFormat().readFeatures(responseText);
+          vectorSource.addFeatures(feats);
+        });
       },
       strategy: lConf.loadOnlyVisible !== false ? bboxStrategy : undefined,
       attributions: lConf.attributions
