@@ -195,6 +195,22 @@ export default class PermalinkController {
   }
 
   /**
+   * Get full URL with permalink string for sharing.
+   */
+  getShareUrl () {
+    return location.href.split(this.conf.separator)[0] + this.getParamStr();
+  }
+
+  /**
+   * Get (IFrame) code fragment for embedding the permalink in an HTML page.
+   */
+  getEmbedHTML () {
+    const mapSize = this.map.getSize();
+
+    return `<iframe width="${mapSize[0]}" height="${mapSize[1]}" src="${this.getShareUrl()}" style="border:none;"></iframe>`;
+  }
+
+  /**
    * Get array of visible layer id's.
    */
   getLayerIds () {
