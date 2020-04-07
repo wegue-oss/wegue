@@ -202,6 +202,15 @@ export default class PermalinkController {
   }
 
   /**
+   * Get (IFrame) code fragment for embedding the permalink in an HTML page.
+   */
+  getEmbedHTML () {
+    const mapSize = this.map.getSize();
+
+    return `<iframe width="${mapSize[0]}" height="${mapSize[1]}" src="${this.getShareUrl()}" style="border:none;"></iframe>`;
+  }
+
+  /**
    * Get array of visible layer id's.
    */
   getLayerIds () {
