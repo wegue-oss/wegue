@@ -15,7 +15,7 @@
   "mapCenter": [0, 0],
 
   "permalink": {
-    "location": "hash",
+    "location": "search",
     "layers": true,
     "extent": false,
     "projection": "EPSG:4326",
