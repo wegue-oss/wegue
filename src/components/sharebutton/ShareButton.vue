@@ -16,7 +16,7 @@
         <v-list>
           <v-list-tile @click="onCopyUrl()">
             <v-list-tile-action>
-              <v-icon medium>file_copy</v-icon>
+              <v-icon medium>link</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title>{{copyUrlText}}</v-list-tile-title>
@@ -68,9 +68,9 @@ export default {
     alertCopiedText: {type: String, required: false, default: 'Copied'},
     alertErrorText: {type: String, required: false, default: 'An error occurred'},
     dark: {type: Boolean, required: false, default: false},
-    copyUrlText: {type: String, required: false, default: 'Copy URL'},
+    copyUrlText: {type: String, required: false, default: 'Copy Hyperlink'},
     copyEmbedHtmlText: {type: String, required: false, default: 'Copy HTML Embed Code'},
-    emailUrlText: {type: String, required: false, default: 'Email URL'},
+    emailUrlText: {type: String, required: false, default: 'Email Hyperlink'},
     emailSubjectText: {type: String, required: false, default: 'NPLH Url Share'}
   },
   data () {
