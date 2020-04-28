@@ -11,6 +11,7 @@ import SelectInteraction from 'ol/interaction/Select';
 import {defaults as defaultInteractions} from 'ol/interaction';
 import RotateControl from 'ol/control/Rotate';
 import Projection from 'ol/proj/Projection';
+import TileGrid from 'ol/tilegrid/TileGrid';
 import {register as olproj4} from 'ol/proj/proj4';
 import proj4 from 'proj4'
 import Overlay from 'ol/Overlay';
@@ -34,6 +35,8 @@ export default {
       projection: this.$appConfig.mapProjection,
       projectionObj: null,
       projectionDefs: this.$appConfig.projectionDefs,
+      tileGridDefs: this.$appConfig.tileGridDefs || {},
+      tileGrids: {},
       permalink: this.$appConfig.permalink
     }
   },
@@ -87,6 +90,13 @@ export default {
       this.projection = {code: 'EPSG:3857', units: 'm'}
     }
 
+    const projection = new Projection(this.projection);
+
+    // Optional TileGrid definitions by name, for ref in Layers
+    Object.keys(this.tileGridDefs).map(name => {
+      this.tileGrids[name] = new TileGrid(this.tileGridDefs[name]);
+    });
+
     this.map = new Map({
       layers: [],
       controls: controls,
@@ -94,7 +104,7 @@ export default {
       view: new View({
         center: this.center,
         zoom: this.zoom,
-        projection: new Projection(this.projection)
+        projection: projection
       })
     });
 
@@ -120,6 +130,9 @@ export default {
       const appConfig = this.$appConfig;
       const mapLayersConfig = appConfig.mapLayers || [];
       mapLayersConfig.reverse().forEach(function (lConf) {
+        // Some Layers may require a TileGrid object
+        lConf.tileGrid = lConf.tileGridRef ? me.tileGrids[lConf.tileGridRef] : null;
+
         let layer = LayerFactory.getInstance(lConf);
         layers.push(layer);
 
