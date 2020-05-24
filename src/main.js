@@ -14,7 +14,7 @@ require('./assets/css/wegue.css');
 
 // try to load an optional app specific CSS file (set project-specific styles)
 try {
-  require('../app/css/app.css');
+  require('../app/static/css/app.css');
 } catch (e) {}
 
 Vue.config.productionTip = false;
@@ -44,14 +44,16 @@ const createApp = function (appConfig) {
   });
 };
 
-// First look in the app dir for an app-specific config file.
-fetch('app/static/app-conf' + appCtxFile + '.json')
+// First look in the static dir for an app-specific config file, then in app dir.
+const configFile1 = 'static/app-conf' + appCtxFile + '.json';
+const configFile2 = 'app/' + configFile1;
+fetch(configFile1)
   .then(function (response) {
     return response.json().then(function (appConfig) {
       createApp(appConfig);
     })
   }).catch(function () {
-    fetch('static/app-conf' + appCtxFile + '.json').then(function (response) {
+    fetch(configFile2).then(function (response) {
       return response.json().then(function (appConfig) {
         createApp(appConfig);
       })

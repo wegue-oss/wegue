@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import { shallowMount } from '@vue/test-utils';
-import AppHeader from '@/components/AppHeader';
+import AppHeader from 'APP/components/AppHeader';
 
 describe('AppHeader.vue', () => {
   // Inspect the raw component options

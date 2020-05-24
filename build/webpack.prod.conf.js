@@ -115,11 +115,12 @@ var webpackConfig = merge(baseWebpackConfig, {
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       },
-      // copy project- / app-specific static assets
+      // copy project- / app-specific static assets, overwrite
       {
-        context: path.resolve(__dirname, '../app/static'),
-        from: "*",
-        to: config.build.assetsSubDirectory
+        from: path.resolve(__dirname, '../app/static'),
+        to: config.build.assetsSubDirectory,
+        force: true,
+        ignore: ['.*']
       }
     ])
   ]
