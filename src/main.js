@@ -44,18 +44,13 @@ const createApp = function (appConfig) {
   });
 };
 
-// First look in the static dir for an app-specific config file, then in app dir.
-const configFile1 = 'static/app-conf' + appCtxFile + '.json';
-const configFile2 = 'app/' + configFile1;
-fetch(configFile1)
+// Look in the static dir for an app-specific config file.
+const configFile = 'static/app-conf' + appCtxFile + '.json';
+fetch(configFile)
   .then(function (response) {
     return response.json().then(function (appConfig) {
       createApp(appConfig);
     })
   }).catch(function () {
-    fetch(configFile2).then(function (response) {
-      return response.json().then(function (appConfig) {
-        createApp(appConfig);
-      })
-    })
+    console.error('Cannot load config file: ' + configFile)
   });
