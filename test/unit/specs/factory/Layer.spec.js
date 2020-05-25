@@ -11,6 +11,8 @@ import MvtFormat from 'ol/format/MVT'
 import GeoJsonFormat from 'ol/format/GeoJSON'
 import TopoJsonFormat from 'ol/format/TopoJSON'
 import KmlFormat from 'ol/format/KML'
+import Map from 'ol/Map';
+import View from 'ol/View';
 
 describe('LayerFactory', () => {
   it('is defined', () => {
@@ -41,6 +43,13 @@ describe('LayerFactory', () => {
     expect((LayerFactory.formatMapping.KML)).to.equal(KmlFormat);
   });
 
+  it('has a correct wfsFormatMapping', () => {
+    expect((LayerFactory.wfsFormatMapping.GeoJSON)).to.equal('application/json');
+    expect((LayerFactory.wfsFormatMapping.GML2)).to.equal('text/xml; subtype=gml/2.1.2');
+    expect((LayerFactory.wfsFormatMapping.GML3)).to.equal('text/xml; subtype=gml/3.1.1');
+    expect((LayerFactory.wfsFormatMapping.GML32)).to.equal('text/xml; subtype=gml/3.2');
+  });
+
   describe('layer types', () => {
     it('createWmsLayer returns correct layer instance', () => {
       const layerConf = {
@@ -61,6 +70,34 @@ describe('LayerFactory', () => {
       const layer = LayerFactory.createWmsLayer(layerConf);
       expect(layer instanceof TileLayer).to.equal(true);
       expect(layer.getSource() instanceof TileWmsSource);
+    });
+
+    it('createWfsLayer returns correct layer instance', () => {
+      const layerConf = {
+        'type': 'WFS',
+        'lid': 'a-wfs',
+        'name': 'Foo',
+        'url': 'https://a-wfs-url.de',
+        'typeName': 'foo:tn',
+        'version': '2.0.0',
+        'format': 'GeoJSON',
+        'formatConfig': {
+        },
+        'projection': 'EPSG:3857',
+        'visible': true,
+        'attributions': 'An attribution',
+        'selectable': false
+      };
+      const olMap = new Map({
+        view: new View({
+          center: [0, 0],
+          zoom: 1
+        }),
+        layers: []
+      });
+      const layer = LayerFactory.createWfsLayer(layerConf, olMap);
+      expect(layer instanceof VectorLayer).to.equal(true);
+      expect(layer.getSource() instanceof VectorSource);
     });
 
     it('createXyzLayer returns correct layer instance', () => {
