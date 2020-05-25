@@ -102,7 +102,9 @@ export const LayerFactory = {
           'TILED': lConf.tiled
         },
         serverType: lConf.serverType,
-        attributions: lConf.attributions
+        attributions: lConf.attributions,
+        tileGrid: lConf.tileGrid,
+        projection: lConf.projection
       })
     });
 
@@ -204,7 +206,10 @@ export const LayerFactory = {
       visible: lConf.visible,
       opacity: lConf.opacity,
       source: new XyzSource({
-        url: lConf.url
+        url: lConf.url,
+        attributions: lConf.attributions,
+        tileGrid: lConf.tileGrid,
+        projection: lConf.projection
       })
     });
 
@@ -273,7 +278,9 @@ export const LayerFactory = {
       source: new VectorTileSource({
         url: lConf.url,
         format: new this.formatMapping[lConf.format](),
-        attributions: lConf.attributions
+        attributions: lConf.attributions,
+        tileGrid: lConf.tileGrid,
+        projection: lConf.projection
       }),
       style: OlStyleFactory.getInstance(lConf.style),
       hoverable: lConf.hoverable,

@@ -2,13 +2,14 @@
 
   <v-toolbar-items>
     <v-combobox
+      :style='{ display: (hideSearch ? "none" : "block" ) }'
       return-object
       :no-filter="noFilter"
       v-model="selected"
       :autofocus="autofocus"
       :items="resultItems"
       :label="placeHolder"
-      append-icon=""
+      :clearable="clearable"
       :dark="dark"
       :color="dark ? 'white': ''"
       :persistent-hint="persistentHint"
@@ -37,6 +38,7 @@
       buttonIcon: {type: String, required: false, default: 'search'},
       rounded: {type: Boolean, required: false, default: true},
       autofocus: {type: Boolean, required: false, default: true},
+      clearable: {type: Boolean, required: false, default: true},
       dark: {type: Boolean, required: false, default: false},
       persistentHint: {type: Boolean, required: false, default: true}
     },
@@ -76,7 +78,7 @@
       },
       toggle () {
         // Show/hide search combobox
-        this.hideSearch = !this.hideSearch
+        this.hideSearch = !this.hideSearch;
       },
       // Query by string - should return list of selection items (adresses) for ComboBox
       querySelections (queryStr) {
@@ -133,7 +135,7 @@
       },
       // User has selected entry from suggested items
       selected (item) {
-        if (!item.hasOwnProperty('text') || !item.hasOwnProperty('value')) {
+        if (!item || !item.hasOwnProperty('text') || !item.hasOwnProperty('value')) {
           return;
         }
         this.selecting = true;

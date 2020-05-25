@@ -33,7 +33,6 @@
         "fillColor": "rgba(155,153,51,0.5)"
       }
     },
-
     {
       "type": "WFS",
       "lid": "gas-wfs",
@@ -72,13 +71,13 @@
       "hoverable": true,
       "hoverAttribute": "name",
       "style": {
-        "radius": 4,
-        "strokeColor": "rgb(207, 16, 32)",
-        "strokeWidth": 1,
-        "fillColor": "rgba(207, 16, 32, 0.6)"
+        "iconUrl": "./static/icon/circle.svg",
+        "scale": 4,
+        "anchor": [0.5, 37],
+        "anchorXUnits": "fraction",
+        "anchorYUnits": "pixels"
       }
     },
-
     {
       "type": "WMS",
       "lid": "ahocevar-wms",
@@ -106,6 +105,16 @@
         "strokeWidth": 1,
         "fillColor": "rgba(20,20,20,0.1)"
       }
+    },
+
+    {
+      "type": "XYZ",
+      "name": "OpenTopoMap",
+      "url": "https://tile.opentopomap.org/{z}/{x}/{y}.png",
+      "attributions": "Map data: <a href=\"https://openstreetmap.org/copyright\">©OpenStreetMap</a>-contributors, SRTM | Map representation (Kartendarstellung): © <a href=\"http://opentopomap.org/\">OpenTopoMap</a> (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC-BY-SA</a>)",
+      "lid": "opentopomap",
+      "displayInLayerList": true,
+      "visible": false
     },
 
     {
