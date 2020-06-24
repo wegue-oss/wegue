@@ -39,7 +39,7 @@ Prerequisites: Node.js and npm need to be available on your system.
 npm install
 ```
 
-  - Run the init script, which creates a base application for your project in `app/WguApp.vue` and a CSS file `app/css/app.css` to place custom styling for your project.
+  - Run the init-app script, which creates a base application (a copy of the `app-starter` dir) under `app/` to extend with custom components and resources (e.g. CSS styling) for your project.
 
 ``` bash
 # initializes the Wegue app
