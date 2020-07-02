@@ -114,6 +114,7 @@ export default {
 
     if (this.$appConfig.permalink) {
       this.permalinkController = this.createPermalinkController();
+      this.map.set('permalinkcontroller', this.permalinkController, true);
       this.permalinkController.apply();
       this.permalinkController.setup();
     }
@@ -133,7 +134,7 @@ export default {
         // Some Layers may require a TileGrid object
         lConf.tileGrid = lConf.tileGridRef ? me.tileGrids[lConf.tileGridRef] : null;
 
-        let layer = LayerFactory.getInstance(lConf);
+        let layer = LayerFactory.getInstance(lConf, me.map);
         layers.push(layer);
 
         // if layer is selectable register a select interaction

@@ -43,6 +43,29 @@
       }
     },
     {
+      "type": "WFS",
+      "lid": "gas-wfs",
+      "name": "Gas Stations WFS",
+      "url": "https://ows.terrestris.de/geoserver/osm/wfs",
+      "typeName": "osm:osm-fuel",
+      "version": "2.0.0",
+      "maxFeatures": 50,
+      "formatConfig": {
+      },
+      "format": "GML3",
+      "loadOnlyVisible": true,
+      "visible": false,
+      "selectable": true,
+      "style": {
+        "radius": 6,
+        "strokeColor": "blue",
+        "strokeWidth": 2,
+        "fillColor": "rgba(155,153,51,0.5)"
+      },
+      "attributions": "© <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors."
+    },
+
+    {
       "type": "VECTOR",
       "lid": "earthquakes",
       "name": "Earthquakes 2012 (Mag 5)",

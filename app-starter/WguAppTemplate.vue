@@ -54,15 +54,15 @@
 
 <script>
   import Vue from 'vue'
-  import { WguEventBus } from './WguEventBus'
-  import OlMap from './components/ol/Map'
+  import { WguEventBus } from '../src/WguEventBus'
+  import OlMap from '../src/components/ol/Map'
   import AppHeader from './components/AppHeader'
   import AppFooter from './components/AppFooter'
-  import AppLogo from './components/AppLogo'
-  import MeasureWin from './components/measuretool/MeasureWin'
-  import LayerListWin from './components/layerlist/LayerListWin'
-  import InfoClickWin from './components/infoclick/InfoClickWin'
-  import MapLoadingStatus from './components/progress/MapLoadingStatus'
+  import AppLogo from '../src/components/AppLogo'
+  import MeasureWin from '../src/components/measuretool/MeasureWin'
+  import LayerListWin from '../src/components/layerlist/LayerListWin'
+  import InfoClickWin from '../src/components/infoclick/InfoClickWin'
+  import MapLoadingStatus from '../src/components/progress/MapLoadingStatus'
 
   export default {
     name: 'wgu-app-tpl',

@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import AppFooter from '@/components/AppFooter'
+import AppFooter from 'APP/components/AppFooter'
 
 describe('AppFooter.vue', () => {
   // Inspect the raw component options

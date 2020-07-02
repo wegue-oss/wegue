@@ -14,7 +14,7 @@ require('./assets/css/wegue.css');
 
 // try to load an optional app specific CSS file (set project-specific styles)
 try {
-  require('../app/css/app.css');
+  require('../app/static/css/app.css');
 } catch (e) {}
 
 Vue.config.productionTip = false;
@@ -33,17 +33,24 @@ if (appCtx) {
   appCtxFile = '-' + appCtx.replace(/(\.\.[/])+/g, '');
 }
 
-fetch('static/app-conf' + appCtxFile + '.json')
+const createApp = function (appConfig) {
+  // make app config accessible for all components
+  Vue.prototype.$appConfig = appConfig;
+  /* eslint-disable no-new */
+  new Vue({
+    el: '#app',
+    template: '<wgu-app/>',
+    components: { WguApp }
+  });
+};
+
+// Look in the static dir for an app-specific config file.
+const configFile = 'static/app-conf' + appCtxFile + '.json';
+fetch(configFile)
   .then(function (response) {
-    return response.json();
-  })
-  .then(function (appConfig) {
-    // make app config accessible for all components
-    Vue.prototype.$appConfig = appConfig;
-    /* eslint-disable no-new */
-    new Vue({
-      el: '#app',
-      template: '<wgu-app/>',
-      components: { WguApp }
-    });
+    return response.json().then(function (appConfig) {
+      createApp(appConfig);
+    })
+  }).catch(function () {
+    console.error('Cannot load config file: ' + configFile)
   });

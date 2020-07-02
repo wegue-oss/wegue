@@ -46,6 +46,28 @@
 
   "mapLayers": [
     {
+      "type": "WFS",
+      "lid": "dutch-nat-parks",
+      "name": "WFS (Dutch National Parks PDOK)",
+      "url": "https://geodata.nationaalgeoregister.nl/nationaleparken/wfs",
+      "typeName": "nationaleparken:nationaleparken",
+      "version": "2.0.0",
+      "maxFeatures": 10,
+      "formatConfig": {
+      },
+      "format": "GeoJSON",
+      "projection": "EPSG:28992",
+      "loadOnlyVisible": true,
+      "visible": false,
+      "selectable": true,
+      "style": {
+        "strokeColor": "white",
+        "strokeWidth": 2,
+        "fillColor": "rgba(155,153,51,0.5)"
+      },
+      "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> by Dutch Kadaster"
+    },
+    {
       "type": "WMS",
       "lid": "pdok-natura2000-wms",
       "name": "WMS - Natura 2000 Areas - PDOK",
