@@ -26,6 +26,7 @@ export default class PermalinkController {
     this.conf.layers = this.conf.layers ? this.conf.layers : false;
     this.conf.precision = this.conf.precision ? this.conf.precision : 4;
     this.urlParams = UrlUtil.getParams(this.conf.location);
+    this.layerListeners = [];
   }
 
   /**
@@ -39,6 +40,14 @@ export default class PermalinkController {
     // Listen to map state changes (pan, zoom)
     this.map.on('moveend', () => {
       this.onMapChange();
+    });
+
+    // Listen to visibility changes in Map Layers.
+    this.subscribeLayers();
+
+    // Listen to Layer Collection (dynamically Layers added/removed)
+    this.map.getLayers().on('change:length', () => {
+      this.subscribeLayers();
     });
 
     if (this.conf.history === false) {
@@ -74,6 +83,33 @@ export default class PermalinkController {
         this.applyLayers(new Map(state.layers.map(lid => [lid, lid])));
       }
     });
+  }
+
+  /**
+   * Subscribe to Layer visibility changes.
+   */
+  subscribeLayers () {
+    // First unsubscribe from all
+    this.unsubscribeLayers();
+
+    // Listen to each Layer's visibility changes.
+    this.map.getLayers().forEach((layer) => {
+      const key = layer.on('change:visible', () => {
+        this.onMapChange();
+      });
+      this.layerListeners.push({'key': key, 'layer': layer});
+    });
+  }
+
+  /**
+   * Unsubscribe to Layer visibility changes.
+   */
+  unsubscribeLayers () {
+    // Listen to each Layer's visibility changes.
+    this.layerListeners.forEach((item) => {
+      item.layer.un(item.key.type, item.key.listener)
+    });
+    this.layerListeners = [];
   }
 
   /**
@@ -240,9 +276,10 @@ export default class PermalinkController {
   }
 
   /**
-   * Callback when Map View has changed, e.g. 'moveend'.
+   * Callback when Map View has changed, e.g. 'moveend' or a Layer's visibility.
    */
   onMapChange () {
+    // console.log('mapchange');
     if (!this.shouldUpdate) {
       // do not update the URL when the view was changed in the 'popstate' handler
       this.shouldUpdate = true;
