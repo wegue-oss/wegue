@@ -59,8 +59,9 @@ export const LayerFactory = {
   getInstance (lConf, olMap) {
     // apply LID (Layer ID) if not existent
     if (!lConf.lid) {
-      var now = new Date();
-      lConf.lid = now.getTime();
+      // Make a unique layerId from Layer name and URL so contexts
+      // like permalinks can be reapplied.
+      lConf.lid = btoa(lConf.url + lConf.name).substr(0, 6);
     }
 
     // create correct layer type

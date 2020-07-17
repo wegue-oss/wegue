@@ -27,6 +27,15 @@
     ]
   ],
 
+  "permalink": {
+    "location": "search",
+    "layers": true,
+    "extent": true,
+    "paramPrefix": "pl_",
+    "history": true,
+    "precision": 6
+  },
+
   "tileGridDefs": {
     "dutch_rd": {
       "extent": [-285401.920, 22598.080, 595401.920, 903401.920],
