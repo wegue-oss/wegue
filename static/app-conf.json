@@ -14,6 +14,15 @@
   "mapZoom": 2,
   "mapCenter": [0, 0],
 
+  "permalink": {
+    "location": "hash",
+    "layers": true,
+    "extent": false,
+    "projection": "EPSG:4326",
+    "paramPrefix": "",
+    "history": true
+  },
+
   "mapLayers": [
 
     {
