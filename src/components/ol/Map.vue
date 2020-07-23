@@ -4,6 +4,7 @@
 
 import Vue from 'vue';
 import Map from 'ol/Map'
+import Group from 'ol/layer/Group'
 import View from 'ol/View'
 import Attribution from 'ol/control/Attribution';
 import Zoom from 'ol/control/Zoom';
@@ -119,6 +120,14 @@ export default {
       this.permalinkController.setup();
     }
   },
+  beforeDestroy () {
+    if (this.$appConfig.permalink) {
+      this.permalinkController.teardown();
+      this.permalinkController = undefined;
+    }
+    // Remove all Layers from Map.
+    this.map.setLayerGroup(new Group());
+  },
 
   methods: {
     /**
@@ -126,6 +135,9 @@ export default {
      * @return {ol.layer.Base[]} Array of OL layer instances
      */
     createLayers () {
+      // Remove all Layers from Map.
+      this.map.setLayerGroup(new Group());
+
       const me = this;
       let layers = [];
       const appConfig = this.$appConfig;

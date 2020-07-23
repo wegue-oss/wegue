@@ -35,7 +35,7 @@
                <v-icon medium>email</v-icon>
              </v-list-tile-action>
             <v-list-tile-content>
-              <v-list-tile-title v-html="mailToUrl"/>
+              <v-list-tile-title><a :href="mailToUrl">{{emailUrlText}}</a></v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
@@ -71,7 +71,7 @@ export default {
     copyUrlText: {type: String, required: false, default: 'Copy Hyperlink'},
     copyEmbedHtmlText: {type: String, required: false, default: 'Copy HTML Embed Code'},
     emailUrlText: {type: String, required: false, default: 'Email Hyperlink'},
-    emailSubjectText: {type: String, required: false, default: 'NPLH Url Share'}
+    emailSubjectText: {type: String, required: false, default: 'Wegue Url Share'}
   },
   data () {
     return {
@@ -143,7 +143,7 @@ export default {
       try {
         const permalinkController = this.map.get('permalinkcontroller');
         const url = encodeURIComponent(permalinkController.getShareUrl());
-        this.mailToUrl = `<a href="mailto:?subject=${this.emailSubjectText}&body=${url}">${this.emailUrlText}</a>`
+        this.mailToUrl = `mailto:?subject=${this.emailSubjectText}&body=${url}`;
       } catch (error) {
         this.showAlert(this.alertErrorText);
       }
@@ -160,7 +160,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
+<style scoped>
   .v-alert.wgu-alert {
     position: fixed;
     top: 5em;

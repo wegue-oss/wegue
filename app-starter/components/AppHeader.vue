@@ -58,7 +58,7 @@ import LayerListToggleButton from '../../src/components/layerlist/ToggleButton'
 import HelpWinToggleButton from '../../src/components/helpwin/ToggleButton'
 import MeasureToolToggleButton from '../../src/components/measuretool/ToggleButton'
 import InfoClickButton from '../../src/components/infoclick/ToggleButton'
-import ShareButton from '../../src/sharebutton/ShareButton'
+import ShareButton from '../../src/components/sharebutton/ShareButton'
 import ZoomToMaxExtentButton from '../../src/components/maxextentbutton/ZoomToMaxExtentButton'
 import Geocoder from '../../src/components/geocoder/Geocoder'
 

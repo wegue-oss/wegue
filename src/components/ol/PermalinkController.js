@@ -84,6 +84,9 @@ export default class PermalinkController {
       }
     });
   }
+  teardown () {
+    this.unsubscribeLayers();
+  }
 
   /**
    * Subscribe to Layer visibility changes.

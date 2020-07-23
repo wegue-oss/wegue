@@ -32,7 +32,7 @@
     "layers": true,
     "extent": true,
     "paramPrefix": "pl_",
-    "history": true,
+    "history": false,
     "precision": 6
   },
 
@@ -161,7 +161,10 @@
     "wgu-helpwin": {
       "target": "toolbar",
       "darkLayout": true
+    },
+    "wgu-share": {
+      "target": "toolbar",
+      "darkLayout": true
     }
   }
-
 }

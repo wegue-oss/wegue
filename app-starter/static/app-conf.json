@@ -15,12 +15,13 @@
   "mapCenter": [0, 0],
 
   "permalink": {
-    "location": "search",
+    "location": "hash",
     "layers": true,
     "extent": false,
     "projection": "EPSG:4326",
     "paramPrefix": "",
-    "history": false
+    "history": true,
+    "precision": 6
   },
 
   "mapLayers": [
