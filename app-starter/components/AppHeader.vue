@@ -54,13 +54,13 @@
 <script>
 
 import Vue from 'vue'
-import LayerListToggleButton from './layerlist/ToggleButton'
-import HelpWinToggleButton from './helpwin/ToggleButton'
-import MeasureToolToggleButton from './measuretool/ToggleButton'
-import InfoClickButton from './infoclick/ToggleButton'
-import ShareButton from './sharebutton/ShareButton'
-import ZoomToMaxExtentButton from './maxextentbutton/ZoomToMaxExtentButton'
-import Geocoder from './geocoder/Geocoder'
+import LayerListToggleButton from '../../src/components/layerlist/ToggleButton'
+import HelpWinToggleButton from '../../src/components/helpwin/ToggleButton'
+import MeasureToolToggleButton from '../../src/components/measuretool/ToggleButton'
+import InfoClickButton from '../../src/components/infoclick/ToggleButton'
+import ShareButton from '../../src/sharebutton/ShareButton'
+import ZoomToMaxExtentButton from '../../src/components/maxextentbutton/ZoomToMaxExtentButton'
+import Geocoder from '../../src/components/geocoder/Geocoder'
 
 export default {
   name: 'wgu-app-header',

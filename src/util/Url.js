@@ -41,11 +41,15 @@ const UrlUtil = {
    * If querySearch is not provided it is derived from the current location.
    *
    * @param  {String} querySearch Search part (querySearch) of an URL
-   * @return {Object}             Key-value pairs of the URL parameters
+   * @return {Object} Key-value pairs of the URL parameters, may be empty {}.
    */
   getQueryParams (querySearch) {
     if (!querySearch) {
       querySearch = document.location.search.substring(1);
+    }
+
+    if (!querySearch || querySearch === '') {
+      return {};
     }
 
     return this.parseQueryString(querySearch);

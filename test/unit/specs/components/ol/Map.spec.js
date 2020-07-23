@@ -57,6 +57,7 @@ describe('ol/Map.vue', () => {
     });
 
     it('has correct default data', () => {
+      expect(vm.permalink).to.equal(undefined);
       expect(vm.zoom).to.equal(undefined);
       expect(vm.center).to.equal(undefined);
       expect(vm.tileGridDefs).to.be.empty;
