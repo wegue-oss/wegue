@@ -6,6 +6,6 @@
 
 [GitHub](https://github.com/meggsimum/wegue)
 [Demo](https://meggsimum.github.io/wegue/)
-[Quickstart](quickstart)
+[Quickstart](?id=quickstart)
 
 ![color](#DADADA)
