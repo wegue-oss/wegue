@@ -5,7 +5,7 @@ Configuring your Wegue application by hand can be laborious. This is where QGIS 
   - All layers of a QGIS project are converted into a valid Wegue layer configuration. This works for `WMS`, `XYZ`, `KML`, `GeoJSON`, `WFS`
   - The map extent is taken over to the configuration
   - Textual elements, like title and footer can be set in a GUI
-  - The modules, which should be included in your Wegue application, be easily be added / removed via GUI
+  - Modules to be included in your Wegue application can be easily added / removed via the GUI
 
 ![Screenshot QGIS2Wegue](_media/qgis2wegue.jpg)
 
