@@ -126,6 +126,7 @@ export default {
   .wgu-infoclick-win {
     background-color: white;
     z-index: 2;
+    width: 450px;
   }
 
   .v-card.wgu-infoclick-win {

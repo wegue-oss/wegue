@@ -55,18 +55,28 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 
-.wgu-proptable table {
+table.wgu-proptable {
  border-radius: 3px;
- background-color: #fff;
+ /* background-color: #fff; */
+ width: 100%;
 }
 
 .wgu-proptable td {
  background-color: #f9f9f9;
 }
 
+.wgu-proptable tr {
+  font-size: 16px;
+}
+
 .wgu-proptable th, .wgu-proptable td {
  width: 200px;
- padding: 10px 20px;
+ padding: 5px 5px;
+}
+
+.wgu-proptable td.key-td {
+  width: 160px;
+  padding: 5px 5px;
 }
 
 </style>
