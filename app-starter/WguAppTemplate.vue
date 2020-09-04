@@ -97,11 +97,9 @@
       for (const key of Object.keys(refs)) {
         cmpLookup[key] = refs[key][0];
       }
-      console.log(cmpLookup);
       Vue.prototype.cmpLookup = cmpLookup;
       // inform registered cmps that the app is mounted and the dynamic
       // components are available
-      console.log('$emit');
       WguEventBus.$emit('app-mounted');
     },
     methods: {
