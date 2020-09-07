@@ -24,7 +24,15 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm i
-    - run: npm run init:app  
-    - run: npm run build --if-present
-    - run: npm test
+    - run: | 
+        npm i
+        npm run init:app  
+        npm run build --if-present
+  #  - run: npm test
+   
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@3.5.9
+      with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: build # The folder the action should deploy.
