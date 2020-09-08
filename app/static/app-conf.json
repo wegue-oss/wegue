@@ -206,6 +206,10 @@
     "wgu-helpwin": {
       "target": "toolbar",
       "darkLayout": true
+    },
+    "wgu-searchitems": {
+      "target": "toolbar",
+      "darkLayout": true
     }
   }
 }

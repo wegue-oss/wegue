@@ -44,26 +44,14 @@
       <v-list>
           <template v-for="(tbButton, index) in menuButtons">
               <v-list-tile>
-                <component :is="tbButton.type" :key="index" :icon="tbButton.icon" :text="tbButton.text" :color="color" />
+                <component 
+                :is="tbButton.type" :key="index" :icon="tbButton.icon" 
+                :text="tbButton.text" :color="color" />
               </v-list-tile>
           </template>
       </v-list>
     </v-menu>
-
-    <v-badge overlap color="blue">
-          <template v-slot:badge v-if="filteredFeatures.length > 0">
-            <span>{{filteredFeatures.length}}</span>
-          </template>
-          <v-menu 
-            :close-on-content-click="false" 
-            :close-on-click="true"
-            :nudge-left="250"  offset-x offset-y>
-              <v-btn icon dark slot="activator">
-              <v-icon medium>filter_alt</v-icon>
-              </v-btn>
-              <wgu-search-items v-on:filterUpdated="updateBadgeNumber"> </wgu-search-items>
-          </v-menu>
-    </v-badge>
+   
 
     <!-- slot to inject components at the end of the toolbar (after menu) -->
     <slot name="wgu-tb-end"></slot>
@@ -78,11 +66,10 @@ import HelpWinToggleButton from '../../src/components/helpwin/ToggleButton'
 import MeasureToolToggleButton from '../../src/components/measuretool/ToggleButton'
 import InfoClickButton from '../../src/components/infoclick/ToggleButton'
 import ZoomToMaxExtentButton from '../../src/components/maxextentbutton/ZoomToMaxExtentButton'
+import SearchItemsButton from '../../src/components/searchitems/SearchItemsButton'
 import Geocoder from '../../src/components/geocoder/Geocoder'
 import UserLocator from '../../src/components/geolocator/UserLocator'
-import SearchItems from '../../src/components/searchitems/SearchItems'
-
-import { WguEventBus } from '../../src/WguEventBus'
+// import SearchItems from '../../src/components/searchitems/SearchItems'
 
 export default {
   name: 'wgu-app-header',
@@ -93,7 +80,7 @@ export default {
     'wgu-helpwin-btn': HelpWinToggleButton,
     'wgu-measuretool-btn': MeasureToolToggleButton,
     'wgu-infoclick-btn': InfoClickButton,
-    'wgu-search-items': SearchItems,
+    'wgu-searchitems-btn': SearchItemsButton,
     'wgu-user-locator': UserLocator
   },
   props: {
@@ -103,15 +90,8 @@ export default {
     return {
       title: this.$appConfig.title,
       menuButtons: this.getModuleButtonData() || [],
-      tbButtons: this.getToolbarButtons() || [],
-      filteredFeatures: []
+      tbButtons: this.getToolbarButtons() || []
     }
-  },
-  created () {
-    var me = this;
-    WguEventBus.$on('ol-map-mounted', olMap => {
-      me.map = olMap;
-    });
   },
   methods: {
     /**
@@ -119,6 +99,7 @@ export default {
      *    menuButtons: [
      *      {type: 'wgu-layerlist-toggle-btn'},
      *      {type: 'wgu-helpwin-toggle-btn'},
+     *      {type: 'wgu-searchitems-toggle-btn'},
      *      {type: 'wgu-measuretool-toggle-btn'}
      *    ]
      * @return {Array} module button configuration objects for the menu
@@ -143,6 +124,7 @@ export default {
      *    menuButtons: [
      *      {type: 'wgu-layerlist-toggle-btn'},
      *      {type: 'wgu-helpwin-toggle-btn'},
+     *      {type: 'wgu-searchitems-toggle-btn'},
      *      {type: 'wgu-measuretool-toggle-btn'}
      *    ]
      * @return {Array} module button configuration objects for the toolbar
@@ -162,23 +144,7 @@ export default {
         }
       }
       return moduleWins;
-    },
-    zoomToDataExtend () {
-      let me = this;
-      let itemLayer = me.map.getLayers().getArray().filter(layer => layer.get('lid') === 'Verkaufsstellen')[0];
-
-      let actualExtent = itemLayer.getSource().getExtent();
-      me.map.getView().fit(actualExtent, {
-        duration: 1600,
-        padding: [50, 50, 50, 50]
-      });
-    },
-    updateBadgeNumber (selectedObjects) {
-      let me = this;
-      me.filteredFeatures = selectedObjects;
-      me.$emit('filterUpdatedToMain', selectedObjects);
     }
-
   }
 }
 </script>
