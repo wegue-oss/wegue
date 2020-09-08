@@ -6,7 +6,7 @@
     - [Wegue Config](wegue-configuration.md)
     - [Map Layers](map-layer-configuration.md)
     - [Module Configuration](module-configuration.md)
-    - [QGIS Plugin](qgis_plugin.md)
+- [QGIS2Wegue](qgis_plugin.md)
 
 
 
