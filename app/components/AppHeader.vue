@@ -50,6 +50,21 @@
       </v-list>
     </v-menu>
 
+    <v-badge overlap color="blue">
+          <template v-slot:badge v-if="filteredFeatures.length > 0">
+            <span>{{filteredFeatures.length}}</span>
+          </template>
+          <v-menu 
+            :close-on-content-click="false" 
+            :close-on-click="true"
+            :nudge-left="250"  offset-x offset-y>
+              <v-btn icon dark slot="activator">
+              <v-icon medium>filter_alt</v-icon>
+              </v-btn>
+              <wgu-search-items v-on:filterUpdated="updateBadgeNumber"> </wgu-search-items>
+          </v-menu>
+    </v-badge>
+
     <!-- slot to inject components at the end of the toolbar (after menu) -->
     <slot name="wgu-tb-end"></slot>
 
@@ -57,7 +72,6 @@
 </template>
 
 <script>
-
 import Vue from 'vue'
 import LayerListToggleButton from '../../src/components/layerlist/ToggleButton'
 import HelpWinToggleButton from '../../src/components/helpwin/ToggleButton'
@@ -66,6 +80,9 @@ import InfoClickButton from '../../src/components/infoclick/ToggleButton'
 import ZoomToMaxExtentButton from '../../src/components/maxextentbutton/ZoomToMaxExtentButton'
 import Geocoder from '../../src/components/geocoder/Geocoder'
 import UserLocator from '../../src/components/geolocator/UserLocator'
+import SearchItems from '../../src/components/searchitems/SearchItems'
+
+import { WguEventBus } from '../../src/WguEventBus'
 
 export default {
   name: 'wgu-app-header',
@@ -76,6 +93,7 @@ export default {
     'wgu-helpwin-btn': HelpWinToggleButton,
     'wgu-measuretool-btn': MeasureToolToggleButton,
     'wgu-infoclick-btn': InfoClickButton,
+    'wgu-search-items': SearchItems,
     'wgu-user-locator': UserLocator
   },
   props: {
@@ -85,8 +103,15 @@ export default {
     return {
       title: this.$appConfig.title,
       menuButtons: this.getModuleButtonData() || [],
-      tbButtons: this.getToolbarButtons() || []
+      tbButtons: this.getToolbarButtons() || [],
+      filteredFeatures: []
     }
+  },
+  created () {
+    var me = this;
+    WguEventBus.$on('ol-map-mounted', olMap => {
+      me.map = olMap;
+    });
   },
   methods: {
     /**
@@ -137,6 +162,21 @@ export default {
         }
       }
       return moduleWins;
+    },
+    zoomToDataExtend () {
+      let me = this;
+      let itemLayer = me.map.getLayers().getArray().filter(layer => layer.get('lid') === 'Verkaufsstellen')[0];
+
+      let actualExtent = itemLayer.getSource().getExtent();
+      me.map.getView().fit(actualExtent, {
+        duration: 1600,
+        padding: [50, 50, 50, 50]
+      });
+    },
+    updateBadgeNumber (selectedObjects) {
+      let me = this;
+      me.filteredFeatures = selectedObjects;
+      me.$emit('filterUpdatedToMain', selectedObjects);
     }
 
   }
