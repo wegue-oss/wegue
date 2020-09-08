@@ -1,0 +1,41 @@
+{
+
+  "title": "Vue.js / OpenLayers WebGIS",
+
+  "baseColor": "green darken-3",
+
+  "footerTextLeft": "Powered by <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>",
+  "footerTextRight": "meggsimum",
+  "showCopyrightYear": true,
+
+  "mapZoom": 2,
+  "mapCenter": [0, 0],
+
+  "mapLayers": [
+
+    {
+      "type": "WMS",
+      "lid": "terrestris-osm-wms",
+      "name": "OSM WMS",
+      "format": "image/png",
+      "layers": "OSM-WMS",
+      "url": "http://ows.terrestris.de/osm-gray/service",
+      "transparent": true,
+      "singleTile": false,
+      "projection": "EPSG:3857",
+      "attributions": "<a href='https://www.openstreetmap.org/copyright' target='_blank'>© OpenStreetMap-Mitwirkende</a>",
+      "isBaseLayer": false,
+      "visible": true,
+      "displayInLayerList": true
+    }
+
+  ],
+
+  "modules": {
+    "wgu-helpwin": {
+      "target": "toolbar",
+      "darkLayout": true
+    }
+  }
+
+}

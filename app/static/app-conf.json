@@ -1,0 +1,190 @@
+{
+
+  "title": "Vue.js / OpenLayers WebGIS",
+
+  "baseColor": "red darken-3",
+
+  "logo": "https://dummyimage.com/100x100/aaa/fff&text=Wegue",
+  "logoSize": "100",
+
+  "footerTextLeft": "Powered by <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>",
+  "footerTextRight": "meggsimum",
+  "showCopyrightYear": true,
+
+  "mapZoom": 2,
+  "mapCenter": [0, 0],
+
+  "permalink": {
+    "location": "hash",
+    "layers": true,
+    "extent": false,
+    "projection": "EPSG:4326",
+    "paramPrefix": "",
+    "history": true
+  },
+
+  "mapLayers": [
+
+    {
+      "type": "VECTOR",
+      "lid": "Shops",
+      "name": "Shops DaSchau",
+      "url": "./static/data/shops-dannstadt.geojson",
+      "formatConfig": {
+      },
+      "format": "GeoJSON",
+      "visible": true,
+      "selectable": true,
+      "style": {
+        "radius": 4,
+        "strokeColor": "purple",
+        "strokeWidth": 2,
+        "fillColor": "rgba(155,153,51,0.5)"
+      }
+    },
+    {
+      "type": "WFS",
+      "lid": "gas-wfs",
+      "name": "Gas Stations WFS",
+      "url": "https://ows.terrestris.de/geoserver/osm/wfs",
+      "typeName": "osm:osm-fuel",
+      "version": "2.0.0",
+      "maxFeatures": 50,
+      "formatConfig": {
+      },
+      "format": "GML3",
+      "loadOnlyVisible": true,
+      "visible": false,
+      "selectable": true,
+      "style": {
+        "radius": 6,
+        "strokeColor": "blue",
+        "strokeWidth": 2,
+        "fillColor": "rgba(155,153,51,0.5)"
+      },
+      "attributions": "© <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors."
+    },
+
+    {
+      "type": "VECTOR",
+      "lid": "earthquakes",
+      "name": "Earthquakes 2012 (Mag 5)",
+      "url": "./static/data/2012_Earthquakes_Mag5.kml",
+      "formatConfig": {
+        "extractStyles": false
+      },
+      "format": "KML",
+      "visible": true,
+      "attributions": "U.S. Geological Survey",
+      "selectable": true,
+      "hoverable": true,
+      "hoverAttribute": "name",
+      "style": {
+        "iconUrl": "./static/icon/circle.svg",
+        "scale": 4,
+        "anchor": [0.5, 37],
+        "anchorXUnits": "fraction",
+        "anchorYUnits": "pixels"
+      }
+    },
+    {
+      "type": "WMS",
+      "lid": "ahocevar-wms",
+      "name": "WMS (ahocevar)",
+      "format": "image/png",
+      "layers": "topp:states",
+      "url": "https://ahocevar.com/geoserver/wms",
+      "transparent": true,
+      "singleTile": false,
+      "projection": "EPSG:3857",
+      "attribution": "",
+      "isBaseLayer": false,
+      "visible": false,
+      "displayInLayerList": true
+    },
+
+    {
+      "type": "VECTORTILE",
+      "name": "Vector Tile Layer",
+      "url": "https://ahocevar.com/geoserver/gwc/service/tms/1.0.0/ne:ne_10m_admin_0_countries@EPSG%3A900913@pbf/{z}/{x}/{-y}.pbf",
+      "format": "MVT",
+      "visible": false,
+      "style": {
+        "strokeColor": "gray",
+        "strokeWidth": 1,
+        "fillColor": "rgba(20,20,20,0.1)"
+      }
+    },
+
+    {
+      "type": "XYZ",
+      "name": "OpenTopoMap",
+      "url": "https://tile.opentopomap.org/{z}/{x}/{y}.png",
+      "attributions": "Map data: <a href=\"https://openstreetmap.org/copyright\">©OpenStreetMap</a>-contributors, SRTM | Map representation (Kartendarstellung): © <a href=\"http://opentopomap.org/\">OpenTopoMap</a> (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC-BY-SA</a>)",
+      "lid": "opentopomap",
+      "displayInLayerList": true,
+      "visible": false
+    },
+
+    {
+      "type": "OSM",
+      "lid": "osm-bg",
+      "name": "OSM",
+      "isBaseLayer": false,
+      "visible": true,
+      "displayInLayerList": true
+    }
+
+  ],
+
+  "modules": {
+    "wgu-layerlist": {
+      "target": "menu",
+      "win": true,
+      "draggable": false
+    },
+    "wgu-measuretool": {
+      "target": "menu",
+      "win": true,
+      "draggable": false,
+      "strokeColor": "#c62828",
+      "fillColor": "rgba(198,40,40,0.2)",
+      "sketchStrokeColor": "rgba(198,40,40,0.8)",
+      "sketchFillColor": "rgba(198,40,40,0.1)",
+      "sketchVertexStrokeColor": "#c62828",
+      "sketchVertexFillColor": "rgba(198,40,40,0.2)"
+    },
+    "wgu-infoclick": {
+      "target": "menu",
+      "win": true,
+      "draggable": false,
+      "initPos": {
+        "left": 8,
+        "top": 74
+      }
+    },
+    "wgu-geocoder": {
+      "target": "toolbar",
+      "darkLayout": true,
+      "minChars": 2,
+      "queryDelay": 200,
+      "selectZoom": 16,
+      "debug": false,
+      "placeHolder": "Search address",
+      "provider": "osm",
+      "providerOptions": {
+        "lang": "en-US",
+        "countrycodes": "",
+        "limit": 6
+      }
+    },
+    "wgu-zoomtomaxextent": {
+      "target": "toolbar",
+      "darkLayout": true
+    },
+    "wgu-helpwin": {
+      "target": "toolbar",
+      "darkLayout": true
+    }
+  }
+}

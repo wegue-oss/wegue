@@ -293,4 +293,5 @@ export default {
     z-index: 1;
   }
 
+  @import url('https://fonts.googleapis.com/icon?family=Material+Icons');  
 </style>

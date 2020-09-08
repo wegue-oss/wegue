@@ -1,0 +1,167 @@
+{
+
+  "title": "Wegue - Projected Map",
+
+  "baseColor": "orange darken-3",
+
+  "logo": "https://dummyimage.com/100x100/aaa/fff&text=Wegue",
+  "logoSize": "100",
+
+  "footerTextLeft": "Powered by <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>",
+  "footerTextRight": "meggsimum",
+  "showCopyrightYear": true,
+
+  "mapZoom": 3,
+  "mapCenter": [155000,463000],
+  "mapProjection":
+    {
+    "code": "EPSG:28992",
+    "units": "m",
+    "extent": [-285401.920, 22598.080, 595401.920, 903401.920]
+    },
+
+  "projectionDefs": [
+    [
+    "EPSG:28992",
+    "+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.999908 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +towgs84=565.2369,50.0087,465.658,-0.406857330322398,0.350732676542563,-1.8703473836068,4.0812 +no_defs"
+    ]
+  ],
+
+  "permalink": {
+    "location": "search",
+    "layers": true,
+    "extent": true,
+    "paramPrefix": "pl_",
+    "history": true,
+    "precision": 6
+  },
+
+  "tileGridDefs": {
+    "dutch_rd": {
+      "extent": [-285401.920, 22598.080, 595401.920, 903401.920],
+      "resolutions": [3440.640, 1720.320, 860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210],
+      "tileSize": [256, 256]
+    }
+  },
+
+  "mapLayers": [
+    {
+      "type": "WFS",
+      "lid": "dutch-nat-parks",
+      "name": "WFS (Dutch National Parks PDOK)",
+      "url": "https://geodata.nationaalgeoregister.nl/nationaleparken/wfs",
+      "typeName": "nationaleparken:nationaleparken",
+      "version": "2.0.0",
+      "maxFeatures": 10,
+      "formatConfig": {
+      },
+      "format": "GeoJSON",
+      "projection": "EPSG:28992",
+      "loadOnlyVisible": true,
+      "visible": false,
+      "selectable": true,
+      "style": {
+        "strokeColor": "white",
+        "strokeWidth": 2,
+        "fillColor": "rgba(155,153,51,0.5)"
+      },
+      "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> by Dutch Kadaster"
+    },
+    {
+      "type": "WMS",
+      "lid": "pdok-natura2000-wms",
+      "name": "WMS - Natura 2000 Areas - PDOK",
+      "format": "image/png",
+      "layers": "natura2000",
+      "url": "https://geodata.nationaalgeoregister.nl/natura2000/wms",
+      "transparent": true,
+      "singleTile": false,
+      "projection": "EPSG:28992",
+      "tileGridRef": "dutch_rd",
+      "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> by Dutch Kadaster",
+      "isBaseLayer": false,
+      "visible": false,
+      "displayInLayerList": true
+    },
+    {
+      "type": "WMS",
+      "lid": "pdok-lufo-wms",
+      "name": "WMS - Dutch Arial Map - PDOK",
+      "format": "image/jpeg",
+      "layers": "2018_ortho25",
+      "url": "http://geodata.nationaalgeoregister.nl/luchtfoto/rgb/wms",
+      "transparent": false,
+      "singleTile": false,
+      "projection": "EPSG:28992",
+      "tileGridRef": "dutch_rd",
+      "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> by Dutch Kadaster",
+      "isBaseLayer": true,
+      "visible": false,
+      "displayInLayerList": true
+    },
+    {
+      "type": "XYZ",
+      "lid": "brtachtergrondkaart",
+      "name": "WMTS - Topo Basemap - PDOK",
+      "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts/brtachtergrondkaart/EPSG:28992/{z}/{x}/{y}.png",
+      "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> by Dutch Kadaster",
+      "projection": "EPSG:28992",
+      "tileGridRef": "dutch_rd",
+      "displayInLayerList": true,
+      "visible": true
+    }
+  ],
+
+  "modules": {
+    "wgu-layerlist": {
+      "target": "menu",
+      "win": true,
+      "draggable": false
+    },
+    "wgu-measuretool": {
+      "target": "menu",
+      "win": true,
+      "draggable": false,
+      "strokeColor": "#c62828",
+      "fillColor": "rgba(198,40,40,0.2)",
+      "sketchStrokeColor": "rgba(198,40,40,0.8)",
+      "sketchFillColor": "rgba(198,40,40,0.1)",
+      "sketchVertexStrokeColor": "#c62828",
+      "sketchVertexFillColor": "rgba(198,40,40,0.2)"
+    },
+    "wgu-infoclick": {
+      "target": "menu",
+      "win": true,
+      "draggable": false,
+      "initPos": {
+        "left": 8,
+        "top": 74
+      }
+    },
+    "wgu-geocoder": {
+      "target": "toolbar",
+      "darkLayout": true,
+      "minChars": 4,
+      "queryDelay": 200,
+      "selectZoom": 16,
+      "debug": false,
+      "placeHolder": "Zoek plaats of adres",
+      "provider": "osm",
+      "providerOptions": {
+        "key": "",
+        "lang": "nl-NL",
+        "countrycodes": "nl",
+        "limit": 5
+      }
+    },
+    "wgu-zoomtomaxextent": {
+      "target": "toolbar",
+      "darkLayout": true
+    },
+    "wgu-helpwin": {
+      "target": "toolbar",
+      "darkLayout": true
+    }
+  }
+
+}

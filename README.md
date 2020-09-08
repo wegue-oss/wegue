@@ -1,3 +1,19 @@
+
+# Filialfinder
+
+
+# Planning 
+
+Feature overview:
+![Feature overview](./organisation/IMG_4474.jpg)
+
+Task overview:
+![Feature overview](./organisation/IMG_0122.jpg)
+
+Task board :
+![Feature board](./organisation/IMG_7902.jpg)
+
+
 # Wegue (WebGIS with OpenLayers and Vue.js)
 Template and re-usable components for webmapping applications with OpenLayers and Vue.js
 
