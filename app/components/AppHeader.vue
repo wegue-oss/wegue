@@ -9,11 +9,6 @@
 
     <!-- slot to inject components at the beginning (before title) -->
     <slot name="wgu-tb-start"></slot>
-    <!-- Locate me - User Locator -->
-    <v-tooltip bottom class="pl-2">
-      <wgu-user-locator slot="activator"></wgu-user-locator>
-      <span>Locate me</span>
-    </v-tooltip>
 
     <v-toolbar-title>{{title}}</v-toolbar-title>
 
@@ -44,11 +39,14 @@
       <v-list>
           <template v-for="(tbButton, index) in menuButtons">
               <v-list-tile>
-                <component :is="tbButton.type" :key="index" :icon="tbButton.icon" :text="tbButton.text" :color="color" />
+                <component 
+                :is="tbButton.type" :key="index" :icon="tbButton.icon" 
+                :text="tbButton.text" :color="color" />
               </v-list-tile>
           </template>
       </v-list>
     </v-menu>
+   
 
     <!-- slot to inject components at the end of the toolbar (after menu) -->
     <slot name="wgu-tb-end"></slot>
@@ -57,13 +55,13 @@
 </template>
 
 <script>
-
 import Vue from 'vue'
 import LayerListToggleButton from '../../src/components/layerlist/ToggleButton'
 import HelpWinToggleButton from '../../src/components/helpwin/ToggleButton'
 import MeasureToolToggleButton from '../../src/components/measuretool/ToggleButton'
 import InfoClickButton from '../../src/components/infoclick/ToggleButton'
 import ZoomToMaxExtentButton from '../../src/components/maxextentbutton/ZoomToMaxExtentButton'
+import SearchItemsButton from '../../src/components/searchitems/SearchItemsButton'
 import Geocoder from '../../src/components/geocoder/Geocoder'
 import UserLocator from '../../src/components/geolocator/UserLocator'
 
@@ -76,7 +74,8 @@ export default {
     'wgu-helpwin-btn': HelpWinToggleButton,
     'wgu-measuretool-btn': MeasureToolToggleButton,
     'wgu-infoclick-btn': InfoClickButton,
-    'wgu-user-locator': UserLocator
+    'wgu-searchitems-btn': SearchItemsButton,
+    'wgu-userlocator-btn': UserLocator
   },
   props: {
     color: {type: String, required: false, default: 'red darken-3'}
@@ -94,6 +93,7 @@ export default {
      *    menuButtons: [
      *      {type: 'wgu-layerlist-toggle-btn'},
      *      {type: 'wgu-helpwin-toggle-btn'},
+     *      {type: 'wgu-searchitems-toggle-btn'},
      *      {type: 'wgu-measuretool-toggle-btn'}
      *    ]
      * @return {Array} module button configuration objects for the menu
@@ -118,6 +118,7 @@ export default {
      *    menuButtons: [
      *      {type: 'wgu-layerlist-toggle-btn'},
      *      {type: 'wgu-helpwin-toggle-btn'},
+     *      {type: 'wgu-searchitems-toggle-btn'},
      *      {type: 'wgu-measuretool-toggle-btn'}
      *    ]
      * @return {Array} module button configuration objects for the toolbar
@@ -138,7 +139,6 @@ export default {
       }
       return moduleWins;
     }
-
   }
 }
 </script>

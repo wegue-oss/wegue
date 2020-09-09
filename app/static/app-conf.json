@@ -42,6 +42,27 @@
         "fillColor": "rgba(155,153,51,0.5)"
       }
     },
+
+    {
+      "type": "VECTOR",
+      "lid": "Verkaufsstellen",
+      "name": "Parkticket Verkaufsstellen",
+      "url": "./static/data/parkverkaufsstellen.json",
+      "formatConfig": {
+      },
+      "format": "GeoJSON",
+      "visible": false,
+      "attributions": "Buy Parktickets Vienna",
+      "selectable": false,
+      "hoverable": true,
+      "hoverAttribute": "openhour",
+      "style": {
+        "iconUrl": "./static/GISolutions.png",
+        "iconAnchor": [0.5, 0.5],
+        "scale": 0.05
+      }
+    },
+
     {
       "type": "WFS",
       "lid": "gas-wfs",
@@ -183,6 +204,14 @@
       "darkLayout": true
     },
     "wgu-helpwin": {
+      "target": "toolbar",
+      "darkLayout": true
+    },
+    "wgu-searchitems": {
+      "target": "toolbar",
+      "darkLayout": true
+    },
+    "wgu-userlocator": {
       "target": "toolbar",
       "darkLayout": true
     }
