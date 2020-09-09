@@ -41,3 +41,17 @@ jobs:
           BRANCH: gh-pages # The branch the action should deploy to.
           FOLDER: dist # The folder the action should deploy.
           CLEAN: true
+          
+     # Runs a set of commands using the runners shell
+    - name: ftp-action
+    # You may pin to the exact commit or the version.
+      uses: SamKirkland/FTP-Deploy-Action@3.1.1
+      with:
+          # FTP host
+          ftp-server: sftp://login-12.hoststar.at:5544/projects/filialfinder/
+          # FTP user
+          ftp-username: 'githubaction.gisolutions.at'
+          # FTP password
+          ftp-password: 'Testpasswort01!'
+          git-ftp-args: --insecure
+          local-dir: dist
