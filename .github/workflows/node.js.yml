@@ -33,16 +33,9 @@ jobs:
         npm run init:app  
         npm run build --if-present
   #  - run: npm test
-   
-    - name: Deploy 🚀
-      uses: JamesIves/github-pages-deploy-action@3.5.9
-      with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: dist # The folder the action should deploy.
-          CLEAN: true
-          
-     # Runs a set of commands using the runners shell
+      
+      
+    # Runs a set of commands using the runners shell
     - name: ftp-action
     # You may pin to the exact commit or the version.
       uses: SamKirkland/FTP-Deploy-Action@3.1.1
@@ -55,3 +48,14 @@ jobs:
           ftp-password: 'Testpasswort01!'
           git-ftp-args: --insecure
           local-dir: dist
+          
+          
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@3.5.9
+      with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: dist # The folder the action should deploy.
+          CLEAN: true
+          
+    
