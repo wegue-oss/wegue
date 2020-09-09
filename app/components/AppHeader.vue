@@ -9,11 +9,6 @@
 
     <!-- slot to inject components at the beginning (before title) -->
     <slot name="wgu-tb-start"></slot>
-    <!-- Locate me - User Locator -->
-    <v-tooltip bottom class="pl-2">
-      <wgu-user-locator slot="activator"></wgu-user-locator>
-      <span>Locate me</span>
-    </v-tooltip>
 
     <v-toolbar-title>{{title}}</v-toolbar-title>
 
@@ -69,7 +64,6 @@ import ZoomToMaxExtentButton from '../../src/components/maxextentbutton/ZoomToMa
 import SearchItemsButton from '../../src/components/searchitems/SearchItemsButton'
 import Geocoder from '../../src/components/geocoder/Geocoder'
 import UserLocator from '../../src/components/geolocator/UserLocator'
-// import SearchItems from '../../src/components/searchitems/SearchItems'
 
 export default {
   name: 'wgu-app-header',
@@ -81,7 +75,7 @@ export default {
     'wgu-measuretool-btn': MeasureToolToggleButton,
     'wgu-infoclick-btn': InfoClickButton,
     'wgu-searchitems-btn': SearchItemsButton,
-    'wgu-user-locator': UserLocator
+    'wgu-userlocator-btn': UserLocator
   },
   props: {
     color: {type: String, required: false, default: 'red darken-3'}

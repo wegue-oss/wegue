@@ -210,6 +210,10 @@
     "wgu-searchitems": {
       "target": "toolbar",
       "darkLayout": true
+    },
+    "wgu-userlocator": {
+      "target": "toolbar",
+      "darkLayout": true
     }
   }
 }
