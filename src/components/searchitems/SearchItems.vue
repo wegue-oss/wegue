@@ -1,12 +1,11 @@
 <template>
  <v-card
   class="card--flex-toolbar"
-  min-width="auto"
-  height="100%"
+  width="350px"
   style="position: relative; overflow: hidden;"
 >
   <v-toolbar card prominent transparent>
-    <v-toolbar-title>Suchen und Filtern</v-toolbar-title>
+    <v-toolbar-title>Search and filter</v-toolbar-title>
     <v-spacer></v-spacer>
       <v-tooltip bottom>
         <template slot="activator">
@@ -18,7 +17,7 @@
       </v-tooltip>
   </v-toolbar>
   <v-divider></v-divider>
-  <v-content id="multiselectContent">
+  <v-content>
     <multiselect
       v-model="selectedMultiselectItems"
       :options="featuresForMultiselect"
@@ -31,11 +30,14 @@
       placeholder="Suchen und Filtern" 
       @select="changeMapViewToSelectedItems"
       @remove="removeFeatureFromSelectedItems"
-      >
-      <template slot="selection" slot-scope="{ values, search, isOpen }">
-         <span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">{{ values.length }} options selected</span>
-      </template>
+      >  
     </multiselect>
+    <template slot="selection" slot-scope="{ values, search, isOpen }">
+         <span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">
+           {{ values.length }} 
+           options selected
+          </span>
+      </template>  
   </v-content>
 </v-card>
 </template>
@@ -163,9 +165,10 @@ export default {
     });
   },
   computed: {
-    featuresForMultiselect: function () {
+    featuresForMultiselect () {
       return this.storeList.map(object => {
         return {
+          id: object.properties.OBJECTID,
           name: `${object.properties.ADRESSE} - ${object.properties.PLZ}`,
           type: object.type,
           feature: object
@@ -275,15 +278,20 @@ export default {
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 
 <style>
-#multiselectContent{
-  width: 250px;
-  height: 300px;
-  flex-direction: column;
-  overflow: scroll; 
-  padding-top: 0 !important;
+
+.v-content {
+  padding: 0 !important;
 }
 
-.popupStyle {
-  background:white;
+.multiselect__content-wrapper {
+  display: contents;
+  overflow: scroll;
 }
+
+.multiselect__content {
+  height: 50vh;
+  overflow: scroll;
+  padding: 0;
+}
+
 </style>
