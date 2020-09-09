@@ -19,6 +19,30 @@ import { Fill, Style, Text } from 'ol/style';
 
 import { WguEventBus } from '../../WguEventBus'
 
+function getGeolocationLayer (layers) {
+  var geolocationLid = 'userPosition';
+  // if the geolocationLayer is already included it has to be removed
+  layers.remove(layers.getArray().filter(layer => geolocationLid === (layer.get('lid')))[0]);
+  let layer = new VectorLayer({source: new VectorSource(),
+    style: function () {
+      return new Style({
+        text: new Text({
+          text: 'person_pin_circle',
+          font: 'normal 30px Material Icons',
+          fill: new Fill({
+            color: 'blue'
+          })
+        })
+      })
+    }});
+  layer.setProperties({lid: geolocationLid, name: 'device gps-position'});
+  return layer;
+};
+
+function addCoordinatestoLayer (coordinate, layer) {
+  layer.getSource().addFeature(new Feature({geometry: coordinate}));
+};
+
 export default {
   name: 'user-locator',
   data: function () {
@@ -43,40 +67,26 @@ export default {
     locateMePressed () {
       var me = this;
       if (me.isGPSAvailable) {
-        this.isSearchingForPosition = true;
+        me.isSearchingForPosition = true;
         setTimeout(function () {
           navigator.geolocation.getCurrentPosition(position => {
-            var actualUserCoordinates = new Point(fromLonLat([position.coords.longitude, position.coords.latitude]));
+            var actualGeolocationPoint = new Point(fromLonLat([position.coords.longitude, position.coords.latitude]));
             if (typeof me.map !== 'undefined') {
               me.isPositionFixed = true;
               me.isSearchingForPosition = false;
-              // set a point on the map with the actual position
-              let myPositionLayer = new VectorLayer({source: new VectorSource(),
-                style: function () {
-                  return new Style({
-                    text: new Text({
-                      text: 'person_pin_circle',
-                      font: 'normal 30px Material Icons',
-                      fill: new Fill({
-                        color: 'blue'
-                      })
-                    })
-                  })
-                }});
-              myPositionLayer.setProperties({lid: 'userPosition', name: 'Benutzerposition'});
-              let positionFeature = new Feature({geometry: actualUserCoordinates});
-              myPositionLayer.getSource().addFeature(positionFeature);
-
-              me.map.addLayer(myPositionLayer);
-              me.map.getView().fit(actualUserCoordinates, {minResolution: 3, duration: 3200, padding: [50, 50, 50, 50]});
+              // get a Layer to put the actualGeolocationPoint on
+              let geolocationLayer = getGeolocationLayer(me.map.getLayers());
+              addCoordinatestoLayer(actualGeolocationPoint, geolocationLayer)
+              me.map.addLayer(geolocationLayer);
+              me.map.getView().fit(actualGeolocationPoint, {minResolution: 3, duration: 3200, padding: [50, 50, 50, 50]});
             } else {
               console.error('the map is not defined in the getCurrentPosition callback');
             }
           },
           function errorHandler (error) {
-            // Log the error without displaying it, simply allows debugging.
+            // Log the error without displaying it, simply allows debugging
             console.error('Geolocation error : code ' + error.code + ' - ' + error.message);
-            // Display user friendly error message for the user.
+            // Display user friendly error message
             alert('Geolocation error : code ' + error.code + ' - ' + error.message);
             me.isGPSAvailable = false;
             me.isSearchingForPosition = false;
@@ -90,7 +100,6 @@ export default {
   }
 }
 </script>
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 
 <style scoped>
 
