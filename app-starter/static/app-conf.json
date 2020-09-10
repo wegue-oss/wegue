@@ -29,7 +29,7 @@
       "type": "VECTOR",
       "lid": "Shops",
       "name": "Shops DaSchau",
-      "url": "./static/data/shops-dannstadt.geojson",
+      "url": "./static/data/shops-dannstadt.json",
       "formatConfig": {
       },
       "format": "GeoJSON",
@@ -187,6 +187,10 @@
       "darkLayout": true
     },
     "wgu-geolocator": {
+      "target": "toolbar",
+      "darkLayout": true
+    },
+    "wgu-searchfilter": {
       "target": "toolbar",
       "darkLayout": true
     }
