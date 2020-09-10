@@ -60,6 +60,7 @@ import MeasureToolToggleButton from '../../src/components/measuretool/ToggleButt
 import InfoClickButton from '../../src/components/infoclick/ToggleButton'
 import ZoomToMaxExtentButton from '../../src/components/maxextentbutton/ZoomToMaxExtentButton'
 import Geocoder from '../../src/components/geocoder/Geocoder'
+import Geolocator from '../../src/components/geolocator/Geolocator'
 
 export default {
   name: 'wgu-app-header',
@@ -69,7 +70,8 @@ export default {
     'wgu-layerlist-btn': LayerListToggleButton,
     'wgu-helpwin-btn': HelpWinToggleButton,
     'wgu-measuretool-btn': MeasureToolToggleButton,
-    'wgu-infoclick-btn': InfoClickButton
+    'wgu-infoclick-btn': InfoClickButton,
+    'wgu-geolocator-btn': Geolocator
   },
   props: {
     color: {type: String, required: false, default: 'red darken-3'}

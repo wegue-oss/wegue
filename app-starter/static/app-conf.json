@@ -185,6 +185,10 @@
     "wgu-helpwin": {
       "target": "toolbar",
       "darkLayout": true
+    },
+    "wgu-geolocator": {
+      "target": "toolbar",
+      "darkLayout": true
     }
   }
 }
