@@ -61,9 +61,10 @@ import HelpWinToggleButton from '../../src/components/helpwin/ToggleButton'
 import MeasureToolToggleButton from '../../src/components/measuretool/ToggleButton'
 import InfoClickButton from '../../src/components/infoclick/ToggleButton'
 import ZoomToMaxExtentButton from '../../src/components/maxextentbutton/ZoomToMaxExtentButton'
-import SearchItemsButton from '../../src/components/searchitems/SearchItemsButton'
+
 import Geocoder from '../../src/components/geocoder/Geocoder'
 import UserLocator from '../../src/components/geolocator/UserLocator'
+import SearchFilterButton from '../../src/components/searchfilter/SearchFilterButton'
 
 export default {
   name: 'wgu-app-header',
@@ -74,7 +75,7 @@ export default {
     'wgu-helpwin-btn': HelpWinToggleButton,
     'wgu-measuretool-btn': MeasureToolToggleButton,
     'wgu-infoclick-btn': InfoClickButton,
-    'wgu-searchitems-btn': SearchItemsButton,
+    'wgu-searchfilter-btn': SearchFilterButton,
     'wgu-userlocator-btn': UserLocator
   },
   props: {
