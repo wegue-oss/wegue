@@ -1,11 +1,11 @@
 <template>
-
+<!--remove <v-toolbar-side> -->
   <v-card class="wgu-helpwin">
     <v-toolbar :color="color" class="" dark>
-      <v-toolbar-side-icon><v-icon>{{ icon }}</v-icon></v-toolbar-side-icon>
+      <v-icon>{{ icon }}</v-icon>
       <v-toolbar-title>{{ title }}</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-toolbar-side-icon @click="onWinXClose"><v-icon>close</v-icon></v-toolbar-side-icon>
+      <v-icon @click="onWinXClose">close</v-icon>
     </v-toolbar>
 
     <v-card-title primary-title>

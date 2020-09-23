@@ -1,12 +1,12 @@
 <template>
 
   <v-list>
-    <v-list-tile class="wgu-layerlist-item" v-for="layerItem in layerItems" v-bind:key="layerItem.lid" @click="onItemClick($event, layerItem)">
+    <v-list-item class="wgu-layerlist-item" v-for="layerItem in layerItems" v-bind:key="layerItem.lid" @click="onItemClick($event, layerItem)">
       <input type="checkbox" :key="layerItem.lid" class="wgu-layer-viz-cb" v-model="layerItem.visible" @change="layerVizChanged">
-      <v-list-tile-content class="black--text">
-          <v-list-tile-title>{{ layerItem.title }}</v-list-tile-title>
-      </v-list-tile-content>
-    </v-list-tile>
+      <v-list-item-content class="black--text">
+          <v-list-item-title>{{ layerItem.title }}</v-list-item-title>
+      </v-list-item-content>
+    </v-list-item>
   </v-list>
 
 </template>

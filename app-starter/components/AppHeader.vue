@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar
+  <v-app-bar
     class="wgu-app-toolbar white--text"
     :color="color"
     fixed
@@ -33,14 +33,18 @@
     <slot name="wgu-tb-after-auto-buttons"></slot>
 
     <v-menu v-if="menuButtons.length" offset-y>
-      <v-btn icon dark slot="activator">
+      <!--v-slot="activator" to v-slot:activator="{on}" -->
+      <template v-slot:activator="{on}">
+      
+      <v-btn icon dark v-on="on">
         <v-icon medium>menu</v-icon>
       </v-btn>
+      </template>
       <v-list>
           <template v-for="(tbButton, index) in menuButtons">
-              <v-list-tile>
-                <component :is="tbButton.type" :key="index" :icon="tbButton.icon" :text="tbButton.text" :color="color" />
-              </v-list-tile>
+              <v-list-item 
+                 :is="tbButton.type" :key="index" :icon="tbButton.icon" :text="tbButton.text" :color="color" >
+              </v-list-item>
           </template>
       </v-list>
     </v-menu>
@@ -48,7 +52,7 @@
     <!-- slot to inject components at the end of the toolbar (after menu) -->
     <slot name="wgu-tb-end"></slot>
 
-  </v-toolbar>
+  </v-app-bar>
 </template>
 
 <script>

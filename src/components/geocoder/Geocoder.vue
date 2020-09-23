@@ -1,7 +1,7 @@
 <template>
-
-  <v-toolbar-items>
+<v-toolbar-items>
     <v-combobox
+      class="wgu-geocoder-combo"
       :style='{ display: (hideSearch ? "none" : "block" ) }'
       return-object
       :no-filter="noFilter"
@@ -18,10 +18,15 @@
       :search-input.sync="search"
     ></v-combobox>
 
-    <v-btn @click='toggle()' icon :dark="dark" slot="activator">
+  <v-toolbar-items>
+
+    <v-btn @click='toggle()' icon :dark="dark" >
       <v-icon medium>{{buttonIcon}}</v-icon>
     </v-btn>
+
   </v-toolbar-items>
+  </v-toolbar-items>
+
 
 </template>
 
@@ -176,4 +181,11 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+
+  .v-input.wgu-geocoder-combo {
+    /* have to be reset here since .v-toolbar .v-input overwrites this */
+    padding-top: 12px;
+    margin-top: 4px;
+  }
+
 </style>

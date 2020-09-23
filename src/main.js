@@ -32,12 +32,13 @@ if (appCtx) {
   // simple aproach to avoid path traversal
   appCtxFile = '-' + appCtx.replace(/(\.\.[/])+/g, '');
 }
-
+const opts = {};
 const createApp = function (appConfig) {
   // make app config accessible for all components
   Vue.prototype.$appConfig = appConfig;
   /* eslint-disable no-new */
   new Vue({
+    vuetify: new Vuetify(opts),
     el: '#app',
     template: '<wgu-app/>',
     components: { WguApp }

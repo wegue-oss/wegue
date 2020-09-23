@@ -109,9 +109,18 @@ table.wgu-coordstable {
   background-color: #f9f9f9;
 }
 
+.wgu-coordstable tr {
+  font-size: 16px;
+}
+
 .wgu-coordstable th, .wgu-coordstable td {
   width: 200px;
-  padding: 10px 20px;
+  padding: 5px 5px;
+}
+
+.wgu-coordstable td.key-td {
+  width: 160px;
+  padding: 5px 5px;
 }
 
 </style>

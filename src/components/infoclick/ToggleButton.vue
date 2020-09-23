@@ -29,6 +29,9 @@ export default {
     WguEventBus.$on('app-mounted', () => {
       me.win = Vue.prototype.cmpLookup[me.moduleName + '-win'];
     });
+    if (!me.win) {
+      me.win = Vue.prototype.cmpLookup[me.moduleName + '-win'];
+    }
   },
   methods: {
     toggleUi () {
