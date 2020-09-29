@@ -27,3 +27,7 @@ A list of existing Wegue projects.
 [Naturpark Lüneburger Heide](https://map.naturpark-lueneburger-heide.de/)
 
 ![](_media/screenshot_lueneburg.jpg)
+
+[Defibrillatoren Standorte in Wien](https://gisolutionsat.github.io/wegue)
+
+![](_media/screenshot_wien.jpg)
