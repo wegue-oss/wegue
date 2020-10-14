@@ -1,0 +1,4 @@
+app/
+dist/
+node_modules/
+.git/
