@@ -30,23 +30,35 @@ const geolocationMarker = new Style({
   })
 });
 
+/**
+ *
+ */
 function createAndRemoveExistingLayer (layers, layerId) {
   // if the geolocationLayer is already included it has to be removed
   layers.remove(layers.getArray().filter(layer => layerId === (layer.get('lid')))[0]);
   // create new layer
   let layer = new VectorLayer({
     source: new VectorSource(),
-    style: geolocationMarker});
-  layer.setProperties({lid: layerId, name: 'actual gps-position'});
+    style: geolocationMarker
+  });
+  layer.setProperties({lid: layerId, name: 'Current Position'});
   return layer;
 };
 
-function addPointtoLayer (point, layer) {
+/**
+ *
+ */
+function addPointToLayer (point, layer) {
   layer.getSource().addFeature(new Feature({geometry: point}));
 };
 
 export default {
-  name: 'geolocator',
+  name: 'wgu-geolocator',
+  props: {
+    zoomAnimation: {type: Boolean, required: false, default: true},
+    zoomAnimationDuration: {type: Number, required: false, default: 2400},
+    maxZoom: {type: Number, required: false, default: 15}
+  },
   data: function () {
     return {
       isGeolocationAPIAvailable: null,
@@ -55,7 +67,7 @@ export default {
     }
   },
   created () {
-    var me = this;
+    const me = this;
     WguEventBus.$on('ol-map-mounted', olMap => {
       me.map = olMap;
     });
@@ -67,22 +79,32 @@ export default {
   },
   methods: {
     geolocateUserAndShowMarkerOnMap () {
-      var me = this;
+      const me = this;
       if (me.isGeolocationAPIAvailable) {
         me.isSearchingForGeolocation = true;
         setTimeout(function () {
           navigator.geolocation.getCurrentPosition(position => {
-            var currentPosition = new Point(fromLonLat([position.coords.longitude, position.coords.latitude]));
+            const currentPosition = new Point(fromLonLat([position.coords.longitude, position.coords.latitude]));
             if (typeof me.map !== 'undefined') {
               me.isGeolocationFound = true;
               me.isSearchingForGeolocation = false;
               // get a Layer to put the currentPosition on
-              var geolocationLayer = createAndRemoveExistingLayer(me.map.getLayers(), 'userPosition');
-              addPointtoLayer(currentPosition, geolocationLayer);
+              const geolocationLayer = createAndRemoveExistingLayer(me.map.getLayers(), 'userPosition');
+              addPointToLayer(currentPosition, geolocationLayer);
               me.map.addLayer(geolocationLayer);
-              me.map.getView().fit(currentPosition, {minResolution: 3, duration: 3200, padding: [50, 50, 50, 50]});
+
+              // collect zooming options
+              const zoomOpts = {
+                maxZoom: me.maxZoom,
+                padding: [50, 50, 50, 50]
+              };
+              if (me.zoomAnimation) {
+                zoomOpts.duration = me.zoomAnimationDuration;
+              }
+              // zoom to geolocation position
+              me.map.getView().fit(currentPosition, zoomOpts);
             } else {
-              console.error('the map is not defined in the getCurrentPosition callback');
+              console.error('The map is not defined in the getCurrentPosition callback');
             }
           },
           function errorHandler (error) {
