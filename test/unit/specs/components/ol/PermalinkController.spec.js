@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { shallowMount } from '@vue/test-utils';
+import {enableAutoDestroy, shallowMount} from '@vue/test-utils';
 import Map from '@/components/ol/Map';
 import VectorLayer from 'ol/layer/Vector';
 const permalinkDef = {
@@ -38,6 +38,9 @@ const permalinkDef = {
     'history': true
   }
 };
+
+// calls wrapper.destroy() after each test
+enableAutoDestroy(afterEach);
 
 describe('ol/Map.vue', () => {
   describe('data - Map NOT Provides PermalinkController when NOT defined', () => {

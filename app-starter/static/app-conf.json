@@ -20,7 +20,8 @@
     "extent": false,
     "projection": "EPSG:4326",
     "paramPrefix": "",
-    "history": true
+    "history": true,
+    "precision": 6
   },
 
   "mapLayers": [
@@ -183,6 +184,10 @@
       "darkLayout": true
     },
     "wgu-helpwin": {
+      "target": "toolbar",
+      "darkLayout": true
+    },
+    "wgu-share": {
       "target": "toolbar",
       "darkLayout": true
     }
