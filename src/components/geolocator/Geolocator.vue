@@ -45,13 +45,6 @@ function createAndRemoveExistingLayer (layers, layerId) {
   return layer;
 };
 
-/**
- *
- */
-function addPointToLayer (point, layer) {
-  layer.getSource().addFeature(new Feature({geometry: point}));
-};
-
 export default {
   name: 'wgu-geolocator',
   props: {
@@ -87,14 +80,18 @@ export default {
 
         // access current geolocation position and show on map
         navigator.geolocation.getCurrentPosition(position => {
-          const currentPosition = new Point(fromLonLat([position.coords.longitude, position.coords.latitude]));
           if (typeof this.map !== 'undefined') {
+            // create location point and reproject to map's projection
+            const mapProjection = this.map.getView().getProjection();
+            const projCoords = fromLonLat([position.coords.longitude, position.coords.latitude], mapProjection);
+            const currentPosGeom = new Point(projCoords);
+
             this.isGeolocationFound = true;
             this.isSearchingForGeolocation = false;
-            // get a Layer to put the currentPosition on
-            const geolocationLayer = createAndRemoveExistingLayer(this.map.getLayers(), 'userPosition');
-            addPointToLayer(currentPosition, geolocationLayer);
-            this.map.addLayer(geolocationLayer);
+            // get a layer to draw the current position on
+            const geolocLayer = createAndRemoveExistingLayer(this.map.getLayers(), 'userPosition');
+            geolocLayer.getSource().addFeature(new Feature({geometry: currentPosGeom}));
+            this.map.addLayer(geolocLayer);
 
             // collect zooming options
             const zoomOpts = {
@@ -105,7 +102,7 @@ export default {
               zoomOpts.duration = this.zoomAnimationDuration;
             }
             // zoom to geolocation position
-            this.map.getView().fit(currentPosition, zoomOpts);
+            this.map.getView().fit(currentPosGeom, zoomOpts);
           } else {
             console.error('The map is not defined in the getCurrentPosition callback');
           }
