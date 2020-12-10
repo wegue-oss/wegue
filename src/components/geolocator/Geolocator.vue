@@ -19,32 +19,6 @@ import { Fill, Style, Text } from 'ol/style';
 
 import { WguEventBus } from '../../WguEventBus'
 
-// definition for the geolocation marker of the device on the map
-const geolocationMarker = new Style({
-  text: new Text({
-    text: 'person_pin_circle',
-    font: 'normal 30px Material Icons',
-    fill: new Fill({
-      color: 'blue'
-    })
-  })
-});
-
-/**
- *
- */
-function createAndRemoveExistingLayer (layers, layerId) {
-  // if the geolocationLayer is already included it has to be removed
-  layers.remove(layers.getArray().filter(layer => layerId === (layer.get('lid')))[0]);
-  // create new layer
-  let layer = new VectorLayer({
-    source: new VectorSource(),
-    style: geolocationMarker
-  });
-  layer.setProperties({lid: layerId, name: 'Current Position'});
-  return layer;
-};
-
 export default {
   name: 'wgu-geolocator',
   props: {
@@ -56,7 +30,16 @@ export default {
     return {
       isGeolocationAPIAvailable: null,
       isGeolocationFound: false,
-      isSearchingForGeolocation: false
+      isSearchingForGeolocation: false,
+      geolocationMarker: new Style({
+        text: new Text({
+          text: 'person_pin_circle',
+          font: 'normal 30px Material Icons',
+          fill: new Fill({
+            color: 'blue'
+          })
+        })
+      })
     }
   },
   created () {
@@ -71,6 +54,21 @@ export default {
     }
   },
   methods: {
+    /**
+     *
+     */
+    createAndRemoveExistingLayer (layers, layerId) {
+      // if the geolocationLayer is already included it has to be removed
+      layers.remove(layers.getArray().filter(layer => layerId === (layer.get('lid')))[0]);
+      // create new layer
+      let layer = new VectorLayer({
+        source: new VectorSource(),
+        style: this.geolocationMarker
+      });
+      layer.setProperties({lid: layerId, name: 'Current Position'});
+      return layer;
+    },
+
     /**
      *
      */
@@ -89,7 +87,7 @@ export default {
             this.isGeolocationFound = true;
             this.isSearchingForGeolocation = false;
             // get a layer to draw the current position on
-            const geolocLayer = createAndRemoveExistingLayer(this.map.getLayers(), 'userPosition');
+            const geolocLayer = this.createAndRemoveExistingLayer(this.map.getLayers(), 'userPosition');
             geolocLayer.getSource().addFeature(new Feature({geometry: currentPosGeom}));
             this.map.addLayer(geolocLayer);
 
