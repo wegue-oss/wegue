@@ -18,6 +18,7 @@ This describes the Wegue application configuration, which is modelled as JSON do
 | mapZoom           | x | Initial zoom level of the map | `"mapZoom": 2` |
 | mapCenter         | x | Initial center of the map in map projection | `"mapCenter": [0, 0]` |
 | mapProjection     |   | Configuration object for CRS / projection used for the map | see [mapProjection](wegue-configuration?id=mapprojection) |
+| mapGeodataDragDop |   | Configuration object for geodata file drag/drop functionality on the map. Only by setting the config this function will be enabled. Supported formats are GeoJSON, KML, GPX, IGC and TopoJSON|   `"mapGeodataDragDop": {"formats": ["GeoJSON", "KML"]}` |
 | modules           | x | Array of module configuration objects | See [modules](module-configuration) |
 | mapLayers         | x | Array of map layer configuration objects | See [mapLayers](map-layer-configuration) |
 | projectionDefs    |   | Array of CRS / projection definition objects compatible to proj4js | See [projectionDefs](wegue-configuration?id=projectiondefs) |

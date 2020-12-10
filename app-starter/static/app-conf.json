@@ -13,6 +13,9 @@
 
   "mapZoom": 2,
   "mapCenter": [0, 0],
+  "mapGeodataDragDop": {
+    "formats": ["GeoJSON", "KML"]
+  },
 
   "permalink": {
     "location": "hash",

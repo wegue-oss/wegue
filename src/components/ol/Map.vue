@@ -8,13 +8,19 @@ import View from 'ol/View'
 import Attribution from 'ol/control/Attribution';
 import Zoom from 'ol/control/Zoom';
 import SelectInteraction from 'ol/interaction/Select';
-import {defaults as defaultInteractions} from 'ol/interaction';
+import {
+  DragAndDrop,
+  defaults as defaultInteractions
+} from 'ol/interaction';
 import RotateControl from 'ol/control/Rotate';
 import Projection from 'ol/proj/Projection';
 import TileGrid from 'ol/tilegrid/TileGrid';
 import {register as olproj4} from 'ol/proj/proj4';
-import proj4 from 'proj4'
 import Overlay from 'ol/Overlay';
+import {GPX, GeoJSON, IGC, KML, TopoJSON} from 'ol/format';
+import {Vector as VectorLayer} from 'ol/layer';
+import {Vector as VectorSource} from 'ol/source';
+import proj4 from 'proj4'
 // import the app-wide EventBus
 import { WguEventBus } from '../../WguEventBus.js';
 import { LayerFactory } from '../../factory/Layer.js';
@@ -37,7 +43,16 @@ export default {
       projectionDefs: this.$appConfig.projectionDefs,
       tileGridDefs: this.$appConfig.tileGridDefs || {},
       tileGrids: {},
-      permalink: this.$appConfig.permalink
+      permalink: this.$appConfig.permalink,
+      mapGeodataDragDop: this.$appConfig.mapGeodataDragDop,
+      // mapping format string to OL module / class
+      formatMapping: {
+        GPX: GPX,
+        GeoJSON: GeoJSON,
+        IGC: IGC,
+        KML: KML,
+        TopoJSON: TopoJSON
+      }
     }
   },
   mounted () {
@@ -66,6 +81,13 @@ export default {
       altShiftDragRotate: this.rotateableMap,
       pinchRotate: this.rotateableMap
     });
+
+    // add geodata drag-drop support according to config
+    if (this.mapGeodataDragDop) {
+      const dragAndDropInteraction = this.setupGeodataDragDrop();
+      interactions.push(dragAndDropInteraction);
+    }
+
     let controls = [
       new Zoom(),
       new Attribution({
@@ -259,6 +281,38 @@ export default {
       var attr = feature.get(hoverAttr);
       overlayEl.innerHTML = attr;
       me.overlay.setPosition(event.coordinate);
+    },
+    /**
+     * Initializes the geodata drag-drop functionality:
+     * Adds the ol/interaction/DragAndDrop to the map and draws the dropped
+     * features in a new vector layer
+     */
+    setupGeodataDragDrop () {
+      const mapDdConf = this.mapGeodataDragDop;
+      const formats = mapDdConf.formats.filter(formatStr => {
+        return this.formatMapping[formatStr];
+      }).map(fs => {
+        return this.formatMapping[fs];
+      });
+
+      const dragAndDropInteraction = new DragAndDrop({
+        formatConstructors: formats
+      });
+
+      dragAndDropInteraction.on('addfeatures', event => {
+        const vectorSource = new VectorSource({
+          features: event.features
+        });
+        this.map.addLayer(
+          new VectorLayer({
+            source: vectorSource,
+            displayInLayerList: false
+          })
+        );
+        this.map.getView().fit(vectorSource.getExtent());
+      });
+
+      return dragAndDropInteraction;
     }
   }
 
