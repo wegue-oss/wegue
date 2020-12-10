@@ -5,7 +5,8 @@
   "baseColor": "red darken-3",
 
   "logo": "https://dummyimage.com/100x100/aaa/fff&text=Wegue",
-  "logoSize": "100",
+  "logoWidth": "100",
+  "logoHeight": "100",
 
   "footerTextLeft": "Powered by <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>",
   "footerTextRight": "meggsimum",
