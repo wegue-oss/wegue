@@ -24,7 +24,9 @@ export default {
   props: {
     zoomAnimation: {type: Boolean, required: false, default: true},
     zoomAnimationDuration: {type: Number, required: false, default: 2400},
-    maxZoom: {type: Number, required: false, default: 15}
+    maxZoom: {type: Number, required: false, default: 15},
+    markerColor: {type: String, required: false, default: 'blue'},
+    markerText: {type: String, required: false, default: 'person_pin_circle'}
   },
   data: function () {
     return {
@@ -33,10 +35,10 @@ export default {
       isSearchingForGeolocation: false,
       geolocationMarker: new Style({
         text: new Text({
-          text: 'person_pin_circle',
+          text: this.markerText,
           font: 'normal 30px Material Icons',
           fill: new Fill({
-            color: 'blue'
+            color: this.markerColor
           })
         })
       })
