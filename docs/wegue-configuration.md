@@ -11,7 +11,9 @@ This describes the Wegue application configuration, which is modelled as JSON do
 | title             |  | Title shown in the top toolbar | `"title": "A Wegue WebGIS App"` |
 | baseColor         |  | Main colour of the UI elements | `"baseColor": "red darken-3"` or `"baseColor": "#ff3388"` |
 | logo              |  | URL to an image shown as application logo | ` "logo": "https://dummyimage.com/100x100/aaa/fff&text=Wegue"`
-| logoSize          |  | Size of the application logo defined in `logo` | `"logoSize": "100"` |
+| logoWidth         |  | Width of the application logo defined in `logo` | `"logoWidth": "200"`|
+| logoHeight        |  | Height of the application logo defined in `logo` | `"logoWidth": "100"` |
+| logoSize          |  | Squared size of the application logo defined in `logo`. Only has an effect if `logoWidth` and `logoHeight` are **not** set. Otherwise these will overwrite the `logoSize` setting. | `"logoSize": "100"` |
 | footerTextLeft    |  | Text or HTML string to be displayed in the left side of the toolbar | `"footerTextLeft": "Powered by <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>"` |
 | footerTextRight   |  | Text or HTML string to be displayed in the right side of the toolbar | `"footerTextRight": "meggsimum"` |
 | showCopyrightYear |  | Boolean value, whether the copyright year should be shown on the right side of the toolbar | `"showCopyrightYear": true` or `"showCopyrightYear": false` | 
