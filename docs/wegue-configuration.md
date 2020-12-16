@@ -20,6 +20,7 @@ This describes the Wegue application configuration, which is modelled as JSON do
 | mapZoom           | x | Initial zoom level of the map | `"mapZoom": 2` |
 | mapCenter         | x | Initial center of the map in map projection | `"mapCenter": [0, 0]` |
 | mapProjection     |   | Configuration object for CRS / projection used for the map | see [mapProjection](wegue-configuration?id=mapprojection) |
+| mapGeodataDragDop |   | Configuration object for geodata file drag/drop functionality on the map. Only by setting the config this function will be enabled. | see [mapGeodataDragDop](wegue-configuration?id=mapGeodataDragDop) |
 | modules           | x | Array of module configuration objects | See [modules](module-configuration) |
 | mapLayers         | x | Array of map layer configuration objects | See [mapLayers](map-layer-configuration) |
 | projectionDefs    |   | Array of CRS / projection definition objects compatible to proj4js | See [projectionDefs](wegue-configuration?id=projectiondefs) |
@@ -84,6 +85,32 @@ In a Layer configuration a specific tilegrid can be refered to as follows, using
     }
 ```
 
+## mapGeodataDragDop
+
+Setting the property `mapGeodataDragDop` in the main Wegue configuration will enable geodata file drag/drop functionality on the map.
+
+The following configurations can be set:
+
+| Property          | Mandatory | Meaning | Example |
+|-------------------|-----------|---------|---------|
+| formats           |  | Allowed geodata formats, which can be  dropped to the map. Supported formats are `"GeoJSON"`, `"KML"`, `"GPX"`, `"IGC"` and `"TopoJSON"` | `"formats": ["GeoJSON", "KML"]`
+| zoomToData        |   | Enable automatic zoom to the extent of the uploaded / dropped geodata. Defaults to `false` | `"zoomToData": true` |
+| replaceData       |   | Default behaviour is that a newly dropped data set will replace an existing one. By setting this property to `true` a separate layer will be created for each dropped geodata file | `"replaceData": true` |
+| displayInLayerList |   | List the layer(s) showing dropped data in the LayerList UI. Defaults to `true`  | `"displayInLayerList": false` |
+| layerName |   | Name for the layer(s) showing dropped data. Will be visible in the LayerList UI. Defaults to `"Drag/Drop Data"`  | `"layerName": "My uploaded geodata"` |
+
+Below is an example for such a configuration object:
+
+```
+    {
+      "formats": ["GeoJSON", "KML"],
+      "zoomToData": true,
+      "replaceData": true,
+      "displayInLayerList": true,
+      "layerName": "Uploaded Data"
+    }
+```
+
 ## Example configuration
 
 Example configurations can be found in the `app-starter/static` directory. Below an example as used in the Demo:
@@ -104,6 +131,14 @@ Example configurations can be found in the `app-starter/static` directory. Below
 
   "mapZoom": 2,
   "mapCenter": [0, 0],
+
+  "mapGeodataDragDop": {
+    "formats": ["GeoJSON", "KML"],
+    "zoomToData": true,
+    "replaceData": true,
+    "displayInLayerList": true,
+    "layerName": "Uploaded Data"
+  },
 
   "mapLayers": [
 

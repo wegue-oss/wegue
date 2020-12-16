@@ -14,6 +14,13 @@
 
   "mapZoom": 2,
   "mapCenter": [0, 0],
+  "mapGeodataDragDop": {
+    "formats": ["GeoJSON", "KML"],
+    "zoomToData": true,
+    "replaceData": true,
+    "displayInLayerList": true,
+    "layerName": "Uploaded Data"
+  },
 
   "permalink": {
     "location": "hash",
