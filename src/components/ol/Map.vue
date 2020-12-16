@@ -25,6 +25,7 @@ import proj4 from 'proj4'
 import { WguEventBus } from '../../WguEventBus.js';
 import { LayerFactory } from '../../factory/Layer.js';
 import ColorUtil from '../../util/Color';
+import LayerUtil from '../../util/Layer';
 import PermalinkController from './PermalinkController';
 
 export default {
@@ -52,7 +53,8 @@ export default {
         IGC: IGC,
         KML: KML,
         TopoJSON: TopoJSON
-      }
+      },
+      dragDropLayerCreated: false
     }
   },
   mounted () {
@@ -285,7 +287,7 @@ export default {
     /**
      * Initializes the geodata drag-drop functionality:
      * Adds the ol/interaction/DragAndDrop to the map and draws the dropped
-     * features in a new vector layer
+     * features in a vector layer
      */
     setupGeodataDragDrop () {
       const mapDdConf = this.mapGeodataDragDop;
@@ -300,19 +302,53 @@ export default {
       });
 
       dragAndDropInteraction.on('addfeatures', event => {
-        const vectorSource = new VectorSource({
-          features: event.features
-        });
-        this.map.addLayer(
-          new VectorLayer({
-            source: vectorSource,
-            displayInLayerList: false
-          })
-        );
-        this.map.getView().fit(vectorSource.getExtent());
-      });
+        let ddSource;
+
+        if (mapDdConf.replaceData !== false) {
+          if (!this.dragDropLayerCreated) {
+            this.createDragDropLayer(mapDdConf);
+            this.dragDropLayerCreated = true;
+          }
+
+          // replace existing geodata with the newly dropped data set
+          const ddLayer = LayerUtil.getLayersBy(
+            'wegueDragDropLayer', true, this.map)[0];
+          ddSource = ddLayer.getSource();
+          ddSource.clear();
+        } else {
+          // add new layer for each dropped data set
+          const newDdLayer = this.createDragDropLayer(mapDdConf);
+          ddSource = newDdLayer.getSource();
+        }
+
+        ddSource.addFeatures(event.features);
+
+        if (mapDdConf.zoomToData === true) {
+          this.map.getView().fit(ddSource.getExtent());
+        }
+      }, this);
 
       return dragAndDropInteraction;
+    },
+
+    /**
+     * Creates the vector layer for showing drag/drop geodata on the map.
+     *
+     * @param {Object} mapDdConf the config object for this functionality
+     */
+    createDragDropLayer (mapDdConf) {
+      const vectorSource = new VectorSource({});
+      const vectorLayer = new VectorLayer({
+        // random unique layer ID
+        lid: 'wegue-drag-drop-' + (Math.random() * 1000000).toFixed(0),
+        name: mapDdConf.layerName || 'Drag/Drop Data',
+        wegueDragDropLayer: true,
+        source: vectorSource,
+        displayInLayerList: mapDdConf.displayInLayerList
+      });
+      this.map.addLayer(vectorLayer);
+
+      return vectorLayer;
     }
   }
 
