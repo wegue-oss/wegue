@@ -1,6 +1,6 @@
 # mapLayers
 
-JSON configuration objects for Wegue map layers 
+JSON configuration objects for Wegue map layers
 
 ## General
 
@@ -34,6 +34,18 @@ The following properties can be applied to all map layer types
 | selectable         | x | Boolean value, whether the features of the layer can be selected by click in order to display the attributes in a window | `"selectable": true` |
 | hoverable         | x | Boolean value, whether the features of the layer can be hovered in order to display an attribute (see `hoverAttribute`) in a tooltip  | `"hoverable": true` |
 | style              | x | Object to define a rendering style for the features of the layer  |  |
+
+## WFS
+
+| Property           | Mandatory | Meaning | Example |
+|--------------------|:---------:|---------|---------|
+| type               | x | Indicator that the layer is a vector layer, always `WFS` here  | `"type": "WFS"` |
+| url                | x | The URL to the Web Feature Service (WFS) | `"url": "https://ows.terrestris.de/geoserver/osm/wfs"` |
+| typeName           | x | The name of the feature type | `"typeName": "osm:osm-fuel"`|
+| version            |   | The version of the WFS, defaults to `1.1.0` | `"version": "2.0.0"`|
+| maxFeatures        |   | Limits the amount of features that are returned | `"maxFeatures": 50`|
+| format             |   | The format that should be used, defaults to `GML3` |  `"format": "GML3"`|
+| selectable         |   | Boolean value, whether the features of the layer can be selected by click in order to display the attributes in a window | `"selectable": true` |
 
 ## VECTORTILE
 
