@@ -15,7 +15,7 @@ The following properties can be applied to all map layer types
 | isBaseLayer        |   | Boolean value, whether the layer should be a background layeror not | `"isBaseLayer": false` |
 | visible            |   | Boolean value, whether the layer should be initially visible | `"visible": false` |
 | displayInLayerList |   | Boolean value, whether the layer appear in the LayerList  | `"displayInLayerList": true` |
-| attributions     |   | Text or HTML string to be displayed as source attribution in the map  | `"attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> by Dutch Kadaster",` |
+| attributions       |   | Text or HTML string to be displayed as source attribution in the map  | `"attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> by Dutch Kadaster",` |
 
 
 ## OSM
@@ -29,11 +29,11 @@ The following properties can be applied to all map layer types
 | Property           | Mandatory | Meaning | Example |
 |--------------------|:---------:|---------|---------|
 | type               | x | Indicator that the layer is a vector layer, always `VECTOR` here  | `"type": "VECTOR"` |
-| url                | x  | The URL to the vector data resource (file) | `"url": "./static/data/2012_Earthquakes_Mag5.kml"` |
+| url                | x | The URL to the vector data resource (file) | `"url": "./static/data/2012_Earthquakes_Mag5.kml"` |
 | format             | x | The format of the data linked in `url` (either `KML` or `GeoJSON` ) | `"format": "KML"` |
-| selectable         | x | Boolean value, whether the features of the layer can be selected by click in order to display the attributes in a window | `"selectable": true` |
-| hoverable         | x | Boolean value, whether the features of the layer can be hovered in order to display an attribute (see `hoverAttribute`) in a tooltip  | `"hoverable": true` |
-| style              | x | Object to define a rendering style for the features of the layer  |  |
+| selectable         |   | Boolean value, whether the features of the layer can be selected by click in order to display the attributes in a window | `"selectable": true` |
+| hoverable          |   | Boolean value, whether the features of the layer can be hovered in order to display an attribute (see `hoverAttribute`) in a tooltip  | `"hoverable": true` |
+| style              |   | Object to define a rendering style for the features of the layer  |  |
 
 ## WFS
 
@@ -42,19 +42,21 @@ The following properties can be applied to all map layer types
 | type               | x | Indicator that the layer is a vector layer, always `WFS` here  | `"type": "WFS"` |
 | url                | x | The URL to the Web Feature Service (WFS) | `"url": "https://ows.terrestris.de/geoserver/osm/wfs"` |
 | typeName           | x | The name of the feature type | `"typeName": "osm:osm-fuel"`|
+| style              |   | Object to define a rendering style for the features of the layer  |  |
 | version            |   | The version of the WFS, defaults to `1.1.0` | `"version": "2.0.0"`|
 | maxFeatures        |   | Limits the amount of features that are returned | `"maxFeatures": 50`|
 | format             |   | The format that should be used, defaults to `GML3` |  `"format": "GML3"`|
 | selectable         |   | Boolean value, whether the features of the layer can be selected by click in order to display the attributes in a window | `"selectable": true` |
+
 
 ## VECTORTILE
 
 | Property           | Mandatory | Meaning | Example |
 |--------------------|:---------:|---------|---------|
 | type               | x | Indicator that the layer is a vector layer, always `VECTORTILE` here  | `"type": "VECTORTILE"` |
-| url                | x  | The URL to the vector tile service | `"url": "https://ahocevar.com/geoserver/gwc/service/tms/1.0.0/ne:ne_10m_admin_0_countries@EPSG%3A900913@pbf/{z}/{x}/{-y}.pbf"` |
+| url                | x | The URL to the vector tile service | `"url": "https://ahocevar.com/geoserver/gwc/service/tms/1.0.0/ne:ne_10m_admin_0_countries@EPSG%3A900913@pbf/{z}/{x}/{-y}.pbf"` |
 | format             | x | The format of the data linked in `url` (either `MVT`, `TopoJSON` or `GeoJSON` ) | `"format": "MVT"` |
-| style              | x | Object to define a rendering style for the features of the layer  |  |
+| style              |   | Object to define a rendering style for the features of the layer  |  |
 
 ## WMS
 
