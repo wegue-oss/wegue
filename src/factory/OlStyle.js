@@ -129,6 +129,7 @@ export const OlStyleFactory = {
    * @returns {ol/style/Text} The OL style object for texts
    */
   getTextStyle (labelConf) {
+    // create a clone to avoid unwanted in place modification
     const textConf = { ...labelConf };
 
     textConf.fill = new Fill({color: textConf.fillColor});
@@ -156,7 +157,7 @@ export const OlStyleFactory = {
     const labelAttr = labelStyleConf.attribute;
     return (feature, resolution) => {
       // detect min/max resolution to show labels
-      // if nothing is confured labels are shown regardless of resolution
+      // if nothing is configured labels are shown regardless of resolution
       const minRes = labelStyleConf.minResolution || Number.MAX_SAFE_INTEGER;
       const maxRes = labelStyleConf.maxResolution || 0;
       if (resolution < minRes && resolution > maxRes) {
