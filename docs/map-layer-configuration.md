@@ -80,32 +80,66 @@ The following properties can be applied to all map layer types
 ## Style for Vectorlayers
 
 Mandatory properties:
-- Points require `radius` and/or `iconUrl`.
-- Poygons require `fillColor`.
-- Lines require `strokeColor` or `strokeWidth`.
+- Points require **`radius`** and/or **`iconUrl`**.
+- Poygons require **`fillColor`**.
+- Lines require **`strokeColor`** or **`strokeWidth`**.
 
 | Property           | Meaning | Example |
 |--------------------|:-------:|---------|
-| strokeColor        | | `"strokeColor": "purple"` |
-| strokeWidth        | | `"strokeWidth": 2` |
-| fillColor          | Point and Polygon | `"fillColor": "rgba(155,153,51,0.5)"` |
-| label              | see `label` below |  |
-| radius             | Point only | `"radius": 4` |
-| scale              | Point only | `"scale": 4` |
-| iconUrl            | Point only | `"iconUrl": "./static/icon/circle.svg"` |
-| iconAnchor         | Point only | `"anchor": [0.5, 37]` |
-| iconAnchorXUnits   | Point only | `"anchorXUnits": "fraction"` |
-| iconAnchorYUnits   | Point only | `"anchorYUnits": "pixels"` |
+| strokeColor        | see [color](https://openlayers.org/en/latest/apidoc/module-ol_style_Stroke-Stroke.html) | `"strokeColor": "purple"` |
+| strokeWidth        | see [width](https://openlayers.org/en/latest/apidoc/module-ol_style_Stroke-Stroke.html) | `"strokeWidth": 2` |
+| fillColor          | Point and Polygon, see [color](https://openlayers.org/en/latest/apidoc/module-ol_style_Fill-Fill.html) | `"fillColor": "rgba(155,153,51,0.5)"` |
+| label              | see [label](map-layer-configuration?id=label) |  |
+| radius             | see [radius](https://openlayers.org/en/latest/apidoc/module-ol_style_Circle-CircleStyle.html) | `"radius": 4` |
+| scale              | Point only, see [scale](https://openlayers.org/en/latest/apidoc/module-ol_style_Icon-Icon.html) | `"scale": 4` |
+| iconUrl            | Point only, see [src](https://openlayers.org/en/latest/apidoc/module-ol_style_Icon-Icon.html) | `"iconUrl": "./static/icon/circle.svg"` |
+| iconAnchor         | Point only, see [anchor](https://openlayers.org/en/latest/apidoc/module-ol_style_Icon-Icon.html) | `"anchor": [0.5, 37]` |
+| iconAnchorXUnits   | Point only, see [anchorXUnits](https://openlayers.org/en/latest/apidoc/module-ol_style_Icon-Icon.html) | `"anchorXUnits": "fraction"` |
+| iconAnchorYUnits   | Point only, see [anchorYUnits](https://openlayers.org/en/latest/apidoc/module-ol_style_Icon-Icon.html) | `"anchorYUnits": "pixels"` |
 
-### Label
+#### Label
 
 | Property           |  Meaning | Example |
 |--------------------|:---------:|---------|
-| **attribute**      | | `"attribute": "name"` |
-| minResolution      | | `"minResolution": 4.0` |
-| outlineColor       | | `"outlineColor": "white"` |
-| outlineWidth       | | `"outlineWidth": 2` |
-| fillColor          | | `"fillColor": "black"` |
-| offsetX            | | `"offsetX": 0` |
-| offsetY            | | `"offsetY": 15` |
-| align              | | `"align": "center"` |
+| **attribute**      | the attribute of the layer to display | `"attribute": "name"` |
+| minResolution      | the minimal map resolution to show the label | `"minResolution": 4.0` |
+| maxResolution      | the minimal map resolution to show the label | `"maxResolution": 100.0` |
+| outlineColor       | see [color](https://openlayers.org/en/latest/apidoc/module-ol_style_Stroke-Stroke.html) | `"outlineColor": "white"` |
+| outlineWidth       | see [width](https://openlayers.org/en/latest/apidoc/module-ol_style_Stroke-Stroke.html) | `"outlineWidth": 2` |
+| fillColor          | see [color](https://openlayers.org/en/latest/apidoc/module-ol_style_Fill-Fill.html) | `"fillColor": "black"` |
+| offsetX            | see [offsetX](https://openlayers.org/en/latest/apidoc/module-ol_style_Text-Text.html) | `"offsetX": 0` |
+| offsetY            | see [offsetY](https://openlayers.org/en/latest/apidoc/module-ol_style_Text-Text.html) | `"offsetY": 15` |
+| align              | see [textAlign](https://openlayers.org/en/latest/apidoc/module-ol_style_Text-Text.html)| `"align": "center"` |
+
+#### Example
+
+```json
+{
+  "type": "VECTOR",
+  "lid": "Shops",
+  "name": "Shops DaSchau",
+  "url": "./static/data/shops-dannstadt.geojson",
+  "formatConfig": {
+  },
+  "format": "GeoJSON",
+  "visible": true,
+  "selectable": true,
+  "style": {
+    "radius": 4,
+    "strokeColor": "purple",
+    "strokeWidth": 2,
+    "fillColor": "rgba(155,153,51,0.5)",
+    "label": {
+      "attribute": "name",
+      "minResolution": 4.0,
+      "outlineColor": "white",
+      "outlineWidth": 2,
+      "fillColor": "black",
+      "offsetX": 0,
+      "offsetY": 15,
+      "align": "center"
+    }
+  }
+}
+
+```
