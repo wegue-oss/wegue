@@ -47,7 +47,17 @@
         "radius": 4,
         "strokeColor": "purple",
         "strokeWidth": 2,
-        "fillColor": "rgba(155,153,51,0.5)"
+        "fillColor": "rgba(155,153,51,0.5)",
+        "label": {
+          "attribute": "name",
+          "minResolution": 4.0,
+          "outlineColor": "white",
+          "outlineWidth": 2,
+          "fillColor": "black",
+          "offsetX": 0,
+          "offsetY": 15,
+          "align": "center"
+        }
       }
     },
     {
