@@ -6,25 +6,25 @@ This describes the Wegue application configuration, which is modelled as JSON do
 
 ### General
 
-| Property          | Mandatory | Meaning | Example |
-|-------------------|:---------:|---------|---------|
-| title             |  | Title shown in the top toolbar | `"title": "A Wegue WebGIS App"` |
-| baseColor         |  | Main colour of the UI elements | `"baseColor": "red darken-3"` or `"baseColor": "#ff3388"` |
-| logo              |  | URL to an image shown as application logo | ` "logo": "https://dummyimage.com/100x100/aaa/fff&text=Wegue"`
-| logoWidth         |  | Width of the application logo defined in `logo` | `"logoWidth": "200"`|
-| logoHeight        |  | Height of the application logo defined in `logo` | `"logoWidth": "100"` |
-| logoSize          |  | Squared size of the application logo defined in `logo`. Only has an effect if `logoWidth` and `logoHeight` are **not** set. Otherwise these will overwrite the `logoSize` setting. | `"logoSize": "100"` |
-| footerTextLeft    |  | Text or HTML string to be displayed in the left side of the toolbar | `"footerTextLeft": "Powered by <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>"` |
-| footerTextRight   |  | Text or HTML string to be displayed in the right side of the toolbar | `"footerTextRight": "meggsimum"` |
-| showCopyrightYear |  | Boolean value, whether the copyright year should be shown on the right side of the toolbar | `"showCopyrightYear": true` or `"showCopyrightYear": false` | 
-| mapZoom           | x | Initial zoom level of the map | `"mapZoom": 2` |
-| mapCenter         | x | Initial center of the map in map projection | `"mapCenter": [0, 0]` |
-| mapProjection     |   | Configuration object for CRS / projection used for the map | see [mapProjection](wegue-configuration?id=mapprojection) |
-| mapGeodataDragDop |   | Configuration object for geodata file drag/drop functionality on the map. Only by setting the config this function will be enabled. | see [mapGeodataDragDop](wegue-configuration?id=mapGeodataDragDop) |
-| modules           | x | Array of module configuration objects | See [modules](module-configuration) |
-| mapLayers         | x | Array of map layer configuration objects | See [mapLayers](map-layer-configuration) |
-| projectionDefs    |   | Array of CRS / projection definition objects compatible to proj4js | See [projectionDefs](wegue-configuration?id=projectiondefs) |
-| tileGridDefs      |   | Array of tile grid definition objects | See [tileGridDefs](wegue-configuration?id=tilegriddefs) |
+| Property           | Meaning   | Example |
+|--------------------|:---------:|---------|
+| title              | Title shown in the top toolbar | `"title": "A Wegue WebGIS App"` |
+| baseColor          | Main colour of the UI elements | `"baseColor": "red darken-3"` or `"baseColor": "#ff3388"` |
+| logo               | URL to an image shown as application logo | ` "logo": "https://dummyimage.com/100x100/aaa/fff&text=Wegue"`
+| logoWidth          | Width of the application logo defined in `logo` | `"logoWidth": "200"`|
+| logoHeight         | Height of the application logo defined in `logo` | `"logoWidth": "100"` |
+| logoSize           | Squared size of the application logo defined in `logo`. Only has an effect if `logoWidth` and `logoHeight` are **not** set. Otherwise these will overwrite the `logoSize` setting. | `"logoSize": "100"` |
+| footerTextLeft     | Text or HTML string to be displayed in the left side of the toolbar | `"footerTextLeft": "Powered by <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>"` |
+| footerTextRight    | Text or HTML string to be displayed in the right side of the toolbar | `"footerTextRight": "meggsimum"` |
+| showCopyrightYear  | Boolean value, whether the copyright year should be shown on the right side of the toolbar | `"showCopyrightYear": true` or `"showCopyrightYear": false` |
+| **mapZoom**        | Initial zoom level of the map | `"mapZoom": 2` |
+| **mapCenter**      | Initial center of the map in map projection | `"mapCenter": [0, 0]` |
+| mapProjection      | Configuration object for CRS / projection used for the map | see [mapProjection](wegue-configuration?id=mapprojection) |
+| mapGeodataDragDop  | Configuration object for geodata file drag/drop functionality on the map. Only by setting the config this function will be enabled. | see [mapGeodataDragDop](wegue-configuration?id=mapGeodataDragDop) |
+| **modules**        | Array of module configuration objects | See [modules](module-configuration) |
+| **mapLayers**      | Array of map layer configuration objects | See [mapLayers](map-layer-configuration) |
+| projectionDefs     | Array of CRS / projection definition objects compatible to proj4js | See [projectionDefs](wegue-configuration?id=projectiondefs) |
+| tileGridDefs       | Array of tile grid definition objects | See [tileGridDefs](wegue-configuration?id=tilegriddefs) |
 
 ### projectionDefs
 
@@ -42,11 +42,11 @@ Projection definitions can be found at [epsg.io](http://epsg.io). The definition
 
 The property `mapProjection` defines the CRS, which is used by the map in your Wegue application. The `mapProjection` object has the following properties:
 
-| Property          | Mandatory | Meaning | Example |
-|-------------------|-----------|---------|---------|
-| code              | x | The code of the SRS to be used for the map. In case it is not `EPSG:4326` or `EPSG:3857` it has to be defined in the [projectionDefs](wegue-configuration?id=projectiondefs) | `"code": "EPSG:28992"` |
-| units             | x | The unit of the SRS | `"units": "m"` |
-| extent            | x | The validity extent for the SRS | `"extent": [-285401.920, 22598.080, 595401.920, 903401.920]` |
+| Property           | Meaning   | Example |
+|--------------------|:---------:|---------|
+| **code**           | The code of the SRS to be used for the map. In case it is not `EPSG:4326` or `EPSG:3857` it has to be defined in the [projectionDefs](wegue-configuration?id=projectiondefs) | `"code": "EPSG:28992"` |
+| **units**          | The unit of the SRS | `"units": "m"` |
+| **extent**         | The validity extent for the SRS | `"extent": [-285401.920, 22598.080, 595401.920, 903401.920]` |
 
 ### tileGridDefs
 
@@ -64,12 +64,12 @@ Below is an example for the Dutch Standard Tilegrid:
  ```
  One or more tilegrids can be defined. The tilegrid's name is arbitrary, above `dutch_rd`, and can be used as a key when refered in in a Layer configuration.
  Each tilegrid definition has the following properties:
- 
-| Property          | Mandatory | Meaning | Example |
-|-------------------|-----------|---------|---------|
-| extent            | x | The extent of the tilegrid as a bounding box using the SRS of the Map| `"extent": [-285401.920, 22598.080, 595401.920, 903401.920]` |
-| resolutions       | x | The resolutions for the tilegrid (related to zoomlevels) as an array | `"resolutions": [3440.640, 1720.320, 860.160, 430.080, 215.040, 107.520]` |
-| tileSize          | x | The tilesize in width/height pixels | `"tileSize": [512, 512]` |
+
+| Property           | Meaning   | Example |
+|--------------------|:---------:|---------|
+| **extent**         | The extent of the tilegrid as a bounding box using the SRS of the Map| `"extent": [-285401.920, 22598.080, 595401.920, 903401.920]` |
+| **resolutions**    | The resolutions for the tilegrid (related to zoomlevels) as an array | `"resolutions": [3440.640, 1720.320, 860.160, 430.080, 215.040, 107.520]` |
+| **tileSize**       | The tilesize in width/height pixels | `"tileSize": [512, 512]` |
 
 In a Layer configuration a specific tilegrid can be refered to as follows, using the `tileGridRef` property:
 
@@ -91,14 +91,13 @@ Setting the property `mapGeodataDragDop` in the main Wegue configuration will en
 
 The following configurations can be set:
 
-| Property          | Mandatory | Meaning | Example |
-|-------------------|-----------|---------|---------|
-| formats           |  | Allowed geodata formats, which can be  dropped to the map. Supported formats are `"GeoJSON"`, `"KML"`, `"GPX"`, `"IGC"` and `"TopoJSON"` | `"formats": ["GeoJSON", "KML"]`
-| zoomToData        |   | Enable automatic zoom to the extent of the uploaded / dropped geodata. Defaults to `false` | `"zoomToData": true` |
-| replaceData       |   | Default behaviour is that a newly dropped data set will replace an existing one. By setting this property to `true` a separate layer will be created for each dropped geodata file | `"replaceData": true` |
-| displayInLayerList |   | List the layer(s) showing dropped data in the LayerList UI. Defaults to `true`  | `"displayInLayerList": false` |
-| layerName |   | Name for the layer(s) showing dropped data. Will be visible in the LayerList UI. Defaults to `"Drag/Drop Data"`  | `"layerName": "My uploaded geodata"` |
-
+| Property           | Meaning   | Example |
+|--------------------|:---------:|---------|
+| formats            | Allowed geodata formats, which can be  dropped to the map. Supported formats are `"GeoJSON"`, `"KML"`, `"GPX"`, `"IGC"` and `"TopoJSON"` | `"formats": ["GeoJSON", "KML"]`
+| zoomToData         | Enable automatic zoom to the extent of the uploaded / dropped geodata. Defaults to `false` | `"zoomToData": true` |
+| replaceData        | Default behaviour is that a newly dropped data set will replace an existing one. By setting this property to `true` a separate layer will be created for each dropped geodata file | `"replaceData": true` |
+| displayInLayerList | List the layer(s) showing dropped data in the LayerList UI. Defaults to `true`  | `"displayInLayerList": false` |
+| layerName          | Name for the layer(s) showing dropped data. Will be visible in the LayerList UI. Defaults to `"Drag/Drop Data"`  | `"layerName": "My uploaded geodata"` |
 Below is an example for such a configuration object:
 
 ```
