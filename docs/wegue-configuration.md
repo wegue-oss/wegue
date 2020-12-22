@@ -1,6 +1,6 @@
 # Wegue configuration
 
-This describes the Wegue application configuration, which is modelled as JSON document.
+This describes the Wegue application configuration, which is modelled as JSON document. The **bold properties** are mandatory.
 
 ## Properties
 
