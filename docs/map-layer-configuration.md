@@ -38,7 +38,7 @@ The following properties can be applied to all map layer types
 
 | Property           |  Meaning  | Example |
 |--------------------|:---------:|---------|
-| **type**           | Indicator that the layer is a vector layer, always `WFS` here  | `"type": "WFS"` |
+| **type**           | Indicator that the layer is a WFS-based vector layer, always `WFS` here  | `"type": "WFS"` |
 | **url**            | The URL to the Web Feature Service (WFS) | `"url": "https://ows.terrestris.de/geoserver/osm/wfs"` |
 | **typeName**       | The name of the feature type | `"typeName": "osm:osm-fuel"`|
 | style              | Object to define a rendering style for the features of the layer  |  |
