@@ -40,11 +40,11 @@ The following properties can be applied to all map layer types
 |--------------------|:---------:|---------|
 | **type**           | Indicator that the layer is a WFS-based vector layer, always `WFS` here  | `"type": "WFS"` |
 | **url**            | The URL to the Web Feature Service (WFS) | `"url": "https://ows.terrestris.de/geoserver/osm/wfs"` |
-| **typeName**       | The name of the feature type | `"typeName": "osm:osm-fuel"`|
+| **typeName**       | The name of the FeatureType | `"typeName": "osm:osm-fuel"`|
 | style              | Object to define a rendering style for the features of the layer  |  |
 | version            | The version of the WFS, defaults to `1.1.0` | `"version": "2.0.0"`|
-| maxFeatures        | Limits the amount of features that are returned | `"maxFeatures": 50`|
-| format             | The format that should be used, defaults to `GML3` |  `"format": "GML3"`|
+| maxFeatures        | Limits the amount of features that are queried and displayed | `"maxFeatures": 50`|
+| format             | The format that should be used. Possible values are `GeoJSON`, `GML2`, `GML3` and `GML32`. Defaults to `GML3` |  `"format": "GeoJSON"`|
 | selectable         | Boolean value, whether the features of the layer can be selected by click in order to display the attributes in a window | `"selectable": true` |
 
 
@@ -81,7 +81,7 @@ The following properties can be applied to all map layer types
 
 Mandatory properties:
 - Points require **`radius`** and/or **`iconUrl`**.
-- Poygons require **`fillColor`**.
+- Polygons require **`fillColor`**.
 - Lines require **`strokeColor`** or **`strokeWidth`**.
 
 | Property           | Meaning | Example |
@@ -103,7 +103,7 @@ Mandatory properties:
 |--------------------|:---------:|---------|
 | **attribute**      | the attribute of the layer to display | `"attribute": "name"` |
 | minResolution      | the minimal map resolution to show the label | `"minResolution": 4.0` |
-| maxResolution      | the minimal map resolution to show the label | `"maxResolution": 100.0` |
+| maxResolution      | the maximal map resolution to show the label | `"maxResolution": 100.0` |
 | outlineColor       | see [color](https://openlayers.org/en/latest/apidoc/module-ol_style_Stroke-Stroke.html) | `"outlineColor": "white"` |
 | outlineWidth       | see [width](https://openlayers.org/en/latest/apidoc/module-ol_style_Stroke-Stroke.html) | `"outlineWidth": 2` |
 | fillColor          | see [color](https://openlayers.org/en/latest/apidoc/module-ol_style_Fill-Fill.html) | `"fillColor": "black"` |
