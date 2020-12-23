@@ -27,4 +27,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+
+  /* vuetify breakpoint xs */
+  @media only screen and (max-width: 600px) {
+    .v-footer {
+      font-size: 14px;
+    }
+  }
+  /* avoid special color for links in footer */
+  .v-application a {
+    color: inherit;
+  }
+
 </style>
