@@ -1,13 +1,19 @@
+const fs = require('fs');
 const copydir = require('copy-dir');
 
-// keep add time and modify time
-// keep file mode
-// cover file when exists, default is true
 copydir('app-starter', 'app', {
-  utimes: true,
-  mode: true,
-  cover: false
+  utimes: true, // keep add time and modify time
+  mode: true, // keep file mode
+  cover: false // cover file when exists
 }, function (err) {
-  if (err) throw err;
-  console.log('done');
+  if (err) {
+    throw err;
+  } else {
+    // make sure the "app" directory contains the correct README file
+    fs.rename('app/app_folder_readme.md', 'app/README.md', function (err) {
+      if (err) console.log('ERROR: ' + err);
+      console.log('done');
+    });
+  }
 });
+
