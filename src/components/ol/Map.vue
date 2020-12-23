@@ -365,7 +365,6 @@ export default {
   }
 
   div.ol-attribution.ol-uncollapsible {
-    bottom: 12px;
     font-size: 10px;
   }
 
