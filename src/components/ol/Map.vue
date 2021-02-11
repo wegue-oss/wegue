@@ -16,6 +16,7 @@ import RotateControl from 'ol/control/Rotate';
 import Projection from 'ol/proj/Projection';
 import TileGrid from 'ol/tilegrid/TileGrid';
 import {register as olproj4} from 'ol/proj/proj4';
+import {get as getProj} from 'ol/proj';
 import Overlay from 'ol/Overlay';
 import {GPX, GeoJSON, IGC, KML, TopoJSON} from 'ol/format';
 import {Vector as VectorLayer} from 'ol/layer';
@@ -109,12 +110,13 @@ export default {
       olproj4(proj4);
     }
 
-    // Projection for Map, default is Web Mercator
+    // Projection for map, default is Web Mercator
+    let projection;
     if (!this.projection) {
-      this.projection = {code: 'EPSG:3857', units: 'm'}
+      projection = getProj('EPSG:3857');
+    } else {
+      projection = new Projection(this.projection);
     }
-
-    const projection = new Projection(this.projection);
 
     // Optional TileGrid definitions by name, for ref in Layers
     Object.keys(this.tileGridDefs).map(name => {
