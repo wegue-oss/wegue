@@ -5,7 +5,7 @@
 ![](_media/cover.gif)
 
 [GitHub](https://github.com/meggsimum/wegue)
-[Demo](https://meggsimum.github.io/wegue/)
+[Demo](https://apps.meggsimum.de/wegue-demos/global/)
 [Quickstart](?id=quickstart)
 
 ![color](#DADADA)
