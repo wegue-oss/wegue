@@ -64,7 +64,7 @@
       "type": "WFS",
       "lid": "gas-wfs",
       "name": "Gas Stations WFS",
-      "url": "https://ows.terrestris.de/geoserver/osm/wfs",
+      "url": "https://ows-demo.terrestris.de/geoserver/osm/wfs",
       "typeName": "osm:osm-fuel",
       "version": "2.0.0",
       "maxFeatures": 50,
