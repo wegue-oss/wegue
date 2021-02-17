@@ -202,7 +202,12 @@
     },
     "wgu-helpwin": {
       "target": "toolbar",
-      "darkLayout": true
+      "darkLayout": true, 
+      "windowTitle": "About",
+      "textTitle": "About Wegue",
+      "htmlContent": "<b>WebGIS with OpenLayers and Vue.js</b> Template and re-usable components for webmapping applications with OpenLayers and Vue.js",
+      "infoLinkText": "More Info",
+      "infoLinkUrl": "http://wegue.org/"
     },
     "wgu-geolocator": {
       "target": "toolbar",

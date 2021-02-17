@@ -42,6 +42,14 @@ Module identifier: `wgu-geocoder`
 
 Module identifier: `wgu-helpwin`
 
+| Property           | Meaning   | Example |
+|--------------------|:---------:|---------|
+| windowTitle        |  The title of the window itself         |   "About"      |
+| textTitle          |  The title over the text of the window         |   "About Wegue"      |
+| htmlContent        |   The text content of the window. HTML can be used.        |   "<b>WebGIS with OpenLayers and Vue.js</b> Template and re-usable components for webmapping applications with OpenLayers and Vue.js"      |
+| infoLinkText       |  The name of the link        |   "More Info"       |
+| infoLinkUrl        |  The URL of the link         |   "http://wegue.org/"       |
+
 No additional config options besides the general ones.
 
 ## InfoClick
