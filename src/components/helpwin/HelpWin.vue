@@ -3,7 +3,7 @@
   <v-card class="wgu-helpwin">
     <v-toolbar :color="color" dark>
       <v-icon>{{ icon }}</v-icon>
-      <v-toolbar-title v-if="title">{{ title }}</v-toolbar-title>
+      <v-toolbar-title v-if="windowTitle">{{ windowTitle }}</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-icon @click="onWinXClose">close</v-icon>
     </v-toolbar>
@@ -37,20 +37,12 @@
     data () {
       return {
         show: false,
-        title: '',
-        textTitle: '',
-        htmlContent: '',
-        infoLinkUrl: '',
-        infoLinkText: ''
+        windowTitle: this.$appConfig.modules['wgu-helpwin'].windowTitle,
+        textTitle: this.$appConfig.modules['wgu-helpwin'].textTitle,
+        htmlContent: this.$appConfig.modules['wgu-helpwin'].htmlContent,
+        infoLinkUrl: this.$appConfig.modules['wgu-helpwin'].infoLinkUrl,
+        infoLinkText: this.$appConfig.modules['wgu-helpwin'].infoLinkText
       }
-    },
-    mounted () {
-      let config = this.$appConfig.modules['wgu-helpwin'] || {};
-      this.title = config.windowTitle || '';
-      this.textTitle = config.textTitle || '';
-      this.htmlContent = config.htmlContent || '';
-      this.infoLinkUrl = config.infoLinkUrl || '';
-      this.infoLinkText = config.infoLinkText || ''
     },
     methods: {
       onWinXClose: function () {
