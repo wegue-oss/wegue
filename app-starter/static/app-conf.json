@@ -31,6 +31,13 @@
     "history": true
   },
 
+  "defaulSelectStyle": {
+    "radius": 6,
+    "strokeColor": "white",
+    "strokeWidth": 2,
+    "fillColor": "#00A4FF"
+  },
+
   "mapLayers": [
 
     {
@@ -103,6 +110,12 @@
         "anchor": [0.5, 37],
         "anchorXUnits": "fraction",
         "anchorYUnits": "pixels"
+      },
+      "selectStyle": {
+        "radius": 10,
+        "strokeColor": "gray",
+        "strokeWidth": 5,
+        "fillColor": "rgb(255, 255, 0, 0.2)"
       }
     },
     {

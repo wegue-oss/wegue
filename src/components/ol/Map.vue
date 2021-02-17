@@ -27,6 +27,7 @@ import { LayerFactory } from '../../factory/Layer.js';
 import ColorUtil from '../../util/Color';
 import LayerUtil from '../../util/Layer';
 import PermalinkController from './PermalinkController';
+import { OlStyleFactory } from '../../factory/OlStyle.js';
 
 export default {
   name: 'wgu-map',
@@ -163,9 +164,30 @@ export default {
 
         // if layer is selectable register a select interaction
         if (lConf.selectable) {
-          const selectClick = new SelectInteraction({
-            layers: [layer]
-          });
+          // check if a style is provided in the appConfig
+          let selectStyle;
+          if (lConf.selectStyle) {
+            // layer specific select style
+            selectStyle = OlStyleFactory.getInstance(lConf.selectStyle);
+          } else if (appConfig.defaulSelectStyle) {
+            // default select style for all layers
+            selectStyle = OlStyleFactory.getInstance(appConfig.defaulSelectStyle)
+          }
+
+          let selectClick;
+          if (selectStyle) {
+            selectClick = new SelectInteraction({
+              layers: [layer],
+              style: selectStyle
+            });
+          } else {
+            // we provide no style, hence the default style
+            // of the selectInteraction is taken
+            selectClick = new SelectInteraction({
+              layers: [layer]
+            });
+          }
+
           // forward an event if feature selection changes
           selectClick.on('select', function (evt) {
             // TODO use identifier for layer (once its implemented)
