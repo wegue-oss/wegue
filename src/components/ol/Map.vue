@@ -174,19 +174,10 @@ export default {
             selectStyle = OlStyleFactory.getInstance(appConfig.defaulSelectStyle)
           }
 
-          let selectClick;
-          if (selectStyle) {
-            selectClick = new SelectInteraction({
-              layers: [layer],
-              style: selectStyle
-            });
-          } else {
-            // we provide no style, hence the default style
-            // of the selectInteraction is taken
-            selectClick = new SelectInteraction({
-              layers: [layer]
-            });
-          }
+          const selectClick = new SelectInteraction({
+            layers: [layer],
+            style: selectStyle
+          });
 
           // forward an event if feature selection changes
           selectClick.on('select', function (evt) {
