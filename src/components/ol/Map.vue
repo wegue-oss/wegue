@@ -171,7 +171,7 @@ export default {
             selectStyle = OlStyleFactory.getInstance(lConf.selectStyle);
           } else if (appConfig.defaulSelectStyle) {
             // default select style for all layers
-            selectStyle = OlStyleFactory.getInstance(appConfig.defaulSelectStyle)
+            selectStyle = OlStyleFactory.getInstance(appConfig.defaultSelectStyle)
           }
 
           const selectClick = new SelectInteraction({
