@@ -65,6 +65,11 @@
         "strokeWidth": 2,
         "fillColor": "rgba(155,153,51,0.5)"
       },
+      "selectStyle": {
+        "strokeColor": "black",
+        "strokeWidth": 4,
+        "fillColor": "rgb(255, 153, 51, 0.5)"
+      },
       "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> by Dutch Kadaster"
     },
     {
