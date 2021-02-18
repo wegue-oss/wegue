@@ -31,7 +31,7 @@
     "history": true
   },
 
-  "defaulSelectStyle": {
+  "defaultSelectStyle": {
     "radius": 6,
     "strokeColor": "white",
     "strokeWidth": 2,
