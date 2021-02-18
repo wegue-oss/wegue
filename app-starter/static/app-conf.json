@@ -31,13 +31,6 @@
     "history": true
   },
 
-  "defaultSelectStyle": {
-    "radius": 6,
-    "strokeColor": "white",
-    "strokeWidth": 2,
-    "fillColor": "#00A4FF"
-  },
-
   "mapLayers": [
 
     {

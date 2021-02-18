@@ -25,7 +25,6 @@ This describes the Wegue application configuration, which is modelled as JSON do
 | **mapLayers**      | Array of map layer configuration objects | See [mapLayers](map-layer-configuration) |
 | projectionDefs     | Array of CRS / projection definition objects compatible to proj4js | See [projectionDefs](wegue-configuration?id=projectiondefs) |
 | tileGridDefs       | Array of tile grid definition objects | See [tileGridDefs](wegue-configuration?id=tilegriddefs) |
-| defaultSelectStyle  | The default style for a selected feature | see [style](map-layer-configuration?id=style-for-vectorlayers) |
 
 ### projectionDefs
 
