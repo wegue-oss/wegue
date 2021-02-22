@@ -2,6 +2,14 @@
 
 A list of existing Wegue projects.
 
+## [Businesses in Mutterstadt](https://gewerbekarte.meggsimum.de/mutterstadt/)
+
+[Source Code](https://github.com/meggsimum/gewerbekarte-mutterstadt)
+
+A map displaying businesses in the municipality Mutterstadt in Rhineland-Palatinate. The styling is done by category using OpenLayer's style function. By hovering over a point, a label with its name will be displayed. A click on a point opens an info window.
+
+![screenshot business map](_media/screenshot_gewerbekarte.jpg)
+
 ---
 
 ## [Time-Travel through Rhineland-Palatinate](https://apps.meggsimum.de/wegue-demos/rlp-historische-tk/?year=1960)
