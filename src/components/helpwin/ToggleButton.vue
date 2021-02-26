@@ -1,11 +1,11 @@
-
 <template>
 
- <v-dialog v-model="show" max-width="300" :hide-overlay="false">
-   <template v-slot:activator="{ on }">
-    <v-btn icon dark="dark" v-on="on" >
-      <v-icon medium>{{icon}}</v-icon></v-btn>
-      {{text}}
+  <v-dialog v-model="show" max-width="300" :hide-overlay="false">
+    <template v-slot:activator="{ on }">
+      <v-btn icon dark="dark" v-on="on" >
+        <v-icon medium>{{icon}}</v-icon>
+        {{text}}
+      </v-btn>
     </template>
 
     <wgu-helpwin

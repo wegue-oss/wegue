@@ -18,6 +18,21 @@ export default class OlMeasureController {
   constructor (olMap, measureConf) {
     this.map = olMap;
     this.measureConf = measureConf || {};
+    this.measureLayer = undefined;
+  }
+
+  /**
+   * Tears down this controller.
+   */
+  destroy () {
+    console.info('====> OlMeasureController.destroy')
+    if (!this.measureLayer || !this.map) {
+      return;
+    }
+    this.removeInteraction();
+    console.info('====> OlMeasureController.removeLayer')
+    this.map.removeLayer(this.measureLayer);
+    this.measureLayer = undefined;
   }
 
   /**
@@ -25,11 +40,12 @@ export default class OlMeasureController {
    * map.
    */
   createMeasureLayer () {
+    console.info('====> OlMeasureController.createMeasureLayer')
     const me = this;
     const measureConf = me.measureConf;
     // create a vector layer to
     var source = new VectorSource();
-    var vector = new VectorLayer({
+    this.measureLayer = new VectorLayer({
       name: 'Measure Layer',
       displayInLayerList: false,
       source: source,
@@ -44,7 +60,7 @@ export default class OlMeasureController {
       })
     });
 
-    me.map.addLayer(vector);
+    me.map.addLayer(this.measureLayer);
 
     // make vector source available as member
     me.source = source;

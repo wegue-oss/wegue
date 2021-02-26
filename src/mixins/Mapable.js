@@ -16,6 +16,7 @@ export const Mapable = {
 
         if (this.onMapBound) {
           this.onMapBound();
+          this.unbound = false;
         }
       });
     } else {
@@ -23,7 +24,15 @@ export const Mapable = {
       this.map = this.$map;
       if (this.onMapBound) {
         this.onMapBound();
+        this.unbound = false;
       }
     }
+    WguEventBus.$on('ol-map-unmounted', () => {
+      // Make the OL map unaccessible in this component
+      if (this.onMapUnbound) {
+        this.onMapUnbound();
+        this.unbound = true;
+      }
+    });
   }
 };

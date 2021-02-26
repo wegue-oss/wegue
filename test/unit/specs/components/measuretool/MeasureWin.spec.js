@@ -2,6 +2,9 @@ import { shallowMount } from '@vue/test-utils';
 import MeasureWin from '@/components/measuretool/MeasureWin';
 import OlMap from 'ol/Map';
 import LineStringGeom from 'ol/geom/LineString';
+import Vue from 'vue';
+
+const appConfig = {modules: { 'wgu-measuretool': {} }};
 
 describe('measuretool/MeasureWin.vue', () => {
   it('is defined', () => {
@@ -11,6 +14,7 @@ describe('measuretool/MeasureWin.vue', () => {
   describe('props', () => {
     let comp;
     beforeEach(() => {
+      Vue.prototype.$appConfig = appConfig;
       comp = shallowMount(MeasureWin);
     });
 
@@ -21,11 +25,17 @@ describe('measuretool/MeasureWin.vue', () => {
       expect(comp.vm.draggable).to.equal(true);
       expect(comp.vm.initPos).to.equal(undefined);
     });
+
+    afterEach(() => {
+      comp.destroy();
+      Vue.prototype.$appConfig = undefined;
+    });
   });
 
   describe('data', () => {
     let comp;
     beforeEach(() => {
+      Vue.prototype.$appConfig = appConfig;
       comp = shallowMount(MeasureWin);
     });
 
@@ -37,14 +47,20 @@ describe('measuretool/MeasureWin.vue', () => {
       expect(comp.vm.left).to.equal('0');
       expect(comp.vm.top).to.equal('0');
     });
+    afterEach(() => {
+      comp.destroy();
+      Vue.prototype.$appConfig = undefined;
+    });
   });
 
   describe('watchers', () => {
     let comp;
     let vm;
     beforeEach(() => {
+      Vue.prototype.$appConfig = appConfig;
       comp = shallowMount(MeasureWin);
       vm = comp.vm;
+      vm.$appConfig = appConfig;
     });
 
     it('watches show setting to false', done => {
@@ -52,10 +68,8 @@ describe('measuretool/MeasureWin.vue', () => {
       let mockFn = () => {
         cnt++;
       };
-      vm.$appConfig = {modules: {}};
 
-      const map = new OlMap({});
-      vm.map = map;
+      vm.map = new OlMap({});
       vm.onMapBound();
       vm.olMapCtrl.removeInteraction = mockFn;
       // toggle to trigger the watcher
@@ -76,10 +90,8 @@ describe('measuretool/MeasureWin.vue', () => {
       let mockFn = () => {
         cnt++;
       };
-      vm.$appConfig = {modules: {}};
 
-      const map = new OlMap({});
-      vm.map = map;
+      vm.map = new OlMap({});
       vm.onMapBound();
       vm.olMapCtrl.addInteraction = mockFn;
       vm.show = true;
@@ -96,12 +108,18 @@ describe('measuretool/MeasureWin.vue', () => {
         done();
       })
     });
+    afterEach(() => {
+      vm.olMapCtrl.destroy();
+      comp.destroy();
+      Vue.prototype.$appConfig = undefined;
+    });
   });
 
   describe('methods', () => {
     let comp;
     let vm;
     beforeEach(() => {
+      Vue.prototype.$appConfig = appConfig;
       comp = shallowMount(MeasureWin);
       vm = comp.vm;
     });
@@ -120,6 +138,10 @@ describe('measuretool/MeasureWin.vue', () => {
       const lineGeom = new LineStringGeom([[0, 0], [1000, 0], [1000, 1000], [0, 1000]]);
       vm.onMeasureVertexSet(lineGeom);
       expect(vm.measureGeom.geom).to.equal(lineGeom);
+    });
+    afterEach(() => {
+      comp.destroy();
+      Vue.prototype.$appConfig = undefined;
     });
   });
 });

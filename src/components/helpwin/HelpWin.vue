@@ -35,13 +35,14 @@
       icon: {type: String, required: false, default: 'help'}
     },
     data () {
+      let config = this.$appConfig.modules['wgu-helpwin'] || {};
       return {
         show: false,
-        windowTitle: this.$appConfig.modules['wgu-helpwin'].windowTitle,
-        textTitle: this.$appConfig.modules['wgu-helpwin'].textTitle,
-        htmlContent: this.$appConfig.modules['wgu-helpwin'].htmlContent,
-        infoLinkUrl: this.$appConfig.modules['wgu-helpwin'].infoLinkUrl,
-        infoLinkText: this.$appConfig.modules['wgu-helpwin'].infoLinkText
+        windowTitle: config.windowTitle || 'About',
+        textTitle: config.textTitle || 'About Wegue',
+        htmlContent: config.htmlContent || '<h3>WebGIS with OpenLayers and Vue.js</h3>',
+        infoLinkUrl: config.infoLinkUrl || 'https://github.com/meggsimum/wegue',
+        infoLinkText: config.infoLinkText || 'More info'
       }
     },
     methods: {
