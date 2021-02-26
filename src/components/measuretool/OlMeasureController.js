@@ -25,12 +25,10 @@ export default class OlMeasureController {
    * Tears down this controller.
    */
   destroy () {
-    console.info('====> OlMeasureController.destroy')
     if (!this.measureLayer || !this.map) {
       return;
     }
     this.removeInteraction();
-    console.info('====> OlMeasureController.removeLayer')
     this.map.removeLayer(this.measureLayer);
     this.measureLayer = undefined;
   }
@@ -40,7 +38,6 @@ export default class OlMeasureController {
    * map.
    */
   createMeasureLayer () {
-    console.info('====> OlMeasureController.createMeasureLayer')
     const me = this;
     const measureConf = me.measureConf;
     // create a vector layer to
@@ -132,12 +129,12 @@ export default class OlMeasureController {
    * Removes the current interaction and clears the values.
    */
   removeInteraction () {
-    var me = this;
-    if (me.draw) {
-      me.map.removeInteraction(me.draw);
+    if (this.draw) {
+      this.map.removeInteraction(this.draw);
+      this.draw = undefined;
     }
-    if (me.source) {
-      me.source.clear();
+    if (this.source) {
+      this.source.clear();
     }
   }
 }
