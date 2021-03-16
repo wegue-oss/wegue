@@ -8,24 +8,24 @@
 </template>
 
 <script>
-
-import Vue from 'vue';
-import LayerListWin from './LayerListWin'
+import Vue from 'vue'
 import { WguEventBus } from '../../WguEventBus'
+import AttributeTableWin from './AttributeTableWin';
 
 export default {
-  name: 'wgu-layerlist-btn',
+  name: 'wgu-attributetable-btn',
   components: {
-    'wgu-layerlist-win': LayerListWin
+    'wgu-attributetable': AttributeTableWin
   },
   props: {
-    icon: {type: String, required: false, default: 'layers'},
+    // alternative icons: table_chart, view_comfy
+    icon: {type: String, required: false, default: 'table_chart'},
     text: {type: String, required: false, default: ''},
     dark: {type: Boolean, required: false, default: false}
   },
   data: function () {
     return {
-      moduleName: 'wgu-layerlist'
+      moduleName: 'wgu-attributetable'
     }
   },
   created () {
@@ -41,7 +41,7 @@ export default {
   methods: {
     toggleUi () {
       // TODO move to a father class
-      this.win.show = !this.win.show
+      this.win.show = !this.win.show;
     }
   }
 };
