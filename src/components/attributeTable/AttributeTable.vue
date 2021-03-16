@@ -18,19 +18,25 @@ export default {
       this.layer = LayerUtil.getLayerByLid(this.layerId, this.map);
       this.source = this.layer.getSource();
 
-      this.applyRecordsFromLayer();
+      this.applyRecordsFromOlLayer();
       this.applyColumnMapping();
     },
 
-    applyRecordsFromLayer () {
+    applyRecordsFromOlLayer () {
       this.records = this.source.getFeatures().map(
         feature => feature.getProperties()
       );
     },
+
+    /**
+     * Read column mapping from layer property.
+     * Otherwise we retrieve it from the feature
+     * properties names.
+     */
     applyColumnMapping () {
       let headers = [];
-      if (this.columnMapping) {
-        for (const [propertyName, DisplayName] of Object.entries(this.columnMapping)) {
+      if (this.layer.get('columnMapping')) {
+        for (const [propertyName, DisplayName] of Object.entries(this.layer.get('columnMapping'))) {
           headers.push({
             text: DisplayName,
             value: propertyName
@@ -40,6 +46,7 @@ export default {
         // TODO: taking the first feature assumes that all features
         //       have the same structure
         let keys = this.source.getFeatures()[0].getKeys();
+        console.log(keys);
 
         // TODO: this only works for the case that
         //       the geometry is named 'geometry'
@@ -48,7 +55,7 @@ export default {
         const filtered = keys.filter(
           key => key !== 'geometry'
         );
-        let headers = [];
+        console.log(filtered);
         filtered.forEach(propertyName => {
           headers.push({
             text: propertyName,
@@ -60,8 +67,7 @@ export default {
     }
   },
   props: {
-    layerId: {type: String, required: true},
-    columnMapping: {type: Object, required: false, default: null}
+    layerId: {type: String, required: true}
   },
   data () {
     return {

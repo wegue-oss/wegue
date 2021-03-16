@@ -1,27 +1,27 @@
 {
-
   "title": "Vue.js / OpenLayers WebGIS",
-
   "baseColor": "red darken-3",
-
   "logo": "https://dummyimage.com/100x100/aaa/fff&text=Wegue",
   "logoWidth": "100",
   "logoHeight": "100",
-
   "footerTextLeft": "Powered by <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>",
   "footerTextRight": "meggsimum",
   "showCopyrightYear": true,
-
   "mapZoom": 2,
-  "mapCenter": [0, 0],
+  "mapCenter": [
+    0,
+    0
+  ],
   "mapGeodataDragDop": {
-    "formats": ["GeoJSON", "KML"],
+    "formats": [
+      "GeoJSON",
+      "KML"
+    ],
     "zoomToData": true,
     "replaceData": true,
     "displayInLayerList": true,
     "layerName": "Uploaded Data"
   },
-
   "permalink": {
     "location": "hash",
     "layers": true,
@@ -30,16 +30,13 @@
     "paramPrefix": "",
     "history": true
   },
-
   "mapLayers": [
-
     {
       "type": "VECTOR",
       "lid": "Shops",
       "name": "Shops DaSchau",
       "url": "./static/data/shops-dannstadt.geojson",
-      "formatConfig": {
-      },
+      "formatConfig": {},
       "format": "GeoJSON",
       "visible": true,
       "selectable": true,
@@ -68,8 +65,7 @@
       "typeName": "osm:osm-fuel",
       "version": "2.0.0",
       "maxFeatures": 50,
-      "formatConfig": {
-      },
+      "formatConfig": {},
       "format": "GML3",
       "loadOnlyVisible": true,
       "visible": false,
@@ -82,7 +78,6 @@
       },
       "attributions": "© <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors."
     },
-
     {
       "type": "VECTOR",
       "lid": "earthquakes",
@@ -100,7 +95,10 @@
       "style": {
         "iconUrl": "./static/icon/circle.svg",
         "scale": 4,
-        "anchor": [0.5, 37],
+        "anchor": [
+          0.5,
+          37
+        ],
         "anchorXUnits": "fraction",
         "anchorYUnits": "pixels"
       },
@@ -126,7 +124,6 @@
       "visible": false,
       "displayInLayerList": true
     },
-
     {
       "type": "VECTORTILE",
       "name": "Vector Tile Layer",
@@ -139,7 +136,6 @@
         "fillColor": "rgba(20,20,20,0.1)"
       }
     },
-
     {
       "type": "XYZ",
       "name": "OpenTopoMap",
@@ -149,7 +145,6 @@
       "displayInLayerList": true,
       "visible": false
     },
-
     {
       "type": "OSM",
       "lid": "osm-bg",
@@ -158,9 +153,7 @@
       "visible": true,
       "displayInLayerList": true
     }
-
   ],
-
   "modules": {
     "wgu-layerlist": {
       "target": "menu",
@@ -208,7 +201,7 @@
     },
     "wgu-helpwin": {
       "target": "toolbar",
-      "darkLayout": true, 
+      "darkLayout": true,
       "windowTitle": "About",
       "textTitle": "About Wegue",
       "htmlContent": "<b>WebGIS with OpenLayers and Vue.js</b> Template and re-usable components for webmapping applications with OpenLayers and Vue.js",
