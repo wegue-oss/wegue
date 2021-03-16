@@ -15,6 +15,7 @@ export default {
   mixins: [Mapable],
   methods: {
     onMapBound () {
+      // TODO: only show layer if features can be loaded
       this.layer = LayerUtil.getLayerByLid(this.layerId, this.map);
       this.source = this.layer.getSource();
 
@@ -23,6 +24,9 @@ export default {
     },
 
     applyRecordsFromOlLayer () {
+      if (!this.source) {
+        return;
+      }
       this.records = this.source.getFeatures().map(
         feature => feature.getProperties()
       );
@@ -34,6 +38,13 @@ export default {
      * properties names.
      */
     applyColumnMapping () {
+      if (!this.source ||
+          !this.source.getFeatures() ||
+          !this.source.getFeatures()[0]
+      ) {
+        return;
+      }
+
       let headers = [];
       if (this.layer.get('columnMapping')) {
         for (const [propertyName, DisplayName] of Object.entries(this.layer.get('columnMapping'))) {
@@ -71,16 +82,7 @@ export default {
   },
   data () {
     return {
-      headers: [
-        {
-          text: 'Ort',
-          value: 'NAME'
-        },
-        {
-          text: 'Einwohner (Max)',
-          value: 'POP_MAX'
-        }
-      ],
+      headers: [],
       records: [],
       layer: null,
       source: null

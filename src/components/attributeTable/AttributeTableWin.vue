@@ -4,7 +4,7 @@
      v-if="show"
   >
   <wgu-attributetable
-  layerId="places"
+  layerId="countries"
   >
   </wgu-attributetable>
 
