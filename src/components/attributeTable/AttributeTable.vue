@@ -5,18 +5,18 @@
     :loading-text="loadingText"
     :headers="headers"
     :items="records"
-    :footer-props="footerProps"
      mobile-breakpoint="0"
+    :page.sync="page"  
+    :footer-props="{
+        'items-per-page-options': [],
+        'show-first-last-page': true
+      }"
   ></v-data-table>
 </template>
 
 <script>
 import { Mapable } from '../../mixins/Mapable';
 import LayerUtil from '../../util/Layer';
-
-// TODO: on mobile --> items per page = 1
-
-// TODO: set page count to 1
 
 export default {
   name: 'wgu-attributetable',
@@ -32,32 +32,29 @@ export default {
       layer: null,
       source: null,
       loading: true,
-      'footerProps': {
-        // disables menu for choosing items per page
-        'items-per-page-options': [],
-        'show-first-last-page': true
-      }
+      page: 1
     }
   },
   created () {
-    this.populatedTable()
+    this.populateTable()
   },
   watch: {
     layerId () {
-      this.populatedTable()
+      this.populateTable()
     }
   },
   methods: {
-    populatedTable () {
+    populateTable () {
       if (!this.map || !this.layerId) {
         console.log('return');
         return;
       }
       this.loading = true;
 
-      // empty table in case, loading takes longer
+      // reset table properties
       this.records = [];
       this.headers = [];
+      this.page = 1;
 
       this.layer = LayerUtil.getLayerByLid(this.layerId, this.map);
       this.source = this.layer.getSource();
