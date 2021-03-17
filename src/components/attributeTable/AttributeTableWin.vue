@@ -4,9 +4,7 @@
      v-if="show"
   >
     <v-toolbar :color="color" dark>
-      <v-icon
-        v-if="!$vuetify.breakpoint.xs"
-      >{{icon}}</v-icon>
+      <v-icon>{{icon}}</v-icon>
       <v-toolbar-title 
         class="wgu-win-title"
         v-if="!$vuetify.breakpoint.xs"
@@ -21,6 +19,7 @@
           dense
           return-object
           @input="handleLayerSelect"
+          hide-details
         ></v-select>  
       <v-spacer></v-spacer>
       <v-app-bar-nav-icon @click="show=false">
