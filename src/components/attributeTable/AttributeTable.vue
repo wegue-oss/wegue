@@ -14,7 +14,7 @@ export default {
   name: 'wgu-attributetable',
   mixins: [Mapable],
   props: {
-    layerId: {type: String, required: true}
+    layerId: {type: String, required: false, default: null}
   },
   data () {
     return {
@@ -34,9 +34,17 @@ export default {
   },
   methods: {
     populatedTable () {
-      if (!this.map) {
+      if (!this.map || !this.layerId) {
+        console.log('return');
         return;
       }
+
+      // empty table in case, loading takes longer
+      this.records = [];
+      this.headers = [];
+
+      // TODO: show waiting symbol
+
       this.layer = LayerUtil.getLayerByLid(this.layerId, this.map);
       this.source = this.layer.getSource();
 
@@ -98,7 +106,7 @@ export default {
         //       --> it might be better to check if the
         //           type of the property is valid for the table
         const filtered = keys.filter(
-          key => key !== 'geometry'
+          key => ((key !== 'geometry') && (key !== 'the_geom'))
         );
         filtered.forEach(propertyName => {
           headers.push({

@@ -1,6 +1,6 @@
 <template>
   <v-card
-     class="wgu-attributetable"
+     class="wgu-attributetable-win"
      v-if="show"
   >
 
@@ -8,14 +8,20 @@
     color="white"
     height="40"
   >
-    <v-select
-      :items="layerItems"
-      item-text="layerName"
-      item-value="lid"
-      dense
-      return-object
-      @input="handleLayerSelect"
-    ></v-select>  
+      <v-row>
+        <v-col cols="3">
+            <v-select
+              v-model="selectedItem"
+              class="wgu-vector-layer-select"
+              :items="layerItems"
+              item-text="layerName"
+              item-value="lid"
+              dense
+              return-object
+              @input="handleLayerSelect"
+            ></v-select>  
+        </v-col>
+    </v-row>
   </v-system-bar>
 
   <wgu-attributetable
@@ -23,6 +29,11 @@
   :layerId="layerId"
   >
   </wgu-attributetable>
+  <p
+  v-if="!layerId"
+  >
+  This is a placeholder
+  </p>
 
   </v-card>
 </template>
@@ -32,16 +43,14 @@ import { Mapable } from '../../mixins/Mapable';
 import VectorLayer from 'ol/layer/Vector'
 import AttributeTable from './AttributeTable';
 
-// TODO: set default selection
-//       - maybe with v-model
-
 export default {
   name: 'wgu-attributetable-win',
   data () {
     return {
       show: false,
       layerId: null,
-      layerItems: null
+      layerItems: null,
+      selectedItem: null
     }
   },
   mixins: [Mapable],
@@ -49,8 +58,8 @@ export default {
     'wgu-attributetable': AttributeTable
   },
   methods: {
-    handleLayerSelect (layerItem) {
-      this.layerId = layerItem.lid;
+    handleLayerSelect () {
+      this.layerId = this.selectedItem.lid;
     },
     onMapBound () {
       this.populateLayerItems();
@@ -79,10 +88,10 @@ export default {
 </script>
 
 <style scoped>
-.wgu-attributetable {
-  position: absolute;
-  top: 90px;
-  left: 16px;
-  z-index: 2;
+
+.wgu-attributetable-win {
+    width: 100%;
+    bottom: 80px;
+    max-height: 40%;
 }
 </style>
