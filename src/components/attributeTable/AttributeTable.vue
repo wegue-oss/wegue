@@ -15,12 +15,29 @@ export default {
   mixins: [Mapable],
   methods: {
     onMapBound () {
-      // TODO: only show layer if features can be loaded
       this.layer = LayerUtil.getLayerByLid(this.layerId, this.map);
       this.source = this.layer.getSource();
 
-      this.applyRecordsFromOlLayer();
-      this.applyColumnMapping();
+      const features = this.source.getFeatures();
+
+      // currently features can only be loaded
+      // if layer is visible
+      //  https://github.com/openlayers/openlayers/blob/main/doc/faq.md#why-arent-there-any-features-in-my-source
+      if (features.length) {
+        this.applyRecordsFromOlLayer();
+        this.applyColumnMapping();
+      } else {
+        this.source.on('change', (evt) => {
+          console.log('change evt');
+          const source = evt.target;
+          if (source.getState() === 'ready') {
+            console.log('call functions');
+            this.applyRecordsFromOlLayer();
+            this.applyColumnMapping();
+          }
+        });
+        this.layer.setVisible(true);
+      }
     },
 
     applyRecordsFromOlLayer () {
