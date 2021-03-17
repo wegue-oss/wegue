@@ -13,25 +13,45 @@ import LayerUtil from '../../util/Layer';
 export default {
   name: 'wgu-attributetable',
   mixins: [Mapable],
+  props: {
+    layerId: {type: String, required: true}
+  },
+  data () {
+    return {
+      headers: [],
+      records: [],
+      layer: null,
+      source: null
+    }
+  },
+  created () {
+    console.log('created');
+    this.populatedTable()
+  },
+  watch: {
+    layerId () {
+      this.populatedTable()
+    }
+  },
   methods: {
-    onMapBound () {
+    populatedTable () {
+      if (!this.map) {
+        return;
+      }
       this.layer = LayerUtil.getLayerByLid(this.layerId, this.map);
       this.source = this.layer.getSource();
 
       const features = this.source.getFeatures();
 
-      // currently features can only be loaded
-      // if layer is visible
-      //  https://github.com/openlayers/openlayers/blob/main/doc/faq.md#why-arent-there-any-features-in-my-source
+      // features can only be loaded if layer is visible
+      // https://github.com/openlayers/openlayers/blob/main/doc/faq.md#why-arent-there-any-features-in-my-source
       if (features.length) {
         this.applyRecordsFromOlLayer();
         this.applyColumnMapping();
       } else {
         this.source.on('change', (evt) => {
-          console.log('change evt');
           const source = evt.target;
           if (source.getState() === 'ready') {
-            console.log('call functions');
             this.applyRecordsFromOlLayer();
             this.applyColumnMapping();
           }
@@ -39,7 +59,6 @@ export default {
         this.layer.setVisible(true);
       }
     },
-
     applyRecordsFromOlLayer () {
       if (!this.source) {
         return;
@@ -74,7 +93,6 @@ export default {
         // TODO: taking the first feature assumes that all features
         //       have the same structure
         let keys = this.source.getFeatures()[0].getKeys();
-        console.log(keys);
 
         // TODO: this only works for the case that
         //       the geometry is named 'geometry'
@@ -83,7 +101,6 @@ export default {
         const filtered = keys.filter(
           key => key !== 'geometry'
         );
-        console.log(filtered);
         filtered.forEach(propertyName => {
           headers.push({
             text: propertyName,
@@ -92,17 +109,6 @@ export default {
         });
       }
       this.headers = headers;
-    }
-  },
-  props: {
-    layerId: {type: String, required: true}
-  },
-  data () {
-    return {
-      headers: [],
-      records: [],
-      layer: null,
-      source: null
     }
   }
 }

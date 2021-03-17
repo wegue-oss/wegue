@@ -3,8 +3,24 @@
      class="wgu-attributetable"
      v-if="show"
   >
+
+  <v-system-bar
+    color="white"
+    height="40"
+  >
+    <v-select
+      :items="layerItems"
+      item-text="layerName"
+      item-value="lid"
+      dense
+      return-object
+      @input="handleLayerSelect"
+    ></v-select>  
+  </v-system-bar>
+
   <wgu-attributetable
-  layerId="countries"
+  v-if="layerId"
+  :layerId="layerId"
   >
   </wgu-attributetable>
 
@@ -13,18 +29,48 @@
 
 <script>
 import { Mapable } from '../../mixins/Mapable';
+import VectorLayer from 'ol/layer/Vector'
 import AttributeTable from './AttributeTable';
 
 export default {
   name: 'wgu-attributetable-win',
   data () {
     return {
-      show: false
+      show: false,
+      layerId: null,
+      layerItems: null
     }
   },
   mixins: [Mapable],
   components: {
     'wgu-attributetable': AttributeTable
+  },
+  methods: {
+    handleLayerSelect (layerItem) {
+      this.layerId = layerItem.lid;
+    },
+    onMapBound () {
+      this.populateLayerItems();
+    },
+    /**
+     * Finds vector layers and adds them to
+     * the selection menu.
+     */
+    populateLayerItems () {
+      let layerItems = [];
+
+      const mapLayers = this.map.getLayers();
+      mapLayers.forEach(layer => {
+        if (layer instanceof VectorLayer) {
+          layerItems.push({
+            layerName: layer.get('name'),
+            lid: layer.get('lid')
+          });
+        }
+      });
+
+      this.layerItems = layerItems
+    }
   }
 };
 </script>
