@@ -101,6 +101,7 @@ export default {
   .wgu-attributetable-win {
       z-index: 2;
       bottom: 33px;
+      height: 100%;
   }
 }
 </style>
