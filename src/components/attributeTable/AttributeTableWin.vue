@@ -32,6 +32,9 @@ import { Mapable } from '../../mixins/Mapable';
 import VectorLayer from 'ol/layer/Vector'
 import AttributeTable from './AttributeTable';
 
+// TODO: set default selection
+//       - maybe with v-model
+
 export default {
   name: 'wgu-attributetable-win',
   data () {

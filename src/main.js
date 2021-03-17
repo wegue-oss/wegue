@@ -9,6 +9,13 @@ import 'vuetify/dist/vuetify.min.css';
 
 Vue.use(Vuetify);
 
+// necessary for some components
+export default new Vuetify({
+  icons: {
+    iconfont: 'mdiSvg'
+  }
+})
+
 require('./assets/css/wegue.css');
 
 // try to load an optional app specific CSS file (set project-specific styles)
