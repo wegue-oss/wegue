@@ -1,27 +1,41 @@
 <template>
-    <v-data-table
-      dense
-      :headers="headers"
-      :items="records"
-    ></v-data-table>
+  <v-data-table
+    dense
+    :loading="loading"
+    :loading-text="loadingText"
+    :headers="headers"
+    :items="records"
+    :footer-props="footerProps"
+  ></v-data-table>
 </template>
 
 <script>
 import { Mapable } from '../../mixins/Mapable';
 import LayerUtil from '../../util/Layer';
 
+// TODO: on mobile --> items per page = 1
+
+// TODO: set page count to 1
+
 export default {
   name: 'wgu-attributetable',
   mixins: [Mapable],
   props: {
-    layerId: {type: String, required: false, default: null}
+    layerId: {type: String, required: false, default: null},
+    loadingText: {type: String, required: false, default: 'Loading... Please wait'}
   },
   data () {
     return {
       headers: [],
       records: [],
       layer: null,
-      source: null
+      source: null,
+      loading: true,
+      'footerProps': {
+        // disables menu for choosing items per page
+        'items-per-page-options': [],
+        'show-first-last-page': true
+      }
     }
   },
   created () {
@@ -38,12 +52,11 @@ export default {
         console.log('return');
         return;
       }
+      this.loading = true;
 
       // empty table in case, loading takes longer
       this.records = [];
       this.headers = [];
-
-      // TODO: show waiting symbol
 
       this.layer = LayerUtil.getLayerByLid(this.layerId, this.map);
       this.source = this.layer.getSource();
@@ -55,12 +68,14 @@ export default {
       if (features.length) {
         this.applyRecordsFromOlLayer();
         this.applyColumnMapping();
+        this.loading = false;
       } else {
         this.source.on('change', (evt) => {
           const source = evt.target;
           if (source.getState() === 'ready') {
             this.applyRecordsFromOlLayer();
             this.applyColumnMapping();
+            this.loading = false;
           }
         });
         this.layer.setVisible(true);

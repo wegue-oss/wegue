@@ -3,38 +3,31 @@
      class="wgu-attributetable-win"
      v-if="show"
   >
-
-  <v-system-bar
-    color="white"
-    height="40"
-  >
-      <v-row>
-        <v-col cols="3">
-            <v-select
-              v-model="selectedItem"
-              class="wgu-vector-layer-select"
-              :items="layerItems"
-              item-text="layerName"
-              item-value="lid"
-              dense
-              return-object
-              @input="handleLayerSelect"
-            ></v-select>  
-        </v-col>
-    </v-row>
-  </v-system-bar>
+    <v-toolbar :color="color" dark>
+      <v-icon>{{icon}}</v-icon>
+      <v-toolbar-title class="wgu-win-title">{{title}}</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-select
+          v-model="selectedItem"
+          class="wgu-vector-layer-select"
+          :items="layerItems"
+          item-text="layerName"
+          item-value="lid"
+          dense
+          return-object
+          @input="handleLayerSelect"
+        ></v-select>  
+      <v-spacer></v-spacer>
+      <v-app-bar-nav-icon @click="show=false">
+        <v-icon>close</v-icon>
+      </v-app-bar-nav-icon>
+  </v-toolbar>
 
   <wgu-attributetable
   v-if="layerId"
   :layerId="layerId"
   >
   </wgu-attributetable>
-  <p
-  v-if="!layerId"
-  >
-  This is a placeholder
-  </p>
-
   </v-card>
 </template>
 
@@ -45,6 +38,12 @@ import AttributeTable from './AttributeTable';
 
 export default {
   name: 'wgu-attributetable-win',
+
+  props: {
+    color: {type: String, required: false, default: 'red darken-3'},
+    icon: {type: String, required: false, default: 'table_chart'},
+    title: {type: String, required: false, default: 'Attribute Table'}
+  },
   data () {
     return {
       show: false,
@@ -90,8 +89,7 @@ export default {
 <style scoped>
 
 .wgu-attributetable-win {
-    width: 100%;
-    bottom: 80px;
-    max-height: 40%;
+    z-index: 2;
+    bottom: 35px;
 }
 </style>
