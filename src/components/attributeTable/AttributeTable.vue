@@ -6,6 +6,7 @@
     :headers="headers"
     :items="records"
     :footer-props="footerProps"
+     mobile-breakpoint="0"
   ></v-data-table>
 </template>
 

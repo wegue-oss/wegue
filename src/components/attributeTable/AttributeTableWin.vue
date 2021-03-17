@@ -4,8 +4,13 @@
      v-if="show"
   >
     <v-toolbar :color="color" dark>
-      <v-icon>{{icon}}</v-icon>
-      <v-toolbar-title class="wgu-win-title">{{title}}</v-toolbar-title>
+      <v-icon
+        v-if="!$vuetify.breakpoint.xs"
+      >{{icon}}</v-icon>
+      <v-toolbar-title 
+        class="wgu-win-title"
+        v-if="!$vuetify.breakpoint.xs"
+      >{{title}}</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-select
           v-model="selectedItem"
@@ -91,5 +96,12 @@ export default {
 .wgu-attributetable-win {
     z-index: 2;
     bottom: 35px;
+}
+
+@media only screen and (max-width: 600px) {
+  .wgu-attributetable-win {
+      z-index: 2;
+      bottom: 33px;
+  }
 }
 </style>
