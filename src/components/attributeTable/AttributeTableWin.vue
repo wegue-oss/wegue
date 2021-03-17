@@ -18,8 +18,8 @@
           item-value="lid"
           dense
           return-object
-          @input="handleLayerSelect"
           hide-details
+          @input="handleLayerSelect"
         ></v-select>  
       <v-spacer></v-spacer>
       <v-app-bar-nav-icon @click="show=false">
@@ -76,7 +76,8 @@ export default {
 
       const mapLayers = this.map.getLayers();
       mapLayers.forEach(layer => {
-        if (layer instanceof VectorLayer) {
+        if (layer instanceof VectorLayer &&
+            layer.get('name') !== 'Measure Layer') {
           layerItems.push({
             layerName: layer.get('name'),
             lid: layer.get('lid')
