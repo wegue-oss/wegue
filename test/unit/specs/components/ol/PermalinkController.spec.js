@@ -89,10 +89,8 @@ describe('ol/Map.vue', () => {
     });
 
     it('Setup permalinkController', () => {
-      // vm.permalinkController.setup();
       expect(vm.permalinkController.shouldUpdate).equals(true);
       expect(vm.map.getLayers().getLength()).to.equal(2);
-      // expect(vm.permalinkController.layerListeners.length).to.equal(2);
       vm.permalinkController.unsubscribeLayers();
       expect(vm.permalinkController.layerListeners.length).to.equal(0);
       vm.permalinkController.subscribeLayers();
@@ -100,8 +98,6 @@ describe('ol/Map.vue', () => {
     });
 
     it('Layer Listeners are (re)created when the layer stack changes', () => {
-      // vm.permalinkController.setup();
-      // expect(vm.permalinkController.layerListeners.length).to.equal(2);
       vm.map.addLayer(new VectorLayer());
       expect(vm.permalinkController.layerListeners.length).to.equal(3);
       expect(vm.map.getLayers().getLength()).to.equal(3);
