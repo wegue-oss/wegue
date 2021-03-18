@@ -5,7 +5,8 @@
   "baseColor": "red darken-3",
 
   "logo": "https://dummyimage.com/100x100/aaa/fff&text=Wegue",
-  "logoSize": "100",
+  "logoWidth": "100",
+  "logoHeight": "100",
 
   "footerTextLeft": "Powered by <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>",
   "footerTextRight": "meggsimum",
@@ -13,6 +14,13 @@
 
   "mapZoom": 2,
   "mapCenter": [0, 0],
+  "mapGeodataDragDop": {
+    "formats": ["GeoJSON", "KML"],
+    "zoomToData": true,
+    "replaceData": true,
+    "displayInLayerList": true,
+    "layerName": "Uploaded Data"
+  },
 
   "permalink": {
     "location": "hash",
@@ -39,14 +47,24 @@
         "radius": 4,
         "strokeColor": "purple",
         "strokeWidth": 2,
-        "fillColor": "rgba(155,153,51,0.5)"
+        "fillColor": "rgba(155,153,51,0.5)",
+        "label": {
+          "attribute": "name",
+          "minResolution": 4.0,
+          "outlineColor": "white",
+          "outlineWidth": 2,
+          "fillColor": "black",
+          "offsetX": 0,
+          "offsetY": 15,
+          "align": "center"
+        }
       }
     },
     {
       "type": "WFS",
       "lid": "gas-wfs",
       "name": "Gas Stations WFS",
-      "url": "https://ows.terrestris.de/geoserver/osm/wfs",
+      "url": "https://ows-demo.terrestris.de/geoserver/osm/wfs",
       "typeName": "osm:osm-fuel",
       "version": "2.0.0",
       "maxFeatures": 50,
@@ -85,6 +103,12 @@
         "anchor": [0.5, 37],
         "anchorXUnits": "fraction",
         "anchorYUnits": "pixels"
+      },
+      "selectStyle": {
+        "radius": 10,
+        "strokeColor": "gray",
+        "strokeWidth": 5,
+        "fillColor": "rgb(255, 255, 0, 0.2)"
       }
     },
     {
@@ -183,6 +207,15 @@
       "darkLayout": true
     },
     "wgu-helpwin": {
+      "target": "toolbar",
+      "darkLayout": true, 
+      "windowTitle": "About",
+      "textTitle": "About Wegue",
+      "htmlContent": "<b>WebGIS with OpenLayers and Vue.js</b> Template and re-usable components for webmapping applications with OpenLayers and Vue.js",
+      "infoLinkText": "More Info",
+      "infoLinkUrl": "http://wegue.org/"
+    },
+    "wgu-geolocator": {
       "target": "toolbar",
       "darkLayout": true
     }
