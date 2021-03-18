@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { shallowMount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import Map from '@/components/ol/Map';
 import OlMap from 'ol/Map';
 import Feature from 'ol/Feature';
@@ -37,7 +37,7 @@ describe('ol/Map.vue', () => {
     let vm;
     beforeEach(() => {
       Vue.prototype.$appConfig = {modules: {}};
-      comp = shallowMount(Map);
+      comp = mount(Map);
       vm = comp.vm;
     });
 
@@ -46,13 +46,17 @@ describe('ol/Map.vue', () => {
       expect(vm.collapsibleAttribution).to.equal(false);
       expect(vm.rotateableMap).to.equal(false);
     });
+
+    afterEach(() => {
+      comp.destroy();
+    });
   });
 
   describe('data', () => {
     let comp;
     let vm;
     beforeEach(() => {
-      comp = shallowMount(Map);
+      comp = mount(Map);
       vm = comp.vm;
     });
 
@@ -62,8 +66,12 @@ describe('ol/Map.vue', () => {
       expect(vm.center).to.equal(undefined);
       expect(vm.tileGridDefs).to.be.empty;
       expect(vm.tileGrids).to.be.empty;
-      expect(vm.projection).to.deep.equal({code: 'EPSG:3857', units: 'm'});
       expect(vm.map.getView().getProjection().getCode()).to.equal('EPSG:3857');
+      expect(vm.map.getView().getProjection().getUnits()).to.equal('m');
+    });
+
+    afterEach(() => {
+      comp.destroy();
     });
   });
 
@@ -72,7 +80,7 @@ describe('ol/Map.vue', () => {
     let vm;
     beforeEach(() => {
       Vue.prototype.$appConfig = { tileGridDefs: tileGridDefs };
-      comp = shallowMount(Map);
+      comp = mount(Map);
       vm = comp.vm;
     });
 
@@ -81,6 +89,10 @@ describe('ol/Map.vue', () => {
       expect(vm.tileGrids).to.not.be.empty;
       expect(vm.tileGridDefs['dutch_rd']).to.deep.equal(tileGridDefs['dutch_rd']);
       expect(vm.tileGrids['dutch_rd']).to.not.be.empty;
+    });
+
+    afterEach(() => {
+      comp.destroy();
     });
   });
 
@@ -98,7 +110,7 @@ describe('ol/Map.vue', () => {
           ['EPSG:28992', '+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.999908 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +towgs84=565.2369,50.0087,465.658,-0.406857330322398,0.350732676542563,-1.8703473836068,4.0812 +no_defs']
         ]
       };
-      comp = shallowMount(Map);
+      comp = mount(Map);
       vm = comp.vm;
     });
 
@@ -110,13 +122,17 @@ describe('ol/Map.vue', () => {
       expect(mapProjection).to.not.be.empty;
       expect(mapProjection.getCode()).to.equal('EPSG:28992');
     });
+
+    afterEach(() => {
+      comp.destroy();
+    });
   });
 
   describe('methods', () => {
     let comp;
     let vm;
     beforeEach(() => {
-      comp = shallowMount(Map);
+      comp = mount(Map);
       vm = comp.vm;
     });
 
@@ -287,6 +303,10 @@ describe('ol/Map.vue', () => {
       expect(vm.overlayEl.innerHTML).to.equal('bar');
       expect(vm.overlay.getPosition()).to.equal(undefined);
     });
+
+    afterEach(() => {
+      comp.destroy();
+    });
   });
 
   describe('methods - TileGrids and Projections', () => {
@@ -317,7 +337,7 @@ describe('ol/Map.vue', () => {
           'visible': true
         }]
       };
-      comp = shallowMount(Map);
+      comp = mount(Map);
       vm = comp.vm;
     });
 
@@ -332,6 +352,10 @@ describe('ol/Map.vue', () => {
       const layers = vm.createLayers();
       const source = layers[0].getSource();
       expect(source.getProjection().getCode()).to.equal('EPSG:28992');
+    });
+
+    afterEach(() => {
+      comp.destroy();
     });
   });
 });

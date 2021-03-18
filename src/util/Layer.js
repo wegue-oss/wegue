@@ -12,8 +12,6 @@ const LayerUtil = {
    */
   getLayersBy (key, value, olMap) {
     if (!olMap) {
-      console.warn('No OL map passed to LayerUtil.getLayersBy - ' +
-        'no layer detection possible!');
       return [];
     }
 

@@ -57,7 +57,7 @@ export default class PermalinkController {
     // restore the view state when navigating through the history (browser back/forward buttons), see
     // https://developer.mozilla.org/en-US/docs/Web/API/WindowEventHandlers/onpopstate
     window.addEventListener('popstate', (event) => {
-      if (event.state === null) {
+      if (event.state === null || this.map === null) {
         return;
       }
 
@@ -86,9 +86,20 @@ export default class PermalinkController {
   }
 
   /**
+   * Stop this instance.
+   */
+  tearDown () {
+    this.unsubscribeLayers();
+    this.map = null;
+  }
+
+  /**
    * Subscribe to Layer visibility changes.
    */
   subscribeLayers () {
+    if (!this.map) {
+      return;
+    }
     // First unsubscribe from all
     this.unsubscribeLayers();
 
@@ -105,6 +116,9 @@ export default class PermalinkController {
    * Unsubscribe to Layer visibility changes.
    */
   unsubscribeLayers () {
+    if (!this.map) {
+      return;
+    }
     // Listen to each Layer's visibility changes.
     this.layerListeners.forEach((item) => {
       item.layer.un(item.key.type, item.key.listener)
