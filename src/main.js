@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import Vuetify from 'vuetify';
+import '@mdi/font/css/materialdesignicons.css'
 import '../node_modules/ol/ol.css';
 import WguApp from '../app/WguApp';
 import UrlUtil from './util/Url';
