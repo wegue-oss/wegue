@@ -20,11 +20,12 @@
     "init:app": "node util/init-app.js"
   },
   "dependencies": {
+    "@mdi/font": "^5.9.55",
+    "material-icons": "^0.5.4",
     "ol": "6.4.3",
     "proj4": "2.5.0",
     "vue": "2.6.11",
-    "vuetify": "2.2.18",
-    "@mdi/font": "^5.9.55"
+    "vuetify": "2.2.18"
   },
   "devDependencies": {
     "@vue/test-utils": "^1.0.3",
