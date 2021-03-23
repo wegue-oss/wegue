@@ -13,7 +13,6 @@
     "start": "node build/dev-server.js",
     "build": "node build/build.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
-    "lint-fix": "eslint --fix --ext .js,.vue src app test/unit/specs",
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit/specs",
     "deploy": "gh-pages -d dist",
