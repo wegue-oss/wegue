@@ -27,7 +27,15 @@ export default {
   mixins: [Mapable],
   props: {
     layerId: {type: String, required: false, default: null},
-    loadingText: {type: String, required: false, default: 'Loading... Please wait'}
+    loadingText: {type: String, required: false, default: 'Loading... Please wait'},
+    /** A list of column names that should not be displayed. */
+    forbiddenColumnNames: {
+      type: Array,
+      required: false,
+      default: function () {
+        return ['geometry', 'the_geom']
+      }
+    }
   },
   data () {
     return {
@@ -124,13 +132,9 @@ export default {
         // TODO: taking the first feature assumes that all features
         //       have the same structure
         let keys = this.source.getFeatures()[0].getKeys();
-
-        // TODO: this only works for the case that
-        //       the geometry is named 'geometry'
-        //       --> it might be better to check if the
-        //           type of the property is valid for the table
+        // remove keys that contain a geometry
         const filtered = keys.filter(
-          key => ((key !== 'geometry') && (key !== 'the_geom'))
+          key => (!this.forbiddenColumnNames.includes(key))
         );
         filtered.forEach(propertyName => {
           headers.push({
