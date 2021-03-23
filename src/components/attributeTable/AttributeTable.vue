@@ -1,12 +1,16 @@
 <template>
+  <!--
+  mobile-breakpoint="0" prevents the table to
+  switch to a mobile optimized list on small devices
+  -->
   <v-data-table
     dense
     :loading="loading"
     :loading-text="loadingText"
     :headers="headers"
     :items="records"
-     mobile-breakpoint="0"
-    :page.sync="page"  
+    mobile-breakpoint="0"
+    :page.sync="page"
     :footer-props="{
         'items-per-page-options': [],
         'show-first-last-page': true
@@ -44,9 +48,12 @@ export default {
     }
   },
   methods: {
+    /**
+     * Load features from layer and display it in
+     * in the table.
+     */
     populateTable () {
       if (!this.map || !this.layerId) {
-        console.log('return');
         return;
       }
       this.loading = true;
@@ -79,6 +86,10 @@ export default {
         this.layer.setVisible(true);
       }
     },
+    /**
+     * Read features from layer source
+     * and store it in component.
+     */
     applyRecordsFromOlLayer () {
       if (!this.source) {
         return;
@@ -103,9 +114,9 @@ export default {
 
       let headers = [];
       if (this.layer.get('columnMapping')) {
-        for (const [propertyName, DisplayName] of Object.entries(this.layer.get('columnMapping'))) {
+        for (const [propertyName, displayName] of Object.entries(this.layer.get('columnMapping'))) {
           headers.push({
-            text: DisplayName,
+            text: displayName,
             value: propertyName
           });
         }
