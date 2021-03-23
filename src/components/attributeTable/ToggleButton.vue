@@ -29,13 +29,12 @@ export default {
     }
   },
   created () {
-    var me = this;
     // TODO move to a father class
     WguEventBus.$on('app-mounted', () => {
-      me.win = Vue.prototype.cmpLookup[me.moduleName + '-win'];
+      this.win = Vue.prototype.cmpLookup[this.moduleName + '-win'];
     });
-    if (!me.win) {
-      me.win = Vue.prototype.cmpLookup[me.moduleName + '-win'];
+    if (!this.win) {
+      this.win = Vue.prototype.cmpLookup[this.moduleName + '-win'];
     }
   },
   methods: {
