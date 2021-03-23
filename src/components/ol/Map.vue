@@ -167,7 +167,9 @@ export default {
       const mapLayersConfig = appConfig.mapLayers || [];
       mapLayersConfig.reverse().forEach(function (lConf) {
         // Some Layers may require a TileGrid object
-        lConf.tileGrid = lConf.tileGridRef ? me.tileGrids[lConf.tileGridRef] : null;
+        // Remarks: Passing null instead of undefined as parameters into the
+        //  constructor of OpenLayers sources overwrites OpenLayers defaults.
+        lConf.tileGrid = lConf.tileGridRef ? me.tileGrids[lConf.tileGridRef] : undefined;
 
         let layer = LayerFactory.getInstance(lConf, me.map);
         layers.push(layer);
