@@ -79,6 +79,14 @@ export default {
       me.setupMapHover();
     }, 200);
   },
+  destroyed () {
+    if (this.permalinkController) {
+      this.permalinkController.tearDown();
+      this.permalinkController = undefined;
+    }
+    // Send the event 'ol-map-unmounted' with the OL map as payload
+    WguEventBus.$emit('ol-map-unmounted', this.map);
+  },
   created () {
     // make map rotateable according to property
     const interactions = defaultInteractions({

@@ -1,7 +1,10 @@
-import { shallowMount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import MeasureWin from '@/components/measuretool/MeasureWin';
 import OlMap from 'ol/Map';
 import LineStringGeom from 'ol/geom/LineString';
+import Vue from 'vue';
+
+const appConfig = {modules: { 'wgu-measuretool': {} }};
 
 describe('measuretool/MeasureWin.vue', () => {
   it('is defined', () => {
@@ -11,7 +14,8 @@ describe('measuretool/MeasureWin.vue', () => {
   describe('props', () => {
     let comp;
     beforeEach(() => {
-      comp = shallowMount(MeasureWin);
+      Vue.prototype.$appConfig = appConfig;
+      comp = mount(MeasureWin);
     });
 
     it('has correct default props', () => {
@@ -21,12 +25,18 @@ describe('measuretool/MeasureWin.vue', () => {
       expect(comp.vm.draggable).to.equal(true);
       expect(comp.vm.initPos).to.equal(undefined);
     });
+
+    afterEach(() => {
+      comp.destroy();
+      Vue.prototype.$appConfig = undefined;
+    });
   });
 
   describe('data', () => {
     let comp;
     beforeEach(() => {
-      comp = shallowMount(MeasureWin);
+      Vue.prototype.$appConfig = appConfig;
+      comp = mount(MeasureWin);
     });
 
     it('has correct default data', () => {
@@ -37,14 +47,52 @@ describe('measuretool/MeasureWin.vue', () => {
       expect(comp.vm.left).to.equal('0');
       expect(comp.vm.top).to.equal('0');
     });
+
+    afterEach(() => {
+      comp.destroy();
+      Vue.prototype.$appConfig = undefined;
+    });
   });
 
-  describe('watchers', () => {
+  describe('watchers - set show true', () => {
     let comp;
     let vm;
     beforeEach(() => {
-      comp = shallowMount(MeasureWin);
+      Vue.prototype.$appConfig = appConfig;
+      comp = mount(MeasureWin);
       vm = comp.vm;
+      vm.$appConfig = appConfig;
+    });
+
+    it('watches show setting to true', done => {
+      let cnt = 0;
+      let mockFn = () => {
+        cnt++;
+      };
+
+      vm.map = new OlMap({});
+      vm.onMapBound();
+      vm.olMapCtrl.addInteraction = mockFn;
+      vm.show = true;
+      vm.$nextTick(() => {
+        expect(cnt).to.equal(1);
+        done();
+      });
+    });
+
+    afterEach(() => {
+      Vue.prototype.$appConfig = undefined;
+    });
+  });
+
+  describe('watchers - set show false', () => {
+    let comp;
+    let vm;
+    beforeEach(() => {
+      Vue.prototype.$appConfig = appConfig;
+      comp = mount(MeasureWin);
+      vm = comp.vm;
+      vm.$appConfig = appConfig;
     });
 
     it('watches show setting to false', done => {
@@ -52,12 +100,11 @@ describe('measuretool/MeasureWin.vue', () => {
       let mockFn = () => {
         cnt++;
       };
-      vm.$appConfig = {modules: {}};
 
-      const map = new OlMap({});
-      vm.map = map;
+      vm.map = new OlMap({});
       vm.onMapBound();
       vm.olMapCtrl.removeInteraction = mockFn;
+
       // toggle to trigger the watcher
       vm.show = true;
       vm.$nextTick(() => {
@@ -71,30 +118,33 @@ describe('measuretool/MeasureWin.vue', () => {
       });
     });
 
-    it('watches show setting to true', done => {
-      let cnt = 0;
-      let mockFn = () => {
-        cnt++;
-      };
-      vm.$appConfig = {modules: {}};
+    afterEach(() => {
+      Vue.prototype.$appConfig = undefined;
+    });
+  });
 
-      const map = new OlMap({});
-      vm.map = map;
-      vm.onMapBound();
-      vm.olMapCtrl.addInteraction = mockFn;
-      vm.show = true;
-      vm.$nextTick(() => {
-        expect(cnt).to.equal(1);
-        done();
-      });
+  describe('watchers - measureType', () => {
+    let comp;
+    let vm;
+    beforeEach(() => {
+      Vue.prototype.$appConfig = appConfig;
+      comp = mount(MeasureWin);
+      vm = comp.vm;
+      vm.$appConfig = appConfig;
     });
 
     it('watches measureType resets old data', done => {
+      vm.map = new OlMap({});
+      vm.onMapBound();
       vm.measureType = 'area';
       vm.$nextTick(() => {
         expect(vm.measureGeom).to.be.an('object').that.is.empty;
         done();
       })
+    });
+
+    afterEach(() => {
+      Vue.prototype.$appConfig = undefined;
     });
   });
 
@@ -102,7 +152,8 @@ describe('measuretool/MeasureWin.vue', () => {
     let comp;
     let vm;
     beforeEach(() => {
-      comp = shallowMount(MeasureWin);
+      Vue.prototype.$appConfig = appConfig;
+      comp = mount(MeasureWin);
       vm = comp.vm;
     });
 
@@ -120,6 +171,10 @@ describe('measuretool/MeasureWin.vue', () => {
       const lineGeom = new LineStringGeom([[0, 0], [1000, 0], [1000, 1000], [0, 1000]]);
       vm.onMeasureVertexSet(lineGeom);
       expect(vm.measureGeom.geom).to.equal(lineGeom);
+    });
+    afterEach(() => {
+      comp.destroy();
+      Vue.prototype.$appConfig = undefined;
     });
   });
 });

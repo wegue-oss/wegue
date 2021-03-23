@@ -1,5 +1,9 @@
-import { shallowMount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import HelpWinToggleBtn from '@/components/helpwin/ToggleButton';
+import Vue from 'vue';
+
+// Note: shallowMount does not work for vue test with scoped slots
+// https://github.com/vuejs/vue-test-utils/issues/1261
 
 describe('helpwin/ToggleButton.vue', () => {
   // Inspect the raw component options
@@ -7,10 +11,11 @@ describe('helpwin/ToggleButton.vue', () => {
     expect(typeof HelpWinToggleBtn).to.not.equal('undefined');
   });
 
-  describe('props', () => {
+  describe('default props', () => {
     let comp;
     beforeEach(() => {
-      comp = shallowMount(HelpWinToggleBtn);
+      Vue.prototype.$appConfig = {modules: {}};
+      comp = mount(HelpWinToggleBtn);
     });
 
     it('has correct default props', () => {
@@ -24,7 +29,8 @@ describe('helpwin/ToggleButton.vue', () => {
   describe('data', () => {
     let comp;
     beforeEach(() => {
-      comp = shallowMount(HelpWinToggleBtn);
+      Vue.prototype.$appConfig = {modules: {}};
+      comp = mount(HelpWinToggleBtn);
     });
 
     it('has correct default data', () => {

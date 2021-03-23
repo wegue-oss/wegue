@@ -62,20 +62,30 @@
         top: this.initPos ? this.initPos.top + 'px' : '0'
       }
     },
+    destroy () {
+      if (this.olMapCtrl) {
+        this.olMapCtrl.destroy();
+        this.olMapCtrl = undefined;
+      }
+    },
     watch: {
       show () {
-        var me = this;
-        if (me.show === true) {
-          me.olMapCtrl.addInteraction(me.measureType, me.onMeasureVertexSet);
+        if (!this.olMapCtrl) {
+          return;
+        }
+        if (this.show === true) {
+          this.olMapCtrl.addInteraction(this.measureType, this.onMeasureVertexSet);
         } else {
-          me.olMapCtrl.removeInteraction();
+          this.olMapCtrl.removeInteraction();
         }
       },
       measureType () {
-        var me = this;
+        if (!this.olMapCtrl) {
+          return;
+        }
         // reset old geom
-        me.measureGeom = {};
-        me.olMapCtrl.addInteraction(me.measureType, me.onMeasureVertexSet);
+        this.measureGeom = {};
+        this.olMapCtrl.addInteraction(this.measureType, this.onMeasureVertexSet);
       }
     },
     methods: {
@@ -93,11 +103,26 @@
        * This function is executed, after the map is bound (see mixins/Mapable)
        */
       onMapBound () {
-        const me = this;
-        const measureConf = me.$appConfig.modules[me.moduleName] || {};
-        this.olMapCtrl = new OlMeasureController(me.map, measureConf);
+        if (this.unbound) {
+          return;
+        }
+        // Only create if specified in config
+        if (!this.$appConfig.modules || !this.$appConfig.modules[this.moduleName]) {
+          return;
+        }
+        const measureConf = this.$appConfig.modules[this.moduleName] || {};
+        this.olMapCtrl = new OlMeasureController(this.map, measureConf);
 
-        me.olMapCtrl.createMeasureLayer();
+        this.olMapCtrl.createMeasureLayer();
+      },
+      /**
+       * This function is executed, after the map is bound (see mixins/Mapable)
+       */
+      onMapUnbound () {
+        if (this.olMapCtrl) {
+          this.olMapCtrl.destroy();
+          this.olMapCtrl = undefined;
+        }
       },
       /**
        * Callback function executed when user sets a measure point on the map.
