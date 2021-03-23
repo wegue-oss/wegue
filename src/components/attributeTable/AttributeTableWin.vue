@@ -5,7 +5,7 @@
   >
     <v-toolbar :color="color" dark>
       <v-icon>{{icon}}</v-icon>
-      <v-toolbar-title 
+      <v-toolbar-title
         class="wgu-win-title"
         v-if="!$vuetify.breakpoint.xs"
       >{{title}}</v-toolbar-title>
@@ -20,7 +20,7 @@
           return-object
           hide-details
           @input="handleLayerSelect"
-        ></v-select>  
+        ></v-select>
       <v-spacer></v-spacer>
       <v-app-bar-nav-icon @click="show=false">
         <v-icon>close</v-icon>
@@ -61,6 +61,10 @@ export default {
     'wgu-attributetable': AttributeTable
   },
   methods: {
+    /**
+     * Store selected layerId in the respective
+     * variable of the component.
+     */
     handleLayerSelect () {
       this.layerId = this.selectedItem.lid;
     },
