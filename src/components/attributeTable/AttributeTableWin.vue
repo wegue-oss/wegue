@@ -20,6 +20,7 @@
           return-object
           hide-details
           @input="handleLayerSelect"
+          :label="selectorLabel"
         ></v-select>
       <v-spacer></v-spacer>
       <v-app-bar-nav-icon @click="show=false">
@@ -46,7 +47,8 @@ export default {
   props: {
     color: {type: String, required: false, default: 'red darken-3'},
     icon: {type: String, required: false, default: 'table_chart'},
-    title: {type: String, required: false, default: 'Attribute Table'}
+    title: {type: String, required: false, default: 'Attribute Table'},
+    selectorLabel: {type: String, required: false, default: 'Choose a layer'}
   },
   data () {
     return {

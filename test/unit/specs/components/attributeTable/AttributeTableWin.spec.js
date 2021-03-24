@@ -20,7 +20,8 @@ describe('attributeTable/AttributeTableWin.vue', () => {
     it('has correct default props', () => {
       expect(comp.vm.color).to.equal('red darken-3');
       expect(comp.vm.icon).to.equal('table_chart');
-      expect(comp.vm.title).to.equal('Attribute Table');
+      expect(comp.vm.title).to.be.a('String');
+      expect(comp.vm.selectorLabel).to.be.a('String');
     });
 
     afterEach(() => {
