@@ -50,6 +50,8 @@ The following properties can be applied to all map layer types
 | selectable         | Boolean value, whether the features of the layer can be selected by click in order to display the attributes in a window | `"selectable": true` |
 | selectStyle        | The style for a selected feature| see [style](map-layer-configuration?id=style-for-vectorlayers) |
 | columnMapping      | Maps the property names to human-readable text. Can be used by `AttributeTable`. | `"columnMapping": {"name": "Name", "email": "Email"}`
+| hoverable          | Boolean value, whether the features of the layer can be hovered in order to display an attribute (see `hoverAttribute`) in a tooltip  | `"hoverable": true` |
+| hoverAttribute     | Attribute to be shown if a feature of the layer is hovered. Only has an effect if `hoverable` is set to `true`  | `"hoverAttribute": "name"` |
 
 
 ## VECTORTILE
