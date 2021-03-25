@@ -31,7 +31,9 @@
 
   <wgu-attributetable
     v-if="layerId"
+    v-resize="onResize"
     :layerId="layerId"
+    :activateTableMapInteraction="activateTableMapInteraction"
   >
   </wgu-attributetable>
   </v-card>
@@ -60,10 +62,39 @@ export default {
     }
   },
   mixins: [Mapable],
+  created () {
+    const config = this.$appConfig.modules['wgu-attributetable'];
+    this.activateTableMapInteraction = config.activateTableMapInteraction || false
+  },
   components: {
     'wgu-attributetable': AttributeTable
   },
+  watch: {
+    show () {
+      // resize map properly after closing
+      // the AttributeTable
+      this.resizeOlMap()
+    }
+  },
   methods: {
+    onResize () {
+      // change map size when window is changing
+      this.resizeOlMap()
+    },
+
+    /**
+     * Update the OpenLayers map size.
+     *
+     * Necessary because the map does not automatically
+     * notice when its size is changed externally.
+     */
+    resizeOlMap () {
+      this.$nextTick(() => {
+        // must be within '$nextTick' to take effect
+        this.map.updateSize();
+      })
+    },
+
     /**
      * Store selected layerId in the respective
      * variable of the component.
