@@ -187,7 +187,9 @@ export const LayerFactory = {
       visible: lConf.visible,
       opacity: lConf.opacity,
       source: vectorSource,
-      style: OlStyleFactory.getInstance(lConf.style)
+      style: OlStyleFactory.getInstance(lConf.style),
+      hoverable: lConf.hoverable,
+      hoverAttribute: lConf.hoverAttribute
     });
 
     return vector;
