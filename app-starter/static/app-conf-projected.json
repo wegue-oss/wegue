@@ -60,6 +60,8 @@
       "loadOnlyVisible": true,
       "visible": false,
       "selectable": true,
+      "hoverable": true,
+      "hoverAttribute": "naam",
       "style": {
         "strokeColor": "white",
         "strokeWidth": 2,
@@ -165,7 +167,7 @@
     },
     "wgu-helpwin": {
       "target": "toolbar",
-      "darkLayout": true, 
+      "darkLayout": true,
       "windowTitle": "About",
       "textTitle": "About Wegue",
       "htmlContent": "<b>WebGIS with OpenLayers and Vue.js</b> Template and re-usable components for webmapping applications with OpenLayers and Vue.js",

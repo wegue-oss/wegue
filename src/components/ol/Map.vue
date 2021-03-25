@@ -390,7 +390,8 @@ export default {
 
   /* Hover tooltip */
   .wgu-hover-tooltiptext {
-    width: 120px;
+    float: left; /* needed that max-width has an effect */
+    max-width: 200px;
     background-color: rgba(211, 211, 211, .9);
     color: #222;
     text-align: center;
@@ -398,7 +399,7 @@ export default {
     border-radius: 6px;
 
     /* Position the hover tooltip */
-    position: absolute;
+    position: relative;
     z-index: 1;
   }
 
