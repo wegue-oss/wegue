@@ -1,26 +1,27 @@
 <template>
   <v-card
-     class="wgu-attributetable-win"
-     v-if="show"
+    class="wgu-attributetable-win"
+    v-if="show"
   >
     <v-toolbar :color="color" dark>
       <v-icon>{{icon}}</v-icon>
       <v-toolbar-title
         class="wgu-win-title"
         v-if="!$vuetify.breakpoint.xs"
-      >{{title}}</v-toolbar-title>
+      >{{title}}
+      </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-select
-          v-model="selectedItem"
-          class="wgu-vector-layer-select"
-          :items="layerItems"
-          item-text="layerName"
-          item-value="lid"
-          dense
-          return-object
-          hide-details
-          @input="handleLayerSelect"
-          :label="selectorLabel"
+        v-model="selectedItem"
+        class="wgu-vector-layer-select"
+        :items="layerItems"
+        item-text="layerName"
+        item-value="lid"
+        dense
+        return-object
+        hide-details
+        @input="handleLayerSelect"
+        :label="selectorLabel"
         ></v-select>
       <v-spacer></v-spacer>
       <v-app-bar-nav-icon @click="show=false">
@@ -29,8 +30,8 @@
   </v-toolbar>
 
   <wgu-attributetable
-  v-if="layerId"
-  :layerId="layerId"
+    v-if="layerId"
+    :layerId="layerId"
   >
   </wgu-attributetable>
   </v-card>
