@@ -84,7 +84,7 @@ export default {
       const mapLayers = this.map.getLayers();
       mapLayers.forEach(layer => {
         if (layer instanceof VectorLayer &&
-            layer.get('name') !== 'Measure Layer') {
+            layer.get('lid') !== 'measure-layer') {
           layerItems.push({
             layerName: layer.get('name'),
             lid: layer.get('lid')
