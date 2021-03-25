@@ -86,6 +86,10 @@
         baseColor: Vue.prototype.$appConfig.baseColor
       }
     },
+    created () {
+      // set document title (e.g. shown in browser tab) from app config
+      document.title = Vue.prototype.$appConfig.browserTitle || document.title;
+    },
     mounted () {
       // apply the isEmbedded state to the member var
       this.isEmbedded = this.$isEmbedded;
