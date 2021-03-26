@@ -43,6 +43,7 @@ export default class OlMeasureController {
     // create a vector layer to
     var source = new VectorSource();
     this.measureLayer = new VectorLayer({
+      lid: 'measure-layer',
       name: 'Measure Layer',
       displayInLayerList: false,
       source: source,

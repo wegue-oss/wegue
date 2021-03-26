@@ -58,6 +58,11 @@
           "offsetY": 15,
           "align": "center"
         }
+      },
+      "columnMapping": {
+        "name": "Name", 
+        "email": "Email",
+        "website": "Website"
       }
     },
     {
@@ -80,7 +85,10 @@
         "strokeWidth": 2,
         "fillColor": "rgba(155,153,51,0.5)"
       },
-      "attributions": "© <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors."
+      "attributions": "© <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors.",
+      "columnMapping": {
+        "name": "Name"
+      }
     },
 
     {
@@ -218,6 +226,10 @@
     "wgu-geolocator": {
       "target": "toolbar",
       "darkLayout": true
+    },
+    "wgu-attributetable": {
+      "target": "menu",
+      "win": true
     }
   }
 }

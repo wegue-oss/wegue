@@ -63,6 +63,7 @@
   import LayerListWin from '../src/components/layerlist/LayerListWin'
   import InfoClickWin from '../src/components/infoclick/InfoClickWin'
   import MapLoadingStatus from '../src/components/progress/MapLoadingStatus'
+  import AttributeTableWin from '../src/components/attributeTable/AttributeTableWin.vue'
 
   export default {
     name: 'wgu-app-tpl',
@@ -74,7 +75,8 @@
       'wgu-measuretool-win': MeasureWin,
       'wgu-layerlist-win': LayerListWin,
       'wgu-infoclick-win': InfoClickWin,
-      'wgu-maploading-status': MapLoadingStatus
+      'wgu-maploading-status': MapLoadingStatus,
+      'wgu-attributetable-win': AttributeTableWin
     },
     data () {
       return {

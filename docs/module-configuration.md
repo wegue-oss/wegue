@@ -82,3 +82,11 @@ Module identifier: `wgu-measuretool`
 Module identifier: `wgu-zoomtomaxextent`
 
 No additional config options besides the general ones.
+
+## AttributeTable
+
+The attribute table displays features of vector layers. It is possible to specify human-readable column names by adding the `columnMapping` property to the layer (see [Vector](map-layer-configuration?id=vector) or [WFS](map-layer-configuration?id=wfs)).
+
+Module identifier: `wgu-attributetable`
+
+No additional config options besides the general ones.

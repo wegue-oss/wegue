@@ -188,6 +188,7 @@ export const LayerFactory = {
       opacity: lConf.opacity,
       source: vectorSource,
       style: OlStyleFactory.getInstance(lConf.style),
+      columnMapping: lConf.columnMapping,
       hoverable: lConf.hoverable,
       hoverAttribute: lConf.hoverAttribute
     });
@@ -259,7 +260,8 @@ export const LayerFactory = {
       }),
       style: OlStyleFactory.getInstance(lConf.style),
       hoverable: lConf.hoverable,
-      hoverAttribute: lConf.hoverAttribute
+      hoverAttribute: lConf.hoverAttribute,
+      columnMapping: lConf.columnMapping
     });
 
     return vectorLayer;

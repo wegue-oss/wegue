@@ -35,14 +35,14 @@
     <v-menu v-if="menuButtons.length" offset-y>
       <!--v-slot="activator" to v-slot:activator="{on}" -->
       <template v-slot:activator="{on}">
-      
+
       <v-btn icon dark v-on="on">
         <v-icon medium>menu</v-icon>
       </v-btn>
       </template>
       <v-list>
           <template v-for="(tbButton, index) in menuButtons">
-              <v-list-item 
+              <v-list-item
                  :is="tbButton.type" :key="index" :icon="tbButton.icon" :text="tbButton.text" :color="color" >
               </v-list-item>
           </template>
@@ -65,6 +65,7 @@ import InfoClickButton from '../../src/components/infoclick/ToggleButton'
 import ZoomToMaxExtentButton from '../../src/components/maxextentbutton/ZoomToMaxExtentButton'
 import Geocoder from '../../src/components/geocoder/Geocoder'
 import Geolocator from '../../src/components/geolocator/Geolocator'
+import AttributeTableButton from '../../src/components/attributeTable/ToggleButton.vue'
 
 export default {
   name: 'wgu-app-header',
@@ -75,7 +76,8 @@ export default {
     'wgu-helpwin-btn': HelpWinToggleButton,
     'wgu-measuretool-btn': MeasureToolToggleButton,
     'wgu-infoclick-btn': InfoClickButton,
-    'wgu-geolocator-btn': Geolocator
+    'wgu-geolocator-btn': Geolocator,
+    'wgu-attributetable-btn': AttributeTableButton
   },
   props: {
     color: {type: String, required: false, default: 'red darken-3'}
