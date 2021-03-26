@@ -1,6 +1,7 @@
 {
 
   "title": "Vue.js / OpenLayers WebGIS",
+  "browserTitle": "Wegue Demo App",
 
   "baseColor": "red darken-3",
 
@@ -216,7 +217,7 @@
     },
     "wgu-helpwin": {
       "target": "toolbar",
-      "darkLayout": true, 
+      "darkLayout": true,
       "windowTitle": "About",
       "textTitle": "About Wegue",
       "htmlContent": "<b>WebGIS with OpenLayers and Vue.js</b> Template and re-usable components for webmapping applications with OpenLayers and Vue.js",

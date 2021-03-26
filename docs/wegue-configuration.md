@@ -8,7 +8,8 @@ This describes the Wegue application configuration, which is modelled as JSON do
 
 | Property           | Meaning   | Example |
 |--------------------|:---------:|---------|
-| title              | Title shown in the top toolbar | `"title": "A Wegue WebGIS App"` |
+| title              | Title shown in the top toolbar of the application | `"title": "A Wegue WebGIS App"` |
+| browserTitle       | HTML document title that is shown in the browser title bar or a browser page tab | `"browserTitle": "Wegue Demo App"` |
 | baseColor          | Main colour of the UI elements | `"baseColor": "red darken-3"` or `"baseColor": "#ff3388"` |
 | logo               | URL to an image shown as application logo | ` "logo": "https://dummyimage.com/100x100/aaa/fff&text=Wegue"`
 | logoWidth          | Width of the application logo defined in `logo` | `"logoWidth": "200"`|
