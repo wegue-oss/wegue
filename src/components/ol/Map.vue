@@ -266,6 +266,8 @@ export default {
       // wrap the tooltip span in a OL overlay and add it to map
       me.overlay = new Overlay({
         element: overlayEl,
+        stopEvent: false,
+        className: 'wgu-hover-ol-overlay',
         autoPan: true,
         autoPanAnimation: {
           duration: 250
@@ -397,6 +399,7 @@ export default {
     text-align: center;
     padding: 5px;
     border-radius: 6px;
+    margin-left: 10px;
 
     /* Position the hover tooltip */
     position: relative;
