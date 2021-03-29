@@ -89,8 +89,10 @@ export default {
     }
   },
   beforeDestroy () {
-    // unregister event after table is closed
-    this.layer.getSource().un('change', this.prepareTableDataAndColumns);
+    if (this.layer && this.layer.getSource()) {
+      // unregister event after table is closed
+      this.layer.getSource().un('change', this.prepareTableDataAndColumns);
+    }
   },
   watch: {
     layerId () {
