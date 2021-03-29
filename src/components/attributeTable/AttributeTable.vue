@@ -84,7 +84,7 @@ export default {
   created () {
     this.populateTable()
 
-    if (this.activateTableMapInteraction && !this.$vuetify.breakpoint.xs) {
+    if (this.activateTableMapInteraction) {
       this.activateSelectRowOnMapClick();
     }
   },
@@ -112,10 +112,46 @@ export default {
         this.loading = true;
       } else {
         this.loading = false;
+        this.highlightInitialFeatureSelectionInTable();
       }
     }
   },
   methods: {
+    /**
+     * Highlight row when feature is already selected
+     * before table is opened.
+     */
+    highlightInitialFeatureSelectionInTable () {
+      const interactions = this.map.getInteractions().getArray();
+      if (!interactions) {
+        return;
+      }
+
+      const correspondingInteraction = interactions.find(interaction => {
+        return interaction instanceof SelectInteraction &&
+              interaction.get('lid') === this.layerId;
+      });
+      if (!correspondingInteraction) {
+        return;
+      }
+
+      let features = correspondingInteraction.getFeatures();
+      if (!features || features.getLength() !== 1) {
+        return;
+      }
+
+      const feature = features.getArray()[0];
+      if (!feature) {
+        return;
+      }
+
+      const fid = feature.getId();
+      if (!fid) {
+        return;
+      }
+      this.highlightRowFromSelectedFeature(fid);
+    },
+
     /**
      * Set the table height depending on desktop
      * or mobile view.
@@ -142,23 +178,38 @@ export default {
             return;
           }
           const fid = featureArray[0].getId();
-          const foundRecord = this.records.find(record => record.fid === fid);
-          if (!foundRecord) {
-            return;
-          }
-          this.selectedRow = [foundRecord];
-
-          const recIndex = this.records.indexOf(foundRecord);
-          if (!recIndex) {
-            return;
-          }
-          // calculate page and set it
-          this.page = Math.ceil((recIndex + 1) / this.rowsPerPage);
+          this.highlightRowFromSelectedFeature(fid);
         });
     },
 
     /**
-     * Handler for click on a row. It is only disabled in the desktop view.
+     * Highlight row matching the feature ID
+     * and set correct page of the table.
+     *
+     * @param {Number} fid The ID of the selected feature.
+     */
+    highlightRowFromSelectedFeature (fid) {
+      if (!fid) {
+        return;
+      }
+      const foundRecord = this.records.find(record => record.fid === fid);
+      if (!foundRecord) {
+        return;
+      }
+      this.selectedRow = [foundRecord];
+
+      const recIndex = this.records.indexOf(foundRecord);
+      if (!recIndex) {
+        return;
+      }
+      this.$nextTick(() => {
+        // calculate page and set it
+        this.page = Math.ceil((recIndex + 1) / this.rowsPerPage);
+      })
+    },
+
+    /**
+     * Handler for click on a row.
      *
      * It zooms to the clicked features.
      *
@@ -166,8 +217,7 @@ export default {
      * map will be styled as selected.
      */
     onRowClick (record) {
-      // disable on small devices
-      if (this.$vuetify.breakpoint.xs || !this.activateTableMapInteraction) {
+      if (!this.activateTableMapInteraction) {
         return;
       }
 
