@@ -89,7 +89,7 @@ The following properties can be applied to all map layer types
 ## Style for Vectorlayers
 
 Mandatory properties:
-- Points require **`radius`** and/or **`iconUrl`**.
+- Points require **`radius`** and/or **`iconUrl`** and/or **`textIcon`**.
 - Polygons require **`fillColor`**.
 - Lines require **`strokeColor`** or **`strokeWidth`**.
 
@@ -105,6 +105,8 @@ Mandatory properties:
 | iconAnchor         | Point only, see [anchor](https://openlayers.org/en/latest/apidoc/module-ol_style_Icon-Icon.html) | `"anchor": [0.5, 37]` |
 | iconAnchorXUnits   | Point only, see [anchorXUnits](https://openlayers.org/en/latest/apidoc/module-ol_style_Icon-Icon.html) | `"anchorXUnits": "fraction"` |
 | iconAnchorYUnits   | Point only, see [anchorYUnits](https://openlayers.org/en/latest/apidoc/module-ol_style_Icon-Icon.html) | `"anchorYUnits": "pixels"` |
+| textIcon           | Point only, see [text](https://openlayers.org/en/latest/apidoc/module-ol_style_Text-Text.html). Icons for font `normal 30px Material Icons` can be found [here](https://fonts.google.com/icons?selected=Material+Icons) | `"textIcon": "local_gas_station"` |
+| font               | Point only, see [font](https://openlayers.org/en/latest/apidoc/module-ol_style_Text-Text.html) | `"font": "normal 30px Material Icons"` |
 
 #### Label
 
