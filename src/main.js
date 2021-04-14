@@ -2,12 +2,14 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import Vuetify from 'vuetify';
+import PortalVue from 'portal-vue'
 import '../node_modules/ol/ol.css';
 import WguApp from '../app/WguApp';
 import UrlUtil from './util/Url';
 import 'vuetify/dist/vuetify.min.css';
 
 Vue.use(Vuetify);
+Vue.use(PortalVue);
 
 // necessary for some components
 export default new Vuetify({
