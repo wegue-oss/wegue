@@ -61,7 +61,7 @@
         }
       },
       "columnMapping": {
-        "name": "Name", 
+        "name": "Name",
         "email": "Email",
         "website": "Website"
       }
@@ -81,10 +81,9 @@
       "visible": false,
       "selectable": true,
       "style": {
-        "radius": 6,
-        "strokeColor": "blue",
-        "strokeWidth": 2,
-        "fillColor": "rgba(155,153,51,0.5)"
+        "textIcon": "local_gas_station",
+        "font": "normal 30px Material Icons",
+        "fillColor": "blue"
       },
       "attributions": "© <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors.",
       "columnMapping": {

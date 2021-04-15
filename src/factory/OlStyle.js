@@ -22,7 +22,7 @@ export const OlStyleFactory = {
     let style;
     if (!styleConf) {
       return;
-    } else if (styleConf.radius || styleConf.iconUrl) {
+    } else if (styleConf.radius || styleConf.iconUrl || styleConf.textIcon) {
       style = OlStyleFactory.createPointStyle(styleConf);
     } else if (styleConf.fillColor) {
       style = OlStyleFactory.createPolygonStyle(styleConf);
@@ -57,12 +57,20 @@ export const OlStyleFactory = {
           anchorYUnits: styleConf.iconAnchorYUnits
         }))
       })
-    } else {
+    } else if (styleConf.radius) {
       pointStyle = new Style({
         image: new CircleStyle({
           radius: styleConf.radius,
           fill: OlStyleFactory.createFill(styleConf),
           stroke: OlStyleFactory.createStroke(styleConf)
+        })
+      });
+    } else {
+      pointStyle = new Style({
+        text: new Text({
+          text: styleConf.textIcon,
+          font: styleConf.font || 'normal 30px Material Icons',
+          fill: OlStyleFactory.createFill(styleConf)
         })
       });
     }
