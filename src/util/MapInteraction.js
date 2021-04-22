@@ -1,6 +1,7 @@
 import SelectInteraction from 'ol/interaction/Select';
 import { WguEventBus } from '../WguEventBus.js';
 import { OlStyleFactory } from '../factory/OlStyle.js'
+import StyleUtil from './Style.js';
 
 const MapInteractionUtil = {
 
@@ -19,32 +20,12 @@ const MapInteractionUtil = {
       // layer specific select style
       selectStyle = OlStyleFactory.getInstance(selectStyleConf);
 
+      // append selectStyle to original style of layer
+      const combinedStyle = StyleUtil.appendStyle(layer.getStyle(), selectStyle);
+
       selectClick = new SelectInteraction({
         layers: [layer],
-        style: function (feature, resolution) {
-          // we return an array of the selection style and the features style
-          if (typeof layer.getStyle() === 'function') {
-            const layerStyleFunction = layer.getStyle();
-
-            // check what kind of result we can expect
-            let layerStyle = layerStyleFunction(feature, resolution);
-
-            if (Array.isArray(layerStyle)) {
-              // case result is an style array
-              const resultArray = [selectStyle];
-
-              // add the array elements to the result Array
-              layerStyle.forEach(item => resultArray.push(item));
-
-              return resultArray;
-            } else {
-              // classic case that result is a simple style
-              return [selectStyle, layerStyleFunction(feature, resolution)]
-            }
-          } else {
-            return [selectStyle, layer.getStyle()]
-          }
-        }
+        style: combinedStyle
       });
     } else {
       selectClick = new SelectInteraction({
