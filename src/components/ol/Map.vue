@@ -7,7 +7,6 @@ import Map from 'ol/Map'
 import View from 'ol/View'
 import Attribution from 'ol/control/Attribution';
 import Zoom from 'ol/control/Zoom';
-import SelectInteraction from 'ol/interaction/Select';
 import {
   DragAndDrop,
   defaults as defaultInteractions
@@ -28,7 +27,7 @@ import { LayerFactory } from '../../factory/Layer.js';
 import ColorUtil from '../../util/Color';
 import LayerUtil from '../../util/Layer';
 import PermalinkController from './PermalinkController';
-import { OlStyleFactory } from '../../factory/OlStyle.js';
+import MapInteractionUtil from '../../util/MapInteraction';
 
 export default {
   name: 'wgu-map',
@@ -174,28 +173,7 @@ export default {
 
         // if layer is selectable register a select interaction
         if (lConf.selectable) {
-          // check if a style is provided in the appConfig
-          let selectStyle;
-          if (lConf.selectStyle) {
-            // layer specific select style
-            selectStyle = OlStyleFactory.getInstance(lConf.selectStyle);
-          }
-
-          const selectClick = new SelectInteraction({
-            layers: [layer],
-            style: selectStyle
-          });
-
-          // forward an event if feature selection changes
-          selectClick.on('select', function (evt) {
-            // TODO use identifier for layer (once its implemented)
-            WguEventBus.$emit(
-              'map-selectionchange',
-              layer.get('lid'),
-              evt.selected,
-              evt.deselected
-            );
-          });
+          let selectClick = MapInteractionUtil.createSelectInteraction(layer, lConf.selectStyle)
           // register/activate interaction on map
           me.map.addInteraction(selectClick);
         }
