@@ -173,7 +173,11 @@ export default {
 
         // if layer is selectable register a select interaction
         if (lConf.selectable) {
-          let selectClick = MapInteractionUtil.createSelectInteraction(layer, lConf.selectStyle)
+          let selectClick = MapInteractionUtil.createSelectInteraction(
+            layer,
+            lConf.selectStyle,
+            lConf.doAppendSelectStyle
+          )
           // register/activate interaction on map
           me.map.addInteraction(selectClick);
         }

@@ -10,22 +10,25 @@ const MapInteractionUtil = {
    *
    * @param {ol.layer.Layer} layer The layer to create the interaction for
    * @param {Object} [selectStyleConf] The configuration for the selection style
+   * @param {Boolean} [doAppendSelectStyle] If the selection style should be appended to the original style.
    *
    * @returns {ol.interaction.Select} The select interaction
    */
-  createSelectInteraction (layer, selectStyleConf) {
+  createSelectInteraction (layer, selectStyleConf, doAppendSelectStyle) {
     let selectClick;
     let selectStyle;
     if (selectStyleConf) {
       // layer specific select style
       selectStyle = OlStyleFactory.getInstance(selectStyleConf);
 
-      // append selectStyle to original style of layer
-      const combinedStyle = StyleUtil.appendStyle(layer.getStyle(), selectStyle);
+      if (doAppendSelectStyle) {
+        // append selectStyle to original style of layer
+        selectStyle = StyleUtil.appendStyle(layer.getStyle(), selectStyle);
+      }
 
       selectClick = new SelectInteraction({
         layers: [layer],
-        style: combinedStyle
+        style: selectStyle
       });
     } else {
       selectClick = new SelectInteraction({
