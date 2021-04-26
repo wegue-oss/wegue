@@ -61,6 +61,7 @@
   import AppLogo from '../src/components/AppLogo'
   import MeasureWin from '../src/components/measuretool/MeasureWin'
   import LayerListWin from '../src/components/layerlist/LayerListWin'
+  import HelpWin from '../src/components/helpwin/HelpWin'
   import InfoClickWin from '../src/components/infoclick/InfoClickWin'
   import MapLoadingStatus from '../src/components/progress/MapLoadingStatus'
   import AttributeTableWin from '../src/components/attributeTable/AttributeTableWin.vue'
@@ -74,6 +75,7 @@
       'wgu-app-logo': AppLogo,
       'wgu-measuretool-win': MeasureWin,
       'wgu-layerlist-win': LayerListWin,
+      'wgu-helpwin-win': HelpWin,
       'wgu-infoclick-win': InfoClickWin,
       'wgu-maploading-status': MapLoadingStatus,
       'wgu-attributetable-win': AttributeTableWin

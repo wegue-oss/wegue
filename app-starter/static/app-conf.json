@@ -216,6 +216,7 @@
     },
     "wgu-helpwin": {
       "target": "toolbar",
+      "win": true,
       "darkLayout": true,
       "windowTitle": "About",
       "textTitle": "About Wegue",
