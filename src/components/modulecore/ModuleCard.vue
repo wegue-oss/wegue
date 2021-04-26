@@ -21,12 +21,12 @@
 
     <!-- Default slot for module content -->
     <slot name="default"></slot>
-    
+
   </v-card>
 </template>
 
 <script>
-  import { DraggableWin } from '@Wegue/directives/DraggableWin';
+  import { DraggableWin } from '../../directives/DraggableWin';
   import { WguEventBus } from '../../WguEventBus'
   export default {
     name: 'wgu-module-card',
