@@ -9,13 +9,19 @@
       <v-icon class="mr-4">{{ icon }}</v-icon>
       <v-toolbar-title class="wgu-win-title">{{ title }}</v-toolbar-title>
       <v-spacer></v-spacer>
+
+      <!-- Slot for optional window toolbar content -->
+      <slot name="wgu-win-toolbar"></slot>
+
+      <v-spacer></v-spacer>
       <v-app-bar-nav-icon @click="toggleUi">
         <v-icon>close</v-icon>
       </v-app-bar-nav-icon>
     </v-toolbar>
-    
+
     <!-- Default slot for module content -->
-    <slot></slot>
+    <slot name="default"></slot>
+    
   </v-card>
 </template>
 
