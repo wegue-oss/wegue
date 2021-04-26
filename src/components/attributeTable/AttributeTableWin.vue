@@ -1,16 +1,11 @@
 <template>
-  <v-card
-    class="wgu-attributetable-win"
-    v-if="show"
-  >
-    <v-toolbar :color="color" dark>
-      <v-icon>{{icon}}</v-icon>
-      <v-toolbar-title
-        class="wgu-win-title"
-        v-if="!$vuetify.breakpoint.xs"
-      >{{title}}
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
+  <wgu-module-card v-bind="$attrs"
+    :moduleName="moduleName"
+    class="wgu-attributetable-win" 
+    :icon="icon" 
+    :title="title">
+
+    <template v-slot:wgu-win-toolbar>
       <v-select
         v-model="selectedItem"
         class="wgu-vector-layer-select"
@@ -23,37 +18,34 @@
         @input="handleLayerSelect"
         :label="selectorLabel"
         ></v-select>
-      <v-spacer></v-spacer>
-      <v-app-bar-nav-icon @click="show=false">
-        <v-icon>close</v-icon>
-      </v-app-bar-nav-icon>
-  </v-toolbar>
-
-  <wgu-attributetable
-    v-if="layerId"
-    :layerId="layerId"
-  >
-  </wgu-attributetable>
-  </v-card>
+    </template>
+  
+    <wgu-attributetable
+      v-if="layerId"
+      :layerId="layerId"
+    >
+    </wgu-attributetable>
+  </wgu-module-card>
 </template>
 
 <script>
+import ModuleCard from './../modulecore/ModuleCard';
 import { Mapable } from '../../mixins/Mapable';
 import VectorLayer from 'ol/layer/Vector'
 import AttributeTable from './AttributeTable';
 
 export default {
   name: 'wgu-attributetable-win',
+  inheritAttrs: false,
 
   props: {
-    color: {type: String, required: false, default: 'red darken-3'},
     icon: {type: String, required: false, default: 'table_chart'},
     title: {type: String, required: false, default: 'Attribute Table'},
     selectorLabel: {type: String, required: false, default: 'Choose a layer'}
   },
   data () {
     return {
-      show: false,
+      moduleName: 'wgu-attributetable',
       layerId: null,
       layerItems: null,
       selectedItem: null
@@ -61,6 +53,7 @@ export default {
   },
   mixins: [Mapable],
   components: {
+    'wgu-module-card': ModuleCard,
     'wgu-attributetable': AttributeTable
   },
   methods: {
@@ -100,16 +93,20 @@ export default {
 
 <style scoped>
 
-.wgu-attributetable-win {
-    z-index: 2;
-    bottom: 35px;
-}
+  /* TODO 
+    Generalize the positioning concept for windows,
+    this interferes with positioning and draggable settings in the app.conf */
 
-@media only screen and (max-width: 600px) {
   .wgu-attributetable-win {
-      z-index: 2;
+    top: inherit !important;
+    position: relative;
+    bottom: 35px;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .wgu-attributetable-win {
       bottom: 33px;
       height: 100%;
+    }
   }
-}
 </style>

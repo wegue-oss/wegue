@@ -8,15 +8,10 @@
 </template>
 
 <script>
-import Vue from 'vue'
 import { WguEventBus } from '../../WguEventBus'
-import AttributeTableWin from './AttributeTableWin';
 
 export default {
   name: 'wgu-attributetable-btn',
-  components: {
-    'wgu-attributetable': AttributeTableWin
-  },
   props: {
     // alternative icons: table_chart, view_comfy
     icon: {type: String, required: false, default: 'table_chart'},
@@ -25,22 +20,20 @@ export default {
   },
   data: function () {
     return {
-      moduleName: 'wgu-attributetable'
+      moduleName: 'wgu-attributetable',
+      show: false
     }
   },
   created () {
     // TODO move to a father class
-    WguEventBus.$on('app-mounted', () => {
-      this.win = Vue.prototype.cmpLookup[this.moduleName + '-win'];
+    WguEventBus.$on(this.moduleName + 'visibility-change', visible => {
+      this.show = visible;
     });
-    if (!this.win) {
-      this.win = Vue.prototype.cmpLookup[this.moduleName + '-win'];
-    }
   },
   methods: {
     toggleUi () {
       // TODO move to a father class
-      this.win.show = !this.win.show;
+      WguEventBus.$emit(this.moduleName + 'visibility-change', !this.show)
     }
   }
 };
