@@ -1,5 +1,6 @@
 <template>
   <v-card class="wgu-module-card wgu-floating" 
+    v-bind="$attrs"
     v-if=show 
     v-draggable-win="draggable"  
     v-bind:style="{ left: left, top: top }"> 
@@ -12,7 +13,7 @@
         <v-icon>close</v-icon>
       </v-app-bar-nav-icon>
     </v-toolbar>
-
+    
     <!-- Default slot for module content -->
     <slot></slot>
   </v-card>
@@ -23,6 +24,7 @@
   import { WguEventBus } from '../../WguEventBus'
   export default {
     name: 'wgu-module-card',
+    inheritAttrs: false,
     directives: {
       DraggableWin
     },
