@@ -51,5 +51,13 @@
   }
 </script>
 
-<style>
+<style scoped>
+  /* TODO 
+    Generalize the positioning concept for windows,
+    this interferes with positioning and draggable settings in the app.conf */
+  .v-card.wgu-helpwin {
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%);
+  }
 </style>
