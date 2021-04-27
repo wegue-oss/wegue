@@ -124,12 +124,14 @@
       "target": "menu",
       "win": true,
       "icon": "layers",
+      "darkLayout": true,
       "draggable": false
     },
     "wgu-measuretool": {
       "target": "menu",
       "win": true,
       "icon": "photo_size_select_small",
+      "darkLayout": true,
       "draggable": false,
       "strokeColor": "#c62828",
       "fillColor": "rgba(198,40,40,0.2)",
@@ -142,6 +144,7 @@
       "target": "menu",
       "win": true,
       "icon": "info",
+      "darkLayout": true,
       "draggable": false,
       "initPos": {
         "left": 8,
