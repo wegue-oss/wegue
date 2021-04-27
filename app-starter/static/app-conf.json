@@ -173,11 +173,13 @@
     "wgu-layerlist": {
       "target": "menu",
       "win": true,
+      "icon": "layers",
       "draggable": false
     },
     "wgu-measuretool": {
       "target": "menu",
       "win": true,
+      "icon": "photo_size_select_small",
       "draggable": false,
       "strokeColor": "#c62828",
       "fillColor": "rgba(198,40,40,0.2)",
@@ -189,6 +191,7 @@
     "wgu-infoclick": {
       "target": "menu",
       "win": true,
+      "icon": "info",
       "draggable": false,
       "initPos": {
         "left": 8,
@@ -217,6 +220,7 @@
     "wgu-helpwin": {
       "target": "toolbar",
       "win": true,
+      "icon": "help",
       "darkLayout": true,
       "windowTitle": "About",
       "textTitle": "About Wegue",
@@ -230,7 +234,8 @@
     },
     "wgu-attributetable": {
       "target": "menu",
-      "win": true
+      "win": true,
+      "icon": "table_chart"
     }
   }
 }
