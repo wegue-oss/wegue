@@ -1,8 +1,12 @@
 <template>
-  <v-btn icon :dark="dark" @click="toggleUi">
-    <v-icon medium>{{icon}}</v-icon>
-    {{text}}
-  </v-btn>
+  <v-btn-toggle borderless dense 
+    background-color="transparent" :dark="dark" 
+    v-model="show">
+    <v-btn icon :value="true" @click="toggleUi">
+      <v-icon medium>{{icon}}</v-icon>
+      {{text}}
+    </v-btn>
+  </v-btn-toggle>
 </template>
 
 <script>
