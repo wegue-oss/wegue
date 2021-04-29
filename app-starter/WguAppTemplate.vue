@@ -14,23 +14,33 @@
 
     <slot name="wgu-after-header" />
 
-    <wgu-app-logo />
+    <wgu-app-sidebar v-if="sidebarWins.length">
+        <template v-for="(moduleWin, index) in sidebarWins">
+          <component
+            :is="moduleWin.type" :key="index" :ref="moduleWin.type"
+            :win="moduleWin.win" :color="baseColor"
+          />
+      </template>
+    </wgu-app-sidebar>      
 
     <slot name="wgu-before-content" />
-
-    <v-content>
-      <v-container id="ol-map-container" fluid fill-height style="padding: 0">
+    <v-content app>
+      <v-container id="ol-map-container" fluid fill-height class="pa-0">
          <wgu-map :color="baseColor" />
          <!-- layer loading indicator -->
          <wgu-maploading-status :color="baseColor" />
-         <slot name="wgu-after-map" />
+        <slot name="wgu-after-map"> 
+        </slot>
+        <!-- Portal to overlay the map content from an application module -->
+        <portal-target name="map-overlay" />
+        <wgu-app-logo />
       </v-container>
     </v-content>
 
-    <template v-for="(moduleWin, index) in moduleWins">
+    <template v-for="(moduleWin, index) in floatingWins">
       <component
         :is="moduleWin.type" :key="index" :ref="moduleWin.type"
-        :color="baseColor"
+        :win="moduleWin.win" :color="baseColor"
         :draggable="moduleWin.draggable"
         :initPos="moduleWin.initPos"
       />
@@ -58,6 +68,7 @@
   import OlMap from '../src/components/ol/Map'
   import AppHeader from './components/AppHeader'
   import AppFooter from './components/AppFooter'
+  import AppSidebar from './components/AppSidebar'
   import AppLogo from '../src/components/AppLogo'
   import MeasureWin from '../src/components/measuretool/MeasureWin'
   import LayerListWin from '../src/components/layerlist/LayerListWin'
@@ -72,6 +83,7 @@
       'wgu-map': OlMap,
       'wgu-app-header': AppHeader,
       'wgu-app-footer': AppFooter,
+      'wgu-app-sidebar': AppSidebar,
       'wgu-app-logo': AppLogo,
       'wgu-measuretool-win': MeasureWin,
       'wgu-layerlist-win': LayerListWin,
@@ -83,7 +95,8 @@
     data () {
       return {
         isEmbedded: false,
-        moduleWins: this.getModuleWinData(),
+        floatingWins: this.getModuleWinData('floating'),
+        sidebarWins: this.getModuleWinData('sidebar'),
         footerTextLeft: Vue.prototype.$appConfig.footerTextLeft,
         footerTextRight: Vue.prototype.$appConfig.footerTextRight,
         showCopyrightYear: Vue.prototype.$appConfig.showCopyrightYear,
@@ -117,17 +130,19 @@
        *       {type: 'wgu-layerlist-win'},
        *       {type: 'wgu-measuretool-win'}
        *     ]
+       * @param  {String} target Either 'floating' or 'sidebar'
        * @return {Array} module window configuration objects
        */
-      getModuleWinData () {
+      getModuleWinData (target) {
         const appConfig = Vue.prototype.$appConfig || {};
         const modulesConfs = appConfig.modules || {};
         let moduleWins = [];
         for (const key of Object.keys(modulesConfs)) {
           const moduleOpts = appConfig.modules[key];
-          if (moduleOpts.win === true) {
+          if (moduleOpts.win === target) {
             moduleWins.push({
               type: key + '-win',
+              win: moduleOpts.win,
               draggable: moduleOpts.draggable,
               initPos: moduleOpts.initPos
             });

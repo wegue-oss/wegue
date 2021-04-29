@@ -4,6 +4,7 @@
     :color="color"
     fixed
     app
+    clipped-left
     clipped-right
   >
 
