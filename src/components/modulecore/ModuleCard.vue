@@ -1,10 +1,11 @@
 <template>
-  <v-card class="wgu-module-card wgu-floating" 
-    v-bind="$attrs"
-    v-if=show 
-    v-draggable-win="draggable"  
-    v-bind:style="{ left: left, top: top }"> 
-
+  <v-card :class="cardClasses" 
+    :style="cardStyles"
+    v-bind="cardAttr"
+    v-if=show
+    v-draggable-win="cardDraggable"
+    > 
+    
     <v-toolbar :color="color" dark>
       <v-icon class="mr-4">{{ icon }}</v-icon>
       <v-toolbar-title class="wgu-win-title">{{ title }}</v-toolbar-title>
@@ -35,18 +36,25 @@
       DraggableWin
     },
     props: {
+      // Common properties
       moduleName: {type: String, required: true},
       icon: {type: String, required: true},
       title: {type: String, required: true},
+      win: {type: String, required: true},
       color: {type: String, required: false, default: 'red darken-3'},
+      // Positioning / sizing properties will be ignored for sidebar cards.
       draggable: {type: Boolean, required: false, default: true},
-      initPos: {type: Object, required: false}
+      initPos: {type: Object, required: false},
+      height: {type: [Number, String], required: false, default: undefined},
+      width: {type: [Number, String], required: false, default: undefined},
+      maxHeight: {type: [Number, String], required: false, default: undefined},
+      maxWidth: {type: [Number, String], required: false, default: undefined},
+      minHeight: {type: [Number, String], required: false, default: undefined},
+      minWidth: {type: [Number, String], required: false, default: undefined}
     },
     data () {
       return {
-        show: false,
-        left: this.initPos ? this.initPos.left + 'px' : '0px',
-        top: this.initPos ? this.initPos.top + 'px' : '0px'
+        show: false
       }
     },
     created () {
@@ -54,6 +62,38 @@
         this.show = visible;
         this.$emit('visibility-change', visible);
       });
+    },
+    computed: {
+      cardClasses () {
+        return (this.win === 'floating')
+          ? ['wgu-module-card', 'wgu-floating']
+          : ['wgu-module-card', 'wgu-sidebar']
+      },
+      cardStyles () {
+        return (this.win === 'floating')
+          ? {
+            left: this.initPos ? this.initPos.left + 'px' : '0px',
+            top: this.initPos ? this.initPos.top + 'px' : '0px'
+          }
+          : {}
+      },
+      cardAttr () {
+        return (this.win === 'floating')
+          ? {
+            height: this.height,
+            width: this.width,
+            maxHeight: this.maxHeight,
+            maxWidth: this.maxWidth,
+            minHeight: this.minHeight,
+            minWidth: this.minWidth
+          }
+          : {}
+      },
+      cardDraggable () {
+        return (this.win === 'floating')
+          ? this.draggable
+          : false
+      }
     },
     methods: {
       toggleUi () {
