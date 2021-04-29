@@ -64,3 +64,12 @@ html {
    -ms-user-select: none;
    user-select: none;
 }
+
+.wgu-app-sidebar {
+  overflow: visible
+}
+
+.wgu-app-sidebar-toggle-btn {
+  left: 100%; 
+  visibility: visible
+}
