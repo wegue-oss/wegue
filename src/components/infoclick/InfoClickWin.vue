@@ -134,7 +134,7 @@ export default {
       this interferes with positioning and draggable settings in the app.conf */
       
     /* tmp. approach to position on small screens */
-    .v-card.wgu-infoclick-win {
+    .wgu-infoclick-win.wgu-floating {
       /* tmp. fix */
       left: 0 !important;
       top: 40% !important;
@@ -142,7 +142,7 @@ export default {
       max-width: 600px;
     }
 
-    .wgu-infoclick-win-title {
+    .wgu-infoclick-win.wgu-floating > .wgu-infoclick-win-title {
       overflow: scroll;
       max-height: 300px;
     }

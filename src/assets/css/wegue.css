@@ -28,14 +28,14 @@ html {
 /* TODO 
   Generalize the positioning concept for windows,
   this interferes with positioning and draggable settings in the app.conf */
-.wgu-measurewin {
+.wgu-measurewin.wgu-floating {
   left: auto !important;
   top: auto !important;
   right: 10px;
   bottom: 4.8em;
 }
 
-.wgu-layerlist {
+.wgu-layerlist.wgu-floating {
   left: auto !important;
   top: 75px !important;
   right: 10px;
