@@ -50,7 +50,7 @@ export default {
     rowsPerPage: {type: Number, required: false, default: 10},
 
     /**
-     * The hight of the table in pixel.
+     * The height of the table in pixel.
      * Should be manually adjusted with rowsPerPage.
      */
     tableHeight: {type: Number, required: false, default: 272},
