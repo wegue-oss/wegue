@@ -91,4 +91,4 @@ Module identifier: `wgu-attributetable`
 
 | Property                    | Meaning   | Example |
 |-----------------------------|:---------:|---------|
-| activateTableMapInteraction | Clicking on a row zooms to the respective feature. If the layer is `selectable` the feature will also be selected. Selecting a feature on the map selects the corresponsing row in the table. | `"activateTableMapInteraction": true` |
+| syncTableMapSelection | Clicking on a row zooms to the respective feature. If the layer is `selectable` the feature will also be selected. Selecting a feature on the map selects the corresponsing row in the table. | `"syncTableMapSelection": true` |

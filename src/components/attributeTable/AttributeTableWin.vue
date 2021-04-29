@@ -33,7 +33,7 @@
     v-if="layerId"
     v-resize="onResize"
     :layerId="layerId"
-    :activateTableMapInteraction="activateTableMapInteraction"
+    :syncTableMapSelection="syncTableMapSelection"
   >
   </wgu-attributetable>
   </v-card>
@@ -64,7 +64,7 @@ export default {
   mixins: [Mapable],
   created () {
     const config = this.$appConfig.modules['wgu-attributetable'];
-    this.activateTableMapInteraction = config.activateTableMapInteraction || false
+    this.syncTableMapSelection = config.syncTableMapSelection || false
   },
   components: {
     'wgu-attributetable': AttributeTable

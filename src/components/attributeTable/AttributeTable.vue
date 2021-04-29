@@ -56,7 +56,7 @@ export default {
     tableHeight: {type: Number, required: false, default: 272},
 
     /** If map and table should be synced */
-    activateTableMapInteraction: {type: Boolean, required: false, default: true},
+    syncTableMapSelection: {type: Boolean, required: false, default: true},
 
     /** The maximum zoom level when clicking on a row */
     maxZoomOnFeature: {type: Number, required: false, default: 15},
@@ -84,7 +84,7 @@ export default {
   created () {
     this.populateTable()
 
-    if (this.activateTableMapInteraction) {
+    if (this.syncTableMapSelection) {
       this.activateSelectRowOnMapClick();
     }
   },
@@ -219,7 +219,7 @@ export default {
      * map will be styled as selected.
      */
     onRowClick (record) {
-      if (!this.activateTableMapInteraction) {
+      if (!this.syncTableMapSelection) {
         return;
       }
 

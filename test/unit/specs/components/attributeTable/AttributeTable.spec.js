@@ -5,7 +5,7 @@ import { expect } from 'chai';
 import {shallowMount} from '@vue/test-utils';
 
 const appConfig = {modules: { 'wgu-attributetable-win': {
-  activateTableMapInteraction: true
+  syncTableMapSelection: true
 } }};
 
 describe('attributeTable/AttributeTable.vue', () => {
@@ -68,7 +68,7 @@ describe('attributeTable/AttributeTable.vue', () => {
 
       expect(comp.vm.rowsPerPage).to.be.a('number');
       expect(comp.vm.tableHeight).to.be.a('number');
-      expect(comp.vm.activateTableMapInteraction).to.be.a('boolean');
+      expect(comp.vm.syncTableMapSelection).to.be.a('boolean');
       expect(comp.vm.maxZoomOnFeature).to.be.a('number');
       expect(comp.vm.forbiddenColumnNames).to.be.an.instanceof(Array);
     });
