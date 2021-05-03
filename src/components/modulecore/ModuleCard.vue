@@ -16,14 +16,20 @@
         <slot name="wgu-win-toolbar"></slot>
 
         <v-spacer></v-spacer>
-        <v-app-bar-nav-icon @click="toggleUi">
+        <v-btn v-if="minimizable" icon small 
+          @click="minimized = !minimized">
+          <v-icon v-if="minimized">mdi-window-maximize</v-icon> 
+          <v-icon v-else>mdi-window-minimize</v-icon> 
+        </v-btn>
+        <v-btn icon small class="mr-0" 
+          @click="toggleUi">
           <v-icon>close</v-icon>
-        </v-app-bar-nav-icon>
+        </v-btn>
       </v-toolbar>
     </v-img>
     
     <!-- Default slot for module content -->
-    <slot name="default"></slot>
+    <slot v-if="!minimized" name="default"></slot>
 
   </v-card>
 </template>
@@ -43,6 +49,7 @@
       icon: {type: String, required: true},
       title: {type: String, required: true},
       win: {type: String, required: true},
+      minimizable: {type: Boolean, required: false, default: true},
       color: {type: String, required: false, default: 'red darken-3'},
       backgroundImage: {type: String, required: false, default: undefined},
       // Positioning / sizing properties will be ignored for sidebar cards.
@@ -57,7 +64,8 @@
     },
     data () {
       return {
-        show: false
+        show: false,
+        minimized: false
       }
     },
     created () {

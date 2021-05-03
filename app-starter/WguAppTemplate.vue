@@ -20,6 +20,7 @@
             :is="moduleWin.type" :key="index" :ref="moduleWin.type"
             :win="moduleWin.win" :color="baseColor"
             :backgroundImage="moduleWin.backgroundImage"
+            :minimizable="moduleWin.minimizable"
           />
       </template>
     </wgu-app-sidebar>      
@@ -45,6 +46,7 @@
         :draggable="moduleWin.draggable"
         :initPos="moduleWin.initPos"
         :backgroundImage="moduleWin.backgroundImage"
+        :minimizable="moduleWin.minimizable"
       />
     </template>
 
@@ -147,7 +149,8 @@
               win: moduleOpts.win,
               draggable: moduleOpts.draggable,
               initPos: moduleOpts.initPos,
-              backgroundImage: moduleOpts.backgroundImage
+              backgroundImage: moduleOpts.backgroundImage,
+              minimizable: moduleOpts.minimizable
             });
           }
         }
