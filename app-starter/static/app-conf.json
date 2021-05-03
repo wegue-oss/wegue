@@ -242,7 +242,8 @@
     },
     "wgu-attributetable": {
       "target": "menu",
-      "win": true
+      "win": true,
+      "syncTableMapSelection": true
     }
   }
 }

@@ -50,6 +50,28 @@ const MapInteractionUtil = {
     });
 
     return selectClick;
+  },
+
+  /**
+   * Find the selectIntercation of a layer
+   *
+   * @param {ol.Map} olMap The OL map to search in
+   * @param {String} layerId The layer id, typically 'lid' the property
+   * @returns {ol.interaction.Select} The respective selectInteraction
+   */
+  getSelectInteraction (olMap, layerId) {
+    if (!olMap || !olMap.getInteractions()) {
+      return;
+    }
+    const interactions = olMap.getInteractions().getArray();
+    if (!interactions) {
+      return;
+    }
+
+    return interactions.find(interaction => {
+      return interaction instanceof SelectInteraction &&
+            interaction.get('lid') === layerId;
+    });
   }
 };
 

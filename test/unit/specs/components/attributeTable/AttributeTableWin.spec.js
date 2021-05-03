@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import AttributeTableWin from '@/components/attributeTable/AttributeTableWin'
 import { expect } from 'chai';
-import { mount, shallowMount } from '@vue/test-utils';
+import { shallowMount } from '@vue/test-utils';
 
-const appConfig = {modules: { 'wgu-attributetable-win': {} }};
+const appConfig = {modules: { 'wgu-attributetable': {} }};
 
 describe('attributeTable/AttributeTableWin.vue', () => {
   it('is defined', () => {
@@ -14,7 +14,7 @@ describe('attributeTable/AttributeTableWin.vue', () => {
     let comp;
     beforeEach(() => {
       Vue.prototype.$appConfig = appConfig;
-      comp = mount(AttributeTableWin);
+      comp = shallowMount(AttributeTableWin);
     });
 
     it('has correct default props', () => {
@@ -47,11 +47,14 @@ describe('attributeTable/AttributeTableWin.vue', () => {
     let comp;
     let vm;
     beforeEach(() => {
+      Vue.prototype.$appConfig = appConfig;
       comp = shallowMount(AttributeTableWin);
       vm = comp.vm;
     });
 
     it('are implemented', () => {
+      expect(vm.onResize).to.be.a('function');
+      expect(vm.resizeOlMap).to.be.a('function');
       expect(vm.handleLayerSelect).to.be.a('function');
       expect(vm.onMapBound).to.be.a('function');
       expect(vm.populateLayerItems).to.be.a('function');
