@@ -28,7 +28,7 @@
 import { Mapable } from '../../mixins/Mapable';
 import LayerUtil from '../../util/Layer';
 import { WguEventBus } from '../../WguEventBus';
-import SelectInteraction from 'ol/interaction/Select';
+import MapInteractionUtil from '../../util/MapInteraction';
 
 export default {
   name: 'wgu-attributetable',
@@ -124,15 +124,8 @@ export default {
      * before table is opened.
      */
     highlightInitialFeatureSelectionInTable () {
-      const interactions = this.map.getInteractions().getArray();
-      if (!interactions) {
-        return;
-      }
+      const correspondingInteraction = MapInteractionUtil.getSelectInteraction(this.map, this.layerId);
 
-      const correspondingInteraction = interactions.find(interaction => {
-        return interaction instanceof SelectInteraction &&
-              interaction.get('lid') === this.layerId;
-      });
       if (!correspondingInteraction) {
         return;
       }
@@ -240,17 +233,7 @@ export default {
         maxZoom: this.maxZoomOnFeature
       });
 
-      // find respective map interaction
-      if (!this.map.getInteractions() ||
-      !this.map.getInteractions().getArray()) {
-        return;
-      }
-      const interactions = this.map.getInteractions().getArray();
-
-      const correspondingInteraction = interactions.find(interaction => {
-        return interaction instanceof SelectInteraction &&
-              interaction.get('lid') === this.layerId;
-      });
+      const correspondingInteraction = MapInteractionUtil.getSelectInteraction(this.map, this.layerId);
 
       // we can only select layers that have a select interaction
       if (!correspondingInteraction) {
