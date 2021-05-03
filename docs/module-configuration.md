@@ -9,7 +9,7 @@ The `modules` object contains sub-objects, whereas the key is the identifier for
 ```json
   "wgu-layerlist": {
     "target": "menu",
-    "win": true,
+    "win": "floating",
     "draggable": false
   }
 ```
@@ -18,11 +18,25 @@ The following properties can be applied to all map module types:
 
 | Property           | Meaning   | Example |
 |--------------------|:---------:|---------|
-| **target**         | Where should the button to enable/disable the module be rendered. Valid options are `menu` or `toolbar` | `"target": "menu"`. |
-| **win**            | Boolean value to mark if the module has a window as sub component to show addition module UI elements. | `"win": true"` |
-| draggable          | Boolean value to enable a window module be draggable over the viewport. Only applies if `win` is set to `true`. **CAUTION: This feature is experimental and not recommended for production usage.** | `"draggable": false` |
-| initPos            | The initial position for the module window in absolute viewport coordinates. Only applies if `win` is set to `true`. | `"initPos": {"left": 8, "top": 74}` |
+| **target**         | Where should the button to enable/disable the module be rendered. Valid options are `menu` or `toolbar` | `"target": "menu"` |
+| **win**            | Value to mark if the module has a window as sub component and where to show the module UI elements. Valid options are `floating` and `sidebar`. If the value is omitted, then the module is not associated with a window.  | `"win": "floating"` |
+| minimizable        | Indicates whether the module window can be minimized. Only applies if a module window is present as indicated by the `win` parameter. | `"minimizable": true` |
+| backgroundImage    | Optional background image for the window header. Only applies if a module window is present as indicated by the `win` parameter. | `"backgroundImage": "static/icon/myImage.png"}` |
 | darkLayout         | Boolean value to ensure that your module element (mostly a button) is rendered bright since your basic theme color is dark.  | `"darkLayout": true` |
+
+The following positioning and sizing properties can be assigned to all module types, which are associated with a floating window - This is when the `win` parameter is set to `floating`:
+
+| Property           | Meaning   | Example |
+|--------------------|:---------:|---------|
+| draggable          | Boolean value to enable a window module be draggable over the viewport. **CAUTION: This feature is experimental and not recommended for production usage.** | `"draggable": false` |
+| initPos            | The initial position for the module window in absolute viewport coordinates. | `"initPos": {"left": 8, "top": 74}` |
+| height            | The height of the module window in viewport coordinates. | `"height": 500` |
+| width            | The width of the module window in viewport coordinates. | `"width": 500` |
+| maxHeight            | The maximum height of the module window in viewport coordinates. | `"maxHeight": 500` |
+| maxWidth            | The maximum width of the module window in viewport coordinates. | `"maxWidth": 500` |
+| minHeight            | The minimum height of the module window in viewport coordinates. | `"minHeight": 500` |
+| minWidth            | The minimum width of the module window in viewport coordinates. | `"minWidth": 500` |
+
 
 ## GeoCoder
 
