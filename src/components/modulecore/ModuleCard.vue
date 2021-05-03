@@ -6,20 +6,22 @@
     v-draggable-win="cardDraggable"
     > 
     
-    <v-toolbar :color="color" dark>
-      <v-icon class="mr-4">{{ icon }}</v-icon>
-      <v-toolbar-title class="wgu-win-title">{{ title }}</v-toolbar-title>
-      <v-spacer></v-spacer>
+    <v-img :src="backgroundImage">
+      <v-toolbar v-bind="toolbarAttr">
+        <v-icon class="mr-4">{{ icon }}</v-icon>
+        <v-toolbar-title class="wgu-win-title">{{ title }}</v-toolbar-title>
+        <v-spacer></v-spacer>
 
-      <!-- Slot for optional window toolbar content -->
-      <slot name="wgu-win-toolbar"></slot>
+        <!-- Slot for optional window toolbar content -->
+        <slot name="wgu-win-toolbar"></slot>
 
-      <v-spacer></v-spacer>
-      <v-app-bar-nav-icon @click="toggleUi">
-        <v-icon>close</v-icon>
-      </v-app-bar-nav-icon>
-    </v-toolbar>
-
+        <v-spacer></v-spacer>
+        <v-app-bar-nav-icon @click="toggleUi">
+          <v-icon>close</v-icon>
+        </v-app-bar-nav-icon>
+      </v-toolbar>
+    </v-img>
+    
     <!-- Default slot for module content -->
     <slot name="default"></slot>
 
@@ -42,6 +44,7 @@
       title: {type: String, required: true},
       win: {type: String, required: true},
       color: {type: String, required: false, default: 'red darken-3'},
+      backgroundImage: {type: String, required: false, default: undefined},
       // Positioning / sizing properties will be ignored for sidebar cards.
       draggable: {type: Boolean, required: false, default: true},
       initPos: {type: Object, required: false},
@@ -93,6 +96,18 @@
         return (this.win === 'floating')
           ? this.draggable
           : false
+      },
+      toolbarAttr () {
+        return this.backgroundImage
+          ? {
+            dark: true,
+            flat: true,
+            color: 'transparent'
+          }
+          : {
+            dark: true,
+            color: this.color
+          }
       }
     },
     methods: {

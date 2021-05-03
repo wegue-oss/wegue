@@ -19,6 +19,7 @@
           <component
             :is="moduleWin.type" :key="index" :ref="moduleWin.type"
             :win="moduleWin.win" :color="baseColor"
+            :backgroundImage="moduleWin.backgroundImage"
           />
       </template>
     </wgu-app-sidebar>      
@@ -43,6 +44,7 @@
         :win="moduleWin.win" :color="baseColor"
         :draggable="moduleWin.draggable"
         :initPos="moduleWin.initPos"
+        :backgroundImage="moduleWin.backgroundImage"
       />
     </template>
 
@@ -144,7 +146,8 @@
               type: key + '-win',
               win: moduleOpts.win,
               draggable: moduleOpts.draggable,
-              initPos: moduleOpts.initPos
+              initPos: moduleOpts.initPos,
+              backgroundImage: moduleOpts.backgroundImage
             });
           }
         }
