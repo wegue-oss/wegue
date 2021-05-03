@@ -29,7 +29,9 @@
     </v-img>
     
     <!-- Default slot for module content -->
-    <slot v-if="!minimized" name="default"></slot>
+    <div v-show="!minimized">
+      <slot name="default"></slot>
+    </div>
 
   </v-card>
 </template>
