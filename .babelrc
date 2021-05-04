@@ -1,18 +1,39 @@
 {
   "presets": [
-    ["env", {
-      "modules": false,
-      "targets": {
-        "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
+    [
+      "@babel/preset-env",
+      {
+        "corejs": { "version": 3, "proposals": true },
+        "useBuiltIns": "usage",
+        "modules": false,
+        "targets": {
+          "browsers": [
+            "> 1%",
+            "last 2 versions",
+            "not ie <= 8"
+          ]
+        }
       }
-    }],
-    "stage-2"
+    ]
   ],
-  "plugins": ["transform-runtime"],
+  "plugins": [
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "corejs": 3
+      }
+    ],
+    "@babel/plugin-proposal-class-properties"
+  ],
   "env": {
     "test": {
-      "presets": ["env", "stage-2"],
-      "plugins": ["istanbul"]
+      "presets": [
+        "@babel/preset-env"
+      ],
+      "plugins": [
+        "istanbul",
+        "@babel/plugin-proposal-class-properties"
+      ]
     }
   }
 }
