@@ -21,7 +21,7 @@
   <v-toolbar-items>
 
     <v-btn @click='toggle()' icon :dark="dark" >
-      <v-icon medium>{{buttonIcon}}</v-icon>
+      <v-icon medium>{{icon}}</v-icon>
     </v-btn>
 
   </v-toolbar-items>
@@ -40,7 +40,7 @@
     name: 'wgu-geocoder-input',
     mixins: [Mapable],
     props: {
-      buttonIcon: {type: String, required: false, default: 'search'}, // TODO rename to icon
+      icon: {type: String, required: false, default: 'search'},
       rounded: {type: Boolean, required: false, default: true},
       autofocus: {type: Boolean, required: false, default: true},
       clearable: {type: Boolean, required: false, default: true},
