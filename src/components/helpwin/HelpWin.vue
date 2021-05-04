@@ -3,7 +3,7 @@
       :moduleName="moduleName"
       class="wgu-helpwin" 
       :icon="icon" 
-      max-width="300">
+      :width="width">
     <v-card-title primary-title>
       <div>
         <h3 class="headline mb-0" v-if="textTitle">{{ textTitle }}</h3>
@@ -37,7 +37,8 @@
       textTitle: {type: String, required: false, default: 'About Wegue'},
       htmlContent: {type: String, required: false, default: '<h3>WebGIS with OpenLayers and Vue.js</h3>'},
       infoLinkUrl: {type: String, required: false, default: 'https://github.com/meggsimum/wegue'},
-      infoLinkText: {type: String, required: false, default: 'More info'}
+      infoLinkText: {type: String, required: false, default: 'More info'},
+      width: {type: Number, required: false, default: 300}
     },
     data () {
       return {
