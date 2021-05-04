@@ -48,6 +48,9 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel-loader',
         include: [resolve('app'), resolve('src'), resolve('test'), resolve('node_modules/ol')],
+        options: {
+          presets: ['@babel/preset-env']
+        }
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
