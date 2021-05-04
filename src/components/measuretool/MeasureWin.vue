@@ -98,13 +98,9 @@
         if (this.unbound) {
           return;
         }
-        // Only create if specified in config
-        if (!this.$appConfig.modules || !this.$appConfig.modules[this.moduleName]) {
-          return;
-        }
-        const measureConf = this.$appConfig.modules[this.moduleName] || {};
-        this.olMapCtrl = new OlMeasureController(this.map, measureConf);
 
+        // TODO: Should we explicitly declare all attributes as props?
+        this.olMapCtrl = new OlMeasureController(this.map, this.$attrs);
         this.olMapCtrl.createMeasureLayer();
       },
       /**
