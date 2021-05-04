@@ -24,18 +24,12 @@ The following properties can be applied to all map module types:
 | backgroundImage    | Optional background image for the window header. Only applies if a module window is present as indicated by the `win` parameter. | `"backgroundImage": "static/icon/myImage.png"}` |
 | darkLayout         | Boolean value to ensure that your module element (mostly a button) is rendered bright since your basic theme color is dark.  | `"darkLayout": true` |
 
-The following positioning and sizing properties can be assigned to all module types, which are associated with a floating window - This is when the `win` parameter is set to `floating`:
+The following positioning can be assigned to all module types, which are associated with a floating window - This is when the `win` parameter is set to `floating`:
 
 | Property           | Meaning   | Example |
 |--------------------|:---------:|---------|
 | draggable          | Boolean value to enable a window module be draggable over the viewport. **CAUTION: This feature is experimental and not recommended for production usage.** | `"draggable": false` |
 | initPos            | The initial position for the module window in absolute viewport coordinates. | `"initPos": {"left": 8, "top": 74}` |
-| height            | The height of the module window in viewport coordinates. | `"height": 500` |
-| width            | The width of the module window in viewport coordinates. | `"width": 500` |
-| maxHeight            | The maximum height of the module window in viewport coordinates. | `"maxHeight": 500` |
-| maxWidth            | The maximum width of the module window in viewport coordinates. | `"maxWidth": 500` |
-| minHeight            | The minimum height of the module window in viewport coordinates. | `"minHeight": 500` |
-| minWidth            | The minimum width of the module window in viewport coordinates. | `"minWidth": 500` |
 
 
 ## GeoCoder
