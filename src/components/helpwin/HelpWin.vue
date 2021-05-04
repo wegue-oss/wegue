@@ -34,18 +34,17 @@
       'wgu-module-card': ModuleCard
     },
     props: {
-      icon: {type: String, required: false, default: 'help'}
+      icon: {type: String, required: false, default: 'help'},
+      // TODO change this to 'title' property for conformance
+      windowTitle: {type: String, required: false, default: 'About'},
+      textTitle: {type: String, required: false, default: 'About Wegue'},
+      htmlContent: {type: String, required: false, default: '<h3>WebGIS with OpenLayers and Vue.js</h3>'},
+      infoLinkUrl: {type: String, required: false, default: 'https://github.com/meggsimum/wegue'},
+      infoLinkText: {type: String, required: false, default: 'More info'}
     },
     data () {
-      let config = this.$appConfig.modules['wgu-helpwin'] || {};
       return {
-        moduleName: 'wgu-helpwin',
-        // TODO change this to 'title' property for conformance
-        windowTitle: config.windowTitle || 'About',
-        textTitle: config.textTitle || 'About Wegue',
-        htmlContent: config.htmlContent || '<h3>WebGIS with OpenLayers and Vue.js</h3>',
-        infoLinkUrl: config.infoLinkUrl || 'https://github.com/meggsimum/wegue',
-        infoLinkText: config.infoLinkText || 'More info'
+        moduleName: 'wgu-helpwin'
       }
     }
   }
