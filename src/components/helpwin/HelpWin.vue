@@ -3,7 +3,6 @@
       :moduleName="moduleName"
       class="wgu-helpwin" 
       :icon="icon" 
-      :title="windowTitle"
       max-width="300">
     <v-card-title primary-title>
       <div>
@@ -35,8 +34,6 @@
     },
     props: {
       icon: {type: String, required: false, default: 'help'},
-      // TODO change this to 'title' property for conformance
-      windowTitle: {type: String, required: false, default: 'About'},
       textTitle: {type: String, required: false, default: 'About Wegue'},
       htmlContent: {type: String, required: false, default: '<h3>WebGIS with OpenLayers and Vue.js</h3>'},
       infoLinkUrl: {type: String, required: false, default: 'https://github.com/meggsimum/wegue'},

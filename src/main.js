@@ -54,6 +54,13 @@ const migrateAppConfig = function (appConfig) {
       }
     });
   }
+  // Migrate windowTitle value for help win
+  if (appConfig.modules && appConfig.modules['wgu-helpwin']) {
+    var module = appConfig.modules['wgu-helpwin'];
+    if (!module.title && module.windowTitle) {
+      module.title = module.windowTitle;
+    }
+  }
   return appConfig;
 }
 

@@ -176,7 +176,7 @@
       "win": "floating",
       "icon": "help",
       "darkLayout": true,
-      "windowTitle": "About",
+      "title": "About",
       "textTitle": "About Wegue",
       "htmlContent": "<b>WebGIS with OpenLayers and Vue.js</b> Template and re-usable components for webmapping applications with OpenLayers and Vue.js",
       "infoLinkText": "More Info",
