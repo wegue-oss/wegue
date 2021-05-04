@@ -17,10 +17,8 @@
     <wgu-app-sidebar v-if="sidebarWins.length">
         <template v-for="(moduleWin, index) in sidebarWins">
           <component
-            :is="moduleWin.type" :key="index" :ref="moduleWin.type"
-            :win="moduleWin.win" :color="baseColor"
-            :backgroundImage="moduleWin.backgroundImage"
-            :minimizable="moduleWin.minimizable"
+            :is="moduleWin.type" :key="index" :color="baseColor"
+            v-bind="moduleWin"
           />
       </template>
     </wgu-app-sidebar>      
@@ -41,12 +39,8 @@
 
     <template v-for="(moduleWin, index) in floatingWins">
       <component
-        :is="moduleWin.type" :key="index" :ref="moduleWin.type"
-        :win="moduleWin.win" :color="baseColor"
-        :draggable="moduleWin.draggable"
-        :initPos="moduleWin.initPos"
-        :backgroundImage="moduleWin.backgroundImage"
-        :minimizable="moduleWin.minimizable"
+        :is="moduleWin.type" :key="index" :color="baseColor"
+        v-bind="moduleWin"
       />
     </template>
 
@@ -146,11 +140,7 @@
           if (moduleOpts.win === target) {
             moduleWins.push({
               type: key + '-win',
-              win: moduleOpts.win,
-              draggable: moduleOpts.draggable,
-              initPos: moduleOpts.initPos,
-              backgroundImage: moduleOpts.backgroundImage,
-              minimizable: moduleOpts.minimizable
+              ...moduleOpts
             });
           }
         }
