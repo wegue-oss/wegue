@@ -44,7 +44,8 @@ export default {
   props: {
     icon: {type: String, required: false, default: 'table_chart'},
     title: {type: String, required: false, default: 'Attribute Table'},
-    selectorLabel: {type: String, required: false, default: 'Choose a layer'}
+    selectorLabel: {type: String, required: false, default: 'Choose a layer'},
+    syncTableMapSelection: {type: Boolean, required: false, default: false}
   },
   data () {
     return {
@@ -55,10 +56,6 @@ export default {
     }
   },
   mixins: [Mapable],
-  created () {
-    const config = this.$appConfig.modules['wgu-attributetable'];
-    this.syncTableMapSelection = config.syncTableMapSelection || false;
-  },
   components: {
     'wgu-module-card': ModuleCard,
     'wgu-attributetable': AttributeTable
