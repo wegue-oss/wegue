@@ -25,34 +25,36 @@ The following properties can be applied to all map layer types
 
 ## VECTOR
 
-| Property           | Meaning | Example |
-|--------------------|:---------:|---------|
-| **type**           | Indicator that the layer is a vector layer, always `VECTOR` here  | `"type": "VECTOR"` |
-| **url**            | The URL to the vector data resource (file) | `"url": "./static/data/2012_Earthquakes_Mag5.kml"` |
-| **format**         | The format of the data linked in `url` (either `KML` or `GeoJSON` ) | `"format": "KML"` |
-| selectable         | Boolean value, whether the features of the layer can be selected by click in order to display the attributes in a window | `"selectable": true` |
-| hoverable          | Boolean value, whether the features of the layer can be hovered in order to display an attribute (see `hoverAttribute`) in a tooltip  | `"hoverable": true` |
-| hoverAttribute     | Attribute to be shown if a feature of the layer is hovered. Only has an effect if `hoverable` is set to `true`  | `"hoverAttribute": "name"` |
-| style              | Object to define a rendering style for the features of the layer  | see [style](map-layer-configuration?id=style-for-vectorlayers) |
-| selectStyle        | The style for a selected feature | see [style](map-layer-configuration?id=style-for-vectorlayers) |
-| columnMapping      | Maps the property names to human-readable text. Can be used by `AttributeTable`. | `"columnMapping": {"name": "Name", "email": "Email"}`
+| Property            | Meaning | Example |
+|---------------------|:---------:|---------|
+| **type**            | Indicator that the layer is a vector layer, always `VECTOR` here  | `"type": "VECTOR"` |
+| **url**             | The URL to the vector data resource (file) | `"url": "./static/data/2012_Earthquakes_Mag5.kml"` |
+| **format**          | The format of the data linked in `url` (either `KML` or `GeoJSON` ) | `"format": "KML"` |
+| selectable          | Boolean value, whether the features of the layer can be selected by click in order to display the attributes in a window | `"selectable": true` |
+| hoverable           | Boolean value, whether the features of the layer can be hovered in order to display an attribute (see `hoverAttribute`) in a tooltip  | `"hoverable": true` |
+| hoverAttribute      | Attribute to be shown if a feature of the layer is hovered. Only has an effect if `hoverable` is set to `true`  | `"hoverAttribute": "name"` |
+| style               | Object to define a rendering style for the features of the layer  | see [style](map-layer-configuration?id=style-for-vectorlayers) |
+| selectStyle         | The style for a selected feature | see [style](map-layer-configuration?id=style-for-vectorlayers) |
+| doAppendSelectStyle | If the selectStyle should be appended to the original style, defaults to `false` | `"doAppendSelectStyle": true` |
+| columnMapping       | Maps the property names to human-readable text. Can be used by `AttributeTable`. | `"columnMapping": {"name": "Name", "email": "Email"}`
 
 ## WFS
 
-| Property           |  Meaning  | Example |
-|--------------------|:---------:|---------|
-| **type**           | Indicator that the layer is a WFS-based vector layer, always `WFS` here  | `"type": "WFS"` |
-| **url**            | The URL to the Web Feature Service (WFS) | `"url": "https://ows.terrestris.de/geoserver/osm/wfs"` |
-| **typeName**       | The name of the FeatureType | `"typeName": "osm:osm-fuel"`|
-| style              | Object to define a rendering style for the features of the layer  | see [style](map-layer-configuration?id=style-for-vectorlayers) |
-| version            | The version of the WFS, defaults to `1.1.0` | `"version": "2.0.0"`|
-| maxFeatures        | Limits the amount of features that are queried and displayed | `"maxFeatures": 50`|
-| format             | The format that should be used. Possible values are `GeoJSON`, `GML2`, `GML3` and `GML32`. Defaults to `GML3` |  `"format": "GeoJSON"`|
-| selectable         | Boolean value, whether the features of the layer can be selected by click in order to display the attributes in a window | `"selectable": true` |
-| selectStyle        | The style for a selected feature| see [style](map-layer-configuration?id=style-for-vectorlayers) |
-| columnMapping      | Maps the property names to human-readable text. Can be used by `AttributeTable`. | `"columnMapping": {"name": "Name", "email": "Email"}`
-| hoverable          | Boolean value, whether the features of the layer can be hovered in order to display an attribute (see `hoverAttribute`) in a tooltip  | `"hoverable": true` |
-| hoverAttribute     | Attribute to be shown if a feature of the layer is hovered. Only has an effect if `hoverable` is set to `true`  | `"hoverAttribute": "name"` |
+| Property            |  Meaning  | Example |
+|---------------------|:---------:|---------|
+| **type**            | Indicator that the layer is a WFS-based vector layer, always `WFS` here  | `"type": "WFS"` |
+| **url**             | The URL to the Web Feature Service (WFS) | `"url": "https://ows.terrestris.de/geoserver/osm/wfs"` |
+| **typeName**        | The name of the FeatureType | `"typeName": "osm:osm-fuel"`|
+| style               | Object to define a rendering style for the features of the layer  | see [style](map-layer-configuration?id=style-for-vectorlayers) |
+| version             | The version of the WFS, defaults to `1.1.0` | `"version": "2.0.0"`|
+| maxFeatures         | Limits the amount of features that are queried and displayed | `"maxFeatures": 50`|
+| format              | The format that should be used. Possible values are `GeoJSON`, `GML2`, `GML3` and `GML32`. Defaults to `GML3` |  `"format": "GeoJSON"`|
+| selectable          | Boolean value, whether the features of the layer can be selected by click in order to display the attributes in a window | `"selectable": true` |
+| selectStyle         | The style for a selected feature | see [style](map-layer-configuration?id=style-for-vectorlayers) |
+| doAppendSelectStyle | If the selectStyle should be appended to the original style, defaults to `false` | `"doAppendSelectStyle": true` |
+| columnMapping       | Maps the property names to human-readable text. Can be used by `AttributeTable`. | `"columnMapping": {"name": "Name", "email": "Email"}`
+| hoverable           | Boolean value, whether the features of the layer can be hovered in order to display an attribute (see `hoverAttribute`) in a tooltip  | `"hoverable": true` |
+| hoverAttribute      | Attribute to be shown if a feature of the layer is hovered. Only has an effect if `hoverable` is set to `true`  | `"hoverAttribute": "name"` |
 
 
 ## VECTORTILE
