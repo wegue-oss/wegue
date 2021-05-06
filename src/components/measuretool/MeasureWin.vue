@@ -4,7 +4,8 @@
       :moduleName="moduleName"
       class="wgu-measurewin" 
       :icon="icon" 
-      :title="title">
+      :title="title"
+      v-on:visibility-change="show">
 
       <v-card-title primary-title>
       <!-- toggle button to choose measure type -->
@@ -23,7 +24,6 @@
 
 <script>
   import ModuleCard from './../modulecore/ModuleCard';
-  import { WguEventBus } from '../../WguEventBus'
   import { Mapable } from '../../mixins/Mapable';
   import MeasureTypeChooser from './MeasureTypeChooser';
   import MeasureResult from './MeasureResult';
@@ -48,11 +48,6 @@
         measureGeom: null,
         measureType: 'distance'
       }
-    },
-    created () {
-      WguEventBus.$on(this.moduleName + 'visibility-change', visible => {
-        this.show(visible);
-      });
     },
     destroy () {
       if (this.olMapCtrl) {

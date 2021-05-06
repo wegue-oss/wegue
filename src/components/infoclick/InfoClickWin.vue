@@ -5,7 +5,8 @@
     class="wgu-infoclick-win" 
     :icon="icon" 
     :title="title"
-    :color="color">
+    :color="color"
+    v-on:visibility-change="show">
     <v-card-title primary-title class="wgu-infoclick-win-title">
 
       <div v-if="!this.attributeData && !this.coordsData" class="no-data">
@@ -54,9 +55,6 @@ export default {
     WguEventBus.$on('ol-map-mounted', (olMap) => {
       // make the OL map accessible in this component
       me.map = olMap;
-    });
-    WguEventBus.$on(this.moduleName + 'visibility-change', visible => {
-      me.show(visible);
     });
   },
   methods: {

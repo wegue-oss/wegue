@@ -64,7 +64,14 @@
         "name": "Name",
         "email": "Email",
         "website": "Website"
-      }
+      },
+      "selectStyle": {
+        "radius": 10,
+        "strokeColor": "gray",
+        "strokeWidth": 5,
+        "fillColor": "rgb(255, 255, 0, 0.2)"
+      },
+      "doAppendSelectStyle": true
     },
     {
       "type": "WFS",
@@ -88,7 +95,13 @@
       "attributions": "© <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors.",
       "columnMapping": {
         "name": "Name"
-      }
+      },
+      "selectStyle": {
+        "textIcon": "star",
+        "font": "normal 30px Material Icons",
+        "fillColor": "black"
+      },
+      "doAppendSelectStyle": false
     },
 
     {
@@ -239,7 +252,8 @@
       "target": "menu",
       "win": true,
       "icon": "table_chart",
-      "darkLayout": true
+      "darkLayout": true,
+      "syncTableMapSelection": true
     }
   }
 }

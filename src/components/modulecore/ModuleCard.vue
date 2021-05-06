@@ -52,6 +52,7 @@
     created () {
       WguEventBus.$on(this.moduleName + 'visibility-change', visible => {
         this.show = visible;
+        this.$emit('visibility-change', visible);
       });
     },
     methods: {

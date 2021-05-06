@@ -3,7 +3,8 @@
     :moduleName="moduleName"
     class="wgu-attributetable-win" 
     :icon="icon" 
-    :title="title">
+    :title="title"
+    v-on:visibility-change="show">
 
     <template v-slot:wgu-win-toolbar>
       <v-select
@@ -22,7 +23,9 @@
   
     <wgu-attributetable
       v-if="layerId"
+      v-resize="onResize"
       :layerId="layerId"
+      :syncTableMapSelection="syncTableMapSelection"
     >
     </wgu-attributetable>
   </wgu-module-card>
@@ -52,11 +55,38 @@ export default {
     }
   },
   mixins: [Mapable],
+  created () {
+    const config = this.$appConfig.modules['wgu-attributetable'];
+    this.syncTableMapSelection = config.syncTableMapSelection || false;
+  },
   components: {
     'wgu-module-card': ModuleCard,
     'wgu-attributetable': AttributeTable
   },
   methods: {
+    show () {
+      // resize map properly after closing
+      // the AttributeTable
+      this.resizeOlMap()
+    },
+    onResize () {
+      // change map size when window is changing
+      this.resizeOlMap()
+    },
+
+    /**
+     * Update the OpenLayers map size.
+     *
+     * Necessary because the map does not automatically
+     * notice when its size is changed externally.
+     */
+    resizeOlMap () {
+      this.$nextTick(() => {
+        // must be within '$nextTick' to take effect
+        this.map.updateSize();
+      })
+    },
+
     /**
      * Store selected layerId in the respective
      * variable of the component.

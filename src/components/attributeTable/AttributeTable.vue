@@ -15,19 +15,52 @@
         'items-per-page-options': [],
         'show-first-last-page': true
       }"
+    @click:row="onRowClick"
+    single-select
+    :value="selectedRow"
+    :item-key="uniqueRecordKeyName"
+    :items-per-page="rowsPerPage"
+    :height="getTableHeight()"
   ></v-data-table>
 </template>
 
 <script>
 import { Mapable } from '../../mixins/Mapable';
 import LayerUtil from '../../util/Layer';
+import { WguEventBus } from '../../WguEventBus';
+import MapInteractionUtil from '../../util/MapInteraction';
 
 export default {
   name: 'wgu-attributetable',
   mixins: [Mapable],
   props: {
+    /** The ID of the vector layer to display */
     layerId: {type: String, required: false, default: null},
-    loadingText: {type: String, required: false, default: 'Loading... Please wait'},
+
+    /** The loading text while the table is waiting for records */
+    loadingText: {type: String, required: false, default: 'Loading... Please move to an area where the layer is visible'},
+
+    /** The name of the unique feature identifier */
+    uniqueRecordKeyName: {type: String, required: false, default: 'fid'},
+
+    /**
+     * How many rows a page of the table should have.
+     * Should be manually adjusted with tableHeight.
+     */
+    rowsPerPage: {type: Number, required: false, default: 10},
+
+    /**
+     * The height of the table in pixel.
+     * Should be manually adjusted with rowsPerPage.
+     */
+    tableHeight: {type: Number, required: false, default: 272},
+
+    /** If map and table should be synced */
+    syncTableMapSelection: {type: Boolean, required: false, default: true},
+
+    /** The maximum zoom level when clicking on a row */
+    maxZoomOnFeature: {type: Number, required: false, default: 15},
+
     /** A list of column names that should not be displayed. */
     forbiddenColumnNames: {
       type: Array,
@@ -41,21 +74,177 @@ export default {
     return {
       headers: [],
       records: [],
+      features: [],
+      selectedRow: [],
       layer: null,
-      source: null,
       loading: true,
       page: 1
     }
   },
   created () {
     this.populateTable()
+
+    if (this.syncTableMapSelection) {
+      this.activateSelectRowOnMapClick();
+    }
+  },
+  beforeDestroy () {
+    if (this.layer && this.layer.getSource()) {
+      // unregister event after table is closed
+      this.layer.getSource().un('change', this.prepareTableDataAndColumns);
+    }
   },
   watch: {
     layerId () {
       this.populateTable()
+    },
+    features () {
+      this.records = this.features.map(
+        feature => {
+          const record = feature.getProperties();
+          // set feature id
+          record[this.uniqueRecordKeyName] = feature.getId()
+          return record;
+        }
+      );
+    },
+    records () {
+      // set loading status depending if records are available
+      if (this.records.length === 0) {
+        this.loading = true;
+      } else {
+        this.loading = false;
+        this.highlightInitialFeatureSelectionInTable();
+      }
     }
   },
   methods: {
+    /**
+     * Highlight row when feature is already selected
+     * before table is opened.
+     */
+    highlightInitialFeatureSelectionInTable () {
+      const correspondingInteraction = MapInteractionUtil.getSelectInteraction(this.map, this.layerId);
+
+      if (!correspondingInteraction) {
+        return;
+      }
+
+      let features = correspondingInteraction.getFeatures();
+      if (!features || features.getLength() !== 1) {
+        return;
+      }
+
+      const feature = features.getArray()[0];
+      if (!feature) {
+        return;
+      }
+
+      const fid = feature.getId();
+      if (!fid) {
+        return;
+      }
+      this.highlightRowFromSelectedFeature(fid);
+    },
+
+    /**
+     * Set the table height depending on desktop
+     * or mobile view.
+     *
+     * @returns {int} The height of the table.
+     */
+    getTableHeight () {
+      if (this.$vuetify.breakpoint.xs) {
+        // we do not want to set this property
+        return undefined;
+      } else {
+        return this.tableHeight;
+      }
+    },
+
+    /**
+     * Activate behaviour that a selected feature on the
+     * map will be selected in the AttributeTable as well.
+     */
+    activateSelectRowOnMapClick () {
+      WguEventBus.$on('map-selectionchange',
+        (lid, featureArray) => {
+          if (lid !== this.layerId || featureArray.length !== 1) {
+            return;
+          }
+          const fid = featureArray[0].getId();
+          this.highlightRowFromSelectedFeature(fid);
+        });
+    },
+
+    /**
+     * Highlight row matching the feature ID
+     * and set correct page of the table.
+     *
+     * @param {Number} fid The ID of the selected feature.
+     */
+    highlightRowFromSelectedFeature (fid) {
+      if (!fid) {
+        return;
+      }
+      const foundRecord = this.records.find(record => record.fid === fid);
+      if (!foundRecord) {
+        return;
+      }
+      this.selectedRow = [foundRecord];
+
+      const recIndex = this.records.indexOf(foundRecord);
+      if (!recIndex) {
+        return;
+      }
+      this.$nextTick(() => {
+        // calculate page and set it
+        this.page = Math.ceil((recIndex + 1) / this.rowsPerPage);
+      })
+    },
+
+    /**
+     * Handler for click on a row.
+     *
+     * It zooms to the clicked features.
+     *
+     * If the layer is 'selectable', the corresponding feature on the
+     * map will be styled as selected.
+     */
+    onRowClick (record) {
+      if (!this.syncTableMapSelection) {
+        return;
+      }
+
+      const fid = record[this.uniqueRecordKeyName];
+      if (!fid) {
+        return;
+      }
+
+      this.selectedRow = [record];
+
+      const foundFeature = this.features.find(feature => feature.getId() === fid);
+      if (!foundFeature) {
+        return;
+      }
+
+      // zoom to feature
+      this.map.getView().fit(foundFeature.getGeometry(), {
+        maxZoom: this.maxZoomOnFeature
+      });
+
+      const correspondingInteraction = MapInteractionUtil.getSelectInteraction(this.map, this.layerId);
+
+      // we can only select layers that have a select interaction
+      if (!correspondingInteraction) {
+        return;
+      }
+
+      // add to map selection
+      correspondingInteraction.getFeatures().clear();
+      correspondingInteraction.getFeatures().push(foundFeature);
+    },
+
     /**
      * Load features from layer and display it in
      * in the table.
@@ -64,47 +253,34 @@ export default {
       if (!this.map || !this.layerId) {
         return;
       }
-      this.loading = true;
 
       // reset table properties
       this.records = [];
+      this.features = [];
       this.headers = [];
+      this.selectedRow = [];
       this.page = 1;
 
       this.layer = LayerUtil.getLayerByLid(this.layerId, this.map);
-      this.source = this.layer.getSource();
 
-      const features = this.source.getFeatures();
+      // load currently available features
+      this.prepareTableDataAndColumns()
 
       // features can only be loaded if layer is visible
+      // that's why we switch the layers on and retrieve them
+      // once the features are available
       // https://github.com/openlayers/openlayers/blob/main/doc/faq.md#why-arent-there-any-features-in-my-source
-      if (features.length) {
-        this.applyRecordsFromOlLayer();
-        this.applyColumnMapping();
-        this.loading = false;
-      } else {
-        this.source.on('change', (evt) => {
-          const source = evt.target;
-          if (source.getState() === 'ready') {
-            this.applyRecordsFromOlLayer();
-            this.applyColumnMapping();
-            this.loading = false;
-          }
-        });
-        this.layer.setVisible(true);
-      }
+      this.layer.getSource().on('change', this.prepareTableDataAndColumns);
+      this.layer.setVisible(true);
     },
+
     /**
-     * Read features from layer source
-     * and store it in component.
+     * Loads the features from the layer source and
+     * prepares the required columns for the table.
      */
-    applyRecordsFromOlLayer () {
-      if (!this.source) {
-        return;
-      }
-      this.records = this.source.getFeatures().map(
-        feature => feature.getProperties()
-      );
+    prepareTableDataAndColumns () {
+      this.features = this.layer.getSource().getFeatures();
+      this.applyColumnMapping();
     },
 
     /**
@@ -113,9 +289,9 @@ export default {
      * properties names.
      */
     applyColumnMapping () {
-      if (!this.source ||
-          !this.source.getFeatures() ||
-          !this.source.getFeatures()[0]
+      if (!this.layer.getSource() ||
+          !this.layer.getSource().getFeatures() ||
+          !this.layer.getSource().getFeatures()[0]
       ) {
         return;
       }
@@ -131,7 +307,7 @@ export default {
       } else {
         // TODO: taking the first feature assumes that all features
         //       have the same structure
-        let keys = this.source.getFeatures()[0].getKeys();
+        let keys = this.layer.getSource().getFeatures()[0].getKeys();
         // remove keys that contain a geometry
         const filtered = keys.filter(
           key => (!this.forbiddenColumnNames.includes(key))

@@ -89,4 +89,6 @@ The attribute table displays features of vector layers. It is possible to specif
 
 Module identifier: `wgu-attributetable`
 
-No additional config options besides the general ones.
+| Property                    | Meaning   | Example |
+|-----------------------------|:---------:|---------|
+| syncTableMapSelection | Clicking on a row zooms to the respective feature. If the layer is `selectable` the feature will also be selected. Selecting a feature on the map selects the corresponsing row in the table. | `"syncTableMapSelection": true` |
