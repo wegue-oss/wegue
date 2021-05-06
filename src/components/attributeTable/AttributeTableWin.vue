@@ -3,7 +3,8 @@
     :moduleName="moduleName"
     class="wgu-attributetable-win" 
     :icon="icon" 
-    :title="title">
+    :title="title"
+    v-on:visibility-change="show">
 
     <template v-slot:wgu-win-toolbar>
       <v-select
@@ -32,7 +33,6 @@
 
 <script>
 import ModuleCard from './../modulecore/ModuleCard';
-import { WguEventBus } from '../../WguEventBus'
 import { Mapable } from '../../mixins/Mapable';
 import VectorLayer from 'ol/layer/Vector'
 import AttributeTable from './AttributeTable';
@@ -58,9 +58,6 @@ export default {
   created () {
     const config = this.$appConfig.modules['wgu-attributetable'];
     this.syncTableMapSelection = config.syncTableMapSelection || false;
-    WguEventBus.$on(this.moduleName + 'visibility-change', visible => {
-      this.show(visible);
-    });
   },
   components: {
     'wgu-module-card': ModuleCard,
