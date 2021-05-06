@@ -1,4 +1,3 @@
-// import Vue from 'vue'
 import { shallowMount } from '@vue/test-utils';
 import InfoClickWin from '@/components/infoclick/InfoClickWin';
 import OlMap from 'ol/Map';
@@ -24,11 +23,8 @@ describe('infoclick/InfoClickWin.vue', () => {
     });
 
     it('has correct default props', () => {
-      expect(comp.vm.color).to.equal('red darken-3');
       expect(comp.vm.icon).to.equal('info');
       expect(comp.vm.title).to.equal('Map Click Info');
-      expect(comp.vm.draggable).to.equal(true);
-      expect(comp.vm.initPos).to.equal(undefined);
     });
   });
 
@@ -39,22 +35,9 @@ describe('infoclick/InfoClickWin.vue', () => {
     });
 
     it('has correct default data', () => {
-      expect(comp.vm.show).to.equal(false);
-      expect(comp.vm.left).to.equal('0');
-      expect(comp.vm.top).to.equal('0');
       expect(comp.vm.attributeData).to.equal(null);
       expect(comp.vm.coordsData).to.equal(null);
-
-      comp.setProps({ initPos: {left: 8, top: 88} });
-      expect(comp.vm.left).to.equal('0');
-      expect(comp.vm.top).to.equal('0');
     });
-
-    // it('has correct default initPos data', () => {
-    //   comp.setProps({ initPos: {left: 8, top: 88} });
-    //   expect(comp.vm.left).to.equal('8px');
-    //   expect(comp.vm.top).to.equal('88px');
-    // });
   });
 
   describe('methods', () => {
@@ -66,13 +49,7 @@ describe('infoclick/InfoClickWin.vue', () => {
     });
 
     it('are implemented', () => {
-      expect(typeof vm.toggleUi).to.equal('function');
       expect(typeof vm.onMapClick).to.equal('function');
-    });
-
-    it('toggleUi switches show', () => {
-      vm.toggleUi();
-      expect(vm.show).to.equal(true);
     });
 
     it('onMapClick sets correct data if no feature found', () => {
@@ -114,35 +91,25 @@ describe('infoclick/InfoClickWin.vue', () => {
       expect(vm.coordsData.coordinate).to.equal(mockEvt.coordinate);
       expect(vm.coordsData.projection).to.equal('EPSG:3857');
     });
-  });
 
-  describe('watchers', () => {
-    let comp;
-    beforeEach(() => {
-      comp = shallowMount(InfoClickWin);
+    it('show resets data when module is closed', () => {
+      vm.map = new OlMap({});
+      vm.show(true);
+      vm.show(false);
+      expect(vm.attributeData).to.equal(null);
+      expect(vm.coordsData).to.equal(null);
     });
 
-    it('watches show setting to false', done => {
-      comp.vm.show = true;
-      comp.vm.show = false;
-      comp.vm.$nextTick(() => {
-        expect(comp.vm.attributeData).to.equal(null);
-        expect(comp.vm.coordsData).to.equal(null);
-        done();
-      });
-    });
-
-    it('watches show setting to true', done => {
+    it('show registers map click when module is opened', () => {
       let cnt = 0;
       let mockFn = () => {
         cnt++;
       };
-      comp.vm.registerMapClick = mockFn;
-      comp.vm.show = true;
-      comp.vm.$nextTick(() => {
-        expect(cnt).to.equal(1);
-        done();
-      });
+      vm.registerMapClick = mockFn;
+
+      vm.show(false);
+      vm.show(true);
+      expect(cnt).to.equal(1);
     });
   });
 });
