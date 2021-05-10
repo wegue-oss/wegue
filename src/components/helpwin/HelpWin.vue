@@ -2,7 +2,8 @@
   <wgu-module-card v-bind="$attrs"
       :moduleName="moduleName"
       class="wgu-helpwin" 
-      :icon="icon" 
+      :icon="icon"
+      :title="title"
       :width="width">
     <v-card-title primary-title>
       <div>
@@ -34,6 +35,7 @@
     },
     props: {
       icon: {type: String, required: false, default: 'help'},
+      title: {type: String, required: false, default: 'About'},
       textTitle: {type: String, required: false, default: 'About Wegue'},
       htmlContent: {type: String, required: false, default: '<h3>WebGIS with OpenLayers and Vue.js</h3>'},
       infoLinkUrl: {type: String, required: false, default: 'https://github.com/meggsimum/wegue'},
