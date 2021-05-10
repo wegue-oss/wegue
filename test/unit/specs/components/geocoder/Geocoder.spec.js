@@ -182,7 +182,7 @@ describe('geocoder/Geocoder.vue', () => {
           expect(vm.results[0].address.road === 'Heerstraße').to.equal(true);
 
           // Items from query result should be assigned to combobox
-          const comboBox = comp.find('v-combobox');
+          const comboBox = comp.findComponent({name: 'v-combobox'});
           selectionItems = comboBox.vnode.data.attrs.items;
           expect(selectionItems === undefined).to.equal(false);
           expect(selectionItems.length === vm.results.length).to.equal(true);
@@ -234,8 +234,8 @@ describe('geocoder/Geocoder.vue', () => {
 
     it('button click should toggle search input visibility', done => {
       // Two subwidgets
-      const button = comp.find('v-btn');
-      const comboBox = comp.find('v-combobox');
+      const button = comp.findComponent({name: 'v-btn'});
+      const comboBox = comp.findComponent({name: 'v-combobox'});
 
       // Initial state
       expect(vm.hideSearch).to.equal(true);
