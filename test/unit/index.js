@@ -1,5 +1,10 @@
 import Vue from 'vue'
+import Vuetify from 'vuetify'
+import PortalVue from 'portal-vue'
+
 Vue.config.productionTip = false
+Vue.use(Vuetify)
+Vue.use(PortalVue)
 
 // require all test files (files that ends with .spec.js)
 const testsContext = require.context('./specs', true, /\.spec$/)
