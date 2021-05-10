@@ -1,3 +1,6 @@
+// TODO: Fix some more warnings related to non-existing 'v-toolbar-side-icon' component,
+//  when we decide to revive the component.
+
 import { shallowMount } from '@vue/test-utils';
 import FeatureInfoWindow from '@/components/FeatureInfoWindow';
 import Feature from 'ol/Feature';
