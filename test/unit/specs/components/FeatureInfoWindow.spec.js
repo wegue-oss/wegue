@@ -2,6 +2,10 @@ import { shallowMount } from '@vue/test-utils';
 import FeatureInfoWindow from '@/components/FeatureInfoWindow';
 import Feature from 'ol/Feature';
 
+const moduleProps = {
+  layerId: 'my-layer'
+}
+
 describe('InfoWindow.vue', () => {
   // Evaluate the raw data
   it('is defined', () => {
@@ -12,12 +16,13 @@ describe('InfoWindow.vue', () => {
     let comp;
     let vm;
     beforeEach(() => {
-      comp = shallowMount(FeatureInfoWindow);
+      comp = shallowMount(FeatureInfoWindow, {
+        propsData: moduleProps
+      });
       vm = comp.vm;
     });
 
     it('has correct default props', () => {
-      expect(vm.layerId).to.equal(undefined);
       expect(vm.imageProp).to.equal(undefined);
       expect(vm.titleProp).to.equal(undefined);
       expect(vm.icon).to.equal(undefined);
@@ -29,7 +34,9 @@ describe('InfoWindow.vue', () => {
     let comp;
     let vm;
     beforeEach(() => {
-      comp = shallowMount(FeatureInfoWindow);
+      comp = shallowMount(FeatureInfoWindow, {
+        propsData: moduleProps
+      });
       vm = comp.vm;
     });
 
@@ -45,7 +52,9 @@ describe('InfoWindow.vue', () => {
     let comp;
     let vm;
     beforeEach(() => {
-      comp = shallowMount(FeatureInfoWindow);
+      comp = shallowMount(FeatureInfoWindow, {
+        propsData: moduleProps
+      });
       vm = comp.vm;
     });
 
