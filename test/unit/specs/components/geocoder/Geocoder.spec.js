@@ -242,20 +242,19 @@ describe('geocoder/Geocoder.vue', () => {
       expect(comboBox.attributes('hidden')).to.equal('true');
 
       // Make visible
-      button.trigger('click');
+      button.vm.$emit('click');
       vm.$nextTick(() => {
         expect(vm.hideSearch).to.equal(false);
         // So looks like the 'hidden' attr is simply removed/added through toggle()!
         expect(comboBox.attributes('hidden')).to.equal(undefined);
-        done();
-      });
 
-      // And hide
-      button.trigger('click');
-      vm.$nextTick(() => {
-        expect(vm.hideSearch).to.equal(true);
-        expect(comboBox.attributes('hidden')).to.equal('true');
-        done();
+        // And hide
+        button.vm.$emit('click');
+        vm.$nextTick(() => {
+          expect(vm.hideSearch).to.equal(true);
+          expect(comboBox.attributes('hidden')).to.equal('true');
+          done();
+        });
       });
     });
 
