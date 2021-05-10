@@ -1,4 +1,4 @@
-import Mapable from '@/mixins/Mapable'
+import { Mapable } from '@/mixins/Mapable'
 
 describe('Mapable.js', () => {
   it('is defined', () => {
