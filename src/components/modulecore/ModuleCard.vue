@@ -18,8 +18,8 @@
         <v-spacer></v-spacer>
         <v-btn v-if="minimizable" icon small 
           @click="minimized = !minimized">
-          <v-icon v-if="minimized">mdi-window-maximize</v-icon> 
-          <v-icon v-else>mdi-window-minimize</v-icon> 
+          <v-icon v-if="minimized">web_asset</v-icon> 
+          <v-icon v-else>remove</v-icon>
         </v-btn>
         <v-btn icon small class="mr-0" 
           @click="toggleUi">
