@@ -32,7 +32,6 @@
     <slot name="wgu-tb-after-auto-buttons"></slot>
 
     <v-menu v-if="menuButtons.length" offset-y nudge-bottom="15">
-      <!--v-slot="activator" to v-slot:activator="{on}" -->
       <template v-slot:activator="{on}">
 
       <v-btn icon dark v-on="on">
