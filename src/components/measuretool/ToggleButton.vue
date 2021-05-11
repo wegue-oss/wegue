@@ -7,42 +7,32 @@
 
 </template>
 
-
 <script>
-
-import Vue from 'vue';
-import MeasureWin from './MeasureWin'
 import { WguEventBus } from '../../WguEventBus'
 
 export default {
   name: 'wgu-measuretool-btn',
-  components: {
-    'wgu-measuretool-win': MeasureWin
-  },
   props: {
     icon: {type: String, required: false, default: 'photo_size_select_small'},
-    text: {type: String, required: false},
+    text: {type: String, required: false, default: ''},
     dark: {type: Boolean, required: false, default: false}
   },
   data: function () {
     return {
-      moduleName: 'wgu-measuretool'
+      moduleName: 'wgu-measuretool',
+      show: false
     }
   },
   created () {
-    var me = this;
     // TODO move to a father class
-    WguEventBus.$on('app-mounted', () => {
-      me.win = Vue.prototype.cmpLookup[me.moduleName + '-win'];
+    WguEventBus.$on(this.moduleName + 'visibility-change', visible => {
+      this.show = visible;
     });
-    if (!me.win) {
-      me.win = Vue.prototype.cmpLookup[me.moduleName + '-win'];
-    }
   },
   methods: {
     toggleUi () {
       // TODO move to a father class
-      this.win.show = !this.win.show;
+      WguEventBus.$emit(this.moduleName + 'visibility-change', !this.show)
     }
   }
 };

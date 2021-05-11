@@ -25,6 +25,9 @@ html {
   bottom: 50px;
 }
 
+/* TODO 
+  Generalize the positioning concept for windows,
+  this interferes with positioning and draggable settings in the app.conf */
 .wgu-measurewin {
   left: auto !important;
   top: auto !important;
@@ -47,6 +50,11 @@ html {
 .wgu-footer-left a, .wgu-footer-right a {
   color: inherit;
 }
+
+.wgu-module-card.wgu-floating {
+  position: absolute;
+  z-index: 2;
+} 
 
 .wgu-win-title {
    -moz-user-select: none;

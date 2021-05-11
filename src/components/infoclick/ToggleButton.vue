@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import Vue from 'vue'
 import { WguEventBus } from '../../WguEventBus'
 
 export default {
@@ -20,23 +19,20 @@ export default {
   },
   data: function () {
     return {
-      moduleName: 'wgu-infoclick'
+      moduleName: 'wgu-infoclick',
+      show: false
     }
   },
   created () {
-    var me = this;
     // TODO move to a father class
-    WguEventBus.$on('app-mounted', () => {
-      me.win = Vue.prototype.cmpLookup[me.moduleName + '-win'];
+    WguEventBus.$on(this.moduleName + 'visibility-change', visible => {
+      this.show = visible;
     });
-    if (!me.win) {
-      me.win = Vue.prototype.cmpLookup[me.moduleName + '-win'];
-    }
   },
   methods: {
     toggleUi () {
       // TODO move to a father class
-      this.win.show = !this.win.show;
+      WguEventBus.$emit(this.moduleName + 'visibility-change', !this.show)
     }
   }
 };
