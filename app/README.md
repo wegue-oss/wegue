@@ -1,12 +1,5 @@
-# Wegue App Dir
-This directory will contain your Wegue Application.
-By using the command `npm run init:app` this directory is populated with
-the contents from the `app-starter/` dir.
+# Wegue App Starter Dir
+This directory contains a Wegue starter app.
+By using the command `npm run init:app` this directory is copied to the `app/` directory.
+For now this copy will not overwrite files already present in the `app/` dir.
 
-You can develop your Wegue app by modifying/adding files here, under the `app/` dir, for example:
-
-* modifying the core `.vue` files like `app/WguApp.vue` and `app/WguAppTemplate.vue`
-* placing or modifying custom/app-specific components under `app/components`
-* placing or modifying  static content like configuration, data, icons and css under `app/static`.
-
-The default config file is `app/static/app-conf.json`.

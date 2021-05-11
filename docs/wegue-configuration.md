@@ -278,6 +278,7 @@ Example configurations can be found in the `app-starter/static` directory. Below
     },
     "wgu-helpwin": {
       "target": "toolbar",
+      "win": true,
       "darkLayout": true
     }
   }
