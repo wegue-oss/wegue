@@ -24,7 +24,7 @@
       <component
         :is="tbButton.type" :key="index"
         :icon="tbButton.icon" :text="tbButton.text"
-          :dark="tbButton.dark" :moduleName="tbButton.moduleName"
+        :dark="tbButton.dark" :moduleName="tbButton.moduleName"
       />
     </template>
 
