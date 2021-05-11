@@ -35,6 +35,7 @@
     "wgu-helpwin": {
       "target": "toolbar",
       "win": true,
+      "icon": "help",
       "darkLayout": true, 
       "windowTitle": "About",
       "textTitle": "About Wegue",

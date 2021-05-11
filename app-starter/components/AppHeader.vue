@@ -24,26 +24,28 @@
       <component
         :is="tbButton.type" :key="index"
         :icon="tbButton.icon" :text="tbButton.text"
-        :color="color"
-        :dark="tbButton.dark"
+        :dark="tbButton.dark" :moduleName="tbButton.moduleName"
       />
     </template>
 
     <!-- slot to inject components after the auto-generated buttons (by config) -->
     <slot name="wgu-tb-after-auto-buttons"></slot>
 
-    <v-menu v-if="menuButtons.length" offset-y>
-      <!--v-slot="activator" to v-slot:activator="{on}" -->
+    <v-menu v-if="menuButtons.length" offset-y nudge-bottom="15">
       <template v-slot:activator="{on}">
 
       <v-btn icon dark v-on="on">
         <v-icon medium>menu</v-icon>
       </v-btn>
       </template>
-      <v-list>
+      <v-list :color="color">
           <template v-for="(tbButton, index) in menuButtons">
-              <v-list-item
-                 :is="tbButton.type" :key="index" :icon="tbButton.icon" :text="tbButton.text" :color="color" >
+            <v-list-item :key="index">
+              <component 
+                :is="tbButton.type"
+                :icon="tbButton.icon" :text="tbButton.text"
+                :dark="tbButton.dark" :moduleName="tbButton.moduleName">
+              </component>
               </v-list-item>
           </template>
       </v-list>
@@ -58,26 +60,18 @@
 <script>
 
 import Vue from 'vue'
-import LayerListToggleButton from '../../src/components/layerlist/ToggleButton'
-import HelpWinToggleButton from '../../src/components/helpwin/ToggleButton'
-import MeasureToolToggleButton from '../../src/components/measuretool/ToggleButton'
-import InfoClickButton from '../../src/components/infoclick/ToggleButton'
+import ToggleButton from '../../src/components/modulecore/ToggleButton'
 import ZoomToMaxExtentButton from '../../src/components/maxextentbutton/ZoomToMaxExtentButton'
 import Geocoder from '../../src/components/geocoder/Geocoder'
 import Geolocator from '../../src/components/geolocator/Geolocator'
-import AttributeTableButton from '../../src/components/attributeTable/ToggleButton.vue'
 
 export default {
   name: 'wgu-app-header',
   components: {
+    'wgu-toggle-btn': ToggleButton,
     'wgu-geocoder-btn': Geocoder,
     'wgu-zoomtomaxextent-btn': ZoomToMaxExtentButton,
-    'wgu-layerlist-btn': LayerListToggleButton,
-    'wgu-helpwin-btn': HelpWinToggleButton,
-    'wgu-measuretool-btn': MeasureToolToggleButton,
-    'wgu-infoclick-btn': InfoClickButton,
-    'wgu-geolocator-btn': Geolocator,
-    'wgu-attributetable-btn': AttributeTableButton
+    'wgu-geolocator-btn': Geolocator
   },
   props: {
     color: {type: String, required: false, default: 'red darken-3'}
@@ -85,59 +79,40 @@ export default {
   data () {
     return {
       title: this.$appConfig.title,
-      menuButtons: this.getModuleButtonData() || [],
-      tbButtons: this.getToolbarButtons() || []
+      menuButtons: this.getModuleButtons('menu'),
+      tbButtons: this.getModuleButtons('toolbar')
     }
   },
   methods: {
     /**
-     * Determines the module menu button configuration objects from app-config:
+     * Determines the module button configuration objects from app-config:
+     * If the module button toggles a window, then a generic wgu-toggle-btn will
+     * be returned - otherwise the button is custom.
+     *
      *    menuButtons: [
      *      {type: 'wgu-layerlist-toggle-btn'},
      *      {type: 'wgu-helpwin-toggle-btn'},
      *      {type: 'wgu-measuretool-toggle-btn'}
      *    ]
-     * @return {Array} module button configuration objects for the menu
+     * @param  {String} target Either 'menu' or 'toolbar'
+     * @return {Array} module button configuration objects
      */
-    getModuleButtonData () {
+    getModuleButtons (target) {
       const appConfig = Vue.prototype.$appConfig || {};
       const modulesConfs = appConfig.modules || {};
-      let moduleWins = [];
+      let buttons = [];
       for (const key of Object.keys(modulesConfs)) {
         const moduleOpts = appConfig.modules[key];
-        if (moduleOpts.target === 'menu') {
-          moduleWins.push({
-            type: key + '-btn',
-            target: moduleOpts.target
+        if (moduleOpts.target === target) {
+          buttons.push({
+            type: moduleOpts.win ? 'wgu-toggle-btn' : key + '-btn',
+            moduleName: key,
+            dark: moduleOpts.darkLayout,
+            icon: moduleOpts.icon
           });
         }
       }
-      return moduleWins;
-    },
-    /**
-     * Determines the module toolbar button configuration objects from app-config:
-     *    menuButtons: [
-     *      {type: 'wgu-layerlist-toggle-btn'},
-     *      {type: 'wgu-helpwin-toggle-btn'},
-     *      {type: 'wgu-measuretool-toggle-btn'}
-     *    ]
-     * @return {Array} module button configuration objects for the toolbar
-     */
-    getToolbarButtons () {
-      const appConfig = Vue.prototype.$appConfig || {};
-      const modulesConfs = appConfig.modules || {};
-      let moduleWins = [];
-      for (const key of Object.keys(modulesConfs)) {
-        const moduleOpts = appConfig.modules[key];
-        if (moduleOpts.target === 'toolbar') {
-          moduleWins.push({
-            type: key + '-btn',
-            target: moduleOpts.target,
-            dark: moduleOpts.darkLayout
-          });
-        }
-      }
-      return moduleWins;
+      return buttons;
     }
   }
 }

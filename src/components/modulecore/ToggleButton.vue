@@ -1,43 +1,40 @@
 <template>
-
-  <v-btn icon :dark="dark" @click="toggleUi">
-    <v-icon medium>{{icon}}</v-icon>
-    {{text}}
-  </v-btn>
-
+  <v-btn-toggle borderless dense 
+    background-color="transparent" :dark="dark" 
+    v-model="show">
+    <v-btn icon :value="true" @click="toggleUi">
+      <v-icon medium>{{icon}}</v-icon>
+      {{text}}
+    </v-btn>
+  </v-btn-toggle>
 </template>
 
 <script>
 import { WguEventBus } from '../../WguEventBus'
 
 export default {
-  name: 'wgu-infoclick-btn',
+  name: 'wgu-toggle-btn',
   props: {
-    icon: {type: String, required: false, default: 'info'},
+    moduleName: {type: String, required: true},
+    icon: {type: String, required: true},
+    // TODO remove this option as it is not in use?
     text: {type: String, required: false, default: ''},
     dark: {type: Boolean, required: false, default: false}
   },
   data: function () {
     return {
-      moduleName: 'wgu-infoclick',
       show: false
     }
   },
   created () {
-    // TODO move to a father class
     WguEventBus.$on(this.moduleName + 'visibility-change', visible => {
       this.show = visible;
     });
   },
   methods: {
     toggleUi () {
-      // TODO move to a father class
       WguEventBus.$emit(this.moduleName + 'visibility-change', !this.show)
     }
   }
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
-</style>
