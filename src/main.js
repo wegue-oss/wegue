@@ -2,12 +2,14 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import Vuetify from 'vuetify';
+import PortalVue from 'portal-vue'
 import '../node_modules/ol/ol.css';
 import WguApp from '../app/WguApp';
 import UrlUtil from './util/Url';
 import 'vuetify/dist/vuetify.min.css';
 
 Vue.use(Vuetify);
+Vue.use(PortalVue);
 
 // necessary for some components
 export default new Vuetify({
@@ -38,10 +40,27 @@ if (appCtx) {
   // simple aproach to avoid path traversal
   appCtxFile = '-' + appCtx.replace(/(\.\.[/])+/g, '');
 }
+
+/**
+ * Backwards compatibility layer for legacy features in app-conf.json.
+ */
+const migrateAppConfig = function (appConfig) {
+  // Migrate boolean values for module.win.
+  if (appConfig.modules) {
+    Object.keys(appConfig.modules).forEach(name => {
+      var module = appConfig.modules[name];
+      if (typeof module.win === 'boolean') {
+        module.win = module.win ? 'floating' : undefined;
+      }
+    });
+  }
+  return appConfig;
+}
+
 const opts = {};
 const createApp = function (appConfig) {
   // make app config accessible for all components
-  Vue.prototype.$appConfig = appConfig;
+  Vue.prototype.$appConfig = migrateAppConfig(appConfig);
   /* eslint-disable no-new */
   new Vue({
     vuetify: new Vuetify(opts),

@@ -34,7 +34,7 @@
   "modules": {
     "wgu-helpwin": {
       "target": "toolbar",
-      "win": true,
+      "win": "floating",
       "icon": "help",
       "darkLayout": true, 
       "windowTitle": "About",

@@ -234,12 +234,12 @@ Example configurations can be found in the `app-starter/static` directory. Below
   "modules": {
     "wgu-layerlist": {
       "target": "menu",
-      "win": true,
+      "win": "floating",
       "draggable": false
     },
     "wgu-measuretool": {
       "target": "menu",
-      "win": true,
+      "win": "floating",
       "draggable": false,
       "strokeColor": "#c62828",
       "fillColor": "rgba(198,40,40,0.2)",
@@ -250,7 +250,7 @@ Example configurations can be found in the `app-starter/static` directory. Below
     },
     "wgu-infoclick": {
       "target": "menu",
-      "win": true,
+      "win": "floating",
       "draggable": false,
       "initPos": {
         "left": 8,
@@ -278,7 +278,7 @@ Example configurations can be found in the `app-starter/static` directory. Below
     },
     "wgu-helpwin": {
       "target": "toolbar",
-      "win": true,
+      "win": "floating",
       "darkLayout": true
     }
   }
