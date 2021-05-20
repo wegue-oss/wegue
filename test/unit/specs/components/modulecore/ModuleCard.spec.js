@@ -26,7 +26,7 @@ describe('modulecore/ModuleCard.vue', () => {
     });
 
     it('has correct default props', () => {
-      expect(comp.vm.minimizable).to.equal(true);
+      expect(comp.vm.minimizable).to.equal(false);
       expect(comp.vm.color).to.equal('red darken-3');
       expect(comp.vm.backgroundImage).to.be.undefined;
       expect(comp.vm.draggable).to.equal(true);
