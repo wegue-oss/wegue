@@ -30,6 +30,7 @@ describe('modulecore/ModuleCard.vue', () => {
       expect(comp.vm.color).to.equal('red darken-3');
       expect(comp.vm.backgroundImage).to.be.undefined;
       expect(comp.vm.draggable).to.equal(true);
+      expect(comp.vm.visible).to.equal(false);
       expect(comp.vm.initPos).to.be.an('undefined');
       expect(comp.vm.height).to.be.an('undefined');
       expect(comp.vm.width).to.be.an('undefined');
