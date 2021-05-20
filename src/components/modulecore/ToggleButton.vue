@@ -19,11 +19,12 @@ export default {
     icon: {type: String, required: true},
     // TODO remove this option as it is not in use?
     text: {type: String, required: false, default: ''},
-    dark: {type: Boolean, required: false, default: false}
+    dark: {type: Boolean, required: false, default: false},
+    visible: {type: Boolean, required: false, default: false}
   },
   data: function () {
     return {
-      show: false
+      show: this.visible
     }
   },
   created () {
