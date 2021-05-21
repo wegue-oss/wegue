@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import { shallowMount } from '@vue/test-utils';
 import Geocoder from '@/components/geocoder/Geocoder';
 import {OpenStreetMap} from '../../../../../src/components/geocoder/providers/osm';
@@ -21,12 +20,11 @@ describe('geocoder/Geocoder.vue', () => {
   describe('props', () => {
     let comp;
     beforeEach(() => {
-      Vue.prototype.$appConfig = {modules: {}};
       comp = shallowMount(Geocoder);
     });
 
     it('has correct default props', () => {
-      expect(comp.vm.buttonIcon).to.equal('search');
+      expect(comp.vm.icon).to.equal('search');
       expect(comp.vm.rounded).to.equal(true);
       expect(comp.vm.autofocus).to.equal(true);
       expect(comp.vm.dark).to.equal(false);
@@ -39,7 +37,6 @@ describe('geocoder/Geocoder.vue', () => {
     let vm;
 
     beforeEach(() => {
-      Vue.prototype.$appConfig = {modules: {}};
       comp = shallowMount(Geocoder);
       vm = comp.vm;
     });
@@ -60,22 +57,19 @@ describe('geocoder/Geocoder.vue', () => {
     let vm;
 
     beforeEach(() => {
-      // Config is fetched on 'mount' so need to defined before.
-      Vue.prototype.$appConfig = {
-        modules: {
-          'wgu-geocoder': {
-            'target': 'toolbar',
-            'darkLayout': true,
-            'minChars': 5,
-            'queryDelay': 200,
-            'selectZoom': 17,
-            'debug': false,
-            'placeHolder': 'Search',
-            'provider': 'photon'
-          }
-        }
+      const moduleProps = {
+        'target': 'toolbar',
+        'darkLayout': true,
+        'minChars': 5,
+        'queryDelay': 200,
+        'selectZoom': 17,
+        'debug': false,
+        'placeHolder': 'Search',
+        'provider': 'photon'
       };
-      comp = shallowMount(Geocoder);
+      comp = shallowMount(Geocoder, {
+        propsData: moduleProps
+      });
       vm = comp.vm;
     });
 
@@ -95,22 +89,19 @@ describe('geocoder/Geocoder.vue', () => {
     let vm;
 
     beforeEach(() => {
-      // Config is fetched on 'mount' so need to defined before.
-      Vue.prototype.$appConfig = {
-        modules: {
-          'wgu-geocoder': {
-            'target': 'toolbar',
-            'darkLayout': true,
-            'minChars': 6,
-            'queryDelay': 200,
-            'selectZoom': 15,
-            'debug': false,
-            'placeHolder': 'Search',
-            'provider': 'opencage'
-          }
-        }
+      const moduleProps = {
+        'target': 'toolbar',
+        'darkLayout': true,
+        'minChars': 6,
+        'queryDelay': 200,
+        'selectZoom': 15,
+        'debug': false,
+        'placeHolder': 'Search',
+        'provider': 'opencage'
       };
-      comp = shallowMount(Geocoder);
+      comp = shallowMount(Geocoder, {
+        propsData: moduleProps
+      });
       vm = comp.vm;
     });
 
@@ -136,17 +127,15 @@ describe('geocoder/Geocoder.vue', () => {
     const selectZoom = 15;
 
     beforeEach(() => {
-      Vue.prototype.$appConfig = {
-        modules: {
-          'wgu-geocoder': {
-            'target': 'toolbar',
-            'queryDelay': 2,
-            'selectZoom': selectZoom,
-            'provider': 'osm'
-          }
-        }
+      const moduleProps = {
+        'target': 'toolbar',
+        'queryDelay': 2,
+        'selectZoom': selectZoom,
+        'provider': 'osm'
       };
-      comp = shallowMount(Geocoder);
+      comp = shallowMount(Geocoder, {
+        propsData: moduleProps
+      });
       vm = comp.vm;
 
       // TODO: Sinon Fake XMLHttpRequest and Fake Timers did not work for us...
@@ -193,7 +182,7 @@ describe('geocoder/Geocoder.vue', () => {
           expect(vm.results[0].address.road === 'Heerstraße').to.equal(true);
 
           // Items from query result should be assigned to combobox
-          const comboBox = comp.find('v-combobox');
+          const comboBox = comp.findComponent({name: 'v-combobox'});
           selectionItems = comboBox.vnode.data.attrs.items;
           expect(selectionItems === undefined).to.equal(false);
           expect(selectionItems.length === vm.results.length).to.equal(true);
@@ -232,7 +221,6 @@ describe('geocoder/Geocoder.vue', () => {
     let vm;
 
     beforeEach(() => {
-      Vue.prototype.$appConfig = {modules: {}};
       comp = shallowMount(Geocoder);
       vm = comp.vm;
     });
@@ -246,28 +234,27 @@ describe('geocoder/Geocoder.vue', () => {
 
     it('button click should toggle search input visibility', done => {
       // Two subwidgets
-      const button = comp.find('v-btn');
-      const comboBox = comp.find('v-combobox');
+      const button = comp.findComponent({name: 'v-btn'});
+      const comboBox = comp.findComponent({name: 'v-combobox'});
 
       // Initial state
       expect(vm.hideSearch).to.equal(true);
       expect(comboBox.attributes('hidden')).to.equal('true');
 
       // Make visible
-      button.trigger('click');
+      button.vm.$emit('click');
       vm.$nextTick(() => {
         expect(vm.hideSearch).to.equal(false);
         // So looks like the 'hidden' attr is simply removed/added through toggle()!
         expect(comboBox.attributes('hidden')).to.equal(undefined);
-        done();
-      });
 
-      // And hide
-      button.trigger('click');
-      vm.$nextTick(() => {
-        expect(vm.hideSearch).to.equal(true);
-        expect(comboBox.attributes('hidden')).to.equal('true');
-        done();
+        // And hide
+        button.vm.$emit('click');
+        vm.$nextTick(() => {
+          expect(vm.hideSearch).to.equal(true);
+          expect(comboBox.attributes('hidden')).to.equal('true');
+          done();
+        });
       });
     });
 

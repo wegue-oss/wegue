@@ -193,7 +193,7 @@ describe('ol/Map.vue', () => {
       mockRotDiv.append(mockSubRotDiv);
       document.body.append(mockRotDiv);
 
-      vm.color = 'rgb(0, 0, 0)';
+      comp.setProps({color: 'rgb(0, 0, 0)'});
       vm.setOlButtonColor();
 
       expect(mockSubZoomInEl.style.backgroundColor).to.equal(vm.color);

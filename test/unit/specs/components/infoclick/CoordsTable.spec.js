@@ -42,22 +42,24 @@ describe('infoclick/CoordsTable.vue', () => {
     it('tableStyles returning correct color for given color', () => {
       expect(comp.vm.tableStyles.border).to.equal('2px solid #c62828');
       const color = 'rgb(0,0,0)';
-      comp.setData({ color: color });
+      comp.setProps({ color: color });
       expect(comp.vm.tableStyles.border).to.equal('2px solid ' + color);
     });
   });
 
-  describe('watchers', done => {
+  describe('watchers', () => {
     let comp;
     beforeEach(() => {
       comp = shallowMount(CoordsTable);
     });
 
-    it('watches coordsData', () => {
-      comp.vm.coordsData = {
-        coordinate: [1, 1],
-        projection: 'EPSG:4326'
-      };
+    it('watches coordsData', done => {
+      comp.setProps({
+        coordsData: {
+          coordinate: [1, 1],
+          projection: 'EPSG:4326'
+        }
+      });
       const expextedCoordRows = {
         'MAP PROJ': '1.00 1.00',
         'WGS 84': '1.0000000° 1.0000000°',
