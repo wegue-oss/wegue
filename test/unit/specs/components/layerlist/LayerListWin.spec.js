@@ -11,21 +11,8 @@ describe('layerlist/LayerListWin.vue', () => {
       propsData: {}
     }).$mount();
 
-    expect(comp.color).to.equal('red darken-3');
     expect(comp.icon).to.equal('layers');
     expect(comp.title).to.equal('Layers');
-    expect(comp.draggable).to.equal(true);
-    expect(comp.initPos).to.equal(undefined);
-  });
-
-  // Evaluate the results of functions in
-  // the raw component options
-  it('sets the correct default data', () => {
-    expect(typeof LayerListWin.data).to.equal('function');
-    const defaultData = LayerListWin.data();
-    expect(defaultData.show).to.equal(false);
-    expect(defaultData.left).to.equal('10px');
-    expect(defaultData.top).to.equal('70px');
   });
 
   // Mount an instance and inspect the render output

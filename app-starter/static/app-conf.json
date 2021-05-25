@@ -185,14 +185,14 @@
   "modules": {
     "wgu-layerlist": {
       "target": "menu",
-      "win": true,
+      "win": "floating",
       "icon": "layers",
       "darkLayout": true,
       "draggable": false
     },
     "wgu-measuretool": {
       "target": "menu",
-      "win": true,
+      "win": "floating",
       "icon": "photo_size_select_small",
       "darkLayout": true,
       "draggable": false,
@@ -205,7 +205,7 @@
     },
     "wgu-infoclick": {
       "target": "menu",
-      "win": true,
+      "win": "floating",
       "icon": "info",
       "darkLayout": true,
       "draggable": false,
@@ -235,10 +235,10 @@
     },
     "wgu-helpwin": {
       "target": "toolbar",
-      "win": true,
+      "win": "floating",
       "icon": "help",
       "darkLayout": true,
-      "windowTitle": "About",
+      "title": "About",
       "textTitle": "About Wegue",
       "htmlContent": "<b>WebGIS with OpenLayers and Vue.js</b> Template and re-usable components for webmapping applications with OpenLayers and Vue.js",
       "infoLinkText": "More Info",
@@ -250,7 +250,7 @@
     },
     "wgu-attributetable": {
       "target": "menu",
-      "win": true,
+      "win": "floating",
       "icon": "table_chart",
       "darkLayout": true,
       "syncTableMapSelection": true

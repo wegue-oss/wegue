@@ -21,21 +21,21 @@ html {
 }
 
 .wgu-app-logo {
-  left: 8px;
-  bottom: 50px;
+  left: 15px;
+  bottom: 45px;
 }
 
 /* TODO 
   Generalize the positioning concept for windows,
   this interferes with positioning and draggable settings in the app.conf */
-.wgu-measurewin {
+.wgu-measurewin.wgu-floating {
   left: auto !important;
   top: auto !important;
   right: 10px;
   bottom: 4.8em;
 }
 
-.wgu-layerlist {
+.wgu-layerlist.wgu-floating {
   left: auto !important;
   top: 75px !important;
   right: 10px;
@@ -63,4 +63,13 @@ html {
    /* Introduced in IE 10, See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/ */
    -ms-user-select: none;
    user-select: none;
+}
+
+.wgu-app-sidebar {
+  overflow: visible
+}
+
+.wgu-app-sidebar-toggle-btn {
+  left: 100%; 
+  visibility: visible
 }

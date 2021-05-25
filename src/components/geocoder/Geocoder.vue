@@ -21,7 +21,7 @@
   <v-toolbar-items>
 
     <v-btn @click='toggle()' icon :dark="dark" >
-      <v-icon medium>{{buttonIcon}}</v-icon>
+      <v-icon medium>{{icon}}</v-icon>
     </v-btn>
 
   </v-toolbar-items>
@@ -40,16 +40,23 @@
     name: 'wgu-geocoder-input',
     mixins: [Mapable],
     props: {
-      buttonIcon: {type: String, required: false, default: 'search'},
+      icon: {type: String, required: false, default: 'search'},
       rounded: {type: Boolean, required: false, default: true},
       autofocus: {type: Boolean, required: false, default: true},
       clearable: {type: Boolean, required: false, default: true},
       dark: {type: Boolean, required: false, default: false},
-      persistentHint: {type: Boolean, required: false, default: true}
+      persistentHint: {type: Boolean, required: false, default: true},
+      debug: {type: Boolean, required: false, default: false},
+      minChars: {type: Number, required: false, default: 3},
+      queryDelay: {type: Number, required: false, default: 300},
+      selectZoom: {type: Number, required: false, default: 16},
+      placeHolder: {type: String, required: false, default: 'Search for an address'},
+      provider: {type: String, required: false, default: 'osm'},
+      providerOptions: {type: Object, required: false, default: function () { return {}; }}
+
     },
     data () {
       return {
-        placeHolder: '',
         results: [],
         lastQueryStr: '',
         noFilter: true,
@@ -166,15 +173,8 @@
       }
     },
     mounted () {
-      let config = this.$appConfig.modules['wgu-geocoder'] || {};
-      this.debug = config.debug || false;
-      this.minChars = config.minChars || 3;
-      this.queryDelay = config.queryDelay || 300;
-      this.selectZoom = config.selectZoom || 16;
-      this.placeHolder = config.placeHolder || 'Search for an address';
-
       // Setup GeocoderController to which we delegate Provider and query-handling
-      this.geocoderController = new GeocoderController(config.provider || 'osm', config.providerOptions || {}, this)
+      this.geocoderController = new GeocoderController(this.provider, this.providerOptions, this);
     }
   }
 </script>

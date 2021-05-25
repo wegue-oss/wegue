@@ -28,7 +28,7 @@ describe('infoclick/PropertyTable.vue', () => {
     it('tableStyles returning correct color for given color', () => {
       expect(comp.vm.tableStyles.border).to.equal('2px solid #c62828');
       const color = 'rgb(0,0,0)';
-      comp.setData({ color: color });
+      comp.setProps({ color: color });
       expect(comp.vm.tableStyles.border).to.equal('2px solid ' + color);
     });
   });

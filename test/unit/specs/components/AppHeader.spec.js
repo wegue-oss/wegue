@@ -47,40 +47,40 @@ describe('AppHeader.vue', () => {
       vm = comp.vm;
     });
 
-    it('getModuleButtonData returns always an array', () => {
+    it('getModuleButtons(\'menu\') returns always an array', () => {
       // mock a window UI instance
-      const moduleData = vm.getModuleButtonData();
+      const moduleData = vm.getModuleButtons('menu');
       expect(moduleData).to.be.an('array');
     });
 
-    it('getModuleButtonData returns correct data', () => {
+    it('getModuleButtons(\'menu\') returns correct data', () => {
       // mock a module conf
       Vue.prototype.$appConfig = {modules: {
         'wgu-zoomtomaxextent': {
           target: 'menu',
           darkLayout: true
         }}};
-      const moduleData = vm.getModuleButtonData();
+      const moduleData = vm.getModuleButtons('menu');
       expect(moduleData).to.be.an('array');
       expect(moduleData.length).to.equal(1);
       expect(moduleData[0].type).to.equal('wgu-zoomtomaxextent-btn');
       expect(moduleData[0].target).to.equal('menu');
     });
 
-    it('getToolbarButtons returns always an array', () => {
+    it('getModuleButtons(\'toolbar\') returns always an array', () => {
       // mock a window UI instance
-      const moduleData = vm.getToolbarButtons();
+      const moduleData = vm.getModuleButtons('toolbar');
       expect(moduleData).to.be.an('array');
     });
 
-    it('getToolbarButtons returns correct data', () => {
+    it('getModuleButtons(\'toolbar\') returns correct data', () => {
       // mock a module conf
       Vue.prototype.$appConfig = {modules: {
         'wgu-zoomtomaxextent': {
           target: 'toolbar',
           darkLayout: true
         }}};
-      const moduleData = vm.getToolbarButtons();
+      const moduleData = vm.getModuleButtons('toolbar');
       expect(moduleData).to.be.an('array');
       expect(moduleData.length).to.equal(1);
       expect(moduleData[0].type).to.equal('wgu-zoomtomaxextent-btn');

@@ -4,6 +4,7 @@
     :color="color"
     fixed
     app
+    clipped-left
     clipped-right
   >
 
@@ -23,8 +24,7 @@
     <template v-for="(tbButton, index) in tbButtons">
       <component
         :is="tbButton.type" :key="index"
-        :icon="tbButton.icon" :text="tbButton.text"
-        :dark="tbButton.dark" :moduleName="tbButton.moduleName"
+        v-bind="tbButton"
       />
     </template>
 
@@ -42,10 +42,9 @@
           <template v-for="(tbButton, index) in menuButtons">
             <v-list-item :key="index">
               <component 
-                :is="tbButton.type"
-                :icon="tbButton.icon" :text="tbButton.text"
-                :dark="tbButton.dark" :moduleName="tbButton.moduleName">
-              </component>
+                  :is="tbButton.type" :key="index"
+                  v-bind="tbButton"
+               />
               </v-list-item>
           </template>
       </v-list>
@@ -107,8 +106,9 @@ export default {
           buttons.push({
             type: moduleOpts.win ? 'wgu-toggle-btn' : key + '-btn',
             moduleName: key,
+            // TODO For further simplifications we should revise the config property 'darkLayout'.
             dark: moduleOpts.darkLayout,
-            icon: moduleOpts.icon
+            ...moduleOpts
           });
         }
       }

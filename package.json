@@ -79,6 +79,7 @@
     "optimize-css-assets-webpack-plugin": "^2.0.0",
     "ora": "^3.4.0",
     "phantomjs-prebuilt": "^2.1.16",
+    "portal-vue": "^2.1.7",
     "rimraf": "^2.7.1",
     "semver": "^6.3.0",
     "shelljs": "^0.8.4",
