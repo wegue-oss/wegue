@@ -20,8 +20,6 @@
     "init:app": "node util/init-app.js"
   },
   "dependencies": {
-    "@mdi/font": "^5.9.55",
-    "material-icons": "^0.5.4",
     "ol": "6.4.3",
     "proj4": "2.5.0",
     "vue": "2.6.11",
@@ -34,6 +32,7 @@
     "@babel/preset-env": "^7.0.0",
     "@babel/register": "^7.0.0",
     "@babel/runtime-corejs3": "^7.13.10",
+    "@mdi/font": "^5.9.55",
     "@vue/test-utils": "^1.0.3",
     "autoprefixer": "^9.8.0",
     "babel-eslint": "^9.0.0",
@@ -74,6 +73,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-spec-reporter": "^0.0.32",
     "karma-webpack": "^3.0.5",
+    "material-icons": "^0.5.4",
     "mocha": "^6.2.3",
     "opn": "^6.0.0",
     "optimize-css-assets-webpack-plugin": "^2.0.0",
