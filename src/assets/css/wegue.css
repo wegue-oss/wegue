@@ -26,8 +26,17 @@ html {
 }
 
 .wgu-bglayerswitcher {
+  position: absolute; 
+  z-index: 2; 
   left: 15px;
   top: 70px;
+  padding: 3px;
+  border-radius: 50%;
+  background-color: rgba(255,255,255,0.4) !important;
+}
+
+.wgu-bglayerswitcher:hover {
+  background-color: rgba(255,255,255,0.6) !important;
 }
 
 /* TODO 

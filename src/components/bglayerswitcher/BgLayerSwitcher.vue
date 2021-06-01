@@ -5,15 +5,15 @@
       v-model="show"
       >
       <template v-slot:activator="{on}">
-        <v-btn v-on="on"
-          class="wgu-bglayerswitcher"
-          :color="color" 
-          :dark="dark"
-          fab
-          absolute
-          >
-          <v-icon medium>{{icon}}</v-icon>
-        </v-btn>
+        <v-sheet class="wgu-bglayerswitcher">
+          <v-btn v-on="on"
+            :color="color" 
+            :dark="dark"
+            fab
+            >
+            <v-icon medium>{{icon}}</v-icon>
+          </v-btn>
+        </v-sheet>
       </template>
       <!-- Remarks: The layerlist is wrapped by an v-if block to avoid unneccesary image 
            requests when the layerlist is not visible -->
