@@ -1,6 +1,6 @@
 <template>
   <v-sheet :color="color" :dark="dark" elevation="8">
-    <v-slide-group
+    <v-slide-group ref="slideGroup"
       v-if="bgLayers.length"
       mandatory
       show-arrows
@@ -67,6 +67,16 @@
       return {
         layers: []
       }
+    },
+    mounted () {
+      // Work around a bug in vuetify which doesn't realize the overflow of slideGroups properly,
+      // when the control is initially rendered. The underlying implementation relies on the clientWidth
+      // property of DOM elements, which is not computed on mount time. The bug is related to
+      // https://github.com/vuejs/Discussion/issues/394 .The following works in Firefox and Chrome.
+      var slideGroup = this.$refs.slideGroup;
+      setTimeout(() => {
+        slideGroup.onResize();
+      }, 10);
     },
     methods: {
       /**
