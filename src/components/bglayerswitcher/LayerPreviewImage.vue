@@ -35,7 +35,7 @@ export default {
      * Returns an URL to the layers preview image.
      */
     previewURL () {
-      return LayerPreview.getUrl(
+      return this.layer.get('previewImage') || LayerPreview.getUrl(
         this.layer,
         this.mapView.getCenter(),
         this.mapView.getResolution(),
