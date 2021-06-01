@@ -25,6 +25,11 @@ html {
   bottom: 45px;
 }
 
+.wgu-bglayerswitcher {
+  left: 15px;
+  top: 70px;
+}
+
 /* TODO 
   Generalize the positioning concept for windows,
   this interferes with positioning and draggable settings in the app.conf */
