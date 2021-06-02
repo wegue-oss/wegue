@@ -16,7 +16,6 @@ exports.cssLoaders = function (options) {
     loader: 'css-loader',
     options: {
       minimize: process.env.NODE_ENV === 'production',
-      url: process.env.NODE_ENV !== 'production',
       sourceMap: options.sourceMap
     }
   }
@@ -35,8 +34,13 @@ exports.cssLoaders = function (options) {
 
     // Extract CSS when that option is specified
     // (which is the case during production build)
+    // Remarks: Unfortunately ExtractTextPlugin is not able to rewrite url paths to resources
+    // referenced in the extracted css. As a workaround, override publicPath, which will work because all
+    // css resources end up in /static/css. For more information see
+    // https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/27
     if (options.extract) {
       return ExtractTextPlugin.extract({
+        publicPath: '../../',
         use: loaders,
         fallback: 'vue-style-loader'
       })

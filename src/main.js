@@ -3,6 +3,8 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import PortalVue from 'portal-vue'
+import '@mdi/font/css/materialdesignicons.css'
+import 'material-icons/iconfont/material-icons.css'
 import '../node_modules/ol/ol.css';
 import WguApp from '../app/WguApp';
 import UrlUtil from './util/Url';
