@@ -285,4 +285,7 @@ Example configurations can be found in the `app-starter/static` directory. Below
 }
 ```
 
-A more elaborate example, named [app-conf-projected.json](https://github.com/meggsimum/wegue/blob/master/app-starter/static/app-conf-projected.json) with custom Projections and Tilegrids can be found in the app-starter directory.
+More elaborate examples can be found in the app-starter directory.
+* [app-conf-projected.json](https://github.com/meggsimum/wegue/blob/master/app-starter/static/app-conf-projected.json) demonstrates custom Projections and Tilegrids.
+* [app-conf-minimal.json](https://github.com/meggsimum/wegue/blob/master/app-starter/static/app-conf-minimal.json) is a minimal setup for a Wegue application.
+* [app-conf-sidebar.json](https://github.com/meggsimum/wegue/blob/master/app-starter/static/app-conf-sidebar.json) is an example for displaying module content inside a sidebar.
