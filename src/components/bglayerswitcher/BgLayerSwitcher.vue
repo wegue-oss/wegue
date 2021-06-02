@@ -1,8 +1,10 @@
 <template>
+  <div id="wgu-bglayerswitcher-wrapper">
     <v-menu offset-x nudge-right="15"
       transition="scale-transition"
       :close-on-content-click="false"
       v-model="show"
+      attach="#wgu-bglayerswitcher-wrapper"
       >
       <template v-slot:activator="{on}">
         <v-sheet class="wgu-bglayerswitcher">
@@ -28,6 +30,7 @@
         :emptyText="emptyText"
         />
     </v-menu>
+  </div>
 </template>
 
 <script>
