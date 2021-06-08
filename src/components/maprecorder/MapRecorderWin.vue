@@ -11,7 +11,7 @@
         <v-expansion-panel-header> 
           <v-layout align-center>
             <v-icon class="mr-4">settings</v-icon>
-            Optionen
+            Options
           </v-layout>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -19,7 +19,7 @@
             flat
             color="transparent"
           >
-          <v-subheader>Videoformat</v-subheader>
+          <v-subheader>Video format</v-subheader>
             <v-card-text class="pt-0">
               <v-select
                   v-model="mimeType"
@@ -31,7 +31,7 @@
               </v-select>
             </v-card-text>
 
-            <v-subheader>Bildrate (Bilder/s)</v-subheader>
+            <v-subheader>Frame rate (frames/s)</v-subheader>
             <v-card-text class="pt-0">
               <v-slider
                   prepend-icon="mdi-iframe-variable-outline"
@@ -44,7 +44,7 @@
               </v-slider>
             </v-card-text>
 
-            <v-subheader>Bitrate (MBits/s)</v-subheader>
+            <v-subheader>Bit rate (MBits/s)</v-subheader>
             <v-card-text class="pt-0">
               <v-slider
                   prepend-icon="mdi-quality-high"
@@ -57,7 +57,7 @@
               </v-slider>
             </v-card-text>
 
-            <v-subheader>Dateiname</v-subheader>
+            <v-subheader>Filename</v-subheader>
             <v-card-text class="pt-0">
               <v-text-field
                 v-model="filename"
@@ -96,7 +96,7 @@
             v-model="error"
             type="error" 
             dismissible>
-            Starten der Aufnahme fehlgeschlagen.
+            Failed to start recording.
           </v-alert>
         </v-flex>
       </v-layout>
@@ -118,7 +118,7 @@ export default {
   },
   props: {
     icon: {type: String, required: false, default: 'mdi-video'},
-    title: {type: String, required: false, default: 'Map-recorder'}
+    title: {type: String, required: false, default: 'Map recorder'}
   },
   data () {
     const mimeTypes = this.getSupportedMimeTypes();
