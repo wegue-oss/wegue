@@ -181,7 +181,8 @@ export default {
      */
     drawCanvas () {
       var me = this;
-      me.mapContext.clearRect(0, 0, me.mapCanvas.width, me.mapCanvas.height);
+      me.mapContext.fillStyle = 'white';
+      me.mapContext.fillRect(0, 0, me.mapCanvas.width, me.mapCanvas.height);
 
       Array.prototype.forEach.call(
         document.querySelectorAll('.ol-layer canvas'),
