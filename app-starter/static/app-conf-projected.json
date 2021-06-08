@@ -87,7 +87,8 @@
       "tileGridRef": "dutch_rd",
       "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> by Dutch Kadaster",
       "isBaseLayer": false,
-      "visible": false
+      "visible": false,
+      "crossOrigin": "anonymous"
     },
     {
       "type": "WMS",
@@ -102,7 +103,8 @@
       "tileGridRef": "dutch_rd",
       "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> by Dutch Kadaster",
       "isBaseLayer": true,
-      "visible": false
+      "visible": false,
+      "crossOrigin": "anonymous"
     },
     {
       "type": "XYZ",
@@ -113,7 +115,8 @@
       "projection": "EPSG:28992",
       "tileGridRef": "dutch_rd",
       "isBaseLayer": true,
-      "visible": true
+      "visible": true,
+      "crossOrigin": "anonymous"
     }
   ],
 
