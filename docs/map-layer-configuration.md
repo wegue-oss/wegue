@@ -16,6 +16,9 @@ The following properties can be applied to all map layer types
 | visible            | Boolean value, whether the layer should be initially visible | `"visible": false` |
 | displayInLayerList | Boolean value, whether the layer should appear in the LayerList. Ignored if the layer is a background layer - see option `isBaseLayer`  | `"displayInLayerList": true` |
 | attributions       | Text or HTML string to be displayed as source attribution in the map  | `"attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> by Dutch Kadaster",` |
+| previewImage       | URL to a preview image for layers to be displayed in the background layer selection control. This option has no effect if the layer is not a background layer - see option `isBaseLayer`  | `"previewImage": "static/icon/my-layer-preview.png"`  |
+
+
 
 ## OSM
 
