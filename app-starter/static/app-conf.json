@@ -236,6 +236,17 @@
       "target": "toolbar",
       "darkLayout": true
     },
+    "wgu-maprecorder": {
+      "target": "toolbar",
+      "win": "floating",
+      "icon": "mdi-video",
+      "darkLayout": true,
+      "draggable": false,
+      "initPos": {
+        "left": 8,
+        "top": 230
+      }
+    },
     "wgu-helpwin": {
       "target": "toolbar",
       "win": "floating",

@@ -232,6 +232,13 @@
       "target": "toolbar",
       "darkLayout": true
     },
+    "wgu-maprecorder": {
+      "target": "toolbar",
+      "win": "sidebar",
+      "icon": "mdi-video",
+      "darkLayout": true,
+      "minimizable": true
+    },
     "wgu-helpwin": {
       "target": "toolbar",
       "win": "floating",
