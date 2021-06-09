@@ -2,24 +2,63 @@
 
   <wgu-module-card v-bind="$attrs"
     :moduleName="moduleName"
-    class="wgu-infoclick-win" 
-    :icon="icon" 
+    class="wgu-infoclick-win"
+    :icon="icon"
     :title="title"
     :color="color"
     v-on:visibility-change="show">
-    <v-card-title primary-title class="wgu-infoclick-win-title">
 
-      <div v-if="!this.attributeData && !this.coordsData" class="no-data">
-        Click on the map to get information for the clicked map position.
-      </div>
+    <!-- Show feature properties and position tables -->
+    <div v-if="!this.showMedia">
 
-      <!-- feature property grid -->
-      <wgu-property-table :properties="attributeData" :color="color" />
+      <v-card-title primary-title class="wgu-infoclick-win-title">
 
-      <!-- click coodinate info grid -->
-      <wgu-coords-table :coordsData="coordsData" :color="color" />
+        <v-card-text v-if="!this.attributeData && !this.coordsData" class="no-data">
+          Click on the map to get information for the clicked map position.
+        </v-card-text>
 
-    </v-card-title>   
+        <!-- feature property grid -->
+        <wgu-property-table :properties="attributeData" :color="color" />
+
+        <!-- click coodinate info grid -->
+        <wgu-coords-table :coordsData="coordsData" :color="color" />
+
+      </v-card-title>
+
+    </div>
+
+    <!-- Show a default image based object info as previously
+         done in FeatureInfoWindow -->
+    <div v-if="this.showMedia">
+
+      <v-card-text v-if="!this.attributeData" class="no-data">
+        Click on a feature on the map to show connected media information.
+      </v-card-text>
+
+      <v-img
+        height="250"
+        v-if="this.attributeData"
+        :src="this.attributeData[this.imageProp]"
+      ></v-img>
+
+      <v-card-text
+        v-if="this.attributeData && this.attributeData[imageDescriptionProp]" >
+        {{this.attributeData[imageDescriptionProp]}}
+      </v-card-text>
+
+      <v-card-actions>
+        <v-btn
+          text :color="color"
+          v-if="this.attributeData && this.attributeData[mediaInfoLinkUrlProp]"
+          :href="this.attributeData[mediaInfoLinkUrlProp]"
+          target="_blank"
+        >
+          {{ mediaInfoLinkText || this.attributeData[mediaInfoLinkUrlProp] }}
+        </v-btn>
+      </v-card-actions>
+
+    </div>
+
    </wgu-module-card>
 </template>
 
@@ -40,7 +79,13 @@ export default {
   props: {
     color: {type: String, required: false, default: 'red darken-3'},
     icon: {type: String, required: false, default: 'info'},
-    title: {type: String, required: false, default: 'Map Click Info'}
+    title: {type: String, required: false, default: 'Map Click Info'},
+    showMedia: {type: Boolean, required: false, default: false},
+    // below props only have an effect if showMedia=true
+    mediaInfoLinkText: {type: String, required: false},
+    mediaInfoLinkUrlProp: {type: String, required: false},
+    imageProp: {type: String, required: false},
+    imageDescriptionProp: {type: String, required: false}
   },
   data: function () {
     return {
@@ -129,10 +174,10 @@ export default {
   }
 
   @media (max-width: 600px) {
-    /* TODO 
+    /* TODO
       Generalize the positioning concept for windows,
       this interferes with positioning and draggable settings in the app.conf */
-      
+
     /* tmp. approach to position on small screens */
     .wgu-infoclick-win.wgu-floating {
       /* tmp. fix */
