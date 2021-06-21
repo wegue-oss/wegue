@@ -86,7 +86,13 @@ Module identifier: `wgu-helpwin`
 
 Module identifier: `wgu-infoclick`
 
-No additional config options besides the general ones.
+| Property             | Meaning   | Example |
+|----------------------|:---------:|---------|
+| showMedia            |  Flag to steer if media (image) based feature information is rendered (default is "false" which forces the standard behavior showing the feature properties as table) | false      |
+| mediaInfoLinkText    |  Text shown in the link offering more information   |  "More Info ..."       |
+| mediaInfoLinkUrlProp |  Name of the feature attribute having the URL for more information         | "more_info"         |
+| imageProp            |  Name of the feature attribute having the image URL         |   "image"       |
+| imageDescriptionProp |  Name of the feature attribute having the image description text        |   "desc"       |
 
 ## LayerList
 

@@ -212,7 +212,8 @@
       "initPos": {
         "left": 8,
         "top": 74
-      }
+      },
+      "showMedia": false
     },
     "wgu-geocoder": {
       "target": "toolbar",

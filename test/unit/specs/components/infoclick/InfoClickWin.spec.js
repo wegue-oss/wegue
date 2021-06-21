@@ -23,8 +23,14 @@ describe('infoclick/InfoClickWin.vue', () => {
     });
 
     it('has correct default props', () => {
+      expect(comp.vm.color).to.equal('red darken-3');
       expect(comp.vm.icon).to.equal('info');
       expect(comp.vm.title).to.equal('Map Click Info');
+      expect(comp.vm.showMedia).to.equal(false);
+      expect(comp.vm.mediaInfoLinkText).to.equal(undefined);
+      expect(comp.vm.mediaInfoLinkUrlProp).to.equal(undefined);
+      expect(comp.vm.imageProp).to.equal(undefined);
+      expect(comp.vm.imageDescriptionProp).to.equal(undefined);
     });
   });
 
