@@ -15,7 +15,7 @@ const moduleProps = {
   'previewIcon': 'map'
 };
 
-describe('bglayerswitcher/BgLayerSwitcher.vue', () => {
+describe('bglayerswitcher/BgLayerList.vue', () => {
   it('is defined', () => {
     expect(BgLayerList).to.not.be.an('undefined');
   });
