@@ -74,9 +74,11 @@
       // property of DOM elements, which is not computed on mount time. The bug is related to
       // https://github.com/vuejs/Discussion/issues/394 .The following works in Firefox and Chrome.
       var slideGroup = this.$refs.slideGroup;
-      setTimeout(() => {
-        slideGroup.onResize();
-      }, 10);
+      if (slideGroup) {
+        setTimeout(() => {
+          slideGroup.onResize();
+        }, 10);
+      }
     },
     methods: {
       /**
