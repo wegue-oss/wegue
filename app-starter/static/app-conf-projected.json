@@ -86,7 +86,7 @@
       "projection": "EPSG:28992",
       "tileGridRef": "dutch_rd",
       "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> by Dutch Kadaster",
-      "isBaseLayer": true,
+      "isBaseLayer": false,
       "visible": false
     },
     {
