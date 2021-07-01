@@ -92,6 +92,8 @@ export const LayerFactory = {
     const layer = new TileLayer({
       name: lConf.name,
       lid: lConf.lid,
+      isBaseLayer: lConf.isBaseLayer,
+      previewImage: lConf.previewImage,
       displayInLayerList: lConf.displayInLayerList,
       extent: lConf.extent,
       visible: lConf.visible,
@@ -182,6 +184,8 @@ export const LayerFactory = {
     var vector = new VectorLayer({
       name: lConf.name,
       lid: lConf.lid,
+      isBaseLayer: lConf.isBaseLayer,
+      previewImage: lConf.previewImage,
       displayInLayerList: lConf.displayInLayerList,
       extent: lConf.extent,
       visible: lConf.visible,
@@ -206,6 +210,8 @@ export const LayerFactory = {
     const xyzLayer = new TileLayer({
       name: lConf.name,
       lid: lConf.lid,
+      isBaseLayer: lConf.isBaseLayer,
+      previewImage: lConf.previewImage,
       displayInLayerList: lConf.displayInLayerList,
       visible: lConf.visible,
       opacity: lConf.opacity,
@@ -230,6 +236,8 @@ export const LayerFactory = {
     const layer = new TileLayer({
       name: lConf.name,
       lid: lConf.lid,
+      isBaseLayer: lConf.isBaseLayer,
+      previewImage: lConf.previewImage,
       displayInLayerList: lConf.displayInLayerList,
       visible: lConf.visible,
       opacity: lConf.opacity,
@@ -249,6 +257,8 @@ export const LayerFactory = {
     const vectorLayer = new VectorLayer({
       name: lConf.name,
       lid: lConf.lid,
+      isBaseLayer: lConf.isBaseLayer,
+      previewImage: lConf.previewImage,
       displayInLayerList: lConf.displayInLayerList,
       extent: lConf.extent,
       visible: lConf.visible,
@@ -277,6 +287,8 @@ export const LayerFactory = {
     const vtLayer = new VectorTileLayer({
       name: lConf.name,
       lid: lConf.lid,
+      isBaseLayer: lConf.isBaseLayer,
+      previewImage: lConf.previewImage,
       displayInLayerList: lConf.displayInLayerList,
       visible: lConf.visible,
       opacity: lConf.opacity,

@@ -53,7 +53,8 @@
         var layerItems = [];
         layers.forEach(function (layer) {
           // skip if layer should not be listed
-          if (layer.get('displayInLayerList') === false) {
+          if (layer.get('displayInLayerList') === false ||
+              layer.get('isBaseLayer') === true) {
             return;
           }
           layerItems.push({

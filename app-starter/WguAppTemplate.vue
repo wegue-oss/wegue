@@ -34,6 +34,7 @@
         <!-- Portal to overlay the map content from an application module -->
         <portal-target name="map-overlay" />
         <wgu-app-logo />
+        <wgu-bglayerswitcher :color="baseColor"/>
       </v-container>
     </v-content>
 
@@ -68,6 +69,7 @@
   import AppFooter from './components/AppFooter'
   import AppSidebar from './components/AppSidebar'
   import AppLogo from '../src/components/AppLogo'
+  import BgLayerSwitcher from '../src/components/bglayerswitcher/BgLayerSwitcher.vue'
   import MeasureWin from '../src/components/measuretool/MeasureWin'
   import LayerListWin from '../src/components/layerlist/LayerListWin'
   import HelpWin from '../src/components/helpwin/HelpWin'
@@ -83,6 +85,7 @@
       'wgu-app-footer': AppFooter,
       'wgu-app-sidebar': AppSidebar,
       'wgu-app-logo': AppLogo,
+      'wgu-bglayerswitcher': BgLayerSwitcher,
       'wgu-measuretool-win': MeasureWin,
       'wgu-layerlist-win': LayerListWin,
       'wgu-helpwin-win': HelpWin,
