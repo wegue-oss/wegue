@@ -25,8 +25,7 @@
       "projection": "EPSG:3857",
       "attributions": "<a href='https://www.openstreetmap.org/copyright' target='_blank'>© OpenStreetMap-Mitwirkende</a>",
       "isBaseLayer": true,
-      "visible": true,
-      "crossOrigin": "anonymous"
+      "visible": true
     }
 
   ],

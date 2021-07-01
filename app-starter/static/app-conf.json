@@ -145,8 +145,7 @@
       "attribution": "",
       "isBaseLayer": false,
       "visible": false,
-      "displayInLayerList": true,
-      "crossOrigin": "anonymous"
+      "displayInLayerList": true
     },
 
     {
