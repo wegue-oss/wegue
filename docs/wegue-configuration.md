@@ -263,8 +263,7 @@ Example configurations can be found in the `app-starter/static` directory. Below
       "attribution": "",
       "isBaseLayer": false,
       "visible": false,
-      "displayInLayerList": true,
-      "crossOrigin": "anonymous"
+      "displayInLayerList": true
     },
 
     {
