@@ -2,10 +2,10 @@
 
   <div class="">
     <div class="measure-result">
-      LENGTH: {{distance}}
+      {{ $t("wgu-measuretool.length") }}: {{distance}}
     </div>
     <div class="measure-result">
-      AREA: {{area}}
+      {{ $t("wgu-measuretool.area") }}: {{area}}
     </div>
   </div>
 

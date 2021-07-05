@@ -1,0 +1,42 @@
+{
+  "wgu-attributetable": {
+  },
+
+  "wgu-bglayerswitcher": {
+  },
+
+  "wgu-geocoder": {
+  },
+
+  "wgu-geolocator": {
+  },
+
+  "wgu-helpwin": {
+  },
+
+  "wgu-infoclick": {
+    "mapClick": "Auf die Karte klicken, um Standortinformation anzuzeigen.",
+    "mediaClick": "Ein Feature auf der Karte auswählen, um zugehörige Medieninformationen anzuzeigen."
+  },
+
+  "wgu-layerlist": {
+  },
+
+  "wgu-maprecorder": {
+    "options": "Optionen",
+    "videoFormat": "Videoformat",
+    "frameRate": "Bildrate (Bilder/s)",
+    "bitRate": "Bitrate (MBits/s)",
+    "fileName": "Dateiname",
+    "error": "Starten der Aufnahme fehlgeschlagen."
+  },
+
+  "wgu-zoomtomaxextent": {
+  },
+
+  "wgu-measuretool": {
+    "distance": "Entfernung",
+    "length": "Länge",
+    "area": "Fläche"
+  }
+}

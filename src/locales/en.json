@@ -1,0 +1,43 @@
+{
+  "wgu-attributetable": {
+  },
+
+  "wgu-bglayerswitcher": {
+  },
+
+  "wgu-geocoder": {
+  },
+
+  "wgu-geolocator": {
+  },
+
+  "wgu-helpwin": {
+  },
+
+  "wgu-infoclick": {
+    "mapClick": "Click on the map to get information for the clicked map position.",    
+    "mediaClick": "Click on a feature on the map to show connected media information."
+  },
+
+  "wgu-layerlist": {
+  },
+
+  
+  "wgu-maprecorder": {
+    "options": "Options",
+    "videoFormat": "Video format",
+    "frameRate": "Frame rate (frames/s)",
+    "bitRate": "Bit rate (MBits/s)",
+    "fileName": "Filename",
+    "error": "Failed to start recording."
+  },
+  
+  "wgu-zoomtomaxextent": {
+  },
+
+  "wgu-measuretool": {
+    "distance": "Distance",
+    "length": "Length",
+    "area": "Area"
+  }
+}

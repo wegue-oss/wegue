@@ -11,7 +11,7 @@
         <v-expansion-panel-header> 
           <v-layout align-center>
             <v-icon class="mr-4">settings</v-icon>
-            Options
+            {{ $t('wgu-maprecorder.options') }}
           </v-layout>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -19,7 +19,7 @@
             flat
             color="transparent"
           >
-          <v-subheader>Video format</v-subheader>
+          <v-subheader>{{ $t('wgu-maprecorder.videoFormat') }}</v-subheader>
             <v-card-text class="pt-0">
               <v-select
                   v-model="mimeType"
@@ -31,7 +31,7 @@
               </v-select>
             </v-card-text>
 
-            <v-subheader>Frame rate (frames/s)</v-subheader>
+            <v-subheader>{{ $t('wgu-maprecorder.frameRate') }}</v-subheader>
             <v-card-text class="pt-0">
               <v-slider
                   prepend-icon="mdi-iframe-variable-outline"
@@ -44,7 +44,7 @@
               </v-slider>
             </v-card-text>
 
-            <v-subheader>Bit rate (MBits/s)</v-subheader>
+            <v-subheader>{{ $t('wgu-maprecorder.bitRate') }}</v-subheader>
             <v-card-text class="pt-0">
               <v-slider
                   prepend-icon="mdi-quality-high"
@@ -57,7 +57,7 @@
               </v-slider>
             </v-card-text>
 
-            <v-subheader>Filename</v-subheader>
+            <v-subheader>{{ $t('wgu-maprecorder.fileName') }}</v-subheader>
             <v-card-text class="pt-0">
               <v-text-field
                 v-model="filename"
@@ -96,7 +96,7 @@
             v-model="error"
             type="error" 
             dismissible>
-            Failed to start recording.
+            {{ $t('wgu-maprecorder.error') }}
           </v-alert>
         </v-flex>
       </v-layout>

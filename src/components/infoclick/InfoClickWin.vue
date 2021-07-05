@@ -14,7 +14,7 @@
       <v-card-title primary-title class="wgu-infoclick-win-title">
 
         <v-card-text v-if="!this.attributeData && !this.coordsData" class="no-data">
-          Click on the map to get information for the clicked map position.
+          {{ $t('wgu-infoclick.mapClick') }}
         </v-card-text>
 
         <!-- feature property grid -->
@@ -31,8 +31,8 @@
          done in FeatureInfoWindow -->
     <div v-if="this.showMedia">
 
-      <v-card-text v-if="!this.attributeData" class="no-data">
-        Click on a feature on the map to show connected media information.
+      <v-card-text v-if="!this.attributeData" class="no-data"> 
+        {{ $t('wgu-infoclick.mediaClick') }}
       </v-card-text>
 
       <v-img
