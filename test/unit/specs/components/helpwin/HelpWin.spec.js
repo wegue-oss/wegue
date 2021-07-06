@@ -3,10 +3,7 @@ import HelpWin from '@/components/helpwin/HelpWin'
 import Vue from 'vue';
 
 const moduleProps = {
-  'title': 'My Window Title',
-  'htmlContent': '<h1>MY CONTENT</h1>',
-  'infoLinkUrl': 'https://wegue.org',
-  'infoLinkText': 'Some Info Link Text'
+  'icon': 'my-icon'
 };
 
 describe('helpwin/HelpWin.vue', () => {
@@ -24,11 +21,6 @@ describe('helpwin/HelpWin.vue', () => {
 
     it('has correct default props', () => {
       expect(comp.vm.icon).to.equal('help');
-      expect(comp.vm.title).to.equal('About');
-      expect(comp.vm.textTitle).to.equal('About Wegue');
-      expect(comp.vm.htmlContent).to.equal('<h3>WebGIS with OpenLayers and Vue.js</h3>');
-      expect(comp.vm.infoLinkUrl).to.equal('https://github.com/meggsimum/wegue');
-      expect(comp.vm.infoLinkText).to.equal('More info');
     });
   });
 
@@ -41,12 +33,7 @@ describe('helpwin/HelpWin.vue', () => {
     });
 
     it('has correct configured and default props', () => {
-      expect(comp.vm.icon).to.equal('help');
-      expect(comp.vm.title).to.equal('My Window Title');
-      expect(comp.vm.textTitle).to.equal('About Wegue');
-      expect(comp.vm.htmlContent).to.equal('<h1>MY CONTENT</h1>');
-      expect(comp.vm.infoLinkUrl).to.equal('https://wegue.org');
-      expect(comp.vm.infoLinkText).to.equal('Some Info Link Text');
+      expect(comp.vm.icon).to.equal('my-icon');
     });
   });
 });

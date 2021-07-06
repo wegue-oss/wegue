@@ -19,8 +19,6 @@ describe('attributeTable/AttributeTableWin.vue', () => {
 
     it('has correct default props', () => {
       expect(comp.vm.icon).to.equal('table_chart');
-      expect(comp.vm.title).to.be.a('String');
-      expect(comp.vm.selectorLabel).to.be.a('String');
     });
 
     afterEach(() => {
