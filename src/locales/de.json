@@ -1,28 +1,42 @@
 {
   "wgu-attributetable": {
+    "title": "Attribut Tabelle",
+    "selectorLabel": "Layer auswählen",
+    "loadingText": "Lade... Bitte ein Gebiet auswählen, so dass der Layer sichtbar ist"
   },
 
   "wgu-bglayerswitcher": {
+    "emptyText": "Keine Hintegrund-Layer verfügbar."
   },
 
   "wgu-geocoder": {
+    "placeHolder": "Adresse suchen"
   },
 
   "wgu-geolocator": {
   },
 
   "wgu-helpwin": {
+    "title": "Hilfe",
+    "textTitle": "Über Wegue",
+    "htmlContent": "<b>WebGIS basierend auf OpenLayers und Vue.js</b></br>Vorlagen und wiederverwertbare Komponenten für Web-Kartenanwendungen mit OpenLayers und Vue.js",
+    "infoLinkUrl": "http://wegue.org/",
+    "infoLinkText": "Mehr Informationen"
   },
 
   "wgu-infoclick": {
+    "title": "Standortinformation",
     "mapClick": "Auf die Karte klicken, um Standortinformation anzuzeigen.",
-    "mediaClick": "Ein Feature auf der Karte auswählen, um zugehörige Medieninformationen anzuzeigen."
+    "mediaClick": "Ein Feature auf der Karte auswählen, um zugehörige Medieninformationen anzuzeigen.",
+    "mediaInfoLinkText": null
   },
 
   "wgu-layerlist": {
+    "title": "Layer" 
   },
 
   "wgu-maprecorder": {
+    "title": "Videoaufnahme",
     "options": "Optionen",
     "videoFormat": "Videoformat",
     "frameRate": "Bildrate (Bilder/s)",
@@ -32,9 +46,11 @@
   },
 
   "wgu-zoomtomaxextent": {
+    "text": ""
   },
 
   "wgu-measuretool": {
+  	"title": "Vermessung",
     "distance": "Entfernung",
     "length": "Länge",
     "area": "Fläche"

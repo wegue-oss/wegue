@@ -3,7 +3,7 @@
       moduleName="wgu-layerlist"
       class="wgu-layerlist" 
       :icon="icon" 
-      :title="title">
+      :title="$t('wgu-layerlist.title')">
       <wgu-layerlist />
    </wgu-module-card>
 
@@ -21,8 +21,7 @@
       'wgu-layerlist': LayerList
     },
     props: {
-      icon: {type: String, required: false, default: 'layers'},
-      title: {type: String, required: false, default: 'Layers'}
+      icon: {type: String, required: false, default: 'layers'}
     }
   }
 </script>

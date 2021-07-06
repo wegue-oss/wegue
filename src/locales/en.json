@@ -1,29 +1,42 @@
 {
   "wgu-attributetable": {
+    "title": "Attribute Table",
+    "selectorLabel": "Choose a layer",
+    "loadingText": "Loading... Please move to an area where the layer is visible"
   },
 
   "wgu-bglayerswitcher": {
+    "emptyText": "No background layers available."
   },
 
   "wgu-geocoder": {
+    "placeHolder": "Search for an address"
   },
 
   "wgu-geolocator": {
   },
 
   "wgu-helpwin": {
+    "title": "About",
+    "textTitle": "About Wegue",
+    "htmlContent": "<b>WebGIS with OpenLayers and Vue.js</b> Template and re-usable components for webmapping applications with OpenLayers and Vue.js",
+    "infoLinkUrl": "http://wegue.org/",
+    "infoLinkText": "More info"
   },
 
   "wgu-infoclick": {
+    "title": "Map Click Info",
     "mapClick": "Click on the map to get information for the clicked map position.",    
-    "mediaClick": "Click on a feature on the map to show connected media information."
+    "mediaClick": "Click on a feature on the map to show connected media information.",
+    "mediaInfoLinkText": null
   },
 
   "wgu-layerlist": {
+    "title": "Layers" 
   },
 
-  
   "wgu-maprecorder": {
+    "title": "Map recorder",
     "options": "Options",
     "videoFormat": "Video format",
     "frameRate": "Frame rate (frames/s)",
@@ -33,9 +46,11 @@
   },
   
   "wgu-zoomtomaxextent": {
+    "text": ""
   },
 
   "wgu-measuretool": {
+    "title": "Measure",
     "distance": "Distance",
     "length": "Length",
     "area": "Area"

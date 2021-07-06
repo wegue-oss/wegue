@@ -3,22 +3,23 @@
       :moduleName="moduleName"
       class="wgu-helpwin" 
       :icon="icon"
-      :title="title"
+      :title="$t('wgu-helpwin.title')"
       :width="width">
     <v-card-title primary-title>
       <div>
-        <h3 class="headline mb-0" v-if="textTitle">{{ textTitle }}</h3>
+        <h3 class="headline mb-0" v-if="$t('wgu-helpwin.textTitle')">
+          {{ $t('wgu-helpwin.textTitle') }}</h3>
       </div>
     </v-card-title>
     <v-card-text>
-      <div class="text--primary" v-html="htmlContent">
+      <div class="text--primary" v-html="$t('wgu-helpwin.htmlContent')">
       </div>
     </v-card-text>
 
     <v-card-actions>
       <a class="info-link red--text darken3"
-        :href="infoLinkUrl" target="_blank" v-if="infoLinkUrl">
-        {{ infoLinkText || infoLinkUrl }}
+        :href="$t('wgu-helpwin.infoLinkUrl')" target="_blank" v-if="$t('wgu-helpwin.infoLinkUrl')">
+        {{ $t('wgu-helpwin.infoLinkText') || $t('wgu-helpwin.infoLinkUrl') }}
         </a>
     </v-card-actions>
   </wgu-module-card>
@@ -35,11 +36,6 @@
     },
     props: {
       icon: {type: String, required: false, default: 'help'},
-      title: {type: String, required: false, default: 'About'},
-      textTitle: {type: String, required: false, default: 'About Wegue'},
-      htmlContent: {type: String, required: false, default: '<h3>WebGIS with OpenLayers and Vue.js</h3>'},
-      infoLinkUrl: {type: String, required: false, default: 'https://github.com/meggsimum/wegue'},
-      infoLinkText: {type: String, required: false, default: 'More info'},
       width: {type: Number, required: false, default: 300}
     },
     data () {

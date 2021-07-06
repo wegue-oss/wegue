@@ -3,7 +3,7 @@
       :moduleName="moduleName"
       class="wgu-maprecorder-win" 
       :icon="icon" 
-      :title="title"
+      :title="$t('wgu-maprecorder.title')"
       width=350>
     
     <v-expansion-panels :multiple="true" :accordion="true" class="overflow-y-auto">
@@ -117,8 +117,7 @@ export default {
     'wgu-module-card': ModuleCard
   },
   props: {
-    icon: {type: String, required: false, default: 'mdi-video'},
-    title: {type: String, required: false, default: 'Map recorder'}
+    icon: {type: String, required: false, default: 'mdi-video'}
   },
   data () {
     const mimeTypes = this.getSupportedMimeTypes();

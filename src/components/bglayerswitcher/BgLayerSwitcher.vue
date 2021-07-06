@@ -27,7 +27,7 @@
         :previewIcon="icon"
         :imageWidth="imageWidth"
         :imageHeight="imageHeight"
-        :emptyText="emptyText"
+        :emptyText="$t('wgu-bglayerswitcher.emptyText')"
         />
     </v-menu>
   </div>
@@ -45,7 +45,6 @@ export default {
     color: {type: String, required: false, default: 'red darken-3'},
     icon: {type: String, required: false, default: 'map'},
     dark: {type: Boolean, required: false, default: true},
-    emptyText: {type: String, required: false, default: 'No background layers available.'},
     imageWidth: {type: Number, required: false, default: 152},
     imageHeight: {type: Number, required: false, default: 114}
   },

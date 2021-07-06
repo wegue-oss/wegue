@@ -4,7 +4,7 @@
     :moduleName="moduleName"
     class="wgu-infoclick-win"
     :icon="icon"
-    :title="title"
+    :title="$t('wgu-infoclick.title')"
     :color="color"
     v-on:visibility-change="show">
 
@@ -53,7 +53,7 @@
           :href="this.attributeData[mediaInfoLinkUrlProp]"
           target="_blank"
         >
-          {{ mediaInfoLinkText || this.attributeData[mediaInfoLinkUrlProp] }}
+          {{ $t('wgu-infoclick.mediaInfoLinkText') || this.attributeData[mediaInfoLinkUrlProp] }}
         </v-btn>
       </v-card-actions>
 
@@ -79,10 +79,8 @@ export default {
   props: {
     color: {type: String, required: false, default: 'red darken-3'},
     icon: {type: String, required: false, default: 'info'},
-    title: {type: String, required: false, default: 'Map Click Info'},
     showMedia: {type: Boolean, required: false, default: false},
     // below props only have an effect if showMedia=true
-    mediaInfoLinkText: {type: String, required: false},
     mediaInfoLinkUrlProp: {type: String, required: false},
     imageProp: {type: String, required: false},
     imageDescriptionProp: {type: String, required: false}

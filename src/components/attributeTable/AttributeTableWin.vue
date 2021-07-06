@@ -3,7 +3,7 @@
     :moduleName="moduleName"
     class="wgu-attributetable-win" 
     :icon="icon" 
-    :title="title"
+    :title="$t('wgu-attributetable.title')"
     v-on:visibility-change="show">
 
     <template v-slot:wgu-win-toolbar>
@@ -17,7 +17,7 @@
         return-object
         hide-details
         @input="handleLayerSelect"
-        :label="selectorLabel"
+        :label="$t('wgu-attributetable.selectorLabel')"
         ></v-select>
     </template>
   
@@ -43,8 +43,6 @@ export default {
 
   props: {
     icon: {type: String, required: false, default: 'table_chart'},
-    title: {type: String, required: false, default: 'Attribute Table'},
-    selectorLabel: {type: String, required: false, default: 'Choose a layer'},
     syncTableMapSelection: {type: Boolean, required: false, default: false}
   },
   data () {
