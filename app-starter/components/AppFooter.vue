@@ -17,8 +17,8 @@ export default {
   name: 'wgu-app-footer',
   props: {
     color: {type: String, required: false, default: 'red darken-3'},
-    footerTextLeft: {type: String, required: false, default: 'Powered by <a href="https://meggsimum.de/wegue/" target="_blank">Wegue WebGIS</a>'},
-    footerTextRight: {type: String, required: false, default: 'meggsimum'},
+    footerTextLeft: {type: String, required: true},
+    footerTextRight: {type: String, required: true},
     showCopyrightYear: {type: Boolean, required: false, default: true}
   }
 }

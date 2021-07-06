@@ -49,8 +49,8 @@
 
     <wgu-app-footer
       :color="baseColor"
-      :footerTextLeft="footerTextLeft"
-      :footerTextRight="footerTextRight"
+      :footerTextLeft="$t('app.footerTextLeft')"
+      :footerTextRight="$t('app.footerTextRight')"
       :showCopyrightYear="showCopyrightYear"
     />
 
@@ -100,15 +100,12 @@
         isEmbedded: false,
         floatingWins: this.getModuleWinData('floating'),
         sidebarWins: this.getModuleWinData('sidebar'),
-        footerTextLeft: Vue.prototype.$appConfig.footerTextLeft,
-        footerTextRight: Vue.prototype.$appConfig.footerTextRight,
         showCopyrightYear: Vue.prototype.$appConfig.showCopyrightYear,
         baseColor: Vue.prototype.$appConfig.baseColor
       }
     },
     created () {
-      // set document title (e.g. shown in browser tab) from app config
-      document.title = Vue.prototype.$appConfig.browserTitle || document.title;
+      this.setDocumentTitle();
     },
     mounted () {
       // apply the isEmbedded state to the member var
@@ -150,6 +147,20 @@
           }
         }
         return moduleWins;
+      },
+      /**
+       * Sets the document title from language file.
+       **/
+      setDocumentTitle () {
+        document.title = this.$i18n.t('app.browserTitle') || document.title;
+      }
+    },
+    watch: {
+      /**
+       * Watch for locale changes.
+       */
+      '$i18n.locale': function () {
+        this.setDocumentTitle();
       }
     }
   }
