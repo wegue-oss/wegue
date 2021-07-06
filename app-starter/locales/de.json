@@ -4,5 +4,13 @@
     "browserTitle": "Wegue Demo Anwendung",
     "footerTextLeft": "Powered by <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>",
     "footerTextRight": "meggsimum"
+  },
+
+  "wgu-helpwin": {
+    "title": "Hilfe",
+    "textTitle": "Über Wegue",
+    "htmlContent": "<b>WebGIS basierend auf OpenLayers und Vue.js</b></br>Vorlagen und wiederverwertbare Komponenten für Web-Kartenanwendungen mit OpenLayers und Vue.js",
+    "infoLinkUrl": "http://wegue.org/",
+    "infoLinkText": "Mehr Informationen"
   }
 }
