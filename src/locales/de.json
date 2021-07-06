@@ -1,4 +1,11 @@
 {
+  "app": {
+    "title": "Vue.js / OpenLayers WebGIS",
+    "browserTitle": "Wegue Demo Anwendung",
+    "footerTextLeft": "Powered by <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>",
+    "footerTextRight": "meggsimum"
+  },
+  
   "wgu-attributetable": {
     "title": "Attribut Tabelle",
     "selectorLabel": "Layer auswählen",
