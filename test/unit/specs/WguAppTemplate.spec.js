@@ -13,8 +13,6 @@ describe('WguAppTpl.vue', () => {
     let vm;
     beforeEach(() => {
       Vue.prototype.$appConfig = {
-        footerTextLeft: 'footer-left',
-        footerTextRight: 'footer-right',
         showCopyrightYear: true,
         baseColor: 'red',
         modules: {}
@@ -27,8 +25,6 @@ describe('WguAppTpl.vue', () => {
       expect(vm.isEmbedded).to.equal(undefined);
       expect(vm.floatingWins).to.be.an('array');
       expect(vm.sidebarWins).to.be.an('array');
-      expect(vm.footerTextLeft).to.equal('footer-left');
-      expect(vm.footerTextRight).to.equal('footer-right');
       expect(vm.showCopyrightYear).to.equal(true);
       expect(vm.baseColor).to.equal('red');
     });
