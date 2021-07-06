@@ -33,7 +33,7 @@
 
   "wgu-infoclick": {
     "title": "Standortinformation",
-    "mapClick": "Auf die Karte klicken, um Standortinformation anzuzeigen.",
+    "mapClick": "Auf die Karte klicken, um Standortinformationen anzuzeigen.",
     "mediaClick": "Ein Feature auf der Karte auswählen, um zugehörige Medieninformationen anzuzeigen.",
     "mediaInfoLinkText": null
   },
