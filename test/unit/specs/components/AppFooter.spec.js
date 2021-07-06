@@ -2,6 +2,11 @@ import Vue from 'vue'
 import { shallowMount } from '@vue/test-utils';
 import AppFooter from 'APP/components/AppFooter'
 
+const footerProps = {
+  footerTextLeft: 'my-text-left',
+  footerTextRight: 'my-text-right'
+}
+
 describe('AppFooter.vue', () => {
   // Inspect the raw component options
   it('is defined', () => {
@@ -12,7 +17,9 @@ describe('AppFooter.vue', () => {
     let comp;
     beforeEach(() => {
       Vue.prototype.$appConfig = {modules: {}};
-      comp = shallowMount(AppFooter);
+      comp = shallowMount(AppFooter, {
+        propsData: footerProps
+      });
     });
 
     it('has correct default props', () => {
