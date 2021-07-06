@@ -1,10 +1,20 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import PortalVue from 'portal-vue'
+import VueI18n from 'vue-i18n'
+import i18nMessages from '../../src/locales/en.json';
 
 Vue.config.productionTip = false
 Vue.use(Vuetify)
 Vue.use(PortalVue)
+Vue.use(VueI18n)
+
+// Setup VueI18n, only english language files from 'src/locales/en.json'
+// are used for testing.
+Vue.prototype._i18n = new VueI18n({
+  locale: 'en',
+  messages: { 'en': i18nMessages }
+})
 
 // require all test files (files that ends with .spec.js)
 const testsContext = require.context('./specs', true, /\.spec$/)
