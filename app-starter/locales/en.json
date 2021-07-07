@@ -6,6 +6,42 @@
     "footerTextRight": "meggsimum"
   },
 
+  "mapLayers": {
+    "gas-wfs": {
+      "name": "Gas Stations WFS"
+    },
+    "earthquakes": {
+      "name": "Earthquakes 2012 (Mag 5)"
+    },
+    "ahocevar-wms": {
+      "name": "WMS (ahocevar)"
+    },
+    "ahocevar-vectortyle": {
+      "name": "Vector Tile Layer"
+    },
+    "opentopomap": {
+      "name": "Open Topo Map"
+    },
+    "osm-bg": {
+      "name": "Open Street Map"
+    },
+    "dutch-nat-parks" : {
+      "name": "WFS (Dutch National Parks PDOK)"
+    },
+    "pdok-natura2000-wms" : {
+      "name": "WMS - Natura 2000 Areas - PDOK"
+    },
+    "pdok-lufo-wms" : {
+      "name": "WMS - Dutch Arial Map - PDOK"
+    },
+    "brtachtergrondkaart" : {
+      "name": "WMTS - Topo Basemap - PDOK"
+    },
+    "terrestris-osm-wms" : {
+      "name": "OSM WMS"
+    }
+  },
+
   "wgu-helpwin": {
     "title": "About",
     "textTitle": "About Wegue",

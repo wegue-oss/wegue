@@ -6,6 +6,42 @@
     "footerTextRight": "meggsimum"
   },
 
+  "mapLayers": {
+    "gas-wfs": {
+      "name": "Tankstellen WFS"
+    },
+    "earthquakes": {
+      "name": "Erdbeben 2012 (Mag 5)"
+    },
+    "ahocevar-wms": {
+      "name": "WMS (ahocevar)"
+    },
+    "ahocevar-vectortyle": {
+      "name": "Vector Tile Layer"
+    },
+    "opentopomap": {
+      "name": "Open Topo Map"
+    },
+    "osm-bg": {
+      "name": "Open Street Map"
+    },
+    "dutch-nat-parks" : {
+      "name": "WFS (Niederländische Nationalparks PDOK)"
+    },
+    "pdok-natura2000-wms" : {
+      "name": "WMS - Natura 2000 Gebiete - PDOK"
+    },
+    "pdok-lufo-wms" : {
+      "name": "WMS - Niederländische Luftkarte - PDOK"
+    },
+    "brtachtergrondkaart" : {
+      "name": "WMTS - Topo Grundkarte - PDOK"
+    },
+    "terrestris-osm-wms" : {
+      "name": "OSM WMS"
+    }
+  },
+
   "wgu-helpwin": {
     "title": "Hilfe",
     "textTitle": "Über Wegue",
