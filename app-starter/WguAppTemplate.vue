@@ -152,7 +152,7 @@
        * Sets the document title from language file.
        **/
       setDocumentTitle () {
-        document.title = this.$i18n.t('app.browserTitle') || document.title;
+        document.title = this.$t('app.browserTitle') || document.title;
       }
     },
     watch: {
