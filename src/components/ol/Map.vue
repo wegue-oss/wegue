@@ -346,8 +346,10 @@ export default {
       const vectorSource = new VectorSource({});
       const vectorLayer = new VectorLayer({
         // random unique layer ID
-        lid: 'wegue-drag-drop-' + (Math.random() * 1000000).toFixed(0),
-        name: mapDdConf.layerName || 'Drag/Drop Data',
+        // For localization the randomized layer ID cannot be used, therefore map it to a fixed key
+        // which will be part of the language path ('mapLayers.wgu-drag-drop-layer')
+        lid: 'wgu-drag-drop-layer-' + (Math.random() * 1000000).toFixed(0),
+        langKey: 'wgu-drag-drop-layer',
         wegueDragDropLayer: true,
         source: vectorSource,
         displayInLayerList: mapDdConf.displayInLayerList

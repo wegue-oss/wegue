@@ -12,6 +12,9 @@
     },
     "wgu-measure-layer": {
       "name": "Vermessungs-Layer"
+    },
+    "wgu-drag-drop-layer" : {
+      "name": "Drag/Drop Daten"
     }
   },
   
