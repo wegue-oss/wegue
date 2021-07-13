@@ -11,7 +11,7 @@
         v-model="selectedItem"
         class="wgu-vector-layer-select"
         :items="layerItems"
-        item-text="layerName"
+		:item-text="item => $t('mapLayers.' + item.lid + '.name')"
         item-value="lid"
         dense
         return-object
@@ -99,12 +99,14 @@ export default {
     populateLayerItems () {
       let layerItems = [];
 
+      // TODO
+      // Turn layerItems into a computed property to make it reactive,
+      // e.g. when the list of layers changes at runtime. See BgLayerList for an example.
       const mapLayers = this.map.getLayers();
       mapLayers.forEach(layer => {
         if (layer instanceof VectorLayer &&
             layer.get('lid') !== 'measure-layer') {
           layerItems.push({
-            layerName: layer.get('name'),
             lid: layer.get('lid')
           });
         }
