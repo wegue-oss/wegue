@@ -127,8 +127,8 @@ export default {
       moduleName: 'wgu-maprecorder',
 
       /**
-      * Custom canvas element for drawing the Open layers map.
-      */
+       * Custom canvas element for drawing the OpenLayers map.
+       */
       mapCanvas: null,
       /**
        * Context of the custom canvas element.
@@ -139,7 +139,7 @@ export default {
        */
       recorder: null,
       /**
-       * Recording state
+       * Recording state.
        */
       recording: false,
       /**
