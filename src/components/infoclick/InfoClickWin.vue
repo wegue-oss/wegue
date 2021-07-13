@@ -4,7 +4,6 @@
     :moduleName="moduleName"
     class="wgu-infoclick-win"
     :icon="icon"
-    :title="$t('wgu-infoclick.title')"
     :color="color"
     v-on:visibility-change="show">
 

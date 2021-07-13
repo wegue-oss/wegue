@@ -3,7 +3,6 @@
       :moduleName="moduleName"
       class="wgu-maprecorder-win" 
       :icon="icon" 
-      :title="$t('wgu-maprecorder.title')"
       width=350>
     
     <v-expansion-panels :multiple="true" :accordion="true" class="overflow-y-auto">

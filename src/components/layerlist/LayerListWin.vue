@@ -3,7 +3,7 @@
       moduleName="wgu-layerlist"
       class="wgu-layerlist" 
       :icon="icon" 
-      :title="$t('wgu-layerlist.title')">
+      >
       <wgu-layerlist />
    </wgu-module-card>
 

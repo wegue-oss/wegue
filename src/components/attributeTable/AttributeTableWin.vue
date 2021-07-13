@@ -3,7 +3,6 @@
     :moduleName="moduleName"
     class="wgu-attributetable-win" 
     :icon="icon" 
-    :title="$t('wgu-attributetable.title')"
     v-on:visibility-change="show">
 
     <template v-slot:wgu-win-toolbar>

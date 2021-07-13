@@ -4,7 +4,6 @@
       :moduleName="moduleName"
       class="wgu-measurewin" 
       :icon="icon" 
-      :title="$t('wgu-measuretool.title')"
       v-on:visibility-change="show">
 
       <v-card-title primary-title>

@@ -3,7 +3,6 @@
       :moduleName="moduleName"
       class="wgu-helpwin" 
       :icon="icon"
-      :title="$t('wgu-helpwin.title')"
       :width="width">
     <v-card-title primary-title>
       <div>
