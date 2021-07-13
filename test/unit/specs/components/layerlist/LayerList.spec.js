@@ -5,119 +5,110 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 
 describe('layerlist/LayerList.vue', () => {
-  // Evaluate the results of functions in
-  // the raw component options
-  it('sets the correct default data', () => {
-    expect(typeof LayerList.data).to.equal('function');
-    const defaultData = LayerList.data();
-    expect(defaultData.layerItems).to.be.an('array');
-    expect(defaultData.layerItems.length).to.eql(0);
-    expect(defaultData.changeVisByClickUpdate).to.eql(false);
+  it('is defined', () => {
+    expect(LayerList).to.not.be.an('undefined');
   });
 
   describe('data', () => {
     let comp;
+    let vm;
     beforeEach(() => {
       comp = shallowMount(LayerList);
+      vm = comp.vm;
     });
 
     it('has correct default data', () => {
-      expect(comp.vm.layerItems).to.be.an('array');
-      expect(comp.vm.layerItems.length).to.eql(0);
-      expect(comp.vm.changeVisByClickUpdate).to.eql(false);
+      expect(typeof LayerList.data).to.equal('function');
+      expect(vm.layers).to.be.an('array');
+      expect(vm.layers.length).to.eql(0);
     });
 
-    describe('methods', () => {
-      let comp;
-      let vm;
-      beforeEach(() => {
-        comp = shallowMount(LayerList);
-        vm = comp.vm;
-      });
+    afterEach(() => {
+      comp.destroy();
+    });
+  });
 
-      it('are implemented', () => {
-        expect(typeof vm.onMapBound).to.equal('function');
-        expect(typeof vm.createLayerItems).to.equal('function');
-        expect(typeof vm.onOlLayerVizChange).to.equal('function');
-        expect(typeof vm.onItemClick).to.equal('function');
-        expect(typeof vm.layerVizChanged).to.equal('function');
-      });
-
-      it('createLayerItems detects wanted layer items', () => {
-        const layerIn = new VectorLayer({
-          name: 'test',
-          lid: 'test-lid',
-          visible: true,
-          displayInLayerList: true,
-          source: new VectorSource()
-        });
-        const layerOut = new VectorLayer({
-          name: 'test',
-          lid: 'test-lid',
-          visible: true,
-          displayInLayerList: false,
-          source: new VectorSource()
-        });
-        const map = new OlMap({
-          layers: [layerIn, layerOut]
-        });
-        vm.map = map;
-        vm.createLayerItems();
-
-        expect(vm.layerItems.length).to.equal(1);
-        const li = vm.layerItems[0];
-        expect(li.title).to.equal('test');
-        expect(li.lid).to.equal('test-lid');
-        expect(li.visible).to.equal(true);
-      });
-
-      it('onOlLayerVizChange changes the visibility in UI and layer', () => {
-        const testLid = 'test-lid';
-        const layerIn = new VectorLayer({
-          name: 'test',
-          lid: testLid,
-          visible: true,
-          displayInLayerList: true,
-          source: new VectorSource()
-        });
-        const map = new OlMap({
-          layers: [layerIn]
-        });
-        vm.map = map;
-
-        const evtMock = {
-          target: {
-            get: () => testLid
-          }
-        };
-        vm.createLayerItems();
-        vm.onOlLayerVizChange(evtMock);
-
-        expect(vm.layerItems[0].visible).to.equal(false);
-        expect(layerIn.getVisible()).to.equal(false);
-      });
+  describe('computed properties', () => {
+    let comp;
+    let vm;
+    beforeEach(() => {
+      comp = shallowMount(LayerList);
+      vm = comp.vm;
     });
 
-    describe('event binding', () => {
-      let comp;
-      let vm;
-      beforeEach(() => {
-        comp = shallowMount(LayerList);
-        vm = comp.vm;
+    it('detects wanted layer items', () => {
+      const layerIn = new VectorLayer({
+        visible: true,
+        displayInLayerList: true,
+        source: new VectorSource()
       });
-
-      it('layer items are (re)created when the layer stack changes', () => {
-        const layerIn = new VectorLayer();
-        const map = new OlMap({
-          layers: [layerIn]
-        });
-        vm.map = map;
-        vm.onMapBound();
-
-        map.addLayer(new VectorLayer());
-
-        expect(vm.layerItems.length).to.equal(2);
+      const layerOut = new VectorLayer({
+        visible: true,
+        displayInLayerList: false,
+        source: new VectorSource()
       });
-    })
+      const map = new OlMap({
+        layers: [layerIn, layerOut]
+      });
+      vm.map = map;
+      vm.onMapBound();
+
+      expect(vm.fgLayers.length).to.equal(1);
+      const li = vm.fgLayers[0];
+      expect(li).to.equal(layerIn);
+      expect(li.getVisible()).to.equal(true);
+    });
+
+    it('fgLayers items are synced with the layer stack', () => {
+      const layerIn = new VectorLayer();
+      const map = new OlMap({
+        layers: [layerIn]
+      });
+      vm.map = map;
+      vm.onMapBound();
+
+      expect(vm.fgLayers.length).to.equal(1);
+
+      map.addLayer(new VectorLayer());
+
+      expect(vm.fgLayers.length).to.equal(2);
+    });
+
+    afterEach(() => {
+      comp.destroy();
+    });
+  });
+
+  describe('methods', () => {
+    let comp;
+    let vm;
+    beforeEach(() => {
+      comp = shallowMount(LayerList);
+      vm = comp.vm;
+    });
+
+    it('are implemented', () => {
+      expect(typeof vm.onMapBound).to.equal('function');
+      expect(typeof vm.onItemClick).to.equal('function');
+    });
+
+    it('onItemClick toggles layer visibility', () => {
+      const layerIn = new VectorLayer({
+        visible: true,
+        displayInLayerList: true,
+        source: new VectorSource()
+      });
+      const map = new OlMap({
+        layers: [layerIn]
+      });
+      vm.map = map;
+      vm.onMapBound();
+
+      expect(layerIn.getVisible()).to.equal(true);
+
+      vm.onItemClick(layerIn);
+
+      expect(layerIn.getVisible()).to.equal(false);
+    });
   });
 });
