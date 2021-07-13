@@ -7,7 +7,7 @@
      :tile="true"
      class="wgu-app-logo"
     >
-    <img :src="logoSrc" alt="App Logo">
+    <img :src="logoSrc" :alt="$t('app.logo')">
   </v-avatar>
 
 </template>

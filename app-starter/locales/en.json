@@ -3,7 +3,8 @@
     "title": "Vue.js / OpenLayers WebGIS",
     "browserTitle": "Wegue Demo App",
     "footerTextLeft": "Powered by <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>",
-    "footerTextRight": "meggsimum"
+    "footerTextRight": "meggsimum",
+    "logo": "App Logo"
   },
 
   "mapLayers": {
