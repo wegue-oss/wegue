@@ -9,6 +9,9 @@
   "mapLayers": {
     "wgu-geolocator-layer": {
       "name": "Ihr Standort"
+    },
+    "wgu-measure-layer": {
+      "name": "Vermessungs-Layer"
     }
   },
   

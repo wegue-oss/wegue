@@ -105,7 +105,7 @@ export default {
       const mapLayers = this.map.getLayers();
       mapLayers.forEach(layer => {
         if (layer instanceof VectorLayer &&
-            layer.get('lid') !== 'measure-layer') {
+            layer.get('lid') !== 'wgu-measure-layer') {
           layerItems.push({
             lid: layer.get('lid')
           });

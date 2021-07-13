@@ -9,6 +9,9 @@
   "mapLayers": {
     "wgu-geolocator-layer": {
       "name": "Current Position"
+    },
+    "wgu-measure-layer": {
+      "name": "Measure Layer"
     }
   },
 
