@@ -35,8 +35,6 @@ describe('bglayerswitcher/BgLayerList.vue', () => {
     });
 
     it('has correct props', () => {
-      expect(vm.layers).to.be.an('array');
-      expect(vm.layers.length).to.eql(0);
       expect(vm.emptyText).to.equal('My empty Text');
       expect(vm.color).to.equal('white');
       expect(vm.dark).to.equal(true);
