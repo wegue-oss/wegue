@@ -11,7 +11,7 @@
         v-model="selectedItem"
         class="wgu-vector-layer-select"
         :items="layerItems"
-		:item-text="item => $t('mapLayers.' + item.lid + '.name')"
+		    :item-text="item => $t('mapLayers.' + (item.langKey || item.lid) + '.name')"
         item-value="lid"
         dense
         return-object
@@ -107,6 +107,7 @@ export default {
         if (layer instanceof VectorLayer &&
             layer.get('lid') !== 'wgu-measure-layer') {
           layerItems.push({
+            langKey: layer.get('langKey'),
             lid: layer.get('lid')
           });
         }
