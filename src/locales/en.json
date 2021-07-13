@@ -6,6 +6,12 @@
     "footerTextRight": "meggsimum"
   },
 
+  "mapLayers": {
+    "wgu-geolocator-layer": {
+      "name": "Current Position"
+    }
+  },
+
   "wgu-attributetable": {
     "title": "Attribute Table",
     "selectorLabel": "Choose a layer",

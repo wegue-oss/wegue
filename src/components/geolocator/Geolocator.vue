@@ -67,7 +67,7 @@ export default {
         source: new VectorSource(),
         style: this.geolocationMarker
       });
-      layer.setProperties({lid: layerId, name: 'Current Position'});
+      layer.setProperties({lid: layerId});
       return layer;
     },
 
@@ -89,7 +89,7 @@ export default {
             this.isGeolocationFound = true;
             this.isSearchingForGeolocation = false;
             // get a layer to draw the current position on
-            const geolocLayer = this.createAndRemoveExistingLayer(this.map.getLayers(), 'userPosition');
+            const geolocLayer = this.createAndRemoveExistingLayer(this.map.getLayers(), 'wgu-geolocator-layer');
             geolocLayer.getSource().addFeature(new Feature({geometry: currentPosGeom}));
             this.map.addLayer(geolocLayer);
 

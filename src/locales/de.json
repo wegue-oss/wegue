@@ -5,6 +5,12 @@
     "footerTextLeft": "Powered by <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>",
     "footerTextRight": "meggsimum"
   },
+
+  "mapLayers": {
+    "wgu-geolocator-layer": {
+      "name": "Ihr Standort"
+    }
+  },
   
   "wgu-attributetable": {
     "title": "Attribut Tabelle",
