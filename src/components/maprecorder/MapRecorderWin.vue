@@ -81,8 +81,8 @@
           fab
           outlined 
           @click="toggleRecord">
-          <v-icon v-if="recording">mdi-video-off</v-icon> 
-          <v-icon v-else>mdi-video</v-icon> 
+          <v-icon v-if="recording">stop</v-icon> 
+          <v-icon v-else color="red darken-4">fiber_manual_record</v-icon> 
         </v-btn>
         <v-flex fill-height grow> 
           <v-progress-linear
