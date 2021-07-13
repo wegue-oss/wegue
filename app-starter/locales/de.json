@@ -7,6 +7,9 @@
   },
 
   "mapLayers": {
+    "wgu-drag-drop-layer" : {
+      "name": "Hochgeladene Daten"
+    },
     "gas-wfs": {
       "name": "Tankstellen WFS"
     },

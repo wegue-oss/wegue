@@ -7,6 +7,9 @@
   },
 
   "mapLayers": {
+    "wgu-drag-drop-layer" : {
+      "name": "Uploaded Data"
+    },
     "gas-wfs": {
       "name": "Gas Stations WFS"
     },
