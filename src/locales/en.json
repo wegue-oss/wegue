@@ -78,5 +78,9 @@
     "lengthMeter": "{0} m",
     "areaSquareKm": "{0} km²",
     "areaSquareMeter": "{0} m²"
+  },
+
+  "wgu-localeswitcher": {
+    "title": "Language Settings"
   }
 }
