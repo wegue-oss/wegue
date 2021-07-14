@@ -73,6 +73,10 @@
   	"title": "Vermessung",
     "distance": "Entfernung",
     "length": "Länge",
-    "area": "Fläche"
+    "area": "Fläche",
+    "lengthKm": "{0} km",
+    "lengthMeter": "{0} m",
+    "areaSquareKm": "{0} km²",
+    "areaSquareMeter": "{0} m²"
   }
 }

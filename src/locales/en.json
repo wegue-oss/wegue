@@ -73,6 +73,10 @@
     "title": "Measure",
     "distance": "Distance",
     "length": "Length",
-    "area": "Area"
+    "area": "Area",
+    "lengthKm": "{0} km",
+    "lengthMeter": "{0} m",
+    "areaSquareKm": "{0} km²",
+    "areaSquareMeter": "{0} m²"
   }
 }
