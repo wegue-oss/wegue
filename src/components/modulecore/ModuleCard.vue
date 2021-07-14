@@ -9,7 +9,7 @@
     <v-img :src="backgroundImage">
       <v-toolbar v-bind="toolbarAttr">
         <v-icon class="mr-4">{{ icon }}</v-icon>
-        <v-toolbar-title class="wgu-win-title">{{ $t(this.moduleName + '.title') }}</v-toolbar-title>
+        <v-toolbar-title class="wgu-win-title">{{ $t(moduleName + '.title') }}</v-toolbar-title>
         <v-spacer></v-spacer>
 
         <!-- Slot for optional window toolbar content -->
