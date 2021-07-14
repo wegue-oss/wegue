@@ -10,10 +10,13 @@ Vue.use(PortalVue)
 Vue.use(VueI18n)
 
 // Setup VueI18n, only english language files from 'src/locales/en.json'
-// are used for testing.
+// are used for testing. Translation warnings are silenced, since some of the
+// resources used for testing are dummy and have no corresponding entry in the
+// language pack.
 Vue.prototype._i18n = new VueI18n({
   locale: 'en',
-  messages: { 'en': i18nMessages }
+  messages: { 'en': i18nMessages },
+  silentTranslationWarn: true
 })
 
 // require all test files (files that ends with .spec.js)
