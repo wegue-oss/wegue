@@ -193,6 +193,14 @@
       "htmlContent": "<b>WebGIS with OpenLayers and Vue.js</b> Template and re-usable components for webmapping applications with OpenLayers and Vue.js",
       "infoLinkText": "More Info",
       "infoLinkUrl": "http://wegue.org/"
+    },
+    "wgu-localeswitcher": {
+      "target": "toolbar",
+      "darkLayout": true,
+      "lang": {
+        "en": "English",
+        "de": "Deutsch"
+      }
     }
   }
 

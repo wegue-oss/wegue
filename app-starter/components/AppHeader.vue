@@ -63,6 +63,7 @@ import ToggleButton from '../../src/components/modulecore/ToggleButton'
 import ZoomToMaxExtentButton from '../../src/components/maxextentbutton/ZoomToMaxExtentButton'
 import Geocoder from '../../src/components/geocoder/Geocoder'
 import Geolocator from '../../src/components/geolocator/Geolocator'
+import LocaleSwitcher from '../../src/components/localeswitcher/LocaleSwitcher'
 
 export default {
   name: 'wgu-app-header',
@@ -70,7 +71,8 @@ export default {
     'wgu-toggle-btn': ToggleButton,
     'wgu-geocoder-btn': Geocoder,
     'wgu-zoomtomaxextent-btn': ZoomToMaxExtentButton,
-    'wgu-geolocator-btn': Geolocator
+    'wgu-geolocator-btn': Geolocator,
+    'wgu-localeswitcher-btn': LocaleSwitcher
   },
   props: {
     color: {type: String, required: false, default: 'red darken-3'}

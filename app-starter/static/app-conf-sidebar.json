@@ -261,6 +261,14 @@
       "darkLayout": true,
       "minimizable": true,
       "syncTableMapSelection": true
+    },
+    "wgu-localeswitcher": {
+      "target": "toolbar",
+      "darkLayout": true,
+      "lang": {
+        "en": "English",
+        "de": "Deutsch"
+      }
     }
   }
 }
