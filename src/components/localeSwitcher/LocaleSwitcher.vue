@@ -5,7 +5,7 @@
       <template v-slot:activator="{on}">
         <v-btn-toggle borderless dense 
           background-color="transparent" :dark="dark"
-          :title="$t(moduleName + '.title')"
+          :title="$t('wgu-localeswitcher.title')"
           v-model="show">
           <v-btn class="ma-2" icon :value="true" v-on="on" >
             <v-icon class="mr-1" medium>{{icon}}</v-icon>
@@ -33,7 +33,6 @@
 export default {
   name: 'wgu-localeswitcher',
   props: {
-    moduleName: {type: String, required: true},
     icon: {type: String, required: false, default: 'language'},
     dark: {type: Boolean, required: false, default: false},
     lang: {type: Object, required: true, default: {}}
