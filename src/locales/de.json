@@ -30,10 +30,12 @@
   },
 
   "wgu-geocoder": {
+    "title": "Adress-Suche",
     "placeHolder": "Adresse suchen"
   },
 
   "wgu-geolocator": {
+    "title": "Mein Standort"
   },
 
   "wgu-helpwin": {
@@ -66,6 +68,7 @@
   },
 
   "wgu-zoomtomaxextent": {
+    "title": "Kartenausschnitt zurücksetzen",
     "text": ""
   },
 

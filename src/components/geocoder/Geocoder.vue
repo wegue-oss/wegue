@@ -20,7 +20,8 @@
 
   <v-toolbar-items>
 
-    <v-btn @click='toggle()' icon :dark="dark" >
+    <v-btn @click='toggle()' icon :dark="dark"
+      :title="$t('wgu-geocoder.title')">
       <v-icon medium>{{icon}}</v-icon>
     </v-btn>
 
