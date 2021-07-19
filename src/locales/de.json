@@ -26,6 +26,7 @@
   },
 
   "wgu-bglayerswitcher": {
+    "title": "Hintergrundkarte auswählen",
     "emptyText": "Keine Hintegrund-Layer verfügbar."
   },
 

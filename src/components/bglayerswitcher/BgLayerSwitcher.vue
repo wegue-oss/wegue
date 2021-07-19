@@ -12,6 +12,7 @@
             :color="color" 
             :dark="dark"
             fab
+            :title="$t('wgu-bglayerswitcher.title')"
             >
             <v-icon medium>{{icon}}</v-icon>
           </v-btn>
