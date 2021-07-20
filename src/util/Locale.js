@@ -4,6 +4,7 @@ import VueI18n from 'vue-i18n';
  * Locale related utility methods.
  */
 const LocaleUtil = {
+
   /**
    * Tests whether item is an object
    * @param {*} item The item to test.
@@ -34,37 +35,48 @@ const LocaleUtil = {
   },
 
   /**
-   * Import a webpack context for locale files into target.
-   * @param {object} target The target container of the locale message data.
+   * Import a webpack context for language files and returns message content.
    * @param {object} context The webpack context returned by require.context.
+   * @param {object} mappingFunc A function to extract messages from an item of the webpack context.
+   *
+   * @returns {object} A container with message data. Key is the language code, value contains the messages.
    */
-  importLocales (target, context) {
-    const messages = context
+  importLocales (context, mappingFunc) {
+    return context
       .keys()
       .map((key) => ({ key, locale: key.match(/[a-z0-9-_]+/i)[0] }))
       .reduce(
         (messages, { key, locale }) => ({
           ...messages,
-          [locale]: context(key)
+          [locale]: mappingFunc(context(key))
         }),
         {}
       );
-    LocaleUtil.mergeDeep(target, messages);
   },
 
   /**
    * Creates the VueI18n object used for internationalization.
    * This imports all Wegue core language files from 'src/locales' and optionally
-   * app specific language files from 'app/locales'.
+   * app specific language files from 'app/locales'. Language files will be merged,
+   * such that Wegue core messages can be overridden by app messages.
+   *
+   * @returns
    */
   createVueI18nContext () {
-    let i18nMessages = {};
+    const jsonContentExtractor = i => i;
 
-    LocaleUtil.importLocales(i18nMessages, require.context('../locales', true, /[a-z0-9-_]+\.json$/i));
+    // Load Wegue core language files.
+    let i18nMessages = LocaleUtil.importLocales(
+      require.context('../locales', true, /[a-z0-9-_]+\.json$/i),
+      jsonContentExtractor
+    );
 
-    // Try to load an optional app specific language file.
+    // Try to load optional app specific language files and merge contents.
     try {
-      LocaleUtil.importLocales(i18nMessages, require.context('../../app/locales', true, /[a-z0-9-_]+\.json$/i));
+      let i18nMessagesApp = LocaleUtil.importLocales(
+        require.context('../../app/locales', true, /[a-z0-9-_]+\.json$/i),
+        jsonContentExtractor);
+      LocaleUtil.mergeDeep(i18nMessages, i18nMessagesApp);
     } catch (e) {
     }
 
@@ -76,6 +88,20 @@ const LocaleUtil = {
     });
 
     return i18n;
+  },
+
+  /**
+   * Import vuetify language files from 'node_modules/vuetify/es/locale'.
+   *
+   * @returns A container with message data. Key is the language code, value contains the messages.
+   */
+  importVuetifyLocales () {
+    const moduleDefaultExtractor = i => i.default;
+
+    return LocaleUtil.importLocales(
+      require.context('vuetify/es5/locale', false, /[a-z0-9-_]+\.js$/i),
+      moduleDefaultExtractor
+    );
   }
 }
 

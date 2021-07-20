@@ -20,6 +20,11 @@ Vue.use(VueI18n);
 export default new Vuetify({
   icons: {
     iconfont: 'mdiSvg'
+  },
+  lang: {
+    locales: LocaleUtil.importVuetifyLocales(),
+    // TODO language detection
+    current: 'en'
   }
 })
 
