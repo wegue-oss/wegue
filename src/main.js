@@ -9,6 +9,7 @@ import 'material-icons/iconfont/material-icons.css'
 import '../node_modules/ol/ol.css';
 import WguApp from '../app/WguApp';
 import UrlUtil from './util/Url';
+import LocaleUtil from './util/Locale';
 import 'vuetify/dist/vuetify.min.css';
 
 Vue.use(Vuetify);
@@ -68,71 +69,11 @@ const migrateAppConfig = function (appConfig) {
   return appConfig;
 }
 
-const isObject = function (item) {
-  return (item && typeof item === 'object' && !Array.isArray(item));
-}
-
-/**
- * Deep in place merge of source object into target object.
- */
-const mergeDeep = function (target, source) {
-  if (isObject(target) && isObject(source)) {
-    for (const key in source) {
-      if (isObject(source[key])) {
-        if (!target[key]) {
-          Object.assign(target, { [key]: {} });
-        }
-        mergeDeep(target[key], source[key]);
-      } else {
-        Object.assign(target, { [key]: source[key] });
-      }
-    }
-  }
-}
-
-/**
- * Import webpack context for locale files into target.
- */
-const importLocales = function (target, context) {
-  const messages = context
-    .keys()
-    .map((key) => ({ key, locale: key.match(/[a-z0-9-_]+/i)[0] }))
-    .reduce(
-      (messages, { key, locale }) => ({
-        ...messages,
-        [locale]: context(key)
-      }),
-      {}
-    );
-  mergeDeep(target, messages);
-}
-
-const createVueI18nContext = function () {
-  let i18nMessages = {};
-
-  importLocales(i18nMessages, require.context('./locales', true, /[a-z0-9-_]+\.json$/i));
-
-  // Try to load an optional app specific language file.
-  try {
-    importLocales(i18nMessages, require.context('../app/locales', true, /[a-z0-9-_]+\.json$/i));
-  } catch (e) {
-  }
-
-  // TODO get locale information from config / browser detection
-  const i18n = new VueI18n({
-    locale: 'en',
-    fallbackLocale: 'en',
-    messages: i18nMessages
-  });
-
-  return i18n;
-}
-
 const opts = {};
 const createApp = function (appConfig) {
   // make app config accessible for all components
   Vue.prototype.$appConfig = migrateAppConfig(appConfig);
-  const i18nContext = createVueI18nContext(appConfig);
+  const i18nContext = LocaleUtil.createVueI18nContext(appConfig);
   /* eslint-disable no-new */
   new Vue({
     vuetify: new Vuetify(opts),
