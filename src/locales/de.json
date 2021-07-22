@@ -18,6 +18,10 @@
       "name": "Drag/Drop Daten"
     }
   },
+
+  "wgu-toolbar-menu": {
+    "title": "Symbolleiste ausklappen"
+  },
   
   "wgu-attributetable": {
     "title": "Attribut Tabelle",

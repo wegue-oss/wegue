@@ -34,7 +34,8 @@
     <v-menu v-if="menuButtons.length" offset-y nudge-bottom="15">
       <template v-slot:activator="{on}">
 
-      <v-btn icon dark v-on="on">
+      <v-btn icon dark v-on="on"
+        :title="$t('wgu-toolbar-menu.title')">
         <v-icon medium>menu</v-icon>
       </v-btn>
       </template>

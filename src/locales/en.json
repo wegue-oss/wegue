@@ -18,6 +18,10 @@
       "name": "Drag/Drop Data"
     }
   },
+  
+  "wgu-toolbar-menu": {
+    "title": "Open toolbar menu"
+  },
 
   "wgu-attributetable": {
     "title": "Attribute Table",
