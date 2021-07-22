@@ -13,6 +13,14 @@
   "footerTextRight": "meggsimum",
   "showCopyrightYear": true,
 
+  "lang": {
+    "supported": {
+      "en": "English",
+      "de": "Deutsch"
+    },
+    "fallback": "en"
+  },
+
   "mapZoom": 2,
   "mapCenter": [0, 0],
   "mapGeodataDragDop": {
@@ -271,11 +279,7 @@
     },
     "wgu-localeswitcher": {
       "target": "toolbar",
-      "darkLayout": true,
-      "lang": {
-        "en": "English",
-        "de": "Deutsch"
-      }
+      "darkLayout": true
     }
   }
 }

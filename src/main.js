@@ -16,18 +16,6 @@ Vue.use(Vuetify);
 Vue.use(PortalVue);
 Vue.use(VueI18n);
 
-// necessary for some components
-export default new Vuetify({
-  icons: {
-    iconfont: 'mdiSvg'
-  },
-  lang: {
-    locales: LocaleUtil.importVuetifyLocales(),
-    // TODO language detection
-    current: 'en'
-  }
-})
-
 require('./assets/css/wegue.css');
 
 // try to load an optional app specific CSS file (set project-specific styles)
@@ -52,7 +40,44 @@ if (appCtx) {
 }
 
 /**
+ * Creates the active vuetify instance.
+ *
+ * @param {Object} appConfig Global application context.
+ * @returns The active vuetify instance.
+ */
+const createVuetify = function (appConfig) {
+  const preset = {
+    icons: {
+      iconfont: 'mdiSvg'
+    },
+    lang: {
+      current: LocaleUtil.getPreferredLanguage(appConfig),
+      locales: LocaleUtil.importVuetifyLocales()
+    }
+  };
+  return new Vuetify(preset);
+}
+
+/**
+ * Creates the VueI18n object used for internationalization.
+ *
+ * @param {Object} appConfig Global application context.
+ * @returns The active I18n instance.
+ */
+const createVueI18n = function (appConfig) {
+  const preset = {
+    locale: LocaleUtil.getPreferredLanguage(appConfig),
+    fallbackLocale: LocaleUtil.getFallbackLanguage(appConfig),
+    messages: LocaleUtil.importVueI18nLocales()
+  };
+  return new VueI18n(preset);
+}
+
+/**
  * Backwards compatibility layer for legacy features in app-conf.json.
+ *
+ * @param {Object} appConfig Global application context.
+ * @returns The migrated application context.
  */
 const migrateAppConfig = function (appConfig) {
   // Migrate boolean values for module.win.
@@ -74,15 +99,19 @@ const migrateAppConfig = function (appConfig) {
   return appConfig;
 }
 
-const opts = {};
+/**
+ * Create the vue application.
+ *
+ * @param {Object} appConfig Global application context.
+ */
 const createApp = function (appConfig) {
   // make app config accessible for all components
   Vue.prototype.$appConfig = migrateAppConfig(appConfig);
-  const i18nContext = LocaleUtil.createVueI18nContext(appConfig);
+
   /* eslint-disable no-new */
   new Vue({
-    vuetify: new Vuetify(opts),
-    i18n: i18nContext,
+    vuetify: createVuetify(appConfig),
+    i18n: createVueI18n(appConfig),
     el: '#app',
     template: '<wgu-app/>',
     components: { WguApp }

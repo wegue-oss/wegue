@@ -8,6 +8,14 @@
   "footerTextRight": "meggsimum",
   "showCopyrightYear": true,
 
+  "lang": {
+    "supported": {
+      "en": "English",
+      "de": "Deutsch"
+    },
+    "fallback": "en"
+  },
+
   "mapZoom": 2,
   "mapCenter": [0, 0],
 

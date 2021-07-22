@@ -30,16 +30,18 @@
 </template>
 
 <script>
+import LocaleUtil from '../../util/Locale'
+
 export default {
   name: 'wgu-localeswitcher',
   props: {
     icon: {type: String, required: false, default: 'language'},
-    dark: {type: Boolean, required: false, default: false},
-    lang: {type: Object, required: true, default: {}}
+    dark: {type: Boolean, required: false, default: false}
   },
   data () {
     return {
-      show: false
+      show: false,
+      lang: LocaleUtil.getSupportedLanguages(this.$appConfig)
     }
   },
   methods: {

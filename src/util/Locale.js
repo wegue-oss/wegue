@@ -1,4 +1,3 @@
-import VueI18n from 'vue-i18n';
 import UrlUtil from './Url.js';
 
 /**
@@ -61,14 +60,13 @@ const LocaleUtil = {
   },
 
   /**
-   * Creates the VueI18n object used for internationalization.
-   * This imports all Wegue core language files from 'src/locales' and optionally
+   * Import all Wegue core language files from 'src/locales' and optionally
    * app specific language files from 'app/locales'. Language files will be merged,
    * such that Wegue core messages can be overridden by app messages.
    *
-   * @returns
+   * @returns A container with message data. Key is the language code, value contains the messages.
    */
-  createVueI18nContext () {
+  importVueI18nLocales () {
     const jsonContentExtractor = i => i;
 
     // Load Wegue core language files.
@@ -86,14 +84,7 @@ const LocaleUtil = {
     } catch (e) {
     }
 
-    // TODO get locale information from config / browser detection
-    const i18n = new VueI18n({
-      locale: 'en',
-      fallbackLocale: 'en',
-      messages: i18nMessages
-    });
-
-    return i18n;
+    return i18nMessages;
   },
 
   /**
