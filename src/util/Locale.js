@@ -1,3 +1,4 @@
+import ObjectUtil from './Object.js'
 import UrlUtil from './Url.js';
 
 /**
@@ -9,35 +10,6 @@ const LocaleUtil = {
    * Hardcoded fallback if no supported languages are declared in app config.
    */
   supportedLanguageFallback: {'en': 'English'},
-
-  /**
-   * Tests whether item is an object
-   * @param {*} item The item to test.
-   * @returns True if the item is an object.
-   */
-  isObject (item) {
-    return (item && typeof item === 'object' && !Array.isArray(item));
-  },
-
-  /**
-   * Deep in place merge of source object into target object.
-   * @param {Object} target The target of the merge operation.
-   * @param {Object} source The source of the merge operation.
-   */
-  mergeDeep (target, source) {
-    if (LocaleUtil.isObject(target) && LocaleUtil.isObject(source)) {
-      for (const key in source) {
-        if (LocaleUtil.isObject(source[key])) {
-          if (!target[key]) {
-            Object.assign(target, { [key]: {} });
-          }
-          LocaleUtil.mergeDeep(target[key], source[key]);
-        } else {
-          Object.assign(target, { [key]: source[key] });
-        }
-      }
-    }
-  },
 
   /**
    * Import a webpack context for language files and returns message content.
@@ -80,7 +52,7 @@ const LocaleUtil = {
       let i18nMessagesApp = LocaleUtil.importLocales(
         require.context('../../app/locales', true, /[a-z0-9-_]+\.json$/i),
         jsonContentExtractor);
-      LocaleUtil.mergeDeep(i18nMessages, i18nMessagesApp);
+      ObjectUtil.mergeDeep(i18nMessages, i18nMessagesApp);
     } catch (e) {
     }
 
