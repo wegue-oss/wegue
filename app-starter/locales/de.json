@@ -11,6 +11,9 @@
     "wgu-drag-drop-layer" : {
       "name": "Hochgeladene Daten"
     },
+    "Shops": {
+      "name": "Geschäfte DaSchau"
+    },
     "gas-wfs": {
       "name": "Tankstellen WFS"
     },
