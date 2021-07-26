@@ -16,8 +16,6 @@ describe('LocaleUtil', () => {
   });
 
   it('has the correct functions', () => {
-    expect(typeof LocaleUtil.isObject).to.equal('function');
-    expect(typeof LocaleUtil.mergeDeep).to.equal('function');
     expect(typeof LocaleUtil.importLocales).to.equal('function');
     expect(typeof LocaleUtil.importVueI18nLocales).to.equal('function');
     expect(typeof LocaleUtil.importVuetifyLocales).to.equal('function');
