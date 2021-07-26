@@ -1,11 +1,6 @@
 {
 
-  "title": "Vue.js / OpenLayers WebGIS",
-
   "baseColor": "green darken-3",
-
-  "footerTextLeft": "Powered by <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>",
-  "footerTextRight": "meggsimum",
   "showCopyrightYear": true,
 
   "lang": {
@@ -24,7 +19,6 @@
     {
       "type": "WMS",
       "lid": "terrestris-osm-wms",
-      "name": "OSM WMS",
       "format": "image/png",
       "layers": "OSM-WMS",
       "url": "http://ows.terrestris.de/osm-gray/service",
@@ -43,12 +37,7 @@
       "target": "toolbar",
       "win": "floating",
       "icon": "help",
-      "darkLayout": true, 
-      "title": "About",
-      "textTitle": "About Wegue",
-      "htmlContent": "<b>WebGIS with OpenLayers and Vue.js</b> Template and re-usable components for webmapping applications with OpenLayers and Vue.js",
-      "infoLinkText": "More Info",
-      "infoLinkUrl": "http://wegue.org/"
+      "darkLayout": true
     }
   }
 

@@ -1,14 +1,10 @@
 {
 
-  "title": "Wegue - Projected Map",
-
   "baseColor": "orange darken-3",
 
   "logo": "https://dummyimage.com/100x100/aaa/fff&text=Wegue",
   "logoSize": "100",
 
-  "footerTextLeft": "Powered by <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>",
-  "footerTextRight": "meggsimum",
   "showCopyrightYear": true,
 
   "lang": {
@@ -56,7 +52,6 @@
     {
       "type": "WFS",
       "lid": "dutch-nat-parks",
-      "name": "WFS (Dutch National Parks PDOK)",
       "url": "https://geodata.nationaalgeoregister.nl/nationaleparken/wfs",
       "typeName": "nationaleparken:nationaleparken",
       "version": "2.0.0",
@@ -85,7 +80,6 @@
     {
       "type": "WMS",
       "lid": "pdok-natura2000-wms",
-      "name": "WMS - Natura 2000 Areas - PDOK",
       "format": "image/png",
       "layers": "natura2000",
       "url": "https://geodata.nationaalgeoregister.nl/natura2000/wms",
@@ -101,7 +95,6 @@
     {
       "type": "WMS",
       "lid": "pdok-lufo-wms",
-      "name": "WMS - Dutch Arial Map - PDOK",
       "format": "image/jpeg",
       "layers": "2018_ortho25",
       "url": "http://geodata.nationaalgeoregister.nl/luchtfoto/rgb/wms",
@@ -117,7 +110,6 @@
     {
       "type": "XYZ",
       "lid": "brtachtergrondkaart",
-      "name": "WMTS - Topo Basemap - PDOK",
       "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts/brtachtergrondkaart/EPSG:28992/{z}/{x}/{y}.png",
       "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> by Dutch Kadaster",
       "projection": "EPSG:28992",
@@ -167,7 +159,6 @@
       "queryDelay": 200,
       "selectZoom": 16,
       "debug": false,
-      "placeHolder": "Zoek plaats of adres",
       "provider": "osm",
       "providerOptions": {
         "key": "",
@@ -195,12 +186,7 @@
       "target": "toolbar",
       "win": "floating",
       "icon": "help",
-      "darkLayout": true,
-      "title": "About",
-      "textTitle": "About Wegue",
-      "htmlContent": "<b>WebGIS with OpenLayers and Vue.js</b> Template and re-usable components for webmapping applications with OpenLayers and Vue.js",
-      "infoLinkText": "More Info",
-      "infoLinkUrl": "http://wegue.org/"
+      "darkLayout": true
     },
     "wgu-localeswitcher": {
       "target": "toolbar",
