@@ -8,7 +8,6 @@ const permalinkDef = {
   mapLayers: [{
     'type': 'OSM',
     'lid': 'osm-bg',
-    'name': 'OSM',
     'isBaseLayer': false,
     'visible': true,
     'selectable': false,
@@ -17,7 +16,6 @@ const permalinkDef = {
   {
     'type': 'WMS',
     'lid': 'ahocevar-wms',
-    'name': 'WMS (ahocevar)',
     'format': 'image/png',
     'layers': 'topp:states',
     'url': 'https://ahocevar.com/geoserver/wms',

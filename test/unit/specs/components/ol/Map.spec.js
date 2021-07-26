@@ -141,7 +141,6 @@ describe('ol/Map.vue', () => {
       Vue.prototype.$appConfig = {mapLayers: [{
         'type': 'OSM',
         'lid': 'osm-bg',
-        'name': 'OSM',
         'isBaseLayer': false,
         'visible': true,
         'selectable': false,
@@ -157,7 +156,6 @@ describe('ol/Map.vue', () => {
       Vue.prototype.$appConfig = {mapLayers: [{
         'type': 'OSM',
         'lid': 'osm-bg',
-        'name': 'OSM',
         'isBaseLayer': false,
         'visible': true,
         'selectable': true,
@@ -328,7 +326,6 @@ describe('ol/Map.vue', () => {
         mapLayers: [{
           'type': 'XYZ',
           'lid': 'brtachtergrondkaart',
-          'name': 'BRTAchtergrondKaart',
           'url': 'https://geodata.nationaalgeoregister.nl/tiles/service/wmts/brtachtergrondkaart/EPSG:28992/{z}/{x}/{y}.png',
           'attributions': '<a href="https://www.pdok.nl" target="_blank">PDOK</a> by Dutch Kadaster',
           'projection': 'EPSG:28992',
