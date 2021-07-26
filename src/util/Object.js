@@ -39,16 +39,16 @@ const ObjectUtil = {
    * @param {String} path Internal usage for recursion.
    * @returns An array containing all paths to keys of the object.
    */
-  objectToPaths (item, path = '') {
+  toPaths (item, path = '') {
     var result = [];
     if (item && typeof item === 'object') {
       if (Array.isArray(item)) {
         for (var i = 0; i < item.length; i++) {
-          result.push(...ObjectUtil.objectToPaths(item[i], path + '[' + i + ']'));
+          result.push(...ObjectUtil.toPaths(item[i], path + '[' + i + ']'));
         }
       } else {
         for (var p in item) {
-          result.push(...ObjectUtil.objectToPaths(item[p], path + '.' + p));
+          result.push(...ObjectUtil.toPaths(item[p], path + '.' + p));
         }
       }
     } else {

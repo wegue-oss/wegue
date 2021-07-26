@@ -114,7 +114,7 @@ const migrateAppConfig = function (appConfig) {
   };
   /* eslint-enable no-useless-escape */
 
-  const configPaths = ObjectUtil.objectToPaths(appConfig);
+  const configPaths = ObjectUtil.toPaths(appConfig);
   for (const path of configPaths) {
     const match = Object.keys(deprecatedTextProps).find(pattern => {
       const regex = new RegExp('^\\.' + pattern + '$', 'g');
