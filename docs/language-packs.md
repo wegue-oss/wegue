@@ -1,8 +1,8 @@
 # Language packs
 
-Wegue comes with multi language support via the [Vue I18n is internationalization plugin](https://vue-i18n.intlify.dev/). Locale specific messages are organized in language files, which are modelled as JSON documents. An example can be found in the `app-starter\locale` folder. After initializing the application, a template for language customization can be found in the `app/locales` folder.
+Wegue comes with multi language support via the [Vue I18n is internationalization plugin](https://vue-i18n.intlify.dev/). Locale specific messages are organized in language files, which are modelled as JSON documents. An example can be found in the `app-starter/locales` folder. After initializing the application, a template for language customization can be found in the `app/locales` folder.
 
-This document lists the most frequently customized messages, for a comprehensive lists of all available definitions please have a look at the language packs of the Wegue core  in the `src/locales` folder. In general any message defined by the Wegue core application can be overridden from the application by declaring the same key path in your language packs in the `app/locales` folder.
+This document lists the most frequently customized messages, for a comprehensive lists of all available definitions please have a look at the language packs of the Wegue core in the `src/locales` folder. In general any message defined by the Wegue core can be overridden by an application. This can be accomplished by declaring the same key path in your language packs as done by the core in the `app/locales` folder.
 
 For general information on message formatting syntax please refer to the [documentation of Vue I18n](https://vue-i18n.intlify.dev/guide/essentials/syntax).
 
@@ -24,7 +24,7 @@ The following app wide messages can be customized:
 
 Key: `mapLayers`
 
-Customize display names for layers configured in the [mapLayers](map-layer-configuration) section of your application configuration. For each layer a key matching the `lid` of your layer should be declared. The value assigned to this key is an object supporting the following properties.
+Customize display names for layers configured in the [mapLayers](map-layer-configuration.md) section of your application configuration. For each layer a key matching the `lid` of your layer should be declared. The value assigned to this key is an object supporting the following properties.
 
 | Property           | Meaning | Example |
 |--------------------|:---------:|---------|
