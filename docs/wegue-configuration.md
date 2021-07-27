@@ -14,6 +14,7 @@ This describes the Wegue application configuration, which is modelled as JSON do
 | logoHeight         | Height of the application logo defined in `logo` | `"logoWidth": "100"` |
 | logoSize           | Squared size of the application logo defined in `logo`. Only has an effect if `logoWidth` and `logoHeight` are **not** set. Otherwise these will overwrite the `logoSize` setting. | `"logoSize": "100"` |
 | showCopyrightYear  | Boolean value, whether the copyright year should be shown on the right side of the toolbar | `"showCopyrightYear": true` or `"showCopyrightYear": false` |
+| lang | Configuration object for language settings of the application | See [lang](wegue-configuration?id=lang)
 | **mapZoom**        | Initial zoom level of the map | `"mapZoom": 2` |
 | **mapCenter**      | Initial center of the map in map projection | `"mapCenter": [0, 0]` |
 | mapProjection      | Configuration object for CRS / projection used for the map | see [mapProjection](wegue-configuration?id=mapprojection) |
@@ -82,7 +83,7 @@ In a Layer configuration a specific tilegrid can be refered to as follows, using
     }
 ```
 
-## mapGeodataDragDop
+### mapGeodataDragDop
 
 Setting the property `mapGeodataDragDop` in the main Wegue configuration will enable geodata file drag/drop functionality on the map.
 
@@ -103,6 +104,27 @@ Below is an example for such a configuration object:
       "replaceData": true,
       "displayInLayerList": true
     }
+```
+
+### lang
+
+Wegue comes with multi-language support and currently supplies 2 language packs for English (`en`) and German (`de`). Languages supported by the application can be configured via the `lang` property. Wegue will automatically detect the users preferred languages from the browser settings and choose the most appropriate match. If no languages are configured, Wegue will default to English.
+
+
+| Property           | Meaning   | Example |
+|--------------------|:---------:|---------|
+| supported          | Supported languages of the application. This is a set of key value pairs containing the language code as a key and a friendly name for the language as a value. | `"supported": {"en": "English", "de": "Deutsch"}`
+| fallback           | The language code of the language to fall back to, when the users preferred languages are not among the supported ones. | `"fallback": "en"`
+
+Below is an example for such a configuration object:
+```
+"lang": {
+    "supported": {
+      "en": "English",
+      "de": "Deutsch"
+    },
+    "fallback": "en"
+  }
 ```
 
 ## Example configuration

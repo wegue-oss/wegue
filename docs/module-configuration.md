@@ -14,7 +14,7 @@ The `modules` object contains sub-objects, whereas the key is the identifier for
   }
 ```
 
-The following properties can be applied to all map module types:
+The following properties can be applied to all module types:
 
 | Property           | Meaning   | Example |
 |--------------------|:---------:|---------|
@@ -129,3 +129,11 @@ No additional config options besides the general ones.
 
 **Important:**
 For [WMS](map-layer-configuration?id=wms), [XYZ](map-layer-configuration?id=xyz) and [OSM](map-layer-configuration?id=xyz) layers requested from cross origin sources you have to enable CORS via the layers `crossOrigin` attribute, in order to grant the required capturing privileges to the map recorders canvas.
+
+## LocaleSwitcher
+
+Module identifier: `wgu-localeswitcher`
+
+No additional config options besides the general ones.
+
+LocaleSwitcher will automatically pick up the supported languages configured by the [lang](wegue-configuration?id=lang) property and offers to switch between them at runtime.
