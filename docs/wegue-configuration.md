@@ -8,15 +8,11 @@ This describes the Wegue application configuration, which is modelled as JSON do
 
 | Property           | Meaning   | Example |
 |--------------------|:---------:|---------|
-| title              | Title shown in the top toolbar of the application | `"title": "A Wegue WebGIS App"` |
-| browserTitle       | HTML document title that is shown in the browser title bar or a browser page tab | `"browserTitle": "Wegue Demo App"` |
 | baseColor          | Main colour of the UI elements | `"baseColor": "red darken-3"` or `"baseColor": "#ff3388"` |
 | logo               | URL to an image shown as application logo | ` "logo": "https://dummyimage.com/100x100/aaa/fff&text=Wegue"`
 | logoWidth          | Width of the application logo defined in `logo` | `"logoWidth": "200"`|
 | logoHeight         | Height of the application logo defined in `logo` | `"logoWidth": "100"` |
 | logoSize           | Squared size of the application logo defined in `logo`. Only has an effect if `logoWidth` and `logoHeight` are **not** set. Otherwise these will overwrite the `logoSize` setting. | `"logoSize": "100"` |
-| footerTextLeft     | Text or HTML string to be displayed in the left side of the toolbar | `"footerTextLeft": "Powered by <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>"` |
-| footerTextRight    | Text or HTML string to be displayed in the right side of the toolbar | `"footerTextRight": "meggsimum"` |
 | showCopyrightYear  | Boolean value, whether the copyright year should be shown on the right side of the toolbar | `"showCopyrightYear": true` or `"showCopyrightYear": false` |
 | **mapZoom**        | Initial zoom level of the map | `"mapZoom": 2` |
 | **mapCenter**      | Initial center of the map in map projection | `"mapCenter": [0, 0]` |
@@ -98,7 +94,6 @@ The following configurations can be set:
 | zoomToData         | Enable automatic zoom to the extent of the uploaded / dropped geodata. Defaults to `false` | `"zoomToData": true` |
 | replaceData        | Default behaviour is that a newly dropped data set will replace an existing one. By setting this property to `true` a separate layer will be created for each dropped geodata file | `"replaceData": true` |
 | displayInLayerList | List the layer(s) showing dropped data in the LayerList UI. Defaults to `true`  | `"displayInLayerList": false` |
-| layerName          | Name for the layer(s) showing dropped data. Will be visible in the LayerList UI. Defaults to `"Drag/Drop Data"`  | `"layerName": "My uploaded geodata"` |
 Below is an example for such a configuration object:
 
 ```
@@ -106,8 +101,7 @@ Below is an example for such a configuration object:
       "formats": ["GeoJSON", "KML"],
       "zoomToData": true,
       "replaceData": true,
-      "displayInLayerList": true,
-      "layerName": "Uploaded Data"
+      "displayInLayerList": true
     }
 ```
 

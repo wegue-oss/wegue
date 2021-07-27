@@ -10,7 +10,6 @@ The following properties can be applied to all map layer types
 |--------------------|:---------:|---------|
 | **type**           |  Indicator which layer type is configured |  |
 | **lid**            |  Unique identifier for the layer | `"lid": "my-super-wms-layer"`  |
-| **name**           |  Human readable name for the layer, used e.g. in the LayerList | `"name": "My super WMS"` |
 | projection         |  The projection of the layer. Has to be defined in `projectionDefs` if not `EPSG:4326` or `EPSG:3857`. if not set the projection of the map is used | `"projection": "EPSG:3857"` |
 | isBaseLayer        | Boolean value, whether the layer should be a background layer or not. Background layers will be available from the background layer selection button on the map. | `"isBaseLayer": false` |
 | visible            | Boolean value, whether the layer should be initially visible | `"visible": false` |
@@ -135,7 +134,6 @@ Additionally every configuration property of [`ol/style/Text`](https://openlayer
 {
   "type": "VECTOR",
   "lid": "Shops",
-  "name": "Shops DaSchau",
   "url": "./static/data/shops-dannstadt.geojson",
   "formatConfig": {
   },
