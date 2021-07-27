@@ -112,18 +112,21 @@ Example configurations can be found in the `app-starter/static` directory. Below
 ```json
 {
 
-  "title": "Vue.js / OpenLayers WebGIS",
-  "browserTitle": "Wegue Demo App",
-
   "baseColor": "red darken-3",
 
   "logo": "https://dummyimage.com/100x100/aaa/fff&text=Wegue",
   "logoWidth": "100",
   "logoHeight": "100",
 
-  "footerTextLeft": "Powered by <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>",
-  "footerTextRight": "meggsimum",
   "showCopyrightYear": true,
+
+  "lang": {
+    "supported": {
+      "en": "English",
+      "de": "Deutsch"
+    },
+    "fallback": "en"
+  },
 
   "mapZoom": 2,
   "mapCenter": [0, 0],
@@ -131,8 +134,7 @@ Example configurations can be found in the `app-starter/static` directory. Below
     "formats": ["GeoJSON", "KML"],
     "zoomToData": true,
     "replaceData": true,
-    "displayInLayerList": true,
-    "layerName": "Uploaded Data"
+    "displayInLayerList": true
   },
 
   "permalink": {
@@ -149,7 +151,6 @@ Example configurations can be found in the `app-starter/static` directory. Below
     {
       "type": "VECTOR",
       "lid": "Shops",
-      "name": "Shops DaSchau",
       "url": "./static/data/shops-dannstadt.geojson",
       "formatConfig": {
       },
@@ -188,7 +189,6 @@ Example configurations can be found in the `app-starter/static` directory. Below
     {
       "type": "WFS",
       "lid": "gas-wfs",
-      "name": "Gas Stations WFS",
       "url": "https://ows-demo.terrestris.de/geoserver/osm/wfs",
       "typeName": "osm:osm-fuel",
       "version": "2.0.0",
@@ -219,7 +219,6 @@ Example configurations can be found in the `app-starter/static` directory. Below
     {
       "type": "VECTOR",
       "lid": "earthquakes",
-      "name": "Earthquakes 2012 (Mag 5)",
       "url": "./static/data/2012_Earthquakes_Mag5.kml",
       "formatConfig": {
         "extractStyles": false
@@ -247,7 +246,6 @@ Example configurations can be found in the `app-starter/static` directory. Below
     {
       "type": "WMS",
       "lid": "ahocevar-wms",
-      "name": "WMS (ahocevar)",
       "format": "image/png",
       "layers": "topp:states",
       "url": "https://ahocevar.com/geoserver/wms",
@@ -262,7 +260,7 @@ Example configurations can be found in the `app-starter/static` directory. Below
 
     {
       "type": "VECTORTILE",
-      "name": "Vector Tile Layer",
+      "lid": "ahocevar-vectortyle",
       "url": "https://ahocevar.com/geoserver/gwc/service/tms/1.0.0/ne:ne_10m_admin_0_countries@EPSG%3A900913@pbf/{z}/{x}/{-y}.pbf",
       "format": "MVT",
       "visible": false,
@@ -275,7 +273,6 @@ Example configurations can be found in the `app-starter/static` directory. Below
 
     {
       "type": "XYZ",
-      "name": "OpenTopoMap",
       "url": "https://tile.opentopomap.org/{z}/{x}/{y}.png",
       "attributions": "Map data: <a href=\"https://openstreetmap.org/copyright\">©OpenStreetMap</a>-contributors, SRTM | Map representation (Kartendarstellung): © <a href=\"http://opentopomap.org/\">OpenTopoMap</a> (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC-BY-SA</a>)",
       "lid": "opentopomap",
@@ -287,7 +284,6 @@ Example configurations can be found in the `app-starter/static` directory. Below
     {
       "type": "OSM",
       "lid": "osm-bg",
-      "name": "OSM",
       "isBaseLayer": true,
       "visible": true,
       "crossOrigin": "anonymous"
@@ -325,7 +321,8 @@ Example configurations can be found in the `app-starter/static` directory. Below
       "initPos": {
         "left": 8,
         "top": 74
-      }
+      },
+      "showMedia": false
     },
     "wgu-geocoder": {
       "target": "toolbar",
@@ -334,7 +331,6 @@ Example configurations can be found in the `app-starter/static` directory. Below
       "queryDelay": 200,
       "selectZoom": 16,
       "debug": false,
-      "placeHolder": "Search address",
       "provider": "osm",
       "providerOptions": {
         "lang": "en-US",
@@ -361,12 +357,7 @@ Example configurations can be found in the `app-starter/static` directory. Below
       "target": "toolbar",
       "win": "floating",
       "icon": "help",
-      "darkLayout": true,
-      "title": "About",
-      "textTitle": "About Wegue",
-      "htmlContent": "<b>WebGIS with OpenLayers and Vue.js</b> Template and re-usable components for webmapping applications with OpenLayers and Vue.js",
-      "infoLinkText": "More Info",
-      "infoLinkUrl": "http://wegue.org/"
+      "darkLayout": true
     },
     "wgu-geolocator": {
       "target": "toolbar",
@@ -378,6 +369,10 @@ Example configurations can be found in the `app-starter/static` directory. Below
       "icon": "table_chart",
       "darkLayout": true,
       "syncTableMapSelection": true
+    },
+    "wgu-localeswitcher": {
+      "target": "toolbar",
+      "darkLayout": true
     }
   }
 }
