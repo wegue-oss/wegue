@@ -43,11 +43,11 @@ export default {
     'wgu-bglayerlist': BgLayerList
   },
   props: {
-    color: {type: String, required: false, default: 'red darken-3'},
-    icon: {type: String, required: false, default: 'map'},
-    dark: {type: Boolean, required: false, default: true},
-    imageWidth: {type: Number, required: false, default: 152},
-    imageHeight: {type: Number, required: false, default: 114}
+    color: { type: String, required: false, default: 'red darken-3' },
+    icon: { type: String, required: false, default: 'map' },
+    dark: { type: Boolean, required: false, default: true },
+    imageWidth: { type: Number, required: false, default: 152 },
+    imageHeight: { type: Number, required: false, default: 114 }
   },
   data () {
     return {

@@ -14,7 +14,7 @@ describe('UrlUtil', () => {
     const paramStr = 'foo=bar&kalle=ralle';
     const paramsObj = UrlUtil.getQueryParams(paramStr);
     expect(paramsObj).to.be.an('object');
-    expect(paramsObj).to.eql({foo: 'bar', kalle: 'ralle'});
+    expect(paramsObj).to.eql({ foo: 'bar', kalle: 'ralle' });
   });
 
   it('getQueryParam parses the URL params correctly', () => {

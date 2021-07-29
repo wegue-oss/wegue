@@ -8,8 +8,8 @@
 
 import TileSource from 'ol/source/Tile'
 import TileWMSSource from 'ol/source/TileWMS'
-import {containsCoordinate as extentContainsCoordinate} from 'ol/extent'
-import {transform as projTransform, /* get as getProjection, */ equivalent as projEquivalent} from 'ol/proj'
+import { containsCoordinate as extentContainsCoordinate } from 'ol/extent'
+import { transform as projTransform, /* get as getProjection, */ equivalent as projEquivalent } from 'ol/proj'
 
 const TileSourcePreview = {
   /**

@@ -3,7 +3,7 @@ import AttributeTableWin from '@/components/attributeTable/AttributeTableWin'
 import { expect } from 'chai';
 import { shallowMount } from '@vue/test-utils';
 
-const appConfig = {modules: { 'wgu-attributetable': {} }};
+const appConfig = { modules: { 'wgu-attributetable': {} } };
 
 describe('attributeTable/AttributeTableWin.vue', () => {
   it('is defined', () => {

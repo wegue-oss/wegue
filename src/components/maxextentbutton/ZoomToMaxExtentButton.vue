@@ -15,8 +15,8 @@ export default {
   name: 'wgu-zoomtomaxextent-btn',
   mixins: [Mapable],
   props: {
-    icon: {type: String, required: false, default: 'zoom_out_map'},
-    dark: {type: Boolean, required: false, default: false}
+    icon: { type: String, required: false, default: 'zoom_out_map' },
+    dark: { type: Boolean, required: false, default: false }
   },
   methods: {
     onClick () {
@@ -28,7 +28,6 @@ export default {
     }
   }
 }
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

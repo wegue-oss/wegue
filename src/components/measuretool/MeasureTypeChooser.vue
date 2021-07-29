@@ -15,7 +15,7 @@
   export default {
     name: 'wgu-measure-type-chooser',
     props: {
-      measureType: {type: String, default: 'distance'}
+      measureType: { type: String, default: 'distance' }
     },
     data () {
       return {

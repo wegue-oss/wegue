@@ -21,7 +21,7 @@
       'wgu-layerlist': LayerList
     },
     props: {
-      icon: {type: String, required: false, default: 'layers'}
+      icon: { type: String, required: false, default: 'layers' }
     }
   }
 </script>

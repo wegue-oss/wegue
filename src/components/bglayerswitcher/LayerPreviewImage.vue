@@ -19,11 +19,11 @@ import LayerPreview from '../../util/LayerPreview';
 export default {
   name: 'wgu-layerpreviewimage',
   props: {
-    mapView: {type: Object, required: true},
-    layer: {type: Object, required: true},
-    width: {type: Number, required: true},
-    height: {type: Number, required: true},
-    previewIcon: {type: String, required: true}
+    mapView: { type: Object, required: true },
+    layer: { type: Object, required: true },
+    width: { type: Number, required: true },
+    height: { type: Number, required: true },
+    previewIcon: { type: String, required: true }
   },
   data () {
     return {

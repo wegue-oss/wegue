@@ -29,8 +29,8 @@ import ColorUtil from '../../util/Color';
 export default {
   name: 'wgu-property-table',
   props: {
-    color: {type: String, required: false, default: 'red darken-3'},
-    properties: {type: Object}
+    color: { type: String, required: false, default: 'red darken-3' },
+    properties: { type: Object }
   },
   computed: {
     tableStyles () {

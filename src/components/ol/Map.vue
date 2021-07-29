@@ -14,12 +14,12 @@ import {
 import RotateControl from 'ol/control/Rotate';
 import Projection from 'ol/proj/Projection';
 import TileGrid from 'ol/tilegrid/TileGrid';
-import {register as olproj4} from 'ol/proj/proj4';
-import {get as getProj} from 'ol/proj';
+import { register as olproj4 } from 'ol/proj/proj4';
+import { get as getProj } from 'ol/proj';
 import Overlay from 'ol/Overlay';
-import {GPX, GeoJSON, IGC, KML, TopoJSON} from 'ol/format';
-import {Vector as VectorLayer} from 'ol/layer';
-import {Vector as VectorSource} from 'ol/source';
+import { GPX, GeoJSON, IGC, KML, TopoJSON } from 'ol/format';
+import { Vector as VectorLayer } from 'ol/layer';
+import { Vector as VectorSource } from 'ol/source';
 import proj4 from 'proj4'
 // import the app-wide EventBus
 import { WguEventBus } from '../../WguEventBus.js';
@@ -32,9 +32,9 @@ import MapInteractionUtil from '../../util/MapInteraction';
 export default {
   name: 'wgu-map',
   props: {
-    color: {type: String, required: false, default: 'red darken-3'},
-    collapsibleAttribution: {type: Boolean, default: false},
-    rotateableMap: {type: Boolean, required: false, default: false}
+    color: { type: String, required: false, default: 'red darken-3' },
+    collapsibleAttribution: { type: Boolean, default: false },
+    rotateableMap: { type: Boolean, required: false, default: false }
   },
   data () {
     return {
@@ -294,12 +294,12 @@ export default {
       const map = me.map;
       const overlayEl = me.overlayEl;
       let hoverAttr;
-      const features = map.getFeaturesAtPixel(event.pixel, {layerFilter: (layer) => {
+      const features = map.getFeaturesAtPixel(event.pixel, { layerFilter: (layer) => {
         if (layer.get('hoverable')) {
           hoverAttr = layer.get('hoverAttribute');
         }
         return layer.get('hoverable');
-      }});
+      } });
       if (!features || features.length === 0 || !hoverAttr) {
         hoverAttr = null;
         overlayEl.innerHTML = null;

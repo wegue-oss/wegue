@@ -19,7 +19,7 @@
   export default {
     name: 'wgu-measure-result',
     props: {
-      measureGeom: {type: Object}
+      measureGeom: { type: Object }
     },
     data () {
       return {

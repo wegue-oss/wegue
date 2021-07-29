@@ -140,7 +140,7 @@ export const OlStyleFactory = {
     // create a clone to avoid unwanted in place modification
     const textConf = { ...labelConf };
 
-    textConf.fill = new Fill({color: textConf.fillColor});
+    textConf.fill = new Fill({ color: textConf.fillColor });
     textConf.stroke = new Stroke({
       color: textConf.outlineColor,
       width: textConf.outlineWidth

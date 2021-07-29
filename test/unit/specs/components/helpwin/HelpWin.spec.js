@@ -15,7 +15,7 @@ describe('helpwin/HelpWin.vue', () => {
   describe('unconfigured', () => {
     let comp;
     beforeEach(() => {
-      Vue.prototype.$appConfig = {modules: {}};
+      Vue.prototype.$appConfig = { modules: {} };
       comp = shallowMount(HelpWin);
     });
 

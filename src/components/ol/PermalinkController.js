@@ -1,7 +1,7 @@
 import Projection from 'ol/proj/Projection';
-import {getTransform, transform} from 'ol/proj';
+import { getTransform, transform } from 'ol/proj';
 import UrlUtil from '../../util/Url';
-import {applyTransform} from 'ol/extent';
+import { applyTransform } from 'ol/extent';
 
 /**
  * Class holding the logic for permalinks.
@@ -18,7 +18,7 @@ export default class PermalinkController {
   constructor (map, permalinkConf) {
     this.map = map;
     this.conf = permalinkConf || {};
-    this.projection = this.conf.projection ? new Projection({'code': this.conf.projection}) : null;
+    this.projection = this.conf.projection ? new Projection({ 'code': this.conf.projection }) : null;
     this.conf.paramPrefix = this.conf.paramPrefix || '';
     this.conf.location = this.conf.location || 'hash';
     this.conf.separator = this.conf.location === 'hash' ? '#' : '?';
@@ -109,7 +109,7 @@ export default class PermalinkController {
       const key = layer.on('change:visible', () => {
         this.onMapChange();
       });
-      this.layerListeners.push({'key': key, 'layer': layer});
+      this.layerListeners.push({ 'key': key, 'layer': layer });
     });
   }
 

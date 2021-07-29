@@ -13,10 +13,10 @@ import GML32Format from 'ol/format/GML32'
 import VectorLayer from 'ol/layer/Vector'
 import VectorSource from 'ol/source/Vector'
 import XyzSource from 'ol/source/XYZ'
-import {bbox as bboxStrategy} from 'ol/loadingstrategy';
+import { bbox as bboxStrategy } from 'ol/loadingstrategy';
 import { OlStyleFactory } from './OlStyle'
-import {applyTransform} from 'ol/extent';
-import {getTransform} from 'ol/proj';
+import { applyTransform } from 'ol/extent';
+import { getTransform } from 'ol/proj';
 
 /**
  * Factory, which creates OpenLayers layer instances according to a given config

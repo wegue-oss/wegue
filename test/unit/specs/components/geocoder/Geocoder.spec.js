@@ -1,10 +1,10 @@
 import { shallowMount } from '@vue/test-utils';
 import Geocoder from '@/components/geocoder/Geocoder';
-import {OpenStreetMap} from '../../../../../src/components/geocoder/providers/osm';
-import {Photon} from '../../../../../src/components/geocoder/providers/photon';
-import {OpenCage} from '../../../../../src/components/geocoder/providers/opencage';
+import { OpenStreetMap } from '../../../../../src/components/geocoder/providers/osm';
+import { Photon } from '../../../../../src/components/geocoder/providers/photon';
+import { OpenCage } from '../../../../../src/components/geocoder/providers/opencage';
 import OlMap from 'ol/Map';
-import {fromLonLat} from 'ol/proj';
+import { fromLonLat } from 'ol/proj';
 // import * as sinon from 'sinon';
 
 describe('geocoder/Geocoder.vue', () => {
@@ -177,7 +177,7 @@ describe('geocoder/Geocoder.vue', () => {
           expect(vm.results[0].address.road === 'Heerstraße').to.equal(true);
 
           // Items from query result should be assigned to combobox
-          const comboBox = comp.findComponent({name: 'v-combobox'});
+          const comboBox = comp.findComponent({ name: 'v-combobox' });
           selectionItems = comboBox.vnode.data.attrs.items;
           expect(selectionItems === undefined).to.equal(false);
           expect(selectionItems.length === vm.results.length).to.equal(true);
@@ -229,8 +229,8 @@ describe('geocoder/Geocoder.vue', () => {
 
     it('button click should toggle search input visibility', done => {
       // Two subwidgets
-      const button = comp.findComponent({name: 'v-btn'});
-      const comboBox = comp.findComponent({name: 'v-combobox'});
+      const button = comp.findComponent({ name: 'v-btn' });
+      const comboBox = comp.findComponent({ name: 'v-combobox' });
 
       // Initial state
       expect(vm.hideSearch).to.equal(true);

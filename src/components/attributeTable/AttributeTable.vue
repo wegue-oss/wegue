@@ -35,28 +35,28 @@ export default {
   mixins: [Mapable],
   props: {
     /** The ID of the vector layer to display */
-    layerId: {type: String, required: false, default: null},
+    layerId: { type: String, required: false, default: null },
 
     /** The name of the unique feature identifier */
-    uniqueRecordKeyName: {type: String, required: false, default: 'fid'},
+    uniqueRecordKeyName: { type: String, required: false, default: 'fid' },
 
     /**
      * How many rows a page of the table should have.
      * Should be manually adjusted with tableHeight.
      */
-    rowsPerPage: {type: Number, required: false, default: 10},
+    rowsPerPage: { type: Number, required: false, default: 10 },
 
     /**
      * The height of the table in pixel.
      * Should be manually adjusted with rowsPerPage.
      */
-    tableHeight: {type: Number, required: false, default: 272},
+    tableHeight: { type: Number, required: false, default: 272 },
 
     /** If map and table should be synced */
-    syncTableMapSelection: {type: Boolean, required: false, default: true},
+    syncTableMapSelection: { type: Boolean, required: false, default: true },
 
     /** The maximum zoom level when clicking on a row */
-    maxZoomOnFeature: {type: Number, required: false, default: 15},
+    maxZoomOnFeature: { type: Number, required: false, default: 15 },
 
     /** A list of column names that should not be displayed. */
     forbiddenColumnNames: {

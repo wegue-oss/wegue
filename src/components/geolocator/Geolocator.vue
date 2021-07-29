@@ -11,11 +11,11 @@
 </template>
 
 <script>
-import {fromLonLat} from 'ol/proj'
+import { fromLonLat } from 'ol/proj'
 import Point from 'ol/geom/Point'
 import Feature from 'ol/Feature';
-import {Vector as VectorLayer} from 'ol/layer'
-import {Vector as VectorSource} from 'ol/source'
+import { Vector as VectorLayer } from 'ol/layer'
+import { Vector as VectorSource } from 'ol/source'
 import { Fill, Style, Text } from 'ol/style';
 
 import { WguEventBus } from '../../WguEventBus'
@@ -23,11 +23,11 @@ import { WguEventBus } from '../../WguEventBus'
 export default {
   name: 'wgu-geolocator',
   props: {
-    zoomAnimation: {type: Boolean, required: false, default: true},
-    zoomAnimationDuration: {type: Number, required: false, default: 2400},
-    maxZoom: {type: Number, required: false, default: 15},
-    markerColor: {type: String, required: false, default: 'blue'},
-    markerText: {type: String, required: false, default: 'person_pin_circle'}
+    zoomAnimation: { type: Boolean, required: false, default: true },
+    zoomAnimationDuration: { type: Number, required: false, default: 2400 },
+    maxZoom: { type: Number, required: false, default: 15 },
+    markerColor: { type: String, required: false, default: 'blue' },
+    markerText: { type: String, required: false, default: 'person_pin_circle' }
   },
   data: function () {
     return {
@@ -68,7 +68,7 @@ export default {
         source: new VectorSource(),
         style: this.geolocationMarker
       });
-      layer.setProperties({lid: layerId});
+      layer.setProperties({ lid: layerId });
       return layer;
     },
 
@@ -91,7 +91,7 @@ export default {
             this.isSearchingForGeolocation = false;
             // get a layer to draw the current position on
             const geolocLayer = this.createAndRemoveExistingLayer(this.map.getLayers(), 'wgu-geolocator-layer');
-            geolocLayer.getSource().addFeature(new Feature({geometry: currentPosGeom}));
+            geolocLayer.getSource().addFeature(new Feature({ geometry: currentPosGeom }));
             this.map.addLayer(geolocLayer);
 
             // collect zooming options
@@ -117,7 +117,7 @@ export default {
           this.isGeolocationAPIAvailable = false;
           this.isSearchingForGeolocation = false;
         },
-        {enableHighAccuracy: true, maximumAge: 60000, timeout: 27000})
+        { enableHighAccuracy: true, maximumAge: 60000, timeout: 27000 })
       } else {
         this.isGeolocationAPIAvailable = false;
       }

@@ -54,14 +54,14 @@
     },
     mixins: [Mapable],
     props: {
-      emptyText: {type: String, required: true},
-      color: {type: String, required: true},
-      dark: {type: Boolean, required: true},
-      selColor: {type: String, required: true},
-      selDark: {type: Boolean, required: true},
-      imageWidth: {type: Number, required: true},
-      imageHeight: {type: Number, required: true},
-      previewIcon: {type: String, required: true}
+      emptyText: { type: String, required: true },
+      color: { type: String, required: true },
+      dark: { type: Boolean, required: true },
+      selColor: { type: String, required: true },
+      selDark: { type: Boolean, required: true },
+      imageWidth: { type: Number, required: true },
+      imageHeight: { type: Number, required: true },
+      previewIcon: { type: String, required: true }
     },
     data () {
       return {
