@@ -3,12 +3,12 @@
   <table class="wgu-proptable" v-if="this.properties" :style="tableStyles">
     <thead>
       <tr>
-        <th v-for="entry in properties"
+        <th v-for="(entry, key) in properties" :key="key">
         </th>
       </tr>
     </thead>
     <tbody class="attr-tbody">
-      <tr v-for="(value, key) in properties">
+      <tr v-for="(value, key) in properties" :key="key">
         <td class="key-td">
           {{key}}
         </td>

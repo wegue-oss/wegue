@@ -3,12 +3,12 @@
   <table class="wgu-coordstable" v-if="coordRows" :style="tableStyles">
     <thead>
       <tr>
-        <th v-for="entry in coordRows"
+        <th v-for="(entry, key) in coordRows" :key="key">
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(value, key) in coordRows">
+      <tr v-for="(value, key) in coordRows" :key="key">
         <td class="key-td">
           {{key}}
         </td>
