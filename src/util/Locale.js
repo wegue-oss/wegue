@@ -36,7 +36,7 @@ const LocaleUtil = {
    * app specific language files from 'app/locales'. Language files will be merged,
    * such that Wegue core messages can be overridden by app messages.
    *
-   * @returns A container with message data. Key is the language code, value contains the messages.
+   * @returns  {Object} A container with message data. Key is the language code, value contains the messages.
    */
   importVueI18nLocales () {
     const jsonContentExtractor = i => i;
