@@ -63,7 +63,7 @@ Key: `wgu-helpwin`
 | Property           | Meaning   | Example |
 |--------------------|:---------:|---------|
 | textTitle          |  The title over the text of the window         |   "About Wegue"      |
-| htmlContent        |   The text content of the window. HTML can be used.        |   "<b>WebGIS with OpenLayers and Vue.js</b> Template and re-usable components for webmapping applications with OpenLayers and Vue.js"      |
+| htmlContent        |  The text content of the window. HTML can be used.        |   "<b>WebGIS with OpenLayers and Vue.js</b> Template and re-usable components for webmapping applications with OpenLayers and Vue.js"      |
 | infoLinkText       |  The name of the link        |   "More Info"       |
 | infoLinkUrl        |  The URL of the link         |   "http://wegue.org/"       |
 
@@ -149,6 +149,5 @@ Below is an example configuration for an English language pack.
   }
 }
 ```
-
 
 
