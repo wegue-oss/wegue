@@ -128,7 +128,7 @@ const LocaleUtil = {
    * If none such it is declared, returns 'en'.
    *
    * @param {Object} appConfig Global application context.
-   * @returns The language code of the fallback language.
+   * @returns {String} The language code of the fallback language.
    */
   getFallbackLanguage (appConfig) {
     const isDefined =
