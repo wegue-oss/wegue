@@ -6,7 +6,7 @@ const ObjectUtil = {
   /**
    * Tests whether item is an object
    * @param {*} item The item to test.
-   * @returns True if the item is an object.
+   * @returns {Boolean} True if the item is an object.
    */
   isObject (item) {
     return (item && typeof item === 'object' && !Array.isArray(item));
