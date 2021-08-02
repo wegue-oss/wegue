@@ -150,7 +150,7 @@
       },
       /**
        * Sets the document title from language file.
-       **/
+       */
       setDocumentTitle () {
         document.title = this.$t('app.browserTitle') || document.title;
       }
