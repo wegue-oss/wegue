@@ -143,6 +143,7 @@ export default {
     });
 
     // create layers from config and add them to map
+    this.registerLayerEvents();
     const layers = this.createLayers();
     this.map.getLayers().extend(layers);
 
@@ -186,6 +187,24 @@ export default {
       });
 
       return layers;
+    },
+
+    /**
+     * Hook up events to process newly added and modified OL layers.
+     * This is currently used to update locale specific layer properties.
+     */
+    registerLayerEvents () {
+      const layers = this.map.getLayers();
+      layers.on('add', evt => {
+        const layer = evt.element;
+        this.updateLocalizedLayerProps(evt.element);
+        layer.on('propertychange', evt => {
+          if (evt.key === 'lid' || evt.key === 'langKey') {
+            console.log(evt.key + ' changed');
+            this.updateLocalizedLayerProps(evt.target)
+          }
+        })
+      })
     },
 
     /**
@@ -357,6 +376,44 @@ export default {
       this.map.addLayer(vectorLayer);
 
       return vectorLayer;
+    },
+
+    /**
+     * Updates locale specific layer properties. This is typically invoked after changes to
+     * layer attributes, changes to the OpenLayers layer collection to process new layers
+     * or after changes to the active locale.
+     *
+     * @param {ol.layer.Layer} OL layer instance
+     */
+    updateLocalizedLayerProps (layer) {
+      const langKey = layer.get('langKey') || layer.get('lid');
+      if (!langKey) {
+        console.warn('Layer does not provide a valid "lid" attribute.');
+        return;
+      }
+      const pathLayer = 'mapLayers.' + langKey;
+
+      // Update layer name.
+      const pathName = pathLayer + '.name';
+      layer.set('name', this.$t(pathName));
+
+      // Update optional layer attributions.
+      const pathAttributions = pathLayer + '.attributions';
+      const source = layer.getSource();
+      if (source && (typeof source.setAttributions === 'function') && this.$te(pathAttributions)) {
+        source.setAttributions(this.$t(pathAttributions));
+      }
+    }
+  },
+  watch: {
+    /**
+     * Watch for locale changes and update language specific layer attributes.
+     */
+    '$i18n.locale': function () {
+      const layers = this.map.getLayers();
+      layers.forEach(layer => {
+        this.updateLocalizedLayerProps(layer);
+      });
     }
   }
 
