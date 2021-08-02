@@ -5,7 +5,6 @@
     v-model="show">
     <v-btn icon :value="true" @click="toggleUi">
       <v-icon medium>{{icon}}</v-icon>
-      {{text}}
     </v-btn>
   </v-btn-toggle>
 </template>
@@ -18,8 +17,6 @@ export default {
   props: {
     moduleName: {type: String, required: true},
     icon: {type: String, required: true},
-    // TODO remove this option as it is not in use?
-    text: {type: String, required: false, default: ''},
     dark: {type: Boolean, required: false, default: false},
     visible: {type: Boolean, required: false, default: false}
   },
