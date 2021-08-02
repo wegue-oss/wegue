@@ -134,7 +134,6 @@ describe('LayerFactory', () => {
         },
         'format': 'KML',
         'visible': true,
-        'attributions': 'U.S. Geological Survey',
         'selectable': true,
         'hoverable': true,
         'hoverAttribute': 'name'
