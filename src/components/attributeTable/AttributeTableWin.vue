@@ -7,23 +7,21 @@
 
     <template v-slot:wgu-win-toolbar>
       <v-select
-        v-model="selectedItem"
+        v-model="selLayer"
         class="wgu-vector-layer-select"
-        :items="layerItems"
-		    :item-text="item => $t('mapLayers.' + (item.langKey || item.lid) + '.name')"
-        item-value="lid"
+        :items="vectorLayers"
+		    :item-text="item => item.get('name')"
         dense
         return-object
         hide-details
-        @input="handleLayerSelect"
         :label="$t('wgu-attributetable.selectorLabel')"
         ></v-select>
     </template>
   
     <wgu-attributetable
-      v-if="layerId"
+      v-if="selLayer"
       v-resize="onResize"
-      :layerId="layerId"
+      :layerId="selLayer.get('lid')"
       :syncTableMapSelection="syncTableMapSelection"
     >
     </wgu-attributetable>
@@ -47,9 +45,8 @@ export default {
   data () {
     return {
       moduleName: 'wgu-attributetable',
-      layerId: null,
-      layerItems: null,
-      selectedItem: null
+      layers: [],
+      selLayer: null
     }
   },
   mixins: [Mapable],
@@ -82,37 +79,24 @@ export default {
     },
 
     /**
-     * Store selected layerId in the respective
-     * variable of the component.
+     * This function is executed, after the map is bound (see mixins/Mapable).
+     * Bind to the layers from the OpenLayers map.
      */
-    handleLayerSelect () {
-      this.layerId = this.selectedItem.lid;
-    },
     onMapBound () {
-      this.populateLayerItems();
-    },
+      this.layers = this.map.getLayers().getArray();
+    }
+  },
+  computed: {
     /**
-     * Finds vector layers and adds them to
-     * the selection menu.
+     * Reactive property to return the OpenLayers vector layers to be shown in the selection menu.
      */
-    populateLayerItems () {
-      let layerItems = [];
-
-      // TODO
-      // Turn layerItems into a computed property to make it reactive,
-      // e.g. when the list of layers changes at runtime. See BgLayerList for an example.
-      const mapLayers = this.map.getLayers();
-      mapLayers.forEach(layer => {
-        if (layer instanceof VectorLayer &&
-            layer.get('lid') !== 'wgu-measure-layer') {
-          layerItems.push({
-            langKey: layer.get('langKey'),
-            lid: layer.get('lid')
-          });
-        }
-      });
-
-      this.layerItems = layerItems
+    vectorLayers () {
+      return this.layers
+        .filter(layer =>
+          layer instanceof VectorLayer &&
+          layer.get('lid') !== 'wgu-measure-layer'
+        )
+        .reverse();
     }
   }
 };
