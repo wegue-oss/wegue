@@ -107,7 +107,6 @@ export const LayerFactory = {
           'TILED': lConf.tiled
         },
         serverType: lConf.serverType,
-        attributions: lConf.attributions,
         tileGrid: lConf.tileGrid,
         projection: lConf.projection,
         crossOrigin: lConf.crossOrigin
@@ -180,8 +179,7 @@ export const LayerFactory = {
           vectorSource.addFeatures(feats);
         });
       },
-      strategy: lConf.loadOnlyVisible !== false ? bboxStrategy : undefined,
-      attributions: lConf.attributions
+      strategy: lConf.loadOnlyVisible !== false ? bboxStrategy : undefined
     });
 
     var vector = new VectorLayer({
@@ -218,7 +216,6 @@ export const LayerFactory = {
       opacity: lConf.opacity,
       source: new XyzSource({
         url: lConf.url,
-        attributions: lConf.attributions,
         tileGrid: lConf.tileGrid,
         projection: lConf.projection,
         crossOrigin: lConf.crossOrigin
@@ -267,8 +264,7 @@ export const LayerFactory = {
       opacity: lConf.opacity,
       source: new VectorSource({
         url: lConf.url,
-        format: new this.formatMapping[lConf.format](lConf.formatConfig),
-        attributions: lConf.attributions
+        format: new this.formatMapping[lConf.format](lConf.formatConfig)
       }),
       style: OlStyleFactory.getInstance(lConf.style),
       hoverable: lConf.hoverable,
@@ -296,7 +292,6 @@ export const LayerFactory = {
       source: new VectorTileSource({
         url: lConf.url,
         format: new this.formatMapping[lConf.format](),
-        attributions: lConf.attributions,
         tileGrid: lConf.tileGrid,
         projection: lConf.projection
       }),
