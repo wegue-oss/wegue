@@ -112,7 +112,7 @@ const LocaleUtil = {
    * Fallback will be {'en':'English}'
    *
    * @param {Object} appConfig Global application context.
-   * @returns A container with key value pairs, while key corresponds to the language code and
+   * @returns {Object} A container with key value pairs, while key corresponds to the language code and
    *  value contains a human readable language name.
    */
   getSupportedLanguages (appConfig) {
