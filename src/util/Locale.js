@@ -142,7 +142,7 @@ const LocaleUtil = {
    *
    * @param {String} code The language code
    * @param {Object} appConfig Global application context.
-   * @returns True if the language code is supported by the application.
+   * @returns {Boolean} True if the language code is supported by the application.
    */
   isLanguageSupported (code, appConfig) {
     var supported = LocaleUtil.getSupportedLanguages(appConfig);
