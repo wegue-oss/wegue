@@ -12,7 +12,7 @@
       />
       <v-list-item-content class="black--text">
           <v-list-item-title>
-            {{ $t('mapLayers.' + (layer.get('langKey') || layer.get('lid')) + '.name') }}
+            {{ layer.get('name') }}
           </v-list-item-title>
       </v-list-item-content>
     </v-list-item>
