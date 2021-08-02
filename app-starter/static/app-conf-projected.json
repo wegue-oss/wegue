@@ -74,8 +74,7 @@
         "strokeColor": "black",
         "strokeWidth": 4,
         "fillColor": "rgb(255, 153, 51, 0.5)"
-      },
-      "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> by Dutch Kadaster"
+      }
     },
     {
       "type": "WMS",
@@ -87,7 +86,6 @@
       "singleTile": false,
       "projection": "EPSG:28992",
       "tileGridRef": "dutch_rd",
-      "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> by Dutch Kadaster",
       "isBaseLayer": false,
       "visible": false,
       "crossOrigin": "anonymous"
@@ -102,7 +100,6 @@
       "singleTile": false,
       "projection": "EPSG:28992",
       "tileGridRef": "dutch_rd",
-      "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> by Dutch Kadaster",
       "isBaseLayer": true,
       "visible": false,
       "crossOrigin": "anonymous"
@@ -111,7 +108,6 @@
       "type": "XYZ",
       "lid": "brtachtergrondkaart",
       "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts/brtachtergrondkaart/EPSG:28992/{z}/{x}/{y}.png",
-      "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> by Dutch Kadaster",
       "projection": "EPSG:28992",
       "tileGridRef": "dutch_rd",
       "isBaseLayer": true,
