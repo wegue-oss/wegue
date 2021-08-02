@@ -37,7 +37,7 @@ const ObjectUtil = {
    *
    * @param {Object} item An object to extract property paths from.
    * @param {String} path Internal usage for recursion.
-   * @returns An array containing all paths to keys of the object.
+   * @returns {Array} An array containing all paths to keys of the object.
    */
   toPaths (item, path = '') {
     var result = [];
