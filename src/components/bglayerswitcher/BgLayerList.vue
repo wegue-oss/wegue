@@ -31,7 +31,7 @@
           />
           <v-card-title class="caption">
             <span class="d-inline-block text-truncate">
-              {{ $t('mapLayers.' + (layer.get('langKey') || layer.get('lid')) + '.name') }}
+              {{ layer.get('name') }}
             </span>
           </v-card-title>
         </v-card> 
