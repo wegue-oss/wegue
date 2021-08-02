@@ -3,7 +3,6 @@
   <v-btn icon :dark="dark" @click="onClick"
     :title="$t('wgu-zoomtomaxextent.title')">
     <v-icon medium>{{icon}}</v-icon>
-    {{ $t('wgu-zoomtomaxextent.text') }}
   </v-btn>
 
 </template>
