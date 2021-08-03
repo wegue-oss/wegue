@@ -58,9 +58,6 @@ export const LayerFactory = {
    */
   getInstance (lConf, olMap) {
     // apply LID (Layer ID) if not existent
-    // TODO
-    //  Review this, as of the localization change the lid attribute must be provided
-    //  and the previously used name property to compose a unique lid has been deprecated.
     if (!lConf.lid) {
       // Make a unique layerId from Layer URL so contexts
       // like permalinks can be reapplied.

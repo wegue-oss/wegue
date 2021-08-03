@@ -128,6 +128,15 @@ const migrateAppConfig = function (appConfig) {
     }
   };
 
+  // Create a warning if the 'lid' property of mapLayers is missing.
+  if (appConfig.mapLayers) {
+    appConfig.mapLayers.forEach((layer, i) => {
+      if (!layer.lid) {
+        console.warn('mapLayers[' + i + '] does not declare a lid property');
+      }
+    });
+  }
+
   return appConfig;
 }
 
