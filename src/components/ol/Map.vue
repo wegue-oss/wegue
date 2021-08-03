@@ -200,7 +200,6 @@ export default {
         this.updateLocalizedLayerProps(evt.element);
         layer.on('propertychange', evt => {
           if (evt.key === 'lid' || evt.key === 'langKey') {
-            console.log(evt.key + ' changed');
             this.updateLocalizedLayerProps(evt.target)
           }
         })
