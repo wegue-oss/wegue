@@ -83,7 +83,6 @@ describe('LayerFactory', () => {
         },
         'projection': 'EPSG:3857',
         'visible': true,
-        'attributions': 'An attribution',
         'selectable': false
       };
       const olMap = new Map({
