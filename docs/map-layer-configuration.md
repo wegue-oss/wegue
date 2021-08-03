@@ -36,8 +36,8 @@ The following properties can be applied to all map layer types
 | selectable          | Boolean value, whether the features of the layer can be selected by click in order to display the attributes in a window | `"selectable": true` |
 | hoverable           | Boolean value, whether the features of the layer can be hovered in order to display an attribute (see `hoverAttribute`) in a tooltip  | `"hoverable": true` |
 | hoverAttribute      | Attribute to be shown if a feature of the layer is hovered. Only has an effect if `hoverable` is set to `true`  | `"hoverAttribute": "name"` |
-| style               | Object to define a rendering style for the features of the layer  | see [style](map-layer-configuration.md?id=style-for-vectorlayers) |
-| selectStyle         | The style for a selected feature | see [style](map-layer-configuration.md?id=style-for-vectorlayers) |
+| style               | Object to define a rendering style for the features of the layer  | see [style](map-layer-configuration?id=style-for-vectorlayers) |
+| selectStyle         | The style for a selected feature | see [style](map-layer-configuration?id=style-for-vectorlayers) |
 | doAppendSelectStyle | If the selectStyle should be appended to the original style, defaults to `false` | `"doAppendSelectStyle": true` |
 | columnMapping       | Maps the property names to human-readable text. Can be used by `AttributeTable`. | `"columnMapping": {"name": "Name", "email": "Email"}`
 
@@ -48,12 +48,12 @@ The following properties can be applied to all map layer types
 | **type**            | Indicator that the layer is a WFS-based vector layer, always `WFS` here  | `"type": "WFS"` |
 | **url**             | The URL to the Web Feature Service (WFS) | `"url": "https://ows.terrestris.de/geoserver/osm/wfs"` |
 | **typeName**        | The name of the FeatureType | `"typeName": "osm:osm-fuel"`|
-| style               | Object to define a rendering style for the features of the layer  | see [style](map-layer-configuration.md?id=style-for-vectorlayers) |
+| style               | Object to define a rendering style for the features of the layer  | see [style](map-layer-configuration?id=style-for-vectorlayers) |
 | version             | The version of the WFS, defaults to `1.1.0` | `"version": "2.0.0"`|
 | maxFeatures         | Limits the amount of features that are queried and displayed | `"maxFeatures": 50`|
 | format              | The format that should be used. Possible values are `GeoJSON`, `GML2`, `GML3` and `GML32`. Defaults to `GML3` |  `"format": "GeoJSON"`|
 | selectable          | Boolean value, whether the features of the layer can be selected by click in order to display the attributes in a window | `"selectable": true` |
-| selectStyle         | The style for a selected feature | see [style](map-layer-configuration.md?id=style-for-vectorlayers) |
+| selectStyle         | The style for a selected feature | see [style](map-layer-configuration?id=style-for-vectorlayers) |
 | doAppendSelectStyle | If the selectStyle should be appended to the original style, defaults to `false` | `"doAppendSelectStyle": true` |
 | columnMapping       | Maps the property names to human-readable text. Can be used by `AttributeTable`. | `"columnMapping": {"name": "Name", "email": "Email"}`
 | hoverable           | Boolean value, whether the features of the layer can be hovered in order to display an attribute (see `hoverAttribute`) in a tooltip  | `"hoverable": true` |
@@ -105,7 +105,7 @@ Mandatory properties:
 | strokeColor        | see [color](https://openlayers.org/en/latest/apidoc/module-ol_style_Stroke-Stroke.html) | `"strokeColor": "purple"` |
 | strokeWidth        | see [width](https://openlayers.org/en/latest/apidoc/module-ol_style_Stroke-Stroke.html) | `"strokeWidth": 2` |
 | fillColor          | Point and Polygon, see [color](https://openlayers.org/en/latest/apidoc/module-ol_style_Fill-Fill.html) | `"fillColor": "rgba(155,153,51,0.5)"` |
-| label              | see [label](map-layer-configuration.md?id=label) | see [label](map-layer-configuration.md?id=label) |
+| label              | see [label](map-layer-configuration?id=label) | see [label](map-layer-configuration?id=label) |
 | radius             | see [radius](https://openlayers.org/en/latest/apidoc/module-ol_style_Circle-CircleStyle.html) | `"radius": 4` |
 | scale              | Point only, see [scale](https://openlayers.org/en/latest/apidoc/module-ol_style_Icon-Icon.html) | `"scale": 4` |
 | iconUrl            | Point only, see [src](https://openlayers.org/en/latest/apidoc/module-ol_style_Icon-Icon.html) | `"iconUrl": "./static/icon/circle.svg"` |

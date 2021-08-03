@@ -24,7 +24,7 @@ The following app wide messages can be customized:
 
 Key: `mapLayers`
 
-Customize display names for layers configured in the [mapLayers](map-layer-configuration.md) section of your application configuration. For each layer a key matching the `lid` of your layer should be declared. The value assigned to this key is an object supporting the following properties.
+Customize display names for layers configured in the [mapLayers](map-layer-configuration) section of your application configuration. For each layer a key matching the `lid` of your layer should be declared. The value assigned to this key is an object supporting the following properties.
 
 | Property           | Meaning | Example |
 |--------------------|:---------:|---------|

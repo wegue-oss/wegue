@@ -113,7 +113,7 @@ No additional config options besides the general ones.
 
 ## AttributeTable
 
-The attribute table displays features of vector layers. It is possible to specify human-readable column names by adding the `columnMapping` property to the layer (see [Vector](map-layer-configuration.md?id=vector) or [WFS](map-layer-configuration.md?id=wfs)).
+The attribute table displays features of vector layers. It is possible to specify human-readable column names by adding the `columnMapping` property to the layer (see [Vector](map-layer-configuration?id=vector) or [WFS](map-layer-configuration?id=wfs)).
 
 Module identifier: `wgu-attributetable`
 
@@ -128,7 +128,7 @@ Module identifier: `wgu-maprecorder`
 No additional config options besides the general ones.
 
 **Important:**
-For [WMS](map-layer-configuration.md?id=wms), [XYZ](map-layer-configuration.md?id=xyz) and [OSM](map-layer-configuration.md?id=xyz) layers requested from cross origin sources you have to enable CORS via the layers `crossOrigin` attribute, in order to grant the required capturing privileges to the map recorders canvas.
+For [WMS](map-layer-configuration?id=wms), [XYZ](map-layer-configuration?id=xyz) and [OSM](map-layer-configuration?id=xyz) layers requested from cross origin sources you have to enable CORS via the layers `crossOrigin` attribute, in order to grant the required capturing privileges to the map recorders canvas.
 
 ## LocaleSwitcher
 
@@ -136,4 +136,4 @@ Module identifier: `wgu-localeswitcher`
 
 No additional config options besides the general ones.
 
-LocaleSwitcher will automatically pick up the supported languages configured by the [lang](wegue-configuration.md?id=lang) property and offers to switch between them at runtime.
+LocaleSwitcher will automatically pick up the supported languages configured by the [lang](wegue-configuration?id=lang) property and offers to switch between them at runtime.

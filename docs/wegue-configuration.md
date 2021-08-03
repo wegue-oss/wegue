@@ -14,15 +14,15 @@ This describes the Wegue application configuration, which is modelled as JSON do
 | logoHeight         | Height of the application logo defined in `logo` | `"logoWidth": "100"` |
 | logoSize           | Squared size of the application logo defined in `logo`. Only has an effect if `logoWidth` and `logoHeight` are **not** set. Otherwise these will overwrite the `logoSize` setting. | `"logoSize": "100"` |
 | showCopyrightYear  | Boolean value, whether the copyright year should be shown on the right side of the toolbar | `"showCopyrightYear": true` or `"showCopyrightYear": false` |
-| lang | Configuration object for language settings of the application | See [lang](wegue-configuration.md?id=lang)
+| lang | Configuration object for language settings of the application | See [lang](wegue-configuration?id=lang)
 | **mapZoom**        | Initial zoom level of the map | `"mapZoom": 2` |
 | **mapCenter**      | Initial center of the map in map projection | `"mapCenter": [0, 0]` |
-| mapProjection      | Configuration object for CRS / projection used for the map | see [mapProjection](wegue-configuration.md?id=mapprojection) |
-| mapGeodataDragDop  | Configuration object for geodata file drag/drop functionality on the map. Only by setting the config this function will be enabled. | see [mapGeodataDragDop](wegue-configuration.md?id=mapGeodataDragDop) |
-| **modules**        | Array of module configuration objects | See [modules](module-configuration.md) |
-| **mapLayers**      | Array of map layer configuration objects | See [mapLayers](map-layer-configuration.md) |
-| projectionDefs     | Array of CRS / projection definition objects compatible to proj4js | See [projectionDefs](wegue-configuration.md?id=projectiondefs) |
-| tileGridDefs       | Array of tile grid definition objects | See [tileGridDefs](wegue-configuration.md?id=tilegriddefs) |
+| mapProjection      | Configuration object for CRS / projection used for the map | see [mapProjection](wegue-configuration?id=mapprojection) |
+| mapGeodataDragDop  | Configuration object for geodata file drag/drop functionality on the map. Only by setting the config this function will be enabled. | see [mapGeodataDragDop](wegue-configuration?id=mapGeodataDragDop) |
+| **modules**        | Array of module configuration objects | See [modules](module-configuration) |
+| **mapLayers**      | Array of map layer configuration objects | See [mapLayers](map-layer-configuration) |
+| projectionDefs     | Array of CRS / projection definition objects compatible to proj4js | See [projectionDefs](wegue-configuration?id=projectiondefs) |
+| tileGridDefs       | Array of tile grid definition objects | See [tileGridDefs](wegue-configuration?id=tilegriddefs) |
 
 ### projectionDefs
 
