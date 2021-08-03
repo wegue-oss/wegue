@@ -226,7 +226,6 @@ Example configurations can be found in the `app-starter/static` directory. Below
         "font": "normal 30px Material Icons",
         "fillColor": "blue"
       },
-      "attributions": "© <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors.",
       "columnMapping": {
         "name": "Name"
       },
@@ -247,7 +246,6 @@ Example configurations can be found in the `app-starter/static` directory. Below
       },
       "format": "KML",
       "visible": true,
-      "attributions": "U.S. Geological Survey",
       "selectable": true,
       "hoverable": true,
       "hoverAttribute": "name",
@@ -296,7 +294,6 @@ Example configurations can be found in the `app-starter/static` directory. Below
     {
       "type": "XYZ",
       "url": "https://tile.opentopomap.org/{z}/{x}/{y}.png",
-      "attributions": "Map data: <a href=\"https://openstreetmap.org/copyright\">©OpenStreetMap</a>-contributors, SRTM | Map representation (Kartendarstellung): © <a href=\"http://opentopomap.org/\">OpenTopoMap</a> (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC-BY-SA</a>)",
       "lid": "opentopomap",
       "isBaseLayer": true,
       "visible": false,

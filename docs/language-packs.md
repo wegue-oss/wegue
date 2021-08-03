@@ -20,15 +20,16 @@ The following app wide messages can be customized:
 | footerTextRight    | Text or HTML string to be displayed in the right side of the toolbar | `"footerTextRight": "meggsimum"` |
 | logo    | Alternate application logo text. | `"logo": "App Logo"` |
 
-## Layer names
+## Layer display properties
 
 Key: `mapLayers`
 
-Customize display names for layers configured in the [mapLayers](map-layer-configuration) section of your application configuration. For each layer a key matching the `lid` of your layer should be declared. The value assigned to this key is an object supporting the following properties.
+Customize display names and attributions for layers configured in the [mapLayers](map-layer-configuration) section of your application configuration. For each layer a key matching the `lid` of your layer should be declared. The value assigned to this key is an object supporting the following properties.
 
 | Property           | Meaning | Example |
 |--------------------|:---------:|---------|
 | **name**           |  Human readable name for the layer, used e.g. in the LayerList | `"name": "My super WMS"` |
+| attributions       | Text or HTML string to be displayed as source attribution in the map  | `"attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> by Dutch Kadaster",` |
 
 ## Module specific messages
 
@@ -106,10 +107,12 @@ Below is an example configuration for an English language pack.
       "name": "Shops DaSchau"
     },
     "gas-wfs": {
-      "name": "Gas Stations WFS"
+      "name": "Gas Stations WFS",
+      "attributions": "© <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors."
     },
     "earthquakes": {
-      "name": "Earthquakes 2012 (Mag 5)"
+      "name": "Earthquakes 2012 (Mag 5)",
+      "attributions": "U.S. Geological Survey"
     },
     "ahocevar-wms": {
       "name": "WMS (ahocevar)"
@@ -118,25 +121,31 @@ Below is an example configuration for an English language pack.
       "name": "Vector Tile Layer"
     },
     "opentopomap": {
-      "name": "Open Topo Map"
+      "name": "Open Topo Map",
+      "attributions": "Map data: <a href=\"https://openstreetmap.org/copyright\">©OpenStreetMap</a>-contributors, SRTM | Map representation: © <a href=\"http://opentopomap.org/\">OpenTopoMap</a> (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC-BY-SA</a>)"
     },
     "osm-bg": {
       "name": "Open Street Map"
     },
     "dutch-nat-parks" : {
-      "name": "WFS (Dutch National Parks PDOK)"
+      "name": "WFS (Dutch National Parks PDOK)",
+      "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> by Dutch Kadaster"
     },
     "pdok-natura2000-wms" : {
-      "name": "WMS - Natura 2000 Areas - PDOK"
+      "name": "WMS - Natura 2000 Areas - PDOK",
+      "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> by Dutch Kadaster"
     },
     "pdok-lufo-wms" : {
-      "name": "WMS - Dutch Arial Map - PDOK"
+      "name": "WMS - Dutch Arial Map - PDOK",
+      "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> by Dutch Kadaster"
     },
     "brtachtergrondkaart" : {
-      "name": "WMTS - Topo Basemap - PDOK"
+      "name": "WMTS - Topo Basemap - PDOK",
+      "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> by Dutch Kadaster"
     },
     "terrestris-osm-wms" : {
-      "name": "OSM WMS"
+      "name": "OSM WMS",
+      "attributions": "<a href='https://www.openstreetmap.org/copyright' target='_blank'>© OpenStreetMap-contributors</a>"
     }
   },
 
