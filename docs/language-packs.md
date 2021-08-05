@@ -28,8 +28,10 @@ Customize display names and attributions for layers configured in the [mapLayers
 
 | Property           | Meaning | Example |
 |--------------------|:---------:|---------|
-| **name**           |  Human readable name for the layer, used e.g. in the LayerList | `"name": "My super WMS"` |
+| name               |  Human readable name for the layer, used e.g. in the LayerList | `"name": "My super WMS"` |
 | attributions       | Text or HTML string to be displayed as source attribution in the map  | `"attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> by Dutch Kadaster",` |
+
+If you don't want to support language specific properties for layers, all of the properties above can also be declared in the [mapLayers](map-layer-configuration) section of your application configuration. Any declaration found in the maplayers section will override those from the language packs.
 
 ## Module specific messages
 
@@ -121,11 +123,11 @@ Below is an example configuration for an English language pack.
       "name": "Vector Tile Layer"
     },
     "opentopomap": {
-      "name": "Open Topo Map",
+      "name": "OpenTopoMap",
       "attributions": "Map data: <a href=\"https://openstreetmap.org/copyright\">©OpenStreetMap</a>-contributors, SRTM | Map representation: © <a href=\"http://opentopomap.org/\">OpenTopoMap</a> (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC-BY-SA</a>)"
     },
     "osm-bg": {
-      "name": "Open Street Map"
+      "name": "OpenStreetMap"
     },
     "dutch-nat-parks" : {
       "name": "WFS (Dutch National Parks PDOK)",
