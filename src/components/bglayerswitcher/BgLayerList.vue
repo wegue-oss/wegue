@@ -1,7 +1,7 @@
 <template>
   <v-sheet :color="color" :dark="dark" elevation="8">
     <v-slide-group ref="slideGroup"
-      v-if="bgLayers.length"
+      v-if="displayedLayers.length"
       mandatory
       show-arrows
       class="pa-1"
@@ -9,7 +9,7 @@
       :value="selectedLayer"
     >
       <v-slide-item
-        v-for="layer in bgLayers"
+        v-for="layer in displayedLayers"
         :key="layer.lid"
         :value="layer"
         v-slot:default="{ active, toggle }"
@@ -95,7 +95,7 @@
        */
       onSelectLayer (selLayer) {
         selLayer.setVisible(true);
-        this.bgLayers
+        this.displayedLayers
           .filter(layer => layer !== selLayer)
           .forEach(layer => {
             layer.setVisible(false);
@@ -106,7 +106,7 @@
       /**
        * Reactive property to return the OpenLayers layers marked as 'isBaseLayer'.
        */
-      bgLayers () {
+      displayedLayers () {
         return this.layers
           .filter(layer => layer.get('isBaseLayer'))
           .reverse();
@@ -117,7 +117,7 @@
        * this returns the first in the list of background layers.
        */
       selectedLayer () {
-        return this.bgLayers.find(layer => layer.getVisible());
+        return this.displayedLayers.find(layer => layer.getVisible());
       }
     }
   }

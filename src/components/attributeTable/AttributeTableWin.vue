@@ -9,7 +9,7 @@
       <v-select
         v-model="selLayer"
         class="wgu-vector-layer-select"
-        :items="vectorLayers"
+        :items="displayedLayers"
 		    :item-text="item => item.get('name')"
         dense
         return-object
@@ -90,7 +90,7 @@ export default {
     /**
      * Reactive property to return the OpenLayers vector layers to be shown in the selection menu.
      */
-    vectorLayers () {
+    displayedLayers () {
       return this.layers
         .filter(layer =>
           layer instanceof VectorLayer &&

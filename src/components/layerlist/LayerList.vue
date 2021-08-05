@@ -2,7 +2,7 @@
 
   <v-list>
     <v-list-item class="wgu-layerlist-item" 
-      v-for="layer in fgLayers" 
+      v-for="layer in displayedLayers" 
       :key="layer.lid" 
       @click="onItemClick(layer)">
       <input type="checkbox" 
@@ -56,7 +56,7 @@
        * Reactive property to return the OpenLayers layers to be shown in the control.
        * Remarks: The 'displayInLayerList' attribute should default to true per convention.
        */
-      fgLayers () {
+      displayedLayers () {
         return this.layers
           .filter(layer => layer.get('displayInLayerList') !== false && !layer.get('isBaseLayer'))
           .reverse();
