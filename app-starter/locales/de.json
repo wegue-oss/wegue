@@ -20,7 +20,7 @@
     },
     "earthquakes": {
       "name": "Erdbeben 2012 (Mag 5)",
-      "attributions": "U.S. geologische Untersuchung"
+      "attributions": "U.S. Geological Survey"
     },
     "ahocevar-wms": {
       "name": "WMS (ahocevar)"
