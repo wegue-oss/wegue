@@ -98,14 +98,14 @@ describe('bglayerswitcher/BgLayerList.vue', () => {
       vm.map = map;
       vm.onMapBound();
 
-      expect(vm.bgLayers.length).to.equal(1);
-      const li = vm.bgLayers[0];
+      expect(vm.displayedLayers.length).to.equal(1);
+      const li = vm.displayedLayers[0];
       expect(li).to.equal(layerIn);
       expect(li.getVisible()).to.equal(true);
       expect(vm.selectedLayer).to.equal(layerIn);
     });
 
-    it('bgLayers items are synced with the layer stack', () => {
+    it('displayedLayers items are synced with the layer stack', () => {
       const layerIn = new VectorLayer({
         visible: true,
         isBaseLayer: true,
@@ -122,11 +122,11 @@ describe('bglayerswitcher/BgLayerList.vue', () => {
       vm.map = map;
       vm.onMapBound();
 
-      expect(vm.bgLayers.length).to.equal(1);
+      expect(vm.displayedLayers.length).to.equal(1);
 
       map.addLayer(layerOut);
 
-      expect(vm.bgLayers.length).to.equal(2);
+      expect(vm.displayedLayers.length).to.equal(2);
     });
 
     afterEach(() => {

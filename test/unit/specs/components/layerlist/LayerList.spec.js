@@ -53,13 +53,13 @@ describe('layerlist/LayerList.vue', () => {
       vm.map = map;
       vm.onMapBound();
 
-      expect(vm.fgLayers.length).to.equal(1);
-      const li = vm.fgLayers[0];
+      expect(vm.displayedLayers.length).to.equal(1);
+      const li = vm.displayedLayers[0];
       expect(li).to.equal(layerIn);
       expect(li.getVisible()).to.equal(true);
     });
 
-    it('fgLayers items are synced with the layer stack', () => {
+    it('displayedLayers items are synced with the layer stack', () => {
       const layerIn = new VectorLayer();
       const map = new OlMap({
         layers: [layerIn]
@@ -67,11 +67,11 @@ describe('layerlist/LayerList.vue', () => {
       vm.map = map;
       vm.onMapBound();
 
-      expect(vm.fgLayers.length).to.equal(1);
+      expect(vm.displayedLayers.length).to.equal(1);
 
       map.addLayer(new VectorLayer());
 
-      expect(vm.fgLayers.length).to.equal(2);
+      expect(vm.displayedLayers.length).to.equal(2);
     });
 
     afterEach(() => {
