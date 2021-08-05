@@ -57,13 +57,6 @@ export const LayerFactory = {
    * @return {ol/layer/Base} OL layer instance
    */
   getInstance (lConf, olMap) {
-    // apply LID (Layer ID) if not existent
-    if (!lConf.lid) {
-      // Make a unique layerId from Layer URL so contexts
-      // like permalinks can be reapplied.
-      lConf.lid = btoa(lConf.url).substr(0, 6);
-    }
-
     // create correct layer type
     if (lConf.type === 'WMS') {
       return this.createWmsLayer(lConf);
