@@ -29,11 +29,11 @@
       "name": "Vector Tile Layer"
     },
     "opentopomap": {
-      "name": "Open Topo Map",
+      "name": "OpenTopoMap",
       "attributions": "Map data: <a href=\"https://openstreetmap.org/copyright\">©OpenStreetMap</a>-contributors, SRTM | Map representation: © <a href=\"http://opentopomap.org/\">OpenTopoMap</a> (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC-BY-SA</a>)"
     },
     "osm-bg": {
-      "name": "Open Street Map"
+      "name": "OpenStreetMap"
     },
     "dutch-nat-parks" : {
       "name": "WFS (Dutch National Parks PDOK)",

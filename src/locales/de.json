@@ -12,7 +12,7 @@
       "name": "Ihr Standort"
     },
     "wgu-measure-layer": {
-      "name": "Vermessungs-Layer"
+      "name": "Messergebnisse"
     },
     "wgu-drag-drop-layer" : {
       "name": "Drag/Drop Daten"
@@ -20,7 +20,7 @@
   },
 
   "wgu-toolbar-menu": {
-    "title": "Symbolleiste ausklappen"
+    "title": "Menüleiste ausklappen"
   },
   
   "wgu-attributetable": {
@@ -31,7 +31,7 @@
 
   "wgu-bglayerswitcher": {
     "title": "Hintergrundkarte auswählen",
-    "emptyText": "Keine Hintegrund-Layer verfügbar."
+    "emptyText": "Keine Hintergrund-Layer verfügbar."
   },
 
   "wgu-geocoder": {
