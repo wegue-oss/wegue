@@ -90,6 +90,8 @@ export const LayerFactory = {
       extent: lConf.extent,
       visible: lConf.visible,
       opacity: lConf.opacity,
+      confName: lConf.name,
+      confAttributions: lConf.attributions,
       source: new TileWmsSource({
         url: lConf.url,
         params: {
@@ -184,7 +186,9 @@ export const LayerFactory = {
       style: OlStyleFactory.getInstance(lConf.style),
       columnMapping: lConf.columnMapping,
       hoverable: lConf.hoverable,
-      hoverAttribute: lConf.hoverAttribute
+      hoverAttribute: lConf.hoverAttribute,
+      confName: lConf.name,
+      confAttributions: lConf.attributions
     });
 
     return vector;
@@ -204,6 +208,8 @@ export const LayerFactory = {
       displayInLayerList: lConf.displayInLayerList,
       visible: lConf.visible,
       opacity: lConf.opacity,
+      confName: lConf.name,
+      confAttributions: lConf.attributions,
       source: new XyzSource({
         url: lConf.url,
         tileGrid: lConf.tileGrid,
@@ -229,6 +235,8 @@ export const LayerFactory = {
       displayInLayerList: lConf.displayInLayerList,
       visible: lConf.visible,
       opacity: lConf.opacity,
+      confName: lConf.name,
+      confAttributions: lConf.attributions,
       source: new OsmSource({
         crossOrigin: lConf.crossOrigin
       })
@@ -259,7 +267,9 @@ export const LayerFactory = {
       style: OlStyleFactory.getInstance(lConf.style),
       hoverable: lConf.hoverable,
       hoverAttribute: lConf.hoverAttribute,
-      columnMapping: lConf.columnMapping
+      columnMapping: lConf.columnMapping,
+      confName: lConf.name,
+      confAttributions: lConf.attributions
     });
 
     return vectorLayer;
@@ -287,7 +297,9 @@ export const LayerFactory = {
       }),
       style: OlStyleFactory.getInstance(lConf.style),
       hoverable: lConf.hoverable,
-      hoverAttribute: lConf.hoverAttribute
+      hoverAttribute: lConf.hoverAttribute,
+      confName: lConf.name,
+      confAttributions: lConf.attributions
     });
 
     return vtLayer;

@@ -109,8 +109,6 @@ const migrateAppConfig = function (appConfig) {
     'modules\\.wgu-helpwin\\.htmlContent': 'wgu-helpwin.htmlContent',
     'modules\\.wgu-helpwin\\.infoLinkUrl': 'wgu-helpwin.infoLinkUrl',
     'modules\\.wgu-helpwin\\.infoLinkText': 'wgu-helpwin.infoLinkText',
-    'mapLayers\\[[0-9]+\]\\.name': 'mapLayers.<lid>.name',
-    'mapLayers\\[[0-9]+\]\\.attributions': 'mapLayers.<lid>.attributions',
     'modules\\..*\\.title': '<moduleName>.title'
   };
   /* eslint-enable no-useless-escape */

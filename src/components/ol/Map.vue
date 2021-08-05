@@ -382,25 +382,28 @@ export default {
      * layer attributes, changes to the OpenLayers layer collection to process new layers
      * or after changes to the active locale.
      *
+     * Remarks:
+     * If a layer definition exists in the application context, any 'name' or 'attribution'
+     * property declared there will take precedence over the ones declared in the
+     * language packs.
+     *
      * @param {ol.layer.Layer} OL layer instance
      */
     updateLocalizedLayerProps (layer) {
       const langKey = layer.get('langKey') || layer.get('lid');
-      if (!langKey) {
-        console.warn('Layer does not provide a valid "lid" attribute.');
-        return;
-      }
       const pathLayer = 'mapLayers.' + langKey;
 
       // Update layer name.
       const pathName = pathLayer + '.name';
-      layer.set('name', this.$t(pathName));
+      layer.set('name', layer.get('confName') || this.$t(pathName));
 
       // Update optional layer attributions.
       const pathAttributions = pathLayer + '.attributions';
       const source = layer.getSource();
-      if (source && (typeof source.setAttributions === 'function') && this.$te(pathAttributions)) {
-        source.setAttributions(this.$t(pathAttributions));
+      if (source &&
+         (typeof source.setAttributions === 'function') &&
+         (layer.get('confAttributions') || this.$te(pathAttributions))) {
+        source.setAttributions(layer.get('confAttributions') || this.$t(pathAttributions));
       }
     }
   },
