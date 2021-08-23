@@ -10,12 +10,14 @@ const ViewAnimationUtil = {
   /**
    * Returns the animation object configured in the application context.
    * @returns The animation object.
+   * @private
    */
   getAnimation () {
     const animations = {
+      'pan': PanAnimation,
       'fly': FlyAnimation,
       'bounce': BounceAnimation,
-      'default': BounceAnimation /* BounceAnimation */
+      'default': PanAnimation
     };
 
     const appConfig = Vue.prototype.$appConfig;
@@ -27,8 +29,9 @@ const ViewAnimationUtil = {
    * Returns the configuration object for the animation. If options have been provided by the caller,
    * these options will be returned, otherwise return the options configured in the application
    * context.
-   * @param {Object} options Optional options for the animation.
+   * @param {Object} options Optional configuration object for the animation.
    * @returns An object containing the animation configuration.
+   * @private
    */
   getOptions (options) {
     const appConfig = Vue.prototype.$appConfig;
@@ -57,6 +60,65 @@ const ViewAnimationUtil = {
     this.getAnimation().toExtent(view, extent, completionCallback, this.getOptions(options));
   }
 };
+
+/**
+ * A pan animation.
+ * Remarks: This may also zoom in / zoom out, if a zoom level has been provided or the toExtent method
+ *  is used.
+ * @private
+ */
+const PanAnimation = {
+  /**
+   * Zoom to the given location by using a "pan" animation.
+   * @param {ol.View} view The `ol.View` of the map.
+   * @param {ol.Coordinate} location The destination center point to zoom to.
+   * @param {function(complete)} completionCallback An optional notification that the animation has completed.
+   * @param {Object} options Configuration object for the animation, supported attributes are:
+   * * {Number} duration An optional animation duration.
+   * * {Number} zoom An optional final zoom level.
+   */
+  toLocation (view, location, completionCallback, options) {
+    // Set defaults if arguments are not provided.
+    const duration = options.duration || 3000;
+    const zoom = options.zoom || view.getZoom();
+
+    // Pan / zoom to the location.
+    function callback (complete) {
+      if (completionCallback) {
+        completionCallback(complete);
+      }
+    }
+
+    view.animate({
+      center: location,
+      duration: duration,
+      zoom: zoom
+    }, callback);
+  },
+
+  /**
+   * Zoom to fit the given extent by using a "pan" animation.
+   * @param {ol.View} view The `ol.View` of the map.
+   * @param {ol.Extent} extent The destination extent to zoom to.
+   * @param {function(complete)} completionCallback An optional notification that the animation has completed.
+   * @param {Object} options Configuration object for the animation, supported attributes are:
+   * * {Number} duration An optional animation duration.
+   */
+  toExtent (view, extent, completionCallback, options) {
+    // Set defaults if arguments are not provided.
+    const duration = options.duration || 3000;
+
+    // Then zoom to the given extent.
+    const resolution = view.getResolutionForExtent(extent);
+    const zoom = view.getZoomForResolution(resolution) - 0.2;
+
+    const location = Extent.getCenter(extent);
+    this.toLocation(view, location, completionCallback, {
+      duration: duration,
+      zoom: zoom
+    });
+  }
+}
 
 /**
  * A fly animation.
