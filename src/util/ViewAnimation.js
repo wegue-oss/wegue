@@ -76,11 +76,13 @@ const PanAnimation = {
    * @param {Object} options Configuration object for the animation, supported attributes are:
    * * {Number} duration An optional animation duration.
    * * {Number} zoom An optional final zoom level.
+   * * {Number} maxZoom An optional maximal zoom level.
    */
   toLocation (view, location, completionCallback, options) {
     // Set defaults if arguments are not provided.
     const duration = options.duration || 3000;
     const zoom = options.zoom || view.getZoom();
+    const maxZoom = options.maxZoom || Infinity;
 
     // Pan / zoom to the location.
     function callback (complete) {
@@ -92,7 +94,7 @@ const PanAnimation = {
     view.animate({
       center: location,
       duration: duration,
-      zoom: zoom
+      zoom: Math.min(zoom, maxZoom)
     }, callback);
   },
 
@@ -103,10 +105,12 @@ const PanAnimation = {
    * @param {function(complete)} completionCallback An optional notification that the animation has completed.
    * @param {Object} options Configuration object for the animation, supported attributes are:
    * * {Number} duration An optional animation duration.
+   * * {Number} maxZoom An optional maximal zoom level.
    */
   toExtent (view, extent, completionCallback, options) {
     // Set defaults if arguments are not provided.
     const duration = options.duration || 3000;
+    const maxZoom = options.maxZoom || Infinity;
 
     // Then zoom to the given extent.
     const resolution = view.getResolutionForExtent(extent);
@@ -115,7 +119,8 @@ const PanAnimation = {
     const location = Extent.getCenter(extent);
     this.toLocation(view, location, completionCallback, {
       duration: duration,
-      zoom: zoom
+      zoom: zoom,
+      maxZoom: maxZoom
     });
   }
 }
@@ -135,12 +140,14 @@ const FlyAnimation = {
    * * {Number} duration An optional animation duration.
    * * {Number} zoomOut An optional zoom out level.
    * * {Number} zoom An optional final zoom level.
+   * * {Number} maxZoom An optional maximal zoom level.
    */
   toLocation (view, location, completionCallback, options) {
     // Set defaults if arguments are not provided.
+    const duration = options.duration || 3000;
     const zoomOut = options.zoomOut || view.getZoom() - 1;
     const zoom = options.zoom || view.getZoom();
-    const duration = options.duration || 3000;
+    const maxZoom = options.maxZoom || Infinity;
 
     // The animation consist of 2 simultaneous parts:
     // Zoom out then zoom in, while moving to the center location.
@@ -169,7 +176,7 @@ const FlyAnimation = {
       zoom: zoomOut,
       duration: duration / 2
     }, {
-      zoom: zoom,
+      zoom: Math.min(zoom, maxZoom),
       duration: duration / 2
     }, callback);
   },
@@ -181,10 +188,12 @@ const FlyAnimation = {
    * @param {function(complete)} completionCallback An optional notification that the animation has completed.
    * @param {Object} options Configuration object for the animation, supported attributes are:
    * * {Number} duration An optional animation duration.
+   * * {Number} maxZoom An optional maximal zoom level.
    */
   toExtent (view, extent, completionCallback, options) {
     // Set defaults if arguments are not provided.
     const duration = options.duration || 3000;
+    const maxZoom = options.maxZoom || Infinity;
 
     // Zoom out to have both locations visible
     const extentOut = view.calculateExtent();
@@ -200,7 +209,8 @@ const FlyAnimation = {
     this.toLocation(view, location, completionCallback, {
       duration: duration,
       zoomOut: zoomOut,
-      zoom: zoom
+      zoom: zoom,
+      maxZoom: maxZoom
     });
   }
 };
@@ -229,11 +239,13 @@ const BounceAnimation =
    * @param {Object} options Configuration object for the animation, supported attributes are:
    * * {Number} duration An optional animation duration.
    * * {Number} zoom An optional final zoom level.
+   * * {Number} maxZoom An optional maximal zoom level.
    */
   toLocation (view, location, completionCallback, options) {
     // Set defaults if arguments are not provided.
     const duration = options.duration || 3000;
     const zoom = options.zoom || view.getZoom();
+    const maxZoom = options.maxZoom || Infinity;
 
     // The animation consist of 2 simultaneous parts:
     // Zoom in or out, while moving to the center location.
@@ -260,7 +272,7 @@ const BounceAnimation =
     }, callback);
 
     view.animate({
-      zoom: zoom,
+      zoom: Math.min(zoom, maxZoom),
       duration: duration
     }, callback);
   },
@@ -272,10 +284,12 @@ const BounceAnimation =
    * @param {function(complete)} completionCallback An optional notification that the animation has completed.
    * @param {Object} options Configuration object for the animation, supported attributes are:
    * * {Number} duration An optional animation duration.
+   * * {Number} maxZoom An optional maximal zoom level.
    */
   toExtent (view, extent, completionCallback, options) {
     // Set defaults if arguments are not provided.
     const duration = options.duration || 3000;
+    const maxZoom = options.maxZoom || Infinity;
 
     // Then zoom to the given extent.
     const resolution = view.getResolutionForExtent(extent);
@@ -284,7 +298,8 @@ const BounceAnimation =
     const location = Extent.getCenter(extent);
     this.toLocation(view, location, completionCallback, {
       duration: duration,
-      zoom: zoom
+      zoom: zoom,
+      maxZoom: maxZoom
     });
   }
 };
