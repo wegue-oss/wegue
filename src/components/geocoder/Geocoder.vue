@@ -32,10 +32,11 @@
 </template>
 
 <script>
-  import { Mapable } from '../../mixins/Mapable';
-  import { GeocoderController } from './GeocoderController';
-  import { applyTransform } from 'ol/extent';
-  import { getTransform, fromLonLat } from 'ol/proj';
+  import {Mapable} from '../../mixins/Mapable';
+  import {GeocoderController} from './GeocoderController';
+  import {applyTransform} from 'ol/extent';
+  import {getTransform, fromLonLat} from 'ol/proj';
+  import ViewAnimationUtil from '../../util/ViewAnimation';
 
   export default {
     name: 'wgu-geocoder-input',
@@ -50,7 +51,6 @@
       debug: { type: Boolean, required: false, default: false },
       minChars: { type: Number, required: false, default: 3 },
       queryDelay: { type: Number, required: false, default: 300 },
-      selectZoom: { type: Number, required: false, default: 16 },
       provider: { type: String, required: false, default: 'osm' },
       providerOptions: { type: Object, required: false, default: function () { return {}; } }
 
@@ -163,12 +163,11 @@
           // Result with bounding box.
           // bbox is in EPSG:4326, needs to be transformed to Map Projection (e.g. EPSG:3758)
           const extent = applyTransform(result.boundingbox, getTransform('EPSG:4326', mapProjection));
-          this.map.getView().fit(extent);
+          ViewAnimationUtil.to(this.map.getView(), extent);
         } else {
           // No bbox in result: center on lon/lat from result and zoom in
-          this.map.getView().setZoom(this.selectZoom);
+          ViewAnimationUtil.to(this.map.getView(), coords);
         }
-        this.map.getView().setCenter(coords);
         this.selecting = false;
       }
     },

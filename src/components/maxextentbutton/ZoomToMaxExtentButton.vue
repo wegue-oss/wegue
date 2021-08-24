@@ -10,6 +10,7 @@
 <script>
 
 import { Mapable } from '../../mixins/Mapable';
+import ViewAnimationUtil from '../../util/ViewAnimation';
 
 export default {
   name: 'wgu-zoomtomaxextent-btn',
@@ -22,9 +23,11 @@ export default {
     onClick () {
       // derive correct initial zoom and center
       const initialCenter = this.$appConfig.mapCenter;
-      const initalZoom = this.$appConfig.mapZoom
-      this.map.getView().setCenter(initialCenter);
-      this.map.getView().setZoom(initalZoom);
+      const initalZoom = this.$appConfig.mapZoom;
+      ViewAnimationUtil.to(this.map.getView(), initialCenter, null, {
+        zoom: initalZoom,
+        maxZoom: initalZoom
+      });
     }
   }
 }

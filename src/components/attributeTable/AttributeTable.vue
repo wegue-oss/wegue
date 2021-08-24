@@ -29,6 +29,7 @@ import { Mapable } from '../../mixins/Mapable';
 import LayerUtil from '../../util/Layer';
 import { WguEventBus } from '../../WguEventBus';
 import MapInteractionUtil from '../../util/MapInteraction';
+import ViewAnimationUtil from '../../util/ViewAnimation';
 
 export default {
   name: 'wgu-attributetable',
@@ -54,9 +55,6 @@ export default {
 
     /** If map and table should be synced */
     syncTableMapSelection: { type: Boolean, required: false, default: true },
-
-    /** The maximum zoom level when clicking on a row */
-    maxZoomOnFeature: { type: Number, required: false, default: 15 },
 
     /** A list of column names that should not be displayed. */
     forbiddenColumnNames: {
@@ -226,9 +224,7 @@ export default {
       }
 
       // zoom to feature
-      this.map.getView().fit(foundFeature.getGeometry(), {
-        maxZoom: this.maxZoomOnFeature
-      });
+      ViewAnimationUtil.to(this.map.getView(), foundFeature.getGeometry());
 
       const correspondingInteraction = MapInteractionUtil.getSelectInteraction(this.map, this.layerId);
 
