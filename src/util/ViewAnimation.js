@@ -1,9 +1,10 @@
 import * as Extent from 'ol/extent';
+import Point from 'ol/geom/Point';
+import Geometry from 'ol/geom/Geometry';
 import Vue from 'vue';
 
 /**
- * A collection of pan and bounce animations to zoom an
- * OpenLayers view to a given location or extent.
+ * A collection of view animations to zoom an OpenLayers view to a given location or extent.
  * Inspired by http://openlayers.org/en/latest/examples/animation.html
  */
 const ViewAnimationUtil = {
@@ -39,7 +40,29 @@ const ViewAnimationUtil = {
   },
 
   /**
-   *
+   * Zoom to the given destination.
+   * @param {ol.View} view The `ol.View` of the map.
+   * @param {ol.Coordinate | ol.Extent | ol.geom.Geometry} destination
+   *  The destination coordinate, point, geometry or extent to zoom to.
+   * @param {*} completionCallback An optional notification that the animation has completed.
+   * @param {*} options Optional configuration object for the animation.
+   */
+  to (view, destination, completionCallback, options) {
+    if (destination instanceof Point) {
+      this.toLocation(view, destination.getCoordinates(), completionCallback, options);
+    } else if (destination instanceof Geometry) {
+      this.toExtent(view, destination.getExtent(), completionCallback, options);
+    } else if (Array.isArray(destination) && destination.length === 2) {
+      this.toLocation(view, destination, completionCallback, options);
+    } else if (Array.isArray(destination) && destination.length === 4) {
+      this.toExtent(view, destination, completionCallback, options);
+    } else {
+      console.error('Unsupported type for destination.');
+    }
+  },
+
+  /**
+   * Zoom to the given location.
    * @param {ol.View} view The `ol.View` of the map.
    * @param {ol.Coordinate} location The destination center point to zoom to.
    * @param {function(complete)} completionCallback An optional notification that the animation has completed.
@@ -50,7 +73,7 @@ const ViewAnimationUtil = {
   },
 
   /**
-   *
+   * Zoom to the given extent.
    * @param {ol.View} view The `ol.View` of the map.
    * @param {ol.Extent} extent The destination extent to zoom to.
    * @param {function(complete)} completionCallback An optional notification that the animation has completed.
