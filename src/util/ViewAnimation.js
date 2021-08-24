@@ -15,10 +15,11 @@ const ViewAnimationUtil = {
    */
   getAnimation () {
     const animations = {
+      'none': NoAnimation,
       'pan': PanAnimation,
       'fly': FlyAnimation,
       'bounce': BounceAnimation,
-      'default': PanAnimation
+      'default': NoAnimation
     };
 
     const appConfig = Vue.prototype.$appConfig;
@@ -83,6 +84,56 @@ const ViewAnimationUtil = {
     this.getAnimation().toExtent(view, extent, completionCallback, this.getOptions(options));
   }
 };
+
+/**
+ * No animation.
+ * @private
+ */
+const NoAnimation = {
+  /**
+   * Zoom to the given location by not using animations.
+   * @param {ol.View} view The `ol.View` of the map.
+   * @param {ol.Coordinate} location The destination center point to zoom to.
+   * @param {function(complete)} completionCallback An optional notification that the animation has completed.
+   * @param {Object} options Configuration object for the animation, supported attributes are:
+   * * {Number} zoom An optional final zoom level.
+   * * {Number} maxZoom An optional maximal zoom level.
+   */
+  toLocation (view, location, completionCallback, options) {
+    // Set defaults if arguments are not provided.
+    const zoom = options.zoom || view.getZoom();
+    const maxZoom = options.maxZoom || Infinity;
+
+    // Move to the location.
+    view.fit(new Point(location), {
+      maxZoom: Math.min(zoom, maxZoom),
+      callback: completionCallback
+    })
+  },
+
+  /**
+   * Zoom to fit the given extentby not using animations.
+   * @param {ol.View} view The `ol.View` of the map.
+   * @param {ol.Extent} extent The destination extent to zoom to.
+   * @param {function(complete)} completionCallback An optional notification that the animation has completed.
+   * @param {Object} options Configuration object for the animation, supported attributes are:
+   * * {Number} maxZoom An optional maximal zoom level.
+   */
+  toExtent (view, extent, completionCallback, options) {
+    // Set defaults if arguments are not provided.
+    const maxZoom = options.maxZoom || Infinity;
+
+    // Then zoom to the given extent.
+    const resolution = view.getResolutionForExtent(extent);
+    const zoom = view.getZoomForResolution(resolution) - 0.2;
+
+    const location = Extent.getCenter(extent);
+    this.toLocation(view, location, completionCallback, {
+      zoom: zoom,
+      maxZoom: maxZoom
+    });
+  }
+}
 
 /**
  * A pan animation.
