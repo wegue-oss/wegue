@@ -101,8 +101,8 @@ const NoAnimation = {
    */
   toLocation (view, location, completionCallback, options) {
     // Set defaults if arguments are not provided.
-    const zoom = options.zoom || view.getZoom();
-    const maxZoom = options.maxZoom || Infinity;
+    const zoom = options.zoom ?? view.getZoom();
+    const maxZoom = options.maxZoom ?? Infinity;
 
     // Move to the location.
     view.fit(new Point(location), {
@@ -121,7 +121,7 @@ const NoAnimation = {
    */
   toExtent (view, extent, completionCallback, options) {
     // Set defaults if arguments are not provided.
-    const maxZoom = options.maxZoom || Infinity;
+    const maxZoom = options.maxZoom ?? Infinity;
 
     // Then zoom to the given extent.
     const resolution = view.getResolutionForExtent(extent);
@@ -154,9 +154,9 @@ const PanAnimation = {
    */
   toLocation (view, location, completionCallback, options) {
     // Set defaults if arguments are not provided.
-    const duration = options.duration || 3000;
-    const zoom = options.zoom || view.getZoom();
-    const maxZoom = options.maxZoom || Infinity;
+    const duration = options.duration ?? 3000;
+    const zoom = options.zoom ?? view.getZoom();
+    const maxZoom = options.maxZoom ?? Infinity;
 
     // Pan / zoom to the location.
     function callback (complete) {
@@ -183,8 +183,8 @@ const PanAnimation = {
    */
   toExtent (view, extent, completionCallback, options) {
     // Set defaults if arguments are not provided.
-    const duration = options.duration || 3000;
-    const maxZoom = options.maxZoom || Infinity;
+    const duration = options.duration ?? 3000;
+    const maxZoom = options.maxZoom ?? Infinity;
 
     // Then zoom to the given extent.
     const resolution = view.getResolutionForExtent(extent);
@@ -218,10 +218,10 @@ const FlyAnimation = {
    */
   toLocation (view, location, completionCallback, options) {
     // Set defaults if arguments are not provided.
-    const duration = options.duration || 3000;
-    const zoomOut = options.zoomOut || view.getZoom() - 1;
-    const zoom = options.zoom || view.getZoom();
-    const maxZoom = options.maxZoom || Infinity;
+    const duration = options.duration ?? 3000;
+    const zoomOut = options.zoomOut ?? view.getZoom() - 1;
+    const zoom = options.zoom ?? view.getZoom();
+    const maxZoom = options.maxZoom ?? Infinity;
 
     // The animation consist of 2 simultaneous parts:
     // Zoom out then zoom in, while moving to the center location.
@@ -266,8 +266,8 @@ const FlyAnimation = {
    */
   toExtent (view, extent, completionCallback, options) {
     // Set defaults if arguments are not provided.
-    const duration = options.duration || 3000;
-    const maxZoom = options.maxZoom || Infinity;
+    const duration = options.duration ?? 3000;
+    const maxZoom = options.maxZoom ?? Infinity;
 
     // Zoom out to have both locations visible
     const extentOut = view.calculateExtent();
@@ -317,9 +317,9 @@ const BounceAnimation =
    */
   toLocation (view, location, completionCallback, options) {
     // Set defaults if arguments are not provided.
-    const duration = options.duration || 3000;
-    const zoom = options.zoom || view.getZoom();
-    const maxZoom = options.maxZoom || Infinity;
+    const duration = options.duration ?? 3000;
+    const zoom = options.zoom ?? view.getZoom();
+    const maxZoom = options.maxZoom ?? Infinity;
 
     // The animation consist of 2 simultaneous parts:
     // Zoom in or out, while moving to the center location.
@@ -362,8 +362,8 @@ const BounceAnimation =
    */
   toExtent (view, extent, completionCallback, options) {
     // Set defaults if arguments are not provided.
-    const duration = options.duration || 3000;
-    const maxZoom = options.maxZoom || Infinity;
+    const duration = options.duration ?? 3000;
+    const maxZoom = options.maxZoom ?? Infinity;
 
     // Then zoom to the given extent.
     const resolution = view.getResolutionForExtent(extent);
