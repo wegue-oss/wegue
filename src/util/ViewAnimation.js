@@ -104,11 +104,7 @@ const NoAnimation = {
     const zoom = options.zoom ?? view.getZoom();
     const maxZoom = options.maxZoom ?? Infinity;
 
-    // Move to the location.
-    view.fit(new Point(location), {
-      maxZoom: Math.min(zoom, maxZoom),
-      callback: completionCallback
-    })
+    this.animate(view, location, completionCallback, zoom, maxZoom);
   },
 
   /**
@@ -123,15 +119,27 @@ const NoAnimation = {
     // Set defaults if arguments are not provided.
     const maxZoom = options.maxZoom ?? Infinity;
 
-    // Then zoom to the given extent.
+    // Zoom to the given extent.
     const resolution = view.getResolutionForExtent(extent);
     const zoom = view.getZoomForResolution(resolution) - 0.2;
-
     const location = Extent.getCenter(extent);
-    this.toLocation(view, location, completionCallback, {
-      zoom: zoom,
-      maxZoom: maxZoom
-    });
+
+    this.animate(view, location, completionCallback, zoom, maxZoom);
+  },
+
+  /**
+   * Move to the location.
+   * @param {ol.View} view The `ol.View` of the map.
+   * @param {ol.Coordinate} location The destination center point to zoom to.
+   * @param {function(complete)} completionCallback An optional notification that the animation has completed.
+   * @param {Number} zoom The final zoom level.
+   * @param {Number} maxZoom The maximal zoom level.
+   */
+  animate (view, location, completionCallback, zoom, maxZoom) {
+    view.fit(new Point(location), {
+      maxZoom: Math.min(zoom, maxZoom),
+      callback: completionCallback
+    })
   }
 }
 
@@ -158,18 +166,7 @@ const PanAnimation = {
     const zoom = options.zoom ?? view.getZoom();
     const maxZoom = options.maxZoom ?? Infinity;
 
-    // Pan / zoom to the location.
-    function callback (complete) {
-      if (completionCallback) {
-        completionCallback(complete);
-      }
-    }
-
-    view.animate({
-      center: location,
-      duration: duration,
-      zoom: Math.min(zoom, maxZoom)
-    }, callback);
+    this.animate(view, location, completionCallback, duration, zoom, maxZoom);
   },
 
   /**
@@ -186,16 +183,35 @@ const PanAnimation = {
     const duration = options.duration ?? 3000;
     const maxZoom = options.maxZoom ?? Infinity;
 
-    // Then zoom to the given extent.
+    // Zoom to the given extent.
     const resolution = view.getResolutionForExtent(extent);
     const zoom = view.getZoomForResolution(resolution) - 0.2;
-
     const location = Extent.getCenter(extent);
-    this.toLocation(view, location, completionCallback, {
+
+    this.animate(view, location, completionCallback, duration, zoom, maxZoom);
+  },
+
+  /**
+   * Pan / zoom to the location.
+   * @param {ol.View} view The `ol.View` of the map.
+   * @param {ol.Coordinate} location The destination center point to zoom to.
+   * @param {function(complete)} completionCallback An optional notification that the animation has completed.
+   * @param {Number} duration The animation duration.
+   * @param {Number} zoom The final zoom level.
+   * @param {Number} maxZoom The maximal zoom level.
+   */
+  animate (view, location, completionCallback, duration, zoom, maxZoom) {
+    function callback (complete) {
+      if (completionCallback) {
+        completionCallback(complete);
+      }
+    }
+
+    view.animate({
+      center: location,
       duration: duration,
-      zoom: zoom,
-      maxZoom: maxZoom
-    });
+      zoom: Math.min(zoom, maxZoom)
+    }, callback);
   }
 }
 
@@ -253,8 +269,8 @@ const FlyAnimation = {
     // Then zoom in to the given extent.
     const resolutionIn = view.getResolutionForExtent(extent);
     const zoom = view.getZoomForResolution(resolutionIn) - 0.2;
-
     const location = Extent.getCenter(extent);
+
     this.animate(view, location, completionCallback, duration, zoomOut, zoom, maxZoom);
   },
 
@@ -308,16 +324,6 @@ const FlyAnimation = {
 const BounceAnimation =
 {
   /**
-   * An elastic easing method
-   * (from https://github.com/DmitryBaranovskiy/raphael).
-   * @private
-   */
-  elastic (t) {
-    return Math.pow(2, -10 * t) * Math.sin((t - 0.075) *
-              (2 * Math.PI) / 0.3) + 1;
-  },
-
-  /**
    * Zoom to the given location by using a "bounce" animation.
    * @param {ol.View} view The `ol.View` of the map.
    * @param {ol.Coordinate} location The destination center point to zoom to.
@@ -333,8 +339,52 @@ const BounceAnimation =
     const zoom = options.zoom ?? view.getZoom();
     const maxZoom = options.maxZoom ?? Infinity;
 
-    // The animation consist of 2 simultaneous parts:
-    // Zoom in or out, while moving to the center location.
+    this.animate(view, location, completionCallback, duration, zoom, maxZoom);
+  },
+
+  /**
+   * Zoom to fit the given extent by using a "bounce" animation.
+   * @param {ol.View} view The `ol.View` of the map.
+   * @param {ol.Extent} extent The destination extent to zoom to.
+   * @param {function(complete)} completionCallback An optional notification that the animation has completed.
+   * @param {Object} options Configuration object for the animation, supported attributes are:
+   * * {Number} duration An optional animation duration.
+   * * {Number} maxZoom An optional maximal zoom level.
+   */
+  toExtent (view, extent, completionCallback, options) {
+    // Set defaults if arguments are not provided.
+    const duration = options.duration ?? 3000;
+    const maxZoom = options.maxZoom ?? Infinity;
+
+    // Zoom to the given extent.
+    const resolution = view.getResolutionForExtent(extent);
+    const zoom = view.getZoomForResolution(resolution) - 0.2;
+    const location = Extent.getCenter(extent);
+
+    this.animate(view, location, completionCallback, duration, zoom, maxZoom);
+  },
+
+  /**
+   * An elastic easing method
+   * (from https://github.com/DmitryBaranovskiy/raphael).
+   * @private
+   */
+  elastic (t) {
+    return Math.pow(2, -10 * t) * Math.sin((t - 0.075) *
+              (2 * Math.PI) / 0.3) + 1;
+  },
+
+  /**
+   * The animation consist of 2 simultaneous parts:
+   * Zoom in or out, while moving to the center location.
+   * @param {ol.View} view The `ol.View` of the map.
+   * @param {ol.Coordinate} location The destination center point to zoom to.
+   * @param {function(complete)} completionCallback An optional notification that the animation has completed.
+   * @param {Number} duration The animation duration.
+   * @param {Number} zoom The final zoom level.
+   * @param {Number} maxZoom The maximal zoom level.
+   */
+  animate (view, location, completionCallback, duration, zoom, maxZoom) {
     var parts = 2;
     var finished = false;
 
@@ -361,32 +411,6 @@ const BounceAnimation =
       zoom: Math.min(zoom, maxZoom),
       duration: duration
     }, callback);
-  },
-
-  /**
-   * Zoom to fit the given extent by using a "bounce" animation.
-   * @param {ol.View} view The `ol.View` of the map.
-   * @param {ol.Extent} extent The destination extent to zoom to.
-   * @param {function(complete)} completionCallback An optional notification that the animation has completed.
-   * @param {Object} options Configuration object for the animation, supported attributes are:
-   * * {Number} duration An optional animation duration.
-   * * {Number} maxZoom An optional maximal zoom level.
-   */
-  toExtent (view, extent, completionCallback, options) {
-    // Set defaults if arguments are not provided.
-    const duration = options.duration ?? 3000;
-    const maxZoom = options.maxZoom ?? Infinity;
-
-    // Then zoom to the given extent.
-    const resolution = view.getResolutionForExtent(extent);
-    const zoom = view.getZoomForResolution(resolution) - 0.2;
-
-    const location = Extent.getCenter(extent);
-    this.toLocation(view, location, completionCallback, {
-      duration: duration,
-      zoom: zoom,
-      maxZoom: maxZoom
-    });
   }
 };
 
