@@ -4,7 +4,6 @@ import { shallowMount } from '@vue/test-utils';
 const moduleProps = {
   moduleName: 'my-module',
   icon: 'my-icon',
-  title: 'my-title',
   win: 'floating'
 }
 
@@ -43,7 +42,6 @@ describe('modulecore/ModuleCard.vue', () => {
     it('has correct props', () => {
       expect(comp.vm.moduleName).to.equal('my-module');
       expect(comp.vm.icon).to.equal('my-icon');
-      expect(comp.vm.title).to.equal('my-title');
       expect(comp.vm.win).to.equal('floating');
     });
 

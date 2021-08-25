@@ -2,10 +2,10 @@
 
   <v-btn-toggle v-model="measureTypeData" mandatory>
      <v-btn large value="distance">
-       Distance
+       {{ $t("wgu-measuretool.distance") }}
      </v-btn>
      <v-btn large value="area">
-       Area
+       {{ $t("wgu-measuretool.area") }}
      </v-btn>
    </v-btn-toggle>
 

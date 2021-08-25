@@ -6,7 +6,7 @@
   <v-data-table
     dense
     :loading="loading"
-    :loading-text="loadingText"
+    :loading-text="$t('wgu-attributetable.loadingText')"
     :headers="headers"
     :items="records"
     mobile-breakpoint="0"
@@ -36,9 +36,6 @@ export default {
   props: {
     /** The ID of the vector layer to display */
     layerId: {type: String, required: false, default: null},
-
-    /** The loading text while the table is waiting for records */
-    loadingText: {type: String, required: false, default: 'Loading... Please move to an area where the layer is visible'},
 
     /** The name of the unique feature identifier */
     uniqueRecordKeyName: {type: String, required: false, default: 'fid'},

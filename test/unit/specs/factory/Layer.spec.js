@@ -55,7 +55,6 @@ describe('LayerFactory', () => {
       const layerConf = {
         'type': 'WMS',
         'lid': 'ahocevar-wms',
-        'name': 'WMS (ahocevar)',
         'format': 'image/png',
         'layers': 'topp:states',
         'url': 'https://ahocevar.com/geoserver/wms',
@@ -76,7 +75,6 @@ describe('LayerFactory', () => {
       const layerConf = {
         'type': 'WFS',
         'lid': 'a-wfs',
-        'name': 'Foo',
         'url': 'https://a-wfs-url.de',
         'typeName': 'foo:tn',
         'version': '2.0.0',
@@ -85,7 +83,6 @@ describe('LayerFactory', () => {
         },
         'projection': 'EPSG:3857',
         'visible': true,
-        'attributions': 'An attribution',
         'selectable': false
       };
       const olMap = new Map({
@@ -104,7 +101,6 @@ describe('LayerFactory', () => {
       const layerConf = {
         'type': 'XYZ',
         'lid': 'a-xyz-layer',
-        'name': 'foo bar',
         'visibility': true,
         'transparent': true,
         'displayInLayerList': false
@@ -118,7 +114,6 @@ describe('LayerFactory', () => {
       const layerConf = {
         'type': 'OSM',
         'lid': 'a-osm-layer',
-        'name': 'OSMOSM',
         'visibility': true,
         'transparent': true,
         'displayInLayerList': false
@@ -132,14 +127,12 @@ describe('LayerFactory', () => {
       const layerConf = {
         'type': 'VECTOR',
         'lid': 'earthquakes',
-        'name': 'Earthquakes 2012 (Mag 5)',
         'url': './static/data/2012_Earthquakes_Mag5.kml',
         'formatConfig': {
           'extractStyles': false
         },
         'format': 'KML',
         'visible': true,
-        'attributions': 'U.S. Geological Survey',
         'selectable': true,
         'hoverable': true,
         'hoverAttribute': 'name'
@@ -152,7 +145,6 @@ describe('LayerFactory', () => {
     it('createVectorTileLayer returns correct layer instance', () => {
       const layerConf = {
         'type': 'VECTORTILE',
-        'name': 'Vector Tile Layer',
         'url': 'https://ahocevar.com/geoserver/gwc/service/tms/1.0.0/ne:ne_10m_admin_0_countries@EPSG%3A900913@pbf/{z}/{x}/{-y}.pbf',
         'format': 'MVT',
         'visible': false,

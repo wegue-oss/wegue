@@ -1,0 +1,93 @@
+{
+  "app": {
+    "title": "Vue.js / OpenLayers WebGIS",
+    "browserTitle": "Wegue Demo Anwendung",
+    "footerTextLeft": "Powered by <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>",
+    "footerTextRight": "meggsimum",
+    "logo": "App Logo"
+  },
+
+  "mapLayers": {
+    "wgu-geolocator-layer": {
+      "name": "Ihr Standort"
+    },
+    "wgu-measure-layer": {
+      "name": "Messergebnisse"
+    },
+    "wgu-drag-drop-layer" : {
+      "name": "Drag/Drop Daten"
+    }
+  },
+
+  "wgu-toolbar-menu": {
+    "title": "Menüleiste ausklappen"
+  },
+  
+  "wgu-attributetable": {
+    "title": "Attribut Tabelle",
+    "selectorLabel": "Layer auswählen",
+    "loadingText": "Lade... Bitte ein Gebiet auswählen, so dass der Layer sichtbar ist"
+  },
+
+  "wgu-bglayerswitcher": {
+    "title": "Hintergrundkarte auswählen",
+    "emptyText": "Keine Hintergrund-Layer verfügbar."
+  },
+
+  "wgu-geocoder": {
+    "title": "Adress-Suche",
+    "placeHolder": "Adresse suchen"
+  },
+
+  "wgu-geolocator": {
+    "title": "Mein Standort"
+  },
+
+  "wgu-helpwin": {
+    "title": "Hilfe",
+    "textTitle": "Über Wegue",
+    "htmlContent": "<b>WebGIS basierend auf OpenLayers und Vue.js</b></br>Vorlagen und wiederverwertbare Komponenten für Web-Kartenanwendungen mit OpenLayers und Vue.js",
+    "infoLinkUrl": "http://wegue.org/",
+    "infoLinkText": "Mehr Informationen"
+  },
+
+  "wgu-infoclick": {
+    "title": "Standortinformation",
+    "mapClick": "Auf die Karte klicken, um Standortinformationen anzuzeigen.",
+    "mediaClick": "Ein Feature auf der Karte auswählen, um zugehörige Medieninformationen anzuzeigen.",
+    "mediaInfoLinkText": null
+  },
+
+  "wgu-layerlist": {
+    "title": "Layer" 
+  },
+
+  "wgu-maprecorder": {
+    "title": "Videoaufnahme",
+    "options": "Optionen",
+    "videoFormat": "Videoformat",
+    "frameRate": "Bildrate (Bilder/s)",
+    "bitRate": "Bitrate (MBits/s)",
+    "fileName": "Dateiname",
+    "error": "Starten der Aufnahme fehlgeschlagen."
+  },
+
+  "wgu-zoomtomaxextent": {
+    "title": "Kartenausschnitt zurücksetzen"
+  },
+
+  "wgu-measuretool": {
+    "title": "Messen",
+    "distance": "Entfernung",
+    "length": "Länge",
+    "area": "Fläche",
+    "lengthKm": "{0} km",
+    "lengthMeter": "{0} m",
+    "areaSquareKm": "{0} km²",
+    "areaSquareMeter": "{0} m²"
+  },
+
+  "wgu-localeswitcher": {
+    "title": "Spracheinstellungen"
+  }
+}

@@ -87,3 +87,10 @@ html {
   left: 100%; 
   visibility: visible
 }
+
+/* Temporary fix for buggy word-breaking in vuetify card texts and titles.
+  This will go away in a future vuetify version - 
+  see https://github.com/vuetifyjs/vuetify/issues/9130 */
+.v-card__text, .v-card__title {
+  word-break: normal;
+}

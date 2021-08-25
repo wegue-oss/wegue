@@ -4,7 +4,6 @@
       :moduleName="moduleName"
       class="wgu-measurewin" 
       :icon="icon" 
-      :title="title"
       v-on:visibility-change="show">
 
       <v-card-title primary-title>
@@ -39,8 +38,7 @@
     },
     mixins: [Mapable],
     props: {
-      icon: {type: String, required: false, default: 'photo_size_select_small'},
-      title: {type: String, required: false, default: 'Measure'}
+      icon: {type: String, required: false, default: 'photo_size_select_small'}
     },
     data () {
       return {

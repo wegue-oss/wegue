@@ -3,28 +3,25 @@
     :moduleName="moduleName"
     class="wgu-attributetable-win" 
     :icon="icon" 
-    :title="title"
     v-on:visibility-change="show">
 
     <template v-slot:wgu-win-toolbar>
       <v-select
-        v-model="selectedItem"
+        v-model="selLayer"
         class="wgu-vector-layer-select"
-        :items="layerItems"
-        item-text="layerName"
-        item-value="lid"
+        :items="displayedLayers"
+		    :item-text="item => item.get('name')"
         dense
         return-object
         hide-details
-        @input="handleLayerSelect"
-        :label="selectorLabel"
+        :label="$t('wgu-attributetable.selectorLabel')"
         ></v-select>
     </template>
   
     <wgu-attributetable
-      v-if="layerId"
+      v-if="selLayer"
       v-resize="onResize"
-      :layerId="layerId"
+      :layerId="selLayer.get('lid')"
       :syncTableMapSelection="syncTableMapSelection"
     >
     </wgu-attributetable>
@@ -43,16 +40,13 @@ export default {
 
   props: {
     icon: {type: String, required: false, default: 'table_chart'},
-    title: {type: String, required: false, default: 'Attribute Table'},
-    selectorLabel: {type: String, required: false, default: 'Choose a layer'},
     syncTableMapSelection: {type: Boolean, required: false, default: false}
   },
   data () {
     return {
       moduleName: 'wgu-attributetable',
-      layerId: null,
-      layerItems: null,
-      selectedItem: null
+      layers: [],
+      selLayer: null
     }
   },
   mixins: [Mapable],
@@ -85,34 +79,24 @@ export default {
     },
 
     /**
-     * Store selected layerId in the respective
-     * variable of the component.
+     * This function is executed, after the map is bound (see mixins/Mapable).
+     * Bind to the layers from the OpenLayers map.
      */
-    handleLayerSelect () {
-      this.layerId = this.selectedItem.lid;
-    },
     onMapBound () {
-      this.populateLayerItems();
-    },
+      this.layers = this.map.getLayers().getArray();
+    }
+  },
+  computed: {
     /**
-     * Finds vector layers and adds them to
-     * the selection menu.
+     * Reactive property to return the OpenLayers vector layers to be shown in the selection menu.
      */
-    populateLayerItems () {
-      let layerItems = [];
-
-      const mapLayers = this.map.getLayers();
-      mapLayers.forEach(layer => {
-        if (layer instanceof VectorLayer &&
-            layer.get('lid') !== 'measure-layer') {
-          layerItems.push({
-            layerName: layer.get('name'),
-            lid: layer.get('lid')
-          });
-        }
-      });
-
-      this.layerItems = layerItems
+    displayedLayers () {
+      return this.layers
+        .filter(layer =>
+          layer instanceof VectorLayer &&
+          layer.get('lid') !== 'wgu-measure-layer'
+        )
+        .reverse();
     }
   }
 };

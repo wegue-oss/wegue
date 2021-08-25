@@ -16,7 +16,6 @@ describe('bglayerswitcher/BgLayerSwitcher.vue', () => {
       expect(comp.vm.color).to.equal('red darken-3');
       expect(comp.vm.icon).to.equal('map');
       expect(comp.vm.dark).to.equal(true);
-      expect(comp.vm.emptyText).to.equal('No background layers available.');
       expect(comp.vm.imageWidth).to.equal(152);
       expect(comp.vm.imageHeight).to.equal(114);
     });

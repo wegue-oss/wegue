@@ -143,6 +143,7 @@ export default {
     });
 
     // create layers from config and add them to map
+    this.registerLayerEvents();
     const layers = this.createLayers();
     this.map.getLayers().extend(layers);
 
@@ -186,6 +187,23 @@ export default {
       });
 
       return layers;
+    },
+
+    /**
+     * Hook up events to process newly added and modified OL layers.
+     * This is currently used to update locale specific layer properties.
+     */
+    registerLayerEvents () {
+      const layers = this.map.getLayers();
+      layers.on('add', evt => {
+        const layer = evt.element;
+        this.updateLocalizedLayerProps(evt.element);
+        layer.on('propertychange', evt => {
+          if (evt.key === 'lid' || evt.key === 'langKey') {
+            this.updateLocalizedLayerProps(evt.target)
+          }
+        })
+      })
     },
 
     /**
@@ -346,8 +364,10 @@ export default {
       const vectorSource = new VectorSource({});
       const vectorLayer = new VectorLayer({
         // random unique layer ID
-        lid: 'wegue-drag-drop-' + (Math.random() * 1000000).toFixed(0),
-        name: mapDdConf.layerName || 'Drag/Drop Data',
+        // For localization the randomized layer ID cannot be used, therefore map it to a fixed key
+        // which will be part of the language path ('mapLayers.wgu-drag-drop-layer')
+        lid: 'wgu-drag-drop-layer-' + (Math.random() * 1000000).toFixed(0),
+        langKey: 'wgu-drag-drop-layer',
         wegueDragDropLayer: true,
         source: vectorSource,
         displayInLayerList: mapDdConf.displayInLayerList
@@ -355,6 +375,47 @@ export default {
       this.map.addLayer(vectorLayer);
 
       return vectorLayer;
+    },
+
+    /**
+     * Updates locale specific layer properties. This is typically invoked after changes to
+     * layer attributes, changes to the OpenLayers layer collection to process new layers
+     * or after changes to the active locale.
+     *
+     * Remarks:
+     * If a layer definition exists in the application context, any 'name' or 'attribution'
+     * property declared there will take precedence over the ones declared in the
+     * language packs.
+     *
+     * @param {ol.layer.Layer} OL layer instance
+     */
+    updateLocalizedLayerProps (layer) {
+      const langKey = layer.get('langKey') || layer.get('lid');
+      const pathLayer = 'mapLayers.' + langKey;
+
+      // Update layer name.
+      const pathName = pathLayer + '.name';
+      layer.set('name', layer.get('confName') || this.$t(pathName));
+
+      // Update optional layer attributions.
+      const pathAttributions = pathLayer + '.attributions';
+      const source = layer.getSource();
+      if (source &&
+         (typeof source.setAttributions === 'function') &&
+         (layer.get('confAttributions') || this.$te(pathAttributions))) {
+        source.setAttributions(layer.get('confAttributions') || this.$t(pathAttributions));
+      }
+    }
+  },
+  watch: {
+    /**
+     * Watch for locale changes and update language specific layer attributes.
+     */
+    '$i18n.locale': function () {
+      const layers = this.map.getLayers();
+      layers.forEach(layer => {
+        this.updateLocalizedLayerProps(layer);
+      });
     }
   }
 

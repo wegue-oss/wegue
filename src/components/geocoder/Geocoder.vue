@@ -8,7 +8,7 @@
       v-model="selected"
       :autofocus="autofocus"
       :items="resultItems"
-      :label="placeHolder"
+      :label="$t('wgu-geocoder.placeHolder')"
       :clearable="clearable"
       :dark="dark"
       :color="dark ? 'white': ''"
@@ -20,7 +20,8 @@
 
   <v-toolbar-items>
 
-    <v-btn @click='toggle()' icon :dark="dark" >
+    <v-btn @click='toggle()' icon :dark="dark"
+      :title="$t('wgu-geocoder.title')">
       <v-icon medium>{{icon}}</v-icon>
     </v-btn>
 
@@ -50,7 +51,6 @@
       minChars: {type: Number, required: false, default: 3},
       queryDelay: {type: Number, required: false, default: 300},
       selectZoom: {type: Number, required: false, default: 16},
-      placeHolder: {type: String, required: false, default: 'Search for an address'},
       provider: {type: String, required: false, default: 'osm'},
       providerOptions: {type: Object, required: false, default: function () { return {}; }}
 

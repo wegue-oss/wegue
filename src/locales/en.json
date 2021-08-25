@@ -1,0 +1,93 @@
+{
+  "app": {
+    "title": "Vue.js / OpenLayers WebGIS",
+    "browserTitle": "Wegue Demo App",
+    "footerTextLeft": "Powered by <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>",
+    "footerTextRight": "meggsimum",
+    "logo": "App Logo"
+  },
+
+  "mapLayers": {
+    "wgu-geolocator-layer": {
+      "name": "Current Position"
+    },
+    "wgu-measure-layer": {
+      "name": "Measure Layer"
+    },
+    "wgu-drag-drop-layer" : {
+      "name": "Drag/Drop Data"
+    }
+  },
+  
+  "wgu-toolbar-menu": {
+    "title": "Open toolbar menu"
+  },
+
+  "wgu-attributetable": {
+    "title": "Attribute Table",
+    "selectorLabel": "Choose a layer",
+    "loadingText": "Loading... Please move to an area where the layer is visible"
+  },
+
+  "wgu-bglayerswitcher": {
+    "title": "Change background map",
+    "emptyText": "No background layers available."
+  },
+
+  "wgu-geocoder": {
+    "title": "Address Search",
+    "placeHolder": "Search for an address"
+  },
+
+  "wgu-geolocator": {
+    "title": "Geolocation"
+  },
+
+  "wgu-helpwin": {
+    "title": "About",
+    "textTitle": "About Wegue",
+    "htmlContent": "<b>WebGIS with OpenLayers and Vue.js</b> Template and re-usable components for webmapping applications with OpenLayers and Vue.js",
+    "infoLinkUrl": "http://wegue.org/",
+    "infoLinkText": "More info"
+  },
+
+  "wgu-infoclick": {
+    "title": "Map Click Info",
+    "mapClick": "Click on the map to get information for the clicked map position.",    
+    "mediaClick": "Click on a feature on the map to show connected media information.",
+    "mediaInfoLinkText": null
+  },
+
+  "wgu-layerlist": {
+    "title": "Layers" 
+  },
+
+  "wgu-maprecorder": {
+    "title": "Map recorder",
+    "options": "Options",
+    "videoFormat": "Video format",
+    "frameRate": "Frame rate (frames/s)",
+    "bitRate": "Bit rate (MBits/s)",
+    "fileName": "Filename",
+    "error": "Failed to start recording."
+  },
+  
+  "wgu-zoomtomaxextent": {
+    "title": "Reset Map Extent"
+  },
+
+  "wgu-measuretool": {
+    "title": "Measure",
+    "distance": "Distance",
+    "length": "Length",
+    "area": "Area",
+    "lengthKm": "{0} km",
+    "lengthMeter": "{0} m",
+    "areaSquareKm": "{0} km²",
+    "areaSquareMeter": "{0} m²"
+  },
+
+  "wgu-localeswitcher": {
+    "title": "Language Settings"
+  }
+}

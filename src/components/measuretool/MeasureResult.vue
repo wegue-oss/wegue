@@ -2,10 +2,10 @@
 
   <div class="">
     <div class="measure-result">
-      LENGTH: {{distance}}
+      {{ $t("wgu-measuretool.length") }}: {{distance}}
     </div>
     <div class="measure-result">
-      AREA: {{area}}
+      {{ $t("wgu-measuretool.area") }}: {{area}}
     </div>
   </div>
 
@@ -54,11 +54,11 @@
         const length = getLength(line);
         let output;
         if (length > 100) {
-          output = (Math.round(length / 1000 * 100) / 100) +
-              ' ' + 'km';
+          output = this.$t('wgu-measuretool.lengthKm',
+            [Math.round(length / 1000 * 100) / 100]);
         } else {
-          output = (Math.round(length * 100) / 100) +
-              ' ' + 'm';
+          output = this.$t('wgu-measuretool.lengthMeter',
+            [Math.round(length * 100) / 100]);
         }
         return output;
       },
@@ -71,11 +71,11 @@
         const area = getArea(polygon);
         let output;
         if (area > 10000) {
-          output = (Math.round(area / 1000000 * 100) / 100) +
-              ' ' + 'km²';
+          output = this.$t('wgu-measuretool.areaSquareKm',
+            [Math.round(area / 1000000 * 100) / 100]);
         } else {
-          output = (Math.round(area * 100) / 100) +
-              ' ' + 'm²';
+          output = this.$t('wgu-measuretool.areaSquareMeter',
+            [Math.round(area * 100) / 100]);
         }
         return output;
       }

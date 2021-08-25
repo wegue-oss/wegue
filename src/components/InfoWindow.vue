@@ -1,3 +1,8 @@
+<!-- TODO 
+  This component is no longer in use,
+  if we decide to revive this, i18n internationalization has to be provided 
+-->
+
 <template>
   <v-navigation-drawer
        class="pb-0 wgu-infowindow"

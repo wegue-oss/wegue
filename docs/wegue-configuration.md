@@ -8,16 +8,13 @@ This describes the Wegue application configuration, which is modelled as JSON do
 
 | Property           | Meaning   | Example |
 |--------------------|:---------:|---------|
-| title              | Title shown in the top toolbar of the application | `"title": "A Wegue WebGIS App"` |
-| browserTitle       | HTML document title that is shown in the browser title bar or a browser page tab | `"browserTitle": "Wegue Demo App"` |
 | baseColor          | Main colour of the UI elements | `"baseColor": "red darken-3"` or `"baseColor": "#ff3388"` |
 | logo               | URL to an image shown as application logo | ` "logo": "https://dummyimage.com/100x100/aaa/fff&text=Wegue"`
 | logoWidth          | Width of the application logo defined in `logo` | `"logoWidth": "200"`|
 | logoHeight         | Height of the application logo defined in `logo` | `"logoWidth": "100"` |
 | logoSize           | Squared size of the application logo defined in `logo`. Only has an effect if `logoWidth` and `logoHeight` are **not** set. Otherwise these will overwrite the `logoSize` setting. | `"logoSize": "100"` |
-| footerTextLeft     | Text or HTML string to be displayed in the left side of the toolbar | `"footerTextLeft": "Powered by <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>"` |
-| footerTextRight    | Text or HTML string to be displayed in the right side of the toolbar | `"footerTextRight": "meggsimum"` |
 | showCopyrightYear  | Boolean value, whether the copyright year should be shown on the right side of the toolbar | `"showCopyrightYear": true` or `"showCopyrightYear": false` |
+| lang | Configuration object for language settings of the application | See [lang](wegue-configuration?id=lang)
 | **mapZoom**        | Initial zoom level of the map | `"mapZoom": 2` |
 | **mapCenter**      | Initial center of the map in map projection | `"mapCenter": [0, 0]` |
 | mapProjection      | Configuration object for CRS / projection used for the map | see [mapProjection](wegue-configuration?id=mapprojection) |
@@ -86,7 +83,7 @@ In a Layer configuration a specific tilegrid can be refered to as follows, using
     }
 ```
 
-## mapGeodataDragDop
+### mapGeodataDragDop
 
 Setting the property `mapGeodataDragDop` in the main Wegue configuration will enable geodata file drag/drop functionality on the map.
 
@@ -98,7 +95,6 @@ The following configurations can be set:
 | zoomToData         | Enable automatic zoom to the extent of the uploaded / dropped geodata. Defaults to `false` | `"zoomToData": true` |
 | replaceData        | Default behaviour is that a newly dropped data set will replace an existing one. By setting this property to `true` a separate layer will be created for each dropped geodata file | `"replaceData": true` |
 | displayInLayerList | List the layer(s) showing dropped data in the LayerList UI. Defaults to `true`  | `"displayInLayerList": false` |
-| layerName          | Name for the layer(s) showing dropped data. Will be visible in the LayerList UI. Defaults to `"Drag/Drop Data"`  | `"layerName": "My uploaded geodata"` |
 Below is an example for such a configuration object:
 
 ```
@@ -106,9 +102,29 @@ Below is an example for such a configuration object:
       "formats": ["GeoJSON", "KML"],
       "zoomToData": true,
       "replaceData": true,
-      "displayInLayerList": true,
-      "layerName": "Uploaded Data"
+      "displayInLayerList": true
     }
+```
+
+### lang
+
+Wegue comes with multi-language support and currently supplies 2 language packs for English (`en`) and German (`de`). Languages supported by the application can be configured via the `lang` property. Wegue will automatically detect the users preferred languages from the browser settings and choose the most appropriate match. If no languages are configured, Wegue will default to English.
+
+
+| Property           | Meaning   | Example |
+|--------------------|:---------:|---------|
+| supported          | Supported languages of the application. This is a set of key value pairs containing the language code as a key and a friendly name for the language as a value. | `"supported": {"en": "English", "de": "Deutsch"}`
+| fallback           | The language code of the language to fall back to, when the users preferred languages are not among the supported ones. | `"fallback": "en"`
+
+Below is an example for such a configuration object:
+```
+"lang": {
+    "supported": {
+      "en": "English",
+      "de": "Deutsch"
+    },
+    "fallback": "en"
+  }
 ```
 
 ## Example configuration
@@ -118,18 +134,21 @@ Example configurations can be found in the `app-starter/static` directory. Below
 ```json
 {
 
-  "title": "Vue.js / OpenLayers WebGIS",
-  "browserTitle": "Wegue Demo App",
-
   "baseColor": "red darken-3",
 
   "logo": "https://dummyimage.com/100x100/aaa/fff&text=Wegue",
   "logoWidth": "100",
   "logoHeight": "100",
 
-  "footerTextLeft": "Powered by <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>",
-  "footerTextRight": "meggsimum",
   "showCopyrightYear": true,
+
+  "lang": {
+    "supported": {
+      "en": "English",
+      "de": "Deutsch"
+    },
+    "fallback": "en"
+  },
 
   "mapZoom": 2,
   "mapCenter": [0, 0],
@@ -137,8 +156,7 @@ Example configurations can be found in the `app-starter/static` directory. Below
     "formats": ["GeoJSON", "KML"],
     "zoomToData": true,
     "replaceData": true,
-    "displayInLayerList": true,
-    "layerName": "Uploaded Data"
+    "displayInLayerList": true
   },
 
   "permalink": {
@@ -155,7 +173,6 @@ Example configurations can be found in the `app-starter/static` directory. Below
     {
       "type": "VECTOR",
       "lid": "Shops",
-      "name": "Shops DaSchau",
       "url": "./static/data/shops-dannstadt.geojson",
       "formatConfig": {
       },
@@ -194,7 +211,6 @@ Example configurations can be found in the `app-starter/static` directory. Below
     {
       "type": "WFS",
       "lid": "gas-wfs",
-      "name": "Gas Stations WFS",
       "url": "https://ows-demo.terrestris.de/geoserver/osm/wfs",
       "typeName": "osm:osm-fuel",
       "version": "2.0.0",
@@ -210,7 +226,6 @@ Example configurations can be found in the `app-starter/static` directory. Below
         "font": "normal 30px Material Icons",
         "fillColor": "blue"
       },
-      "attributions": "© <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors.",
       "columnMapping": {
         "name": "Name"
       },
@@ -225,14 +240,12 @@ Example configurations can be found in the `app-starter/static` directory. Below
     {
       "type": "VECTOR",
       "lid": "earthquakes",
-      "name": "Earthquakes 2012 (Mag 5)",
       "url": "./static/data/2012_Earthquakes_Mag5.kml",
       "formatConfig": {
         "extractStyles": false
       },
       "format": "KML",
       "visible": true,
-      "attributions": "U.S. Geological Survey",
       "selectable": true,
       "hoverable": true,
       "hoverAttribute": "name",
@@ -253,7 +266,6 @@ Example configurations can be found in the `app-starter/static` directory. Below
     {
       "type": "WMS",
       "lid": "ahocevar-wms",
-      "name": "WMS (ahocevar)",
       "format": "image/png",
       "layers": "topp:states",
       "url": "https://ahocevar.com/geoserver/wms",
@@ -268,7 +280,7 @@ Example configurations can be found in the `app-starter/static` directory. Below
 
     {
       "type": "VECTORTILE",
-      "name": "Vector Tile Layer",
+      "lid": "ahocevar-vectortyle",
       "url": "https://ahocevar.com/geoserver/gwc/service/tms/1.0.0/ne:ne_10m_admin_0_countries@EPSG%3A900913@pbf/{z}/{x}/{-y}.pbf",
       "format": "MVT",
       "visible": false,
@@ -281,9 +293,7 @@ Example configurations can be found in the `app-starter/static` directory. Below
 
     {
       "type": "XYZ",
-      "name": "OpenTopoMap",
       "url": "https://tile.opentopomap.org/{z}/{x}/{y}.png",
-      "attributions": "Map data: <a href=\"https://openstreetmap.org/copyright\">©OpenStreetMap</a>-contributors, SRTM | Map representation (Kartendarstellung): © <a href=\"http://opentopomap.org/\">OpenTopoMap</a> (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC-BY-SA</a>)",
       "lid": "opentopomap",
       "isBaseLayer": true,
       "visible": false,
@@ -293,7 +303,6 @@ Example configurations can be found in the `app-starter/static` directory. Below
     {
       "type": "OSM",
       "lid": "osm-bg",
-      "name": "OSM",
       "isBaseLayer": true,
       "visible": true,
       "crossOrigin": "anonymous"
@@ -331,7 +340,8 @@ Example configurations can be found in the `app-starter/static` directory. Below
       "initPos": {
         "left": 8,
         "top": 74
-      }
+      },
+      "showMedia": false
     },
     "wgu-geocoder": {
       "target": "toolbar",
@@ -340,7 +350,6 @@ Example configurations can be found in the `app-starter/static` directory. Below
       "queryDelay": 200,
       "selectZoom": 16,
       "debug": false,
-      "placeHolder": "Search address",
       "provider": "osm",
       "providerOptions": {
         "lang": "en-US",
@@ -367,12 +376,7 @@ Example configurations can be found in the `app-starter/static` directory. Below
       "target": "toolbar",
       "win": "floating",
       "icon": "help",
-      "darkLayout": true,
-      "title": "About",
-      "textTitle": "About Wegue",
-      "htmlContent": "<b>WebGIS with OpenLayers and Vue.js</b> Template and re-usable components for webmapping applications with OpenLayers and Vue.js",
-      "infoLinkText": "More Info",
-      "infoLinkUrl": "http://wegue.org/"
+      "darkLayout": true
     },
     "wgu-geolocator": {
       "target": "toolbar",
@@ -384,6 +388,10 @@ Example configurations can be found in the `app-starter/static` directory. Below
       "icon": "table_chart",
       "darkLayout": true,
       "syncTableMapSelection": true
+    },
+    "wgu-localeswitcher": {
+      "target": "toolbar",
+      "darkLayout": true
     }
   }
 }

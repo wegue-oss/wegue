@@ -10,12 +10,12 @@ The following properties can be applied to all map layer types
 |--------------------|:---------:|---------|
 | **type**           |  Indicator which layer type is configured |  |
 | **lid**            |  Unique identifier for the layer | `"lid": "my-super-wms-layer"`  |
-| **name**           |  Human readable name for the layer, used e.g. in the LayerList | `"name": "My super WMS"` |
 | projection         |  The projection of the layer. Has to be defined in `projectionDefs` if not `EPSG:4326` or `EPSG:3857`. if not set the projection of the map is used | `"projection": "EPSG:3857"` |
+| name               |  Human readable name for the layer, used e.g. in the LayerList. This setting will override the layer name declared in the language packs. | `"name": "My super WMS"` |
 | isBaseLayer        | Boolean value, whether the layer should be a background layer or not. Background layers will be available from the background layer selection button on the map. | `"isBaseLayer": false` |
 | visible            | Boolean value, whether the layer should be initially visible | `"visible": false` |
 | displayInLayerList | Boolean value, whether the layer should appear in the LayerList. Ignored if the layer is a background layer - see option `isBaseLayer`  | `"displayInLayerList": true` |
-| attributions       | Text or HTML string to be displayed as source attribution in the map  | `"attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> by Dutch Kadaster",` |
+| attributions       | Text or HTML string to be displayed as source attribution in the map. This setting will override the layer attributions declared in the language packs.  | `"attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> by Dutch Kadaster",` |
 | previewImage       | URL to a preview image for layers to be displayed in the background layer selection control. This option has no effect if the layer is not a background layer - see option `isBaseLayer`  | `"previewImage": "static/icon/my-layer-preview.png"`  |
 
 
@@ -135,7 +135,6 @@ Additionally every configuration property of [`ol/style/Text`](https://openlayer
 {
   "type": "VECTOR",
   "lid": "Shops",
-  "name": "Shops DaSchau",
   "url": "./static/data/shops-dannstadt.geojson",
   "formatConfig": {
   },

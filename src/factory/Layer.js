@@ -57,13 +57,6 @@ export const LayerFactory = {
    * @return {ol/layer/Base} OL layer instance
    */
   getInstance (lConf, olMap) {
-    // apply LID (Layer ID) if not existent
-    if (!lConf.lid) {
-      // Make a unique layerId from Layer name and URL so contexts
-      // like permalinks can be reapplied.
-      lConf.lid = btoa(lConf.url + lConf.name).substr(0, 6);
-    }
-
     // create correct layer type
     if (lConf.type === 'WMS') {
       return this.createWmsLayer(lConf);
@@ -90,7 +83,6 @@ export const LayerFactory = {
    */
   createWmsLayer (lConf) {
     const layer = new TileLayer({
-      name: lConf.name,
       lid: lConf.lid,
       isBaseLayer: lConf.isBaseLayer,
       previewImage: lConf.previewImage,
@@ -98,6 +90,8 @@ export const LayerFactory = {
       extent: lConf.extent,
       visible: lConf.visible,
       opacity: lConf.opacity,
+      confName: lConf.name,
+      confAttributions: lConf.attributions,
       source: new TileWmsSource({
         url: lConf.url,
         params: {
@@ -105,7 +99,6 @@ export const LayerFactory = {
           'TILED': lConf.tiled
         },
         serverType: lConf.serverType,
-        attributions: lConf.attributions,
         tileGrid: lConf.tileGrid,
         projection: lConf.projection,
         crossOrigin: lConf.crossOrigin
@@ -178,12 +171,10 @@ export const LayerFactory = {
           vectorSource.addFeatures(feats);
         });
       },
-      strategy: lConf.loadOnlyVisible !== false ? bboxStrategy : undefined,
-      attributions: lConf.attributions
+      strategy: lConf.loadOnlyVisible !== false ? bboxStrategy : undefined
     });
 
     var vector = new VectorLayer({
-      name: lConf.name,
       lid: lConf.lid,
       isBaseLayer: lConf.isBaseLayer,
       previewImage: lConf.previewImage,
@@ -195,7 +186,9 @@ export const LayerFactory = {
       style: OlStyleFactory.getInstance(lConf.style),
       columnMapping: lConf.columnMapping,
       hoverable: lConf.hoverable,
-      hoverAttribute: lConf.hoverAttribute
+      hoverAttribute: lConf.hoverAttribute,
+      confName: lConf.name,
+      confAttributions: lConf.attributions
     });
 
     return vector;
@@ -209,16 +202,16 @@ export const LayerFactory = {
    */
   createXyzLayer (lConf) {
     const xyzLayer = new TileLayer({
-      name: lConf.name,
       lid: lConf.lid,
       isBaseLayer: lConf.isBaseLayer,
       previewImage: lConf.previewImage,
       displayInLayerList: lConf.displayInLayerList,
       visible: lConf.visible,
       opacity: lConf.opacity,
+      confName: lConf.name,
+      confAttributions: lConf.attributions,
       source: new XyzSource({
         url: lConf.url,
-        attributions: lConf.attributions,
         tileGrid: lConf.tileGrid,
         projection: lConf.projection,
         crossOrigin: lConf.crossOrigin
@@ -236,13 +229,14 @@ export const LayerFactory = {
    */
   createOsmLayer (lConf) {
     const layer = new TileLayer({
-      name: lConf.name,
       lid: lConf.lid,
       isBaseLayer: lConf.isBaseLayer,
       previewImage: lConf.previewImage,
       displayInLayerList: lConf.displayInLayerList,
       visible: lConf.visible,
       opacity: lConf.opacity,
+      confName: lConf.name,
+      confAttributions: lConf.attributions,
       source: new OsmSource({
         crossOrigin: lConf.crossOrigin
       })
@@ -259,7 +253,6 @@ export const LayerFactory = {
    */
   createVectorLayer (lConf) {
     const vectorLayer = new VectorLayer({
-      name: lConf.name,
       lid: lConf.lid,
       isBaseLayer: lConf.isBaseLayer,
       previewImage: lConf.previewImage,
@@ -269,13 +262,14 @@ export const LayerFactory = {
       opacity: lConf.opacity,
       source: new VectorSource({
         url: lConf.url,
-        format: new this.formatMapping[lConf.format](lConf.formatConfig),
-        attributions: lConf.attributions
+        format: new this.formatMapping[lConf.format](lConf.formatConfig)
       }),
       style: OlStyleFactory.getInstance(lConf.style),
       hoverable: lConf.hoverable,
       hoverAttribute: lConf.hoverAttribute,
-      columnMapping: lConf.columnMapping
+      columnMapping: lConf.columnMapping,
+      confName: lConf.name,
+      confAttributions: lConf.attributions
     });
 
     return vectorLayer;
@@ -289,7 +283,6 @@ export const LayerFactory = {
    */
   createVectorTileLayer (lConf) {
     const vtLayer = new VectorTileLayer({
-      name: lConf.name,
       lid: lConf.lid,
       isBaseLayer: lConf.isBaseLayer,
       previewImage: lConf.previewImage,
@@ -299,13 +292,14 @@ export const LayerFactory = {
       source: new VectorTileSource({
         url: lConf.url,
         format: new this.formatMapping[lConf.format](),
-        attributions: lConf.attributions,
         tileGrid: lConf.tileGrid,
         projection: lConf.projection
       }),
       style: OlStyleFactory.getInstance(lConf.style),
       hoverable: lConf.hoverable,
-      hoverAttribute: lConf.hoverAttribute
+      hoverAttribute: lConf.hoverAttribute,
+      confName: lConf.name,
+      confAttributions: lConf.attributions
     });
 
     return vtLayer;

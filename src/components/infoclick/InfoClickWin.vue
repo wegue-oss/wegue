@@ -4,7 +4,6 @@
     :moduleName="moduleName"
     class="wgu-infoclick-win"
     :icon="icon"
-    :title="title"
     :color="color"
     v-on:visibility-change="show">
 
@@ -14,7 +13,7 @@
       <v-card-title primary-title class="wgu-infoclick-win-title">
 
         <v-card-text v-if="!this.attributeData && !this.coordsData" class="no-data">
-          Click on the map to get information for the clicked map position.
+          {{ $t('wgu-infoclick.mapClick') }}
         </v-card-text>
 
         <!-- feature property grid -->
@@ -31,8 +30,8 @@
          done in FeatureInfoWindow -->
     <div v-if="this.showMedia">
 
-      <v-card-text v-if="!this.attributeData" class="no-data">
-        Click on a feature on the map to show connected media information.
+      <v-card-text v-if="!this.attributeData" class="no-data"> 
+        {{ $t('wgu-infoclick.mediaClick') }}
       </v-card-text>
 
       <v-img
@@ -53,7 +52,7 @@
           :href="this.attributeData[mediaInfoLinkUrlProp]"
           target="_blank"
         >
-          {{ mediaInfoLinkText || this.attributeData[mediaInfoLinkUrlProp] }}
+          {{ $t('wgu-infoclick.mediaInfoLinkText') || this.attributeData[mediaInfoLinkUrlProp] }}
         </v-btn>
       </v-card-actions>
 
@@ -79,10 +78,8 @@ export default {
   props: {
     color: {type: String, required: false, default: 'red darken-3'},
     icon: {type: String, required: false, default: 'info'},
-    title: {type: String, required: false, default: 'Map Click Info'},
     showMedia: {type: Boolean, required: false, default: false},
     // below props only have an effect if showMedia=true
-    mediaInfoLinkText: {type: String, required: false},
     mediaInfoLinkUrlProp: {type: String, required: false},
     imageProp: {type: String, required: false},
     imageDescriptionProp: {type: String, required: false}

@@ -1,17 +1,20 @@
 {
 
-  "title": "Vue.js / OpenLayers WebGIS",
-  "browserTitle": "Wegue Demo App",
-
   "baseColor": "red darken-3",
 
   "logo": "https://dummyimage.com/100x100/aaa/fff&text=Wegue",
   "logoWidth": "100",
   "logoHeight": "100",
 
-  "footerTextLeft": "Powered by <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>",
-  "footerTextRight": "meggsimum",
   "showCopyrightYear": true,
+
+  "lang": {
+    "supported": {
+      "en": "English",
+      "de": "Deutsch"
+    },
+    "fallback": "en"
+  },
 
   "mapZoom": 2,
   "mapCenter": [0, 0],
@@ -19,8 +22,7 @@
     "formats": ["GeoJSON", "KML"],
     "zoomToData": true,
     "replaceData": true,
-    "displayInLayerList": true,
-    "layerName": "Uploaded Data"
+    "displayInLayerList": true
   },
 
   "permalink": {
@@ -37,7 +39,6 @@
     {
       "type": "VECTOR",
       "lid": "Shops",
-      "name": "Shops DaSchau",
       "url": "./static/data/shops-dannstadt.geojson",
       "formatConfig": {
       },
@@ -76,7 +77,6 @@
     {
       "type": "WFS",
       "lid": "gas-wfs",
-      "name": "Gas Stations WFS",
       "url": "https://ows-demo.terrestris.de/geoserver/osm/wfs",
       "typeName": "osm:osm-fuel",
       "version": "2.0.0",
@@ -92,7 +92,6 @@
         "font": "normal 30px Material Icons",
         "fillColor": "blue"
       },
-      "attributions": "© <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors.",
       "columnMapping": {
         "name": "Name"
       },
@@ -107,14 +106,12 @@
     {
       "type": "VECTOR",
       "lid": "earthquakes",
-      "name": "Earthquakes 2012 (Mag 5)",
       "url": "./static/data/2012_Earthquakes_Mag5.kml",
       "formatConfig": {
         "extractStyles": false
       },
       "format": "KML",
       "visible": true,
-      "attributions": "U.S. Geological Survey",
       "selectable": true,
       "hoverable": true,
       "hoverAttribute": "name",
@@ -135,7 +132,6 @@
     {
       "type": "WMS",
       "lid": "ahocevar-wms",
-      "name": "WMS (ahocevar)",
       "format": "image/png",
       "layers": "topp:states",
       "url": "https://ahocevar.com/geoserver/wms",
@@ -150,7 +146,7 @@
 
     {
       "type": "VECTORTILE",
-      "name": "Vector Tile Layer",
+      "lid": "ahocevar-vectortyle",
       "url": "https://ahocevar.com/geoserver/gwc/service/tms/1.0.0/ne:ne_10m_admin_0_countries@EPSG%3A900913@pbf/{z}/{x}/{-y}.pbf",
       "format": "MVT",
       "visible": false,
@@ -163,9 +159,7 @@
 
     {
       "type": "XYZ",
-      "name": "OpenTopoMap",
       "url": "https://tile.opentopomap.org/{z}/{x}/{y}.png",
-      "attributions": "Map data: <a href=\"https://openstreetmap.org/copyright\">©OpenStreetMap</a>-contributors, SRTM | Map representation (Kartendarstellung): © <a href=\"http://opentopomap.org/\">OpenTopoMap</a> (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC-BY-SA</a>)",
       "lid": "opentopomap",
       "isBaseLayer": true,
       "visible": false,
@@ -175,7 +169,6 @@
     {
       "type": "OSM",
       "lid": "osm-bg",
-      "name": "OSM",
       "isBaseLayer": true,
       "visible": true,
       "crossOrigin": "anonymous"
@@ -223,7 +216,6 @@
       "queryDelay": 200,
       "selectZoom": 16,
       "debug": false,
-      "placeHolder": "Search address",
       "provider": "osm",
       "providerOptions": {
         "lang": "en-US",
@@ -250,12 +242,7 @@
       "target": "toolbar",
       "win": "floating",
       "icon": "help",
-      "darkLayout": true,
-      "title": "About",
-      "textTitle": "About Wegue",
-      "htmlContent": "<b>WebGIS with OpenLayers and Vue.js</b> Template and re-usable components for webmapping applications with OpenLayers and Vue.js",
-      "infoLinkText": "More Info",
-      "infoLinkUrl": "http://wegue.org/"
+      "darkLayout": true
     },
     "wgu-geolocator": {
       "target": "toolbar",
@@ -267,6 +254,10 @@
       "icon": "table_chart",
       "darkLayout": true,
       "syncTableMapSelection": true
+    },
+    "wgu-localeswitcher": {
+      "target": "toolbar",
+      "darkLayout": true
     }
   }
 }

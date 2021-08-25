@@ -19,7 +19,6 @@ describe('maprecorder/MapRecorderWin.vue', () => {
 
     it('has correct default props', () => {
       expect(vm.icon).to.equal('mdi-video');
-      expect(vm.title).to.equal('Map recorder');
     });
 
     afterEach(() => {

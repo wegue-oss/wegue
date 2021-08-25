@@ -19,8 +19,6 @@ describe('attributeTable/AttributeTableWin.vue', () => {
 
     it('has correct default props', () => {
       expect(comp.vm.icon).to.equal('table_chart');
-      expect(comp.vm.title).to.be.a('String');
-      expect(comp.vm.selectorLabel).to.be.a('String');
     });
 
     afterEach(() => {
@@ -36,9 +34,9 @@ describe('attributeTable/AttributeTableWin.vue', () => {
     const defaultData = AttributeTableWin.data();
     expect(defaultData).to.be.an('object');
 
-    expect(defaultData.layerId).to.be.null;
-    expect(defaultData.layerItems).to.be.null;
-    expect(defaultData.selectedItem).to.be.null;
+    expect(defaultData.layers).to.be.an('array');
+    expect(defaultData.layers.length).to.eql(0);
+    expect(defaultData.selLayer).to.be.null;
   });
 
   describe('methods', () => {
@@ -53,9 +51,7 @@ describe('attributeTable/AttributeTableWin.vue', () => {
     it('are implemented', () => {
       expect(vm.onResize).to.be.a('function');
       expect(vm.resizeOlMap).to.be.a('function');
-      expect(vm.handleLayerSelect).to.be.a('function');
       expect(vm.onMapBound).to.be.a('function');
-      expect(vm.populateLayerItems).to.be.a('function');
     });
   });
 });

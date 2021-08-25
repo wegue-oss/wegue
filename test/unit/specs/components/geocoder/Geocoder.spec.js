@@ -46,7 +46,6 @@ describe('geocoder/Geocoder.vue', () => {
       expect(vm.minChars).to.equal(3);
       expect(vm.queryDelay).to.equal(300);
       expect(vm.selectZoom).to.equal(16);
-      expect(vm.placeHolder).to.equal('Search for an address');
       expect(vm.geocoderController !== undefined).to.equal(true);
       expect(vm.geocoderController.provider instanceof OpenStreetMap).to.equal(true);
     });
@@ -64,7 +63,6 @@ describe('geocoder/Geocoder.vue', () => {
         'queryDelay': 200,
         'selectZoom': 17,
         'debug': false,
-        'placeHolder': 'Search',
         'provider': 'photon'
       };
       comp = shallowMount(Geocoder, {
@@ -78,7 +76,6 @@ describe('geocoder/Geocoder.vue', () => {
       expect(vm.minChars).to.equal(5);
       expect(vm.queryDelay).to.equal(200);
       expect(vm.selectZoom).to.equal(17);
-      expect(vm.placeHolder).to.equal('Search');
       expect(vm.geocoderController !== undefined).to.equal(true);
       expect(vm.geocoderController.provider instanceof Photon).to.equal(true);
     });
@@ -96,7 +93,6 @@ describe('geocoder/Geocoder.vue', () => {
         'queryDelay': 200,
         'selectZoom': 15,
         'debug': false,
-        'placeHolder': 'Search',
         'provider': 'opencage'
       };
       comp = shallowMount(Geocoder, {
@@ -110,7 +106,6 @@ describe('geocoder/Geocoder.vue', () => {
       expect(vm.minChars).to.equal(6);
       expect(vm.queryDelay).to.equal(200);
       expect(vm.selectZoom).to.equal(15);
-      expect(vm.placeHolder).to.equal('Search');
       expect(vm.geocoderController !== undefined).to.equal(true);
       expect(vm.geocoderController.provider instanceof OpenCage).to.equal(true);
     });

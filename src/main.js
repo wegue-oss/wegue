@@ -3,22 +3,19 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import PortalVue from 'portal-vue'
+import VueI18n from 'vue-i18n';
 import '@mdi/font/css/materialdesignicons.css'
 import 'material-icons/iconfont/material-icons.css'
 import '../node_modules/ol/ol.css';
 import WguApp from '../app/WguApp';
 import UrlUtil from './util/Url';
+import LocaleUtil from './util/Locale';
+import ObjectUtil from './util/Object';
 import 'vuetify/dist/vuetify.min.css';
 
 Vue.use(Vuetify);
 Vue.use(PortalVue);
-
-// necessary for some components
-export default new Vuetify({
-  icons: {
-    iconfont: 'mdiSvg'
-  }
-})
+Vue.use(VueI18n);
 
 require('./assets/css/wegue.css');
 
@@ -44,7 +41,44 @@ if (appCtx) {
 }
 
 /**
+ * Creates the active vuetify instance.
+ *
+ * @param {Object} appConfig Global application context.
+ * @returns The active vuetify instance.
+ */
+const createVuetify = function (appConfig) {
+  const preset = {
+    icons: {
+      iconfont: 'mdiSvg'
+    },
+    lang: {
+      current: LocaleUtil.getPreferredLanguage(appConfig),
+      locales: LocaleUtil.importVuetifyLocales()
+    }
+  };
+  return new Vuetify(preset);
+}
+
+/**
+ * Creates the VueI18n object used for internationalization.
+ *
+ * @param {Object} appConfig Global application context.
+ * @returns The active I18n instance.
+ */
+const createVueI18n = function (appConfig) {
+  const preset = {
+    locale: LocaleUtil.getPreferredLanguage(appConfig),
+    fallbackLocale: LocaleUtil.getFallbackLanguage(appConfig),
+    messages: LocaleUtil.importVueI18nLocales()
+  };
+  return new VueI18n(preset);
+}
+
+/**
  * Backwards compatibility layer for legacy features in app-conf.json.
+ *
+ * @param {Object} appConfig Global application context.
+ * @returns The migrated application context.
  */
 const migrateAppConfig = function (appConfig) {
   // Migrate boolean values for module.win.
@@ -56,23 +90,67 @@ const migrateAppConfig = function (appConfig) {
       }
     });
   }
-  // Migrate windowTitle value for help win
-  if (appConfig.modules && appConfig.modules['wgu-helpwin']) {
-    var module = appConfig.modules['wgu-helpwin'];
-    if (!module.title && module.windowTitle) {
-      module.title = module.windowTitle;
+
+  // Create warnings for text based configuration properties,
+  // which are no longer supported and have been moved to the language files.
+  /* eslint-disable no-useless-escape */
+  const deprecatedTextProps = {
+    'title': 'app.title',
+    'browserTitle': 'app.browserTitle',
+    'footerTextLeft': 'app.footerTextLeft',
+    'footerTextRight': 'app.footerTextRight',
+    'mapGeodataDragDop\\.layerName': 'mapLayers.wgu-drag-drop-layer.name',
+    'modules.\\.wgu-attributetable\\.selectorLabel': 'wgu-attributetable.selectorLabel',
+    'modules\\.wgu-geocoder\\.placeHolder': 'wgu-geocoder.placeHolder',
+    'modules\\.wgu-infoclick\\.mediaInfoLinkText': 'wgu-infoclick.mediaInfoLinkText',
+    'modules\\.wgu-zoomtomaxextent\\.text': 'wgu-zoomtomaxextent.text',
+    'modules\\.wgu-helpwin\\.windowTitle': 'wgu-helpwin.title',
+    'modules\\.wgu-helpwin\\.textTitle': 'wgu-helpwin.textTitle',
+    'modules\\.wgu-helpwin\\.htmlContent': 'wgu-helpwin.htmlContent',
+    'modules\\.wgu-helpwin\\.infoLinkUrl': 'wgu-helpwin.infoLinkUrl',
+    'modules\\.wgu-helpwin\\.infoLinkText': 'wgu-helpwin.infoLinkText',
+    'modules\\..*\\.title': '<moduleName>.title'
+  };
+  /* eslint-enable no-useless-escape */
+
+  const configPaths = ObjectUtil.toPaths(appConfig);
+  for (const path of configPaths) {
+    const match = Object.keys(deprecatedTextProps).find(pattern => {
+      const regex = new RegExp('^\\.' + pattern + '$', 'g');
+      return regex.test(path);
+    });
+    if (match) {
+      console.warn('The configuration path "' + path + '" is deprecated, ' +
+        'instead declare a path "' + deprecatedTextProps[match] +
+        '" in all language files in your "/app/locales" folder');
     }
+  };
+
+  // Create a warning if the 'lid' property of mapLayers is missing.
+  if (appConfig.mapLayers) {
+    appConfig.mapLayers.forEach((layer, i) => {
+      if (!layer.lid) {
+        console.warn('mapLayers[' + i + '] does not declare a lid property');
+      }
+    });
   }
+
   return appConfig;
 }
 
-const opts = {};
+/**
+ * Create the vue application.
+ *
+ * @param {Object} appConfig Global application context.
+ */
 const createApp = function (appConfig) {
   // make app config accessible for all components
   Vue.prototype.$appConfig = migrateAppConfig(appConfig);
+
   /* eslint-disable no-new */
   new Vue({
-    vuetify: new Vuetify(opts),
+    vuetify: createVuetify(appConfig),
+    i18n: createVueI18n(appConfig),
     el: '#app',
     template: '<wgu-app/>',
     components: { WguApp }

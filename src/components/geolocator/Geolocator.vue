@@ -1,6 +1,7 @@
 <template>
 <span>
-   <v-btn @click="geolocateUserAndShowMarkerOnMap" icon dark>
+   <v-btn @click="geolocateUserAndShowMarkerOnMap" icon dark
+      :title="$t('wgu-geolocator.title')">
       <v-icon v-if='this.isSearchingForGeolocation'>update</v-icon>
       <v-icon v-else-if='this.isGeolocationAPIAvailable && (!this.isGeolocationFound)'>location_searching</v-icon>
       <v-icon v-else-if='this.isGeolocationAPIAvailable && this.isGeolocationFound'>gps_fixed</v-icon>
@@ -67,7 +68,7 @@ export default {
         source: new VectorSource(),
         style: this.geolocationMarker
       });
-      layer.setProperties({lid: layerId, name: 'Current Position'});
+      layer.setProperties({lid: layerId});
       return layer;
     },
 
@@ -89,7 +90,7 @@ export default {
             this.isGeolocationFound = true;
             this.isSearchingForGeolocation = false;
             // get a layer to draw the current position on
-            const geolocLayer = this.createAndRemoveExistingLayer(this.map.getLayers(), 'userPosition');
+            const geolocLayer = this.createAndRemoveExistingLayer(this.map.getLayers(), 'wgu-geolocator-layer');
             geolocLayer.getSource().addFeature(new Feature({geometry: currentPosGeom}));
             this.map.addLayer(geolocLayer);
 
