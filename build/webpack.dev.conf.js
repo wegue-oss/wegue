@@ -30,11 +30,13 @@ module.exports = merge(baseWebpackConfig, {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html',
+      favicon: path.resolve(__dirname, '../app/static/icon/favicon.ico'),
       inject: true
     }),
     new HtmlWebpackPlugin({
       filename: 'embedded.html',
       template: 'embedded.html',
+      favicon: path.resolve(__dirname, '../app/static/icon/favicon.ico'),
       inject: true
     }),
     new FriendlyErrorsPlugin(),
