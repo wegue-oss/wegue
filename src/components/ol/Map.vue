@@ -67,7 +67,7 @@ export default {
     WguEventBus.$emit('ol-map-mounted', me.map);
 
     // resize the map, so it fits to parent
-    window.setTimeout(() => {
+    me.timerHandle = setTimeout(() => {
       me.map.setTarget(document.getElementById('ol-map-container'));
       me.map.updateSize();
 
@@ -79,6 +79,9 @@ export default {
     }, 200);
   },
   destroyed () {
+    if (this.timerHandle) {
+      clearTimeout(this.timerHandle);
+    }
     if (this.permalinkController) {
       this.permalinkController.tearDown();
       this.permalinkController = undefined;
