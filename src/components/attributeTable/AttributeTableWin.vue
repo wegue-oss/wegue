@@ -94,7 +94,8 @@ export default {
       return this.layers
         .filter(layer =>
           layer instanceof VectorLayer &&
-          layer.get('lid') !== 'wgu-measure-layer'
+          layer.get('lid') !== 'wgu-measure-layer' &&
+          layer.get('lid') !== 'wgu-geolocator-layer'
         )
         .reverse();
     }
