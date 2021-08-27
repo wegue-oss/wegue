@@ -13,7 +13,7 @@ export default class PermalinkController {
   projection = null;
   conf = null;
   urlParams = null;
-  ignoreLayers = ['wgu-measure-layer'];
+  ignoreLayers = ['wgu-measure-layer', 'wgu-geolocator-layer'];
 
   constructor (map, permalinkConf) {
     this.map = map;
