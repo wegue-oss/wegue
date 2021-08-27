@@ -56,6 +56,7 @@ var webpackConfig = merge(baseWebpackConfig, {
         ? 'index.html'
         : config.build.index,
       template: 'index.html',
+      favicon: path.resolve(__dirname, '../app/static/icon/favicon.ico'),
       inject: true,
       minify: {
         removeComments: true,
@@ -75,6 +76,7 @@ var webpackConfig = merge(baseWebpackConfig, {
         ? 'embedded.html'
         : config.build.embedded,
       template: 'embedded.html',
+      favicon: path.resolve(__dirname, '../app/static/icon/favicon.ico'),
       inject: true,
       minify: {
         removeComments: true,

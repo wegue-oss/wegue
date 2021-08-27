@@ -75,6 +75,9 @@ export const DraggableWin = {
      * Checks if the given selector (id or class) occurs in the given path
      */
     function checkIfSelectorInPath (selector, path) {
+      if (!path) {
+        return false;
+      }
       for (let i = 0; i < path.length; i++) {
         // check for ID
         if (path[i].id === selector) {

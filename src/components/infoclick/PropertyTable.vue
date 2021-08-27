@@ -1,14 +1,14 @@
 <template>
 
-  <table class="wgu-proptable" v-if="this.properties" :style="tableStyles">
+  <table class="wgu-proptable" v-if="show" :style="tableStyles">
     <thead>
       <tr>
-        <th v-for="entry in properties"
+        <th v-for="(entry, key) in properties" :key="key">
         </th>
       </tr>
     </thead>
     <tbody class="attr-tbody">
-      <tr v-for="(value, key) in properties">
+      <tr v-for="(value, key) in properties" :key="key">
         <td class="key-td">
           {{key}}
         </td>
@@ -47,6 +47,12 @@ export default {
       return {
         'border': '2px solid ' + borderColor
       };
+    },
+    /**
+     * Display the table control only, if there are properties to show.
+     */
+    show () {
+      return this.properties && Object.keys(this.properties).length;
     }
   }
 };
