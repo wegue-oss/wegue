@@ -30,8 +30,7 @@
   },
 
   "wgu-bglayerswitcher": {
-    "title": "Hintergrundkarte auswählen",
-    "emptyText": "Keine Hintergrund-Layer verfügbar."
+    "title": "Hintergrundkarte auswählen"
   },
 
   "wgu-geocoder": {

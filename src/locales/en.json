@@ -30,8 +30,7 @@
   },
 
   "wgu-bglayerswitcher": {
-    "title": "Change background map",
-    "emptyText": "No background layers available."
+    "title": "Change background map"
   },
 
   "wgu-geocoder": {

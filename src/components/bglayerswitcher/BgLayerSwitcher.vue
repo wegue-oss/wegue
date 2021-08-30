@@ -1,9 +1,9 @@
 <template>
-  <div id="wgu-bglayerswitcher-wrapper">
+  <div id="wgu-bglayerswitcher-wrapper" v-if="show">
     <v-menu offset-x nudge-right="15"
       transition="scale-transition"
       :close-on-content-click="false"
-      v-model="show"
+      v-model="open"
       attach="#wgu-bglayerswitcher-wrapper"
       >
       <template v-slot:activator="{on}">
@@ -20,7 +20,7 @@
       </template>
       <!-- Remarks: The layerlist is wrapped by an v-if block to avoid unneccesary image 
            requests when the layerlist is not visible -->
-      <wgu-bglayerlist v-if="show"
+      <wgu-bglayerlist v-if="open"
         color="white"
         :dark="false"
         :selColor="color"
@@ -28,13 +28,13 @@
         :previewIcon="icon"
         :imageWidth="imageWidth"
         :imageHeight="imageHeight"
-        :emptyText="$t('wgu-bglayerswitcher.emptyText')"
         />
     </v-menu>
   </div>
 </template>
 
 <script>
+import { Mapable } from '../../mixins/Mapable';
 import BgLayerList from './BgLayerList';
 
 export default {
@@ -42,6 +42,7 @@ export default {
   components: {
     'wgu-bglayerlist': BgLayerList
   },
+  mixins: [Mapable],
   props: {
     color: { type: String, required: false, default: 'red darken-3' },
     icon: { type: String, required: false, default: 'map' },
@@ -51,7 +52,28 @@ export default {
   },
   data () {
     return {
-      show: false
+      open: false,
+      layers: []
+    }
+  },
+  methods: {
+    /**
+     * This function is executed, after the map is bound (see mixins/Mapable).
+     * Bind to the layers from the OpenLayers map.
+     */
+    onMapBound () {
+      this.layers = this.map.getLayers().getArray();
+    }
+  },
+  computed: {
+    /**
+     * Reactive property to return true, when more than one OpenLayers layer is available,
+     * which is marked as 'isBaseLayer'.
+     */
+    show () {
+      return this.layers
+        .filter(layer => layer.get('isBaseLayer'))
+        .length > 1;
     }
   }
 };
