@@ -76,13 +76,13 @@ export const LayerFactory = {
   },
 
   /**
-   * Returns an OpenLayers WMS layer instance due to given config.
-   *
+   * Returns an OL layer options initialization object, containing
+   * attributes common to all layer types.
    * @param  {Object} lConf  Layer config object
-   * @return {ol.layer.Tile} OL WMS layer instance
+   * @return {Object} OL layer options
    */
-  createWmsLayer (lConf) {
-    const layer = new TileLayer({
+  getCommonLayerOptions (lConf) {
+    return {
       lid: lConf.lid,
       isBaseLayer: lConf.isBaseLayer,
       previewImage: lConf.previewImage,
@@ -92,7 +92,19 @@ export const LayerFactory = {
       opacity: lConf.opacity,
       zIndex: lConf.zIndex,
       confName: lConf.name,
-      confAttributions: lConf.attributions,
+      confAttributions: lConf.attributions
+    };
+  },
+
+  /**
+   * Returns an OpenLayers WMS layer instance due to given config.
+   *
+   * @param  {Object} lConf  Layer config object
+   * @return {ol.layer.Tile} OL WMS layer instance
+   */
+  createWmsLayer (lConf) {
+    const layer = new TileLayer({
+      ...this.getCommonLayerOptions(lConf),
       source: new TileWmsSource({
         url: lConf.url,
         params: {
@@ -176,16 +188,7 @@ export const LayerFactory = {
     });
 
     var vector = new VectorLayer({
-      lid: lConf.lid,
-      isBaseLayer: lConf.isBaseLayer,
-      previewImage: lConf.previewImage,
-      displayInLayerList: lConf.displayInLayerList,
-      extent: lConf.extent,
-      visible: lConf.visible,
-      opacity: lConf.opacity,
-      zIndex: lConf.zIndex,
-      confName: lConf.name,
-      confAttributions: lConf.attributions,
+      ...this.getCommonLayerOptions(lConf),
       source: vectorSource,
       style: OlStyleFactory.getInstance(lConf.style),
       columnMapping: lConf.columnMapping,
@@ -204,16 +207,7 @@ export const LayerFactory = {
    */
   createXyzLayer (lConf) {
     const xyzLayer = new TileLayer({
-      lid: lConf.lid,
-      isBaseLayer: lConf.isBaseLayer,
-      previewImage: lConf.previewImage,
-      displayInLayerList: lConf.displayInLayerList,
-      extent: lConf.extent,
-      visible: lConf.visible,
-      opacity: lConf.opacity,
-      zIndex: lConf.zIndex,
-      confName: lConf.name,
-      confAttributions: lConf.attributions,
+      ...this.getCommonLayerOptions(lConf),
       source: new XyzSource({
         url: lConf.url,
         tileGrid: lConf.tileGrid,
@@ -233,16 +227,7 @@ export const LayerFactory = {
    */
   createOsmLayer (lConf) {
     const layer = new TileLayer({
-      lid: lConf.lid,
-      isBaseLayer: lConf.isBaseLayer,
-      previewImage: lConf.previewImage,
-      displayInLayerList: lConf.displayInLayerList,
-      extent: lConf.extent,
-      visible: lConf.visible,
-      opacity: lConf.opacity,
-      zIndex: lConf.zIndex,
-      confName: lConf.name,
-      confAttributions: lConf.attributions,
+      ...this.getCommonLayerOptions(lConf),
       source: new OsmSource({
         crossOrigin: lConf.crossOrigin
       })
@@ -259,16 +244,7 @@ export const LayerFactory = {
    */
   createVectorLayer (lConf) {
     const vectorLayer = new VectorLayer({
-      lid: lConf.lid,
-      isBaseLayer: lConf.isBaseLayer,
-      previewImage: lConf.previewImage,
-      displayInLayerList: lConf.displayInLayerList,
-      extent: lConf.extent,
-      visible: lConf.visible,
-      opacity: lConf.opacity,
-      zIndex: lConf.zIndex,
-      confName: lConf.name,
-      confAttributions: lConf.attributions,
+      ...this.getCommonLayerOptions(lConf),
       source: new VectorSource({
         url: lConf.url,
         format: new this.formatMapping[lConf.format](lConf.formatConfig)
@@ -290,16 +266,7 @@ export const LayerFactory = {
    */
   createVectorTileLayer (lConf) {
     const vtLayer = new VectorTileLayer({
-      lid: lConf.lid,
-      isBaseLayer: lConf.isBaseLayer,
-      previewImage: lConf.previewImage,
-      displayInLayerList: lConf.displayInLayerList,
-      extent: lConf.extent,
-      visible: lConf.visible,
-      opacity: lConf.opacity,
-      zIndex: lConf.zIndex,
-      confName: lConf.name,
-      confAttributions: lConf.attributions,
+      ...this.getCommonLayerOptions(lConf),
       source: new VectorTileSource({
         url: lConf.url,
         format: new this.formatMapping[lConf.format](),
