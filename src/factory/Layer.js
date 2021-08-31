@@ -184,13 +184,13 @@ export const LayerFactory = {
       visible: lConf.visible,
       opacity: lConf.opacity,
       zIndex: lConf.zIndex,
+      confName: lConf.name,
+      confAttributions: lConf.attributions,
       source: vectorSource,
       style: OlStyleFactory.getInstance(lConf.style),
       columnMapping: lConf.columnMapping,
       hoverable: lConf.hoverable,
-      hoverAttribute: lConf.hoverAttribute,
-      confName: lConf.name,
-      confAttributions: lConf.attributions
+      hoverAttribute: lConf.hoverAttribute
     });
 
     return vector;
@@ -208,6 +208,7 @@ export const LayerFactory = {
       isBaseLayer: lConf.isBaseLayer,
       previewImage: lConf.previewImage,
       displayInLayerList: lConf.displayInLayerList,
+      extent: lConf.extent,
       visible: lConf.visible,
       opacity: lConf.opacity,
       zIndex: lConf.zIndex,
@@ -236,6 +237,7 @@ export const LayerFactory = {
       isBaseLayer: lConf.isBaseLayer,
       previewImage: lConf.previewImage,
       displayInLayerList: lConf.displayInLayerList,
+      extent: lConf.extent,
       visible: lConf.visible,
       opacity: lConf.opacity,
       zIndex: lConf.zIndex,
@@ -265,6 +267,8 @@ export const LayerFactory = {
       visible: lConf.visible,
       opacity: lConf.opacity,
       zIndex: lConf.zIndex,
+      confName: lConf.name,
+      confAttributions: lConf.attributions,
       source: new VectorSource({
         url: lConf.url,
         format: new this.formatMapping[lConf.format](lConf.formatConfig)
@@ -272,9 +276,7 @@ export const LayerFactory = {
       style: OlStyleFactory.getInstance(lConf.style),
       hoverable: lConf.hoverable,
       hoverAttribute: lConf.hoverAttribute,
-      columnMapping: lConf.columnMapping,
-      confName: lConf.name,
-      confAttributions: lConf.attributions
+      columnMapping: lConf.columnMapping
     });
 
     return vectorLayer;
@@ -292,9 +294,12 @@ export const LayerFactory = {
       isBaseLayer: lConf.isBaseLayer,
       previewImage: lConf.previewImage,
       displayInLayerList: lConf.displayInLayerList,
+      extent: lConf.extent,
       visible: lConf.visible,
       opacity: lConf.opacity,
       zIndex: lConf.zIndex,
+      confName: lConf.name,
+      confAttributions: lConf.attributions,
       source: new VectorTileSource({
         url: lConf.url,
         format: new this.formatMapping[lConf.format](),
@@ -303,9 +308,7 @@ export const LayerFactory = {
       }),
       style: OlStyleFactory.getInstance(lConf.style),
       hoverable: lConf.hoverable,
-      hoverAttribute: lConf.hoverAttribute,
-      confName: lConf.name,
-      confAttributions: lConf.attributions
+      hoverAttribute: lConf.hoverAttribute
     });
 
     return vtLayer;
