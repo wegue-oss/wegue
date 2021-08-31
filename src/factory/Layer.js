@@ -90,6 +90,7 @@ export const LayerFactory = {
       extent: lConf.extent,
       visible: lConf.visible,
       opacity: lConf.opacity,
+      zIndex: lConf.zIndex,
       confName: lConf.name,
       confAttributions: lConf.attributions,
       source: new TileWmsSource({
@@ -182,6 +183,7 @@ export const LayerFactory = {
       extent: lConf.extent,
       visible: lConf.visible,
       opacity: lConf.opacity,
+      zIndex: lConf.zIndex,
       source: vectorSource,
       style: OlStyleFactory.getInstance(lConf.style),
       columnMapping: lConf.columnMapping,
@@ -208,6 +210,7 @@ export const LayerFactory = {
       displayInLayerList: lConf.displayInLayerList,
       visible: lConf.visible,
       opacity: lConf.opacity,
+      zIndex: lConf.zIndex,
       confName: lConf.name,
       confAttributions: lConf.attributions,
       source: new XyzSource({
@@ -235,6 +238,7 @@ export const LayerFactory = {
       displayInLayerList: lConf.displayInLayerList,
       visible: lConf.visible,
       opacity: lConf.opacity,
+      zIndex: lConf.zIndex,
       confName: lConf.name,
       confAttributions: lConf.attributions,
       source: new OsmSource({
@@ -260,6 +264,7 @@ export const LayerFactory = {
       extent: lConf.extent,
       visible: lConf.visible,
       opacity: lConf.opacity,
+      zIndex: lConf.zIndex,
       source: new VectorSource({
         url: lConf.url,
         format: new this.formatMapping[lConf.format](lConf.formatConfig)
@@ -289,6 +294,7 @@ export const LayerFactory = {
       displayInLayerList: lConf.displayInLayerList,
       visible: lConf.visible,
       opacity: lConf.opacity,
+      zIndex: lConf.zIndex,
       source: new VectorTileSource({
         url: lConf.url,
         format: new this.formatMapping[lConf.format](),
