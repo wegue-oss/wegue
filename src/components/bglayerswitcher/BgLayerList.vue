@@ -70,9 +70,14 @@
       // https://github.com/vuejs/Discussion/issues/394 .The following works in Firefox and Chrome.
       var slideGroup = this.$refs.slideGroup;
       if (slideGroup) {
-        setTimeout(() => {
+        this.timerHandle = setTimeout(() => {
           slideGroup.onResize();
         }, 10);
+      }
+    },
+    destroyed () {
+      if (this.timerHandle) {
+        clearTimeout(this.timerHandle);
       }
     },
     methods: {
