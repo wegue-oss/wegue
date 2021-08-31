@@ -13,7 +13,10 @@ The following properties can be applied to all map layer types
 | projection         |  The projection of the layer. Has to be defined in `projectionDefs` if not `EPSG:4326` or `EPSG:3857`. if not set the projection of the map is used | `"projection": "EPSG:3857"` |
 | name               |  Human readable name for the layer, used e.g. in the LayerList. This setting will override the layer name declared in the language packs. | `"name": "My super WMS"` |
 | isBaseLayer        | Boolean value, whether the layer should be a background layer or not. Background layers will be available from the background layer selection button on the map. | `"isBaseLayer": false` |
-| visible            | Boolean value, whether the layer should be initially visible | `"visible": false` |
+| visible            | Boolean value, whether the layer should be initially visible. Defaults to `true`. | `"visible": false` |
+| extent             | Array containing the bounding extent for layer rendering. The layer will not be rendered outside of this extent. Per default the extent of the layer is not constrained. | `"extent": [600584.4677702306, 5906357.431606389, 1864172.5237905537, 7388769.588491274]` |
+| opacity            | Numeric value ranging from 0 to 1 describing the opaqueness of the layer. Defaults to `1.0`. | `"opacity": 0.5` |
+| zIndex             | Numeric value specifying the stack order of layers. Layers will be ordered by z-index and then by order of declaration. Defaults to `-1` for background layers and `0` for all other layers.  | `"zIndex": 2` |
 | displayInLayerList | Boolean value, whether the layer should appear in the LayerList. Ignored if the layer is a background layer - see option `isBaseLayer`  | `"displayInLayerList": true` |
 | attributions       | Text or HTML string to be displayed as source attribution in the map. This setting will override the layer attributions declared in the language packs.  | `"attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> by Dutch Kadaster",` |
 | previewImage       | URL to a preview image for layers to be displayed in the background layer selection control. This option has no effect if the layer is not a background layer - see option `isBaseLayer`  | `"previewImage": "static/icon/my-layer-preview.png"`  |
