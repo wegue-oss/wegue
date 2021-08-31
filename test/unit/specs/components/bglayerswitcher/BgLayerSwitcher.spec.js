@@ -1,5 +1,8 @@
 import { mount, shallowMount } from '@vue/test-utils';
 import BgLayerSwitcher from '@/components/bglayerswitcher/BgLayerSwitcher';
+import OlMap from 'ol/Map';
+import VectorLayer from 'ol/layer/Vector';
+import VectorSource from 'ol/source/Vector';
 
 describe('bglayerswitcher/BgLayerSwitcher.vue', () => {
   it('is defined', () => {
@@ -8,16 +11,18 @@ describe('bglayerswitcher/BgLayerSwitcher.vue', () => {
 
   describe('props', () => {
     let comp;
+    let vm;
     beforeEach(() => {
       comp = shallowMount(BgLayerSwitcher);
+      vm = comp.vm
     });
 
     it('has correct default props', () => {
-      expect(comp.vm.color).to.equal('red darken-3');
-      expect(comp.vm.icon).to.equal('map');
-      expect(comp.vm.dark).to.equal(true);
-      expect(comp.vm.imageWidth).to.equal(152);
-      expect(comp.vm.imageHeight).to.equal(114);
+      expect(vm.color).to.equal('red darken-3');
+      expect(vm.icon).to.equal('map');
+      expect(vm.dark).to.equal(true);
+      expect(vm.imageWidth).to.equal(152);
+      expect(vm.imageHeight).to.equal(114);
     });
 
     afterEach(() => {
@@ -27,12 +32,53 @@ describe('bglayerswitcher/BgLayerSwitcher.vue', () => {
 
   describe('data', () => {
     let comp;
+    let vm;
     beforeEach(() => {
       comp = shallowMount(BgLayerSwitcher);
+      vm = comp.vm;
     });
 
     it('has correct default data', () => {
-      expect(comp.vm.show).to.equal(false);
+      expect(vm.open).to.equal(false);
+      expect(vm.layers).to.be.an('array');
+      expect(vm.layers.length).to.eql(0);
+    });
+
+    afterEach(() => {
+      comp.destroy();
+    });
+  });
+
+  describe('computed properties', () => {
+    let comp;
+    let vm;
+    beforeEach(() => {
+      comp = shallowMount(BgLayerSwitcher);
+      vm = comp.vm;
+    });
+
+    it('only visible when more than one layer', () => {
+      const layerIn = new VectorLayer({
+        visible: true,
+        isBaseLayer: true,
+        source: new VectorSource()
+      });
+      const layerOut = new VectorLayer({
+        visible: false,
+        isBaseLayer: true,
+        source: new VectorSource()
+      });
+      const map = new OlMap({
+        layers: [layerIn]
+      });
+      vm.map = map;
+      vm.onMapBound();
+
+      expect(vm.show).to.equal(false);
+
+      map.addLayer(layerOut);
+
+      expect(vm.show).to.equal(true);
     });
 
     afterEach(() => {
@@ -42,6 +88,7 @@ describe('bglayerswitcher/BgLayerSwitcher.vue', () => {
 
   describe('user interactions', () => {
     let comp;
+    let vm;
 
     // Remarks: The following is necessary to avoid warnings.
     //  For reasons not fully understood the test utils will fail to attach
@@ -55,18 +102,24 @@ describe('bglayerswitcher/BgLayerSwitcher.vue', () => {
       comp = mount(BgLayerSwitcher, {
         created () {
           this.$vuetify.theme = { dark: false };
+        },
+        computed: {
+          show () {
+            return true;
+          }
         }
       });
+      vm = comp.vm;
     });
 
-    it('button click switches show', done => {
-      expect(comp.vm.show).to.equal(false);
+    it('button click switches open', done => {
+      expect(vm.open).to.equal(false);
 
       const button = comp.findComponent({ name: 'v-btn' });
       button.trigger('click');
 
-      comp.vm.$nextTick(() => {
-        expect(comp.vm.show).to.equal(true);
+      vm.$nextTick(() => {
+        expect(vm.open).to.equal(true);
         done();
       });
     });
