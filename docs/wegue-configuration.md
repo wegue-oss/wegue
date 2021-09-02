@@ -23,6 +23,7 @@ This describes the Wegue application configuration, which is modelled as JSON do
 | **mapLayers**      | Array of map layer configuration objects | See [mapLayers](map-layer-configuration) |
 | projectionDefs     | Array of CRS / projection definition objects compatible to proj4js | See [projectionDefs](wegue-configuration?id=projectiondefs) |
 | tileGridDefs       | Array of tile grid definition objects | See [tileGridDefs](wegue-configuration?id=tilegriddefs) |
+| sidebar            | Configuration object for the application sidebar. | See [sidebar](wegue-configuration?id=sidebar) |
 
 ### projectionDefs
 
@@ -124,6 +125,27 @@ Below is an example for such a configuration object:
       "de": "Deutsch"
     },
     "fallback": "en"
+  }
+```
+
+### sidebar
+The optional `sidebar` property customizes the behavior and layout of the application sidebar. Wegue's sidebar will be implicitly enabled, if at least one module is configured to use the sidebar as a window target, as specified by ```"win"="sidebar"``` - see the general section of the [Module Configuration](module-configuration?id=General).
+
+The `sidebar` object supports the following properties:
+
+| Property           | Meaning   | Example |
+|--------------------|:---------:|---------|
+| color              | Background color of the sidebar. Defaults to white. | `"color": "white"` |
+| width              | Width of the sidebar in pixels. Defaults to 400px.  | `"width": 400` |
+| visible            | Specifies whether the sidebar appears in open or closed state on application start. Defaults to true. | `"visible": true` |
+
+Below is an example for an animation configuration object:
+
+```
+  "sidebar": {
+    "visible": true,
+    "width": 400,
+    "color": "white"
   }
 ```
 
