@@ -3,7 +3,8 @@
       class="wgu-app-sidebar"
       app
       clipped
-      width="400"
+      :width=width
+      :color=color
       v-model="sidebarOpen"
       >
       <!-- Forward the default slot for sidebar content. -->
@@ -14,7 +15,7 @@
           class="wgu-app-sidebar-toggle-btn px0"
           absolute
           top
-          color="white"
+          :color=color
           width="20" min-width="20" 
           @click="sidebarOpen = !sidebarOpen"> 
           <v-icon v-if="sidebarOpen">chevron_left</v-icon> 
@@ -30,8 +31,13 @@ export default {
   name: 'wgu-app-sidebar',
   data () {
     return {
-      sidebarOpen: true
+      sidebarOpen: this.visible
     }
+  },
+  props: {
+    color: {type: String, required: false, default: 'white'},
+    width: {type: Number, required: false, default: 400},
+    visible: {type: Boolean, required: false, default: true}
   }
 }
 </script>
