@@ -11,12 +11,11 @@
       <slot></slot>
       <!-- Sidebar toggle button -->
       <template v-slot:prepend>
-        <v-btn 
+        <v-btn small
           class="wgu-app-sidebar-toggle-btn px0"
           absolute
           top
           :color=color
-          width="20" min-width="20" 
           @click="sidebarOpen = !sidebarOpen"> 
           <v-icon v-if="sidebarOpen">chevron_left</v-icon> 
           <v-icon v-else>chevron_right</v-icon> 
