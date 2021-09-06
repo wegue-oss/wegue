@@ -30,17 +30,17 @@ import { WguEventBus } from '../../WguEventBus'
 
 export default {
   name: 'wgu-app-sidebar',
-  data () {
-    return {
-      sidebarOpen: this.visible
-    }
-  },
   props: {
     color: { type: String, required: false, default: 'white' },
     width: { type: Number, required: false, default: 400 },
     visible: { type: Boolean, required: false, default: true },
     autoScroll: { type: Boolean, required: false, default: true },
     scrollDuration: { type: Number, required: false, default: 500 }
+  },
+  data () {
+    return {
+      sidebarOpen: this.visible
+    }
   },
   /**
    * Initialize the sidebar.
