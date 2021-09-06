@@ -26,7 +26,7 @@
 
 <script>
 
-import { WguEventBus } from '../../WguEventBus'
+import { WguEventBus } from '../../src/WguEventBus'
 
 export default {
   name: 'wgu-app-sidebar',
