@@ -141,7 +141,7 @@ The `sidebar` object supports the following properties:
 | autoScroll         | Whether to automatically scroll the sidebar to the active module. Defaults to true. | `"autoScroll": true` |
 | scrollDuration     | Animation duration in milliseconds to automatically scroll the sidebar to the active module. Defaults to 500ms. | `"scrollDuration": 500` |
 
-Below is an example for an animation configuration object:
+Below is an example for a sidebar configuration object:
 
 ```
   "sidebar": {
