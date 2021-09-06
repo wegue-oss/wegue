@@ -38,7 +38,7 @@
     },
     mixins: [Mapable],
     props: {
-      icon: {type: String, required: false, default: 'photo_size_select_small'}
+      icon: { type: String, required: false, default: 'photo_size_select_small' }
     },
     data () {
       return {

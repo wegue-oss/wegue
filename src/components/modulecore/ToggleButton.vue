@@ -15,10 +15,10 @@ import { WguEventBus } from '../../WguEventBus'
 export default {
   name: 'wgu-toggle-btn',
   props: {
-    moduleName: {type: String, required: true},
-    icon: {type: String, required: true},
-    dark: {type: Boolean, required: false, default: false},
-    visible: {type: Boolean, required: false, default: false}
+    moduleName: { type: String, required: true },
+    icon: { type: String, required: true },
+    dark: { type: Boolean, required: false, default: false },
+    visible: { type: Boolean, required: false, default: false }
   },
   data: function () {
     return {

@@ -1,6 +1,6 @@
 
 import DrawInteraction from 'ol/interaction/Draw';
-import {unByKey} from 'ol/Observable.js';
+import { unByKey } from 'ol/Observable.js';
 import VectorSource from 'ol/source/Vector';
 import VectorLayer from 'ol/layer/Vector';
 import Style from 'ol/style/Style';

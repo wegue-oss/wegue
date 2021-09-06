@@ -9,7 +9,7 @@ const LocaleUtil = {
   /**
    * Hardcoded fallback if no supported languages are declared in app config.
    */
-  supportedLanguageFallback: {'en': 'English'},
+  supportedLanguageFallback: { 'en': 'English' },
 
   /**
    * Import a webpack context for language files and returns message content.

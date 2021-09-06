@@ -121,8 +121,8 @@ describe('LayerUtil', () => {
       source: new VectorSource()
     });
 
-    const p1 = new Feature({geometry: new Point([0, 0])});
-    const p2 = new Feature({geometry: new Point([8, 8])});
+    const p1 = new Feature({ geometry: new Point([0, 0]) });
+    const p2 = new Feature({ geometry: new Point([8, 8]) });
     vectorLayer.getSource().addFeatures([p1, p2]);
 
     const olMap = new Map({

@@ -62,7 +62,7 @@ describe('bglayerswitcher/BgLayerSwitcher.vue', () => {
     it('button click switches show', done => {
       expect(comp.vm.show).to.equal(false);
 
-      const button = comp.findComponent({name: 'v-btn'});
+      const button = comp.findComponent({ name: 'v-btn' });
       button.trigger('click');
 
       comp.vm.$nextTick(() => {

@@ -22,7 +22,7 @@ export default {
   name: 'wgu-maploading-status',
   mixins: [Mapable],
   props: {
-    color: {type: String, default: 'red darken-3'}
+    color: { type: String, default: 'red darken-3' }
   },
   data () {
     return {
@@ -153,7 +153,6 @@ export default {
     }
   }
 }
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

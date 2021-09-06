@@ -47,22 +47,22 @@
     },
     props: {
       // Common properties
-      moduleName: {type: String, required: true},
-      icon: {type: String, required: true},
-      win: {type: String, required: false, default: 'floating'},
-      minimizable: {type: Boolean, required: false, default: false},
-      color: {type: String, required: false, default: 'red darken-3'},
-      backgroundImage: {type: String, required: false, default: undefined},
-      visible: {type: Boolean, required: false, default: false},
+      moduleName: { type: String, required: true },
+      icon: { type: String, required: true },
+      win: { type: String, required: false, default: 'floating' },
+      minimizable: { type: Boolean, required: false, default: false },
+      color: { type: String, required: false, default: 'red darken-3' },
+      backgroundImage: { type: String, required: false, default: undefined },
+      visible: { type: Boolean, required: false, default: false },
       // Positioning / sizing properties will be ignored for sidebar cards.
-      draggable: {type: Boolean, required: false, default: true},
-      initPos: {type: Object, required: false},
-      height: {type: [Number, String], required: false, default: undefined},
-      width: {type: [Number, String], required: false, default: undefined},
-      maxHeight: {type: [Number, String], required: false, default: undefined},
-      maxWidth: {type: [Number, String], required: false, default: undefined},
-      minHeight: {type: [Number, String], required: false, default: undefined},
-      minWidth: {type: [Number, String], required: false, default: undefined}
+      draggable: { type: Boolean, required: false, default: true },
+      initPos: { type: Object, required: false },
+      height: { type: [Number, String], required: false, default: undefined },
+      width: { type: [Number, String], required: false, default: undefined },
+      maxHeight: { type: [Number, String], required: false, default: undefined },
+      maxWidth: { type: [Number, String], required: false, default: undefined },
+      minHeight: { type: [Number, String], required: false, default: undefined },
+      minWidth: { type: [Number, String], required: false, default: undefined }
     },
     data () {
       return {

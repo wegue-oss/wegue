@@ -2,11 +2,11 @@ import Vue from 'vue';
 import Vuetify from 'vuetify'
 import AttributeTable from '@/components/attributeTable/AttributeTable';
 import { expect } from 'chai';
-import {shallowMount} from '@vue/test-utils';
+import { shallowMount } from '@vue/test-utils';
 
-const appConfig = {modules: { 'wgu-attributetable-win': {
+const appConfig = { modules: { 'wgu-attributetable-win': {
   syncTableMapSelection: true
-} }};
+} } };
 
 describe('attributeTable/AttributeTable.vue', () => {
   it('is defined', () => {

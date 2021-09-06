@@ -36,7 +36,7 @@ describe('ol/Map.vue', () => {
     let comp;
     let vm;
     beforeEach(() => {
-      Vue.prototype.$appConfig = {modules: {}};
+      Vue.prototype.$appConfig = { modules: {} };
       comp = mount(Map);
       vm = comp.vm;
     });
@@ -138,13 +138,13 @@ describe('ol/Map.vue', () => {
 
     it('createLayers returns always an array', () => {
       // mock a map layer config
-      Vue.prototype.$appConfig = {mapLayers: [{
+      Vue.prototype.$appConfig = { mapLayers: [{
         'type': 'OSM',
         'lid': 'osm-bg',
         'isBaseLayer': false,
         'visible': true,
         'selectable': false,
-        'displayInLayerList': true}]
+        'displayInLayerList': true }]
       };
       const layers = vm.createLayers();
       expect(layers).to.be.an('array');
@@ -153,13 +153,13 @@ describe('ol/Map.vue', () => {
 
     it('createLayers registers a select interaction if configured', () => {
       // mock a map layer config
-      Vue.prototype.$appConfig = {mapLayers: [{
+      Vue.prototype.$appConfig = { mapLayers: [{
         'type': 'OSM',
         'lid': 'osm-bg',
         'isBaseLayer': false,
         'visible': true,
         'selectable': true,
-        'displayInLayerList': true}]
+        'displayInLayerList': true }]
       };
       vm.createLayers();
       let selectIa;
@@ -191,7 +191,7 @@ describe('ol/Map.vue', () => {
       mockRotDiv.append(mockSubRotDiv);
       document.body.append(mockRotDiv);
 
-      comp.setProps({color: 'rgb(0, 0, 0)'});
+      comp.setProps({ color: 'rgb(0, 0, 0)' });
       vm.setOlButtonColor();
 
       expect(mockSubZoomInEl.style.backgroundColor).to.equal(vm.color);
@@ -262,7 +262,7 @@ describe('ol/Map.vue', () => {
       vm.map = map;
 
       vm.setupMapHover();
-      vm.onPointerMove({pixel: [0, 0]});
+      vm.onPointerMove({ pixel: [0, 0] });
 
       expect(vm.overlayEl.innerHTML).to.equal('');
       expect(vm.overlay.getPosition()).to.equal(undefined);
@@ -296,7 +296,7 @@ describe('ol/Map.vue', () => {
 
       vm.setupMapHover();
 
-      vm.onPointerMove({pixel: [0, 0]});
+      vm.onPointerMove({ pixel: [0, 0] });
 
       expect(vm.overlayEl.innerHTML).to.equal('bar');
       expect(vm.overlay.getPosition()).to.equal(undefined);

@@ -89,7 +89,7 @@ describe('bglayerswitcher/LayerPreviewImage.vue', () => {
         previewImage: 'http://my-image.png'
       });
 
-      comp.setProps({layer: osmLayer2});
+      comp.setProps({ layer: osmLayer2 });
       expect(vm.previewURL).to.equal('http://my-image.png');
     });
 

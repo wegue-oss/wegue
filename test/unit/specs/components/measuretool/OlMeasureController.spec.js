@@ -12,7 +12,7 @@ describe('measuretool/MeasureWin.vue', () => {
     let olmc;
     let map;
     beforeEach(() => {
-      map = new OlMap({interactions: []});
+      map = new OlMap({ interactions: [] });
       olmc = new OlMeasureController(map);
     });
 

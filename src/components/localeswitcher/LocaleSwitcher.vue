@@ -35,8 +35,8 @@ import LocaleUtil from '../../util/Locale'
 export default {
   name: 'wgu-localeswitcher',
   props: {
-    icon: {type: String, required: false, default: 'language'},
-    dark: {type: Boolean, required: false, default: false}
+    icon: { type: String, required: false, default: 'language' },
+    dark: { type: Boolean, required: false, default: false }
   },
   data () {
     return {

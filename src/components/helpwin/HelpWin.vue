@@ -34,8 +34,8 @@
       'wgu-module-card': ModuleCard
     },
     props: {
-      icon: {type: String, required: false, default: 'help'},
-      width: {type: Number, required: false, default: 300}
+      icon: { type: String, required: false, default: 'help' },
+      width: { type: Number, required: false, default: 300 }
     },
     data () {
       return {

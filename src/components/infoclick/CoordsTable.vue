@@ -25,17 +25,17 @@
 
 import vColors from 'vuetify/es5/util/colors';
 import ColorUtil from '../../util/Color';
-import {transform} from 'ol/proj.js';
-import {toStringHDMS} from 'ol/coordinate';
+import { transform } from 'ol/proj.js';
+import { toStringHDMS } from 'ol/coordinate';
 
 export default {
   name: 'wgu-coords-table',
   props: {
-    color: {type: String, required: false, default: 'red darken-3'},
-    coordsData: {type: Object},
-    showMapPos: {type: Boolean, required: false, default: true},
-    showWgsPos: {type: Boolean, required: false, default: true},
-    showHdms: {type: Boolean, required: false, default: true}
+    color: { type: String, required: false, default: 'red darken-3' },
+    coordsData: { type: Object },
+    showMapPos: { type: Boolean, required: false, default: true },
+    showWgsPos: { type: Boolean, required: false, default: true },
+    showHdms: { type: Boolean, required: false, default: true }
   },
   data: function () {
     return {

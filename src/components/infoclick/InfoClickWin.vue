@@ -76,13 +76,13 @@ export default {
     'wgu-coords-table': CoordsTable
   },
   props: {
-    color: {type: String, required: false, default: 'red darken-3'},
-    icon: {type: String, required: false, default: 'info'},
-    showMedia: {type: Boolean, required: false, default: false},
+    color: { type: String, required: false, default: 'red darken-3' },
+    icon: { type: String, required: false, default: 'info' },
+    showMedia: { type: Boolean, required: false, default: false },
     // below props only have an effect if showMedia=true
-    mediaInfoLinkUrlProp: {type: String, required: false},
-    imageProp: {type: String, required: false},
-    imageDescriptionProp: {type: String, required: false}
+    mediaInfoLinkUrlProp: { type: String, required: false },
+    imageProp: { type: String, required: false },
+    imageDescriptionProp: { type: String, required: false }
   },
   data: function () {
     return {

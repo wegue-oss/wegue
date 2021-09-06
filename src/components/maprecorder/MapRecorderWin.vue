@@ -116,7 +116,7 @@ export default {
     'wgu-module-card': ModuleCard
   },
   props: {
-    icon: {type: String, required: false, default: 'mdi-video'}
+    icon: { type: String, required: false, default: 'mdi-video' }
   },
   data () {
     const mimeTypes = this.getSupportedMimeTypes();

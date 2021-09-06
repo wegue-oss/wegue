@@ -32,27 +32,27 @@
 </template>
 
 <script>
-  import {Mapable} from '../../mixins/Mapable';
-  import {GeocoderController} from './GeocoderController';
-  import {applyTransform} from 'ol/extent';
-  import {getTransform, fromLonLat} from 'ol/proj';
+  import { Mapable } from '../../mixins/Mapable';
+  import { GeocoderController } from './GeocoderController';
+  import { applyTransform } from 'ol/extent';
+  import { getTransform, fromLonLat } from 'ol/proj';
 
   export default {
     name: 'wgu-geocoder-input',
     mixins: [Mapable],
     props: {
-      icon: {type: String, required: false, default: 'search'},
-      rounded: {type: Boolean, required: false, default: true},
-      autofocus: {type: Boolean, required: false, default: true},
-      clearable: {type: Boolean, required: false, default: true},
-      dark: {type: Boolean, required: false, default: false},
-      persistentHint: {type: Boolean, required: false, default: true},
-      debug: {type: Boolean, required: false, default: false},
-      minChars: {type: Number, required: false, default: 3},
-      queryDelay: {type: Number, required: false, default: 300},
-      selectZoom: {type: Number, required: false, default: 16},
-      provider: {type: String, required: false, default: 'osm'},
-      providerOptions: {type: Object, required: false, default: function () { return {}; }}
+      icon: { type: String, required: false, default: 'search' },
+      rounded: { type: Boolean, required: false, default: true },
+      autofocus: { type: Boolean, required: false, default: true },
+      clearable: { type: Boolean, required: false, default: true },
+      dark: { type: Boolean, required: false, default: false },
+      persistentHint: { type: Boolean, required: false, default: true },
+      debug: { type: Boolean, required: false, default: false },
+      minChars: { type: Number, required: false, default: 3 },
+      queryDelay: { type: Number, required: false, default: 300 },
+      selectZoom: { type: Number, required: false, default: 16 },
+      provider: { type: String, required: false, default: 'osm' },
+      providerOptions: { type: Object, required: false, default: function () { return {}; } }
 
     },
     data () {
@@ -78,7 +78,7 @@
         // Convert results to v-combobox (text, value) Items
         this.results.forEach(result => {
           this.trace(`add to this.items: ${result.address.name}`);
-          items.push({text: result.address.name, value: result});
+          items.push({ text: result.address.name, value: result });
         });
 
         return items;

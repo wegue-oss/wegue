@@ -16,7 +16,7 @@ describe('AppFooter.vue', () => {
   describe('props', () => {
     let comp;
     beforeEach(() => {
-      Vue.prototype.$appConfig = {modules: {}};
+      Vue.prototype.$appConfig = { modules: {} };
       comp = shallowMount(AppFooter, {
         propsData: footerProps
       });
