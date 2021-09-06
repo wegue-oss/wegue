@@ -138,6 +138,8 @@ The `sidebar` object supports the following properties:
 | color              | Background color of the sidebar. Defaults to white. | `"color": "white"` |
 | width              | Width of the sidebar in pixels. Defaults to 400px.  | `"width": 400` |
 | visible            | Specifies whether the sidebar appears in open or closed state on application start. Defaults to true. | `"visible": true` |
+| autoScroll         | Whether to automatically scroll the sidebar to the active module. Defaults to true. | `"autoScroll": true` |
+| scrollDuration     | Animation duration in milliseconds to automatically scroll the sidebar to the active module. Defaults to 500ms. | `"scrollDuration": 500` |
 
 Below is an example for an animation configuration object:
 
@@ -145,7 +147,9 @@ Below is an example for an animation configuration object:
   "sidebar": {
     "visible": true,
     "width": 400,
-    "color": "white"
+    "color": "white",
+    "autoScroll": true,
+    "scrollDuration": 500
   }
 ```
 
