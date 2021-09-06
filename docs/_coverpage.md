@@ -1,6 +1,6 @@
-# Wegue <small>0.22.0</small>
+# Wegue <small>0.23.0</small>
 
-> Simple Webmapping  with OpenLayers and Vue.js
+> Simple Webmapping with OpenLayers and Vue.js
 
 ![](_media/cover.gif)
 
