@@ -16,13 +16,12 @@
 export default {
   name: 'wgu-app-footer',
   props: {
-    color: {type: String, required: false, default: 'red darken-3'},
-    footerTextLeft: {type: String, required: true},
-    footerTextRight: {type: String, required: true},
-    showCopyrightYear: {type: Boolean, required: false, default: true}
+    color: { type: String, required: false, default: 'red darken-3' },
+    footerTextLeft: { type: String, required: true },
+    footerTextRight: { type: String, required: true },
+    showCopyrightYear: { type: Boolean, required: false, default: true }
   }
 }
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
