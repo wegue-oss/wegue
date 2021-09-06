@@ -76,7 +76,7 @@ export default {
     'wgu-localeswitcher-btn': LocaleSwitcher
   },
   props: {
-    color: {type: String, required: false, default: 'red darken-3'}
+    color: { type: String, required: false, default: 'red darken-3' }
   },
   data () {
     return {
