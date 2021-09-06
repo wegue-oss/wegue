@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import ViewAnimationUtil from '@/util/ViewAnimation';
 import View from 'ol/View';
-import {getCenter, containsExtent} from 'ol/extent';
+import { getCenter, containsExtent } from 'ol/extent';
 
 const options = {
   duration: 20,
@@ -36,7 +36,7 @@ describe('ViewAnimationUtil', () => {
     describe('animation type ' + animType, () => {
       beforeEach(() => {
         Vue.prototype.$appConfig = {
-          viewAnimation: {type: animType, options: options}
+          viewAnimation: { type: animType, options: options }
         };
       });
 

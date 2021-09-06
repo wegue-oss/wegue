@@ -32,10 +32,10 @@
 </template>
 
 <script>
-  import {Mapable} from '../../mixins/Mapable';
-  import {GeocoderController} from './GeocoderController';
-  import {applyTransform} from 'ol/extent';
-  import {getTransform, fromLonLat} from 'ol/proj';
+  import { Mapable } from '../../mixins/Mapable';
+  import { GeocoderController } from './GeocoderController';
+  import { applyTransform } from 'ol/extent';
+  import { getTransform, fromLonLat } from 'ol/proj';
   import ViewAnimationUtil from '../../util/ViewAnimation';
 
   export default {
