@@ -26,6 +26,8 @@
 
 <script>
 
+import { WguEventBus } from '../../WguEventBus'
+
 export default {
   name: 'wgu-app-sidebar',
   data () {
@@ -34,9 +36,33 @@ export default {
     }
   },
   props: {
-    color: {type: String, required: false, default: 'white'},
-    width: {type: Number, required: false, default: 400},
-    visible: {type: Boolean, required: false, default: true}
+    color: { type: String, required: false, default: 'white' },
+    width: { type: Number, required: false, default: 400 },
+    visible: { type: Boolean, required: false, default: true },
+    autoScroll: { type: Boolean, required: false, default: true },
+    scrollDuration: { type: Number, required: false, default: 500 }
+  },
+  /**
+   * Initialize the sidebar.
+   */
+  created () {
+    WguEventBus.$on('sidebar-scroll', comp => {
+      this.scrollTo(comp);
+    });
+  },
+  methods: {
+    /**
+     * Scroll to a module, if the 'autoScroll' option is enabled.
+     * @param {string | HTMLElement | Vue} comp The component to scroll to.
+     */
+    scrollTo (comp) {
+      if (this.autoScroll) {
+        this.$vuetify.goTo(comp, {
+          container: '.wgu-app-sidebar > .v-navigation-drawer__content',
+          duration: this.scrollDuration
+        });
+      }
+    }
   }
 }
 </script>

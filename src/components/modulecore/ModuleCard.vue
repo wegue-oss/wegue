@@ -76,6 +76,11 @@
         this.$emit('visibility-change', visible);
       });
     },
+    updated () {
+      if (this.show && this.win === 'sidebar') {
+        WguEventBus.$emit('sidebar-scroll', this);
+      }
+    },
     computed: {
       cardClasses () {
         return (this.win === 'floating')
