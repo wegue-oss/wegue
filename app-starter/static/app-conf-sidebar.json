@@ -37,7 +37,9 @@
   "sidebar": {
     "visible": true,
     "width": 400,
-    "color": "white"
+    "color": "white",
+    "autoScroll": true,
+    "scrollDuration": 500
   },
 
   "mapLayers": [
