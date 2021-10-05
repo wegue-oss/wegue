@@ -5,7 +5,6 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 
 const moduleProps = {
-  'emptyText': 'My empty Text',
   'color': 'white',
   'dark': true,
   'selColor': 'red darken-3',
@@ -35,7 +34,6 @@ describe('bglayerswitcher/BgLayerList.vue', () => {
     });
 
     it('has correct props', () => {
-      expect(vm.emptyText).to.equal('My empty Text');
       expect(vm.color).to.equal('white');
       expect(vm.dark).to.equal(true);
       expect(vm.selColor).to.equal('red darken-3');
