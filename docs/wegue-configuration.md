@@ -129,7 +129,7 @@ Below is an example for such a configuration object:
 ```
 
 ### sidebar
-The optional `sidebar` property customizes the behavior and layout of the application sidebar. Wegue's sidebar will be implicitly enabled, if at least one module is configured to use the sidebar as a window target, as specified by ```"win"="sidebar"``` - see the general section of the [Module Configuration](module-configuration?id=General).
+The optional `sidebar` property customizes the behavior and layout of the application sidebar. Wegue's sidebar will be implicitly enabled, if at least one module is configured to use the sidebar as a window target, as specified by `"win"="sidebar"` - see the general section of the [Module Configuration](module-configuration?id=General).
 
 The `sidebar` object supports the following properties:
 

@@ -126,7 +126,7 @@
     },
     methods: {
       /**
-       * Returns the configuration object for the sidebar from app-config:
+       * Returns the configuration object for the sidebar from app-config.
        * @return {Object} Sidebar configuration object.
        */
       getSidebarConfig () {
