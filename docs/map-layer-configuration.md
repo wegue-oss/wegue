@@ -10,10 +10,12 @@ The following properties can be applied to all map layer types
 |--------------------|:---------:|---------|
 | **type**           |  Indicator which layer type is configured |  |
 | **lid**            |  Unique identifier for the layer | `"lid": "my-super-wms-layer"`  |
-| projection         |  The projection of the layer. Has to be defined in `projectionDefs` if not `EPSG:4326` or `EPSG:3857`. if not set the projection of the map is used | `"projection": "EPSG:3857"` |
 | name               |  Human readable name for the layer, used e.g. in the LayerList. This setting will override the layer name declared in the language packs. | `"name": "My super WMS"` |
 | isBaseLayer        | Boolean value, whether the layer should be a background layer or not. Background layers will be available from the background layer selection button on the map. | `"isBaseLayer": false` |
-| visible            | Boolean value, whether the layer should be initially visible | `"visible": false` |
+| visible            | Boolean value, whether the layer should be initially visible. Defaults to `true`. | `"visible": false` |
+| extent             | Array containing the bounding extent for layer rendering. The layer will not be rendered outside of this extent. Per default the extent of the layer is not constrained. | `"extent": [600584.4677702306, 5906357.431606389, 1864172.5237905537, 7388769.588491274]` |
+| opacity            | Numeric value ranging from 0 to 1 describing the opaqueness of the layer. Defaults to `1.0`. | `"opacity": 0.5` |
+| zIndex             | Numeric value specifying the stack order of layers. Layers will be ordered by z-index and then by order of declaration. Defaults to `-1` for background layers and `0` for all other layers.  | `"zIndex": 2` |
 | displayInLayerList | Boolean value, whether the layer should appear in the LayerList. Ignored if the layer is a background layer - see option `isBaseLayer`  | `"displayInLayerList": true` |
 | attributions       | Text or HTML string to be displayed as source attribution in the map. This setting will override the layer attributions declared in the language packs.  | `"attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> by Dutch Kadaster",` |
 | previewImage       | URL to a preview image for layers to be displayed in the background layer selection control. This option has no effect if the layer is not a background layer - see option `isBaseLayer`  | `"previewImage": "static/icon/my-layer-preview.png"`  |
@@ -49,6 +51,7 @@ The following properties can be applied to all map layer types
 | **type**            | Indicator that the layer is a WFS-based vector layer, always `WFS` here  | `"type": "WFS"` |
 | **url**             | The URL to the Web Feature Service (WFS) | `"url": "https://ows.terrestris.de/geoserver/osm/wfs"` |
 | **typeName**        | The name of the FeatureType | `"typeName": "osm:osm-fuel"`|
+| projection         |  The projection of the layer. Has to be defined in `projectionDefs` if not `EPSG:4326` or `EPSG:3857`. if not set the projection of the map is used | `"projection": "EPSG:3857"` |
 | style               | Object to define a rendering style for the features of the layer  | see [style](map-layer-configuration?id=style-for-vectorlayers) |
 | version             | The version of the WFS, defaults to `1.1.0` | `"version": "2.0.0"`|
 | maxFeatures         | Limits the amount of features that are queried and displayed | `"maxFeatures": 50`|
@@ -68,6 +71,7 @@ The following properties can be applied to all map layer types
 | **type**           | Indicator that the layer is a vector layer, always `VECTORTILE` here  | `"type": "VECTORTILE"` |
 | **url**            | The URL to the vector tile service | `"url": "https://ahocevar.com/geoserver/gwc/service/tms/1.0.0/ne:ne_10m_admin_0_countries@EPSG%3A900913@pbf/{z}/{x}/{-y}.pbf"` |
 | **format**         | The format of the data linked in `url` (either `MVT`, `TopoJSON` or `GeoJSON` ) | `"format": "MVT"` |
+| projection         |  The projection of the layer. Has to be defined in `projectionDefs` if not `EPSG:4326` or `EPSG:3857`. if not set the projection of the map is used | `"projection": "EPSG:3857"` |
 | style              | Object to define a rendering style for the features of the layer  | see [style](map-layer-configuration?id=style-for-vectorlayers) |
 | hoverable          | Boolean value, whether the features of the layer can be hovered in order to display an attribute (see `hoverAttribute`) in a tooltip  | `"hoverable": true` |
 | hoverAttribute     | Attribute to be shown if a feature of the layer is hovered. Only has an effect if `hoverable` is set to `true`  | `"hoverAttribute": "name"` |
@@ -79,6 +83,7 @@ The following properties can be applied to all map layer types
 | **type**           | Indicator that the layer is a WMS, always `WMS` here  | `"type": "WMS"` |
 | **layers**         | The WMS `LAYERS` parameter | `"layers": "topp:states"` |
 | **url**            | The GetMap URL of the WMS | `"url": "https://ahocevar.com/geoserver/wms"` |
+| projection         |  The projection of the layer. Has to be defined in `projectionDefs` if not `EPSG:4326` or `EPSG:3857`. if not set the projection of the map is used | `"projection": "EPSG:3857"` |
 | format             | Image format for the WMS (has to be supported by the WMS) | `"format": "image/png"` |
 | transparent        | Boolean value, whether the WMS layer should be queried with a transparent background  | `"transparent": true` |
 | singleTile         | Boolean value, whether the WMS layer should be queried in single tile mode | `"singleTile": false` |
@@ -91,6 +96,7 @@ The following properties can be applied to all map layer types
 |--------------------|:---------:|---------|
 | **type**           | Indicator that the layer is a XYZ tiled image layer, always `XYZ` here  | `"type": "XYZ"` |
 | **url**            | The URL of the service providing the image tiles | `"url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts/brtachtergrondkaart/EPSG:28992/{z}/{x}/{y}.png"` |
+| projection         |  The projection of the layer. Has to be defined in `projectionDefs` if not `EPSG:4326` or `EPSG:3857`. if not set the projection of the map is used | `"projection": "EPSG:3857"` |
 | tileGridRef        | Identifier of the tile grid to use for this layer (has to be defined in `tileGridDefs` | `"tileGridRef": "dutch_rd"` |
 | crossOrigin        | Provides support for CORS, defining how the layers source handles crossorigin requests. For more information and the supported values see [HTML attribute: crossorigin](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin)  | `"crossOrigin": "anonymous"` |
 

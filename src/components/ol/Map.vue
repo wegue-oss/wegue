@@ -174,6 +174,10 @@ export default {
         //  constructor of OpenLayers sources overwrites OpenLayers defaults.
         lConf.tileGrid = lConf.tileGridRef ? me.tileGrids[lConf.tileGridRef] : undefined;
 
+        // Automatically set the appropriate z-index for the layer type,
+        // if not defined explicitly.
+        lConf.zIndex = lConf.zIndex ?? (lConf.isBaseLayer ? -1 : 0);
+
         let layer = LayerFactory.getInstance(lConf, me.map);
         layers.push(layer);
 
