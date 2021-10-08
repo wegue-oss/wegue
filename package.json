@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "canvas-record": "^3.0.0",
-    "ol": "6.4.3",
+    "ol": "6.7.0",
     "proj4": "2.5.0",
     "vue": "2.6.11",
     "vue-i18n": "^8.24.4",
@@ -42,6 +42,8 @@
     "babel-eslint": "^9.0.0",
     "babel-loader": "^8.0.0",
     "babel-plugin-istanbul": "^4.1.5",
+    "babel-plugin-transform-regenerator": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
     "chai": "^4.2.0",
     "chalk": "^2.4.2",
     "connect-history-api-fallback": "^1.6.0",
