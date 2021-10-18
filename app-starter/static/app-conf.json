@@ -1,6 +1,8 @@
 {
 
-  "baseColor": "red darken-3",
+  "theme": {
+    "dark": true
+  },
 
   "logo": "https://dummyimage.com/100x100/aaa/fff&text=Wegue",
   "logoWidth": "100",

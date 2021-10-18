@@ -48,6 +48,7 @@ if (appCtx) {
  */
 const createVuetify = function (appConfig) {
   const preset = {
+    theme: appConfig.theme,
     icons: {
       iconfont: 'mdiSvg'
     },

@@ -1,6 +1,9 @@
 {
 
-  "baseColor": "green darken-3",
+  "theme": {
+    "dark": false
+  },
+
   "showCopyrightYear": true,
 
   "lang": {
