@@ -258,6 +258,10 @@
       "target": "toolbar",
       "darkLayout": true
     },
+    "wgu-themeswitcher": {
+      "target": "toolbar",
+      "darkLayout": true
+    },
     "wgu-attributetable": {
       "target": "menu",
       "win": "floating",

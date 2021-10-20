@@ -88,5 +88,10 @@
 
   "wgu-localeswitcher": {
     "title": "Language Settings"
+  },
+
+  "wgu-themeswitcher": {
+    "title_light_mode": "Switch to dark mode",
+    "title_dark_mode": "Switch to light mode"
   }
 }
