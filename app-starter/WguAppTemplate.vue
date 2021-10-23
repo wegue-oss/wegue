@@ -17,7 +17,7 @@
     <wgu-app-sidebar v-if="sidebarWins.length" v-bind="sidebarConfig">
         <template v-for="(moduleWin, index) in sidebarWins">
           <component
-            :is="moduleWin.type" :key="index" color="primary"
+            :is="moduleWin.type" :key="index" color="secondary"
             v-bind="moduleWin"
           />
       </template>
@@ -26,21 +26,21 @@
     <slot name="wgu-before-content" />
     <v-content app>
       <v-container id="ol-map-container" fluid fill-height class="pa-0">
-        <wgu-map color="primary" />
+        <wgu-map color="secondary onsecondary--text" />
         <!-- layer loading indicator -->
-        <wgu-maploading-status color="primary" />
+        <wgu-maploading-status color="secondary" />
         <slot name="wgu-after-map"> 
         </slot>
         <!-- Portal to overlay the map content from an application module -->
         <portal-target name="map-overlay" />
         <wgu-app-logo />
-        <wgu-bglayerswitcher color="primary"/>
+        <wgu-bglayerswitcher color="secondary"/>
       </v-container>
     </v-content>
 
     <template v-for="(moduleWin, index) in floatingWins">
       <component
-        :is="moduleWin.type" :key="index" color="primary"
+        :is="moduleWin.type" :key="index" color="secondary"
         v-bind="moduleWin"
       />
     </template>

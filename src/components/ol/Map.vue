@@ -241,16 +241,17 @@ export default {
       } else {
         // apply vuetify color by transforming the color to the corresponding
         // CSS class (see https://vuetifyjs.com/en/framework/colors)
-        const [colorName, colorModifier] = me.color.toString().trim().split(' ', 2);
+        const classes = me.color.toString().trim().split(' ');
         if (document.querySelector('.ol-zoom')) {
-          document.querySelector('.ol-zoom .ol-zoom-in').classList.add(colorName);
-          document.querySelector('.ol-zoom .ol-zoom-in').classList.add(colorModifier);
-          document.querySelector('.ol-zoom .ol-zoom-out').classList.add(colorName);
-          document.querySelector('.ol-zoom .ol-zoom-out').classList.add(colorModifier);
+          classes.forEach(function (c) {
+            document.querySelector('.ol-zoom .ol-zoom-in').classList.add(c);
+            document.querySelector('.ol-zoom .ol-zoom-out').classList.add(c);
+          });
         }
         if (document.querySelector('.ol-rotate')) {
-          document.querySelector('.ol-rotate .ol-rotate-reset').classList.add(colorName);
-          document.querySelector('.ol-rotate .ol-rotate-reset').classList.add(colorModifier);
+          classes.forEach(function (c) {
+            document.querySelector('.ol-rotate .ol-rotate-reset').classList.add(c);
+          });
         }
       }
     },

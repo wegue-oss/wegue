@@ -1,34 +1,36 @@
 <template>
-<v-toolbar-items>
-    <v-combobox
-      class="wgu-geocoder-combo"
-      :style='{ display: (hideSearch ? "none" : "block" ) }'
-      return-object
-      :no-filter="noFilter"
-      v-model="selected"
-      :autofocus="autofocus"
-      :items="resultItems"
-      :label="$t('wgu-geocoder.placeHolder')"
-      :clearable="clearable"
-      :dark="dark"
-      :color="dark ? 'white': ''"
-      :persistent-hint="persistentHint"
-      :hidden="hideSearch"
-      :rounded="rounded"
-      :search-input.sync="search"
-    ></v-combobox>
+<v-toolbar-items class="d-flex align-center justify-center">
+  <v-combobox
+    class="wgu-geocoder-combo"
+    outlined
+    dense
+    color="accent"
+    :style='{ display: (hideSearch ? "none" : "block" ) }'
+    return-object
+    hide-details
+    :no-filter="noFilter"
+    v-model="selected"
+    :autofocus="autofocus"
+    :items="resultItems"
+    :label="$t('wgu-geocoder.placeHolder')"
+    :clearable="clearable"
+    :dark="dark"
+    background-color="onsurface"
+    :persistent-hint="persistentHint"
+    :hidden="hideSearch"
+    :rounded="rounded"
+    :search-input.sync="search"
+  ></v-combobox>
 
-  <v-toolbar-items>
+  <div>
 
     <v-btn @click='toggle()' icon :dark="dark"
       :title="$t('wgu-geocoder.title')">
       <v-icon medium>{{icon}}</v-icon>
     </v-btn>
 
-  </v-toolbar-items>
-  </v-toolbar-items>
-
-
+  </div>
+</v-toolbar-items>
 </template>
 
 <script>
@@ -183,8 +185,8 @@
 
   .v-input.wgu-geocoder-combo {
     /* have to be reset here since .v-toolbar .v-input overwrites this */
-    padding-top: 12px;
-    margin-top: 4px;
+    /* padding-top: 12px;
+    margin-top: 4px; */
   }
 
 </style>

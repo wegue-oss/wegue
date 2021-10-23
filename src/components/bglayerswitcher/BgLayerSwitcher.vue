@@ -14,7 +14,7 @@
             fab
             :title="$t('wgu-bglayerswitcher.title')"
             >
-            <v-icon medium>{{icon}}</v-icon>
+            <v-icon color="onsecondary" medium>{{icon}}</v-icon>
           </v-btn>
         </v-sheet>
       </template>

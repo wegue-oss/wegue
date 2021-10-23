@@ -121,7 +121,7 @@
           }
           : {
             dark: true,
-            color: this.color
+            color: 'primary'
           }
       }
     },

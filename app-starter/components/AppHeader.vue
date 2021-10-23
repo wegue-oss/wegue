@@ -39,11 +39,12 @@
         <v-icon medium>menu</v-icon>
       </v-btn>
       </template>
-      <v-list :color="color">
+      <v-list>
           <template v-for="(tbButton, index) in menuButtons">
             <v-list-item :key="index">
               <component 
                   :is="tbButton.type" :key="index"
+                  color="secondary"
                   v-bind="tbButton"
                />
               </v-list-item>

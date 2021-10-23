@@ -8,9 +8,16 @@
     <template v-slot:wgu-win-toolbar>
       <v-select
         v-model="selLayer"
+        color="accent"
+        background-color="onsurface"
+        outlined
         class="wgu-vector-layer-select"
         :items="displayedLayers"
 		    :item-text="item => item.get('name')"
+        :menu-props="{
+          bottom: true,
+          'offset-y': true,
+        }"
         dense
         return-object
         hide-details

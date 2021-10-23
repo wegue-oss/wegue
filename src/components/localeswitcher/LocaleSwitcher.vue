@@ -19,7 +19,7 @@
           v-for="langCode in Object.keys(lang)" 
           :key="langCode" 
           @click="onItemClick(langCode)">
-          <v-list-item-content class="black--text">
+          <v-list-item-content>
             <v-list-item-title>
               {{ lang[langCode] }} ({{ langCode }})
             </v-list-item-title>

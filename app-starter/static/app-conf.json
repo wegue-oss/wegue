@@ -1,7 +1,30 @@
 {
 
   "theme": {
-    "dark": true
+    "dark": false,
+    "themes": {
+      "light": {
+        "primary": "#af2622",
+        "onprimary": "#ffffff",
+        "secondary": "#ec483b",
+        "onsecondary": "#ffffff",
+        "onsurface": "#bf302d",
+        "accent": "#ffffff",
+        "error": "#b00020"
+      },
+      "dark": {
+        "primary": "#272727",
+        "onprimary": "#ffffff",
+        "secondary": "#ea9b9b",
+        "onsecondary": "#272727",
+        "onsurface": "#1e1e1e",
+        "accent": "#ea9b9b",
+        "error": "#cf6679"
+      }
+    },
+    "options": {
+      "customProperties": true
+    }
   },
 
   "logo": "https://dummyimage.com/100x100/aaa/fff&text=Wegue",
@@ -192,14 +215,14 @@
       "target": "menu",
       "win": "floating",
       "icon": "layers",
-      "darkLayout": true,
+      "darkLayout": false,
       "draggable": false
     },
     "wgu-measuretool": {
       "target": "menu",
       "win": "floating",
       "icon": "photo_size_select_small",
-      "darkLayout": true,
+      "darkLayout": false,
       "draggable": false,
       "strokeColor": "#c62828",
       "fillColor": "rgba(198,40,40,0.2)",
@@ -212,7 +235,7 @@
       "target": "menu",
       "win": "floating",
       "icon": "info",
-      "darkLayout": true,
+      "darkLayout": false,
       "draggable": false,
       "initPos": {
         "left": 8,
@@ -266,7 +289,7 @@
       "target": "menu",
       "win": "floating",
       "icon": "table_chart",
-      "darkLayout": true,
+      "darkLayout": false,
       "syncTableMapSelection": true
     },
     "wgu-localeswitcher": {
