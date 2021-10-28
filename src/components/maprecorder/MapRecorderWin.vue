@@ -80,9 +80,12 @@
       </v-expansion-panel>
     </v-expansion-panels>
 
-    <v-card-actions>
-      <v-layout align-center
-          class="px-3 pb-3"
+    <v-card-actions class="pb-5">
+      <v-row
+        align-center
+        justify-center
+        no-gutters
+        class="px-3"
       >
         <v-btn
           :block="!recording"
@@ -94,32 +97,36 @@
         >
           <template v-if="!recording">
             <v-icon left>fiber_manual_record</v-icon> 
-              {{ $t('wgu-maprecorder.start') }}
+            {{ $t('wgu-maprecorder.start') }}
           </template>
           <template v-else>
             <v-icon left>stop</v-icon> 
-              {{ $t('wgu-maprecorder.stop') }}
+            {{ $t('wgu-maprecorder.stop') }}
           </template>
         </v-btn>
 
-        <v-flex fill-height grow class="px-2"> 
+        <v-col class="px-2" align-self="center"> 
           <v-progress-linear
             color="secondary"
             :active="recording"
             buffer-value="0"
             stream
           ></v-progress-linear>
-        </v-flex>
+        </v-col>
 
-        <v-flex fill-height shrink>
-           <v-alert
+        <v-col sm="12" md="12" lg="12">
+          <v-alert
             v-model="error"
             type="error" 
-            dismissible>
+            dismissible
+            dense
+            transition="scroll-y-transition"
+            class="mt-2 mb-0"
+          >
             {{ $t('wgu-maprecorder.error') }}
           </v-alert>
-        </v-flex>
-      </v-layout>
+         </v-col>
+      </v-row>
     </v-card-actions>
   </wgu-module-card>
 </template>

@@ -10,7 +10,7 @@
         "onsecondary": "#ffffff",
         "onsurface": "#bf302d",
         "accent": "#ffffff",
-        "error": "#b00020"
+        "error": "#ff6f00"
       },
       "dark": {
         "primary": "#272727",
@@ -19,7 +19,7 @@
         "onsecondary": "#272727",
         "onsurface": "#1e1e1e",
         "accent": "#ea9b9b",
-        "error": "#cf6679"
+        "error": "#ff6f00"
       }
     },
     "options": {
