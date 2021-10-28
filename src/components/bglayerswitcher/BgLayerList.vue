@@ -1,5 +1,5 @@
 <template>
-  <v-sheet :color="color" :dark="dark" elevation="8">
+  <v-sheet elevation="8">
     <v-slide-group ref="slideGroup"
       mandatory
       show-arrows
@@ -14,11 +14,13 @@
         v-slot:default="{ active, toggle }"
       >
         <v-card
-          :color="active ? selColor : color"
-          :dark="active? selDark : dark"
           hover
           :width="imageWidth"
-          class="ma-1"
+          :class="{
+            'ma-1': true,
+            'secondary': active,
+            'onsecondary--text': active
+          }"
           @click="toggle"
         >
           <wgu-layerpreviewimage

@@ -21,10 +21,15 @@
           <v-subheader>{{ $t('wgu-maprecorder.videoFormat') }}</v-subheader>
             <v-card-text class="pt-0">
               <v-select
+                  color="secondary"
+                  item-color="secondary"
+                  :menu-props="{
+                    'offset-y': true,
+                    bottom: true,
+                  }"
                   v-model="mimeType"
                   :items="mimeTypes"
                   prepend-icon="mdi-video-image"
-                  menu-props="auto"
                   dense
                   hide-details>
               </v-select>
@@ -33,6 +38,7 @@
             <v-subheader>{{ $t('wgu-maprecorder.frameRate') }}</v-subheader>
             <v-card-text class="pt-0">
               <v-slider
+                  color="secondary"
                   prepend-icon="mdi-iframe-variable-outline"
                   v-model.number="frameRate"
                   min="20"
@@ -46,6 +52,7 @@
             <v-subheader>{{ $t('wgu-maprecorder.bitRate') }}</v-subheader>
             <v-card-text class="pt-0">
               <v-slider
+                  color="secondary"
                   prepend-icon="mdi-quality-high"
                   v-model.number="videoMBitsPerSecond"
                   min="1.0"
@@ -59,6 +66,7 @@
             <v-subheader>{{ $t('wgu-maprecorder.fileName') }}</v-subheader>
             <v-card-text class="pt-0">
               <v-text-field
+                color="secondary"
                 v-model="filename"
                 prepend-icon="mdi-rename-box"
                 label="YYYY-MM-DD at HH.MM.SS"
@@ -73,23 +81,36 @@
     </v-expansion-panels>
 
     <v-card-actions>
-      <v-layout align-center>
+      <v-layout align-center
+          class="px-3 pb-3"
+      >
         <v-btn
-          class="mr-3"
-          icon 
-          fab
-          outlined 
-          @click="toggleRecord">
-          <v-icon v-if="recording">stop</v-icon> 
-          <v-icon v-else color="red darken-4">fiber_manual_record</v-icon> 
+          :block="!recording"
+          :class="{
+            'secondary': true,
+            'onsecondary--text': true  
+          }"
+          @click="toggleRecord"
+        >
+          <template v-if="!recording">
+            <v-icon left>fiber_manual_record</v-icon> 
+              {{ $t('wgu-maprecorder.start') }}
+          </template>
+          <template v-else>
+            <v-icon left>stop</v-icon> 
+              {{ $t('wgu-maprecorder.stop') }}
+          </template>
         </v-btn>
-        <v-flex fill-height grow> 
+
+        <v-flex fill-height grow class="px-2"> 
           <v-progress-linear
+            color="secondary"
             :active="recording"
             buffer-value="0"
             stream
           ></v-progress-linear>
         </v-flex>
+
         <v-flex fill-height shrink>
            <v-alert
             v-model="error"

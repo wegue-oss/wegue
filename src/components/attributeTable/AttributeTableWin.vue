@@ -9,6 +9,7 @@
       <v-select
         v-model="selLayer"
         color="accent"
+        item-color="secondary"
         background-color="onsurface"
         outlined
         class="wgu-vector-layer-select"
