@@ -2,16 +2,21 @@
   <v-menu offset-y nudge-bottom="15"
       transition="scale-transition"
       v-model="show">
-      <template v-slot:activator="{on}">
-        <v-btn-toggle borderless dense 
-          background-color="transparent" :dark="dark"
+      <template v-slot:activator="{ on, attrs}">
+        <v-btn
+          borderless
+          dense 
+          :color="color"
+          background-color="transparent" 
           :title="$t('wgu-localeswitcher.title')"
-          v-model="show">
-          <v-btn class="ma-2" icon :value="true" v-on="on" >
-            <v-icon class="mr-1" medium>{{icon}}</v-icon>
-            {{ $i18n.locale }} 
-          </v-btn>
-        </v-btn-toggle>
+          class="ma-2"
+          icon
+          v-on="on"
+          v-bind="attrs"
+        >
+          <v-icon class="mr-1" medium>{{icon}}</v-icon>
+          {{ $i18n.locale }} 
+        </v-btn>
       </template>
     
       <v-list>
@@ -36,6 +41,7 @@ export default {
   name: 'wgu-localeswitcher',
   props: {
     icon: { type: String, required: false, default: 'language' },
+    color: { type: String, required: false, default: null },
     dark: { type: Boolean, required: false, default: false }
   },
   data () {

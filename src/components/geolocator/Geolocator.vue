@@ -1,6 +1,7 @@
 <template>
 <span>
-   <v-btn @click="geolocateUserAndShowMarkerOnMap" icon dark
+   <v-btn @click="geolocateUserAndShowMarkerOnMap" icon
+      :color="color"
       :title="$t('wgu-geolocator.title')">
       <v-icon v-if='this.isSearchingForGeolocation'>update</v-icon>
       <v-icon v-else-if='this.isGeolocationAPIAvailable && (!this.isGeolocationFound)'>location_searching</v-icon>
@@ -24,6 +25,7 @@ import ViewAnimationUtil from '../../util/ViewAnimation';
 export default {
   name: 'wgu-geolocator',
   props: {
+    color: { type: String, required: false, default: null },
     markerColor: { type: String, required: false, default: 'blue' },
     markerText: { type: String, required: false, default: 'person_pin_circle' }
   },

@@ -1,6 +1,6 @@
 <template>
   <span>
-    <v-btn @click="switchTheme" icon dark :title="title">
+    <v-btn @click="switchTheme" icon :color="color" :title="title">
       <v-icon :class="iconCls">dark_mode</v-icon>
     </v-btn>
   </span>
@@ -9,7 +9,9 @@
 <script>
 export default {
   name: 'wgu-themeswitcher',
-  props: {},
+  props: {
+    color: { type: String, required: false, default: null }
+  },
   data: function () {
     return {};
   },

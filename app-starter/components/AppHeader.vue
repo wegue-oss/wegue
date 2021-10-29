@@ -1,6 +1,6 @@
 <template>
   <v-app-bar
-    class="wgu-app-toolbar white--text"
+    class="wgu-app-toolbar onprimary--text"
     :color="color"
     fixed
     app
@@ -34,7 +34,8 @@
     <v-menu v-if="menuButtons.length" offset-y nudge-bottom="15">
       <template v-slot:activator="{on}">
 
-      <v-btn icon dark v-on="on"
+      <v-btn icon v-on="on"
+        color="onprimary"
         :title="$t('wgu-toolbar-menu.title')">
         <v-icon medium>menu</v-icon>
       </v-btn>
@@ -113,6 +114,7 @@ export default {
             moduleName: key,
             // TODO For further simplifications we should revise the config property 'darkLayout'.
             dark: moduleOpts.darkLayout,
+            color: 'onprimary',
             ...moduleOpts
           });
         }

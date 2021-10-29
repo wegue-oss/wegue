@@ -14,7 +14,6 @@
     :items="resultItems"
     :label="$t('wgu-geocoder.placeHolder')"
     :clearable="clearable"
-    :dark="dark"
     background-color="onsurface"
     :persistent-hint="persistentHint"
     :hidden="hideSearch"
@@ -24,7 +23,9 @@
 
   <div>
 
-    <v-btn @click='toggle()' icon :dark="dark"
+    <v-btn @click='toggle()'
+      :color="color"
+      icon
       :title="$t('wgu-geocoder.title')">
       <v-icon medium>{{icon}}</v-icon>
     </v-btn>
@@ -48,6 +49,7 @@
       rounded: { type: Boolean, required: false, default: true },
       autofocus: { type: Boolean, required: false, default: true },
       clearable: { type: Boolean, required: false, default: true },
+      color: { type: String, required: false, default: null },
       dark: { type: Boolean, required: false, default: false },
       persistentHint: { type: Boolean, required: false, default: true },
       debug: { type: Boolean, required: false, default: false },
