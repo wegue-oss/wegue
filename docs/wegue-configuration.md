@@ -8,7 +8,7 @@ This describes the Wegue application configuration, which is modelled as JSON do
 
 | Property           | Meaning   | Example |
 |--------------------|:---------:|---------|
-| baseColor          | Main colour of the UI elements | `"baseColor": "red darken-3"` or `"baseColor": "#ff3388"` |
+| theme          | Vuetify theme configuration | See [theme](#theme) |
 | logo               | URL to an image shown as application logo | ` "logo": "https://dummyimage.com/100x100/aaa/fff&text=Wegue"`
 | logoWidth          | Width of the application logo defined in `logo` | `"logoWidth": "200"`|
 | logoHeight         | Height of the application logo defined in `logo` | `"logoWidth": "100"` |
@@ -25,6 +25,56 @@ This describes the Wegue application configuration, which is modelled as JSON do
 | tileGridDefs       | Array of tile grid definition objects | See [tileGridDefs](wegue-configuration?id=tilegriddefs) |
 | viewAnimation      | Configuration object for view animations | See [viewAnimation](wegue-configuration?id=viewAnimation) |
 | sidebar            | Configuration object for the application sidebar. | See [sidebar](wegue-configuration?id=sidebar) |
+
+### theme
+
+Wegue supports the Vuetify (light and dark) theme configuration out of the box. This property expects a json object with the same format described in the [vuetify documentation](https://vuetifyjs.com/en/features/theme/#customizing).
+
+Example:
+```json
+"theme": {
+  "dark": false, // Start with dark theme on
+  "themes": {    // Configuration for themes
+    "light": {   // Light theme configuration
+      "primary": "#af2622",
+      "onprimary": "#ffffff",
+      "secondary": "#ec483b",
+      "onsecondary": "#ffffff",
+      "onsurface": "#bf302d",
+      "accent": "#ffffff",
+      "error": "#ff6f00"
+    },
+    "dark": {    // Dark theme configuration
+      "primary": "#272727",
+      "onprimary": "#ffffff",
+      "secondary": "#ea9b9b",
+      "onsecondary": "#272727",
+      "onsurface": "#1e1e1e",
+      "accent": "#ea9b9b",
+      "error": "#ff6f00"
+    }
+  }
+},
+```
+
+Each theme configuration contains the following classes of colors:
+
+| Color         | Mandatory | Description         | Example       |
+| ------------- |:---------:|:-------------------:| ------------- |
+| primary       | yes | color for main UI components             | Header, Footer |
+| secondary     | yes | color to accent selected parts of the UI | Floating buttons, selection controls, progress bars |
+| accent        | yes | accent selected parts of the UI          | Mainly used to accent components in dark mode  |
+| error         |  no | semantic color for errors                | Used in components that display error messages  |
+
+
+In addition, Wegue also supports the following "on" colors:
+
+| Color         | Mandatory | Description         | Example       |
+| ------------- |:---------:|:-------------------:| ------------- |
+| onprimary     | yes | color over primary color   | typography/icons over primary color |
+| onsecondary   | yes | color over secondary color | typography/icons over secondary color |
+| onsurface     | yes | color over surface color   | background for selection controls over primary color  |
+
 
 ### projectionDefs
 

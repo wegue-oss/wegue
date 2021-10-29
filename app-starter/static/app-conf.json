@@ -21,9 +21,6 @@
         "accent": "#ea9b9b",
         "error": "#ff6f00"
       }
-    },
-    "options": {
-      "customProperties": true
     }
   },
 

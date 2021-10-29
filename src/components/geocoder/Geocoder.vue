@@ -5,6 +5,7 @@
     outlined
     dense
     color="accent"
+    :dark="dark"
     :style='{ display: (hideSearch ? "none" : "block" ) }'
     return-object
     hide-details

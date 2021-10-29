@@ -9,6 +9,7 @@
       <v-select
         v-model="selLayer"
         color="accent"
+        :dark="dark"
         item-color="secondary"
         background-color="onsurface"
         outlined
@@ -47,6 +48,7 @@ export default {
   inheritAttrs: false,
 
   props: {
+    dark: { type: Boolean, required: false, default: true },
     icon: { type: String, required: false, default: 'table_chart' },
     syncTableMapSelection: { type: Boolean, required: false, default: false }
   },
