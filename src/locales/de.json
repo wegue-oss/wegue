@@ -68,8 +68,8 @@
     "frameRate": "Bildrate (Bilder/s)",
     "bitRate": "Bitrate (MBits/s)",
     "fileName": "Dateiname",
-    "start": "",
-    "stop": "",
+    "start": "Starten",
+    "stop": "Halt",
     "error": "Starten der Aufnahme fehlgeschlagen."
   },
 
