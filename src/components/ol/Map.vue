@@ -28,6 +28,7 @@ import ColorUtil from '../../util/Color';
 import LayerUtil from '../../util/Layer';
 import PermalinkController from './PermalinkController';
 import MapInteractionUtil from '../../util/MapInteraction';
+import ViewAnimationUtil from '../../util/ViewAnimation';
 
 export default {
   name: 'wgu-map',
@@ -355,7 +356,7 @@ export default {
         ddSource.addFeatures(event.features);
 
         if (mapDdConf.zoomToData === true) {
-          this.map.getView().fit(ddSource.getExtent());
+          ViewAnimationUtil.to(this.map.getView(), ddSource.getExtent());
         }
       }, this);
 

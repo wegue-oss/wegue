@@ -52,7 +52,6 @@ Module identifier: `wgu-geocoder`
 | persistentHint     | Forces hint to always be visible.  | `"persistentHint": true` |
 | minChars           | Minimum number of characters which has to be entered so the query is triggered  | `"minChars": 2` |
 | queryDelay         | Delay in MS before a query is triggered | `"queryDelay": 200` |
-| selectZoom         | Zoom level which is set when a result entry is selected | `"selectZoom": 16` |
 | debug              | Boolean value to enable debug logs | `"debug": false` |
 | provider           | Key defining which geocoder provider should be used. Could be `osm`, `photon` or `opencage` | `"provider": "osm"` |
 | providerOptions    | Optional options which are passed to the geocoder provider | `"providerOptions": {"lang": "en-US", "countrycodes": "", "limit": 6}` |
@@ -63,9 +62,6 @@ Module identifier: `wgu-geolocator`
 
 | Property           | Meaning   | Example |
 |--------------------|:---------:|---------|
-| zoomAnimation             | Use a zoom animation. | `"zoomAnimation": true` |
-| zoomAnimationDuration     | Duration of the zoom animation. | `"zoomAnimationDuration": 2400` |
-| maxZoom                   | Max zoom level for the zoom animation. | `"maxZoom": 15` |
 | markerColor               | Fill color of the geolocation marker. | `"markerColor": blue` |
 | markerText                | Style of the geolocation marker. | `"markerText": "person_pin_circle"` |
 

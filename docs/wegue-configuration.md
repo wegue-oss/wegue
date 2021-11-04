@@ -23,6 +23,7 @@ This describes the Wegue application configuration, which is modelled as JSON do
 | **mapLayers**      | Array of map layer configuration objects | See [mapLayers](map-layer-configuration) |
 | projectionDefs     | Array of CRS / projection definition objects compatible to proj4js | See [projectionDefs](wegue-configuration?id=projectiondefs) |
 | tileGridDefs       | Array of tile grid definition objects | See [tileGridDefs](wegue-configuration?id=tilegriddefs) |
+| viewAnimation      | Configuration object for view animations | See [viewAnimation](wegue-configuration?id=viewAnimation) |
 
 ### projectionDefs
 
@@ -127,6 +128,40 @@ Below is an example for such a configuration object:
   }
 ```
 
+### viewAnimation
+
+Map views can be animated, to zoom or pan from the current to a target location, typically after a user action takes place. This can be configured by the property `viewAnimation` in the main Wegue configuration. Per default animations are disabled.
+
+The following configurations can be set:
+
+| Property           | Meaning   | Example |
+|--------------------|:---------:|---------|
+| type               | The animation type. Supported values are `"none"`, `"fly"`, `"pan"` and `"bounce"`. Defaults to `"none"` | `"type": "fly"` |
+| options            | Configuration object to customize the behavior of the animation. | See the [options](wegue-configuration?id=options) below |
+
+#### options
+
+Animations can be customized by specific options. Not all options are supported by each animation type.
+
+| Property           | Meaning   | Example |
+|--------------------|:---------:|---------|
+| duration        | Duration of the animation in ms. Ignored if the animation type is `"none"`. Currently defaults to 3000 ms for all other animations. | `"duration": 3000` |
+| zoom | The final zoom level when moving to a coordinate or point. This setting is ignored if the destination of the animation is an extent or non-point geometry.  | `"zoom": 15` |
+| maxZoom | The maximum zoom level that the animation is allowed to zoom in on the destination. | `"maxZoom": 15` |
+
+Below is an example for an animation configuration object:
+
+```
+  "viewAnimation": {
+    "type": "fly",
+    "options": {
+      "duration": 3000,
+      "zoom": 15,
+      "maxZoom": 15
+    }
+  }
+```
+
 ## Example configuration
 
 Example configurations can be found in the `app-starter/static` directory. Below an example as used in the Demo:
@@ -157,6 +192,15 @@ Example configurations can be found in the `app-starter/static` directory. Below
     "zoomToData": true,
     "replaceData": true,
     "displayInLayerList": true
+  },
+
+  "viewAnimation": {
+    "type": "fly",
+    "options": {
+      "duration": 3000,
+      "zoom": 15,
+      "maxZoom": 15
+    }
   },
 
   "permalink": {
@@ -348,7 +392,6 @@ Example configurations can be found in the `app-starter/static` directory. Below
       "darkLayout": true,
       "minChars": 2,
       "queryDelay": 200,
-      "selectZoom": 16,
       "debug": false,
       "provider": "osm",
       "providerOptions": {
