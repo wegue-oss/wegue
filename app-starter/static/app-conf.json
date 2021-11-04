@@ -1,27 +1,7 @@
 {
 
   "colorTheme": {
-    "dark": false,
-    "themes": {
-      "light": {
-        "primary": "#af2622",
-        "onprimary": "#ffffff",
-        "secondary": "#ec483b",
-        "onsecondary": "#ffffff",
-        "onsurface": "#bf302d",
-        "accent": "#ffffff",
-        "error": "#ff6f00"
-      },
-      "dark": {
-        "primary": "#272727",
-        "onprimary": "#ffffff",
-        "secondary": "#ea9b9b",
-        "onsecondary": "#272727",
-        "onsurface": "#1e1e1e",
-        "accent": "#ea9b9b",
-        "error": "#ff6f00"
-      }
-    }
+    "dark": false
   },
 
   "logo": "https://dummyimage.com/100x100/aaa/fff&text=Wegue",
