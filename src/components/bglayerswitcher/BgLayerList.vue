@@ -1,7 +1,6 @@
 <template>
   <v-sheet :color="color" :dark="dark" elevation="8">
     <v-slide-group ref="slideGroup"
-      v-if="displayedLayers.length"
       mandatory
       show-arrows
       class="pa-1"
@@ -37,9 +36,6 @@
         </v-card> 
       </v-slide-item>
     </v-slide-group>
-    <v-alert v-else type="info" class="mb-0"> 
-      {{ emptyText }}
-    </v-alert>
   </v-sheet>
 </template>
 
@@ -54,7 +50,6 @@
     },
     mixins: [Mapable],
     props: {
-      emptyText: { type: String, required: true },
       color: { type: String, required: true },
       dark: { type: Boolean, required: true },
       selColor: { type: String, required: true },
@@ -75,9 +70,14 @@
       // https://github.com/vuejs/Discussion/issues/394 .The following works in Firefox and Chrome.
       var slideGroup = this.$refs.slideGroup;
       if (slideGroup) {
-        setTimeout(() => {
+        this.timerHandle = setTimeout(() => {
           slideGroup.onResize();
         }, 10);
+      }
+    },
+    destroyed () {
+      if (this.timerHandle) {
+        clearTimeout(this.timerHandle);
       }
     },
     methods: {

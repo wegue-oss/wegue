@@ -1,3 +1,5 @@
+import ViewAnimationUtil from './ViewAnimation';
+
 /**
  * Util class for OL layers
  */
@@ -48,7 +50,7 @@ const LayerUtil = {
       return;
     }
     const extent = vecLayer.getSource().getExtent();
-    olMap.getView().fit(extent);
+    ViewAnimationUtil.to(olMap.getView(), extent);
   }
 }
 

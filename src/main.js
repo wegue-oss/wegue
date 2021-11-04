@@ -135,6 +135,29 @@ const migrateAppConfig = function (appConfig) {
     });
   }
 
+  // Create warnings, if one of the module specific animation properties is declared,
+  // which are no longer supported due to global view animation configuration.
+  /* eslint-disable no-useless-escape */
+  const deprecatedAnimProps = {
+    'modules\\.wgu-geolocator\\.zoomAnimation': 'viewAnimation.type',
+    'modules\\.wgu-geolocator\\.zoomAnimationDuration': 'viewAnimation.options.duration',
+    'modules\\.wgu-geolocator\\.maxZoom': 'viewAnimation.options.maxZoom',
+    'modules\\.wgu-geocoder\\.selectZoom': 'viewAnimation.options.zoom'
+  };
+  /* eslint-enable no-useless-escape */
+
+  for (const path of configPaths) {
+    const match = Object.keys(deprecatedAnimProps).find(pattern => {
+      const regex = new RegExp('^\\.' + pattern + '$', 'g');
+      return regex.test(path);
+    });
+    if (match) {
+      console.warn('The configuration path "' + path + '" is deprecated, ' +
+        'instead declare the "viewAnimation" option and configure the "' + deprecatedAnimProps[match] +
+        '" property');
+    }
+  };
+
   return appConfig;
 }
 

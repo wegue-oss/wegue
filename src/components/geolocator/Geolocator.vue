@@ -19,13 +19,11 @@ import { Vector as VectorSource } from 'ol/source'
 import { Fill, Style, Text } from 'ol/style';
 
 import { WguEventBus } from '../../WguEventBus'
+import ViewAnimationUtil from '../../util/ViewAnimation';
 
 export default {
   name: 'wgu-geolocator',
   props: {
-    zoomAnimation: { type: Boolean, required: false, default: true },
-    zoomAnimationDuration: { type: Number, required: false, default: 2400 },
-    maxZoom: { type: Number, required: false, default: 15 },
     markerColor: { type: String, required: false, default: 'blue' },
     markerText: { type: String, required: false, default: 'person_pin_circle' }
   },
@@ -94,16 +92,8 @@ export default {
             geolocLayer.getSource().addFeature(new Feature({ geometry: currentPosGeom }));
             this.map.addLayer(geolocLayer);
 
-            // collect zooming options
-            const zoomOpts = {
-              maxZoom: this.maxZoom,
-              padding: [50, 50, 50, 50]
-            };
-            if (this.zoomAnimation) {
-              zoomOpts.duration = this.zoomAnimationDuration;
-            }
             // zoom to geolocation position
-            this.map.getView().fit(currentPosGeom, zoomOpts);
+            ViewAnimationUtil.to(this.map.getView(), currentPosGeom);
           } else {
             console.error('The map is not defined in the getCurrentPosition callback');
           }

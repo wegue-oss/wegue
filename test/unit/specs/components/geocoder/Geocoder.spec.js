@@ -45,7 +45,6 @@ describe('geocoder/Geocoder.vue', () => {
       expect(vm.hideSearch).to.equal(true);
       expect(vm.minChars).to.equal(3);
       expect(vm.queryDelay).to.equal(300);
-      expect(vm.selectZoom).to.equal(16);
       expect(vm.geocoderController !== undefined).to.equal(true);
       expect(vm.geocoderController.provider instanceof OpenStreetMap).to.equal(true);
     });
@@ -61,7 +60,6 @@ describe('geocoder/Geocoder.vue', () => {
         'darkLayout': true,
         'minChars': 5,
         'queryDelay': 200,
-        'selectZoom': 17,
         'debug': false,
         'provider': 'photon'
       };
@@ -75,7 +73,6 @@ describe('geocoder/Geocoder.vue', () => {
       expect(vm.hideSearch).to.equal(true);
       expect(vm.minChars).to.equal(5);
       expect(vm.queryDelay).to.equal(200);
-      expect(vm.selectZoom).to.equal(17);
       expect(vm.geocoderController !== undefined).to.equal(true);
       expect(vm.geocoderController.provider instanceof Photon).to.equal(true);
     });
@@ -91,7 +88,6 @@ describe('geocoder/Geocoder.vue', () => {
         'darkLayout': true,
         'minChars': 6,
         'queryDelay': 200,
-        'selectZoom': 15,
         'debug': false,
         'provider': 'opencage'
       };
@@ -105,7 +101,6 @@ describe('geocoder/Geocoder.vue', () => {
       expect(vm.hideSearch).to.equal(true);
       expect(vm.minChars).to.equal(6);
       expect(vm.queryDelay).to.equal(200);
-      expect(vm.selectZoom).to.equal(15);
       expect(vm.geocoderController !== undefined).to.equal(true);
       expect(vm.geocoderController.provider instanceof OpenCage).to.equal(true);
     });
@@ -119,13 +114,11 @@ describe('geocoder/Geocoder.vue', () => {
     // let requests = [];
     const queryString = 'Heerstraße 52 bonn';
     let selectionItems;
-    const selectZoom = 15;
 
     beforeEach(() => {
       const moduleProps = {
         'target': 'toolbar',
         'queryDelay': 2,
-        'selectZoom': selectZoom,
         'provider': 'osm'
       };
       comp = shallowMount(Geocoder, {
@@ -199,7 +192,6 @@ describe('geocoder/Geocoder.vue', () => {
           vm.map.getView().getProjection());
         expect(mapCenter[0] === coords[0]);
         expect(mapCenter[1] === coords[1]);
-        expect(selectZoom === vm.map.getView().getZoom());
         done();
       });
     });

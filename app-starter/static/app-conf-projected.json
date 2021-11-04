@@ -31,6 +31,15 @@
     ]
   ],
 
+  "viewAnimation": {
+    "type": "fly",
+    "options": {
+      "duration": 3000,
+      "zoom": 15,
+      "maxZoom": 15
+    }
+  },
+
   "permalink": {
     "location": "search",
     "layers": true,
@@ -153,7 +162,6 @@
       "darkLayout": true,
       "minChars": 4,
       "queryDelay": 200,
-      "selectZoom": 16,
       "debug": false,
       "provider": "osm",
       "providerOptions": {
