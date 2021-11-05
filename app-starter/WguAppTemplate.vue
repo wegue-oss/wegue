@@ -14,7 +14,7 @@
 
     <slot name="wgu-after-header" />
 
-    <wgu-app-sidebar v-if="sidebarWins.length">
+    <wgu-app-sidebar v-if="sidebarWins.length" v-bind="sidebarConfig">
         <template v-for="(moduleWin, index) in sidebarWins">
           <component
             :is="moduleWin.type" :key="index" :color="baseColor"
@@ -26,9 +26,9 @@
     <slot name="wgu-before-content" />
     <v-content app>
       <v-container id="ol-map-container" fluid fill-height class="pa-0">
-         <wgu-map :color="baseColor" />
-         <!-- layer loading indicator -->
-         <wgu-maploading-status :color="baseColor" />
+        <wgu-map :color="baseColor" />
+        <!-- layer loading indicator -->
+        <wgu-maploading-status :color="baseColor" />
         <slot name="wgu-after-map"> 
         </slot>
         <!-- Portal to overlay the map content from an application module -->
@@ -98,6 +98,7 @@
     data () {
       return {
         isEmbedded: false,
+        sidebarConfig: this.getSidebarConfig(),
         floatingWins: this.getModuleWinData('floating'),
         sidebarWins: this.getModuleWinData('sidebar'),
         showCopyrightYear: Vue.prototype.$appConfig.showCopyrightYear,
@@ -124,6 +125,14 @@
       WguEventBus.$emit('app-mounted');
     },
     methods: {
+      /**
+       * Returns the configuration object for the sidebar from app-config.
+       * @return {Object} Sidebar configuration object.
+       */
+      getSidebarConfig () {
+        const appConfig = Vue.prototype.$appConfig || {};
+        return appConfig['sidebar'];
+      },
       /**
        * Determines the module window configuration objects from app-config:
        *     moduleWins: [

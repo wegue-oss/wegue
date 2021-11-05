@@ -85,7 +85,11 @@ html {
 
 .wgu-app-sidebar-toggle-btn {
   left: 100%; 
-  visibility: visible
+  visibility: visible;
+  width: 20px;
+  min-width: 20px !important;
+  height: 45px !important;
+  border-radius: 0px 4px 4px 0px;
 }
 
 /* Temporary fix for buggy word-breaking in vuetify card texts and titles.

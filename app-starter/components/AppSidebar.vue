@@ -3,19 +3,19 @@
       class="wgu-app-sidebar"
       app
       clipped
-      width="400"
+      :width=width
+      :color=color
       v-model="sidebarOpen"
       >
       <!-- Forward the default slot for sidebar content. -->
       <slot></slot>
       <!-- Sidebar toggle button -->
       <template v-slot:prepend>
-        <v-btn 
+        <v-btn small
           class="wgu-app-sidebar-toggle-btn px0"
           absolute
           top
-          color="white"
-          width="20" min-width="20" 
+          :color=color
           @click="sidebarOpen = !sidebarOpen"> 
           <v-icon v-if="sidebarOpen">chevron_left</v-icon> 
           <v-icon v-else>chevron_right</v-icon> 
@@ -26,11 +26,42 @@
 
 <script>
 
+import { WguEventBus } from '../../src/WguEventBus'
+
 export default {
   name: 'wgu-app-sidebar',
+  props: {
+    color: { type: String, required: false, default: 'white' },
+    width: { type: Number, required: false, default: 400 },
+    visible: { type: Boolean, required: false, default: true },
+    autoScroll: { type: Boolean, required: false, default: true },
+    scrollDuration: { type: Number, required: false, default: 500 }
+  },
   data () {
     return {
-      sidebarOpen: true
+      sidebarOpen: this.visible
+    }
+  },
+  /**
+   * Initialize the sidebar.
+   */
+  created () {
+    WguEventBus.$on('sidebar-scroll', comp => {
+      this.scrollTo(comp);
+    });
+  },
+  methods: {
+    /**
+     * Scroll to a module, if the 'autoScroll' option is enabled.
+     * @param {string | HTMLElement | Vue} comp The component to scroll to.
+     */
+    scrollTo (comp) {
+      if (this.autoScroll) {
+        this.$vuetify.goTo(comp, {
+          container: '.wgu-app-sidebar > .v-navigation-drawer__content',
+          duration: this.scrollDuration
+        });
+      }
     }
   }
 }

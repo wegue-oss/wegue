@@ -26,13 +26,13 @@ export default {
     }
   },
   created () {
-    WguEventBus.$on(this.moduleName + 'visibility-change', visible => {
+    WguEventBus.$on(this.moduleName + '-visibility-change', visible => {
       this.show = visible;
     });
   },
   methods: {
     toggleUi () {
-      WguEventBus.$emit(this.moduleName + 'visibility-change', !this.show)
+      WguEventBus.$emit(this.moduleName + '-visibility-change', !this.show)
     }
   }
 };
