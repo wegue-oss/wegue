@@ -13,7 +13,6 @@ export default class PermalinkController {
   projection = null;
   conf = null;
   urlParams = null;
-  ignoreLayers = ['wgu-measure-layer', 'wgu-geolocator-layer'];
 
   constructor (map, permalinkConf) {
     this.map = map;
@@ -266,7 +265,7 @@ export default class PermalinkController {
    */
   getLayerIds () {
     return this.map.getLayers().getArray().filter(
-      layer => !!layer.get('lid') && layer.getVisible() && !this.ignoreLayers.includes(layer.get('lid'))
+      layer => !!layer.get('lid') && layer.getVisible() && layer.get('supportsPermalink')
     ).map(layer => layer.get('lid'));
   }
 

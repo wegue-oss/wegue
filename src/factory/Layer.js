@@ -87,6 +87,7 @@ export const LayerFactory = {
       isBaseLayer: lConf.isBaseLayer,
       previewImage: lConf.previewImage,
       displayInLayerList: lConf.displayInLayerList,
+      supportsPermalink: lConf.supportsPermalink,
       extent: lConf.extent,
       visible: lConf.visible,
       opacity: lConf.opacity,
