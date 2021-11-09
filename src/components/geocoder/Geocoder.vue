@@ -201,4 +201,9 @@
     margin-top: 4px; */
   }
 
+  /* override default color for unfocused field */
+  .wgu-geocoder-combo >>> fieldset {
+    color: currentColor;
+  }
+
 </style>

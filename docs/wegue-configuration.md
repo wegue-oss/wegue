@@ -436,14 +436,12 @@ Example configurations can be found in the `app-starter/static` directory. Below
       "target": "menu",
       "win": "floating",
       "icon": "layers",
-      "darkLayout": true,
       "draggable": false
     },
     "wgu-measuretool": {
       "target": "menu",
       "win": "floating",
       "icon": "photo_size_select_small",
-      "darkLayout": true,
       "draggable": false,
       "strokeColor": "#c62828",
       "fillColor": "rgba(198,40,40,0.2)",
@@ -456,7 +454,6 @@ Example configurations can be found in the `app-starter/static` directory. Below
       "target": "menu",
       "win": "floating",
       "icon": "info",
-      "darkLayout": true,
       "draggable": false,
       "initPos": {
         "left": 8,
@@ -466,7 +463,6 @@ Example configurations can be found in the `app-starter/static` directory. Below
     },
     "wgu-geocoder": {
       "target": "toolbar",
-      "darkLayout": true,
       "minChars": 2,
       "queryDelay": 200,
       "debug": false,
@@ -478,14 +474,12 @@ Example configurations can be found in the `app-starter/static` directory. Below
       }
     },
     "wgu-zoomtomaxextent": {
-      "target": "toolbar",
-      "darkLayout": true
+      "target": "toolbar"
     },
     "wgu-maprecorder": {
       "target": "toolbar",
       "win": "floating",
       "icon": "mdi-video",
-      "darkLayout": true,
       "draggable": false,
       "initPos": {
         "left": 8,
@@ -495,23 +489,19 @@ Example configurations can be found in the `app-starter/static` directory. Below
     "wgu-helpwin": {
       "target": "toolbar",
       "win": "floating",
-      "icon": "help",
-      "darkLayout": true
+      "icon": "help"
     },
     "wgu-geolocator": {
-      "target": "toolbar",
-      "darkLayout": true
+      "target": "toolbar"
     },
     "wgu-attributetable": {
       "target": "menu",
       "win": "floating",
       "icon": "table_chart",
-      "darkLayout": true,
       "syncTableMapSelection": true
     },
     "wgu-localeswitcher": {
-      "target": "toolbar",
-      "darkLayout": true
+      "target": "toolbar"
     }
   }
 }
