@@ -11,7 +11,11 @@
         color="accent"
         :dark="dark"
         item-color="secondary"
-        background-color="onsurface"
+        :style='{
+            background: isDark
+              ? "hsla(0, 0%, 0%, 0.16)"
+              : "hsla(0, 0%, 100%, 0.04)"
+        }'
         outlined
         class="wgu-vector-layer-select"
         :items="displayedLayers"
@@ -108,6 +112,11 @@ export default {
           layer.get('lid') !== 'wgu-geolocator-layer'
         )
         .reverse();
+    },
+
+    // Checks if the vuetify dark theme is active
+    isDark: function () {
+      return this.$vuetify.theme.dark;
     }
   }
 };

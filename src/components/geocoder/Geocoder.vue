@@ -6,7 +6,12 @@
     dense
     color="accent"
     :dark="dark"
-    :style='{ display: (hideSearch ? "none" : "block" ) }'
+    :style='{ 
+      display: (hideSearch ? "none" : "block" ),
+      background: isDark
+        ? "hsla(0, 0%, 0%, 0.16)"
+        : "hsla(0, 0%, 100%, 0.04)"
+    }'
     return-object
     hide-details
     :no-filter="noFilter"
@@ -15,7 +20,6 @@
     :items="resultItems"
     :label="$t('wgu-geocoder.placeHolder')"
     :clearable="clearable"
-    background-color="onsurface"
     :persistent-hint="persistentHint"
     :hidden="hideSearch"
     :rounded="rounded"
@@ -87,6 +91,11 @@
         });
 
         return items;
+      },
+
+      // Checks if the vuetify dark theme is active
+      isDark: function () {
+        return this.$vuetify.theme.dark;
       }
     },
     methods: {

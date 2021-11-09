@@ -40,7 +40,6 @@ Example:
       "onprimary": "#ffffff",
       "secondary": "#ec483b",
       "onsecondary": "#ffffff",
-      "onsurface": "#bf302d",
       "accent": "#ffffff",
       "error": "#ff6f00"
     },
@@ -49,7 +48,6 @@ Example:
       "onprimary": "#ffffff",
       "secondary": "#ea9b9b",
       "onsecondary": "#272727",
-      "onsurface": "#1e1e1e",
       "accent": "#ea9b9b",
       "error": "#ff6f00"
     }
@@ -73,7 +71,6 @@ In addition, Wegue also supports the following "on" colors:
 | ------------- |:---------:|:-------------------:| ------------- |
 | onprimary     | yes | color over primary color   | typography/icons over primary color |
 | onsecondary   | yes | color over secondary color | typography/icons over secondary color |
-| onsurface     | yes | color over surface color   | background for selection controls over primary color  |
 
 
 ### projectionDefs

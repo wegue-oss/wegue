@@ -22,7 +22,7 @@ require('./assets/css/wegue.css');
 // try to load an optional app specific CSS file (set project-specific styles)
 try {
   require('../app/static/css/app.css');
-} catch (e) {}
+} catch (e) { }
 
 Vue.config.productionTip = false;
 
@@ -55,7 +55,6 @@ const createVuetify = function (appConfig) {
         'onprimary': '#ffffff',
         'secondary': '#af2622',
         'onsecondary': '#ffffff',
-        'onsurface': '#bf302d',
         'accent': '#ffffff',
         'error': '#ff6f00'
       },
@@ -64,7 +63,6 @@ const createVuetify = function (appConfig) {
         'onprimary': '#ffffff',
         'secondary': '#ea9b9b',
         'onsecondary': '#272727',
-        'onsurface': '#1e1e1e',
         'accent': '#ea9b9b',
         'error': '#ff6f00'
       }
@@ -114,6 +112,12 @@ const createVueI18n = function (appConfig) {
  * @returns The migrated application context.
  */
 const migrateAppConfig = function (appConfig) {
+  // Warning for deprecated baseColor
+  if (appConfig.baseColor) {
+    console.warn('The configuration path ".baseColor" is deprecated, ' +
+      'instead declare a path ".colorTheme"');
+  }
+
   // Migrate boolean values for module.win.
   if (appConfig.modules) {
     Object.keys(appConfig.modules).forEach(name => {
