@@ -244,7 +244,9 @@ Example configurations can be found in the `app-starter/static` directory. Below
 ```json
 {
 
-  "baseColor": "red darken-3",
+  "colorTheme": {
+    "dark": false,
+  },
 
   "logo": "https://dummyimage.com/100x100/aaa/fff&text=Wegue",
   "logoWidth": "100",

@@ -38,8 +38,7 @@
     "wgu-helpwin": {
       "target": "toolbar",
       "win": "floating",
-      "icon": "help",
-      "darkLayout": true
+      "icon": "help"
     }
   }
 

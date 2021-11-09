@@ -112,8 +112,6 @@ export default {
           buttons.push({
             type: moduleOpts.win ? 'wgu-toggle-btn' : key + '-btn',
             moduleName: key,
-            // TODO For further simplifications we should revise the config property 'darkLayout'.
-            dark: moduleOpts.darkLayout,
             color: 'onprimary',
             ...moduleOpts
           });
