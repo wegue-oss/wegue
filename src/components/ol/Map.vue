@@ -64,12 +64,18 @@ export default {
     // Make the OL map accessible for Mapable mixin even 'ol-map-mounted' has
     // already been fired. Don not use directly in cmps, use Mapable instead.
     Vue.prototype.$map = me.map;
+
+    me.map.setTarget(document.getElementById('ol-map-container'));
+
     // Send the event 'ol-map-mounted' with the OL map as payload
     WguEventBus.$emit('ol-map-mounted', me.map);
 
-    // resize the map, so it fits to parent
+    // TODO
+    //  Re-evaluate whether and if yes which of the following operations have to be deferred.
+    //  If so, a better implementation could be to rely on this.$nextTick(), which currently causes trouble
+    //  for the units tests (deferred operations are invoked after the component has already been destroyed).
     me.timerHandle = setTimeout(() => {
-      me.map.setTarget(document.getElementById('ol-map-container'));
+      // resize the map, so it fits to parent
       me.map.updateSize();
 
       // adjust the bg color of the OL buttons (like zoom, rotate north, ...)
