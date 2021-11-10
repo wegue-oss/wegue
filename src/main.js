@@ -11,6 +11,7 @@ import WguApp from '../app/WguApp';
 import UrlUtil from './util/Url';
 import LocaleUtil from './util/Locale';
 import ObjectUtil from './util/Object';
+import ColorThemeUtil from './util/ColorTheme'
 import 'vuetify/dist/vuetify.min.css';
 
 Vue.use(Vuetify);
@@ -69,11 +70,15 @@ const createVuetify = function (appConfig) {
     }
   }
 
+  const cfgTheme = appConfig.colorTheme;
+
   // Override if there is colorTheme
-  if (appConfig.hasOwnProperty('colorTheme') && typeof appConfig.colorTheme === 'object') {
-    theme = {
-      ...theme,
-      ...appConfig.colorTheme
+  if (cfgTheme && typeof cfgTheme === 'object') {
+    theme.dark = !!cfgTheme.dark;
+
+    // If themes is configured
+    if (cfgTheme.themes && typeof cfgTheme.themes === 'object') {
+      theme.themes = ColorThemeUtil.mergeThemes(cfgTheme.themes, theme.themes);
     }
   }
 

@@ -8,7 +8,7 @@ This describes the Wegue application configuration, which is modelled as JSON do
 
 | Property           | Meaning   | Example |
 |--------------------|:---------:|---------|
-| theme          | Vuetify theme configuration | See [theme](#theme) |
+| colorTheme          | Vuetify theme configuration | See [colorTheme](#colorTheme) |
 | logo               | URL to an image shown as application logo | ` "logo": "https://dummyimage.com/100x100/aaa/fff&text=Wegue"`
 | logoWidth          | Width of the application logo defined in `logo` | `"logoWidth": "200"`|
 | logoHeight         | Height of the application logo defined in `logo` | `"logoWidth": "100"` |
@@ -26,13 +26,13 @@ This describes the Wegue application configuration, which is modelled as JSON do
 | viewAnimation      | Configuration object for view animations | See [viewAnimation](wegue-configuration?id=viewAnimation) |
 | sidebar            | Configuration object for the application sidebar. | See [sidebar](wegue-configuration?id=sidebar) |
 
-### theme
+### colorTheme
 
 Wegue supports the Vuetify (light and dark) theme configuration out of the box. This property expects a json object with the same format described in the [vuetify documentation](https://vuetifyjs.com/en/features/theme/#customizing).
 
 Example:
 ```json
-"theme": {
+"colorTheme": {
   "dark": false, // Start with dark theme on
   "themes": {    // Configuration for themes
     "light": {   // Light theme configuration
@@ -57,20 +57,42 @@ Example:
 
 Each theme configuration contains the following classes of colors:
 
-| Color         | Mandatory | Description         | Example       |
-| ------------- |:---------:|:-------------------:| ------------- |
-| primary       | yes | color for main UI components             | Header, Footer |
-| secondary     | yes | color to accent selected parts of the UI | Floating buttons, selection controls, progress bars |
-| accent        | yes | accent selected parts of the UI          | Mainly used to accent components in dark mode  |
-| error         |  no | semantic color for errors                | Used in components that display error messages  |
+| Color         | Description         | Example       |
+| ------------- |:-------------------:| ------------- |
+| primary       | color for main UI components             | Header, Footer |
+| secondary     | color to accent selected parts of the UI | Floating buttons, selection controls, progress bars |
+| accent        | accent selected parts of the UI          | Mainly used to accent components in dark mode  |
+| error         | semantic color for errors                | Used in components that display error messages  |
 
 
 In addition, Wegue also supports the following "on" colors:
 
-| Color         | Mandatory | Description         | Example       |
-| ------------- |:---------:|:-------------------:| ------------- |
-| onprimary     | yes | color over primary color   | typography/icons over primary color |
-| onsecondary   | yes | color over secondary color | typography/icons over secondary color |
+| Color         | Description         | Example       |
+| ------------- |:-------------------:| ------------- |
+| onprimary     | color over primary color   | typography/icons over primary color |
+| onsecondary   | color over secondary color | typography/icons over secondary color |
+
+To simplify the theming configuration, if the "themes" property isn't configured, Wegue will fallback to the default colors in the example above. Otherwise, both the "light" and "dark" themes will be built based on the respective configured colors. The following tables specify which colors are mandatory and their respective default values.
+
+#### Light theme:
+| Color         | Mandatory | Default             |
+| ------------- |:---------:|:-------------------:|
+| primary       | yes |       - |
+| secondary     |  no | primary |
+| accent        |  no | primary |
+| error         |  no | #FF5252 |
+| onprimary     |  no | white if primary is a dark color. <br/> black if primary is a light color |
+| onsecondary   |  no | white if secondary is a dark color. <br/> black if secondary is a light color |
+
+#### Dark theme:
+| Color         | Mandatory | Default             |
+| ------------- |:---------:|:-------------------:|
+| primary       |   - |   #272727 |
+| secondary     | yes |         - |
+| accent        |  no | secondary |
+| error         |  no |   #FF5252 |
+| onprimary     |  no | white if primary is a dark color. <br/> black if primary is a light color |
+| onsecondary   |  no | white if secondary is a dark color. <br/> black if secondary is a light color |
 
 
 ### projectionDefs
