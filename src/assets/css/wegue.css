@@ -39,6 +39,22 @@ html {
   background-color: rgba(255,255,255,0.6) !important;
 }
 
+.wgu-overviewmap,
+.wgu-overviewmap.ol-uncollapsible {
+  top: auto;
+  left: auto;
+  bottom: 8em;
+  right: 0.5em;
+}
+
+.wgu-overviewmap:not(.ol-collapsed) button{ 
+  top: auto; 
+  left: auto;
+  bottom: 2px;
+  right: 2px;
+}
+
+
 /*
   TODO Review ccs colorization.
   Used to force the onprimary color for solo fields (light theme only).
