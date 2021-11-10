@@ -94,6 +94,8 @@ To simplify the theming configuration, if the "themes" property isn't configured
 | onprimary     |  no | white if primary is a dark color. <br/> black if primary is a light color |
 | onsecondary   |  no | white if secondary is a dark color. <br/> black if secondary is a light color |
 
+Note that there is a clear asymmetry in the "light" and "dark" theme configuration. In the "light" theme, the primary color is mandatory and all the 
+others are derived from that. In the "dark" theme, the predominant color must be a shade of black (to comply with the [material design specification](https://material.io/design/color/dark-theme.html)), so the primary color is locked to `#272727`. Therefore, in this case the colors are derived from the second predominant color.
 
 ### projectionDefs
 
