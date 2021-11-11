@@ -1,7 +1,7 @@
 <template>
   <v-app-bar
     class="wgu-app-toolbar onprimary--text"
-    :color="color"
+    color="primary"
     fixed
     app
     clipped-left
@@ -79,9 +79,7 @@ export default {
     'wgu-localeswitcher-btn': LocaleSwitcher,
     'wgu-themeswitcher-btn': ThemeSwitcher
   },
-  props: {
-    color: { type: String, required: false, default: 'red darken-3' }
-  },
+  props: {},
   data () {
     return {
       menuButtons: this.getModuleButtons('menu'),

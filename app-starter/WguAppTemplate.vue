@@ -3,7 +3,7 @@
 
     <slot name="wgu-app-begin" />
 
-    <wgu-app-header color="primary">
+    <wgu-app-header>
       <!-- forward the slots of AppHeader -->
       <slot name="wgu-tb-start" slot="wgu-tb-start" />
       <slot name="wgu-tb-after-title" slot="wgu-tb-after-title" />
@@ -48,7 +48,6 @@
     <slot name="wgu-before-footer" />
 
     <wgu-app-footer
-      color="primary"
       :footerTextLeft="$t('app.footerTextLeft')"
       :footerTextRight="$t('app.footerTextRight')"
       :showCopyrightYear="showCopyrightYear"
