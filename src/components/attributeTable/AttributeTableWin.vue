@@ -9,7 +9,7 @@
       <v-select
         v-model="selLayer"
         color="accent"
-        :dark="dark"
+        :dark="forceDark"
         item-color="secondary"
         :style='{
             background: isDark
@@ -46,6 +46,7 @@ import ModuleCard from './../modulecore/ModuleCard';
 import { Mapable } from '../../mixins/Mapable';
 import VectorLayer from 'ol/layer/Vector'
 import AttributeTable from './AttributeTable';
+import Color from '../../util/Color'
 
 export default {
   name: 'wgu-attributetable-win',
@@ -117,6 +118,24 @@ export default {
     // Checks if the vuetify dark theme is active
     isDark: function () {
       return this.$vuetify.theme.dark;
+    },
+
+    // Checks the luminance level of the primary color.
+    // This is used to set the v-combobox to dark mode if
+    // luminance is low.
+    // Remove this if the "color" property of v-combobox
+    // starts controlling the text/icon color when the
+    // field isn't focused.
+    forceDark: function () {
+      const theme = this.$vuetify.theme.currentTheme;
+
+      let primary = theme.primary;
+
+      if (typeof primary === 'object') {
+        primary = primary.base;
+      }
+
+      return Color.checkLuminance(primary);
     }
   }
 };

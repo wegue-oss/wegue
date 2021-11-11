@@ -5,7 +5,7 @@
     outlined
     dense
     color="accent"
-    :dark="dark"
+    :dark="forceDark"
     :style='{ 
       display: (hideSearch ? "none" : "block" ),
       background: isDark
@@ -45,6 +45,7 @@
   import { applyTransform } from 'ol/extent';
   import { getTransform, fromLonLat } from 'ol/proj';
   import ViewAnimationUtil from '../../util/ViewAnimation';
+  import Color from '../../util/Color'
 
   export default {
     name: 'wgu-geocoder-input',
@@ -96,6 +97,24 @@
       // Checks if the vuetify dark theme is active
       isDark: function () {
         return this.$vuetify.theme.dark;
+      },
+
+      // Checks the luminance level of the primary color.
+      // This is used to set the v-combobox to dark mode if
+      // luminance is low.
+      // Remove this if the "color" property of v-combobox
+      // starts controlling the text/icon color when the
+      // field isn't focused.
+      forceDark: function () {
+        const theme = this.$vuetify.theme.currentTheme;
+
+        let primary = theme.primary;
+
+        if (typeof primary === 'object') {
+          primary = primary.base;
+        }
+
+        return Color.checkLuminance(primary);
       }
     },
     methods: {
@@ -199,11 +218,6 @@
     /* have to be reset here since .v-toolbar .v-input overwrites this */
     /* padding-top: 12px;
     margin-top: 4px; */
-  }
-
-  /* override default color for unfocused field */
-  .wgu-geocoder-combo >>> fieldset {
-    color: currentColor;
   }
 
 </style>
