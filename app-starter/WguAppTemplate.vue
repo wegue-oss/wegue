@@ -26,15 +26,15 @@
     <slot name="wgu-before-content" />
     <v-content app>
       <v-container id="ol-map-container" fluid fill-height class="pa-0">
-        <wgu-map color="secondary onsecondary--text" />
+        <wgu-map />
         <!-- layer loading indicator -->
-        <wgu-maploading-status color="secondary" />
+        <wgu-maploading-status />
         <slot name="wgu-after-map"> 
         </slot>
         <!-- Portal to overlay the map content from an application module -->
         <portal-target name="map-overlay" />
         <wgu-app-logo />
-        <wgu-bglayerswitcher color="secondary"/>
+        <wgu-bglayerswitcher />
       </v-container>
     </v-content>
 

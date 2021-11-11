@@ -5,7 +5,7 @@
     class="wgu-maploading-status"
     :value="80"
     indeterminate
-    :color="color"
+    color="secondary"
     >
   </v-progress-circular>
 
@@ -21,9 +21,7 @@ import LayerGroup from 'ol/layer/Group';
 export default {
   name: 'wgu-maploading-status',
   mixins: [Mapable],
-  props: {
-    color: { type: String, default: 'red darken-3' }
-  },
+  props: {},
   data () {
     return {
       loading: 0,

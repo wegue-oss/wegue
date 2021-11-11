@@ -24,7 +24,6 @@ import proj4 from 'proj4'
 // import the app-wide EventBus
 import { WguEventBus } from '../../WguEventBus.js';
 import { LayerFactory } from '../../factory/Layer.js';
-import ColorUtil from '../../util/Color';
 import LayerUtil from '../../util/Layer';
 import PermalinkController from './PermalinkController';
 import MapInteractionUtil from '../../util/MapInteraction';
@@ -33,7 +32,6 @@ import ViewAnimationUtil from '../../util/ViewAnimation';
 export default {
   name: 'wgu-map',
   props: {
-    color: { type: String, required: false, default: 'red darken-3' },
     collapsibleAttribution: { type: Boolean, default: false },
     rotateableMap: { type: Boolean, required: false, default: false }
   },
@@ -227,32 +225,25 @@ export default {
      * Sets the background color of the OL buttons to the color property.
      */
     setOlButtonColor () {
-      var me = this;
+      const colors = 'secondary onsecondary--text'
 
-      if (ColorUtil.isCssColor(me.color)) {
-        // directly apply the given CSS color
-        if (document.querySelector('.ol-zoom')) {
-          document.querySelector('.ol-zoom .ol-zoom-in').style.backgroundColor = me.color;
-          document.querySelector('.ol-zoom .ol-zoom-out').style.backgroundColor = me.color;
-        }
-        if (document.querySelector('.ol-rotate')) {
-          document.querySelector('.ol-rotate .ol-rotate-reset').style.backgroundColor = me.color;
-        }
-      } else {
-        // apply vuetify color by transforming the color to the corresponding
-        // CSS class (see https://vuetifyjs.com/en/framework/colors)
-        const classes = me.color.toString().trim().split(' ');
-        if (document.querySelector('.ol-zoom')) {
-          classes.forEach(function (c) {
-            document.querySelector('.ol-zoom .ol-zoom-in').classList.add(c);
-            document.querySelector('.ol-zoom .ol-zoom-out').classList.add(c);
-          });
-        }
-        if (document.querySelector('.ol-rotate')) {
-          classes.forEach(function (c) {
-            document.querySelector('.ol-rotate .ol-rotate-reset').classList.add(c);
-          });
-        }
+      // apply vuetify color by transforming the color to the corresponding
+      // CSS class (see https://vuetifyjs.com/en/framework/colors)
+      const classes = colors.toString().trim().split(' ');
+
+      // zoom
+      if (document.querySelector('.ol-zoom')) {
+        classes.forEach(function (c) {
+          document.querySelector('.ol-zoom .ol-zoom-in').classList.add(c);
+          document.querySelector('.ol-zoom .ol-zoom-out').classList.add(c);
+        });
+      }
+
+      // rotate
+      if (document.querySelector('.ol-rotate')) {
+        classes.forEach(function (c) {
+          document.querySelector('.ol-rotate .ol-rotate-reset').classList.add(c);
+        });
       }
     },
     /**
