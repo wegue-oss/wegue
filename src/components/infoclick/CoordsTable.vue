@@ -1,6 +1,14 @@
 <template>
 
-  <table class="wgu-coordstable" v-if="coordRows" style="border: 2px solid var(--v-secondary-base);">
+  <table 
+    :class="{
+      'wgu-coordstable': true,
+      'light-theme': !isDark,
+      'dark-theme': isDark
+    }"
+    v-if="coordRows"
+    style="border: 2px solid var(--v-secondary-base);"
+  >
     <thead>
       <tr>
         <th v-for="(entry, key) in coordRows" :key="key">
@@ -37,6 +45,14 @@ export default {
   data: function () {
     return {
       coordRows: null
+    }
+  },
+  computed: {
+    /**
+     * Checks if color theme is in dark mode
+     */
+    isDark: function () {
+      return this.$vuetify.theme.dark;
     }
   },
   methods: {
@@ -82,11 +98,14 @@ table.wgu-coordstable {
 
 .wgu-coordstable table {
   border-radius: 3px;
-  background-color: #fff;
 }
 
-.wgu-coordstable td {
-  background-color: #f9f9f9;
+.wgu-coordstable.dark-theme td {
+  background-color: hsla(0, 0%, 98%, 0.03);
+}
+
+.wgu-coordstable.light-theme td {
+  background-color: hsla(0, 0%, 98%, 1);
 }
 
 .wgu-coordstable tr {

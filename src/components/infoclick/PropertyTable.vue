@@ -1,6 +1,14 @@
 <template>
 
-  <table class="wgu-proptable" v-if="show" style="border: 2px solid var(--v-secondary-base);">
+  <table 
+  :class="{
+      'wgu-proptable': true,
+      'light-theme': !isDark,
+      'dark-theme': isDark
+    }"
+    v-if="show"
+    style="border: 2px solid var(--v-secondary-base);"
+  >
     <thead>
       <tr>
         <th v-for="(entry, key) in properties" :key="key">
@@ -34,6 +42,12 @@ export default {
      */
     show () {
       return this.properties && Object.keys(this.properties).length;
+    },
+    /**
+     * Checks if color theme is in dark mode
+     */
+    isDark: function () {
+      return this.$vuetify.theme.dark;
     }
   }
 };
@@ -48,8 +62,12 @@ table.wgu-proptable {
  width: 100%;
 }
 
-.wgu-proptable td {
- background-color: #f9f9f9;
+.wgu-proptable.dark-theme td {
+  background-color: hsla(0, 0%, 98%, 0.03);
+}
+
+.wgu-proptable.light-theme td {
+  background-color: hsla(0, 0%, 98%, 1);
 }
 
 .wgu-proptable tr {
