@@ -48,7 +48,6 @@
   "sidebar": {
     "visible": true,
     "width": 400,
-    "color": "white",
     "autoScroll": true,
     "scrollDuration": 500
   },
@@ -248,6 +247,9 @@
       "icon": "help"
     },
     "wgu-geolocator": {
+      "target": "toolbar"
+    },
+    "wgu-themeswitcher": {
       "target": "toolbar"
     },
     "wgu-attributetable": {

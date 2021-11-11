@@ -243,7 +243,6 @@ The `sidebar` object supports the following properties:
 
 | Property           | Meaning   | Example |
 |--------------------|:---------:|---------|
-| color              | Background color of the sidebar. Defaults to white. | `"color": "white"` |
 | width              | Width of the sidebar in pixels. Defaults to 400px.  | `"width": 400` |
 | visible            | Specifies whether the sidebar appears in open or closed state on application start. Defaults to true. | `"visible": true` |
 | autoScroll         | Whether to automatically scroll the sidebar to the active module. Defaults to true. | `"autoScroll": true` |
@@ -255,7 +254,6 @@ Below is an example for a sidebar configuration object:
   "sidebar": {
     "visible": true,
     "width": 400,
-    "color": "white",
     "autoScroll": true,
     "scrollDuration": 500
   }
