@@ -41,8 +41,7 @@ export default {
   name: 'wgu-localeswitcher',
   props: {
     icon: { type: String, required: false, default: 'language' },
-    color: { type: String, required: false, default: null },
-    dark: { type: Boolean, required: false, default: false }
+    color: { type: String, required: false, default: null }
   },
   data () {
     return {

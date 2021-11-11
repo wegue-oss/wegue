@@ -19,7 +19,6 @@ export default {
     color: { type: String, default: null },
     moduleName: { type: String, required: true },
     icon: { type: String, required: true },
-    dark: { type: Boolean, required: false, default: false },
     visible: { type: Boolean, required: false, default: false }
   },
   data: function () {

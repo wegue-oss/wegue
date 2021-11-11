@@ -51,7 +51,6 @@
       icon: { type: String, required: true },
       win: { type: String, required: false, default: 'floating' },
       minimizable: { type: Boolean, required: false, default: false },
-      color: { type: String, required: false, default: 'red darken-3' },
       backgroundImage: { type: String, required: false, default: undefined },
       visible: { type: Boolean, required: false, default: false },
       // Positioning / sizing properties will be ignored for sidebar cards.

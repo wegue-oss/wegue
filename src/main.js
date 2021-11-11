@@ -80,6 +80,12 @@ const createVuetify = function (appConfig) {
     if (cfgTheme.themes && typeof cfgTheme.themes === 'object') {
       theme.themes = ColorThemeUtil.mergeThemes(cfgTheme.themes, theme.themes);
     }
+
+    // Set customProperties
+    // creates css colors for each vuetify color class
+    theme.options = {
+      'customProperties': true
+    }
   }
 
   const preset = {

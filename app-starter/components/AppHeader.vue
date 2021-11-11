@@ -45,7 +45,6 @@
             <v-list-item :key="index">
               <component 
                   :is="tbButton.type" :key="index"
-                  color="secondary"
                   v-bind="tbButton"
                />
               </v-list-item>
@@ -110,7 +109,7 @@ export default {
           buttons.push({
             type: moduleOpts.win ? 'wgu-toggle-btn' : key + '-btn',
             moduleName: key,
-            color: 'onprimary',
+            color: target === 'toolbar' ? 'onprimary' : 'secondary',
             ...moduleOpts
           });
         }

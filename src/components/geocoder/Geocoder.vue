@@ -56,7 +56,6 @@
       autofocus: { type: Boolean, required: false, default: true },
       clearable: { type: Boolean, required: false, default: true },
       color: { type: String, required: false, default: null },
-      dark: { type: Boolean, required: false, default: false },
       persistentHint: { type: Boolean, required: false, default: true },
       debug: { type: Boolean, required: false, default: false },
       minChars: { type: Number, required: false, default: 3 },

@@ -1,6 +1,6 @@
 <template>
 
-  <table class="wgu-coordstable" v-if="coordRows" :style="tableStyles">
+  <table class="wgu-coordstable" v-if="coordRows" style="border: 2px solid var(--v-secondary-base);">
     <thead>
       <tr>
         <th v-for="(entry, key) in coordRows" :key="key">
@@ -23,15 +23,12 @@
 
 <script>
 
-import vColors from 'vuetify/es5/util/colors';
-import ColorUtil from '../../util/Color';
 import { transform } from 'ol/proj.js';
 import { toStringHDMS } from 'ol/coordinate';
 
 export default {
   name: 'wgu-coords-table',
   props: {
-    color: { type: String, required: false, default: 'red darken-3' },
     coordsData: { type: Object },
     showMapPos: { type: Boolean, required: false, default: true },
     showWgsPos: { type: Boolean, required: false, default: true },
@@ -40,23 +37,6 @@ export default {
   data: function () {
     return {
       coordRows: null
-    }
-  },
-  computed: {
-    tableStyles () {
-      // calculate border color of tables due to current color property
-      let borderColor = this.color;
-      if (!ColorUtil.isCssColor(this.color)) {
-        let [colorName, colorModifier] = this.color.toString().trim().split(' ', 2);
-        borderColor = vColors[colorName];
-        if (colorModifier) {
-          colorModifier = colorModifier.replace('-', '');
-          borderColor = vColors[colorName][colorModifier];
-        }
-      }
-      return {
-        'border': '2px solid ' + borderColor
-      };
     }
   },
   methods: {
