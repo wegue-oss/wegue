@@ -23,7 +23,6 @@ describe('infoclick/InfoClickWin.vue', () => {
     });
 
     it('has correct default props', () => {
-      expect(comp.vm.color).to.equal('red darken-3');
       expect(comp.vm.icon).to.equal('info');
       expect(comp.vm.showMedia).to.equal(false);
       expect(comp.vm.mediaInfoLinkUrlProp).to.equal(undefined);

@@ -1,4 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
+import Vuetify from 'vuetify'
 import Geocoder from '@/components/geocoder/Geocoder';
 import { OpenStreetMap } from '../../../../../src/components/geocoder/providers/osm';
 import { Photon } from '../../../../../src/components/geocoder/providers/photon';
@@ -8,6 +9,8 @@ import { fromLonLat } from 'ol/proj';
 // import * as sinon from 'sinon';
 
 describe('geocoder/Geocoder.vue', () => {
+  const vuetify = new Vuetify();
+
   // Inspect the raw component options
   it('is defined', () => {
     expect(typeof Geocoder).to.not.equal('undefined');
@@ -20,14 +23,15 @@ describe('geocoder/Geocoder.vue', () => {
   describe('props', () => {
     let comp;
     beforeEach(() => {
-      comp = shallowMount(Geocoder);
+      comp = shallowMount(Geocoder, {
+        vuetify
+      });
     });
 
     it('has correct default props', () => {
       expect(comp.vm.icon).to.equal('search');
       expect(comp.vm.rounded).to.equal(true);
       expect(comp.vm.autofocus).to.equal(true);
-      expect(comp.vm.dark).to.equal(false);
       expect(comp.vm.persistentHint).to.equal(true);
     });
   });
@@ -37,7 +41,9 @@ describe('geocoder/Geocoder.vue', () => {
     let vm;
 
     beforeEach(() => {
-      comp = shallowMount(Geocoder);
+      comp = shallowMount(Geocoder, {
+        vuetify
+      });
       vm = comp.vm;
     });
 
@@ -57,13 +63,13 @@ describe('geocoder/Geocoder.vue', () => {
     beforeEach(() => {
       const moduleProps = {
         'target': 'toolbar',
-        'darkLayout': true,
         'minChars': 5,
         'queryDelay': 200,
         'debug': false,
         'provider': 'photon'
       };
       comp = shallowMount(Geocoder, {
+        vuetify,
         propsData: moduleProps
       });
       vm = comp.vm;
@@ -85,13 +91,13 @@ describe('geocoder/Geocoder.vue', () => {
     beforeEach(() => {
       const moduleProps = {
         'target': 'toolbar',
-        'darkLayout': true,
         'minChars': 6,
         'queryDelay': 200,
         'debug': false,
         'provider': 'opencage'
       };
       comp = shallowMount(Geocoder, {
+        vuetify,
         propsData: moduleProps
       });
       vm = comp.vm;
@@ -122,6 +128,7 @@ describe('geocoder/Geocoder.vue', () => {
         'provider': 'osm'
       };
       comp = shallowMount(Geocoder, {
+        vuetify,
         propsData: moduleProps
       });
       vm = comp.vm;
@@ -208,7 +215,9 @@ describe('geocoder/Geocoder.vue', () => {
     let vm;
 
     beforeEach(() => {
-      comp = shallowMount(Geocoder);
+      comp = shallowMount(Geocoder, {
+        vuetify
+      });
       vm = comp.vm;
     });
 

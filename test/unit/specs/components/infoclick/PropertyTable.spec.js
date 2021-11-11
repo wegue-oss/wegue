@@ -14,22 +14,7 @@ describe('infoclick/PropertyTable.vue', () => {
     });
 
     it('has correct default props', () => {
-      expect(comp.vm.color).to.equal('red darken-3');
       expect(comp.vm.properties).to.equal(undefined);
-    });
-  });
-
-  describe('computed properties', () => {
-    let comp;
-    beforeEach(() => {
-      comp = shallowMount(PropertyTable);
-    });
-
-    it('tableStyles returning correct color for given color', () => {
-      expect(comp.vm.tableStyles.border).to.equal('2px solid #c62828');
-      const color = 'rgb(0,0,0)';
-      comp.setProps({ color: color });
-      expect(comp.vm.tableStyles.border).to.equal('2px solid ' + color);
     });
   });
 });

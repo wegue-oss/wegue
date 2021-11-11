@@ -42,7 +42,6 @@ describe('ol/Map.vue', () => {
     });
 
     it('has correct default props', () => {
-      expect(vm.color).to.equal('red darken-3');
       expect(vm.collapsibleAttribution).to.equal(false);
       expect(vm.rotateableMap).to.equal(false);
     });
@@ -191,12 +190,12 @@ describe('ol/Map.vue', () => {
       mockRotDiv.append(mockSubRotDiv);
       document.body.append(mockRotDiv);
 
-      comp.setProps({ color: 'rgb(0, 0, 0)' });
-      vm.setOlButtonColor();
+      // comp.setProps({ color: 'rgb(0, 0, 0)' });
+      // vm.setOlButtonColor();
 
-      expect(mockSubZoomInEl.style.backgroundColor).to.equal(vm.color);
-      expect(mockSubZoomOutEl.style.backgroundColor).to.equal(vm.color);
-      expect(mockSubRotDiv.style.backgroundColor).to.equal(vm.color);
+      // expect(mockSubZoomInEl.style.backgroundColor).to.equal(vm.color);
+      // expect(mockSubZoomOutEl.style.backgroundColor).to.equal(vm.color);
+      // expect(mockSubRotDiv.style.backgroundColor).to.equal(vm.color);
 
       // cleanup (otherwise follow up tests fail)
       mockZoomDiv.parentNode.removeChild(mockZoomDiv);
@@ -223,10 +222,9 @@ describe('ol/Map.vue', () => {
       mockRotDiv.append(mockSubRotEl);
       document.body.append(mockRotDiv);
 
-      // set a vuetify color definition like 'red darken-3'
-      const cssCls1 = 'red';
-      const cssCls2 = 'darken-3';
-      vm.color = cssCls1 + ' ' + cssCls2;
+      // set a vuetify color definition like 'secondary onsecondary--text'
+      const cssCls1 = 'secondary';
+      const cssCls2 = 'onsecondary--text';
       vm.setOlButtonColor();
 
       expect(mockSubZoomInEl.classList.contains(cssCls1)).to.equal(true);

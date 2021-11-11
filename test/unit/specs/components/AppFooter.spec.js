@@ -23,7 +23,6 @@ describe('AppFooter.vue', () => {
     });
 
     it('has correct default props', () => {
-      expect(comp.vm.color).to.equal('red darken-3');
       expect(comp.vm.showCopyrightYear).to.equal(true);
     });
 

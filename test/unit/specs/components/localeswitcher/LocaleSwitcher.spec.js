@@ -27,7 +27,6 @@ describe('localeswitcher/LocaleSwitcher.vue', () => {
 
     it('has correct default props', () => {
       expect(vm.icon).to.equal('language');
-      expect(vm.dark).to.equal(false);
     });
 
     afterEach(() => {

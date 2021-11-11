@@ -1,10 +1,13 @@
 import { mount, shallowMount } from '@vue/test-utils';
+import Vuetify from 'vuetify';
 import BgLayerSwitcher from '@/components/bglayerswitcher/BgLayerSwitcher';
 import OlMap from 'ol/Map';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 
 describe('bglayerswitcher/BgLayerSwitcher.vue', () => {
+  const vuetify = new Vuetify();
+
   it('is defined', () => {
     expect(BgLayerSwitcher).to.not.be.an('undefined');
   });
@@ -13,14 +16,14 @@ describe('bglayerswitcher/BgLayerSwitcher.vue', () => {
     let comp;
     let vm;
     beforeEach(() => {
-      comp = shallowMount(BgLayerSwitcher);
+      comp = shallowMount(BgLayerSwitcher, {
+        vuetify
+      });
       vm = comp.vm
     });
 
     it('has correct default props', () => {
-      expect(vm.color).to.equal('red darken-3');
       expect(vm.icon).to.equal('map');
-      expect(vm.dark).to.equal(true);
       expect(vm.imageWidth).to.equal(152);
       expect(vm.imageHeight).to.equal(114);
     });
@@ -34,7 +37,9 @@ describe('bglayerswitcher/BgLayerSwitcher.vue', () => {
     let comp;
     let vm;
     beforeEach(() => {
-      comp = shallowMount(BgLayerSwitcher);
+      comp = shallowMount(BgLayerSwitcher, {
+        vuetify
+      });
       vm = comp.vm;
     });
 
@@ -53,7 +58,9 @@ describe('bglayerswitcher/BgLayerSwitcher.vue', () => {
     let comp;
     let vm;
     beforeEach(() => {
-      comp = shallowMount(BgLayerSwitcher);
+      comp = shallowMount(BgLayerSwitcher, {
+        vuetify
+      });
       vm = comp.vm;
     });
 
@@ -100,9 +107,7 @@ describe('bglayerswitcher/BgLayerSwitcher.vue', () => {
 
     beforeEach(() => {
       comp = mount(BgLayerSwitcher, {
-        created () {
-          this.$vuetify.theme = { dark: false };
-        },
+        vuetify,
         computed: {
           show () {
             return true;
