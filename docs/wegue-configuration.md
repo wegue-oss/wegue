@@ -40,7 +40,6 @@ Example:
       "onprimary": "#ffffff",
       "secondary": "#ec483b",
       "onsecondary": "#ffffff",
-      "accent": "#ffffff",
       "error": "#ff6f00"
     },
     "dark": {    // Dark theme configuration
@@ -48,7 +47,6 @@ Example:
       "onprimary": "#ffffff",
       "secondary": "#ea9b9b",
       "onsecondary": "#272727",
-      "accent": "#ea9b9b",
       "error": "#ff6f00"
     }
   }
@@ -60,16 +58,18 @@ Each theme configuration contains the following classes of colors:
 | Color         | Description         | Example       |
 | ------------- |:-------------------:| ------------- |
 | primary       | color for main UI components             | Header, Footer |
-| secondary     | color to accent selected parts of the UI | Floating buttons, selection controls, progress bars |
-| accent        | accent selected parts of the UI          | Mainly used to accent components in dark mode  |
-| error         | semantic color for errors                | Used in components that display error messages  |
+| secondary     | color to accent selected parts of the UI | Floating buttons, selection controls, progress bars   |
+| info          | semantic color for information           | Used in components that display information messages  |
+| success       | semantic color for success               | Used in components that display success messages      |
+| warning       | semantic color for warning               | Used in components that display warning messages      |
+| error         | semantic color for error                 | Used in components that display error messages        |
 
 
 In addition, Wegue also supports the following "on" colors:
 
 | Color         | Description         | Example       |
 | ------------- |:-------------------:| ------------- |
-| onprimary     | color over primary color   | typography/icons over primary color |
+| onprimary     | color over primary color   | typography/icons over primary color   |
 | onsecondary   | color over secondary color | typography/icons over secondary color |
 
 To simplify the theming configuration, if the "themes" property isn't configured, Wegue will fallback to the default colors in the example above. Otherwise, both the "light" and "dark" themes will be built based on the respective configured colors. The following tables specify which colors are mandatory and their respective default values.
@@ -79,19 +79,23 @@ To simplify the theming configuration, if the "themes" property isn't configured
 | ------------- |:---------:|:-------------------:|
 | primary       | yes |       - |
 | secondary     |  no | primary |
-| accent        |  no | primary |
+| information   |  no | #2196F3 |
+| success       |  no | #4CAF50 |
+| warning       |  no | #FFC107 |
 | error         |  no | #FF5252 |
-| onprimary     |  no | white if primary is a dark color. <br/> black if primary is a light color |
+| onprimary     |  no | white if primary is a dark color. <br/> black if primary is a light color     |
 | onsecondary   |  no | white if secondary is a dark color. <br/> black if secondary is a light color |
 
 #### Dark theme:
 | Color         | Mandatory | Default             |
 | ------------- |:---------:|:-------------------:|
-| primary       |   - |   #272727 |
-| secondary     | yes |         - |
-| accent        |  no | secondary |
-| error         |  no |   #FF5252 |
-| onprimary     |  no | white if primary is a dark color. <br/> black if primary is a light color |
+| primary       |   - | #272727 |
+| secondary     | yes |       - |
+| information   |  no | #2196F3 |
+| success       |  no | #4CAF50 |
+| warning       |  no | #FFC107 |
+| error         |  no | #FF5252 |
+| onprimary     |  no | white if primary is a dark color. <br/> black if primary is a light color     |
 | onsecondary   |  no | white if secondary is a dark color. <br/> black if secondary is a light color |
 
 Note that there is a clear asymmetry in the "light" and "dark" theme configuration. In the "light" theme, the primary color is mandatory and all the 

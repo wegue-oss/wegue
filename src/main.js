@@ -56,7 +56,6 @@ const createVuetify = function (appConfig) {
         'onprimary': '#ffffff',
         'secondary': '#af2622',
         'onsecondary': '#ffffff',
-        'accent': '#ffffff',
         'error': '#ff6f00'
       },
       'dark': {
@@ -64,7 +63,6 @@ const createVuetify = function (appConfig) {
         'onprimary': '#ffffff',
         'secondary': '#ea9b9b',
         'onsecondary': '#272727',
-        'accent': '#ea9b9b',
         'error': '#ff6f00'
       }
     }
@@ -76,10 +74,12 @@ const createVuetify = function (appConfig) {
   if (cfgTheme && typeof cfgTheme === 'object') {
     theme.dark = !!cfgTheme.dark;
 
-    // If themes is configured
-    if (cfgTheme.themes && typeof cfgTheme.themes === 'object') {
-      theme.themes = ColorThemeUtil.mergeThemes(cfgTheme.themes, theme.themes);
+    if (!cfgTheme.themes || typeof cfgTheme.themes !== 'object') {
+      cfgTheme.themes = {};
     }
+
+    // Apply user theme or fallback to default
+    theme.themes = ColorThemeUtil.mergeThemes(cfgTheme.themes, theme.themes);
 
     // Set customProperties
     // creates css colors for each vuetify color class
