@@ -101,6 +101,44 @@ To simplify the theming configuration, if the "themes" property isn't configured
 Note that there is a clear asymmetry in the "light" and "dark" theme configuration. In the "light" theme, the primary color is mandatory and all the 
 others are derived from that. In the "dark" theme, the predominant color must be a shade of black (to comply with the [material design specification](https://material.io/design/color/dark-theme.html)), so the primary color is locked to `#272727`. Therefore, in this case the colors are derived from the second predominant color.
 
+#### Tips on creating a color theme
+
+In this section we offer a couple of tips on choosing colors for Wegue while meeting the [material design principles](https://material.io/design/color/the-color-system.html#color-usage-and-palettes) (hierarchy/legibility/expressiveness).
+
+For simplicity, we will prioritize the colors for the "light" theme and adapt the "dark" theme accordingly. To select colors, we advise the use of [this material design color picker](https://material.io/design/color/the-color-system.html#tools-for-picking-colors) as it shows the color tone levels (the scale underneath each palette). This scale is the key to adjust the contrast of colors for better legibility.
+
+And last but not least, building a theme is a very opinionated matter and therefore the following tips serve only as guidelines for Wegue.
+
+#### Choosing the primary color:
+
+Being the predominant color, the primary color is used to express the "story" that Wegue should tell. Our suggestion is to evaluate the nature of the geographical data that Wegue will display and then pick a color that balances well with that nature.
+
+| Light theme | Dark theme |
+| ----------- | ---------- |
+| Any tone in the color palette is valid. | As referred in the previous section ([colorTheme](#colorTheme)), the primary color in the dark theme is locked to `#272727` to meet the material design standards. |
+
+#### Choosing the secondary color:
+
+Wegue uses the secondary color to accent selected parts of the UI. Everything between selection controls, floating buttons, progress bars and any component that can be interacted with. The idea is to pick a color that has a good balance with the primary, in a way that creates a sense of hierarchy for the UI components.
+
+| Light theme | Dark theme |
+| ----------- | ---------- |
+| A tone from the same scale as the primary (for a monotone scheme). <br/> Or a "complementary", "analogous" or "triadic" color from the color picker tool. | We suggest picking the 200 tone of the primary color. Picking a light variant will contrast well with the dark interface in most cases. |
+
+#### Choosing the "on" colors:
+
+The "on" colors are additional UI colors placed over the main colors. Wegue uses this class of colors to improve the legibility of typography/iconography over primary and secondary colors.
+
+The rule of thumb is simple: 
+* if the main color is a dark tone, white or the 50 tone of the main color are safe choices;
+* if the main color is a light tone, black or the 700 tone of the main color.
+
+#### Edge cases:
+
+In some cases, the primary/secondary color may collide with the semantic colors (information, success, warning, error). This is undesirable as the UI will not be able to sufficiently stand out relevant messages from the surrounding components.
+
+The idea is the override the collided colors with a different tone that will deliver the same semantic feeling. As an example, the default color theme of Wegue is built based on a red tone, which collides with the semantic color for errors. To avoid collision, Wegue adapts the same strategy as in the [Crane material study](https://material.io/design/material-studies/crane.html#color) and sets an orange tone for errors.
+
 ### projectionDefs
 
 The property `projectionDefs` is a nested array holding several [proj4js](https://proj4js.org) compatible projection definitions. For each array element the first item is the projection code and the second item is the [proj4](https://proj4.org) definition string. For example:
