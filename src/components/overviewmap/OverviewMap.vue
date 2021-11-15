@@ -1,6 +1,7 @@
-<template>
-  <div id="wgu-overviewmap-wrapper" />
-</template>
+<!-- 
+  This component wraps up an OpenLayers overview map and is attached directly to the 
+  ol-map-container, currently without any vue speficic template code.
+-->
 
 <script>
 import { Mapable } from '../../mixins/Mapable';
@@ -15,6 +16,8 @@ export default {
     return {
       layers: []
     }
+  },
+  render () {
   },
   methods: {
     /**
