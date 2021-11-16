@@ -27,6 +27,11 @@
     "displayInLayerList": true
   },
 
+  "overviewMap" : {
+    "collapsible": true,
+    "collapsed": false
+  },
+
   "viewAnimation": {
     "type": "fly",
     "options": {

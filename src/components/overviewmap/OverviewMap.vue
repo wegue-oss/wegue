@@ -14,7 +14,7 @@ export default {
     color: { type: String, required: false, default: 'red darken-3' },
     collapsible: { type: Boolean, required: false, default: true },
     collapsed: { type: Boolean, required: false, default: true },
-    label: { type: Boolean, required: false, default: '\u00AB' },
+    label: { type: String, required: false, default: '\u00AB' },
     collapseLabel: { type: String, required: false, default: '\u00BB' },
     rotateWithView: { type: Boolean, required: false, default: true }
   },
