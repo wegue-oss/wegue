@@ -25,6 +25,9 @@ export default {
   },
   render () {
   },
+  destroyed () {
+    this.destroy();
+  },
   methods: {
     /**
      * This function is executed, after the map is bound (see mixins/Mapable).
@@ -33,6 +36,21 @@ export default {
     onMapBound () {
       this.layers = this.map.getLayers().getArray();
       this.overviewMap = new OverviewMapController(this.map, this.$props);
+    },
+    /**
+     * This function is executed, before the map is unbound (see mixins/Mapable)
+     */
+    onMapUnbound () {
+      this.destroy();
+    },
+    /**
+     * Tears down the overview map controller.
+     */
+    destroy () {
+      if (this.overviewMap) {
+        this.overviewMap.destroy();
+        this.overviewMap = undefined;
+      }
     }
   },
   computed: {

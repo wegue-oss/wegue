@@ -9,6 +9,7 @@ import ColorUtil from '../../util/Color';
 export default class OverviewMapController {
   overviewMapControl = null;
   map = null;
+  layer = null;
 
   /**
    * Construction
@@ -31,6 +32,22 @@ export default class OverviewMapController {
     this.map.addControl(this.overviewMapControl);
     this.setOlStyle(this.conf.color);
   };
+
+  /**
+   * Unregister the OpenLayers overview map.
+   */
+  destroy () {
+    if (this.layer) {
+      const overviewMap = this.overviewMapControl.getOverviewMap();
+      overviewMap.getLayers().clear();
+    }
+    if (this.map) {
+      this.map.removeControl(this.overviewMapControl);
+    }
+    this.layer = null;
+    this.map = null;
+    this.overviewMapControl = null;
+  }
 
   /**
    * Sets the background color of the OL expand button to the given color and applies a
