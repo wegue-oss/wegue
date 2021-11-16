@@ -21,12 +21,14 @@ export default class OverviewMapController {
 
     this.overviewMapControl = new OverviewMap({
       className: 'ol-overviewmap wgu-overviewmap',
-      collapsed: false,
-      collapsible: true
+      collapsed: this.conf.collapsed,
+      collapsible: this.conf.collapsible,
+      label: this.conf.label,
+      collapseLabel: this.conf.collapseLabel,
+      rotateWithView: this.conf.rotateWithView
     });
 
     this.map.addControl(this.overviewMapControl);
-    this.overviewMapControl.setRotateWithView(true);
     this.setOlStyle(this.conf.color);
   };
 
