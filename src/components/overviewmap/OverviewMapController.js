@@ -1,6 +1,7 @@
 import { OverviewMap } from 'ol/control';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
+import ColorUtil from '../../util/Color';
 
 /**
  * Implementation of an OpenLayers based overview map.
@@ -12,20 +13,46 @@ export default class OverviewMapController {
   /**
    * Construction
    * @param {ol.Map} map OpenLayers map.
-   * @param {Object} overviewMapConf The overview map configuration object.
+   * @param {Object} config The overview map configuration object.
    */
-  constructor (map, overviewMapConf) {
+  constructor (map, config) {
     this.map = map;
-    this.conf = overviewMapConf || {};
+    this.conf = config || {};
 
     this.overviewMapControl = new OverviewMap({
       className: 'ol-overviewmap wgu-overviewmap',
-      collapsed: false
+      collapsed: false,
+      collapsible: true
     });
 
     this.map.addControl(this.overviewMapControl);
     this.overviewMapControl.setRotateWithView(true);
+    this.setOlStyle(this.conf.color);
   };
+
+  /**
+   * Sets the background color of the OL expand button to the given color and applies a
+   * vuetify card like style to the inner overview map .
+   * @param {String} color The color to set.
+   */
+  setOlStyle (color) {
+    document.querySelector('.ol-overviewmap-map').classList.add('v-card');
+
+    if (color) {
+      if (ColorUtil.isCssColor(color)) {
+        if (document.querySelector('.ol-overviewmap')) {
+          document.querySelector('.ol-overviewmap button').style.backgroundColor = color;
+          document.querySelector('.ol-overviewmap').style.borderColor = color;
+        }
+      } else {
+        const [colorName, colorModifier] = color.toString().trim().split(' ', 2);
+        if (document.querySelector('.ol-overviewmap')) {
+          document.querySelector('.ol-overviewmap button').classList.add(colorName);
+          document.querySelector('.ol-overviewmap button').classList.add(colorModifier);
+        }
+      }
+    }
+  }
 
   /**
    * Set the layer to be displayed in the overview map.

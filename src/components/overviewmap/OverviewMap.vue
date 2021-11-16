@@ -11,6 +11,7 @@ export default {
   name: 'wgu-overviewmap',
   mixins: [Mapable],
   props: {
+    color: { type: String, required: false, default: 'red darken-3' }
   },
   data () {
     return {
@@ -26,7 +27,7 @@ export default {
      */
     onMapBound () {
       this.layers = this.map.getLayers().getArray();
-      this.overviewMap = new OverviewMapController(this.map)
+      this.overviewMap = new OverviewMapController(this.map, this.$props);
     }
   },
   computed: {
@@ -34,7 +35,6 @@ export default {
      * Reactive property to return the currently visible OpenLayers background layer.
      * To disambiguate multiple selected background layers - which may occur programmatically -
      * this returns the first in the list of background layers.
-     * TODO replace by background-layer-change event
      */
     selectedBgLayer () {
       return this.layers
