@@ -70,7 +70,7 @@
   import AppSidebar from './components/AppSidebar'
   import AppLogo from '../src/components/AppLogo'
   import BgLayerSwitcher from '../src/components/bglayerswitcher/BgLayerSwitcher.vue'
-  import OverviewMap from './src/components/overviewmap/OverviewMap.vue'
+  import OverviewMap from '../src/components/overviewmap/OverviewMap.vue'
   import MeasureWin from '../src/components/measuretool/MeasureWin'
   import LayerListWin from '../src/components/layerlist/LayerListWin'
   import HelpWin from '../src/components/helpwin/HelpWin'
