@@ -33,6 +33,10 @@
     "title": "Hintergrundkarte auswählen"
   },
 
+  "wgu-overviewmap": {
+    "title": "Übersichtskarte anzeigen"
+  },
+
   "wgu-geocoder": {
     "title": "Adress-Suche",
     "placeHolder": "Adresse suchen"

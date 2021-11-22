@@ -33,6 +33,10 @@
     "title": "Change background map"
   },
 
+  "wgu-overviewmap": {
+    "title": "Show overview map"
+  },
+
   "wgu-geocoder": {
     "title": "Address Search",
     "placeHolder": "Search for an address"

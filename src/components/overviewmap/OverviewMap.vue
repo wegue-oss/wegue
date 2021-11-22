@@ -1,77 +1,52 @@
-<!-- 
-  This component wraps up an OpenLayers overview map and is attached directly to the 
-  ol-map-container, currently without any vue speficic template code.
--->
-
+<template>
+  <div id="wgu-overviewmap-wrapper">
+    <v-menu offset-x nudge-right="15"
+      transition="scale-transition"
+      :close-on-content-click="false"
+      :close-on-click="false"
+      v-model="open"
+      attach="#wgu-overviewmap-wrapper"
+      >
+      <template v-slot:activator="{on}">
+        <v-sheet class="wgu-overviewmap">
+          <v-btn v-on="on"
+            :color="color" 
+            :dark="dark"
+            fab
+            :title="$t('wgu-overviewmap.title')"
+            >
+            <v-icon medium>{{icon}}</v-icon>
+          </v-btn>
+        </v-sheet>
+      </template>
+      <!-- Remarks: The overviewmap-panel is wrapped by an v-if block to avoid unneccesary image 
+          requests when the panel is not visible -->
+      <wgu-overviewmap-panel v-if="open"
+        color="white"
+        :dark="false"
+        :rotateWithView="rotateWithView"
+      />
+    </v-menu>
+  </div>
+</template>
 <script>
-import { Mapable } from '../../mixins/Mapable';
-import OverviewMapController from './OverviewMapController';
+import OverviewMapPanel from './OverviewMapPanel';
 
 export default {
   name: 'wgu-overviewmap',
-  mixins: [Mapable],
+  components: {
+    'wgu-overviewmap-panel': OverviewMapPanel
+  },
   props: {
     color: { type: String, required: false, default: 'red darken-3' },
-    collapsible: { type: Boolean, required: false, default: true },
+    icon: { type: String, required: false, default: 'zoom_out_map' },
+    dark: { type: Boolean, required: false, default: true },
     collapsed: { type: Boolean, required: false, default: true },
-    label: { type: String, required: false, default: '\u00AB' },
-    collapseLabel: { type: String, required: false, default: '\u00BB' },
     rotateWithView: { type: Boolean, required: false, default: true }
   },
   data () {
     return {
-      layers: []
-    }
-  },
-  render () {
-  },
-  destroyed () {
-    this.destroy();
-  },
-  methods: {
-    /**
-     * This function is executed, after the map is bound (see mixins/Mapable).
-     * Bind to the layers from the OpenLayers map.
-     */
-    onMapBound () {
-      this.layers = this.map.getLayers().getArray();
-      this.overviewMap = new OverviewMapController(this.map, this.$props);
-    },
-    /**
-     * This function is executed, before the map is unbound (see mixins/Mapable)
-     */
-    onMapUnbound () {
-      this.destroy();
-    },
-    /**
-     * Tears down the overview map controller.
-     */
-    destroy () {
-      if (this.overviewMap) {
-        this.overviewMap.destroy();
-        this.overviewMap = undefined;
-      }
-    }
-  },
-  computed: {
-    /**
-     * Reactive property to return the currently visible OpenLayers background layer.
-     * To disambiguate multiple selected background layers - which may occur programmatically -
-     * this returns the first in the list of background layers.
-     */
-    selectedBgLayer () {
-      return this.layers
-        .filter(layer => layer.get('isBaseLayer'))
-        .reverse()
-        .find(layer => layer.getVisible());
-    }
-  },
-  watch: {
-    /**
-     * Watch for background layer selection change.
-     */
-    selectedBgLayer () {
-      this.overviewMap.setLayer(this.selectedBgLayer);
+      open: !this.collapsed
     }
   }
 };
