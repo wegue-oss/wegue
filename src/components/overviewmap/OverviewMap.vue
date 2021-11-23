@@ -4,6 +4,7 @@
       transition="scale-transition"
       :close-on-content-click="false"
       :close-on-click="false"
+      z-index=2
       v-model="open"
       attach="#wgu-overviewmap-wrapper"
       >
