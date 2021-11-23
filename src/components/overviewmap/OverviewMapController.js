@@ -27,6 +27,8 @@ export default class OverviewMapController {
       rotateWithView: this.conf.rotateWithView
     });
 
+    this.setLayer(null);
+
     // TODO:
     // Workaround because without defering the following operation, OL will fail to render
     // the overview map control. Presumably because no sizes have been computed yet on the
