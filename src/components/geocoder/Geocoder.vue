@@ -209,14 +209,3 @@
     }
   }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
-
-  .v-input.wgu-geocoder-combo {
-    /* have to be reset here since .v-toolbar .v-input overwrites this */
-    /* padding-top: 12px;
-    margin-top: 4px; */
-  }
-
-</style>

@@ -75,6 +75,7 @@ In addition, Wegue also supports the following "on" colors:
 To simplify the theming configuration, if the "themes" property isn't configured, Wegue will fallback to the default colors in the example above. Otherwise, both the "light" and "dark" themes will be built based on the respective configured colors. The following tables specify which colors are mandatory and their respective default values.
 
 #### Light theme:
+
 | Color         | Mandatory | Default             |
 | ------------- |:---------:|:-------------------:|
 | primary       | yes |       - |
@@ -87,6 +88,7 @@ To simplify the theming configuration, if the "themes" property isn't configured
 | onsecondary   |  no | white if secondary is a dark color. <br/> black if secondary is a light color |
 
 #### Dark theme:
+
 | Color         | Mandatory | Default             |
 | ------------- |:---------:|:-------------------:|
 | primary       |   - | #272727 |

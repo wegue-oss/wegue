@@ -21,7 +21,6 @@ import LayerGroup from 'ol/layer/Group';
 export default {
   name: 'wgu-maploading-status',
   mixins: [Mapable],
-  props: {},
   data () {
     return {
       loading: 0,
