@@ -1,5 +1,23 @@
 import ColorUtil from './Color'
 
+// Macro for default color themes configuration
+const DEFAULT_THEMES = Object.freeze({
+  'light': {
+    'primary': '#af2622',
+    'onprimary': '#ffffff',
+    'secondary': '#af2622',
+    'onsecondary': '#ffffff',
+    'error': '#ff6f00'
+  },
+  'dark': {
+    'primary': '#272727',
+    'onprimary': '#ffffff',
+    'secondary': '#ea9b9b',
+    'onsecondary': '#272727',
+    'error': '#ff6f00'
+  }
+});
+
 // Macros for light/dark theme
 const LIGHT_WHITE = '#ffffff';
 const LIGHT_ERROR = '#FF5252';
@@ -46,12 +64,12 @@ function contrastColor (color, light, dark) {
 const ColorThemeUtil = {
   /**
    * Merges user color theme with the default color theme
-   * @param {Object} userTheme user theme from app-config
+   * @param {Object} inputTheme input theme from app-config
    * @param {Object} defaultTheme default Wegue theme
    * @returns {Object} merged color theme
    */
-  mergeThemes (userTheme, defaultTheme) {
-    let { light, dark } = userTheme;
+  mergeThemes (inputTheme, defaultTheme) {
+    let { light, dark } = inputTheme;
 
     const merged = {
       light: {},
@@ -119,6 +137,40 @@ const ColorThemeUtil = {
     merged.dark.error = dark.error ? dark.error : DARK_ERROR;
 
     return merged;
+  },
+
+  /**
+   * Builds the theme object used by Vuetify
+   * @param {Object} inputConfig user configuration from app-config
+   * @returns {Object} theme object
+   */
+  buildTheme: function (inputConfig) {
+    // If there is no input config, create it
+    if (!inputConfig || typeof inputConfig !== 'object') {
+      inputConfig = { dark: false };
+    }
+
+    // If there is no input themes, create it
+    if (!inputConfig.themes || typeof inputConfig.themes !== 'object') {
+      inputConfig.themes = {};
+    }
+
+    // Object for the output config
+    const outputConfig = {};
+
+    // Apply start with dark theme
+    outputConfig.dark = !!inputConfig.dark;
+
+    // Apply user theme or fallback to default
+    outputConfig.themes = ColorThemeUtil.mergeThemes(inputConfig.themes, DEFAULT_THEMES);
+
+    // Set customProperties.
+    // This creates css colors for each vuetify color class
+    outputConfig.options = {
+      'customProperties': true
+    }
+
+    return outputConfig;
   }
 }
 

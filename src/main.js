@@ -48,48 +48,8 @@ if (appCtx) {
  * @returns The active vuetify instance.
  */
 const createVuetify = function (appConfig) {
-  let theme = {
-    dark: false,
-    themes: {
-      'light': {
-        'primary': '#af2622',
-        'onprimary': '#ffffff',
-        'secondary': '#af2622',
-        'onsecondary': '#ffffff',
-        'error': '#ff6f00'
-      },
-      'dark': {
-        'primary': '#272727',
-        'onprimary': '#ffffff',
-        'secondary': '#ea9b9b',
-        'onsecondary': '#272727',
-        'error': '#ff6f00'
-      }
-    }
-  }
-
-  const cfgTheme = appConfig.colorTheme;
-
-  // Override if there is colorTheme
-  if (cfgTheme && typeof cfgTheme === 'object') {
-    theme.dark = !!cfgTheme.dark;
-
-    if (!cfgTheme.themes || typeof cfgTheme.themes !== 'object') {
-      cfgTheme.themes = {};
-    }
-
-    // Apply user theme or fallback to default
-    theme.themes = ColorThemeUtil.mergeThemes(cfgTheme.themes, theme.themes);
-
-    // Set customProperties
-    // creates css colors for each vuetify color class
-    theme.options = {
-      'customProperties': true
-    }
-  }
-
   const preset = {
-    theme: theme,
+    theme: ColorThemeUtil.buildTheme(appConfig.colorTheme),
     icons: {
       iconfont: 'mdiSvg'
     },
