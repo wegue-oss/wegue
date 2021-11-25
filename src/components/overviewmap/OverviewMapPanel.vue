@@ -1,5 +1,6 @@
 <template>
-  <v-sheet :color="color" :dark="dark" elevation="8" ref="overviewmapPanel">
+  <v-sheet :color="color" :dark="dark" :width="width" :height="height"
+    elevation="8" class="pa-1" ref="overviewmapPanel">
   </v-sheet>
 </template>
 
@@ -11,8 +12,10 @@
     mixins: [Mapable],
     props: {
       dark: { type: Boolean, required: true },
-      color: { type: String, required: false, default: 'white' },
-      rotateWithView: { type: Boolean, required: false, default: true }
+      color: { type: String, required: true },
+      rotateWithView: { type: Boolean, required: true },
+      width: { type: Number, required: true },
+      height: { type: Number, required: true }
     },
     data () {
       return {

@@ -26,6 +26,8 @@
         color="white"
         :dark="false"
         :rotateWithView="rotateWithView"
+        :width="width"
+        :height="height"
       />
     </v-menu>
   </div>
@@ -43,7 +45,9 @@ export default {
     icon: { type: String, required: false, default: 'zoom_out_map' },
     dark: { type: Boolean, required: false, default: true },
     visible: { type: Boolean, required: false, default: true },
-    rotateWithView: { type: Boolean, required: false, default: true }
+    rotateWithView: { type: Boolean, required: false, default: true },
+    width: { type: Number, required: false, default: 164 },
+    height: { type: Number, required: false, default: 178 }
   },
   data () {
     return {

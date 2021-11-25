@@ -64,7 +64,7 @@ export default class OverviewMapController {
    * @param {String} color The color to set.
    */
   setOlStyle (color) {
-    document.querySelector('.ol-overviewmap-map').classList.add('v-card', 'ma-1');
+    document.querySelector('.ol-overviewmap-map').classList.add('v-card', 'ma-0');
   }
 
   /**
