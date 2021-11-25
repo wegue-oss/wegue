@@ -13,29 +13,38 @@
         :value="layer"
         v-slot:default="{ active, toggle }"
       >
-        <v-card
-          hover
-          :width="imageWidth"
-          :class="{
-            'ma-1': true,
-            'secondary': active,
-            'onsecondary--text': active
-          }"
-          @click="toggle"
-        >
-          <wgu-layerpreviewimage
-            :layer="layer"
-            :mapView="map.getView()"
+        <v-hover v-slot="{ hover }">
+          <v-card
+            hover
             :width="imageWidth"
-            :height="imageHeight"
-            :previewIcon="previewIcon"
-          />
-          <v-card-title class="caption">
-            <span class="d-inline-block text-truncate">
-              {{ layer.get('name') }}
-            </span>
-          </v-card-title>
-        </v-card> 
+            :class="{
+              'ma-1': true,
+              'secondary': active,
+              'onsecondary--text': active
+            }"
+            @click="toggle"
+          >
+            <wgu-layerpreviewimage
+              :layer="layer"
+              :mapView="map.getView()"
+              :width="imageWidth"
+              :height="imageHeight"
+              :previewIcon="previewIcon"
+            />
+            <v-card-title class="caption">
+              <span class="d-inline-block text-truncate">
+                {{ layer.get('name') }}
+              </span>
+            </v-card-title>
+
+            <v-overlay
+              absolute
+              opacity="0.2"
+              color="grey"
+              :value="hover"
+            />
+          </v-card> 
+        </v-hover>
       </v-slide-item>
     </v-slide-group>
   </v-sheet>

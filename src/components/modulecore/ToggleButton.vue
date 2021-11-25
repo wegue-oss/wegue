@@ -1,6 +1,9 @@
 <template>
-  <v-btn-toggle borderless dense 
-   :color="color"
+  <v-btn-toggle
+    class="wgu-toggle-button"
+    borderless
+    dense 
+    :color="color"
     background-color="transparent" 
     :title="$t(moduleName + '.title')"
     v-model="show">
@@ -38,3 +41,13 @@ export default {
   }
 };
 </script>
+<style>
+/**
+  Required to fix the hover button color.
+  Also fixes the color of any possible text
+  inside the button.
+ */
+.wgu-toggle-button .v-btn {
+  color: inherit !important;
+}
+</style>
