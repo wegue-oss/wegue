@@ -16,7 +16,7 @@
     </v-card-text>
 
     <v-card-actions>
-      <a class="info-link red--text darken3"
+      <a class="info-link"
         :href="$t('wgu-helpwin.infoLinkUrl')" target="_blank" v-if="$t('wgu-helpwin.infoLinkUrl')">
         {{ $t('wgu-helpwin.infoLinkText') || $t('wgu-helpwin.infoLinkUrl') }}
         </a>

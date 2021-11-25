@@ -7,6 +7,7 @@ const DEFAULT_THEMES = Object.freeze({
     'onprimary': '#ffffff',
     'secondary': '#af2622',
     'onsecondary': '#ffffff',
+    'anchor': '#af2622',
     'error': '#ff6f00'
   },
   'dark': {
@@ -14,6 +15,7 @@ const DEFAULT_THEMES = Object.freeze({
     'onprimary': '#ffffff',
     'secondary': '#ea9b9b',
     'onsecondary': '#272727',
+    'anchor': '#ea9b9b',
     'error': '#ff6f00'
   }
 });
@@ -92,6 +94,9 @@ const ColorThemeUtil = {
     // set accent to the light theme white
     merged.light.accent = contrastColor(merged.light.primary, LIGHT_WHITE, LIGHT_BLACK);
 
+    // set anchor to the light theme secondary
+    merged.light.anchor = merged.light.secondary;
+
     // set onprimary to user onprimary,
     // otherwise fallback to a color that contrasts with the primary
     merged.light.onprimary = light.onprimary ? light.onprimary : contrastColor(merged.light.primary, LIGHT_WHITE, LIGHT_BLACK);
@@ -118,6 +123,9 @@ const ColorThemeUtil = {
 
     // set secondary
     merged.dark.secondary = dark.secondary;
+
+    // set anchor to the dark theme secondary
+    merged.dark.anchor = merged.dark.secondary;
 
     // set accent to secondary
     merged.dark.accent = dark.secondary;

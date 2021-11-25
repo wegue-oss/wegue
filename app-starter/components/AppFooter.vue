@@ -33,8 +33,8 @@ export default {
     }
   }
   /* avoid special color for links in footer */
-  .v-application a {
-    color: inherit;
+  .v-footer a {
+    color: inherit !important;
   }
 
 </style>
