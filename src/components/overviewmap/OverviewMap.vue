@@ -42,12 +42,12 @@ export default {
     color: { type: String, required: false, default: 'red darken-3' },
     icon: { type: String, required: false, default: 'zoom_out_map' },
     dark: { type: Boolean, required: false, default: true },
-    collapsed: { type: Boolean, required: false, default: true },
+    visible: { type: Boolean, required: false, default: true },
     rotateWithView: { type: Boolean, required: false, default: true }
   },
   data () {
     return {
-      open: !this.collapsed
+      open: this.visible
     }
   }
 };

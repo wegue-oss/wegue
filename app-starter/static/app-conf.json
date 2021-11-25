@@ -28,8 +28,7 @@
   },
 
   "overviewMap" : {
-    "collapsible": true,
-    "collapsed": false
+    "visible": false
   },
 
   "viewAnimation": {
