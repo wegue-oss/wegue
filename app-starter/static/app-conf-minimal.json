@@ -1,7 +1,15 @@
 {
 
   "colorTheme": {
-    "dark": false
+    "dark": false,
+    "themes": {
+      "light": {
+        "primary": "#2E7D32"
+      },
+      "dark": {
+        "secondary": "#A5D6A7"
+      }
+    }
   },
 
   "showCopyrightYear": true,

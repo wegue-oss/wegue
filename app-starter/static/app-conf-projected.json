@@ -1,7 +1,15 @@
 {
 
   "colorTheme": {
-    "dark": false
+    "dark": false,
+    "themes": {
+      "light": {
+        "primary": "#EF6C00"
+      },
+      "dark": {
+        "secondary": "#FFCC80"
+      }
+    }
   },
 
   "logo": "https://dummyimage.com/100x100/aaa/fff&text=Wegue",
