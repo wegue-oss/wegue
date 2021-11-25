@@ -17,17 +17,16 @@
 
   "mapZoom": 3,
   "mapCenter": [155000,463000],
-  "mapProjection":
-    {
+  "mapProjection": {
     "code": "EPSG:28992",
     "units": "m",
     "extent": [-285401.920, 22598.080, 595401.920, 903401.920]
-    },
+  },
 
   "projectionDefs": [
     [
-    "EPSG:28992",
-    "+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.999908 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +towgs84=565.2369,50.0087,465.658,-0.406857330322398,0.350732676542563,-1.8703473836068,4.0812 +no_defs"
+      "EPSG:28992",
+      "+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.999908 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +towgs84=565.2369,50.0087,465.658,-0.406857330322398,0.350732676542563,-1.8703473836068,4.0812 +no_defs"
     ]
   ],
 
@@ -103,8 +102,8 @@
       "type": "WMS",
       "lid": "pdok-lufo-wms",
       "format": "image/jpeg",
-      "layers": "2018_ortho25",
-      "url": "http://geodata.nationaalgeoregister.nl/luchtfoto/rgb/wms",
+      "layers": "Actueel_ortho25",
+      "url": "https://service.pdok.nl/hwh/luchtfotorgb/wms/v1_0",
       "transparent": false,
       "singleTile": false,
       "projection": "EPSG:28992",
@@ -116,7 +115,7 @@
     {
       "type": "XYZ",
       "lid": "brtachtergrondkaart",
-      "url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts/brtachtergrondkaart/EPSG:28992/{z}/{x}/{y}.png",
+      "url": "https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/standaard/EPSG:28992/{z}/{x}/{y}.png",
       "projection": "EPSG:28992",
       "tileGridRef": "dutch_rd",
       "isBaseLayer": true,
