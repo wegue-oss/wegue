@@ -32,10 +32,14 @@ export default class OverviewMapController {
     // TODO:
     // Workaround because without defering the following operation, OL will fail to render
     // the overview map control. Presumably because no sizes have been computed yet on the
-    // target DOM element. Currently the selection box is also displaced initially.
+    // target DOM element. Another deferred render operation within requestAnimationFrame is
+    // necessary to correctly position the selection box.
     setTimeout(() => {
       this.map.addControl(this.overviewMapControl);
       this.setOlStyle(this.conf.color);
+      requestAnimationFrame(() => {
+        this.overviewMapControl.render();
+      });
     }, 100);
   };
 
