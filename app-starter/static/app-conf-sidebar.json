@@ -250,7 +250,8 @@
       "target": "toolbar"
     },
     "wgu-themeswitcher": {
-      "target": "toolbar"
+      "target": "toolbar",
+      "icon": "dark_mode"
     },
     "wgu-attributetable": {
       "target": "menu",

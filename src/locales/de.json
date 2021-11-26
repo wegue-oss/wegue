@@ -93,7 +93,6 @@
   },
 
   "wgu-themeswitcher": {
-    "title_light_mode": "In den dunklen Modus wechseln",
-    "title_dark_mode": "In den hellen Modus wechseln"
+    "title": "Dunklen Modus"
   }
 }
