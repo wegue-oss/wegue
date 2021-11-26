@@ -57,7 +57,7 @@ function getBaseColor (color) {
 function contrastColor (color, light, dark) {
   const baseColor = getBaseColor(color);
 
-  return ColorUtil.checkLuminance(baseColor) ? light : dark
+  return ColorUtil.checkLuminance(baseColor) ? light : dark;
 }
 
 /**
