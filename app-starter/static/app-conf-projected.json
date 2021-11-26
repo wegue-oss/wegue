@@ -4,7 +4,9 @@
     "dark": false,
     "themes": {
       "light": {
-        "primary": "#EF6C00"
+        "primary": "#EF6C00",
+        "onprimary": "#FFFFFF",
+        "onsecondary": "#FFFFFF"
       },
       "dark": {
         "secondary": "#FFCC80"
