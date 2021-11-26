@@ -1,17 +1,14 @@
 <template>
 <v-toolbar-items class="d-flex align-center justify-center">
   <v-combobox
+    v-show="!hideSearch"
     class="wgu-geocoder-combo"
     outlined
     dense
     color="accent"
-    :dark="forceDark"
-    :style='{ 
-      display: (hideSearch ? "none" : "block" ),
-      background: isDark
-        ? "hsla(0, 0%, 0%, 0.16)"
-        : "hsla(0, 0%, 100%, 0.04)"
-    }'
+    :dark="isPrimaryDark"
+    :solo="isDarkTheme"
+    :filled="!isDarkTheme"
     return-object
     hide-details
     :no-filter="noFilter"
@@ -41,15 +38,15 @@
 
 <script>
   import { Mapable } from '../../mixins/Mapable';
+  import { ColorTheme } from '../../mixins/ColorTheme';
   import { GeocoderController } from './GeocoderController';
   import { applyTransform } from 'ol/extent';
   import { getTransform, fromLonLat } from 'ol/proj';
   import ViewAnimationUtil from '../../util/ViewAnimation';
-  import Color from '../../util/Color'
 
   export default {
     name: 'wgu-geocoder-input',
-    mixins: [Mapable],
+    mixins: [Mapable, ColorTheme],
     props: {
       icon: { type: String, required: false, default: 'search' },
       rounded: { type: Boolean, required: false, default: true },
@@ -91,29 +88,6 @@
         });
 
         return items;
-      },
-
-      // Checks if the vuetify dark theme is active
-      isDark: function () {
-        return this.$vuetify.theme.dark;
-      },
-
-      // Checks the luminance level of the primary color.
-      // This is used to set the v-combobox to dark mode if
-      // luminance is low.
-      // Remove this if the "color" property of v-combobox
-      // starts controlling the text/icon color when the
-      // field isn't focused.
-      forceDark: function () {
-        const theme = this.$vuetify.theme.currentTheme;
-
-        let primary = theme.primary;
-
-        if (typeof primary === 'object') {
-          primary = primary.base;
-        }
-
-        return Color.checkLuminance(primary);
       }
     },
     methods: {

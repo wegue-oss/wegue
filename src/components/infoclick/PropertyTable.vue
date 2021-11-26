@@ -3,8 +3,8 @@
   <table 
   :class="{
       'wgu-proptable': true,
-      'light-theme': !isDark,
-      'dark-theme': isDark
+      'light-theme': !isDarkTheme,
+      'dark-theme': isDarkTheme
     }"
     v-if="show"
     style="border: 2px solid var(--v-secondary-base);"
@@ -30,9 +30,11 @@
 </template>
 
 <script>
+import { ColorTheme } from '../../mixins/ColorTheme';
 
 export default {
   name: 'wgu-property-table',
+  mixins: [ColorTheme],
   props: {
     properties: { type: Object }
   },
@@ -42,12 +44,6 @@ export default {
      */
     show () {
       return this.properties && Object.keys(this.properties).length;
-    },
-    /**
-     * Checks if color theme is in dark mode
-     */
-    isDark: function () {
-      return this.$vuetify.theme.dark;
     }
   }
 };

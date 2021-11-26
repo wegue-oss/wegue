@@ -8,8 +8,11 @@
 </template>
 
 <script>
+import { ColorTheme } from '../../mixins/ColorTheme';
+
 export default {
   name: 'wgu-themeswitcher',
+  mixins: [ColorTheme],
   props: {
     color: { type: String, required: false, default: null }
   },
@@ -19,19 +22,11 @@ export default {
 
   computed: {
     /**
-     * Checks if the color theme is in dark mode.
-     * Returns true if dark mode.
-     */
-    isDarkMode: function () {
-      return this.$vuetify.theme.dark;
-    },
-
-    /**
      * Returns the appropriate button tooltip
      * for light and dark mode
      */
     title: function () {
-      return this.isDarkMode
+      return this.isDarkTheme
         ? this.$t('wgu-themeswitcher.title_dark_mode')
         : this.$t('wgu-themeswitcher.title_light_mode');
     },
@@ -41,7 +36,7 @@ export default {
      * for light and dark mode
      */
     iconCls: function () {
-      return this.isDarkMode ? 'material-icons' : 'material-icons-outlined';
+      return this.isDarkTheme ? 'material-icons' : 'material-icons-outlined';
     }
   },
 
@@ -50,7 +45,7 @@ export default {
      * Switches between light and dark mode
      */
     switchTheme: function () {
-      this.$vuetify.theme.dark = !this.isDarkMode;
+      this.$vuetify.theme.dark = !this.isDarkTheme;
     }
   }
 };

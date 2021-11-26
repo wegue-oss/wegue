@@ -3,8 +3,8 @@
   <table 
     :class="{
       'wgu-coordstable': true,
-      'light-theme': !isDark,
-      'dark-theme': isDark
+      'light-theme': !isDarkTheme,
+      'dark-theme': isDarkTheme
     }"
     v-if="coordRows"
     style="border: 2px solid var(--v-secondary-base);"
@@ -33,9 +33,11 @@
 
 import { transform } from 'ol/proj.js';
 import { toStringHDMS } from 'ol/coordinate';
+import { ColorTheme } from '../../mixins/ColorTheme';
 
 export default {
   name: 'wgu-coords-table',
+  mixins: [ColorTheme],
   props: {
     coordsData: { type: Object },
     showMapPos: { type: Boolean, required: false, default: true },
@@ -45,14 +47,6 @@ export default {
   data: function () {
     return {
       coordRows: null
-    }
-  },
-  computed: {
-    /**
-     * Checks if color theme is in dark mode
-     */
-    isDark: function () {
-      return this.$vuetify.theme.dark;
     }
   },
   methods: {
