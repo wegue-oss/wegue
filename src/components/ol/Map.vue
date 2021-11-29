@@ -28,9 +28,11 @@ import LayerUtil from '../../util/Layer';
 import PermalinkController from './PermalinkController';
 import MapInteractionUtil from '../../util/MapInteraction';
 import ViewAnimationUtil from '../../util/ViewAnimation';
+import { ColorTheme } from '../../mixins/ColorTheme'
 
 export default {
   name: 'wgu-map',
+  mixins: [ ColorTheme ],
   props: {
     collapsibleAttribution: { type: Boolean, default: false },
     rotateableMap: { type: Boolean, required: false, default: false }
@@ -261,6 +263,8 @@ export default {
       // create a span to show map tooltip
       overlayEl = document.createElement('span');
       overlayEl.classList.add('wgu-hover-tooltiptext');
+      overlayEl.classList.add('v-sheet');
+      overlayEl.classList.add(this.isDarkTheme ? 'theme--dark' : 'theme--light');
       map.getTarget().append(overlayEl);
 
       me.overlayEl = overlayEl;
@@ -416,6 +420,22 @@ export default {
       layers.forEach(layer => {
         this.updateLocalizedLayerProps(layer);
       });
+    },
+
+    /**
+     * Watch changes on the selected vuetify theme variant (light/dark)
+     * and set the appropriate classes for the tooltip overlay
+     */
+    isDarkTheme: function (value) {
+      const overlayEl = this.overlayEl;
+
+      if (value) {
+        overlayEl.classList.add('theme--dark');
+        overlayEl.classList.remove('theme--light');
+      } else {
+        overlayEl.classList.add('theme--light');
+        overlayEl.classList.remove('theme--dark');
+      }
     }
   }
 
@@ -439,8 +459,6 @@ export default {
   .wgu-hover-tooltiptext {
     float: left; /* needed that max-width has an effect */
     max-width: 200px;
-    background-color: rgba(211, 211, 211, .9);
-    color: #222;
     text-align: center;
     padding: 5px;
     border-radius: 6px;
