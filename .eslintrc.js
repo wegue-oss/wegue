@@ -18,12 +18,16 @@ module.exports = {
   // add your custom rules here
   'rules': {
     // allow paren-less arrow functions
-    'arrow-parens': 0,
+    'arrow-parens': 'off',
     // allow async-await
-    'generator-star-spacing': 0,
+    'generator-star-spacing': 'off',
     // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     // allow semicolons and the end of a statement
-    'semi': 0
+    'semi': 'off',
+
+    // weaken some rules in development mode
+    'no-multiple-empty-lines': process.env.NODE_ENV  === 'development' ? 'warn' : 'error',
+    'no-unused-vars': process.env.NODE_ENV  === 'development' ? 'warn' : 'error'
   }
 }
