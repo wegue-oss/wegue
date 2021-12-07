@@ -1,3 +1,5 @@
+import Vue from 'vue'
+import HoverTooltip from './HoverTooltip'
 import Overlay from 'ol/Overlay';
 import TileWmsSource from 'ol/source/TileWMS';
 import ImageWMSSource from 'ol/source/ImageWMS';
@@ -7,7 +9,6 @@ import axios from 'axios';
 
 export default class HoverController {
   map = null;
-  overlayEl = null;
 
   /**
    * Initializes the map hover functionality:
@@ -18,30 +19,7 @@ export default class HoverController {
    */
   constructor (map) {
     const me = this;
-    let overlayEl;
-
     me.map = map;
-
-    // create a span to show map tooltip
-    overlayEl = document.createElement('span');
-    overlayEl.classList.add('wgu-hover-tooltiptext');
-    map.getTarget().append(overlayEl);
-
-    me.overlayEl = overlayEl;
-
-    // wrap the tooltip span in a OL overlay and add it to map
-    me.overlay = new Overlay({
-      element: overlayEl,
-      stopEvent: false,
-      className: 'wgu-hover-ol-overlay',
-      autoPan: true,
-      autoPanAnimation: {
-        duration: 250
-      }
-    });
-    map.addOverlay(me.overlay);
-
-    // show tooltip if a hoverable feature gets hit with the mouse
     // TODO review why closure for this scope is required
     // map.on('pointermove', me.onPointerMove, me);
     map.on('pointermove', (event) => me.onPointerMove(event));
@@ -138,17 +116,37 @@ export default class HoverController {
 
   displayTooltip (features, hoverAttr, coordinate) {
     const me = this;
-    const overlayEl = me.overlayEl;
+
+    if (me.overlay) {
+      me.map.removeOverlay(me.overlay);
+      me.overlay = null;
+    }
 
     if (!features || features.length === 0 || !hoverAttr) {
-      hoverAttr = null;
-      overlayEl.innerHTML = null;
-      me.overlay.setPosition(undefined);
       return;
     }
     const feature = features[0];
-    var attr = feature.get(hoverAttr);
-    overlayEl.innerHTML = attr;
-    me.overlay.setPosition(coordinate);
+
+    var HoverTooltipCtor = Vue.extend(HoverTooltip);
+    var hoverTooltip = new HoverTooltipCtor({
+      propsData: {
+        feature: feature,
+        hoverAttribute: hoverAttr
+      }
+    });
+    hoverTooltip.$mount();
+
+    // wrap the tooltip span in a OL overlay and add it to map
+    me.overlay = new Overlay({
+      element: hoverTooltip.$el,
+      stopEvent: false,
+      position: coordinate,
+      // className: 'wgu-hover-ol-overlay',
+      autoPan: true,
+      autoPanAnimation: {
+        duration: 250
+      }
+    });
+    me.map.addOverlay(me.overlay);
   }
 }

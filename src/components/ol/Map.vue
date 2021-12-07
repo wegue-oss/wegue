@@ -390,19 +390,4 @@ export default {
   div.ol-attribution.ol-uncollapsible {
     font-size: 10px;
   }
-
-  /* Hover tooltip */
-  .wgu-hover-tooltiptext {
-    float: left; /* needed that max-width has an effect */
-    max-width: 200px;
-    text-align: center;
-    padding: 5px;
-    border-radius: 6px;
-    margin-left: 10px;
-
-    /* Position the hover tooltip */
-    position: relative;
-    z-index: 1;
-  }
-
 </style>
