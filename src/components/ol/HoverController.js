@@ -1,10 +1,8 @@
-import Vue from 'vue'
-import HoverTooltip from './HoverTooltip'
-import Overlay from 'ol/Overlay';
 import TileWmsSource from 'ol/source/TileWMS';
 import ImageWMSSource from 'ol/source/ImageWMS';
 import VectorSource from 'ol/source/Vector';
 import WMSGetFeatureInfo from 'ol/format/WMSGetFeatureInfo';
+import { WguEventBus } from '../../WguEventBus'
 import axios from 'axios';
 
 export default class HoverController {
@@ -93,7 +91,6 @@ export default class HoverController {
           'INFO_FORMAT': 'application/vnd.ogc.gml/3.1.1'
         }
       );
-
       if (!url) {
         reject(new Error('URL is undefined'));
       }
@@ -102,7 +99,6 @@ export default class HoverController {
         method: 'GET',
         url: url
       };
-
       axios(request)
         .then(response => {
           const features = new WMSGetFeatureInfo().readFeatures(response.data);
@@ -115,38 +111,17 @@ export default class HoverController {
   }
 
   displayTooltip (features, hoverAttr, coordinate) {
-    const me = this;
-
-    if (me.overlay) {
-      me.map.removeOverlay(me.overlay);
-      me.overlay = null;
-    }
+    const overlayId = 'wgu-hover-tooltip';
 
     if (!features || features.length === 0 || !hoverAttr) {
+      WguEventBus.$emit(overlayId + '-update-overlay', false);
       return;
     }
     const feature = features[0];
 
-    var HoverTooltipCtor = Vue.extend(HoverTooltip);
-    var hoverTooltip = new HoverTooltipCtor({
-      propsData: {
-        feature: feature,
-        hoverAttribute: hoverAttr
-      }
+    WguEventBus.$emit(overlayId + '-update-overlay', true, coordinate, {
+      feature: feature,
+      hoverAttribute: hoverAttr
     });
-    hoverTooltip.$mount();
-
-    // wrap the tooltip span in a OL overlay and add it to map
-    me.overlay = new Overlay({
-      element: hoverTooltip.$el,
-      stopEvent: false,
-      position: coordinate,
-      // className: 'wgu-hover-ol-overlay',
-      autoPan: true,
-      autoPanAnimation: {
-        duration: 250
-      }
-    });
-    me.map.addOverlay(me.overlay);
   }
 }
