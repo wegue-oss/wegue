@@ -17,14 +17,17 @@
     inheritAttrs: false,
     props: {
       overlayId: { type: String, required: true },
+      visible: { type: Boolean, required: false, default: false },
       offset: { type: Array, required: false, default: undefined },
       positioning: { type: String, required: false, default: 'top-left' },
-      visible: { type: Boolean, required: false, default: false }
+      coordinates: { type: Array, required: false, default: undefined },
+      autoPan: { type: Boolean, required: false, default: false },
+      autoPanDuration: { type: Number, required: false, default: 0 }
     },
     data () {
       return {
         show: this.visible,
-        position: undefined,
+        position: this.coordinates,
         olOverlay: null,
         contentData: null
       }
@@ -53,7 +56,11 @@
             id: this.overlayId,
             offset: this.offset,
             positioning: this.positioning,
-            position: this.position
+            position: this.position,
+            autoPan: this.autoPan,
+            autoPanAnimation: {
+              autoPanDuration: this.autoPanDuration
+            }
           });
           this.map.addOverlay(this.olOverlay);
         }
