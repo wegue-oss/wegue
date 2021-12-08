@@ -1,8 +1,10 @@
 <template>
-    <div ref="overlayContainer">
+  <div v-show="false">
+    <div ref="overlayContainer" >
       <!-- Default slot for overlay content -->
-      <slot name="default"></slot>
+      <slot name="default" v-bind="contentData"></slot>
     </div>
+  </div>
 </template>
 
 <script>
@@ -23,20 +25,21 @@
       return {
         show: this.visible,
         position: undefined,
-        olOverlay: undefined
+        olOverlay: null,
+        contentData: null
       }
     },
     /**
      * Register for an event to update the overlays visiblity, position and content.
-     * The derived class can subscribe to the 'update-overlay' event,
-     * in case the overlay is populated with dynamic data.
+     * The derived class can receive the content inside it's slot scope, in case
+     * the overlay is populated with dynamic data.
      */
     created () {
       WguEventBus.$on(this.overlayId + '-update-overlay',
         (visible, position, data) => {
           if (visible) {
             this.position = position;
-            this.$emit('update-overlay', data);
+            this.contentData = data;
           }
           this.show = visible;
         });

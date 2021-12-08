@@ -5,9 +5,8 @@
 <template>
   <wgu-map-overlay v-bind="$attrs"
     overlayId="wgu-hover-tooltip"
-    v-on:update-overlay="update"
   >
-    <v-sheet v-if="feature" class="pa-2">
+    <v-sheet slot-scope="{feature, hoverAttribute}" v-if="feature" class="pa-2">
       {{ feature.get(hoverAttribute) }}
     </v-sheet>
   </wgu-map-overlay>
@@ -20,25 +19,6 @@ export default {
   components: {
     'wgu-map-overlay': MapOverlay
   },
-  inheritAttrs: false,
-  // props: {
-  //   feature: { type: Object, required: true },
-  //   hoverAttribute: { type: String, required: true }
-  // },
-  data () {
-    return {
-      feature: null,
-      hoverAttribute: null
-    }
-  },
-  methods: {
-    /**
-     * Update the content of the tooltip.
-     */
-    update (data) {
-      this.feature = data.feature;
-      this.hoverAttribute = data.hoverAttribute;
-    }
-  }
+  inheritAttrs: false
 }
 </script>
