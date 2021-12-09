@@ -6,6 +6,11 @@ describe('themeswitcher/ThemeSwitcher.vue', () => {
   const localVue = createLocalVue();
   let vuetify;
 
+  const defaultProps = {
+    moduleName: 'wgu-toolbar',
+    icon: 'dark_mode'
+  }
+
   beforeEach(() => {
     vuetify = new Vuetify()
   });
@@ -21,7 +26,10 @@ describe('themeswitcher/ThemeSwitcher.vue', () => {
     beforeEach(() => {
       comp = mount(ThemeSwitcher, {
         localVue,
-        vuetify
+        vuetify,
+        propsData: {
+          ...defaultProps
+        }
       });
     });
 
@@ -38,12 +46,15 @@ describe('themeswitcher/ThemeSwitcher.vue', () => {
         localVue,
         vuetify,
         propsData: {
+          ...defaultProps,
           color: '#af2622'
         }
       });
     });
 
     it('has correct default props', () => {
+      expect(comp.vm.moduleName).to.equal('wgu-toolbar');
+      expect(comp.vm.icon).to.equal('dark_mode');
       expect(comp.vm.color).to.equal('#af2622');
     });
   });
@@ -56,6 +67,7 @@ describe('themeswitcher/ThemeSwitcher.vue', () => {
         localVue,
         vuetify,
         propsData: {
+          ...defaultProps,
           color: '#af2622'
         }
       });
@@ -67,14 +79,18 @@ describe('themeswitcher/ThemeSwitcher.vue', () => {
       expect(comp.vm.$vuetify.theme.dark).to.equal(false);
     });
 
-    it('switch to dark theme', () => {
+    it('switch to dark theme', async () => {
       button.trigger('click');
+
+      await comp.vm.$nextTick();
 
       expect(comp.vm.$vuetify.theme.dark).to.equal(true);
     });
 
-    it('switch back to light theme', () => {
+    it('switch back to light theme', async () => {
       button.trigger('click');
+
+      await comp.vm.$nextTick();
 
       expect(comp.vm.$vuetify.theme.dark).to.equal(false);
     });

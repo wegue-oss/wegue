@@ -420,22 +420,6 @@ export default {
       layers.forEach(layer => {
         this.updateLocalizedLayerProps(layer);
       });
-    },
-
-    /**
-     * Watch changes on the selected vuetify theme variant (light/dark)
-     * and set the appropriate classes for the tooltip overlay
-     */
-    isDarkTheme: function (value) {
-      const overlayEl = this.overlayEl;
-
-      if (value) {
-        overlayEl.classList.add('theme--dark');
-        overlayEl.classList.remove('theme--light');
-      } else {
-        overlayEl.classList.add('theme--light');
-        overlayEl.classList.remove('theme--dark');
-      }
     }
   }
 
