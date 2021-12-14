@@ -33,7 +33,6 @@ export default class HoverController {
     const me = this;
     const map = me.map;
     const pixel = event.pixel;
-    let hoverAttr;
 
     map.forEachLayerAtPixel(pixel, (layer, pixelValues) => {
       if (!layer.get('hoverable')) {
@@ -43,16 +42,14 @@ export default class HoverController {
       if (source instanceof TileWmsSource || source instanceof ImageWMSSource) {
         me.getWMSFeaturesAsync(map, layer, event.coordinate)
           .then(function (features) {
-            hoverAttr = layer.get('hoverAttribute');
-            me.displayTooltip(features, hoverAttr, event.coordinate)
+            me.displayTooltip(features, layer, event.coordinate)
           })
           .catch(function (error) {
             console.error(error);
           })
       } else if (source instanceof VectorSource) {
-        hoverAttr = layer.get('hoverAttribute');
         const features = me.getVectorFeatures(map, layer, pixel);
-        me.displayTooltip(features, hoverAttr, event.coordinate)
+        me.displayTooltip(features, layer, event.coordinate)
       }
     });
   }
@@ -110,14 +107,15 @@ export default class HoverController {
     });
   }
 
-  displayTooltip (features, hoverAttr, coordinate) {
-    const overlayId = 'wgu-hover-tooltip';
+  displayTooltip (features, layer, coordinate) {
+    const overlayId = layer.get('hoverOverlay') || 'wgu-hover-tooltip';
 
-    if (!features || features.length === 0 || !hoverAttr) {
+    if (!features || features.length === 0) {
       WguEventBus.$emit(overlayId + '-update-overlay', false);
       return;
     }
     const feature = features[0];
+    const hoverAttr = layer.get('hoverAttribute');
 
     WguEventBus.$emit(overlayId + '-update-overlay', true, coordinate, {
       feature: feature,
