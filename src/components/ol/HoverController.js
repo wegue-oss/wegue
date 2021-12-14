@@ -9,6 +9,7 @@ export default class HoverController {
   map = null;
   timerHandle = null;
   activeOverlayId = null;
+  pendingRequestsCancelSrc = null;
 
   /**
    * Initializes the map hover functionality:
@@ -48,15 +49,24 @@ export default class HoverController {
     const map = me.map;
     const pixel = event.pixel;
     const coordinate = event.coordinate;
+    const cancelToken = axios.CancelToken;
     var featureInfos = [];
 
+    // Cancel pending requests and create a new cancel token source which corresponds
+    // to all async requests sent in this iteration.
+    if (me.pendingRequestsCancelSrc) {
+      me.pendingRequestsCancelSrc.cancel();
+    }
+    me.pendingRequestsCancelSrc = cancelToken.source();
+
+    // Acquire features for all layers.
     map.forEachLayerAtPixel(pixel, (layer) => {
       if (!layer.get('hoverable')) {
         return;
       }
       var source = layer.getSource();
       if (source instanceof TileWmsSource || source instanceof ImageWMSSource) {
-        me.getWMSFeaturesAsync(map, layer, coordinate)
+        me.getWMSFeaturesAsync(map, layer, coordinate, me.pendingRequestsCancelSrc)
           .then(function (features) {
             featureInfos.push(...features.map((feat) => {
               return { layer: layer, feature: feat };
@@ -64,7 +74,9 @@ export default class HoverController {
             me.displayTooltip(featureInfos, coordinate)
           })
           .catch(function (error) {
-            console.error(error);
+            if (!axios.isCancel(error)) {
+              console.error(error.message);
+            }
           })
       } else if (source instanceof VectorSource) {
         const features = me.getVectorFeatures(map, layer, pixel);
@@ -97,9 +109,10 @@ export default class HoverController {
    * @param {ol.Map} map OpenLayers map.
    * @param {ol.layer.Base} layer The layer to acquire the features for.
    * @param {ol.Coordinate} coordinate The coordinate in map projection.
+   * @param {axios.CancelTokenSource} cancelTokenSrc An optional cancel token to abort the request.
    * @returns {Promise<Array<ol.Feature>>}
    */
-  getWMSFeaturesAsync (map, layer, coordinate) {
+  getWMSFeaturesAsync (map, layer, coordinate, cancelTokenSrc) {
     const view = map.getView();
     return new Promise((resolve, reject) => {
       const url = layer.getSource().getFeatureInfoUrl(
@@ -116,7 +129,8 @@ export default class HoverController {
 
       const request = {
         method: 'GET',
-        url: url
+        url: url,
+        cancelToken: cancelTokenSrc?.token
       };
       axios(request)
         .then(response => {
