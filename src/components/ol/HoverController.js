@@ -1,6 +1,7 @@
 import TileWmsSource from 'ol/source/TileWMS';
 import ImageWMSSource from 'ol/source/ImageWMS';
 import VectorSource from 'ol/source/Vector';
+import VectorTileSource from 'ol/source/VectorTile'
 import WMSGetFeatureInfo from 'ol/format/WMSGetFeatureInfo';
 import { WguEventBus } from '../../WguEventBus'
 import axios from 'axios';
@@ -105,7 +106,7 @@ export default class HoverController {
               console.error(error.message);
             }
           })
-      } else if (source instanceof VectorSource) {
+      } else if (source instanceof VectorSource || source instanceof VectorTileSource) {
         const features = me.getVectorFeatures(map, layer, pixel);
         featureInfos.push(...features.map((feat) => {
           return { layer: layer, feature: feat };
@@ -118,7 +119,7 @@ export default class HoverController {
   /**
    * Get the features of a vector layer at the current pixel.
    * @param {ol.Map} map OpenLayers map.
-   * @param {ol.layer.Vector} layer The layer to acquire the features for.
+   * @param {ol.layer.Vector | ol/layer/VectorTile} layer The layer to acquire the features for.
    * @param {ol.pixel} pixel The pixel on the viewport.
    * @returns {Array<ol.Feature>}
    */
@@ -134,7 +135,7 @@ export default class HoverController {
   /**
    * Get the features of a vector layer at the current pixel.
    * @param {ol.Map} map OpenLayers map.
-   * @param {ol.layer.Base} layer The layer to acquire the features for.
+   * @param {ol.layer.Tile | ol.layer.Image} layer The layer to acquire the features for.
    * @param {ol.Coordinate} coordinate The coordinate in map projection.
    * @param {axios.CancelTokenSource} cancelTokenSrc An optional cancel token to abort the request.
    * @returns {Promise<Array<ol.Feature>>}
