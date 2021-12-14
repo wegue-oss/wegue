@@ -8,6 +8,7 @@ import axios from 'axios';
 export default class HoverController {
   map = null;
   timerHandle = null;
+  activeOverlayId = null;
 
   /**
    * Initializes the map hover functionality:
@@ -38,41 +39,49 @@ export default class HoverController {
 
   /**
    * Shows the hover tooltip on the map if an appropriate feature of a
-   * 'hoverable' layer was hit with the mouse.
-   *
+   * 'hoverable' layer was hit with the mouse. In the case of overlapping features,
+   * only the first detected feature is displayed.
    * @param  {Object} event The OL event for pointermove
    */
   onPointerRest (event) {
     const me = this;
     const map = me.map;
     const pixel = event.pixel;
+    const coordinate = event.coordinate;
+    var featureInfos = [];
 
-    map.forEachLayerAtPixel(pixel, (layer, pixelValues) => {
+    map.forEachLayerAtPixel(pixel, (layer) => {
       if (!layer.get('hoverable')) {
         return;
       }
       var source = layer.getSource();
       if (source instanceof TileWmsSource || source instanceof ImageWMSSource) {
-        me.getWMSFeaturesAsync(map, layer, event.coordinate)
+        me.getWMSFeaturesAsync(map, layer, coordinate)
           .then(function (features) {
-            me.displayTooltip(features, layer, event.coordinate)
+            featureInfos.push(...features.map((feat) => {
+              return { layer: layer, feature: feat };
+            }));
+            me.displayTooltip(featureInfos, coordinate)
           })
           .catch(function (error) {
             console.error(error);
           })
       } else if (source instanceof VectorSource) {
         const features = me.getVectorFeatures(map, layer, pixel);
-        me.displayTooltip(features, layer, event.coordinate)
+        featureInfos.push(...features.map((feat) => {
+          return { layer: layer, feature: feat };
+        }));
+        me.displayTooltip(featureInfos, coordinate)
       }
     });
   }
 
   /**
-   *
-   * @param {*} map
-   * @param {*} layer
-   * @param {*} pixel
-   * @returns
+   * Get the features of a vector layer at the current pixel.
+   * @param {ol.Map} map OpenLayers map.
+   * @param {ol.layer.Vector} layer The layer to acquire the features for.
+   * @param {ol.pixel} pixel The pixel on the viewport.
+   * @returns {Array<ol.Feature>}
    */
   getVectorFeatures (map, layer, pixel) {
     const features = map.getFeaturesAtPixel(pixel, {
@@ -84,11 +93,11 @@ export default class HoverController {
   }
 
   /**
-   *
-   * @param {*} map
-   * @param {*} layer
-   * @param {*} coordinate
-   * @returns
+   * Get the features of a vector layer at the current pixel.
+   * @param {ol.Map} map OpenLayers map.
+   * @param {ol.layer.Base} layer The layer to acquire the features for.
+   * @param {ol.Coordinate} coordinate The coordinate in map projection.
+   * @returns {Promise<Array<ol.Feature>>}
    */
   getWMSFeaturesAsync (map, layer, coordinate) {
     const view = map.getView();
@@ -120,19 +129,36 @@ export default class HoverController {
     });
   }
 
-  displayTooltip (features, layer, coordinate) {
-    const overlayId = layer.get('hoverOverlay') || 'wgu-hover-tooltip';
+  /**
+   * Displays a tooltip for the first feature among featureInfos.
+   * If no feature is present, hide the active hover tooltip.
+   * @param {Array} featureInfos List of features with their respective layers.
+   * @param {*} coordinate Coordinate in map projection of the mouse cursor.
+   */
+  displayTooltip (featureInfos, coordinate) {
+    const me = this;
 
-    if (!features || features.length === 0) {
-      WguEventBus.$emit(overlayId + '-update-overlay', false);
+    if (!featureInfos || featureInfos.length === 0) {
+      if (me.activeOverlayId) {
+        WguEventBus.$emit(me.activeOverlayId + '-update-overlay', false);
+        me.activeOverlayId = null;
+      }
       return;
     }
-    const feature = features[0];
-    const hoverAttr = layer.get('hoverAttribute');
 
+    const featureInfo = featureInfos[0];
+    const feature = featureInfo.feature;
+    const layer = featureInfo.layer;
+    const hoverAttr = layer.get('hoverAttribute');
+    const overlayId = layer.get('hoverOverlay') || 'wgu-hover-tooltip';
+
+    if (me.activeOverlayId !== overlayId) {
+      WguEventBus.$emit(me.activeOverlayId + '-update-overlay', false);
+    };
     WguEventBus.$emit(overlayId + '-update-overlay', true, coordinate, {
       feature: feature,
       hoverAttribute: hoverAttr
     });
+    me.activeOverlayId = overlayId;
   }
 }
