@@ -7,6 +7,7 @@ import axios from 'axios';
 
 export default class HoverController {
   map = null;
+  timerHandle = null;
 
   /**
    * Initializes the map hover functionality:
@@ -14,13 +15,25 @@ export default class HoverController {
    * map.
    * Registers a 'pointermove' event on the map and shows the layer's
    * 'hoverAttribute' if the layer is configured as 'hoverable'
+   *
+   * @param {ol.Map} map OpenLayers map.
+   * @param {Number} pointerRestInterval Timespan in milliseconds, by which displaying the tooltip is deferred.
    */
-  constructor (map) {
+  constructor (map, pointerRestInterval) {
     const me = this;
     me.map = map;
-    // TODO review why closure for this scope is required
-    // map.on('pointermove', me.onPointerMove, me);
-    map.on('pointermove', (event) => me.onPointerMove(event));
+
+    // To limit the amount of asynchronous requests, implement a "pointer rest" behavior,
+    // which will potentially show a tooltip after the mouse has not moved for a given time period.
+    const timeout = pointerRestInterval ?? 150;
+    map.on('pointermove', (event) => {
+      if (me.timerHandle) {
+        clearTimeout(me.timerHandle);
+      }
+      me.timerHandle = setTimeout(() => {
+        me.onPointerRest(event);
+      }, timeout);
+    });
   }
 
   /**
@@ -29,7 +42,7 @@ export default class HoverController {
    *
    * @param  {Object} event The OL event for pointermove
    */
-  onPointerMove (event) {
+  onPointerRest (event) {
     const me = this;
     const map = me.map;
     const pixel = event.pixel;
