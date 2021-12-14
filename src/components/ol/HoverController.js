@@ -6,6 +6,9 @@ import { WguEventBus } from '../../WguEventBus'
 import axios from 'axios';
 
 export default class HoverController {
+  DEFAULT_POINTER_REST_INTERVAL = 150;
+  DEFAULT_HOVER_OVERLAY = 'wgu-hover-tooltip'
+
   map = null;
   timerHandle = null;
   activeOverlayId = null;
@@ -27,7 +30,7 @@ export default class HoverController {
 
     // To limit the amount of asynchronous requests, implement a "pointer rest" behavior,
     // which will potentially show a tooltip after the mouse has not moved for a given time period.
-    const timeout = pointerRestInterval ?? 150;
+    const timeout = pointerRestInterval ?? me.DEFAULT_POINTER_REST_INTERVAL;
     map.on('pointermove', (event) => {
       if (me.timerHandle) {
         clearTimeout(me.timerHandle);
@@ -36,6 +39,30 @@ export default class HoverController {
         me.onPointerRest(event);
       }, timeout);
     });
+  }
+
+  /**
+   * Tears down this controller.
+   */
+  destroy () {
+    const me = this;
+
+    if (me.timerHandle) {
+      clearTimeout(me.timerHandle);
+      me.timerHandle = null;
+    }
+
+    if (me.pendingRequestsCancelSrc) {
+      me.pendingRequestsCancelSrc.cancel();
+      me.pendingRequestsCancelSrc = null;
+    }
+
+    if (me.activeOverlayId) {
+      WguEventBus.$emit(me.activeOverlayId + '-update-overlay', false);
+      me.activeOverlayId = null;
+    }
+
+    me.map = null;
   }
 
   /**
@@ -164,7 +191,7 @@ export default class HoverController {
     const feature = featureInfo.feature;
     const layer = featureInfo.layer;
     const hoverAttr = layer.get('hoverAttribute');
-    const overlayId = layer.get('hoverOverlay') || 'wgu-hover-tooltip';
+    const overlayId = layer.get('hoverOverlay') || me.DEFAULT_HOVER_OVERLAY;
 
     if (me.activeOverlayId !== overlayId) {
       WguEventBus.$emit(me.activeOverlayId + '-update-overlay', false);

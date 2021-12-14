@@ -97,6 +97,10 @@ export default {
       this.permalinkController.tearDown();
       this.permalinkController = undefined;
     }
+    if (this.hoverController) {
+      this.hoverController.destroy();
+      this.hoverController = undefined;
+    }
     if (this.map) {
       this.map.getLayers().clear();
       this.map.getInteractions().clear();
