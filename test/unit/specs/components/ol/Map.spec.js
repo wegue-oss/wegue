@@ -173,38 +173,6 @@ describe('ol/Map.vue', () => {
       expect(typeof selectIa).to.not.equal('undefined');
     });
 
-    it('setOlButtonColor applies CSS color to OL buttons', () => {
-      // mock a OL zoom button
-      const mockZoomDiv = document.createElement('div');
-      const mockSubZoomInEl = document.createElement('button');
-      const mockSubZoomOutEl = document.createElement('button');
-      mockZoomDiv.classList.add('ol-zoom');
-      mockSubZoomInEl.classList.add('ol-zoom-in');
-      mockSubZoomOutEl.classList.add('ol-zoom-out');
-      mockZoomDiv.append(mockSubZoomInEl);
-      mockZoomDiv.append(mockSubZoomOutEl);
-      document.body.append(mockZoomDiv);
-
-      // mock a OL rotate button
-      const mockRotDiv = document.createElement('div');
-      const mockSubRotDiv = document.createElement('div');
-      mockRotDiv.classList.add('ol-rotate');
-      mockSubRotDiv.classList.add('ol-rotate-reset');
-      mockRotDiv.append(mockSubRotDiv);
-      document.body.append(mockRotDiv);
-
-      // comp.setProps({ color: 'rgb(0, 0, 0)' });
-      // vm.setOlButtonColor();
-
-      // expect(mockSubZoomInEl.style.backgroundColor).to.equal(vm.color);
-      // expect(mockSubZoomOutEl.style.backgroundColor).to.equal(vm.color);
-      // expect(mockSubRotDiv.style.backgroundColor).to.equal(vm.color);
-
-      // cleanup (otherwise follow up tests fail)
-      mockZoomDiv.parentNode.removeChild(mockZoomDiv);
-      mockRotDiv.parentNode.removeChild(mockRotDiv);
-    });
-
     it('setOlButtonColor applies Vuetify color to OL buttons', () => {
       // mock a OL zoom button
       const mockZoomDiv = document.createElement('div');
