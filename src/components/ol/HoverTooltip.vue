@@ -5,6 +5,7 @@
 <template>
   <wgu-map-overlay
     overlayId="wgu-hover-tooltip"
+    :visible=false
     autoPan
     :autoPanDuration="250"
     positioning="top-center"

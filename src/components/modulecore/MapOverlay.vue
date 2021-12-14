@@ -17,7 +17,7 @@
     inheritAttrs: false,
     props: {
       overlayId: { type: String, required: true },
-      visible: { type: Boolean, required: false, default: false },
+      visible: { type: Boolean, required: false, default: true },
       offset: { type: Array, required: false, default: undefined },
       positioning: { type: String, required: false, default: 'top-left' },
       coordinates: { type: Array, required: false, default: undefined },
@@ -48,6 +48,18 @@
         });
     },
     methods: {
+      /**
+       * This function is executed, after the map is bound (see mixins/Mapable).
+       * Create the overlay if visible.
+       */
+      onMapBound () {
+        if (this.show) {
+          this.createOlOverlay();
+        }
+      },
+      /**
+       * Creates the OpenLayers overlay control and adds it to the map.
+       */
       createOlOverlay () {
         if (!this.olOverlay) {
           var overlayContainer = this.$refs.overlayContainer;
@@ -65,6 +77,9 @@
           this.map.addOverlay(this.olOverlay);
         }
       },
+      /**
+       * Destroys the OpenLayers overlay control and removes it from the map.
+       */
       destroyOlOverlay () {
         if (this.olOverlay) {
           this.map.removeOverlay(this.olOverlay);
@@ -73,6 +88,9 @@
       }
     },
     watch: {
+      /**
+       * Create / destroy the OpenLayers overlay control when the visibility toggles.
+       */
       show () {
         if (this.show) {
           this.createOlOverlay();
@@ -80,6 +98,9 @@
           this.destroyOlOverlay();
         }
       },
+      /**
+       * Update the position of the OpenLayers overlay control.
+       */
       position () {
         if (this.olOverlay) {
           this.olOverlay.setPosition(this.position);
