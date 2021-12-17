@@ -11,8 +11,7 @@
         color="accent"
         item-color="secondary"
         :dark="isPrimaryDark"
-        :solo="isDarkTheme"
-        :filled="!isDarkTheme"
+        filled
         outlined
         class="wgu-vector-layer-select"
         :items="displayedLayers"

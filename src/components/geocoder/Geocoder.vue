@@ -7,8 +7,7 @@
     dense
     color="accent"
     :dark="isPrimaryDark"
-    :solo="isDarkTheme"
-    :filled="!isDarkTheme"
+    filled
     return-object
     hide-details
     :no-filter="noFilter"
