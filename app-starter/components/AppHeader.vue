@@ -40,7 +40,7 @@
         <v-icon medium>menu</v-icon>
       </v-btn>
       </template>
-      <v-list>
+      <v-list color="primary">
           <template v-for="(tbButton, index) in menuButtons">
             <v-list-item :key="index">
               <component 
@@ -109,7 +109,7 @@ export default {
           buttons.push({
             type: moduleOpts.win ? 'wgu-toggle-btn' : key + '-btn',
             moduleName: key,
-            color: target === 'toolbar' ? 'onprimary' : 'secondary',
+            color: 'onprimary',
             ...moduleOpts
           });
         }
