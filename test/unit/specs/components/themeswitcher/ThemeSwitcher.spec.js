@@ -20,7 +20,7 @@ describe('themeswitcher/ThemeSwitcher.vue', () => {
     expect(typeof ThemeSwitcher).to.not.equal('undefined');
   });
 
-  describe('unconfigured', () => {
+  describe('configured', () => {
     let comp;
 
     beforeEach(() => {
@@ -34,28 +34,8 @@ describe('themeswitcher/ThemeSwitcher.vue', () => {
     });
 
     it('has correct default props', () => {
-      expect(comp.vm.color).to.equal(null);
-    });
-  });
-
-  describe('configured', () => {
-    let comp;
-
-    beforeEach(() => {
-      comp = mount(ThemeSwitcher, {
-        localVue,
-        vuetify,
-        propsData: {
-          ...defaultProps,
-          color: '#af2622'
-        }
-      });
-    });
-
-    it('has correct default props', () => {
       expect(comp.vm.moduleName).to.equal('wgu-toolbar');
       expect(comp.vm.icon).to.equal('dark_mode');
-      expect(comp.vm.color).to.equal('#af2622');
     });
   });
 
@@ -67,8 +47,7 @@ describe('themeswitcher/ThemeSwitcher.vue', () => {
         localVue,
         vuetify,
         propsData: {
-          ...defaultProps,
-          color: '#af2622'
+          ...defaultProps
         }
       });
 
