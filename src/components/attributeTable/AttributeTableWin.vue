@@ -13,7 +13,7 @@
         :dark="isPrimaryDark"
         filled
         outlined
-        class="wgu-vector-layer-select"
+        class="wgu-vector-layer-select wgu-solo-field"
         :items="displayedLayers"
 		    :item-text="item => item.get('name')"
         :menu-props="{

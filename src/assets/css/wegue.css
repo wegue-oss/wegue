@@ -49,14 +49,11 @@ html {
   More on material design for solo fields:
   https://material.io/archive/guidelines/components/text-fields.html#text-fields-field-variations
 */
-.wgu-geocoder-combo.theme--light > .v-input__control fieldset,
-.wgu-geocoder-combo.theme--light > .v-input__control .v-icon, 
-.wgu-geocoder-combo.theme--light > .v-input__control .v-label,
-.wgu-geocoder-combo.theme--light > .v-input__control input,
-.wgu-vector-layer-select.theme--light > .v-input__control fieldset,
-.wgu-vector-layer-select.theme--light > .v-input__control .v-icon,
-.wgu-vector-layer-select.theme--light > .v-input__control .v-label,
-.wgu-vector-layer-select.theme--light > .v-input__control .v-select__selection
+.wgu-solo-field.theme--light > .v-input__control fieldset,
+.wgu-solo-field.theme--light > .v-input__control .v-icon, 
+.wgu-solo-field.theme--light > .v-input__control .v-label,
+.wgu-solo-field.theme--light > .v-input__control input,
+.wgu-solo-field.theme--light > .v-input__control .v-select__selection
 {
   color: var(--v-onprimary-base) !important;
 }

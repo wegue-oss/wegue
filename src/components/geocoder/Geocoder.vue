@@ -2,7 +2,7 @@
 <v-toolbar-items class="d-flex align-center justify-center">
   <v-combobox
     v-show="!hideSearch"
-    class="wgu-geocoder-combo"
+    class="wgu-geocoder-combo wgu-solo-field"
     outlined
     dense
     color="accent"
