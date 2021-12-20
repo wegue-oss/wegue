@@ -2,12 +2,12 @@
   <v-btn-toggle
     borderless
     dense 
-    :color="color"
+    color="onprimary"
     background-color="transparent" 
     :title="$t(moduleName + '.title')"
     v-model="show">
-    <v-btn icon :value="true" :color="color" @click="toggleUi">
-      <v-icon :color="color" medium>{{icon}}</v-icon>
+    <v-btn icon :value="true" color="onprimary" @click="toggleUi">
+      <v-icon color="onprimary" medium>{{icon}}</v-icon>
     </v-btn>
   </v-btn-toggle>
 </template>
@@ -18,7 +18,6 @@ import { WguEventBus } from '../../WguEventBus'
 export default {
   name: 'wgu-toggle-btn',
   props: {
-    color: { type: String, default: null },
     moduleName: { type: String, required: true },
     icon: { type: String, required: true },
     visible: { type: Boolean, required: false, default: false }

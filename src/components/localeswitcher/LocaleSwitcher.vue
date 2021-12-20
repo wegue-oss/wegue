@@ -6,7 +6,7 @@
         <v-btn
           borderless
           dense 
-          :color="color"
+          color="onprimary"
           background-color="transparent" 
           :title="$t('wgu-localeswitcher.title')"
           class="ma-2"
@@ -40,8 +40,7 @@ import LocaleUtil from '../../util/Locale'
 export default {
   name: 'wgu-localeswitcher',
   props: {
-    icon: { type: String, required: false, default: 'language' },
-    color: { type: String, required: false, default: null }
+    icon: { type: String, required: false, default: 'language' }
   },
   data () {
     return {

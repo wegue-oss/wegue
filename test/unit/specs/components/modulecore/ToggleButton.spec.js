@@ -25,7 +25,6 @@ describe('modulecore/ToggleButton.vue', () => {
     });
 
     it('has correct default props', () => {
-      expect(comp.vm.color).to.equal(null);
       expect(comp.vm.visible).to.equal(false);
     });
 

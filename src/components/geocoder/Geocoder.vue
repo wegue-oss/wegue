@@ -25,7 +25,7 @@
   <div>
 
     <v-btn @click='toggle()'
-      :color="color"
+      color="onprimary"
       icon
       :title="$t('wgu-geocoder.title')">
       <v-icon medium>{{icon}}</v-icon>
@@ -51,7 +51,6 @@
       rounded: { type: Boolean, required: false, default: true },
       autofocus: { type: Boolean, required: false, default: true },
       clearable: { type: Boolean, required: false, default: true },
-      color: { type: String, required: false, default: null },
       persistentHint: { type: Boolean, required: false, default: true },
       debug: { type: Boolean, required: false, default: false },
       minChars: { type: Number, required: false, default: 3 },

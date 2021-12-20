@@ -1,5 +1,5 @@
 <template>
-  <v-btn icon :color="color" @click="onClick"
+  <v-btn icon color="onprimary" @click="onClick"
     :title="$t('wgu-zoomtomaxextent.title')">
     <v-icon medium>{{icon}}</v-icon>
   </v-btn>
@@ -14,8 +14,7 @@ export default {
   name: 'wgu-zoomtomaxextent-btn',
   mixins: [Mapable],
   props: {
-    icon: { type: String, required: false, default: 'zoom_out_map' },
-    color: { type: String, required: false, default: null }
+    icon: { type: String, required: false, default: 'zoom_out_map' }
   },
   methods: {
     onClick () {

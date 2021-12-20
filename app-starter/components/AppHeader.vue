@@ -109,7 +109,6 @@ export default {
           buttons.push({
             type: moduleOpts.win ? 'wgu-toggle-btn' : key + '-btn',
             moduleName: key,
-            color: 'onprimary',
             ...moduleOpts
           });
         }
