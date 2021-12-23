@@ -1,6 +1,7 @@
 <template>
 <span>
-   <v-btn @click="geolocateUserAndShowMarkerOnMap" icon dark
+   <v-btn @click="geolocateUserAndShowMarkerOnMap" icon
+      color="onprimary"
       :title="$t('wgu-geolocator.title')">
       <v-icon v-if='this.isSearchingForGeolocation'>update</v-icon>
       <v-icon v-else-if='this.isGeolocationAPIAvailable && (!this.isGeolocationFound)'>location_searching</v-icon>

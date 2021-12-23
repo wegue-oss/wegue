@@ -5,10 +5,6 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 
 const moduleProps = {
-  'color': 'white',
-  'dark': true,
-  'selColor': 'red darken-3',
-  'selDark': true,
   'imageWidth': 152,
   'imageHeight': 114,
   'previewIcon': 'map'
@@ -34,10 +30,6 @@ describe('bglayerswitcher/BgLayerList.vue', () => {
     });
 
     it('has correct props', () => {
-      expect(vm.color).to.equal('white');
-      expect(vm.dark).to.equal(true);
-      expect(vm.selColor).to.equal('red darken-3');
-      expect(vm.selDark).to.equal(true);
       expect(vm.imageWidth).to.equal(152);
       expect(vm.imageHeight).to.equal(114);
       expect(vm.previewIcon).to.equal('map');

@@ -3,7 +3,7 @@
 
     <slot name="wgu-app-begin" />
 
-    <wgu-app-header :color="baseColor">
+    <wgu-app-header>
       <!-- forward the slots of AppHeader -->
       <slot name="wgu-tb-start" slot="wgu-tb-start" />
       <slot name="wgu-tb-after-title" slot="wgu-tb-after-title" />
@@ -17,7 +17,7 @@
     <wgu-app-sidebar v-if="sidebarWins.length" v-bind="sidebarConfig">
         <template v-for="(moduleWin, index) in sidebarWins">
           <component
-            :is="moduleWin.type" :key="index" :color="baseColor"
+            :is="moduleWin.type" :key="index"
             v-bind="moduleWin"
           />
       </template>
@@ -26,21 +26,21 @@
     <slot name="wgu-before-content" />
     <v-content app>
       <v-container id="ol-map-container" fluid fill-height class="pa-0">
-        <wgu-map :color="baseColor" />
+        <wgu-map />
         <!-- layer loading indicator -->
-        <wgu-maploading-status :color="baseColor" />
+        <wgu-maploading-status />
         <slot name="wgu-after-map"> 
         </slot>
         <!-- Portal to overlay the map content from an application module -->
         <portal-target name="map-overlay" />
         <wgu-app-logo />
-        <wgu-bglayerswitcher :color="baseColor"/>
+        <wgu-bglayerswitcher />
       </v-container>
     </v-content>
 
     <template v-for="(moduleWin, index) in floatingWins">
       <component
-        :is="moduleWin.type" :key="index" :color="baseColor"
+        :is="moduleWin.type" :key="index"
         v-bind="moduleWin"
       />
     </template>
@@ -48,7 +48,6 @@
     <slot name="wgu-before-footer" />
 
     <wgu-app-footer
-      :color="baseColor"
       :footerTextLeft="$t('app.footerTextLeft')"
       :footerTextRight="$t('app.footerTextRight')"
       :showCopyrightYear="showCopyrightYear"
@@ -101,8 +100,7 @@
         sidebarConfig: this.getSidebarConfig(),
         floatingWins: this.getModuleWinData('floating'),
         sidebarWins: this.getModuleWinData('sidebar'),
-        showCopyrightYear: Vue.prototype.$appConfig.showCopyrightYear,
-        baseColor: Vue.prototype.$appConfig.baseColor
+        showCopyrightYear: Vue.prototype.$appConfig.showCopyrightYear
       }
     },
     created () {

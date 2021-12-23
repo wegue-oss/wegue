@@ -9,22 +9,17 @@
       <template v-slot:activator="{on}">
         <v-sheet class="wgu-bglayerswitcher">
           <v-btn v-on="on"
-            :color="color" 
-            :dark="dark"
+            color="secondary"
             fab
             :title="$t('wgu-bglayerswitcher.title')"
             >
-            <v-icon medium>{{icon}}</v-icon>
+            <v-icon color="onsecondary" medium>{{icon}}</v-icon>
           </v-btn>
         </v-sheet>
       </template>
       <!-- Remarks: The layerlist is wrapped by an v-if block to avoid unneccesary image 
            requests when the layerlist is not visible -->
       <wgu-bglayerlist v-if="open"
-        color="white"
-        :dark="false"
-        :selColor="color"
-        :selDark="dark"
         :previewIcon="icon"
         :imageWidth="imageWidth"
         :imageHeight="imageHeight"
@@ -44,9 +39,7 @@ export default {
   },
   mixins: [Mapable],
   props: {
-    color: { type: String, required: false, default: 'red darken-3' },
     icon: { type: String, required: false, default: 'map' },
-    dark: { type: Boolean, required: false, default: true },
     imageWidth: { type: Number, required: false, default: 152 },
     imageHeight: { type: Number, required: false, default: 114 }
   },

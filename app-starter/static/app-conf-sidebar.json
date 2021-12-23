@@ -1,6 +1,8 @@
 {
 
-  "baseColor": "red darken-3",
+  "colorTheme": {
+    "dark": false
+  },
 
   "logo": "https://dummyimage.com/100x100/aaa/fff&text=Wegue",
   "logoWidth": "100",
@@ -46,7 +48,6 @@
   "sidebar": {
     "visible": true,
     "width": 400,
-    "color": "white",
     "autoScroll": true,
     "scrollDuration": 500
   },
@@ -198,7 +199,6 @@
       "target": "menu",
       "win": "sidebar",
       "icon": "layers",
-      "darkLayout": true,
       "visible": true,
       "minimizable": true
     },
@@ -206,7 +206,6 @@
       "target": "menu",
       "win": "sidebar",
       "icon": "photo_size_select_small",
-      "darkLayout": true,
       "minimizable": true,
       "strokeColor": "#c62828",
       "fillColor": "rgba(198,40,40,0.2)",
@@ -219,12 +218,10 @@
       "target": "menu",
       "win": "sidebar",
       "icon": "info",
-      "darkLayout": true,
       "minimizable": true
     },
     "wgu-geocoder": {
       "target": "toolbar",
-      "darkLayout": true,
       "minChars": 2,
       "queryDelay": 200,
       "debug": false,
@@ -236,37 +233,35 @@
       }
     },
     "wgu-zoomtomaxextent": {
-      "target": "toolbar",
-      "darkLayout": true
+      "target": "toolbar"
     },
     "wgu-maprecorder": {
       "target": "toolbar",
       "win": "sidebar",
       "icon": "mdi-video",
-      "darkLayout": true,
       "minimizable": true
     },
     "wgu-helpwin": {
       "target": "toolbar",
       "win": "floating",
-      "icon": "help",
-      "darkLayout": true
+      "icon": "help"
     },
     "wgu-geolocator": {
+      "target": "toolbar"
+    },
+    "wgu-themeswitcher": {
       "target": "toolbar",
-      "darkLayout": true
+      "icon": "dark_mode"
     },
     "wgu-attributetable": {
       "target": "menu",
       "win": "sidebar",
       "icon": "table_chart",
-      "darkLayout": true,
       "minimizable": true,
       "syncTableMapSelection": true
     },
     "wgu-localeswitcher": {
-      "target": "toolbar",
-      "darkLayout": true
+      "target": "toolbar"
     }
   }
 }

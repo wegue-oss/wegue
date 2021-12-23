@@ -1,6 +1,6 @@
 <template>
 
-  <v-footer :color="color" class="white--text" app>
+  <v-footer color="primary" class="onprimary--text" app>
     <span class="wgu-footer-left" v-html="footerTextLeft"></span>
     <v-spacer></v-spacer>
     <div class="wgu-footer-right">
@@ -16,7 +16,6 @@
 export default {
   name: 'wgu-app-footer',
   props: {
-    color: { type: String, required: false, default: 'red darken-3' },
     footerTextLeft: { type: String, required: true },
     footerTextRight: { type: String, required: true },
     showCopyrightYear: { type: Boolean, required: false, default: true }
@@ -34,8 +33,8 @@ export default {
     }
   }
   /* avoid special color for links in footer */
-  .v-application a {
-    color: inherit;
+  .v-footer a {
+    color: inherit !important;
   }
 
 </style>

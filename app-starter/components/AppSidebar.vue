@@ -4,7 +4,6 @@
       app
       clipped
       :width=width
-      :color=color
       v-model="sidebarOpen"
       >
       <!-- Forward the default slot for sidebar content. -->
@@ -15,10 +14,10 @@
           class="wgu-app-sidebar-toggle-btn px0"
           absolute
           top
-          :color=color
+          color="secondary"
           @click="sidebarOpen = !sidebarOpen"> 
-          <v-icon v-if="sidebarOpen">chevron_left</v-icon> 
-          <v-icon v-else>chevron_right</v-icon> 
+          <v-icon color="onsecondary" v-if="sidebarOpen">chevron_left</v-icon> 
+          <v-icon color="onsecondary" v-else>chevron_right</v-icon> 
         </v-btn>
       </template>
   </v-navigation-drawer>
@@ -31,7 +30,6 @@ import { WguEventBus } from '../../src/WguEventBus'
 export default {
   name: 'wgu-app-sidebar',
   props: {
-    color: { type: String, required: false, default: 'white' },
     width: { type: Number, required: false, default: 400 },
     visible: { type: Boolean, required: false, default: true },
     autoScroll: { type: Boolean, required: false, default: true },

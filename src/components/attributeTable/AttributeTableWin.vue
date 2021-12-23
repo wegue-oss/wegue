@@ -8,9 +8,18 @@
     <template v-slot:wgu-win-toolbar>
       <v-select
         v-model="selLayer"
-        class="wgu-vector-layer-select"
+        color="accent"
+        item-color="secondary"
+        :dark="isPrimaryDark"
+        filled
+        outlined
+        class="wgu-vector-layer-select wgu-solo-field"
         :items="displayedLayers"
 		    :item-text="item => item.get('name')"
+        :menu-props="{
+          bottom: true,
+          'offset-y': true,
+        }"
         dense
         return-object
         hide-details
@@ -31,6 +40,7 @@
 <script>
 import ModuleCard from './../modulecore/ModuleCard';
 import { Mapable } from '../../mixins/Mapable';
+import { ColorTheme } from '../../mixins/ColorTheme';
 import VectorLayer from 'ol/layer/Vector'
 import AttributeTable from './AttributeTable';
 
@@ -49,7 +59,7 @@ export default {
       selLayer: null
     }
   },
-  mixins: [Mapable],
+  mixins: [Mapable, ColorTheme],
   components: {
     'wgu-module-card': ModuleCard,
     'wgu-attributetable': AttributeTable

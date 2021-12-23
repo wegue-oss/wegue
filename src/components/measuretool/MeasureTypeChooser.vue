@@ -1,6 +1,6 @@
 <template>
 
-  <v-btn-toggle v-model="measureTypeData" mandatory>
+  <v-btn-toggle color="secondary"  v-model="measureTypeData" mandatory>
      <v-btn large value="distance">
        {{ $t("wgu-measuretool.distance") }}
      </v-btn>

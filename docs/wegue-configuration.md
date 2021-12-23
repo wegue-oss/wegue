@@ -8,7 +8,7 @@ This describes the Wegue application configuration, which is modelled as JSON do
 
 | Property           | Meaning   | Example |
 |--------------------|:---------:|---------|
-| baseColor          | Main colour of the UI elements | `"baseColor": "red darken-3"` or `"baseColor": "#ff3388"` |
+| colorTheme          | Vuetify theme configuration | See [colorTheme](#colorTheme) |
 | logo               | URL to an image shown as application logo | ` "logo": "https://dummyimage.com/100x100/aaa/fff&text=Wegue"`
 | logoWidth          | Width of the application logo defined in `logo` | `"logoWidth": "200"`|
 | logoHeight         | Height of the application logo defined in `logo` | `"logoWidth": "100"` |
@@ -25,6 +25,121 @@ This describes the Wegue application configuration, which is modelled as JSON do
 | tileGridDefs       | Array of tile grid definition objects | See [tileGridDefs](wegue-configuration?id=tilegriddefs) |
 | viewAnimation      | Configuration object for view animations | See [viewAnimation](wegue-configuration?id=viewAnimation) |
 | sidebar            | Configuration object for the application sidebar. | See [sidebar](wegue-configuration?id=sidebar) |
+
+### colorTheme
+
+Wegue supports the Vuetify (light and dark) theme configuration out of the box. This property expects a json object with the same format described in the [vuetify documentation](https://vuetifyjs.com/en/features/theme/#customizing).
+
+Example:
+```json
+"colorTheme": {
+  "dark": false, // Start with dark theme on
+  "themes": {    // Configuration for themes
+    "light": {   // Light theme configuration
+      "primary": "#af2622",
+      "onprimary": "#ffffff",
+      "secondary": "#ec483b",
+      "onsecondary": "#ffffff",
+      "error": "#ff6f00"
+    },
+    "dark": {    // Dark theme configuration
+      "primary": "#272727",
+      "onprimary": "#ffffff",
+      "secondary": "#ea9b9b",
+      "onsecondary": "#272727",
+      "error": "#ff6f00"
+    }
+  }
+},
+```
+
+Each theme configuration contains the following classes of colors:
+
+| Color         | Description         | Example       |
+| ------------- |:-------------------:| ------------- |
+| primary       | color for main UI components             | Header, Footer |
+| secondary     | color to accent selected parts of the UI | Floating buttons, selection controls, progress bars   |
+| info          | semantic color for information           | Used in components that display information messages  |
+| success       | semantic color for success               | Used in components that display success messages      |
+| warning       | semantic color for warning               | Used in components that display warning messages      |
+| error         | semantic color for error                 | Used in components that display error messages        |
+
+
+In addition, Wegue also supports the following "on" colors:
+
+| Color         | Description         | Example       |
+| ------------- |:-------------------:| ------------- |
+| onprimary     | color over primary color   | typography/icons over primary color   |
+| onsecondary   | color over secondary color | typography/icons over secondary color |
+
+To simplify the theming configuration, if the "themes" property isn't configured, Wegue will fallback to the default colors in the example above. Otherwise, both the "light" and "dark" themes will be built based on the respective configured colors. The following tables specify which colors are mandatory and their respective default values.
+
+#### Light theme:
+
+| Color         | Mandatory | Default             |
+| ------------- |:---------:|:-------------------:|
+| primary       | yes |       - |
+| secondary     |  no | primary |
+| information   |  no | #2196F3 |
+| success       |  no | #4CAF50 |
+| warning       |  no | #FFC107 |
+| error         |  no | #FF5252 |
+| onprimary     |  no | white if primary is a dark color. <br/> black if primary is a light color     |
+| onsecondary   |  no | white if secondary is a dark color. <br/> black if secondary is a light color |
+
+#### Dark theme:
+
+| Color         | Mandatory | Default             |
+| ------------- |:---------:|:-------------------:|
+| primary       |   - | #272727 |
+| secondary     | yes |       - |
+| information   |  no | #2196F3 |
+| success       |  no | #4CAF50 |
+| warning       |  no | #FFC107 |
+| error         |  no | #FF5252 |
+| onprimary     |  no | white if primary is a dark color. <br/> black if primary is a light color     |
+| onsecondary   |  no | white if secondary is a dark color. <br/> black if secondary is a light color |
+
+Note that there is a clear asymmetry in the "light" and "dark" theme configuration. In the "light" theme, the primary color is mandatory and all the 
+others are derived from that. In the "dark" theme, the predominant color must be a shade of black (to comply with the [material design specification](https://material.io/design/color/dark-theme.html)), so the primary color is locked to `#272727`. Therefore, in this case the colors are derived from the second predominant color.
+
+#### Tips on creating a color theme
+
+In this section we offer a couple of tips on choosing colors for Wegue while meeting the [material design principles](https://material.io/design/color/the-color-system.html#color-usage-and-palettes) (hierarchy/legibility/expressiveness).
+
+For simplicity, we will prioritize the colors for the "light" theme and adapt the "dark" theme accordingly. To select colors, we advise the use of [this material design color picker](https://material.io/design/color/the-color-system.html#tools-for-picking-colors) as it shows the color tone levels (the scale underneath each palette). This scale is the key to adjust the contrast of colors for better legibility.
+
+And last but not least, building a theme is a very opinionated matter and therefore the following tips serve only as guidelines for Wegue.
+
+#### Choosing the primary color:
+
+Being the predominant color, the primary color is used to express the "story" that Wegue should tell. Our suggestion is to evaluate the nature of the geographical data that Wegue will display and then pick a color that balances well with that nature.
+
+| Light theme | Dark theme |
+| ----------- | ---------- |
+| Any tone in the color palette is valid. | As referred in the previous section ([colorTheme](#colorTheme)), the primary color in the dark theme is locked to `#272727` to meet the material design standards. |
+
+#### Choosing the secondary color:
+
+Wegue uses the secondary color to accent selected parts of the UI. Everything between selection controls, floating buttons, progress bars and any component that can be interacted with. The idea is to pick a color that has a good balance with the primary, in a way that creates a sense of hierarchy for the UI components.
+
+| Light theme | Dark theme |
+| ----------- | ---------- |
+| A tone from the same scale as the primary (for a monotone scheme). <br/> Or a "complementary", "analogous" or "triadic" color from the color picker tool. | We suggest picking the 200 tone of the primary color. Picking a light variant will contrast well with the dark interface in most cases. |
+
+#### Choosing the "on" colors:
+
+The "on" colors are additional UI colors placed over the main colors. Wegue uses this class of colors to improve the legibility of typography/iconography over primary and secondary colors.
+
+The rule of thumb is simple: 
+* if the main color is a dark tone, white or the 50 tone of the main color are safe choices;
+* if the main color is a light tone, black or the 700 tone of the main color.
+
+#### Edge cases:
+
+In some cases, the primary/secondary color may collide with the semantic colors (information, success, warning, error). This is undesirable as the UI will not be able to sufficiently stand out relevant messages from the surrounding components.
+
+The idea is the override the collided colors with a different tone that will deliver the same semantic feeling. As an example, the default color theme of Wegue is built based on a red tone, which collides with the semantic color for errors. To avoid collision, Wegue adapts the same strategy as in the [Crane material study](https://material.io/design/material-studies/crane.html#color) and sets an orange tone for errors.
 
 ### projectionDefs
 
@@ -172,7 +287,6 @@ The `sidebar` object supports the following properties:
 
 | Property           | Meaning   | Example |
 |--------------------|:---------:|---------|
-| color              | Background color of the sidebar. Defaults to white. | `"color": "white"` |
 | width              | Width of the sidebar in pixels. Defaults to 400px.  | `"width": 400` |
 | visible            | Specifies whether the sidebar appears in open or closed state on application start. Defaults to true. | `"visible": true` |
 | autoScroll         | Whether to automatically scroll the sidebar to the active module. Defaults to true. | `"autoScroll": true` |
@@ -184,7 +298,6 @@ Below is an example for a sidebar configuration object:
   "sidebar": {
     "visible": true,
     "width": 400,
-    "color": "white",
     "autoScroll": true,
     "scrollDuration": 500
   }
@@ -197,7 +310,9 @@ Example configurations can be found in the `app-starter/static` directory. Below
 ```json
 {
 
-  "baseColor": "red darken-3",
+  "colorTheme": {
+    "dark": false,
+  },
 
   "logo": "https://dummyimage.com/100x100/aaa/fff&text=Wegue",
   "logoWidth": "100",
@@ -387,14 +502,12 @@ Example configurations can be found in the `app-starter/static` directory. Below
       "target": "menu",
       "win": "floating",
       "icon": "layers",
-      "darkLayout": true,
       "draggable": false
     },
     "wgu-measuretool": {
       "target": "menu",
       "win": "floating",
       "icon": "photo_size_select_small",
-      "darkLayout": true,
       "draggable": false,
       "strokeColor": "#c62828",
       "fillColor": "rgba(198,40,40,0.2)",
@@ -407,7 +520,6 @@ Example configurations can be found in the `app-starter/static` directory. Below
       "target": "menu",
       "win": "floating",
       "icon": "info",
-      "darkLayout": true,
       "draggable": false,
       "initPos": {
         "left": 8,
@@ -417,7 +529,6 @@ Example configurations can be found in the `app-starter/static` directory. Below
     },
     "wgu-geocoder": {
       "target": "toolbar",
-      "darkLayout": true,
       "minChars": 2,
       "queryDelay": 200,
       "debug": false,
@@ -429,14 +540,12 @@ Example configurations can be found in the `app-starter/static` directory. Below
       }
     },
     "wgu-zoomtomaxextent": {
-      "target": "toolbar",
-      "darkLayout": true
+      "target": "toolbar"
     },
     "wgu-maprecorder": {
       "target": "toolbar",
       "win": "floating",
       "icon": "mdi-video",
-      "darkLayout": true,
       "draggable": false,
       "initPos": {
         "left": 8,
@@ -446,23 +555,19 @@ Example configurations can be found in the `app-starter/static` directory. Below
     "wgu-helpwin": {
       "target": "toolbar",
       "win": "floating",
-      "icon": "help",
-      "darkLayout": true
+      "icon": "help"
     },
     "wgu-geolocator": {
-      "target": "toolbar",
-      "darkLayout": true
+      "target": "toolbar"
     },
     "wgu-attributetable": {
       "target": "menu",
       "win": "floating",
       "icon": "table_chart",
-      "darkLayout": true,
       "syncTableMapSelection": true
     },
     "wgu-localeswitcher": {
-      "target": "toolbar",
-      "darkLayout": true
+      "target": "toolbar"
     }
   }
 }

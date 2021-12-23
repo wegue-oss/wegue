@@ -1,6 +1,17 @@
 {
 
-  "baseColor": "green darken-3",
+  "colorTheme": {
+    "dark": false,
+    "themes": {
+      "light": {
+        "primary": "#2E7D32"
+      },
+      "dark": {
+        "secondary": "#A5D6A7"
+      }
+    }
+  },
+
   "showCopyrightYear": true,
 
   "lang": {
@@ -35,8 +46,7 @@
     "wgu-helpwin": {
       "target": "toolbar",
       "win": "floating",
-      "icon": "help",
-      "darkLayout": true
+      "icon": "help"
     }
   }
 

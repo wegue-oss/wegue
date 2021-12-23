@@ -5,16 +5,18 @@
       v-for="layer in displayedLayers" 
       :key="layer.lid" 
       @click="onItemClick(layer)">
-      <input type="checkbox" 
-        :key="layer.lid" 
-        class="wgu-layer-viz-cb"
-        :checked="layer.getVisible()"
-      />
-      <v-list-item-content class="black--text">
+      <v-list-item-action>
+        <v-checkbox
+          color="secondary"
+          hide-details
+          :input-value="layer.getVisible()"
+        />
+      </v-list-item-action>
+       <v-list-item-content>
           <v-list-item-title>
             {{ layer.get('name') }}
           </v-list-item-title>
-      </v-list-item-content>
+       </v-list-item-content>
     </v-list-item>
   </v-list>
 
@@ -64,11 +66,3 @@
     }
   }
 </script>
-
-<style>
-
-  .wgu-layer-viz-cb {
-    width: 45px;
-  }
-
-</style>

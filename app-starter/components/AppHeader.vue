@@ -1,7 +1,7 @@
 <template>
   <v-app-bar
-    class="wgu-app-toolbar white--text"
-    :color="color"
+    class="wgu-app-toolbar onprimary--text"
+    color="primary"
     fixed
     app
     clipped-left
@@ -34,12 +34,13 @@
     <v-menu v-if="menuButtons.length" offset-y nudge-bottom="15">
       <template v-slot:activator="{on}">
 
-      <v-btn icon dark v-on="on"
+      <v-btn icon v-on="on"
+        color="onprimary"
         :title="$t('wgu-toolbar-menu.title')">
         <v-icon medium>menu</v-icon>
       </v-btn>
       </template>
-      <v-list :color="color">
+      <v-list color="primary">
           <template v-for="(tbButton, index) in menuButtons">
             <v-list-item :key="index">
               <component 
@@ -65,6 +66,7 @@ import ZoomToMaxExtentButton from '../../src/components/maxextentbutton/ZoomToMa
 import Geocoder from '../../src/components/geocoder/Geocoder'
 import Geolocator from '../../src/components/geolocator/Geolocator'
 import LocaleSwitcher from '../../src/components/localeswitcher/LocaleSwitcher'
+import ThemeSwitcher from '../../src/components/themeswitcher/ThemeSwitcher'
 
 export default {
   name: 'wgu-app-header',
@@ -73,11 +75,10 @@ export default {
     'wgu-geocoder-btn': Geocoder,
     'wgu-zoomtomaxextent-btn': ZoomToMaxExtentButton,
     'wgu-geolocator-btn': Geolocator,
-    'wgu-localeswitcher-btn': LocaleSwitcher
+    'wgu-localeswitcher-btn': LocaleSwitcher,
+    'wgu-themeswitcher-btn': ThemeSwitcher
   },
-  props: {
-    color: { type: String, required: false, default: 'red darken-3' }
-  },
+  props: {},
   data () {
     return {
       menuButtons: this.getModuleButtons('menu'),
@@ -108,8 +109,6 @@ export default {
           buttons.push({
             type: moduleOpts.win ? 'wgu-toggle-btn' : key + '-btn',
             moduleName: key,
-            // TODO For further simplifications we should revise the config property 'darkLayout'.
-            dark: moduleOpts.darkLayout,
             ...moduleOpts
           });
         }

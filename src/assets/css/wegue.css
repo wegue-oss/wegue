@@ -39,6 +39,25 @@ html {
   background-color: rgba(255,255,255,0.6) !important;
 }
 
+/*
+  TODO Review ccs colorization.
+  Used to force the onprimary color for solo fields (light theme only).
+  Components affected:
+    - wgu-geocoder-combo
+    - wgu-vector-layer-select
+
+  More on material design for solo fields:
+  https://material.io/archive/guidelines/components/text-fields.html#text-fields-field-variations
+*/
+.wgu-solo-field.theme--light > .v-input__control fieldset,
+.wgu-solo-field.theme--light > .v-input__control .v-icon, 
+.wgu-solo-field.theme--light > .v-input__control .v-label,
+.wgu-solo-field.theme--light > .v-input__control input,
+.wgu-solo-field.theme--light > .v-input__control .v-select__selection
+{
+  color: var(--v-onprimary-base) !important;
+}
+
 /* TODO 
   Generalize the positioning concept for windows,
   this interferes with positioning and draggable settings in the app.conf */

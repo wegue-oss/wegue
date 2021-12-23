@@ -1,10 +1,13 @@
 <template>
-  <v-btn-toggle borderless dense 
-    background-color="transparent" :dark="dark"
+  <v-btn-toggle
+    borderless
+    dense 
+    color="onprimary"
+    background-color="transparent" 
     :title="$t(moduleName + '.title')"
     v-model="show">
-    <v-btn icon :value="true" @click="toggleUi">
-      <v-icon medium>{{icon}}</v-icon>
+    <v-btn icon :value="true" color="onprimary" @click="toggleUi">
+      <v-icon color="onprimary" medium>{{icon}}</v-icon>
     </v-btn>
   </v-btn-toggle>
 </template>
@@ -17,7 +20,6 @@ export default {
   props: {
     moduleName: { type: String, required: true },
     icon: { type: String, required: true },
-    dark: { type: Boolean, required: false, default: false },
     visible: { type: Boolean, required: false, default: false }
   },
   data: function () {

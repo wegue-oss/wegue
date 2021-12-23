@@ -11,6 +11,7 @@ import WguApp from '../app/WguApp';
 import UrlUtil from './util/Url';
 import LocaleUtil from './util/Locale';
 import ObjectUtil from './util/Object';
+import ColorThemeUtil from './util/ColorTheme'
 import 'vuetify/dist/vuetify.min.css';
 
 Vue.use(Vuetify);
@@ -22,7 +23,7 @@ require('./assets/css/wegue.css');
 // try to load an optional app specific CSS file (set project-specific styles)
 try {
   require('../app/static/css/app.css');
-} catch (e) {}
+} catch (e) { }
 
 Vue.config.productionTip = false;
 
@@ -48,6 +49,7 @@ if (appCtx) {
  */
 const createVuetify = function (appConfig) {
   const preset = {
+    theme: ColorThemeUtil.buildTheme(appConfig.colorTheme),
     icons: {
       iconfont: 'mdiSvg'
     },
@@ -81,6 +83,12 @@ const createVueI18n = function (appConfig) {
  * @returns The migrated application context.
  */
 const migrateAppConfig = function (appConfig) {
+  // Warning for deprecated baseColor
+  if (appConfig.baseColor) {
+    console.warn('The configuration path ".baseColor" is deprecated, ' +
+      'instead declare a path ".colorTheme"');
+  }
+
   // Migrate boolean values for module.win.
   if (appConfig.modules) {
     Object.keys(appConfig.modules).forEach(name => {

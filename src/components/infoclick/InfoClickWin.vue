@@ -4,7 +4,6 @@
     :moduleName="moduleName"
     class="wgu-infoclick-win"
     :icon="icon"
-    :color="color"
     v-on:visibility-change="show">
 
     <!-- Show feature properties and position tables -->
@@ -17,10 +16,10 @@
         </v-card-text>
 
         <!-- feature property grid -->
-        <wgu-property-table :properties="attributeData" :color="color" />
+        <wgu-property-table :properties="attributeData" />
 
         <!-- click coodinate info grid -->
-        <wgu-coords-table :coordsData="coordsData" :color="color" />
+        <wgu-coords-table :coordsData="coordsData" />
 
       </v-card-title>
 
@@ -47,7 +46,7 @@
 
       <v-card-actions>
         <v-btn
-          text :color="color"
+          text color="secondary"
           v-if="this.attributeData && this.attributeData[mediaInfoLinkUrlProp]"
           :href="this.attributeData[mediaInfoLinkUrlProp]"
           target="_blank"
@@ -76,7 +75,6 @@ export default {
     'wgu-coords-table': CoordsTable
   },
   props: {
-    color: { type: String, required: false, default: 'red darken-3' },
     icon: { type: String, required: false, default: 'info' },
     showMedia: { type: Boolean, required: false, default: false },
     // below props only have an effect if showMedia=true

@@ -8,7 +8,7 @@
     
     <v-img :src="backgroundImage">
       <v-toolbar v-bind="toolbarAttr">
-        <v-icon class="mr-4">{{ icon }}</v-icon>
+        <v-icon color="onprimary" class="mr-4">{{ icon }}</v-icon>
         <v-toolbar-title class="wgu-win-title">{{ $t(moduleName + '.title') }}</v-toolbar-title>
         <v-spacer></v-spacer>
 
@@ -16,12 +16,12 @@
         <slot name="wgu-win-toolbar"></slot>
 
         <v-spacer></v-spacer>
-        <v-btn v-if="minimizable" icon small 
+        <v-btn color="onprimary" v-if="minimizable" icon small 
           @click="minimized = !minimized">
           <v-icon v-if="minimized">web_asset</v-icon> 
           <v-icon v-else>remove</v-icon>
         </v-btn>
-        <v-btn icon small class="mr-0" 
+        <v-btn color="onprimary" icon small class="mr-0" 
           @click="toggleUi">
           <v-icon>close</v-icon>
         </v-btn>
@@ -51,7 +51,6 @@
       icon: { type: String, required: true },
       win: { type: String, required: false, default: 'floating' },
       minimizable: { type: Boolean, required: false, default: false },
-      color: { type: String, required: false, default: 'red darken-3' },
       backgroundImage: { type: String, required: false, default: undefined },
       visible: { type: Boolean, required: false, default: false },
       // Positioning / sizing properties will be ignored for sidebar cards.
@@ -120,8 +119,8 @@
             color: 'transparent'
           }
           : {
-            dark: true,
-            color: this.color
+            color: 'primary',
+            class: 'onprimary--text'
           }
       }
     },

@@ -24,16 +24,16 @@ import proj4 from 'proj4'
 // import the app-wide EventBus
 import { WguEventBus } from '../../WguEventBus.js';
 import { LayerFactory } from '../../factory/Layer.js';
-import ColorUtil from '../../util/Color';
 import LayerUtil from '../../util/Layer';
 import PermalinkController from './PermalinkController';
 import MapInteractionUtil from '../../util/MapInteraction';
 import ViewAnimationUtil from '../../util/ViewAnimation';
+import { ColorTheme } from '../../mixins/ColorTheme'
 
 export default {
   name: 'wgu-map',
+  mixins: [ ColorTheme ],
   props: {
-    color: { type: String, required: false, default: 'red darken-3' },
     collapsibleAttribution: { type: Boolean, default: false },
     rotateableMap: { type: Boolean, required: false, default: false }
   },
@@ -227,31 +227,25 @@ export default {
      * Sets the background color of the OL buttons to the color property.
      */
     setOlButtonColor () {
-      var me = this;
+      const colors = 'secondary onsecondary--text'
 
-      if (ColorUtil.isCssColor(me.color)) {
-        // directly apply the given CSS color
-        if (document.querySelector('.ol-zoom')) {
-          document.querySelector('.ol-zoom .ol-zoom-in').style.backgroundColor = me.color;
-          document.querySelector('.ol-zoom .ol-zoom-out').style.backgroundColor = me.color;
-        }
-        if (document.querySelector('.ol-rotate')) {
-          document.querySelector('.ol-rotate .ol-rotate-reset').style.backgroundColor = me.color;
-        }
-      } else {
-        // apply vuetify color by transforming the color to the corresponding
-        // CSS class (see https://vuetifyjs.com/en/framework/colors)
-        const [colorName, colorModifier] = me.color.toString().trim().split(' ', 2);
-        if (document.querySelector('.ol-zoom')) {
-          document.querySelector('.ol-zoom .ol-zoom-in').classList.add(colorName);
-          document.querySelector('.ol-zoom .ol-zoom-in').classList.add(colorModifier);
-          document.querySelector('.ol-zoom .ol-zoom-out').classList.add(colorName);
-          document.querySelector('.ol-zoom .ol-zoom-out').classList.add(colorModifier);
-        }
-        if (document.querySelector('.ol-rotate')) {
-          document.querySelector('.ol-rotate .ol-rotate-reset').classList.add(colorName);
-          document.querySelector('.ol-rotate .ol-rotate-reset').classList.add(colorModifier);
-        }
+      // apply vuetify color by transforming the color to the corresponding
+      // CSS class (see https://vuetifyjs.com/en/framework/colors)
+      const classes = colors.toString().trim().split(' ');
+
+      // zoom
+      if (document.querySelector('.ol-zoom')) {
+        classes.forEach(function (c) {
+          document.querySelector('.ol-zoom .ol-zoom-in').classList.add(c);
+          document.querySelector('.ol-zoom .ol-zoom-out').classList.add(c);
+        });
+      }
+
+      // rotate
+      if (document.querySelector('.ol-rotate')) {
+        classes.forEach(function (c) {
+          document.querySelector('.ol-rotate .ol-rotate-reset').classList.add(c);
+        });
       }
     },
     /**
@@ -269,6 +263,8 @@ export default {
       // create a span to show map tooltip
       overlayEl = document.createElement('span');
       overlayEl.classList.add('wgu-hover-tooltiptext');
+      overlayEl.classList.add('v-sheet');
+      overlayEl.classList.add(this.isDarkTheme ? 'theme--dark' : 'theme--light');
       map.getTarget().append(overlayEl);
 
       me.overlayEl = overlayEl;
@@ -447,8 +443,6 @@ export default {
   .wgu-hover-tooltiptext {
     float: left; /* needed that max-width has an effect */
     max-width: 200px;
-    background-color: rgba(211, 211, 211, .9);
-    color: #222;
     text-align: center;
     padding: 5px;
     border-radius: 6px;

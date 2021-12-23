@@ -1,38 +1,43 @@
 <template>
-<v-toolbar-items>
-    <v-combobox
-      class="wgu-geocoder-combo"
-      :style='{ display: (hideSearch ? "none" : "block" ) }'
-      return-object
-      :no-filter="noFilter"
-      v-model="selected"
-      :autofocus="autofocus"
-      :items="resultItems"
-      :label="$t('wgu-geocoder.placeHolder')"
-      :clearable="clearable"
-      :dark="dark"
-      :color="dark ? 'white': ''"
-      :persistent-hint="persistentHint"
-      :hidden="hideSearch"
-      :rounded="rounded"
-      :search-input.sync="search"
-    ></v-combobox>
+<v-toolbar-items class="d-flex align-center justify-center">
+  <v-combobox
+    v-show="!hideSearch"
+    class="wgu-geocoder-combo wgu-solo-field"
+    outlined
+    dense
+    color="accent"
+    :dark="isPrimaryDark"
+    filled
+    return-object
+    hide-details
+    :no-filter="noFilter"
+    v-model="selected"
+    :autofocus="autofocus"
+    :items="resultItems"
+    :label="$t('wgu-geocoder.placeHolder')"
+    :clearable="clearable"
+    :persistent-hint="persistentHint"
+    :hidden="hideSearch"
+    :rounded="rounded"
+    :search-input.sync="search"
+  ></v-combobox>
 
-  <v-toolbar-items>
+  <div>
 
-    <v-btn @click='toggle()' icon :dark="dark"
+    <v-btn @click='toggle()'
+      color="onprimary"
+      icon
       :title="$t('wgu-geocoder.title')">
       <v-icon medium>{{icon}}</v-icon>
     </v-btn>
 
-  </v-toolbar-items>
-  </v-toolbar-items>
-
-
+  </div>
+</v-toolbar-items>
 </template>
 
 <script>
   import { Mapable } from '../../mixins/Mapable';
+  import { ColorTheme } from '../../mixins/ColorTheme';
   import { GeocoderController } from './GeocoderController';
   import { applyTransform } from 'ol/extent';
   import { getTransform, fromLonLat } from 'ol/proj';
@@ -40,13 +45,12 @@
 
   export default {
     name: 'wgu-geocoder-input',
-    mixins: [Mapable],
+    mixins: [Mapable, ColorTheme],
     props: {
       icon: { type: String, required: false, default: 'search' },
       rounded: { type: Boolean, required: false, default: true },
       autofocus: { type: Boolean, required: false, default: true },
       clearable: { type: Boolean, required: false, default: true },
-      dark: { type: Boolean, required: false, default: false },
       persistentHint: { type: Boolean, required: false, default: true },
       debug: { type: Boolean, required: false, default: false },
       minChars: { type: Number, required: false, default: 3 },
@@ -177,14 +181,3 @@
     }
   }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
-
-  .v-input.wgu-geocoder-combo {
-    /* have to be reset here since .v-toolbar .v-input overwrites this */
-    padding-top: 12px;
-    margin-top: 4px;
-  }
-
-</style>

@@ -1,6 +1,14 @@
 <template>
 
-  <table class="wgu-proptable" v-if="show" :style="tableStyles">
+  <table 
+  :class="{
+      'wgu-proptable': true,
+      'light-theme': !isDarkTheme,
+      'dark-theme': isDarkTheme
+    }"
+    v-if="show"
+    style="border: 2px solid var(--v-secondary-base);"
+  >
     <thead>
       <tr>
         <th v-for="(entry, key) in properties" :key="key">
@@ -22,32 +30,15 @@
 </template>
 
 <script>
-
-import vColors from 'vuetify/es5/util/colors';
-import ColorUtil from '../../util/Color';
+import { ColorTheme } from '../../mixins/ColorTheme';
 
 export default {
   name: 'wgu-property-table',
+  mixins: [ColorTheme],
   props: {
-    color: { type: String, required: false, default: 'red darken-3' },
     properties: { type: Object }
   },
   computed: {
-    tableStyles () {
-      // calculate border color of tables due to current color property
-      let borderColor = this.color;
-      if (!ColorUtil.isCssColor(this.color)) {
-        let [colorName, colorModifier] = this.color.toString().trim().split(' ', 2);
-        borderColor = vColors[colorName];
-        if (colorModifier) {
-          colorModifier = colorModifier.replace('-', '');
-          borderColor = vColors[colorName][colorModifier];
-        }
-      }
-      return {
-        'border': '2px solid ' + borderColor
-      };
-    },
     /**
      * Display the table control only, if there are properties to show.
      */
@@ -67,8 +58,12 @@ table.wgu-proptable {
  width: 100%;
 }
 
-.wgu-proptable td {
- background-color: #f9f9f9;
+.wgu-proptable.dark-theme td {
+  background-color: hsla(0, 0%, 98%, 0.03);
+}
+
+.wgu-proptable.light-theme td {
+  background-color: hsla(0, 0%, 98%, 1);
 }
 
 .wgu-proptable tr {

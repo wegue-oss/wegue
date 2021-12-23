@@ -14,7 +14,6 @@ describe('WguAppTpl.vue', () => {
     beforeEach(() => {
       Vue.prototype.$appConfig = {
         showCopyrightYear: true,
-        baseColor: 'red',
         modules: {}
       };
       comp = shallowMount(WguAppTpl);
@@ -26,7 +25,6 @@ describe('WguAppTpl.vue', () => {
       expect(vm.floatingWins).to.be.an('array');
       expect(vm.sidebarWins).to.be.an('array');
       expect(vm.showCopyrightYear).to.equal(true);
-      expect(vm.baseColor).to.equal('red');
     });
   });
 

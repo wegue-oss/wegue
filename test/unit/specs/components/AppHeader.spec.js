@@ -8,20 +8,6 @@ describe('AppHeader.vue', () => {
     expect(typeof AppHeader).to.not.equal('undefined');
   });
 
-  describe('props', () => {
-    let comp;
-    let vm;
-    beforeEach(() => {
-      Vue.prototype.$appConfig = { modules: {} };
-      comp = shallowMount(AppHeader);
-      vm = comp.vm;
-    });
-
-    it('has correct default props', () => {
-      expect(vm.color).to.equal('red darken-3');
-    });
-  });
-
   describe('data', () => {
     let comp;
     let vm;
@@ -57,8 +43,7 @@ describe('AppHeader.vue', () => {
       // mock a module conf
       Vue.prototype.$appConfig = { modules: {
         'wgu-zoomtomaxextent': {
-          target: 'menu',
-          darkLayout: true
+          target: 'menu'
         } } };
       const moduleData = vm.getModuleButtons('menu');
       expect(moduleData).to.be.an('array');
@@ -77,8 +62,7 @@ describe('AppHeader.vue', () => {
       // mock a module conf
       Vue.prototype.$appConfig = { modules: {
         'wgu-zoomtomaxextent': {
-          target: 'toolbar',
-          darkLayout: true
+          target: 'toolbar'
         } } };
       const moduleData = vm.getModuleButtons('toolbar');
       expect(moduleData).to.be.an('array');

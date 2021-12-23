@@ -2,16 +2,21 @@
   <v-menu offset-y nudge-bottom="15"
       transition="scale-transition"
       v-model="show">
-      <template v-slot:activator="{on}">
-        <v-btn-toggle borderless dense 
-          background-color="transparent" :dark="dark"
+      <template v-slot:activator="{ on, attrs}">
+        <v-btn
+          borderless
+          dense 
+          color="onprimary"
+          background-color="transparent" 
           :title="$t('wgu-localeswitcher.title')"
-          v-model="show">
-          <v-btn class="ma-2" icon :value="true" v-on="on" >
-            <v-icon class="mr-1" medium>{{icon}}</v-icon>
-            {{ $i18n.locale }} 
-          </v-btn>
-        </v-btn-toggle>
+          class="ma-2"
+          icon
+          v-on="on"
+          v-bind="attrs"
+        >
+          <v-icon class="mr-1" medium>{{icon}}</v-icon>
+          {{ $i18n.locale }} 
+        </v-btn>
       </template>
     
       <v-list>
@@ -19,7 +24,7 @@
           v-for="langCode in Object.keys(lang)" 
           :key="langCode" 
           @click="onItemClick(langCode)">
-          <v-list-item-content class="black--text">
+          <v-list-item-content>
             <v-list-item-title>
               {{ lang[langCode] }} ({{ langCode }})
             </v-list-item-title>
@@ -35,8 +40,7 @@ import LocaleUtil from '../../util/Locale'
 export default {
   name: 'wgu-localeswitcher',
   props: {
-    icon: { type: String, required: false, default: 'language' },
-    dark: { type: Boolean, required: false, default: false }
+    icon: { type: String, required: false, default: 'language' }
   },
   data () {
     return {

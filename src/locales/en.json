@@ -68,6 +68,8 @@
     "frameRate": "Frame rate (frames/s)",
     "bitRate": "Bit rate (MBits/s)",
     "fileName": "Filename",
+    "start": "Start",
+    "stop": "Stop",
     "error": "Failed to start recording."
   },
   
@@ -88,5 +90,9 @@
 
   "wgu-localeswitcher": {
     "title": "Language Settings"
+  },
+
+  "wgu-themeswitcher": {
+    "title": "Dark mode"
   }
 }

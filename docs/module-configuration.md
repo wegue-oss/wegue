@@ -23,7 +23,6 @@ The following properties can be applied to all module types:
 | icon               | Provide a customized icon for the module. | `"icon": "info"` |
 | minimizable        | Indicates whether the module window can be minimized. Only applies if a module window is present as indicated by the `win` parameter. | `"minimizable": true` |
 | backgroundImage    | Optional background image for the window header. Only applies if a module window is present as indicated by the `win` parameter. | `"backgroundImage": "static/icon/myImage.png"}` |
-| darkLayout         | Boolean value to ensure that your module element (mostly a button) is rendered bright since your basic theme color is dark.  | `"darkLayout": true` |
 | visible            | Configures the initial visiblity of a module window on application start. Only applies if a module window is present as indicated by the `win` parameter.  | `"visible": true` |
 
 The following positioning and sizing properties can be assigned to all module types, which are associated with a floating window - This is when the `win` parameter is set to `floating`:
