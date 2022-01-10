@@ -1,0 +1,10 @@
+# This is a configuration for working with the gitpod.io online IDE
+ports:
+  - port: 8081
+    onOpen: open-preview
+tasks:
+  - init: npm install && npm run init:app
+    command: npm run dev
+vscode:
+  extensions:
+    - dbaeumer.vscode-eslint
