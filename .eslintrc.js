@@ -28,6 +28,9 @@ module.exports = {
 
     // weaken some rules in development mode
     'no-multiple-empty-lines': process.env.NODE_ENV  === 'development' ? 'warn' : 'error',
-    'no-unused-vars': process.env.NODE_ENV  === 'development' ? 'warn' : 'error'
+    'no-unused-vars': process.env.NODE_ENV  === 'development' ? 'warn' : 'error',
+    'space-before-blocks': process.env.NODE_ENV  === 'development' ? 'warn' : 'error',
+    'space-before-function-paren': process.env.NODE_ENV  === 'development' ? 'warn' : 'error',
+    'object-curly-spacing': process.env.NODE_ENV  === 'development' ? 'warn' : 'error',
   }
 }
