@@ -63,5 +63,10 @@
     "htmlContent": "<b>WebGIS with OpenLayers and Vue.js</b> Template and re-usable components for webmapping applications with OpenLayers and Vue.js",
     "infoLinkUrl": "http://wegue.org/",
     "infoLinkText": "More info"
+  },
+
+  "sample-module": {
+    "title": "Sample Module",
+    "text": "Hello Wegue"
   }
 }

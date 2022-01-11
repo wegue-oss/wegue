@@ -81,6 +81,7 @@
   import MapLoadingStatus from '../src/components/progress/MapLoadingStatus'
   import AttributeTableWin from '../src/components/attributeTable/AttributeTableWin.vue'
   import MapRecorderWin from '../src/components/maprecorder/MapRecorderWin'
+  import SampleModuleWin from './components/SampleModule.vue'
 
   export default {
     name: 'wgu-app-tpl',
@@ -99,7 +100,8 @@
       'wgu-infoclick-win': InfoClickWin,
       'wgu-maploading-status': MapLoadingStatus,
       'wgu-attributetable-win': AttributeTableWin,
-      'wgu-maprecorder-win': MapRecorderWin
+      'wgu-maprecorder-win': MapRecorderWin,
+      'sample-module-win': SampleModuleWin
     },
     data () {
       return {

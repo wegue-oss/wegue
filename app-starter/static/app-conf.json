@@ -266,6 +266,11 @@
     },
     "wgu-localeswitcher": {
       "target": "toolbar"
+    },
+    "sample-module": {
+      "target": "toolbar",
+      "win": "floating",
+      "icon": "star"
     }
   }
 }
