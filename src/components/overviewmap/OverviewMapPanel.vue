@@ -1,5 +1,5 @@
 <template>
-  <v-sheet :color="color" :dark="dark" :width="width" :height="height"
+  <v-sheet :width="width" :height="height"
     elevation="8" class="pa-1" ref="overviewmapPanel">
   </v-sheet>
 </template>
@@ -11,8 +11,6 @@
     name: 'wgu-overviewmap-panel',
     mixins: [Mapable],
     props: {
-      dark: { type: Boolean, required: true },
-      color: { type: String, required: true },
       rotateWithView: { type: Boolean, required: true },
       width: { type: Number, required: true },
       height: { type: Number, required: true }

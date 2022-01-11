@@ -36,7 +36,7 @@ export default class OverviewMapController {
     // necessary to correctly position the selection box.
     setTimeout(() => {
       this.map.addControl(this.overviewMapControl);
-      this.setOlStyle(this.conf.color);
+      this.setOlStyle();
       requestAnimationFrame(() => {
         this.overviewMapControl.render();
       });
@@ -61,9 +61,8 @@ export default class OverviewMapController {
 
   /**
    * Applies a vuetify card like style to the inner overview map.
-   * @param {String} color The color to set.
    */
-  setOlStyle (color) {
+  setOlStyle () {
     document.querySelector('.ol-overviewmap-map').classList.add('v-card', 'ma-0');
   }
 

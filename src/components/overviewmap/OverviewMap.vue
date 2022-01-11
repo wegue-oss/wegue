@@ -11,20 +11,17 @@
       <template v-slot:activator="{on}">
         <v-sheet class="wgu-overviewmap">
           <v-btn v-on="on"
-            :color="color" 
-            :dark="dark"
+            color="secondary" 
             fab
             :title="$t('wgu-overviewmap.title')"
             >
-            <v-icon medium>{{icon}}</v-icon>
+            <v-icon color="onsecondary" medium>{{icon}}</v-icon>
           </v-btn>
         </v-sheet>
       </template>
       <!-- Remarks: The overviewmap-panel is wrapped by an v-if block to avoid unneccesary image 
           requests when the panel is not visible -->
       <wgu-overviewmap-panel v-if="open"
-        color="white"
-        :dark="false"
         :rotateWithView="rotateWithView"
         :width="width"
         :height="height"
@@ -41,9 +38,7 @@ export default {
     'wgu-overviewmap-panel': OverviewMapPanel
   },
   props: {
-    color: { type: String, required: false, default: 'red darken-3' },
     icon: { type: String, required: false, default: 'zoom_out_map' },
-    dark: { type: Boolean, required: false, default: true },
     visible: { type: Boolean, required: false, default: true },
     rotateWithView: { type: Boolean, required: false, default: true },
     width: { type: Number, required: false, default: 164 },

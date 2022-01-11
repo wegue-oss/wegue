@@ -35,7 +35,7 @@
         <portal-target name="map-overlay" />
         <wgu-app-logo />
         <wgu-bglayerswitcher />
-        <wgu-overviewmap v-if="overviewMapConfig" :color="baseColor" v-bind="overviewMapConfig"/>
+        <wgu-overviewmap v-if="overviewMapConfig" v-bind="overviewMapConfig"/>
       </v-container>
     </v-content>
 
