@@ -72,7 +72,11 @@ html {
   border: none;
   width: 100%;
   height: 100%;
-} 
+}
+
+.ol-overviewmap-box {
+  border: 2px dotted var(--v-secondary-base);
+}
 
 /*
   TODO Review ccs colorization.
