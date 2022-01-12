@@ -7,7 +7,7 @@
       attach="#wgu-bglayerswitcher-wrapper"
       >
       <template v-slot:activator="{on}">
-        <v-sheet class="wgu-bglayerswitcher">
+        <v-sheet class="wgu-map-button wgu-bglayerswitcher">
           <v-btn v-on="on"
             color="secondary"
             fab

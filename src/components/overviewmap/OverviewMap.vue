@@ -9,7 +9,7 @@
       attach="#wgu-overviewmap-wrapper"
       >
       <template v-slot:activator="{on}">
-        <v-sheet class="wgu-overviewmap">
+        <v-sheet class="wgu-map-button wgu-overviewmap">
           <v-btn v-on="on"
             color="secondary" 
             fab
