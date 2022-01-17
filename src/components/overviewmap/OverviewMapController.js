@@ -9,6 +9,7 @@ export default class OverviewMapController {
   overviewMapControl = null;
   map = null;
   layer = null;
+  timerHandle = null
 
   /**
    * Construction
@@ -34,7 +35,7 @@ export default class OverviewMapController {
     // the overview map control. Presumably because no sizes have been computed yet on the
     // target DOM element. Another deferred render operation within requestAnimationFrame is
     // necessary to correctly position the selection box.
-    setTimeout(() => {
+    this.timerHandle = setTimeout(() => {
       this.map.addControl(this.overviewMapControl);
       this.setOlStyle();
       requestAnimationFrame(() => {
@@ -47,6 +48,9 @@ export default class OverviewMapController {
    * Unregister the OpenLayers overview map.
    */
   destroy () {
+    if (this.timerHandle) {
+      clearTimeout(this.timerHandle);
+    }
     if (this.layer) {
       const overviewMap = this.overviewMapControl.getOverviewMap();
       overviewMap.getLayers().clear();
@@ -54,6 +58,7 @@ export default class OverviewMapController {
     if (this.map) {
       this.map.removeControl(this.overviewMapControl);
     }
+    this.timerHandle = null;
     this.layer = null;
     this.map = null;
     this.overviewMapControl = null;
