@@ -86,6 +86,10 @@ export default {
     }, 200);
   },
   destroyed () {
+    // Send the event 'ol-map-unmounted' with the OL map as payload
+    WguEventBus.$emit('ol-map-unmounted', this.map);
+
+    // Destroy controllers, remove map references
     if (this.timerHandle) {
       clearTimeout(this.timerHandle);
     }
@@ -93,8 +97,13 @@ export default {
       this.permalinkController.tearDown();
       this.permalinkController = undefined;
     }
-    // Send the event 'ol-map-unmounted' with the OL map as payload
-    WguEventBus.$emit('ol-map-unmounted', this.map);
+    if (this.map) {
+      this.map.getLayers().clear();
+      this.map.getInteractions().clear();
+      this.map.getControls().clear();
+      this.map.getOverlays().clear();
+    }
+    this.map = undefined;
   },
   created () {
     // make map rotateable according to property
