@@ -28,7 +28,7 @@ html {
 /*
   Common style for action buttons placed over the map.
   This is to match the look and feel of the OL buttons to give
-  them a border for better map constrast.
+  them a border for better map contrast.
 */
 .wgu-map-button {
   position: absolute; 
