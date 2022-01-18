@@ -21,11 +21,8 @@ This describes the Wegue application configuration, which is modelled as JSON do
 | mapGeodataDragDop  | Configuration object for geodata file drag/drop functionality on the map. Only by setting the config this function will be enabled. | see [mapGeodataDragDop](wegue-configuration?id=mapGeodataDragDop) |
 | **modules**        | Array of module configuration objects | See [modules](module-configuration) |
 | **mapLayers**      | Array of map layer configuration objects | See [mapLayers](map-layer-configuration) |
-<<<<<<< HEAD
 | overviewMap        | Configuration object for the overview map. | See [overviewMap](wegue-configuration?id=overviewMap)
-=======
 | permalink          | Configuration object for permanent links. | See [permalink](wegue-configuration?id=permalink)
->>>>>>> Added missing section for permalink configuration to the documentation.
 | projectionDefs     | Array of CRS / projection definition objects compatible to proj4js | See [projectionDefs](wegue-configuration?id=projectiondefs) |
 | tileGridDefs       | Array of tile grid definition objects | See [tileGridDefs](wegue-configuration?id=tilegriddefs) |
 | viewAnimation      | Configuration object for view animations | See [viewAnimation](wegue-configuration?id=viewAnimation) |
@@ -308,7 +305,6 @@ Below is an example for a sidebar configuration object:
   }
 ```
 
-<<<<<<< HEAD
 ### overviewMap
 Wegue integrates an overview map control, if the optional `overviewMap` property is declared. 
 
@@ -334,7 +330,6 @@ Below is an example for an overview map configuration object:
   }
 ```
 
-=======
 ### permalink
 
 Wegue supports permanent links, which are URLs intenteded to remain unchanged and to be shared on the web. Wegue allows customization of its permalink URL encoding behaviour by the `permalink` property.
@@ -363,7 +358,6 @@ Below is an example for an permalink configuration object:
     "history": true
   }
 ```
->>>>>>> Added missing section for permalink configuration to the documentation.
 ## Example configuration
 
 Example configurations can be found in the `app-starter/static` directory. Below an example as used in the Demo:
