@@ -25,18 +25,57 @@ html {
   bottom: 45px;
 }
 
-.wgu-bglayerswitcher {
+/*
+  Common style for action buttons placed over the map.
+  This is to match the look and feel of the OL buttons to give
+  them a border for better map contrast.
+*/
+.wgu-map-button {
   position: absolute; 
   z-index: 2; 
-  left: 15px;
-  top: 70px;
   padding: 3px;
   border-radius: 50%;
-  background-color: rgba(255,255,255,0.4) !important;
+  background-color: rgba(255,255,255,0.4) !important;  
 }
 
-.wgu-bglayerswitcher:hover {
+.wgu-map-button:hover {
   background-color: rgba(255,255,255,0.6) !important;
+}
+
+/* 
+ Background layer switcher positioning and styles.
+*/
+.wgu-bglayerswitcher {
+  left: 15px;
+  top: 70px;
+}
+
+/* 
+ Overview map positioning and styles.
+*/
+.wgu-overviewmap {
+  left: 15px;
+  top: calc(50% - 23px);
+}
+
+.wgu-overviewmap-ctrl {
+  position: relative;
+}
+
+.wgu-overviewmap-ctrl,
+.wgu-overviewmap-ctrl.ol-uncollapsible {
+  width: 100%;
+  height: 100%;
+}
+
+.wgu-overviewmap-ctrl .ol-overviewmap-map {
+  border: none;
+  width: 100%;
+  height: 100%;
+}
+
+.wgu-overviewmap-ctrl .ol-overviewmap-box {
+  border: 2px dotted var(--v-secondary-base);
 }
 
 /*

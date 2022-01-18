@@ -21,6 +21,7 @@ This describes the Wegue application configuration, which is modelled as JSON do
 | mapGeodataDragDop  | Configuration object for geodata file drag/drop functionality on the map. Only by setting the config this function will be enabled. | see [mapGeodataDragDop](wegue-configuration?id=mapGeodataDragDop) |
 | **modules**        | Array of module configuration objects | See [modules](module-configuration) |
 | **mapLayers**      | Array of map layer configuration objects | See [mapLayers](map-layer-configuration) |
+| overviewMap        | Configuration object for the overview map. | See [overviewMap](wegue-configuration?id=overviewMap)
 | projectionDefs     | Array of CRS / projection definition objects compatible to proj4js | See [projectionDefs](wegue-configuration?id=projectiondefs) |
 | tileGridDefs       | Array of tile grid definition objects | See [tileGridDefs](wegue-configuration?id=tilegriddefs) |
 | viewAnimation      | Configuration object for view animations | See [viewAnimation](wegue-configuration?id=viewAnimation) |
@@ -303,6 +304,31 @@ Below is an example for a sidebar configuration object:
   }
 ```
 
+### overviewMap
+Wegue integrates an overview map control, if the optional `overviewMap` property is declared. 
+
+The `overviewMap` object supports the following properties:
+
+| Property           | Meaning   | Example |
+|--------------------|:---------:|---------|
+| icon               | Provide a customized map icon. Defaults to `zoom_out_map`.  | `"icon": "zoom_out_map"` |
+| visible            | Specifies whether the overviewMap appears in open or closed state on application start. Defaults to true. | `"visible": true` |
+| rotateWithView     | Whether the control view should rotate with the main map view. Defaults to true. | `"rotateWithView": true` |
+| width              | Width of the overview map panel in viewport coordinates. Defaults to 164px.  | `"width": 164` |
+| height             | Height of the overview map panel in viewport coordinates. Defaults to 178px.  | `"height": 178` |
+
+Below is an example for an overview map configuration object:
+
+
+```
+  "overviewMap": {
+    "visible": true,
+    "rotateWithView": true,
+    "width": 164,
+    "height": 178
+  }
+```
+
 ## Example configuration
 
 Example configurations can be found in the `app-starter/static` directory. Below an example as used in the Demo:
@@ -311,7 +337,7 @@ Example configurations can be found in the `app-starter/static` directory. Below
 {
 
   "colorTheme": {
-    "dark": false,
+    "dark": false
   },
 
   "logo": "https://dummyimage.com/100x100/aaa/fff&text=Wegue",
@@ -335,6 +361,10 @@ Example configurations can be found in the `app-starter/static` directory. Below
     "zoomToData": true,
     "replaceData": true,
     "displayInLayerList": true
+  },
+
+  "overviewMap" : {
+    "visible": false
   },
 
   "viewAnimation": {
@@ -559,6 +589,10 @@ Example configurations can be found in the `app-starter/static` directory. Below
     },
     "wgu-geolocator": {
       "target": "toolbar"
+    },
+    "wgu-themeswitcher": {
+      "target": "toolbar",
+      "icon": "dark_mode"
     },
     "wgu-attributetable": {
       "target": "menu",

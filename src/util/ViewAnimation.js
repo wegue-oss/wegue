@@ -23,7 +23,7 @@ const ViewAnimationUtil = {
     };
 
     const appConfig = Vue.prototype.$appConfig;
-    const animType = appConfig.viewAnimation?.type;
+    const animType = appConfig?.viewAnimation?.type;
     return animations[animType] || animations['default'];
   },
 
@@ -37,7 +37,7 @@ const ViewAnimationUtil = {
    */
   getOptions (options) {
     const appConfig = Vue.prototype.$appConfig;
-    return options || appConfig.viewAnimation?.options || {};
+    return options || appConfig?.viewAnimation?.options || {};
   },
 
   /**

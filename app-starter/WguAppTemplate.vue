@@ -35,6 +35,7 @@
         <portal-target name="map-overlay" />
         <wgu-app-logo />
         <wgu-bglayerswitcher />
+        <wgu-overviewmap v-if="overviewMapConfig" v-bind="overviewMapConfig"/>
       </v-container>
     </v-content>
 
@@ -69,6 +70,7 @@
   import AppSidebar from './components/AppSidebar'
   import AppLogo from '../src/components/AppLogo'
   import BgLayerSwitcher from '../src/components/bglayerswitcher/BgLayerSwitcher.vue'
+  import OverviewMap from '../src/components/overviewmap/OverviewMap.vue'
   import MeasureWin from '../src/components/measuretool/MeasureWin'
   import LayerListWin from '../src/components/layerlist/LayerListWin'
   import HelpWin from '../src/components/helpwin/HelpWin'
@@ -86,6 +88,7 @@
       'wgu-app-sidebar': AppSidebar,
       'wgu-app-logo': AppLogo,
       'wgu-bglayerswitcher': BgLayerSwitcher,
+      'wgu-overviewmap': OverviewMap,
       'wgu-measuretool-win': MeasureWin,
       'wgu-layerlist-win': LayerListWin,
       'wgu-helpwin-win': HelpWin,
@@ -98,6 +101,7 @@
       return {
         isEmbedded: false,
         sidebarConfig: this.getSidebarConfig(),
+        overviewMapConfig: this.getOverviewMapConfig(),
         floatingWins: this.getModuleWinData('floating'),
         sidebarWins: this.getModuleWinData('sidebar'),
         showCopyrightYear: Vue.prototype.$appConfig.showCopyrightYear
@@ -130,6 +134,14 @@
       getSidebarConfig () {
         const appConfig = Vue.prototype.$appConfig || {};
         return appConfig['sidebar'];
+      },
+      /**
+       * Returns the configuration object for the overview map from app-config.
+       * @return {Object} Overview map configuration object.
+       */
+      getOverviewMapConfig () {
+        const appConfig = Vue.prototype.$appConfig || {};
+        return appConfig['overviewMap'];
       },
       /**
        * Determines the module window configuration objects from app-config:

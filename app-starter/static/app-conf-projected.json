@@ -42,6 +42,10 @@
     ]
   ],
 
+  "overviewMap" : {
+    "visible": false
+  },
+
   "viewAnimation": {
     "type": "fly",
     "options": {
