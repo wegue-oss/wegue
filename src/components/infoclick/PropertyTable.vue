@@ -35,6 +35,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+.wgu-proptable {
+  word-break: break-word;
+}
+
 .wgu-proptable td.key-td {
   width: 40%;
 }

@@ -70,6 +70,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+.wgu-coordstable {
+  word-break: break-word;
+}
+
 .wgu-coordstable td.key-td {
   width: 40%;
 }
