@@ -43,7 +43,7 @@ html {
 }
 
 /* 
- Background layer switcher positioning and styles.
+  Background layer switcher positioning and styles.
 */
 .wgu-bglayerswitcher {
   left: 15px;
@@ -51,7 +51,7 @@ html {
 }
 
 /* 
- Overview map positioning and styles.
+  Overview map positioning and styles.
 */
 .wgu-overviewmap {
   left: 15px;
@@ -76,6 +76,15 @@ html {
 
 .wgu-overviewmap-ctrl .ol-overviewmap-box {
   border: 2px dotted var(--v-secondary-base);
+}
+
+/* 
+  Temporary fix for buggy scrollbar behavior in Firefox under Linux Mint.
+  Review this in a future vuetify version. 
+*/
+#wgu-overviewmap-wrapper > .v-menu__content 
+{
+	overflow-y: hidden;  
 }
 
 /*
