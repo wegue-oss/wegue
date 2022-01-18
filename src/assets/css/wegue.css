@@ -78,6 +78,15 @@ html {
   border: 2px dotted var(--v-secondary-base);
 }
 
+/* 
+  Temporary fix for buggy scrollbar behavior in Firefox under Linux Mint.
+  Review this in a future vuetify version. 
+*/
+#wgu-overviewmap-wrapper > .v-menu__content 
+{
+	overflow-y: hidden;  
+}
+
 /*
   TODO Review ccs colorization.
   Used to force the onprimary color for solo fields (light theme only).
