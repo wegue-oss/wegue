@@ -1,31 +1,19 @@
 <template>
 
-  <table 
-    :class="{
-      'wgu-coordstable': true,
-      'light-theme': !isDarkTheme,
-      'dark-theme': isDarkTheme
-    }"
-    v-if="coordRows"
-    style="border: 2px solid var(--v-secondary-base);"
-  >
-    <thead>
-      <tr>
-        <th v-for="(entry, key) in coordRows" :key="key">
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="(value, key) in coordRows" :key="key">
-        <td class="key-td">
-          {{key}}
-        </td>
-        <td class="val-td">
-          {{value}}
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <v-card-text class="px-0" v-if="coordRows">
+    <v-simple-table class="wgu-coordstable">
+      <tbody>
+        <tr v-for="(value, key) in coordRows" :key="key">
+          <td class="key-td">
+            {{key}}
+          </td>
+          <td class="val-td">
+            {{value}}
+          </td>
+        </tr>
+      </tbody>
+    </v-simple-table>
+  </v-card-text>
 
 </template>
 
@@ -33,11 +21,9 @@
 
 import { transform } from 'ol/proj.js';
 import { toStringHDMS } from 'ol/coordinate';
-import { ColorTheme } from '../../mixins/ColorTheme';
 
 export default {
   name: 'wgu-coords-table',
-  mixins: [ColorTheme],
   props: {
     coordsData: { type: Object },
     showMapPos: { type: Boolean, required: false, default: true },
@@ -84,36 +70,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-
-table.wgu-coordstable {
-  margin-top: 12px;
-  width: 100%;
-}
-
-.wgu-coordstable table {
-  border-radius: 3px;
-}
-
-.wgu-coordstable.dark-theme td {
-  background-color: hsla(0, 0%, 98%, 0.03);
-}
-
-.wgu-coordstable.light-theme td {
-  background-color: hsla(0, 0%, 98%, 1);
-}
-
-.wgu-coordstable tr {
-  font-size: 16px;
-}
-
-.wgu-coordstable th, .wgu-coordstable td {
-  width: 200px;
-  padding: 5px 5px;
-}
-
 .wgu-coordstable td.key-td {
-  width: 160px;
-  padding: 5px 5px;
+  width: 40%;
 }
-
 </style>

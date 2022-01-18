@@ -1,40 +1,24 @@
 <template>
 
-  <table 
-  :class="{
-      'wgu-proptable': true,
-      'light-theme': !isDarkTheme,
-      'dark-theme': isDarkTheme
-    }"
-    v-if="show"
-    style="border: 2px solid var(--v-secondary-base);"
-  >
-    <thead>
-      <tr>
-        <th v-for="(entry, key) in properties" :key="key">
-        </th>
-      </tr>
-    </thead>
-    <tbody class="attr-tbody">
-      <tr v-for="(value, key) in properties" :key="key">
-        <td class="key-td">
-          {{key}}
-        </td>
-        <td class="val-td">
-          {{value}}
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
+  <v-card-text class="px-0" v-if="show">
+    <v-simple-table class="wgu-proptable">
+      <tbody class="attr-tbody">
+        <tr v-for="(value, key) in properties" :key="key">
+          <td class="key-td">
+            {{key}}
+          </td>
+          <td class="val-td">
+            {{value}}
+          </td>
+        </tr>
+      </tbody>
+    </v-simple-table>
+  </v-card-text>
 </template>
 
 <script>
-import { ColorTheme } from '../../mixins/ColorTheme';
-
 export default {
   name: 'wgu-property-table',
-  mixins: [ColorTheme],
   props: {
     properties: { type: Object }
   },
@@ -51,33 +35,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-
-table.wgu-proptable {
- border-radius: 3px;
- /* background-color: #fff; */
- width: 100%;
-}
-
-.wgu-proptable.dark-theme td {
-  background-color: hsla(0, 0%, 98%, 0.03);
-}
-
-.wgu-proptable.light-theme td {
-  background-color: hsla(0, 0%, 98%, 1);
-}
-
-.wgu-proptable tr {
-  font-size: 16px;
-}
-
-.wgu-proptable th, .wgu-proptable td {
- width: 200px;
- padding: 5px 5px;
-}
-
 .wgu-proptable td.key-td {
-  width: 160px;
-  padding: 5px 5px;
+  width: 40%;
 }
-
 </style>
