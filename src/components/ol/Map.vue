@@ -80,9 +80,6 @@ export default {
 
       // adjust the bg color of the OL buttons (like zoom, rotate north, ...)
       me.setOlButtonColor();
-
-      // initialize map hover functionality
-      this.hoverController = new HoverController(me.map);
     }, 200);
   },
   destroyed () {
@@ -170,6 +167,8 @@ export default {
     const layers = this.createLayers();
     this.map.getLayers().extend(layers);
 
+    this.hoverController = this.createHoverController();
+
     if (this.$appConfig.permalink) {
       this.permalinkController = this.createPermalinkController();
       this.map.set('permalinkcontroller', this.permalinkController, true);
@@ -231,6 +230,15 @@ export default {
           }
         })
       })
+    },
+
+    /**
+     * Creates a HoverController, override in subclass for specializations.
+     *
+     * @return {HoverController} HoverController instance.
+     */
+    createHoverController () {
+      return new HoverController(this.map);
     },
 
     /**
