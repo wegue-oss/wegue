@@ -106,11 +106,3 @@ Associate the overlay with a layer by means of the `hoverOverlay` attribute in y
     }
  ]
 ```
-
-
-
-
-
-
-
-
