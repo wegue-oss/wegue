@@ -11,14 +11,14 @@ Implemented in : `src/components/modulecore/MapOverlay.vue`
 An element to be displayed over the map and attached to a map location. Overlays are not in a fixed position on the screen, but are tied to a geographical coordinate, so panning the map will move an Overlay. 
 This is a Vue wrapper for [native OpenLayers overlays](https://openlayers.org/en/latest/apidoc/module-ol_Overlay-Overlay.html). 
 
-Overlays can either be statically positioned or can be used to implement a custom tooltip associated with feature of a layer. The latter is dynamically positioned and displayed when a feature is hovered. To hook up a customized feature hover tooltip, the value of the `overlayId` property in your overlay implementation can be referenced by the `hoverOverlay` property declared in the map layer configuration. For more information see the description of the `hoverable`, `hoverAttribute` and `hoverOverlay` properties in the [map configuration section](map-layer-configuration?id=general).
+An Overlay can either be statically positioned or can be used to implement a tooltip associated with a layer. The latter is dynamically positioned and displayed when a feature is hovered on the map. To hook up a customized feature hover tooltip, the value of the `overlayId` property in your overlay implementation can be referenced by the `hoverOverlay` property declared in the [map layer configuration](map-layer-configuration?id=general).
 
 
 ### Props
 
 | Name               | Type | Default | Description   | Example |
 |--------------------|:-----|:--------|:--------------|:--------|
-| overlayId          | string  |          | Unique identifier for the overlay. If the overlay is used as a feature hover tooltip, this ID must be referenced by the `hoverOverlay` property in the [map configuration](map-layer-configuration?id=general). | `overlayId="my-custom-overlay"` |
+| overlayId          | string  |          | Unique identifier for the overlay. To use the overlay as a feature hover tooltip, this ID can be referenced by the `hoverOverlay` property in the [map layer configuration](map-layer-configuration?id=general). | `overlayId="my-custom-overlay"` |
 | visible            | boolean | true     | Whether the overlay is initially visible. If the overlay is used as a feature hover tooltip for layers, it is dynamically displayed and this value should be set to `false`.  | `:visible=true` |
 | offset             | array   | [0,0]       | Offsets in pixels used when positioning the overlay. The first element in the array is the horizontal offset. A positive value shifts the overlay right. The second element in the array is the vertical offset. A positive value shifts the overlay down. | `:offset= "[0,20]"` |
 | positioning        | string  | 'top-left' | Defines how the overlay is actually positioned with respect to its position property. Possible values are `'bottom-left'`, `'bottom-center'`, `'bottom-right'`, `'center-left'`, `'center-center'`, `'center-right'`, `'top-left'`, `'top-center'`, and `'top-right'`. | `positioning="top-center"`
@@ -43,7 +43,7 @@ Overlays can either be statically positioned or can be used to implement a custo
 
 #### Statically positioned overlay
 
-The follow example positions a static overlay at Heidelberg - assuming `EPSG:3857` is used as map projection. The default slot of `<wgu-map-overlay>` is filled by a `<v-sheet>` which deplays the overlay content.
+The follow example positions a static overlay at Heidelberg - assuming `EPSG:3857` is used as map projection. The default slot of `<wgu-map-overlay>` is filled by a `<v-sheet>` which deplays the overlay content. Declare the following vue template and add it to you `WguAppTemplate`:
 
 ```javascript
 <template>
@@ -69,7 +69,7 @@ export default {
 ```
 
 #### Feature hover tooltip
-The following example implements a customized feature hover tooltip, to render an attribute of a feature.
+The following example implements a customized tooltip to render an attribute of a feature, when it is hovered on the map. Again, the default slot of `<wgu-map-overlay>` is filled by a `<v-sheet>`. A data object containing the `feature` and optionally `hoverAttribute` properties is available from the slot-scope. Declare the following vue template and add it to you `WguAppTemplate`:
 
 ```javascript
 <template>
@@ -77,9 +77,6 @@ The following example implements a customized feature hover tooltip, to render a
     overlayId="my-custom-tooltip"
     :visible=false
   >
-   <!-- Do the rendering of your feature in the default slot.
-        A data object with "feature" and optionally "hoverAttribute" properties
-        is available from the slot-scope -->
     <v-sheet slot-scope="{feature}"> 
       {{ feature.get('my-feature-attribute') }}
     </v-sheet>
@@ -97,7 +94,7 @@ export default {
 </script>
 ```
 
-Associate it with a layer by means of the `hoverOverlay` attribute in your [map layer configuration](map-layer-configuration?id=general). The value should match the value of the `overlayId` property declared above:
+Associate the overlay with a layer by means of the `hoverOverlay` attribute in your [map layer configuration](map-layer-configuration?id=general). The value should match the value of the `overlayId` property declared above:
 ```JSON
  "mapLayers": [
      {
