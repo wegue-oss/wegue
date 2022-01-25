@@ -34,18 +34,16 @@
     },
     /**
      * Register for an event to update the overlays visiblity, position and content.
-     * The derived class can receive the content inside it's slot scope, in case
-     * the overlay is populated with dynamic data.
      */
     created () {
-      WguEventBus.$on(this.overlayId + '-update-overlay',
-        (visible, position, data) => {
-          if (visible) {
-            this.position = position;
-            this.contentData = data;
-          }
-          this.show = visible;
-        });
+      WguEventBus.$on(this.overlayId + '-update-overlay', this.onUpdateOverlay);
+    },
+    /**
+     * Destroy the overlay component.
+     */
+    destroyed () {
+      WguEventBus.$off(this.overlayId + '-update-overlay', this.onUpdateOverlay);
+      this.destroyOlOverlay();
     },
     methods: {
       /**
@@ -56,6 +54,18 @@
         if (this.show) {
           this.createOlOverlay();
         }
+      },
+      /**
+       * Event handler to update the overlays visibility, position and content.
+       * The derived class can receive the content inside it's slot scope, in case
+       * the overlay is populated with dynamic data.
+       */
+      onUpdateOverlay (visible, position, data) {
+        if (visible) {
+          this.position = position;
+          this.contentData = data;
+        }
+        this.show = visible;
       },
       /**
        * Creates the OpenLayers overlay control and adds it to the map.
