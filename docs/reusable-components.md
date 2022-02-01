@@ -43,7 +43,7 @@ An Overlay can either be statically positioned or can be used to implement a too
 
 #### Statically positioned overlay
 
-The follow example positions a static overlay at Heidelberg - assuming `EPSG:3857` is used as map projection. The default slot of `<wgu-map-overlay>` is filled by a `<v-sheet>` which deplays the overlay content. Declare the following vue template and add it to you `WguAppTemplate`:
+The follow example positions a static overlay at Heidelberg - assuming `EPSG:3857` is used as map projection. The default slot of `<wgu-map-overlay>` is filled by a `<v-sheet>` which displays the overlay content. Declare the following vue template and add it to you `WguAppTemplate`:
 
 ```javascript
 <template>
@@ -77,7 +77,7 @@ The following example implements a customized tooltip to render an attribute of 
     overlayId="my-custom-tooltip"
     :visible=false
   >
-    <v-sheet slot-scope="{feature}"> 
+    <v-sheet slot-scope="{feature}"  v-if="feature"> 
       {{ feature.get('my-feature-attribute') }}
     </v-sheet>
   </wgu-map-overlay>
@@ -96,13 +96,15 @@ export default {
 
 Associate the overlay with a layer by means of the `hoverOverlay` attribute in your [map layer configuration](map-layer-configuration?id=general). The value should match the value of the `overlayId` property declared above:
 ```JSON
- "mapLayers": [
-     {
+  "mapLayers": [
+    {
       "type": "VECTOR",
+      "format": "KML",
       "lid": "earthquakes",
       "url": "./static/data/2012_Earthquakes_Mag5.kml",
       "hoverable": true,
-      "hoverOverlay": "my-custom-tooltip"
+      "hoverOverlay": "my-custom-tooltip",
+      "visible": true
     }
- ]
+  ]
 ```
