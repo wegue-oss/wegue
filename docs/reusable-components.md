@@ -69,6 +69,7 @@ export default {
 ```
 
 #### Feature hover tooltip
+
 The following example implements a customized tooltip to render an attribute of a feature, when it is hovered on the map. Again, the default slot of `<wgu-map-overlay>` is filled by a `<v-sheet>`. A data object containing the `feature` and optionally `hoverAttribute` properties is available from the slot-scope. Declare the following vue template and add it to you `WguAppTemplate`:
 
 ```javascript
@@ -78,7 +79,7 @@ The following example implements a customized tooltip to render an attribute of 
     :visible=false
   >
     <v-sheet slot-scope="{feature}"  v-if="feature"> 
-      {{ feature.get('my-feature-attribute') }}
+      {{ feature.get('name') }}
     </v-sheet>
   </wgu-map-overlay>
 </template>
