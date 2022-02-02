@@ -17,6 +17,7 @@ import { bbox as bboxStrategy } from 'ol/loadingstrategy';
 import { OlStyleFactory } from './OlStyle'
 import { applyTransform } from 'ol/extent';
 import { getTransform } from 'ol/proj';
+import axios from 'axios';
 
 /**
  * Factory, which creates OpenLayers layer instances according to a given config
@@ -181,12 +182,18 @@ export const LayerFactory = {
         }
 
         // load data from WFS, parse and add to vector source
-        fetch(wfsRequest).then((response) => {
-          return response.text();
-        }).then((responseText) => {
-          const feats = vectorSource.getFormat().readFeatures(responseText);
-          vectorSource.addFeatures(feats);
-        });
+        const request = {
+          method: 'GET',
+          url: wfsRequest
+        };
+        axios(request)
+          .then(response => {
+            const feats = vectorSource.getFormat().readFeatures(response.data);
+            vectorSource.addFeatures(feats);
+          })
+          .catch(() => {
+            vectorSource.removeLoadedExtent(extent);
+          });
       },
       strategy: lConf.loadOnlyVisible !== false ? bboxStrategy : undefined
     });

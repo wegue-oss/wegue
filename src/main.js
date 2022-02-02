@@ -13,6 +13,7 @@ import LocaleUtil from './util/Locale';
 import ObjectUtil from './util/Object';
 import ColorThemeUtil from './util/ColorTheme'
 import 'vuetify/dist/vuetify.min.css';
+import axios from 'axios';
 
 Vue.use(Vuetify);
 Vue.use(PortalVue);
@@ -190,11 +191,13 @@ const createApp = function (appConfig) {
 
 // Look in the static dir for an app-specific config file.
 const configFile = 'static/app-conf' + appCtxFile + '.json';
-fetch(configFile)
-  .then(function (response) {
-    return response.json().then(function (appConfig) {
-      createApp(appConfig);
-    })
-  }).catch(function () {
-    console.error('Cannot load config file: ' + configFile)
+const request = {
+  method: 'GET',
+  url: configFile
+};
+axios(request)
+  .then(response => {
+    createApp(response.data);
+  }).catch(function (error) {
+    console.error(`Cannot load config file ${configFile}, ${error}`)
   });
