@@ -2,11 +2,6 @@ import Vue from 'vue';
 import Vuetify from 'vuetify'
 import { mount } from '@vue/test-utils';
 import Map from '@/components/ol/Map';
-import OlMap from 'ol/Map';
-import Feature from 'ol/Feature';
-import VectorLayer from 'ol/layer/Vector';
-import VectorSource from 'ol/source/Vector';
-import Point from 'ol/geom/Point';
 import SelectInteraction from 'ol/interaction/Select';
 
 // Used several times, so make const
@@ -51,6 +46,7 @@ describe('ol/Map.vue', () => {
 
     afterEach(() => {
       comp.destroy();
+      Vue.prototype.$appConfig = undefined;
     });
   });
 
@@ -58,6 +54,7 @@ describe('ol/Map.vue', () => {
     let comp;
     let vm;
     beforeEach(() => {
+      Vue.prototype.$appConfig = {};
       comp = mount(Map, { vuetify });
       vm = comp.vm;
     });
@@ -74,6 +71,7 @@ describe('ol/Map.vue', () => {
 
     afterEach(() => {
       comp.destroy();
+      Vue.prototype.$appConfig = undefined;
     });
   });
 
@@ -95,6 +93,7 @@ describe('ol/Map.vue', () => {
 
     afterEach(() => {
       comp.destroy();
+      Vue.prototype.$appConfig = undefined;
     });
   });
 
@@ -127,6 +126,26 @@ describe('ol/Map.vue', () => {
 
     afterEach(() => {
       comp.destroy();
+      Vue.prototype.$appConfig = undefined;
+    });
+  });
+
+  describe('data - Hover controller', () => {
+    let comp;
+    let vm;
+    beforeEach(() => {
+      Vue.prototype.$appConfig = {};
+      comp = mount(Map, { vuetify });
+      vm = comp.vm;
+    });
+
+    it('has instantiated hoverController', () => {
+      expect(vm.hoverController).to.not.be.empty;
+    });
+
+    afterEach(() => {
+      comp.destroy();
+      Vue.prototype.$appConfig = undefined;
     });
   });
 
@@ -134,27 +153,6 @@ describe('ol/Map.vue', () => {
     let comp;
     let vm;
     beforeEach(() => {
-      comp = mount(Map, { vuetify });
-      vm = comp.vm;
-    });
-
-    it('createLayers returns always an array', () => {
-      // mock a map layer config
-      Vue.prototype.$appConfig = { mapLayers: [{
-        'type': 'OSM',
-        'lid': 'osm-bg',
-        'isBaseLayer': false,
-        'visible': true,
-        'selectable': false,
-        'displayInLayerList': true }]
-      };
-      const layers = vm.createLayers();
-      expect(layers).to.be.an('array');
-      expect(layers.length).to.equal(1);
-    });
-
-    it('createLayers registers a select interaction if configured', () => {
-      // mock a map layer config
       Vue.prototype.$appConfig = { mapLayers: [{
         'type': 'OSM',
         'lid': 'osm-bg',
@@ -163,6 +161,17 @@ describe('ol/Map.vue', () => {
         'selectable': true,
         'displayInLayerList': true }]
       };
+      comp = mount(Map, { vuetify });
+      vm = comp.vm;
+    });
+
+    it('createLayers returns always an array', () => {
+      const layers = vm.createLayers();
+      expect(layers).to.be.an('array');
+      expect(layers.length).to.equal(1);
+    });
+
+    it('createLayers registers a select interaction if configured', () => {
       vm.createLayers();
       let selectIa;
       vm.map.getInteractions().forEach((ia) => {
@@ -210,69 +219,9 @@ describe('ol/Map.vue', () => {
       mockRotDiv.parentNode.removeChild(mockRotDiv);
     });
 
-    it('setupMapHover registers a tooltip DOM element and OL overlay', () => {
-      const map = new OlMap({});
-      const mockMapDiv = document.createElement('div');
-      map.setTarget(mockMapDiv);
-      vm.map = map;
-
-      vm.setupMapHover();
-
-      const hoverOverlayEl = vm.map.getTarget().querySelector('.wgu-hover-tooltiptext');
-      expect(typeof hoverOverlayEl).not.to.equal('undefined');
-
-      expect(map.getOverlays().getLength()).to.equal(1);
-    });
-
-    it('setupMapHover binds a pointermove and shows no tooltip if no feature is hit', () => {
-      const map = new OlMap({});
-      const mockMapDiv = document.createElement('div');
-      map.setTarget(mockMapDiv);
-      vm.map = map;
-
-      vm.setupMapHover();
-      vm.onPointerMove({ pixel: [0, 0] });
-
-      expect(vm.overlayEl.innerHTML).to.equal('');
-      expect(vm.overlay.getPosition()).to.equal(undefined);
-    });
-
-    it('setupMapHover binds a pointermove and shows correct tooltip', () => {
-      const feat = new Feature({
-        foo: 'bar',
-        geometry: new Point([0, 0])
-      });
-      const layer = new VectorLayer({
-        hoverable: true,
-        hoverAttribute: 'foo',
-        source: new VectorSource({
-          features: [feat]
-        })
-      });
-      const map = new OlMap({
-        layers: [layer]
-      });
-      const mockMapDiv = document.createElement('div');
-      map.setTarget(mockMapDiv);
-
-      // overwrite getFeaturesAtPixel to simulate hitting a valid feature
-      map.getFeaturesAtPixel = (evt, opts) => {
-        opts.layerFilter(layer);
-        return [feat];
-      };
-
-      vm.map = map;
-
-      vm.setupMapHover();
-
-      vm.onPointerMove({ pixel: [0, 0] });
-
-      expect(vm.overlayEl.innerHTML).to.equal('bar');
-      expect(vm.overlay.getPosition()).to.equal(undefined);
-    });
-
     afterEach(() => {
       comp.destroy();
+      Vue.prototype.$appConfig = undefined;
     });
   });
 
@@ -321,6 +270,7 @@ describe('ol/Map.vue', () => {
 
     afterEach(() => {
       comp.destroy();
+      Vue.prototype.$appConfig = undefined;
     });
   });
 });

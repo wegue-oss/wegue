@@ -16,7 +16,6 @@ import Projection from 'ol/proj/Projection';
 import TileGrid from 'ol/tilegrid/TileGrid';
 import { register as olproj4 } from 'ol/proj/proj4';
 import { get as getProj } from 'ol/proj';
-import Overlay from 'ol/Overlay';
 import { GPX, GeoJSON, IGC, KML, TopoJSON } from 'ol/format';
 import { Vector as VectorLayer } from 'ol/layer';
 import { Vector as VectorSource } from 'ol/source';
@@ -26,6 +25,7 @@ import { WguEventBus } from '../../WguEventBus.js';
 import { LayerFactory } from '../../factory/Layer.js';
 import LayerUtil from '../../util/Layer';
 import PermalinkController from './PermalinkController';
+import HoverController from './HoverController';
 import MapInteractionUtil from '../../util/MapInteraction';
 import ViewAnimationUtil from '../../util/ViewAnimation';
 import { ColorTheme } from '../../mixins/ColorTheme'
@@ -80,9 +80,6 @@ export default {
 
       // adjust the bg color of the OL buttons (like zoom, rotate north, ...)
       me.setOlButtonColor();
-
-      // initialize map hover functionality
-      me.setupMapHover();
     }, 200);
   },
   destroyed () {
@@ -96,6 +93,10 @@ export default {
     if (this.permalinkController) {
       this.permalinkController.tearDown();
       this.permalinkController = undefined;
+    }
+    if (this.hoverController) {
+      this.hoverController.destroy();
+      this.hoverController = undefined;
     }
     if (this.map) {
       this.map.getLayers().clear();
@@ -166,6 +167,8 @@ export default {
     const layers = this.createLayers();
     this.map.getLayers().extend(layers);
 
+    this.hoverController = this.createHoverController();
+
     if (this.$appConfig.permalink) {
       this.permalinkController = this.createPermalinkController();
       this.map.set('permalinkcontroller', this.permalinkController, true);
@@ -230,6 +233,15 @@ export default {
     },
 
     /**
+     * Creates a HoverController, override in subclass for specializations.
+     *
+     * @return {HoverController} HoverController instance.
+     */
+    createHoverController () {
+      return new HoverController(this.map);
+    },
+
+    /**
      * Creates a PermalinkController, override in subclass for specializations.
      *
      * @return {PermalinkController} PermalinkController instance.
@@ -263,70 +275,7 @@ export default {
         });
       }
     },
-    /**
-     * Initializes the map hover functionality:
-     * Adds a little tooltip like DOM element, wrapped as OL Overlay to the
-     * map.
-     * Registers a 'pointermove' event on the map and shows the layer's
-     * 'hoverAttribute' if the layer is configured as 'hoverable'
-     */
-    setupMapHover () {
-      const me = this;
-      const map = me.map;
-      let overlayEl;
 
-      // create a span to show map tooltip
-      overlayEl = document.createElement('span');
-      overlayEl.classList.add('wgu-hover-tooltiptext');
-      overlayEl.classList.add('v-sheet');
-      overlayEl.classList.add(this.isDarkTheme ? 'theme--dark' : 'theme--light');
-      map.getTarget().append(overlayEl);
-
-      me.overlayEl = overlayEl;
-
-      // wrap the tooltip span in a OL overlay and add it to map
-      me.overlay = new Overlay({
-        element: overlayEl,
-        stopEvent: false,
-        className: 'wgu-hover-ol-overlay',
-        autoPan: true,
-        autoPanAnimation: {
-          duration: 250
-        }
-      });
-      map.addOverlay(me.overlay);
-
-      // show tooltip if a hoverable feature gets hit with the mouse
-      map.on('pointermove', me.onPointerMove, me);
-    },
-    /**
-     * Shows the hover tooltip on the map if an appropriate feature of a
-     * 'hoverable' layer was hit with the mouse.
-     *
-     * @param  {Object} event The OL event for pointermove
-     */
-    onPointerMove (event) {
-      const me = this;
-      const map = me.map;
-      const overlayEl = me.overlayEl;
-      let hoverAttr;
-      const features = map.getFeaturesAtPixel(event.pixel, { layerFilter: (layer) => {
-        if (layer.get('hoverable')) {
-          hoverAttr = layer.get('hoverAttribute');
-        }
-        return layer.get('hoverable');
-      } });
-      if (!features || features.length === 0 || !hoverAttr) {
-        hoverAttr = null;
-        overlayEl.innerHTML = null;
-        me.overlay.setPosition(undefined);
-        return;
-      }
-      const feature = features[0];
-      var attr = feature.get(hoverAttr);
-      overlayEl.innerHTML = attr;
-      me.overlay.setPosition(event.coordinate);
-    },
     /**
      * Initializes the geodata drag-drop functionality:
      * Adds the ol/interaction/DragAndDrop to the map and draws the dropped
@@ -453,19 +402,4 @@ export default {
   div.ol-attribution.ol-uncollapsible {
     font-size: 10px;
   }
-
-  /* Hover tooltip */
-  .wgu-hover-tooltiptext {
-    float: left; /* needed that max-width has an effect */
-    max-width: 200px;
-    text-align: center;
-    padding: 5px;
-    border-radius: 6px;
-    margin-left: 10px;
-
-    /* Position the hover tooltip */
-    position: relative;
-    z-index: 1;
-  }
-
 </style>
