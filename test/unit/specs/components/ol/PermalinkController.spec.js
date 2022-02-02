@@ -26,6 +26,15 @@ const permalinkDef = {
     'isBaseLayer': false,
     'visible': false,
     'displayInLayerList': true
+  },
+  {
+    'type': 'OSM',
+    'lid': 'permalink-excluded-layer',
+    'isBaseLayer': false,
+    'visible': true,
+    'selectable': false,
+    'displayInLayerList': false,
+    'supportsPermalink': false
   }],
   permalink: {
     'location': 'hash',
@@ -88,17 +97,17 @@ describe('ol/Map.vue', () => {
 
     it('Setup permalinkController', () => {
       expect(vm.permalinkController.shouldUpdate).equals(true);
-      expect(vm.map.getLayers().getLength()).to.equal(2);
+      expect(vm.map.getLayers().getLength()).to.equal(3);
       vm.permalinkController.unsubscribeLayers();
       expect(vm.permalinkController.layerListeners.length).to.equal(0);
       vm.permalinkController.subscribeLayers();
-      expect(vm.permalinkController.layerListeners.length).to.equal(2);
+      expect(vm.permalinkController.layerListeners.length).to.equal(3);
     });
 
     it('Layer Listeners are (re)created when the layer stack changes', () => {
       vm.map.addLayer(new VectorLayer());
-      expect(vm.permalinkController.layerListeners.length).to.equal(3);
-      expect(vm.map.getLayers().getLength()).to.equal(3);
+      expect(vm.permalinkController.layerListeners.length).to.equal(4);
+      expect(vm.map.getLayers().getLength()).to.equal(4);
       vm.permalinkController.unsubscribeLayers();
       expect(vm.permalinkController.layerListeners.length).to.equal(0);
     });
@@ -168,7 +177,7 @@ describe('ol/Map.vue', () => {
       expect(mapView.getZoom()).to.equal(4);
       expect(Math.round(mapView.getCenter()[0])).to.equal(445278);
       expect(Math.round(mapView.getCenter()[1])).to.equal(6800125);
-      expect(Math.round(map.getLayers().getLength())).to.equal(2);
+      expect(Math.round(map.getLayers().getLength())).to.equal(3);
     });
     // Below gives problems in Karma as the document is reloaded by setting document.location.search!
     // it('Setup and apply permalinkController - apply from document.location.search', () => {

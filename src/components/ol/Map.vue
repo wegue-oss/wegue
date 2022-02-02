@@ -197,6 +197,9 @@ export default {
         // if not defined explicitly.
         lConf.zIndex = lConf.zIndex ?? (lConf.isBaseLayer ? -1 : 0);
 
+        // Default usage of permalink to true, if not explicitly defined.
+        lConf.supportsPermalink = lConf.supportsPermalink ?? true;
+
         let layer = LayerFactory.getInstance(lConf, me.map);
         layers.push(layer);
 
