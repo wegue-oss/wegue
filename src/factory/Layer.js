@@ -88,6 +88,7 @@ export const LayerFactory = {
       isBaseLayer: lConf.isBaseLayer,
       previewImage: lConf.previewImage,
       displayInLayerList: lConf.displayInLayerList,
+      supportsPermalink: lConf.supportsPermalink,
       extent: lConf.extent,
       visible: lConf.visible,
       opacity: lConf.opacity,
@@ -115,7 +116,10 @@ export const LayerFactory = {
         serverType: lConf.serverType,
         tileGrid: lConf.tileGrid,
         projection: lConf.projection,
-        crossOrigin: lConf.crossOrigin
+        crossOrigin: lConf.crossOrigin,
+        hoverable: lConf.hoverable,
+        hoverAttribute: lConf.hoverAttribute,
+        hoverOverlay: lConf.hoverOverlay
       })
     });
 
@@ -200,7 +204,8 @@ export const LayerFactory = {
       style: OlStyleFactory.getInstance(lConf.style),
       columnMapping: lConf.columnMapping,
       hoverable: lConf.hoverable,
-      hoverAttribute: lConf.hoverAttribute
+      hoverAttribute: lConf.hoverAttribute,
+      hoverOverlay: lConf.hoverOverlay
     });
 
     return vector;
@@ -257,9 +262,10 @@ export const LayerFactory = {
         format: new this.formatMapping[lConf.format](lConf.formatConfig)
       }),
       style: OlStyleFactory.getInstance(lConf.style),
+      columnMapping: lConf.columnMapping,
       hoverable: lConf.hoverable,
       hoverAttribute: lConf.hoverAttribute,
-      columnMapping: lConf.columnMapping
+      hoverOverlay: lConf.hoverOverlay
     });
 
     return vectorLayer;
@@ -282,7 +288,8 @@ export const LayerFactory = {
       }),
       style: OlStyleFactory.getInstance(lConf.style),
       hoverable: lConf.hoverable,
-      hoverAttribute: lConf.hoverAttribute
+      hoverAttribute: lConf.hoverAttribute,
+      hoverOverlay: lConf.hoverOverlay
     });
 
     return vtLayer;

@@ -36,6 +36,8 @@
         <wgu-app-logo />
         <wgu-bglayerswitcher />
         <wgu-overviewmap v-if="overviewMapConfig" v-bind="overviewMapConfig"/>
+        <!-- Register custom overlays, e.g. feature hover components here -->
+        <wgu-hover-tooltip />
       </v-container>
     </v-content>
 
@@ -65,6 +67,7 @@
   import Vue from 'vue'
   import { WguEventBus } from '../src/WguEventBus'
   import OlMap from '../src/components/ol/Map'
+  import HoverTooltip from '../src/components/ol/HoverTooltip'
   import AppHeader from './components/AppHeader'
   import AppFooter from './components/AppFooter'
   import AppSidebar from './components/AppSidebar'
@@ -83,6 +86,7 @@
     name: 'wgu-app-tpl',
     components: {
       'wgu-map': OlMap,
+      'wgu-hover-tooltip': HoverTooltip,
       'wgu-app-header': AppHeader,
       'wgu-app-footer': AppFooter,
       'wgu-app-sidebar': AppSidebar,

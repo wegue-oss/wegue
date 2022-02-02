@@ -17,6 +17,7 @@ The following properties can be applied to all map layer types
 | opacity            | Numeric value ranging from 0 to 1 describing the opaqueness of the layer. Defaults to `1.0`. | `"opacity": 0.5` |
 | zIndex             | Numeric value specifying the stack order of layers. Layers will be ordered by z-index and then by order of declaration. Defaults to `-1` for background layers and `0` for all other layers.  | `"zIndex": 2` |
 | displayInLayerList | Boolean value, whether the layer should appear in the LayerList. Ignored if the layer is a background layer - see option `isBaseLayer`  | `"displayInLayerList": true` |
+| supportsPermalink  | Boolean value, whether the layers state should be considered in permanent links - see also [permalink](wegue-configuration?id=permalink). Defaults to `true`.  | `"supportsPermalink": true` |
 | attributions       | Text or HTML string to be displayed as source attribution in the map. This setting will override the layer attributions declared in the language packs.  | `"attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> by Dutch Kadaster",` |
 | previewImage       | URL to a preview image for layers to be displayed in the background layer selection control. This option has no effect if the layer is not a background layer - see option `isBaseLayer`  | `"previewImage": "static/icon/my-layer-preview.png"`  |
 
@@ -37,12 +38,13 @@ The following properties can be applied to all map layer types
 | **url**             | The URL to the vector data resource (file) | `"url": "./static/data/2012_Earthquakes_Mag5.kml"` |
 | **format**          | The format of the data linked in `url` (either `KML` or `GeoJSON` ) | `"format": "KML"` |
 | selectable          | Boolean value, whether the features of the layer can be selected by click in order to display the attributes in a window | `"selectable": true` |
-| hoverable           | Boolean value, whether the features of the layer can be hovered in order to display an attribute (see `hoverAttribute`) in a tooltip  | `"hoverable": true` |
-| hoverAttribute      | Attribute to be shown if a feature of the layer is hovered. Only has an effect if `hoverable` is set to `true`  | `"hoverAttribute": "name"` |
 | style               | Object to define a rendering style for the features of the layer  | see [style](map-layer-configuration?id=style-for-vectorlayers) |
 | selectStyle         | The style for a selected feature | see [style](map-layer-configuration?id=style-for-vectorlayers) |
 | doAppendSelectStyle | If the selectStyle should be appended to the original style, defaults to `false` | `"doAppendSelectStyle": true` |
 | columnMapping       | Maps the property names to human-readable text. Can be used by `AttributeTable`. | `"columnMapping": {"name": "Name", "email": "Email"}`
+| hoverable           | Boolean value, whether the features of the layer can be hovered in order to display information in a tooltip. Wegue's default hover tooltip renders a single feature attribute which has to be declared by `hoverAttribute`. You can also choose to implement a custom overlay declared by `hoverOverlay` to render multiple feature attributes in a custom tooltip. | `"hoverable": true` |
+| hoverAttribute      | Attribute to be shown if a feature of the layer is hovered. Only has an effect if `hoverable` is set to `true`.  | `"hoverAttribute": "name"` |
+| hoverOverlay        | ID of a custom map overlay to display when a feature of the layer is hovered. Only has an effect if `hoverable` is set to `true`. For more information on how to implement a map overlay see the [reusable components](reusable-components?id=map-overlay) section. | `"hoverOverlay": "my-custom-overlay"` |
 
 ## WFS
 
@@ -60,8 +62,9 @@ The following properties can be applied to all map layer types
 | selectStyle         | The style for a selected feature | see [style](map-layer-configuration?id=style-for-vectorlayers) |
 | doAppendSelectStyle | If the selectStyle should be appended to the original style, defaults to `false` | `"doAppendSelectStyle": true` |
 | columnMapping       | Maps the property names to human-readable text. Can be used by `AttributeTable`. | `"columnMapping": {"name": "Name", "email": "Email"}`
-| hoverable           | Boolean value, whether the features of the layer can be hovered in order to display an attribute (see `hoverAttribute`) in a tooltip  | `"hoverable": true` |
-| hoverAttribute      | Attribute to be shown if a feature of the layer is hovered. Only has an effect if `hoverable` is set to `true`  | `"hoverAttribute": "name"` |
+| hoverable           | Boolean value, whether the features of the layer can be hovered in order to display information in a tooltip. Wegue's default hover tooltip renders a single feature attribute which has to be declared by `hoverAttribute`. You can also choose to implement a custom overlay declared by `hoverOverlay` to render multiple feature attributes in a custom tooltip. | `"hoverable": true` |
+| hoverAttribute      | Attribute to be shown if a feature of the layer is hovered. Only has an effect if `hoverable` is set to `true`.  | `"hoverAttribute": "name"` |
+| hoverOverlay        | ID of a custom map overlay to display when a feature of the layer is hovered. Only has an effect if `hoverable` is set to `true`. For more information on how to implement a map overlay see the [reusable components](reusable-components?id=map-overlay) section. | `"hoverOverlay": "my-custom-overlay"` |
 
 
 ## VECTORTILE
@@ -73,8 +76,9 @@ The following properties can be applied to all map layer types
 | **format**         | The format of the data linked in `url` (either `MVT`, `TopoJSON` or `GeoJSON` ) | `"format": "MVT"` |
 | projection         |  The projection of the layer. Has to be defined in `projectionDefs` if not `EPSG:4326` or `EPSG:3857`. if not set the projection of the map is used | `"projection": "EPSG:3857"` |
 | style              | Object to define a rendering style for the features of the layer  | see [style](map-layer-configuration?id=style-for-vectorlayers) |
-| hoverable          | Boolean value, whether the features of the layer can be hovered in order to display an attribute (see `hoverAttribute`) in a tooltip  | `"hoverable": true` |
-| hoverAttribute     | Attribute to be shown if a feature of the layer is hovered. Only has an effect if `hoverable` is set to `true`  | `"hoverAttribute": "name"` |
+| hoverable           | Boolean value, whether the features of the layer can be hovered in order to display information in a tooltip. Wegue's default hover tooltip renders a single feature attribute which has to be declared by `hoverAttribute`. You can also choose to implement a custom overlay declared by `hoverOverlay` to render multiple feature attributes in a custom tooltip. | `"hoverable": true` |
+| hoverAttribute      | Attribute to be shown if a feature of the layer is hovered. Only has an effect if `hoverable` is set to `true`.  | `"hoverAttribute": "name"` |
+| hoverOverlay        | ID of a custom map overlay to display when a feature of the layer is hovered. Only has an effect if `hoverable` is set to `true`. For more information on how to implement a map overlay see the [reusable components](reusable-components?id=map-overlay) section. | `"hoverOverlay": "my-custom-overlay"` |
 
 ## WMS
 
@@ -89,6 +93,9 @@ The following properties can be applied to all map layer types
 | singleTile         | Boolean value, whether the WMS layer should be queried in single tile mode | `"singleTile": false` |
 | tileGridRef        | Identifier of the tile grid to use for this layer (has to be defined in `tileGridDefs` | `"tileGridRef": "dutch_rd"` |
 | crossOrigin        | Provides support for CORS, defining how the layers source handles crossorigin requests. For more information and the supported values see [HTML attribute: crossorigin](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin)  | `"crossOrigin": "anonymous"` |
+| hoverable           | Boolean value, whether the features of the layer can be hovered in order to display information in a tooltip. The WMS must support `GetFeatureInfo` requests to obtain feature information. Wegue's default hover tooltip renders a single feature attribute which has to be declared by `hoverAttribute`. You can also choose to implement a custom overlay declared by `hoverOverlay` to render multiple feature attributes in a custom tooltip. | `"hoverable": true` |
+| hoverAttribute      | Attribute to be shown if a feature of the layer is hovered. Only has an effect if `hoverable` is set to `true`.  | `"hoverAttribute": "name"` |
+| hoverOverlay        | ID of a custom map overlay to display when a feature of the layer is hovered. Only has an effect if `hoverable` is set to `true`. For more information on how to implement a map overlay see the [reusable components](reusable-components?id=map-overlay) section. | `"hoverOverlay": "my-custom-overlay"` |
 
 ## XYZ
 
