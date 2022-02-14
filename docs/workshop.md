@@ -1,6 +1,6 @@
 # Workshop
 
-This workshop uses Wegue version [`1.0.0`](https://github.com/meggsimum/wegue/releases/tag/v0.25.0) but works for higher versions with no or little adaptation.
+This workshop uses Wegue version [`v1.0.0`](https://github.com/meggsimum/wegue/releases/tag/v0.25.0) but works for higher versions with no or little adaptation.
 
 ## Prerequisites
 
@@ -42,7 +42,7 @@ We need to download Wegue. This can be done in two ways:
 
 - Alternatively download a zip-archive of Wegue via GitHub using this [link](https://github.com/meggsimum/wegue/archive/refs/tags/v1.0.0.zip) and extract it.
 
-## Setup Wegue
+## Start Wegue
 
 Wegue is a web mapping application based on the Vue.js framework, the OpenLayers library and some other dependencies. These are all noted in the file `package.json` under the property `dependencies`. To download all of them we use `npm`. This is node package manager which comes preinstalled with `node.js`. Open your terminal and ensure you are in the `wegue` directory and enter the following command:
 
