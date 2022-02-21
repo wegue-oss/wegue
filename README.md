@@ -124,9 +124,11 @@ docker build -t meggsimum/wegue:latest .
 
 ## Developing online using Gitpod.io
 
-Gitpod.io is an online IDE using VS Code that also provides a terminal and enables live preview. A registration is required but can be done with a GitHub account. 
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/meggsimum/wegue/)
 
-Open [gitpod.io/#https://github.com/meggsimum/wegue/](https://gitpod.io/#https://github.com/meggsimum/wegue/) to get started. 
+Gitpod.io is an online IDE using VS Code that also provides a terminal and enables live preview. A registration is required but can be done with a GitHub account.
+
+Open [gitpod.io/#https://github.com/meggsimum/wegue/](https://gitpod.io/#https://github.com/meggsimum/wegue/) to get started.
 
 Wegue will automatically be initiated and your Wegue application can be previewed in a pane of the online IDE. The live preview of Wegue can also be seen in another browser tab by prefixing your workspace sub-URL with `8081-`. For example  `https://8081-YOUR-WORKSPACE-NAME.ws-eu25.gitpod.io`.
 
