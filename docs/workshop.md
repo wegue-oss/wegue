@@ -4,7 +4,7 @@ This workshop uses Wegue version [`v1.0.0`](https://github.com/meggsimum/wegue/r
 
 ## Prerequisites
 
-You should have basic knowledge of using a commandline and a basic understanding of HTML, CSS and JavaScript
+You should have basic knowledge of using a commandline and a basic understanding of HTML, CSS and JavaScript. Also basic knowledge of Vue.js is helpful but not mandatory.
 
 ## Preparation
 
@@ -140,9 +140,9 @@ The current color is green and defined via a RGB-code. Change it to `#E0BBE4` (a
 
 When a user opens the map it will initially show the whole world. Let's say we would like to focus our map on Frankfurt in Germany. We would need to change the two properties `mapCenter` and `mapZoom`.
 
-The `mapCenter` is a coordinate in used map projection. In our case the default projection "web mercator" with the code `EPSG:3857` is used. For finding the coordinate you can use [this website](https://epsg.io/map#srs=3857&x=965552.541298&y=6466228.626299&z=11&layer=streets). The result might be `965552.541298 6466228.626299`. We must convert them to a JSON Array by surrounding them with bracket `[]` and separating them by a comma `,`. Additionally, We can safely remove the numbers behind the digit, because are unnecessarily precise.
+The `mapCenter` is a coordinate in the projection of the map. In our case the default projection "web mercator" with the code `EPSG:3857` is used. For finding the coordinate you can use [this website](https://epsg.io/map#srs=3857&x=965552.541298&y=6466228.626299&z=11&layer=streets). The result might be `965552.541298 6466228.626299`. We must convert them to a JSON Array by surrounding them with bracket `[]` and separating them by a comma `,`. Additionally, We can safely remove the numbers behind the digit, because are unnecessarily precise.
 
-The `zoomLevel` is a whole number typically between `0`(whole world) and `18` (building level). For displaying a city `12` might be a good value.
+The `zoomLevel` is a whole number typically between `0`(whole world) and `18` (building level). For displaying a city `11` might be a good value.
 
 Let's apply the values to our config file. Change `mapZoom` and `mapCenter` to:
 
