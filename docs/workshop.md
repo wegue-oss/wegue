@@ -1,6 +1,6 @@
 # Workshop
 
-This workshop uses Wegue version [`v1.0.0`](https://github.com/meggsimum/wegue/releases/tag/v0.25.0) but works for higher versions with no or little adaptation.
+This workshop uses Wegue version [`v1.0.0`](https://github.com/meggsimum/wegue/releases/tag/v1.0.0) but works for higher versions with no or little adaptation.
 
 ## Prerequisites
 
@@ -69,7 +69,7 @@ It assembles all the source files of Wegue and publishes them on a local webserv
 
 ## Adapt the Configuration
 
-Of course, we would like to create our custom Wegue application. This is done in the `app` directory, which content looks like this:
+Of course, we would like to create our custom Wegue application. This is done in the `app` directory, whose content looks like this:
 
 ```
 app
@@ -130,7 +130,7 @@ Replace the content of `app-conf.json` with this:
 }
 ```
 
-Open your browser that runs Wegue and refresh the page (typically clicking F5 on your keyboard). Now you should see this web map:
+Open your browser that runs Wegue and refresh the page (typically pressing F5 on your keyboard). Now you should see this web map:
 
 ![minimal webmap](_media/workshop/minimal-map.png)
 
@@ -178,7 +178,7 @@ Here you can change the text elements, for example to this:
 
 At the moment we have one layer in our `app-conf.json`. It is defined in the property `mapLayers` as one item of an array. Before we add a new layer, let's try to understand the structure of a layer object by checking our current layer:
 
-- `"type": "XYZ"` defines the typo of the layer. Wegue support many other types like `WMS`, `WFS`, or `VECTOR` (see the [layer docs](https://meggsimum.github.io/wegue/#/map-layer-configuration) for details)
+- `"type": "XYZ"` defines the type of the layer. Wegue supports many other types like `WMS`, `WFS`, or `VECTOR` (see the [layer docs](https://meggsimum.github.io/wegue/#/map-layer-configuration) for details)
 - `"name": "Carto Positron"` shows the layer name visible to the user
 - `"url": "https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"` is the URL where the data of the layer comes from
 - `"lid": "positron"` defines a "layer ID", this is necessary to uniquely reference a layer
@@ -197,7 +197,7 @@ Now we want to add a point layer with airports. The layer object looks like this
 ```
 We use the type `VECTOR` which can load vector features from different formats indicated by the `format` property. In our case our `format` is `GeoJSON`. The url references to a publicly available GeoJSON hosted on Github holding airports. The data originates from [Natural Earth](https://www.naturalearthdata.com/). Data from there does not require attribution.
 
-Add our new layer object before the previous layer and ensure the both layer objects are separated by a comma. The final `mapLayer` property should look like this:
+Add our new layer object before the previous layer and ensure both layer objects are separated by a comma. The final `mapLayer` property should look like this:
 
 
 ```json
@@ -219,7 +219,7 @@ Add our new layer object before the previous layer and ensure the both layer obj
 ]
 ```
 
-Refresh you map and you should see the airport of Frankfurt in the lower left of the map indicated by a blue circle. Admittedly, the airport is difficult to recognize. A more prominent styling would be great!
+Refresh your map in the browser and you should see the airport of Frankfurt in the lower left part of the map indicated by a blue circle. Admittedly, the airport is difficult to recognize. A more prominent styling would be great!
 
 We can do this by adding the property `style` to our layer object. There are multiple options for styling vector layers (see the [style docs](https://meggsimum.github.io/wegue/#/map-layer-configuration?id=style-for-vectorlayers) for details). A common option is to define a circle. It will show a black circle with a white stroke:
 
@@ -274,7 +274,7 @@ The "positron" basemap we are using, (intentionally) does not show much context.
 
 Note the new property `layers` which is specific for a `WMS` layer. Add this layer between the "airports" layer and the "positron" layer. Now our background shows more detail, but we cannot see our previous basemap anymore.
 
-For this problem Wegue has a inbuilt solution called "basemap switcher". Add the properties `"isBaseLayer": true` to both basemap layer. Wegue will then display a button on the top left side on the map where you can chose which baselayer should be shown.
+For this problem Wegue has an inbuilt solution called "basemap switcher". Add the property `"isBaseLayer": true` to both basemap layers. Wegue will then display a button on the top left side of the map, where you can chose which baselayer should be shown.
 
 ![basemap switcher](_media/workshop/basemap-switcher.png)
 
@@ -316,7 +316,7 @@ This is how the `mapLayers` property should look like:
 
 ## Use a module
 
-Wegue contains a lot of different modules that can be used. A frequently needed one is a layer switcher. This enables the user to switch layers on and off. To activate it, add this snippet below to your config file. Make sure it is located on the top level and also separated by an comma from other properties:
+Wegue contains a lot of different modules that can be used. A frequently needed one is a layer switcher. This enables the user to switch layers on and off. To activate it, add this snippet below to your config file. Make sure it is located on the top level and also separated by a comma from other properties:
 
 ```json
   "modules": {
@@ -333,7 +333,7 @@ Let's inspect what is happening here. The property `modules` is a JSON object wi
 - `"win": "floating"` tells Wegue to place the module floating over the map, alternatively `"win": "sidebar",` would place it in a sidebar
 - `"icon": "layers"` defines the icon image that is displayed, it can be chosen from the same [icon font](https://fonts.google.com/icons?selected=Material+Icons&icon.query=airport) that we used earlier for the layer style
 
-The layer tree on the top right enables us to switch the airport layer on and off.
+The layer list on the top right enables us to switch the airport layer on and off.
 
 ![webmap with layer tree](_media/workshop/layer-tree.png)
 
@@ -490,7 +490,7 @@ In the same file, add the entry `'my-tool-win': MyToolWin` to the `components` p
     },
 ```
 
-The changes so far properly registered our module in Wegue. To actually activate it in our application we have to adjust our config file. Add this module to the `modules` property of your config file `app/static/app-conf.json`:
+The changes so far properly registered our module in the Wegue application. To actually activate it in our app we have to adjust our config file. Add this module to the `modules` property of your config file `app/static/app-conf.json`:
 
 ```json
 "my-tool": {
