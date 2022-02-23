@@ -329,7 +329,7 @@ Wegue contains a lot of different modules that can be used. A frequently needed 
 ```
 Let's inspect what is happening here. The property `modules` is a JSON object with currently one object. However, there can be many more. Our module is called `wgu-layerlist` and has some properties by itself as well:
 
-- `"target": "toolbar"` adds the button for the layertree to the toolbar, alternatively it can be added to a menu using `"target": "menu"`
+- `"target": "toolbar"` adds the button for the layer list to the toolbar, alternatively it can be added to a menu using `"target": "menu"`
 - `"win": "floating"` tells Wegue to place the module floating over the map, alternatively `"win": "sidebar",` would place it in a sidebar
 - `"icon": "layers"` defines the icon image that is displayed, it can be chosen from the same [icon font](https://fonts.google.com/icons?selected=Material+Icons&icon.query=airport) that we used earlier for the layer style
 
