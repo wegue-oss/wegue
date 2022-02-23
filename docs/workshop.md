@@ -179,7 +179,7 @@ Here you can change the text elements, for example to this:
 At the moment we have one layer in our `app-conf.json`. It is defined in the property `mapLayers` as one item of an array. Before we add a new layer, let's try to understand the structure of a layer object by checking our current layer:
 
 - `"type": "XYZ"` defines the type of the layer. Wegue supports many other types like `WMS`, `WFS`, or `VECTOR` (see the [layer docs](https://meggsimum.github.io/wegue/#/map-layer-configuration) for details)
-- `"name": "Carto Positron"` shows the layer name visible to the user
+- `"name": "Carto Positron"` the layer name used in the UI, so visible to the user
 - `"url": "https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"` is the URL where the data of the layer comes from
 - `"lid": "positron"` defines a "layer ID", this is necessary to uniquely reference a layer
 - `"attributions": "..."` describes the attributions or the copyright of the layer
