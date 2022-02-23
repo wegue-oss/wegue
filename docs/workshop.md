@@ -402,9 +402,314 @@ The whole config file should look like this:
   }
 ```
 
+
+## Custom Functionality
+
+Now we will have a look a the file `WguApp.vue`. This file can be used for adding custom functionality to the app. Let's create a little tool for adding points on the map.
+
+First of all we need a new layer that can hold our points. So far we added layers via the config file, but we can also do this programmatically using OpenLayers directly. We can do this directly in the `WguApp.vue` by replacing its contents with this:
+
+```vue
+<template>
+  <wgu-app-tpl>
+  </wgu-app-tpl>
+</template>
+
+<script>
+import { Mapable } from '../src/mixins/Mapable';
+import WguAppTemplate from './WguAppTemplate.vue';
+import VectorLayer from 'ol/layer/Vector'
+import VectorSource from 'ol/source/Vector'
+import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
+import Feature from 'ol/Feature';
+import Point from 'ol/geom/Point';
+
+export default {
+  name: 'my-wgu-app',
+  mixins: [Mapable],
+  components: {
+    'wgu-app-tpl': WguAppTemplate
+  },
+  methods: {
+    /**
+     * Executed once map is bound.
+     */
+    onMapBound () {
+      // create a vector source
+      const vectorSource = new VectorSource();
+
+      // create a style
+      const vectorStyle = new Style({
+        image: new CircleStyle({
+          radius: 10,
+          fill: new Fill({
+            color: '#2E7D32'
+          }),
+          stroke: new Stroke({
+            color: 'black',
+            width: 2
+          })
+        })
+      });
+
+      // add the source and the style to the layer
+      const vectorLayer = new VectorLayer({
+        title: 'Points of Interest',
+        source: vectorSource,
+        style: vectorStyle
+      });
+
+      // add the layer to the map
+      this.map.addLayer(vectorLayer);
+
+      // add a feature to the map
+      vectorSource.addFeature(
+        new Feature({
+          geometry: new Point([965552, 6466228])
+        })
+      );
+    }
+  }
+}
+</script>
+```
+
+We include the mixing `Mapable`, we need that for accessing the map. The function `onMapBound()` is automatically executed once the map is bound. Here we can write plain JavaScript and access our OpenLayers map and add a layer containing a single point.
+
+In the next step we want to make it possible to add more points to the layer by clicking on the map. This can be done using a [`DrawInteraction`](https://openlayers.org/en/latest/apidoc/module-ol_interaction_Draw-Draw.html). This is the new content of `WguApp.vue`:
+
+```vue
+<template>
+  <wgu-app-tpl>
+  </wgu-app-tpl>
+</template>
+
+<script>
+import { Mapable } from '../src/mixins/Mapable';
+import WguAppTemplate from './WguAppTemplate.vue';
+import VectorLayer from 'ol/layer/Vector'
+import VectorSource from 'ol/source/Vector'
+import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
+import Feature from 'ol/Feature';
+import Point from 'ol/geom/Point';
+import DrawInteraction from 'ol/interaction/Draw';
+
+export default {
+  name: 'my-wgu-app',
+  mixins: [Mapable],
+  components: {
+    'wgu-app-tpl': WguAppTemplate
+  },
+  methods: {
+    /**
+     * Executed once map is bound.
+     */
+    onMapBound () {
+      // create a vector source
+      const vectorSource = new VectorSource();
+
+      // create a style
+      const vectorStyle = new Style({
+        image: new CircleStyle({
+          radius: 10,
+          fill: new Fill({
+            color: '#2E7D32'
+          }),
+          stroke: new Stroke({
+            color: 'black',
+            width: 2
+          })
+        })
+      });
+
+      // add the source and the style to the layer
+      const vectorLayer = new VectorLayer({
+        title: 'Points of Interest',
+        source: vectorSource,
+        style: vectorStyle
+      });
+
+      // add the layer to the map
+      this.map.addLayer(vectorLayer);
+
+      // add a feature to the map
+      vectorSource.addFeature(
+        new Feature({
+          geometry: new Point([965552, 6466228])
+        })
+      );
+
+      // create a draw interaction and
+      // store it as a property to the module
+      // so we can reference it later on
+      this.draw = new DrawInteraction({
+        source: vectorSource,
+        type: 'Point'
+      });
+
+      // add it to the map
+      this.map.addInteraction(this.draw);
+    }
+  }
+}
+</script>
+```
+
+When you refresh the app in your browser. You can instantly add points to the map by clicking with your cursor on a location. Like in this screenshot.
+
+![A map with manually added points](_media/workshop/point-tool-draw.png)
+
+As you probably notice, there is currently no way to deactivate the drawing behavior. We can fix this by adding a custom UI element for that. Use that code for it:
+
+```vue
+<template>
+  <wgu-app-tpl>
+
+    <v-card
+      class="myCard"
+      slot="wgu-before-content"
+    >
+      <v-card-title>
+        Point Tool
+      </v-card-title>
+
+      <v-card-text>
+        This tool can add points to the map.
+      </v-card-text>
+
+      <v-card-actions>
+        <v-btn-toggle v-model="buttonValue">
+          <v-btn>
+            <v-icon dark>
+              mdi-star
+            </v-icon>
+          </v-btn>
+        </v-btn-toggle>
+      </v-card-actions>
+
+    </v-card>
+  </wgu-app-tpl>
+</template>
+
+<script>
+import { Mapable } from '../src/mixins/Mapable';
+import WguAppTemplate from './WguAppTemplate.vue';
+import VectorLayer from 'ol/layer/Vector'
+import VectorSource from 'ol/source/Vector'
+import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
+import Feature from 'ol/Feature';
+import Point from 'ol/geom/Point';
+import DrawInteraction from 'ol/interaction/Draw';
+
+export default {
+  name: 'my-wgu-app',
+  mixins: [Mapable],
+  components: {
+    'wgu-app-tpl': WguAppTemplate
+  },
+  data() {
+    return {
+      buttonValue: undefined
+    }
+  },
+  watch: {
+    /**
+     * Executed once the button value changes
+     */
+    buttonValue(value) {
+      // the button is pressed when its value is 0
+      const buttonPressed = (value === 0);
+
+      if (buttonPressed) {
+        // we activate our draw tool
+        this.draw.setActive(true);
+      } else {
+        // we deactivate our draw tool
+        this.draw.setActive(false);
+      }
+    }
+  },
+  methods: {
+    /**
+     * Executed once map is bound.
+     */
+    onMapBound () {
+      // create a vector source
+      const vectorSource = new VectorSource();
+
+      // create a style
+      const vectorStyle = new Style({
+        image: new CircleStyle({
+          radius: 10,
+          fill: new Fill({
+            color: '#2E7D32'
+          }),
+          stroke: new Stroke({
+            color: 'black',
+            width: 2
+          })
+        })
+      });
+
+      // add the source and the style to the layer
+      const vectorLayer = new VectorLayer({
+        title: 'Points of Interest',
+        source: vectorSource,
+        style: vectorStyle
+      });
+
+      // add the layer to the map
+      this.map.addLayer(vectorLayer);
+
+      // add a feature to the map
+      vectorSource.addFeature(
+        new Feature({
+          geometry: new Point([965552, 6466228])
+        })
+      );
+
+      // create a draw interaction and
+      // store it as a property to the module
+      // so we can reference it later on
+      this.draw = new DrawInteraction({
+        source: vectorSource,
+        type: 'Point'
+      });
+
+      // initially deactivate draw tool
+      this.draw.setActive(false);
+
+      // add it to the map
+      this.map.addInteraction(this.draw);
+
+    }
+  }
+}
+</script>
+
+<style>
+  .myCard{
+    width: 400px;
+    position: absolute;
+    top: 75px;
+    right: 10px;
+    z-index: 1;
+  }
+</style>
+
+```
+
+Refresh the app in your browser and you should see a card in the top right corner of the map. It contains a button. Once it is pressed, it is possible to add points to the map via clicking - and of course vice versa. See screenshot below.
+
+![](_media/workshop/point-tool-ui.png)
+
+The next logical step would be to add the possibility to delete points. But this would exceed the extent of this workshop.
+
+Let's review what we have done: We added functionality by directly writing code to `WguApp.vue`. This is totally legitimate and fine for many use cases. However, once the functionality becomes more complex or should be shared with other applications, it is recommend to encapsulate this functionality in separate modules. This is explained in the next section.
+
 ## Add a custom module
 
-So far we modified the functionality of Wegue using the configuration file. Now we will create a custom module using JavaScript. For this we need to change a couple of files:
+So far we modified the functionality of Wegue using the configuration file or by writing code into `WguApp.vue`. Now we will create a custom module using JavaScript. For this we need to change a couple of files:
 
 Create new file at `app/components/MyTool.vue` with the content below. Note the comments inline that explain what is happening here:
 
