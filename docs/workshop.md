@@ -12,7 +12,7 @@ You should have basic knowledge of using a commandline and a basic understanding
 
 For this workshop or to quickly try something, you can use the online-environment Gitpod. For this you need a browser and you need to register at Gitpod. That can be done with an existing GitHub account.
 
-To get started navigate to [**gitpod.io/#https://github.com/meggsimum/wegue/tree/v1.0.0**](gitpod.io/#https://github.com/meggsimum/wegue/tree/v1.0.0). Ideally, you will see a terminal running commands to set up Wegue. After some moments (~1 minute) you should see a running Wegue instance in one of the editor's panes like in this screenshot.
+To get started navigate to [**gitpod.io/#https://github.com/meggsimum/wegue/tree/v1.0.0**](https://gitpod.io/#https://github.com/meggsimum/wegue/tree/v1.0.0). Ideally, you will see a terminal running commands to set up Wegue. After some moments (~1 minute) you should see a running Wegue instance in one of the editor's panes like in this screenshot.
 
 ![Wegue running in Gitpod](_media/workshop/gitpod-wegue.png)
 
