@@ -1,6 +1,7 @@
 - Getting started
     - [About](home.md#About)
     - [Quickstart](home.md#Quickstart)
+    - [Workshop](workshop.md)
     - [Gallery](gallery.md)
 - Configuration
     - [Wegue Config](wegue-configuration.md)
