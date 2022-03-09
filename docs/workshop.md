@@ -681,7 +681,6 @@ export default {
 
       // add it to the map
       this.map.addInteraction(this.draw);
-
     }
   }
 }
