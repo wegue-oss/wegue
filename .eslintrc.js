@@ -38,6 +38,7 @@ module.exports = {
     'quotes': process.env.NODE_ENV  === 'development' ? 'warn' : 'error',
     'object-curly-spacing': process.env.NODE_ENV  === 'development' ? 'warn' : 'error',
     'padded-blocks': process.env.NODE_ENV  === 'development' ? 'warn' : 'error',
-    'keyword-spacing': process.env.NODE_ENV  === 'development' ? 'warn' : 'error'
+    'keyword-spacing': process.env.NODE_ENV  === 'development' ? 'warn' : 'error',
+    'arrow-spacing': process.env.NODE_ENV  === 'development' ? 'warn' : 'error'
   }
 }
