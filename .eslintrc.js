@@ -32,5 +32,13 @@ module.exports = {
     'space-before-blocks': process.env.NODE_ENV  === 'development' ? 'warn' : 'error',
     'space-before-function-paren': process.env.NODE_ENV  === 'development' ? 'warn' : 'error',
     'object-curly-spacing': process.env.NODE_ENV  === 'development' ? 'warn' : 'error',
+    'indent': process.env.NODE_ENV  === 'development' ? 'warn' : 'error',
+    'comma-dangle': process.env.NODE_ENV  === 'development' ? 'warn' : 'error',
+    'comma-spacing': process.env.NODE_ENV  === 'development' ? 'warn' : 'error',
+    'quotes': process.env.NODE_ENV  === 'development' ? 'warn' : 'error',
+    'object-curly-spacing': process.env.NODE_ENV  === 'development' ? 'warn' : 'error',
+    'padded-blocks': process.env.NODE_ENV  === 'development' ? 'warn' : 'error',
+    'keyword-spacing': process.env.NODE_ENV  === 'development' ? 'warn' : 'error',
+    'arrow-spacing': process.env.NODE_ENV  === 'development' ? 'warn' : 'error'
   }
 }
