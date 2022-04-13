@@ -1,5 +1,6 @@
 import { LayerFactory } from '@/factory/Layer'
-import TileLayer from 'ol/layer/Tile';
+import { Image as ImageLayer, Tile as TileLayer } from 'ol/layer';
+import ImageWMS from 'ol/source/ImageWMS';
 import TileWmsSource from 'ol/source/TileWMS';
 import OsmSource from 'ol/source/OSM';
 import VectorTileLayer from 'ol/layer/VectorTile';
@@ -22,6 +23,7 @@ describe('LayerFactory', () => {
   it('has the correct functions', () => {
     expect(typeof LayerFactory.getInstance).to.equal('function');
     expect(typeof LayerFactory.createWmsLayer).to.equal('function');
+    expect(typeof LayerFactory.createTileWmsLayer).to.equal('function');
     expect(typeof LayerFactory.createXyzLayer).to.equal('function');
     expect(typeof LayerFactory.createOsmLayer).to.equal('function');
     expect(typeof LayerFactory.createVectorLayer).to.equal('function');
@@ -59,7 +61,7 @@ describe('LayerFactory', () => {
         'layers': 'topp:states',
         'url': 'https://ahocevar.com/geoserver/wms',
         'transparent': true,
-        'singleTile': false,
+        'singleTile': true,
         'projection': 'EPSG:3857',
         'attribution': '',
         'isBaseLayer': false,
@@ -67,6 +69,26 @@ describe('LayerFactory', () => {
         'displayInLayerList': true
       };
       const layer = LayerFactory.createWmsLayer(layerConf);
+      expect(layer instanceof ImageLayer).to.equal(true);
+      expect(layer.getSource() instanceof ImageWMS);
+    });
+
+    it('createTileWmsLayer returns correct layer instance', () => {
+      const layerConf = {
+        'type': 'WMS',
+        'lid': 'ahocevar-wms',
+        'format': 'image/png',
+        'layers': 'topp:states',
+        'url': 'https://ahocevar.com/geoserver/wms',
+        'transparent': true,
+        'singleTile': false,
+        'projection': 'EPSG:3857',
+        'attribution': '',
+        'isBaseLayer': false,
+        'visibility': false,
+        'displayInLayerList': true
+      };
+      const layer = LayerFactory.createTileWmsLayer(layerConf);
       expect(layer instanceof TileLayer).to.equal(true);
       expect(layer.getSource() instanceof TileWmsSource);
     });
@@ -79,8 +101,7 @@ describe('LayerFactory', () => {
         'typeName': 'foo:tn',
         'version': '2.0.0',
         'format': 'GeoJSON',
-        'formatConfig': {
-        },
+        'formatConfig': {},
         'projection': 'EPSG:3857',
         'visible': true,
         'selectable': false
