@@ -86,7 +86,7 @@ module.exports = new Promise((resolve, reject) => {
       // add port to devServer config
       devWebpackConfig.devServer.port = port
 
-      // Add FriendlyErrorsPlugin
+      // add FriendlyErrorsPlugin
       devWebpackConfig.plugins.push(new FriendlyErrorsPlugin({
         compilationSuccessInfo: {
           messages: [`Your application is running here: http://${devWebpackConfig.devServer.host}:${port}`],
@@ -95,6 +95,11 @@ module.exports = new Promise((resolve, reject) => {
         ? utils.createNotifierCallback()
         : undefined
       }))
+
+      // open the specified browser if any
+      if (config.dev.autoOpenBrowser && config.dev.browser) {
+        devWebpackConfig.devServer.open = config.dev.browser;
+      }
 
       resolve(devWebpackConfig)
     }
