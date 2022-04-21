@@ -1,4 +1,4 @@
-<!-- 
+<!--
   The following template is Wegue's default hover tooltip.
   It will be displayed dynamically by HoverController.js.
 -->
@@ -11,7 +11,7 @@
     positioning="top-center"
     :offset="[0, 20]"
   >
-    <v-sheet slot-scope="{feature, hoverAttribute}" v-if="feature" 
+    <v-sheet slot-scope="{feature, hoverAttribute}" v-if="feature"
     class="pa-2 text-center" max-width=200 >
       {{ feature.get(hoverAttribute) }}
     </v-sheet>

@@ -13,7 +13,7 @@ var preprocessorFiles = { './index.js': preprocessors };
 
 const argSpecFileIndex = process.argv.indexOf('--spec-file');
 if (argSpecFileIndex > -1) {
-  specFile = process.argv[argSpecFileIndex+1];
+  specFile = process.argv[argSpecFileIndex + 1];
   preprocessorFiles = {};
   preprocessorFiles[specFile] = preprocessors;
 }

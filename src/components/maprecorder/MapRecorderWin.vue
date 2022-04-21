@@ -1,13 +1,13 @@
 <template>
   <wgu-module-card v-bind="$attrs"
       :moduleName="moduleName"
-      class="wgu-maprecorder-win" 
-      :icon="icon" 
+      class="wgu-maprecorder-win"
+      :icon="icon"
       width=350>
-    
+
     <v-expansion-panels :multiple="true" :accordion="true" class="overflow-y-auto">
       <v-expansion-panel>
-        <v-expansion-panel-header> 
+        <v-expansion-panel-header>
           <v-layout align-center>
             <v-icon class="mr-4">settings</v-icon>
             {{ $t('wgu-maprecorder.options') }}
@@ -91,21 +91,21 @@
           :block="!recording"
           :class="{
             'secondary': true,
-            'onsecondary--text': true  
+            'onsecondary--text': true
           }"
           @click="toggleRecord"
         >
           <template v-if="!recording">
-            <v-icon left>fiber_manual_record</v-icon> 
+            <v-icon left>fiber_manual_record</v-icon>
             {{ $t('wgu-maprecorder.start') }}
           </template>
           <template v-else>
-            <v-icon left>stop</v-icon> 
+            <v-icon left>stop</v-icon>
             {{ $t('wgu-maprecorder.stop') }}
           </template>
         </v-btn>
 
-        <v-col class="px-2" align-self="center"> 
+        <v-col class="px-2" align-self="center">
           <v-progress-linear
             color="secondary"
             :active="recording"
@@ -117,7 +117,7 @@
         <v-col sm="12" md="12" lg="12">
           <v-alert
             v-model="error"
-            type="error" 
+            type="error"
             dismissible
             dense
             transition="scroll-y-transition"

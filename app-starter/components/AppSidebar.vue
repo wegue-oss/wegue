@@ -15,9 +15,9 @@
           absolute
           top
           color="secondary"
-          @click="sidebarOpen = !sidebarOpen"> 
-          <v-icon color="onsecondary" v-if="sidebarOpen">chevron_left</v-icon> 
-          <v-icon color="onsecondary" v-else>chevron_right</v-icon> 
+          @click="sidebarOpen = !sidebarOpen">
+          <v-icon color="onsecondary" v-if="sidebarOpen">chevron_left</v-icon>
+          <v-icon color="onsecondary" v-else>chevron_right</v-icon>
         </v-btn>
       </template>
   </v-navigation-drawer>

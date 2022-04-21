@@ -43,7 +43,7 @@
       <v-list color="primary">
           <template v-for="(tbButton, index) in menuButtons">
             <v-list-item :key="index">
-              <component 
+              <component
                   :is="tbButton.type" :key="index"
                   v-bind="tbButton"
                />

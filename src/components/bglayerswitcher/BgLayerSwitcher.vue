@@ -17,7 +17,7 @@
           </v-btn>
         </v-sheet>
       </template>
-      <!-- Remarks: The layerlist is wrapped by an v-if block to avoid unneccesary image 
+      <!-- Remarks: The layerlist is wrapped by an v-if block to avoid unneccesary image
            requests when the layerlist is not visible -->
       <wgu-bglayerlist v-if="open"
         :previewIcon="icon"
