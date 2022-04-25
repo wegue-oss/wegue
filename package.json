@@ -11,9 +11,8 @@
   ],
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
-    "start": "npm run dev",
-    "build": "node build/build.js",
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "test": "npm run unit",
     "lint": "vue-cli-service lint --no-fix *.js app src test",
