@@ -16,8 +16,8 @@
     "build": "node build/build.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "test": "npm run unit",
-    "lint": "eslint --ext .js,.vue src test/unit/specs",
-    "lint-fix": "eslint --fix --ext .js,.vue src app test/unit/specs",
+    "lint": "vue-cli-service lint --no-fix *.js app src test",
+    "lint:fix": "vue-cli-service lint *.js app src test",
     "deploy": "gh-pages -d dist",
     "init:app": "node util/init-app.js"
   },
