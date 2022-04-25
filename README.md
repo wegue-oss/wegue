@@ -132,10 +132,10 @@ Open [gitpod.io/#https://github.com/meggsimum/wegue/](https://gitpod.io/#https:/
 
 Wegue will automatically be initiated and your Wegue application can be previewed in a pane of the online IDE. The live preview of Wegue can also be seen in another browser tab by prefixing your workspace sub-URL with `8081-`. For example  `https://8081-YOUR-WORKSPACE-NAME.ws-eu25.gitpod.io`.
 
-## Who do I talk to?
-You need more information or support? Please contact us at:
+## Commercial Support
+You need professional support or teachings for Wegue? Please contact a service provider listed below:
 
-`info__(at)__meggsimum__(dot)__de`
+[![meggsimum logo](https://meggsimum.de/img/logo.png "meggsimum")](https://meggsimum.de)
 
 ## Credits
 
