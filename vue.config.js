@@ -29,13 +29,20 @@ module.exports = {
     port: 8081,
     open: true,
     overlay: {
-      warnings: true,
+      warnings: false,
       errors: true
     },
     quiet: true // necessary for FriendlyErrorsPlugin
   },
 
   chainWebpack: config => {
+    config.module
+      .rule('eslint')
+      .use('eslint-loader')
+      .tap(options => {
+        options.formatter = require('eslint-formatter-friendly')
+      })
+
     return config
       .plugin('copy')
       .tap(options => {
