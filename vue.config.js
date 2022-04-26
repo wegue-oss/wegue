@@ -11,13 +11,15 @@ module.exports = {
       entry: 'src/main.js',
       template: 'public/index.html',
       filename: 'index.html',
-      title: 'Wegue WebGIS'
+      title: 'Wegue WebGIS',
+      favicon: 'app/static/icon/favicon.ico'
     },
     embedded: {
       entry: 'src/main.js',
       template: 'public/embedded.html',
       filename: 'embedded.html',
-      title: 'Wegue WebGIS Embedded'
+      title: 'Wegue WebGIS Embedded',
+      favicon: 'app/static/icon/favicon.ico'
     }
   },
 
@@ -42,6 +44,10 @@ module.exports = {
       .tap(options => {
         options.formatter = require('eslint-formatter-friendly')
       })
+
+    if (process.env.NODE_ENV === 'test') {
+      config.resolve.alias.set('APP', path.resolve(config.resolve.alias.get('@'), '../app'))
+    }
 
     return config
       .plugin('copy')
