@@ -1,6 +1,6 @@
 # Workshop
 
-This workshop uses Wegue version [`v1.0.0`](https://github.com/meggsimum/wegue/releases/tag/v1.0.0) but works for higher versions with no or little adaptation.
+This workshop uses Wegue version [`v1.0.0`](https://github.com/wegue-oss/wegue/releases/tag/v1.0.0) but works for higher versions with no or little adaptation.
 
 ## Prerequisites
 
@@ -12,7 +12,7 @@ You should have basic knowledge of using a commandline and a basic understanding
 
 For this workshop or to quickly try something, you can use the online-environment Gitpod. For this you need a browser and you need to register at Gitpod. That can be done with an existing GitHub account.
 
-To get started navigate to [**gitpod.io/#https://github.com/meggsimum/wegue/tree/v1.0.0**](https://gitpod.io/#https://github.com/meggsimum/wegue/tree/v1.0.0). Ideally, you will see a terminal running commands to set up Wegue. After some moments (~1 minute) you should see a running Wegue instance in one of the editor's panes like in this screenshot.
+To get started navigate to [**gitpod.io/#https://github.com/wegue-oss/wegue/tree/v1.0.0**](https://gitpod.io/#https://github.com/wegue-oss/wegue/tree/v1.0.0). Ideally, you will see a terminal running commands to set up Wegue. After some moments (~1 minute) you should see a running Wegue instance in one of the editor's panes like in this screenshot.
 
 ![Wegue running in Gitpod](_media/workshop/gitpod-wegue.png)
 
@@ -31,7 +31,7 @@ We need to download Wegue. This can be done in two ways:
     # cd /ENTER/A/LOCATION/FOR/THE/CODE
 
     # clone the Wegue git repository
-    git clone https://github.com/meggsimum/wegue
+    git clone https://github.com/wegue-oss/wegue
 
     # enter the Wegue directory
     cd wegue
@@ -40,7 +40,7 @@ We need to download Wegue. This can be done in two ways:
     git checkout v1.0.0
     ```
 
-- Alternatively download a zip-archive of Wegue via GitHub using this [link](https://github.com/meggsimum/wegue/archive/refs/tags/v1.0.0.zip) and extract it.
+- Alternatively download a zip-archive of Wegue via GitHub using this [link](https://github.com/wegue-oss/wegue/archive/refs/tags/v1.0.0.zip) and extract it.
 
 ## Start Wegue
 
@@ -178,7 +178,7 @@ Here you can change the text elements, for example to this:
 
 At the moment we have one layer in our `app-conf.json`. It is defined in the property `mapLayers` as one item of an array. Before we add a new layer, let's try to understand the structure of a layer object by checking our current layer:
 
-- `"type": "XYZ"` defines the type of the layer. Wegue supports many other types like `WMS`, `WFS`, or `VECTOR` (see the [layer docs](https://meggsimum.github.io/wegue/#/map-layer-configuration) for details)
+- `"type": "XYZ"` defines the type of the layer. Wegue supports many other types like `WMS`, `WFS`, or `VECTOR` (see the [layer docs](https://wegue-oss.github.io/wegue/#/map-layer-configuration) for details)
 - `"name": "Carto Positron"` the layer name used in the UI, so visible to the user
 - `"url": "https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"` is the URL where the data of the layer comes from
 - `"lid": "positron"` defines a "layer ID", this is necessary to uniquely reference a layer
@@ -221,7 +221,7 @@ Add our new layer object before the previous layer and ensure both layer objects
 
 Refresh your map in the browser and you should see the airport of Frankfurt in the lower left part of the map indicated by a blue circle. Admittedly, the airport is difficult to recognize. A more prominent styling would be great!
 
-We can do this by adding the property `style` to our layer object. There are multiple options for styling vector layers (see the [style docs](https://meggsimum.github.io/wegue/#/map-layer-configuration?id=style-for-vectorlayers) for details). A common option is to define a circle. It will show a black circle with a white stroke:
+We can do this by adding the property `style` to our layer object. There are multiple options for styling vector layers (see the [style docs](https://wegue-oss.github.io/wegue/#/map-layer-configuration?id=style-for-vectorlayers) for details). A common option is to define a circle. It will show a black circle with a white stroke:
 
 ```json
   "style": {
