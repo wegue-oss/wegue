@@ -4,7 +4,7 @@
 
 ![](_media/cover.gif)
 
-[GitHub](https://github.com/meggsimum/wegue)
+[GitHub](https://github.com/wegue-oss/wegue)
 [Demo](https://apps.meggsimum.de/wegue-demos/global/)
 [Quickstart](?id=quickstart)
 

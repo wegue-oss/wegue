@@ -10,7 +10,7 @@ Wegue (**We**b**G**IS with OpenLayers and V**ue**) combines the power of [Vue.js
 Clone the repository
 
 ```shell
-git clone https://github.com/meggsimum/wegue
+git clone https://github.com/wegue-oss/wegue
 cd wegue
 ```
 

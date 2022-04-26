@@ -102,7 +102,7 @@ To simplify the theming configuration, if the "themes" property isn't configured
 | onprimary     |  no | white if primary is a dark color. <br/> black if primary is a light color     |
 | onsecondary   |  no | white if secondary is a dark color. <br/> black if secondary is a light color |
 
-Note that there is a clear asymmetry in the "light" and "dark" theme configuration. In the "light" theme, the primary color is mandatory and all the 
+Note that there is a clear asymmetry in the "light" and "dark" theme configuration. In the "light" theme, the primary color is mandatory and all the
 others are derived from that. In the "dark" theme, the predominant color must be a shade of black (to comply with the [material design specification](https://material.io/design/color/dark-theme.html)), so the primary color is locked to `#272727`. Therefore, in this case the colors are derived from the second predominant color.
 
 #### Tips on creating a color theme
@@ -133,7 +133,7 @@ Wegue uses the secondary color to accent selected parts of the UI. Everything be
 
 The "on" colors are additional UI colors placed over the main colors. Wegue uses this class of colors to improve the legibility of typography/iconography over primary and secondary colors.
 
-The rule of thumb is simple: 
+The rule of thumb is simple:
 * if the main color is a dark tone, white or the 50 tone of the main color are safe choices;
 * if the main color is a light tone, black or the 700 tone of the main color.
 
@@ -306,7 +306,7 @@ Below is an example for a sidebar configuration object:
 ```
 
 ### overviewMap
-Wegue integrates an overview map control, if the optional `overviewMap` property is declared. 
+Wegue integrates an overview map control, if the optional `overviewMap` property is declared.
 
 The `overviewMap` object supports the following properties:
 
@@ -637,6 +637,6 @@ Example configurations can be found in the `app-starter/static` directory. Below
 ```
 
 More elaborate examples can be found in the app-starter directory.
-* [app-conf-projected.json](https://github.com/meggsimum/wegue/blob/master/app-starter/static/app-conf-projected.json) demonstrates custom Projections and Tilegrids.
-* [app-conf-minimal.json](https://github.com/meggsimum/wegue/blob/master/app-starter/static/app-conf-minimal.json) is a minimal setup for a Wegue application.
-* [app-conf-sidebar.json](https://github.com/meggsimum/wegue/blob/master/app-starter/static/app-conf-sidebar.json) is an example for displaying module content inside a sidebar.
+* [app-conf-projected.json](https://github.com/wegue-oss/wegue/blob/master/app-starter/static/app-conf-projected.json) demonstrates custom Projections and Tilegrids.
+* [app-conf-minimal.json](https://github.com/wegue-oss/wegue/blob/master/app-starter/static/app-conf-minimal.json) is a minimal setup for a Wegue application.
+* [app-conf-sidebar.json](https://github.com/wegue-oss/wegue/blob/master/app-starter/static/app-conf-sidebar.json) is an example for displaying module content inside a sidebar.

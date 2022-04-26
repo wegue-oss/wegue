@@ -9,7 +9,7 @@ Template and re-usable components for webmapping applications with OpenLayers an
 
 <img align="left" style="padding-bottom: 20px;" src="screenshots/wegue-app-1.png" />
 
-Go to the online demo at https://meggsimum.github.io/wegue/
+Go to the online demo at https://wegue-oss.github.io/wegue/
 
 ## About
 Wegue (**We**b**G**IS with OpenLayers and V**ue**) combines the power of [Vue.js](https://vuejs.org/) and the geospatial savvy of [OpenLayers](https://openlayers.org) to make lightweight webmapping applications. For styling and pre-defined UI-components the Material Design
@@ -124,11 +124,11 @@ docker build -t meggsimum/wegue:latest .
 
 ## Developing online using Gitpod.io
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/meggsimum/wegue/)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/wegue-oss/wegue/)
 
 Gitpod.io is an online IDE using VS Code that also provides a terminal and enables live preview. A registration is required but can be done with a GitHub account.
 
-Open [gitpod.io/#https://github.com/meggsimum/wegue/](https://gitpod.io/#https://github.com/meggsimum/wegue/) to get started.
+Open [gitpod.io/#https://github.com/wegue-oss/wegue/](https://gitpod.io/#https://github.com/wegue-oss/wegue/) to get started.
 
 Wegue will automatically be initiated and your Wegue application can be previewed in a pane of the online IDE. The live preview of Wegue can also be seen in another browser tab by prefixing your workspace sub-URL with `8081-`. For example  `https://8081-YOUR-WORKSPACE-NAME.ws-eu25.gitpod.io`.
 
