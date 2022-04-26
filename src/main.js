@@ -179,14 +179,11 @@ const createApp = function (appConfig) {
   // make app config accessible for all components
   Vue.prototype.$appConfig = migrateAppConfig(appConfig);
 
-  /* eslint-disable no-new */
   new Vue({
     vuetify: createVuetify(appConfig),
     i18n: createVueI18n(appConfig),
-    el: '#app',
-    template: '<wgu-app/>',
-    components: { WguApp }
-  });
+    render: h => h(WguApp)
+  }).$mount('#app');
 };
 
 // Look in the static dir for an app-specific config file.
