@@ -116,7 +116,7 @@ export const DraggableWin = {
         return;
       }
 
-      // set the offset for each moousedown
+      // set the offset for each mousedown
       setDraggerOffset(el, _data);
 
       if (_data.overlay) {
