@@ -20,7 +20,19 @@ const permalinkDef = {
     'layers': 'topp:states',
     'url': 'https://ahocevar.com/geoserver/wms',
     'transparent': true,
-    'singleTile': false,
+    'projection': 'EPSG:3857',
+    'attribution': '',
+    'isBaseLayer': false,
+    'visible': false,
+    'displayInLayerList': true
+  },
+  {
+    'type': 'IMAGEWMS',
+    'lid': 'ahocevar-imagewms',
+    'format': 'image/png',
+    'layers': 'ne:ne_10m_populated_places',
+    'url': 'https://ahocevar.com/geoserver/wms',
+    'transparent': true,
     'projection': 'EPSG:3857',
     'attribution': '',
     'isBaseLayer': false,
@@ -97,17 +109,17 @@ describe('ol/Map.vue', () => {
 
     it('Setup permalinkController', () => {
       expect(vm.permalinkController.shouldUpdate).equals(true);
-      expect(vm.map.getLayers().getLength()).to.equal(3);
+      expect(vm.map.getLayers().getLength()).to.equal(4);
       vm.permalinkController.unsubscribeLayers();
       expect(vm.permalinkController.layerListeners.length).to.equal(0);
       vm.permalinkController.subscribeLayers();
-      expect(vm.permalinkController.layerListeners.length).to.equal(3);
+      expect(vm.permalinkController.layerListeners.length).to.equal(4);
     });
 
     it('Layer Listeners are (re)created when the layer stack changes', () => {
       vm.map.addLayer(new VectorLayer());
-      expect(vm.permalinkController.layerListeners.length).to.equal(4);
-      expect(vm.map.getLayers().getLength()).to.equal(4);
+      expect(vm.permalinkController.layerListeners.length).to.equal(5);
+      expect(vm.map.getLayers().getLength()).to.equal(5);
       vm.permalinkController.unsubscribeLayers();
       expect(vm.permalinkController.layerListeners.length).to.equal(0);
     });
@@ -148,7 +160,7 @@ describe('ol/Map.vue', () => {
           layer.setVisible(true);
         }
       });
-      expect(vm.permalinkController.getParamStr()).to.equal('#z=' + newZoom + '&c=8.9832%2C17.6789&r=0&l=ahocevar-wms%2Cosm-bg');
+      expect(vm.permalinkController.getParamStr()).to.equal('#z=' + newZoom + '&c=8.9832%2C17.6789&r=0&l=ahocevar-imagewms%2Cahocevar-wms%2Cosm-bg');
     });
 
     afterEach(() => {
@@ -177,7 +189,7 @@ describe('ol/Map.vue', () => {
       expect(mapView.getZoom()).to.equal(4);
       expect(Math.round(mapView.getCenter()[0])).to.equal(445278);
       expect(Math.round(mapView.getCenter()[1])).to.equal(6800125);
-      expect(Math.round(map.getLayers().getLength())).to.equal(3);
+      expect(Math.round(map.getLayers().getLength())).to.equal(4);
     });
     // Below gives problems in Karma as the document is reloaded by setting document.location.search!
     // it('Setup and apply permalinkController - apply from document.location.search', () => {

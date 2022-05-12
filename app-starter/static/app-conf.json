@@ -151,14 +151,26 @@
       "layers": "topp:states",
       "url": "https://ahocevar.com/geoserver/wms",
       "transparent": true,
-      "singleTile": false,
       "projection": "EPSG:3857",
       "attribution": "",
       "isBaseLayer": false,
       "visible": false,
       "displayInLayerList": true
     },
-
+    {
+      "type": "IMAGEWMS",
+      "lid": "ahocevar-imagewms",
+      "ratio": 1.5,
+      "format": "image/png",
+      "layers": "ne:ne_10m_populated_places",
+      "url": "https://ahocevar.com/geoserver/wms",
+      "transparent": true,
+      "projection": "EPSG:3857",
+      "attribution": "",
+      "isBaseLayer": false,
+      "visible": false,
+      "displayInLayerList": true
+    },
     {
       "type": "VECTORTILE",
       "lid": "ahocevar-vectortyle",

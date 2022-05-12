@@ -22,8 +22,8 @@ describe('LayerFactory', () => {
 
   it('has the correct functions', () => {
     expect(typeof LayerFactory.getInstance).to.equal('function');
-    expect(typeof LayerFactory.createWmsLayer).to.equal('function');
     expect(typeof LayerFactory.createTileWmsLayer).to.equal('function');
+    expect(typeof LayerFactory.createImageWmsLayer).to.equal('function');
     expect(typeof LayerFactory.createXyzLayer).to.equal('function');
     expect(typeof LayerFactory.createOsmLayer).to.equal('function');
     expect(typeof LayerFactory.createVectorLayer).to.equal('function');
@@ -53,26 +53,6 @@ describe('LayerFactory', () => {
   });
 
   describe('layer types', () => {
-    it('createWmsLayer returns correct layer instance', () => {
-      const layerConf = {
-        'type': 'WMS',
-        'lid': 'ahocevar-wms',
-        'format': 'image/png',
-        'layers': 'topp:states',
-        'url': 'https://ahocevar.com/geoserver/wms',
-        'transparent': true,
-        'singleTile': true,
-        'projection': 'EPSG:3857',
-        'attribution': '',
-        'isBaseLayer': false,
-        'visibility': false,
-        'displayInLayerList': true
-      };
-      const layer = LayerFactory.createWmsLayer(layerConf);
-      expect(layer instanceof ImageLayer).to.equal(true);
-      expect(layer.getSource() instanceof ImageWMS);
-    });
-
     it('createTileWmsLayer returns correct layer instance', () => {
       const layerConf = {
         'type': 'WMS',
@@ -81,7 +61,6 @@ describe('LayerFactory', () => {
         'layers': 'topp:states',
         'url': 'https://ahocevar.com/geoserver/wms',
         'transparent': true,
-        'singleTile': false,
         'projection': 'EPSG:3857',
         'attribution': '',
         'isBaseLayer': false,
@@ -91,6 +70,26 @@ describe('LayerFactory', () => {
       const layer = LayerFactory.createTileWmsLayer(layerConf);
       expect(layer instanceof TileLayer).to.equal(true);
       expect(layer.getSource() instanceof TileWmsSource);
+    });
+
+    it('createImageWmsLayer returns correct layer instance', () => {
+      const layerConf = {
+        'type': 'IMAGEWMS',
+        'lid': 'ahocevar-imagewms',
+        'ratio': 2,
+        'format': 'image/png',
+        'layers': 'ne:ne_10m_populated_places',
+        'url': 'https://ahocevar.com/geoserver/wms',
+        'transparent': true,
+        'projection': 'EPSG:3857',
+        'attribution': 'test',
+        'isBaseLayer': false,
+        'visibility': false,
+        'displayInLayerList': true
+      };
+      const layer = LayerFactory.createImageWmsLayer(layerConf);
+      expect(layer instanceof ImageLayer).to.equal(true);
+      expect(layer.getSource() instanceof ImageWMS);
     });
 
     it('createWfsLayer returns correct layer instance', () => {

@@ -34,7 +34,6 @@
       "layers": "OSM-WMS",
       "url": "http://ows.terrestris.de/osm-gray/service",
       "transparent": true,
-      "singleTile": false,
       "projection": "EPSG:3857",
       "isBaseLayer": true,
       "visible": true

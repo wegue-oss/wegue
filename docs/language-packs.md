@@ -117,7 +117,10 @@ Below is an example configuration for an English language pack.
       "attributions": "U.S. Geological Survey"
     },
     "ahocevar-wms": {
-      "name": "WMS (ahocevar)"
+      "name": "Tiled WMS (ahocevar)"
+    },
+    "ahocevar-imagewms": {
+      "name": "Image WMS (ahocevar)"
     },
     "ahocevar-vectortyle": {
       "name": "Vector Tile Layer"

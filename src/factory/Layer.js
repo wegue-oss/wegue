@@ -60,12 +60,10 @@ export const LayerFactory = {
    */
   getInstance (lConf, olMap) {
     // create correct layer type
-    if (lConf.type === 'WMS') {
-      if (lConf.singleTile) {
-        return this.createWmsLayer(lConf);
-      } else {
-        return this.createTileWmsLayer(lConf);
-      }
+    if (lConf.type === 'WMS' || lConf.type === 'TILEWMS') {
+      return this.createTileWmsLayer(lConf);
+    } else if (lConf.type === 'IMAGEWMS') {
+      return this.createImageWmsLayer(lConf);
     } else if (lConf.type === 'WFS') {
       return this.createWfsLayer(lConf, olMap);
     } else if (lConf.type === 'XYZ') {
@@ -109,17 +107,17 @@ export const LayerFactory = {
    * @param  {Object} lConf  Layer config object
    * @return {ol.layer.Image} OL WMS layer instance
    */
-  createWmsLayer (lConf) {
+  createImageWmsLayer (lConf) {
     const layer = new ImageLayer({
       ...this.getCommonLayerOptions(lConf),
       source: new ImageWMS({
         url: lConf.url,
         params: {
-          'LAYERS': lConf.layers,
-          'SingleTile': true
+          'LAYERS': lConf.layers
         },
         serverType: lConf.serverType,
-        tileGrid: lConf.tileGrid,
+        ratio: lConf.ratio,
+        interpolate: lConf.interpolate,
         projection: lConf.projection,
         crossOrigin: lConf.crossOrigin,
         hoverable: lConf.hoverable,
@@ -143,8 +141,7 @@ export const LayerFactory = {
       source: new TileWmsSource({
         url: lConf.url,
         params: {
-          'LAYERS': lConf.layers,
-          'TILED': lConf.tiled
+          'LAYERS': lConf.layers
         },
         serverType: lConf.serverType,
         tileGrid: lConf.tileGrid,
