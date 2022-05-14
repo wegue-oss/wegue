@@ -84,7 +84,7 @@ The following properties can be applied to all map layer types
 
 | Property           | Meaning   | Example |
 |--------------------|:---------:|---------|
-| **type**           | Indicator that the layer is a WMS, use `WMS` or `TILEWMS` here  | `"type": "WMS or TILEWMS"` |
+| **type**           | Indicator that the layer is a WMS, use `TILEWMS` or `WMS` (deprecated)  | `"type": "TILEWMS"` |
 | **layers**         | The WMS `LAYERS` parameter | `"layers": "topp:states"` |
 | **url**            | The GetMap URL of the WMS | `"url": "https://ahocevar.com/geoserver/wms"` |
 | projection         |  The projection of the layer. Has to be defined in `projectionDefs` if not `EPSG:4326` or `EPSG:3857`. if not set the projection of the map is used | `"projection": "EPSG:3857"` |
@@ -102,10 +102,10 @@ Similar properties as Tiled WMS, with these exceptions:
 
 | Property           | Meaning   | Example |
 |--------------------|:---------:|---------|
-| **type**           | Indicator that the layer is a Image WMS, always `IMAGEWMS` here  | `"type": "IMAGEWMS"` |
+| **type**           | Indicator that the layer is a Image WMS, always `IMAGEWMS`  | `"type": "IMAGEWMS"` |
 | ratio              | Ratio 1 means image requests are the size of the map viewport, 2 means twice the width and height of the map viewport. Must be 1 or higher. | `"ratio": 1.5` |
 | interpolate        | By default, linear interpolation is used when resampling. Set to false to use the nearest neighbor instead. | `"interpolate": false` |
-| tileGridRef        | Not used for `IMAGEWMS` | |
+| tileGridRef        | Parameter is not used for `IMAGEWMS` | |
 
 
 ## XYZ

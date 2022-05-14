@@ -62,7 +62,7 @@ describe('LayerFactory', () => {
         'url': 'https://ahocevar.com/geoserver/wms',
         'transparent': true,
         'projection': 'EPSG:3857',
-        'attribution': '',
+        'attribution': 'Kindly provided by @ahocevar',
         'isBaseLayer': false,
         'visibility': false,
         'displayInLayerList': true
@@ -82,7 +82,7 @@ describe('LayerFactory', () => {
         'url': 'https://ahocevar.com/geoserver/wms',
         'transparent': true,
         'projection': 'EPSG:3857',
-        'attribution': 'test',
+        'attribution': 'Kindly provided by @ahocevar',
         'isBaseLayer': false,
         'visibility': false,
         'displayInLayerList': true

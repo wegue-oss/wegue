@@ -159,7 +159,7 @@
       "url": "https://ahocevar.com/geoserver/wms",
       "transparent": true,
       "projection": "EPSG:3857",
-      "attribution": "",
+      "attribution": "Kindly provided by @ahocevar",
       "isBaseLayer": false,
       "visible": false,
       "displayInLayerList": true
@@ -172,7 +172,7 @@
       "url": "https://ahocevar.com/geoserver/wms",
       "transparent": true,
       "projection": "EPSG:3857",
-      "attribution": "",
+      "attribution": "Kindly provided by @ahocevar",
       "isBaseLayer": false,
       "visible": false,
       "displayInLayerList": true
@@ -183,6 +183,7 @@
       "url": "https://ahocevar.com/geoserver/gwc/service/tms/1.0.0/ne:ne_10m_admin_0_countries@EPSG%3A900913@pbf/{z}/{x}/{-y}.pbf",
       "format": "MVT",
       "visible": false,
+      "attribution": "Kindly provided by @ahocevar",
       "style": {
         "strokeColor": "gray",
         "strokeWidth": 1,
