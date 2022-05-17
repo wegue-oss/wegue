@@ -101,7 +101,7 @@
       }
     },
     {
-      "type": "WMS",
+      "type": "TILEWMS",
       "lid": "pdok-natura2000-wms",
       "format": "image/png",
       "layers": "natura2000",
@@ -114,7 +114,7 @@
       "crossOrigin": "anonymous"
     },
     {
-      "type": "WMS",
+      "type": "TILEWMS",
       "lid": "pdok-lufo-wms",
       "format": "image/jpeg",
       "layers": "Actueel_ortho25",

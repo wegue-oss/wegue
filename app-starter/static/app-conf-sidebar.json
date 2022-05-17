@@ -152,7 +152,7 @@
       }
     },
     {
-      "type": "WMS",
+      "type": "TILEWMS",
       "lid": "ahocevar-wms",
       "format": "image/png",
       "layers": "topp:states",
