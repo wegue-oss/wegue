@@ -101,13 +101,12 @@
       }
     },
     {
-      "type": "WMS",
+      "type": "TILEWMS",
       "lid": "pdok-natura2000-wms",
       "format": "image/png",
       "layers": "natura2000",
       "url": "https://geodata.nationaalgeoregister.nl/natura2000/wms",
       "transparent": true,
-      "singleTile": false,
       "projection": "EPSG:28992",
       "tileGridRef": "dutch_rd",
       "isBaseLayer": false,
@@ -115,13 +114,12 @@
       "crossOrigin": "anonymous"
     },
     {
-      "type": "WMS",
+      "type": "TILEWMS",
       "lid": "pdok-lufo-wms",
       "format": "image/jpeg",
       "layers": "Actueel_ortho25",
       "url": "https://service.pdok.nl/hwh/luchtfotorgb/wms/v1_0",
       "transparent": false,
-      "singleTile": false,
       "projection": "EPSG:28992",
       "tileGridRef": "dutch_rd",
       "isBaseLayer": true,

@@ -28,13 +28,12 @@
   "mapLayers": [
 
     {
-      "type": "WMS",
+      "type": "TILEWMS",
       "lid": "terrestris-osm-wms",
       "format": "image/png",
       "layers": "OSM-WMS",
       "url": "http://ows.terrestris.de/osm-gray/service",
       "transparent": true,
-      "singleTile": false,
       "projection": "EPSG:3857",
       "isBaseLayer": true,
       "visible": true

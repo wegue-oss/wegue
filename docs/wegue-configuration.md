@@ -516,14 +516,25 @@ Example configurations can be found in the `app-starter/static` directory. Below
       "layers": "topp:states",
       "url": "https://ahocevar.com/geoserver/wms",
       "transparent": true,
-      "singleTile": false,
       "projection": "EPSG:3857",
-      "attribution": "",
+      "attribution": "Kindly provided by @ahocevar",
       "isBaseLayer": false,
       "visible": false,
       "displayInLayerList": true
     },
-
+    {
+      "type": "IMAGEWMS",
+      "lid": "ahocevar-imagewms",
+      "format": "image/png",
+      "layers": "ne:ne_10m_populated_places",
+      "url": "https://ahocevar.com/geoserver/wms",
+      "transparent": true,
+      "projection": "EPSG:3857",
+      "attribution": "Kindly provided by @ahocevar",
+      "isBaseLayer": false,
+      "visible": false,
+      "displayInLayerList": true
+    },
     {
       "type": "VECTORTILE",
       "lid": "ahocevar-vectortyle",

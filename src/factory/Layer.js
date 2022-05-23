@@ -1,4 +1,5 @@
-import TileLayer from 'ol/layer/Tile';
+import { Image as ImageLayer, Tile as TileLayer } from 'ol/layer';
+import ImageWMS from 'ol/source/ImageWMS';
 import TileWmsSource from 'ol/source/TileWMS';
 import OsmSource from 'ol/source/OSM';
 import VectorTileLayer from 'ol/layer/VectorTile'
@@ -59,8 +60,10 @@ export const LayerFactory = {
    */
   getInstance (lConf, olMap) {
     // create correct layer type
-    if (lConf.type === 'WMS') {
-      return this.createWmsLayer(lConf);
+    if (lConf.type === 'WMS' || lConf.type === 'TILEWMS') {
+      return this.createTileWmsLayer(lConf);
+    } else if (lConf.type === 'IMAGEWMS') {
+      return this.createImageWmsLayer(lConf);
     } else if (lConf.type === 'WFS') {
       return this.createWfsLayer(lConf, olMap);
     } else if (lConf.type === 'XYZ') {
@@ -102,16 +105,43 @@ export const LayerFactory = {
    * Returns an OpenLayers WMS layer instance due to given config.
    *
    * @param  {Object} lConf  Layer config object
-   * @return {ol.layer.Tile} OL WMS layer instance
+   * @return {ol.layer.Image} OL WMS layer instance
    */
-  createWmsLayer (lConf) {
+  createImageWmsLayer (lConf) {
+    const layer = new ImageLayer({
+      ...this.getCommonLayerOptions(lConf),
+      source: new ImageWMS({
+        url: lConf.url,
+        params: {
+          'LAYERS': lConf.layers
+        },
+        serverType: lConf.serverType,
+        ratio: lConf.ratio,
+        interpolate: lConf.interpolate,
+        projection: lConf.projection,
+        crossOrigin: lConf.crossOrigin,
+        hoverable: lConf.hoverable,
+        hoverAttribute: lConf.hoverAttribute,
+        hoverOverlay: lConf.hoverOverlay
+      })
+    });
+
+    return layer;
+  },
+
+  /**
+   * Returns an OpenLayers Tiled WMS layer instance due to given config.
+   *
+   * @param  {Object} lConf  Layer config object
+   * @return {ol.layer.Tile} OL Tiled WMS layer instance
+   */
+  createTileWmsLayer (lConf) {
     const layer = new TileLayer({
       ...this.getCommonLayerOptions(lConf),
       source: new TileWmsSource({
         url: lConf.url,
         params: {
-          'LAYERS': lConf.layers,
-          'TILED': lConf.tiled
+          'LAYERS': lConf.layers
         },
         serverType: lConf.serverType,
         tileGrid: lConf.tileGrid,
@@ -161,9 +191,9 @@ export const LayerFactory = {
       loader: (extent) => {
         // assemble WFS GetFeature request
         let wfsRequest = lConf.url + '?service=WFS&' +
-        'version=' + lConf.version + '&request=GetFeature&' +
-        'typename=' + lConf.typeName + '&' +
-        'outputFormat=' + outputFormat + '&srsname=' + lConf.projection;
+          'version=' + lConf.version + '&request=GetFeature&' +
+          'typename=' + lConf.typeName + '&' +
+          'outputFormat=' + outputFormat + '&srsname=' + lConf.projection;
 
         // add WFS version dependent feature limitation
         if (Number.isInteger(parseInt(lConf.maxFeatures))) {
