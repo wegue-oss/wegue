@@ -46,7 +46,6 @@ export const DraggableWin = {
     elmnt.addEventListener('mouseup', (e) => DraggableWin.mouseup(e, elmnt, dragConfig));
     elmnt.addEventListener('mousedown', (e) => DraggableWin.mousedown(e, elmnt, dragConfig));
     elmnt.addEventListener('mousemove', (e) => DraggableWin.mousemove(e, elmnt, dragConfig));
-    setDraggerOffset(elmnt, dragConfig);
     dragConfig.initialZIndex = elmnt.style.zIndex;
 
     /**
@@ -108,10 +107,17 @@ export const DraggableWin = {
       // id="drag-header" or class="drag-header" should be draggable.
       // If the user clicked another area, do nothing.
       // By default it is restricted to class="wgu-win-title"
+
+      // get the element path
+      const path = e.path || (e.composedPath && e.composedPath());
+
       if (_data.draggableElementSelector &&
-          !checkIfSelectorInPath(_data.draggableElementSelector, e.path)) {
+          !checkIfSelectorInPath(_data.draggableElementSelector, path)) {
         return;
       }
+
+      // set the offset for each mousedown
+      setDraggerOffset(el, _data);
 
       if (_data.overlay) {
         _data.overlay.remove();
