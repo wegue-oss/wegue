@@ -37,7 +37,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 
-  .v-avatar.v-avatar--tile.wgu-app-logo {
+  .v-avatar.wgu-app-logo {
     position: absolute;
     z-index: 2;
   }
