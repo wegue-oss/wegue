@@ -50,7 +50,7 @@ npm run init:app
 
 ``` bash
 # serve with hot reload at localhost:8081
-npm run dev
+npm run serve
 ```
 
 ### Unit tests
@@ -82,7 +82,25 @@ Run the build script in order to create a production build, which can be copied 
 npm run build
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+### Linting your files
+
+Run the lint script in order to lint all your files without fixing the errors. The problems will be reported in the console only.
+
+``` bash
+npm run lint
+```
+
+### Linting and fixing your files
+
+Run the lint script in order to lint all your files and fix the errors at the same time.
+
+``` bash
+npm run lint:fix
+```
+
+### Customize configuration
+
+See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## Run with Docker
 
@@ -139,6 +157,6 @@ You need professional support or teachings for Wegue? Please contact a service p
 
 ## Credits
 
-The basic project setup was created by https://github.com/vuejs-templates/webpack.
+The basic project setup was created with [Vue CLI](https://cli.vuejs.org).
 
 Thanks for this great template! :+1:
