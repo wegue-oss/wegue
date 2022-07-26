@@ -13,8 +13,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
-    "test": "npm run unit",
+    "test": "vue-cli-service test:unit",
+    "test:karma": "cross-env NODE_ENV=test karma start tests/unit/karma.conf.js --single-run",
     "lint": "vue-cli-service lint --no-fix *.js app src test",
     "lint:fix": "vue-cli-service lint *.js app src test",
     "deploy": "gh-pages -d dist",
@@ -42,6 +42,7 @@
     "babel-eslint": "^10.0.1",
     "chai": "^4.2.0",
     "copy-dir": "^1.2.0",
+    "cross-env": "^7.0.3",
     "eslint": "^5.16.0",
     "eslint-formatter-friendly": "^7.0.0",
     "eslint-plugin-vue": "^5.2.3",
