@@ -105,7 +105,7 @@ describe('infoclick/InfoClickWin.vue', () => {
 
     it('show registers map click when module is opened', () => {
       let cnt = 0;
-      let mockFn = () => {
+      const mockFn = () => {
         cnt++;
       };
       vm.registerMapClick = mockFn;

@@ -13,20 +13,20 @@
 </template>
 
 <script>
-  import ModuleCard from './../modulecore/ModuleCard';
-  import LayerList from './LayerList';
+import ModuleCard from './../modulecore/ModuleCard';
+import LayerList from './LayerList';
 
-  export default {
-    name: 'wgu-layerlist-win',
-    inheritAttrs: false,
-    components: {
-      'wgu-module-card': ModuleCard,
-      'wgu-layerlist': LayerList
-    },
-    props: {
-      icon: { type: String, required: false, default: 'layers' },
-      showLegends: { type: Boolean, required: false, default: true },
-      showOpacityControls: { type: Boolean, required: false, default: true }
-    }
+export default {
+  name: 'wgu-layerlist-win',
+  inheritAttrs: false,
+  components: {
+    'wgu-module-card': ModuleCard,
+    'wgu-layerlist': LayerList
+  },
+  props: {
+    icon: { type: String, required: false, default: 'layers' },
+    showLegends: { type: Boolean, required: false, default: true },
+    showOpacityControls: { type: Boolean, required: false, default: true }
   }
+}
 </script>

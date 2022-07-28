@@ -1,7 +1,7 @@
 <template>
-    <!-- Remarks: 
+    <!-- Remarks:
     As we need none of the responsive functionality of v-img, we use a simple
-    HTML img to stop the component from flickering when the image is re-requested. 
+    HTML img to stop the component from flickering when the image is re-requested.
     -->
     <img v-if="legendURL" :src="legendURL">
 </template>

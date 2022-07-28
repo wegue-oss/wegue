@@ -41,10 +41,13 @@ describe('AppHeader.vue', () => {
 
     it('getModuleButtons(\'menu\') returns correct data', () => {
       // mock a module conf
-      Vue.prototype.$appConfig = { modules: {
-        'wgu-zoomtomaxextent': {
-          target: 'menu'
-        } } };
+      Vue.prototype.$appConfig = {
+        modules: {
+          'wgu-zoomtomaxextent': {
+            target: 'menu'
+          }
+        }
+      };
       const moduleData = vm.getModuleButtons('menu');
       expect(moduleData).to.be.an('array');
       expect(moduleData.length).to.equal(1);
@@ -60,10 +63,13 @@ describe('AppHeader.vue', () => {
 
     it('getModuleButtons(\'toolbar\') returns correct data', () => {
       // mock a module conf
-      Vue.prototype.$appConfig = { modules: {
-        'wgu-zoomtomaxextent': {
-          target: 'toolbar'
-        } } };
+      Vue.prototype.$appConfig = {
+        modules: {
+          'wgu-zoomtomaxextent': {
+            target: 'toolbar'
+          }
+        }
+      };
       const moduleData = vm.getModuleButtons('toolbar');
       expect(moduleData).to.be.an('array');
       expect(moduleData.length).to.equal(1);

@@ -125,7 +125,7 @@ export default {
         return;
       }
 
-      let features = correspondingInteraction.getFeatures();
+      const features = correspondingInteraction.getFeatures();
       if (!features || features.getLength() !== 1) {
         return;
       }
@@ -289,7 +289,7 @@ export default {
         return;
       }
 
-      let headers = [];
+      const headers = [];
       if (this.layer.get('columnMapping')) {
         for (const [propertyName, displayName] of Object.entries(this.layer.get('columnMapping'))) {
           headers.push({
@@ -300,7 +300,7 @@ export default {
       } else {
         // TODO: taking the first feature assumes that all features
         //       have the same structure
-        let keys = this.layer.getSource().getFeatures()[0].getKeys();
+        const keys = this.layer.getSource().getFeatures()[0].getKeys();
         // remove keys that contain a geometry
         const filtered = keys.filter(
           key => (!this.forbiddenColumnNames.includes(key))

@@ -6,9 +6,9 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 
 const moduleProps = {
-  'rotateWithView': true,
-  'width': 164,
-  'height': 178
+  rotateWithView: true,
+  width: 164,
+  height: 178
 };
 
 describe('overviewmap/OverviewMapPanel.vue', () => {

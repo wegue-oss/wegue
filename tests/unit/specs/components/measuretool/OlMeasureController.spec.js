@@ -41,7 +41,7 @@ describe('measuretool/MeasureWin.vue', () => {
 
     it('addInteraction resets existing draw interaction on the map', () => {
       let cnt = 0;
-      let mockFn = () => {
+      const mockFn = () => {
         cnt++;
       };
       olmc.removeInteraction = mockFn;

@@ -115,7 +115,7 @@ export default {
      */
     onMapClick (evt) {
       const me = this;
-      let featureLayer = me.map.forEachFeatureAtPixel(evt.pixel,
+      const featureLayer = me.map.forEachFeatureAtPixel(evt.pixel,
         (feature, layer) => {
           return [feature, layer];
         });
@@ -123,7 +123,7 @@ export default {
       // collect feature attributes --> PropertyTable
       if (featureLayer) {
         const feat = featureLayer[0];
-        let props = feat.getProperties();
+        const props = feat.getProperties();
         // do not show geometry property
         delete props.geometry;
 

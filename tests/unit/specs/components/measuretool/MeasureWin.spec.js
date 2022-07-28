@@ -73,7 +73,7 @@ describe('measuretool/MeasureWin.vue', () => {
 
     it('show resets map interaction when module is closed', () => {
       let cnt = 0;
-      let mockFn = () => {
+      const mockFn = () => {
         cnt++;
       };
 
@@ -88,7 +88,7 @@ describe('measuretool/MeasureWin.vue', () => {
 
     it('show registers map interaction when module is opened', () => {
       let cnt = 0;
-      let mockFn = () => {
+      const mockFn = () => {
         cnt++;
       };
       vm.map = new OlMap({});

@@ -73,7 +73,7 @@ export default {
   },
   computed: {
     resultItems () {
-      let items = [];
+      const items = [];
       if (!this.results) {
         return items;
       }
@@ -132,12 +132,12 @@ export default {
     search (queryStr) {
       if (this.timeout || this.selecting) {
         // Query or selection in progress
-        this.trace(`query or selection in progress...`);
+        this.trace('query or selection in progress...');
         return;
       }
       if (!queryStr || queryStr.length === 0) {
         // Query reset
-        this.trace(`queryStr none`);
+        this.trace('queryStr none');
         this.results = null;
         return
       }

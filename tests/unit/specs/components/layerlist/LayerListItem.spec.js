@@ -15,10 +15,10 @@ const view = new View({
 });
 
 const moduleProps = {
-  'mapView': view,
-  'layer': osmLayer,
-  'showLegends': true,
-  'showOpacityControls': true
+  mapView: view,
+  layer: osmLayer,
+  showLegends: true,
+  showOpacityControls: true
 };
 
 describe('layerlist/LayerListItem.vue', () => {

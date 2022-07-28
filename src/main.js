@@ -103,6 +103,7 @@ const migrateAppConfig = function (appConfig) {
   // Create warnings for text based configuration properties,
   // which are no longer supported and have been moved to the language files.
   /* eslint-disable no-useless-escape */
+  /* eslint-disable quote-props */
   const deprecatedTextProps = {
     'title': 'app.title',
     'browserTitle': 'app.browserTitle',
@@ -120,6 +121,7 @@ const migrateAppConfig = function (appConfig) {
     'modules\\.wgu-helpwin\\.infoLinkText': 'wgu-helpwin.infoLinkText',
     'modules\\..*\\.title': '<moduleName>.title'
   };
+  /* eslint-enable quote-props */
   /* eslint-enable no-useless-escape */
 
   const configPaths = ObjectUtil.toPaths(appConfig);

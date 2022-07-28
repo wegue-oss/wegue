@@ -62,11 +62,11 @@ describe('geocoder/Geocoder.vue', () => {
 
     beforeEach(() => {
       const moduleProps = {
-        'target': 'toolbar',
-        'minChars': 5,
-        'queryDelay': 200,
-        'debug': false,
-        'provider': 'photon'
+        target: 'toolbar',
+        minChars: 5,
+        queryDelay: 200,
+        debug: false,
+        provider: 'photon'
       };
       comp = shallowMount(Geocoder, {
         vuetify,
@@ -90,11 +90,11 @@ describe('geocoder/Geocoder.vue', () => {
 
     beforeEach(() => {
       const moduleProps = {
-        'target': 'toolbar',
-        'minChars': 6,
-        'queryDelay': 200,
-        'debug': false,
-        'provider': 'opencage'
+        target: 'toolbar',
+        minChars: 6,
+        queryDelay: 200,
+        debug: false,
+        provider: 'opencage'
       };
       comp = shallowMount(Geocoder, {
         vuetify,
@@ -123,9 +123,9 @@ describe('geocoder/Geocoder.vue', () => {
 
     beforeEach(() => {
       const moduleProps = {
-        'target': 'toolbar',
-        'queryDelay': 2,
-        'provider': 'osm'
+        target: 'toolbar',
+        queryDelay: 2,
+        provider: 'osm'
       };
       comp = shallowMount(Geocoder, {
         vuetify,

@@ -9,7 +9,7 @@ const LocaleUtil = {
   /**
    * Hardcoded fallback if no supported languages are declared in app config.
    */
-  supportedLanguageFallback: { 'en': 'English' },
+  supportedLanguageFallback: { en: 'English' },
 
   /**
    * Import a webpack context for language files and returns message content.
@@ -42,14 +42,14 @@ const LocaleUtil = {
     const jsonContentExtractor = i => i;
 
     // Load Wegue core language files.
-    let i18nMessages = LocaleUtil.importLocales(
+    const i18nMessages = LocaleUtil.importLocales(
       require.context('../locales', true, /[a-z0-9-_]+\.json$/i),
       jsonContentExtractor
     );
 
     // Try to load optional app specific language files and merge contents.
     try {
-      let i18nMessagesApp = LocaleUtil.importLocales(
+      const i18nMessagesApp = LocaleUtil.importLocales(
         require.context('../../app/locales', true, /[a-z0-9-_]+\.json$/i),
         jsonContentExtractor);
       ObjectUtil.mergeDeep(i18nMessages, i18nMessagesApp);

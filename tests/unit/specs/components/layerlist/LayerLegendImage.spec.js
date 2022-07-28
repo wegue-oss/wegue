@@ -27,8 +27,8 @@ const view = new View({
 });
 
 const moduleProps = {
-  'mapView': view,
-  'layer': osmLayer
+  mapView: view,
+  layer: osmLayer
 };
 
 describe('layerlist/LayerLegendImage.vue', () => {

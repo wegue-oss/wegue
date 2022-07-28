@@ -3,7 +3,7 @@ import HelpWin from '@/components/helpwin/HelpWin'
 import Vue from 'vue';
 
 const moduleProps = {
-  'icon': 'my-icon'
+  icon: 'my-icon'
 };
 
 describe('helpwin/HelpWin.vue', () => {

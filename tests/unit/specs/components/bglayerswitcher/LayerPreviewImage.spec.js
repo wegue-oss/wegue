@@ -15,11 +15,11 @@ const view = new View({
 });
 
 const moduleProps = {
-  'mapView': view,
-  'layer': osmLayer,
-  'width': 152,
-  'height': 114,
-  'previewIcon': 'map'
+  mapView: view,
+  layer: osmLayer,
+  width: 152,
+  height: 114,
+  previewIcon: 'map'
 };
 
 describe('bglayerswitcher/LayerPreviewImage.vue', () => {

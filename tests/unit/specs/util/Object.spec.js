@@ -20,46 +20,46 @@ describe('ObjectUtil', () => {
 
   it('mergeDeep returns correct results', () => {
     const target = {
-      'prop': 'value',
-      'propOverride': 'will be overridden',
-      'obj': {
-        'prop': 'value',
-        'propOverride': 'will be overridden'
+      prop: 'value',
+      propOverride: 'will be overridden',
+      obj: {
+        prop: 'value',
+        propOverride: 'will be overridden'
       }
     };
 
     const source = {
-      'prop2': 'value2',
-      'propOverride': 'is overridden',
-      'obj': {
-        'prop2': 'value2',
-        'propOverride': 'is overridden'
+      prop2: 'value2',
+      propOverride: 'is overridden',
+      obj: {
+        prop2: 'value2',
+        propOverride: 'is overridden'
       }
     };
 
     ObjectUtil.mergeDeep(target, source);
     expect(target).to.eql({
-      'prop': 'value',
-      'propOverride': 'is overridden',
-      'obj': {
-        'prop': 'value',
-        'propOverride': 'is overridden',
-        'prop2': 'value2'
+      prop: 'value',
+      propOverride: 'is overridden',
+      obj: {
+        prop: 'value',
+        propOverride: 'is overridden',
+        prop2: 'value2'
       },
-      'prop2': 'value2'
+      prop2: 'value2'
     });
   });
 
   it('toPaths returns correct results', () => {
     const object = {
-      'prop': '',
-      'obj': {
-        'prop': ''
+      prop: '',
+      obj: {
+        prop: ''
       },
-      'array': [
+      array: [
         '',
         {
-          'prop': ''
+          prop: ''
         }
       ]
     };

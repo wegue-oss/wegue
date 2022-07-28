@@ -7,10 +7,10 @@ import SelectInteraction from 'ol/interaction/Select';
 // Used several times, so make const
 const epsg28992Extent = [-285401.920, 22598.080, 595401.920, 903401.920];
 const tileGridDefs = {
-  'dutch_rd': {
-    'extent': epsg28992Extent,
-    'resolutions': [3440.640, 1720.320, 860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210],
-    'tileSize': [256, 256]
+  dutch_rd: {
+    extent: epsg28992Extent,
+    resolutions: [3440.640, 1720.320, 860.160, 430.080, 215.040, 107.520, 53.760, 26.880, 13.440, 6.720, 3.360, 1.680, 0.840, 0.420, 0.210],
+    tileSize: [256, 256]
   }
 };
 
@@ -87,8 +87,8 @@ describe('ol/Map.vue', () => {
     it('has instantiated TileGridDefs', () => {
       expect(vm.tileGridDefs).to.not.be.empty;
       expect(vm.tileGrids).to.not.be.empty;
-      expect(vm.tileGridDefs['dutch_rd']).to.deep.equal(tileGridDefs['dutch_rd']);
-      expect(vm.tileGrids['dutch_rd']).to.not.be.empty;
+      expect(vm.tileGridDefs.dutch_rd).to.deep.equal(tileGridDefs.dutch_rd);
+      expect(vm.tileGrids.dutch_rd).to.not.be.empty;
     });
 
     afterEach(() => {
@@ -103,9 +103,9 @@ describe('ol/Map.vue', () => {
     beforeEach(() => {
       Vue.prototype.$appConfig = {
         mapProjection: {
-          'code': 'EPSG:28992',
-          'units': 'm',
-          'extent': epsg28992Extent
+          code: 'EPSG:28992',
+          units: 'm',
+          extent: epsg28992Extent
         },
         projectionDefs: [
           ['EPSG:28992', '+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.999908 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +towgs84=565.2369,50.0087,465.658,-0.406857330322398,0.350732676542563,-1.8703473836068,4.0812 +no_defs']
@@ -153,13 +153,15 @@ describe('ol/Map.vue', () => {
     let comp;
     let vm;
     beforeEach(() => {
-      Vue.prototype.$appConfig = { mapLayers: [{
-        'type': 'OSM',
-        'lid': 'osm-bg',
-        'isBaseLayer': false,
-        'visible': true,
-        'selectable': true,
-        'displayInLayerList': true }]
+      Vue.prototype.$appConfig = {
+        mapLayers: [{
+          type: 'OSM',
+          lid: 'osm-bg',
+          isBaseLayer: false,
+          visible: true,
+          selectable: true,
+          displayInLayerList: true
+        }]
       };
       comp = mount(Map, { vuetify });
       vm = comp.vm;
@@ -233,22 +235,22 @@ describe('ol/Map.vue', () => {
         mapZoom: 3,
         mapCenter: [155000, 463000],
         mapProjection: {
-          'code': 'EPSG:28992',
-          'units': 'm',
-          'extent': epsg28992Extent
+          code: 'EPSG:28992',
+          units: 'm',
+          extent: epsg28992Extent
         },
         projectionDefs: [
           ['EPSG:28992', '+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.999908 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +towgs84=565.2369,50.0087,465.658,-0.406857330322398,0.350732676542563,-1.8703473836068,4.0812 +no_defs']
         ],
         tileGridDefs: tileGridDefs,
         mapLayers: [{
-          'type': 'XYZ',
-          'lid': 'brtachtergrondkaart',
-          'url': 'https://geodata.nationaalgeoregister.nl/tiles/service/wmts/brtachtergrondkaart/EPSG:28992/{z}/{x}/{y}.png',
-          'projection': 'EPSG:28992',
-          'tileGridRef': 'dutch_rd',
-          'displayInLayerList': true,
-          'visible': true
+          type: 'XYZ',
+          lid: 'brtachtergrondkaart',
+          url: 'https://geodata.nationaalgeoregister.nl/tiles/service/wmts/brtachtergrondkaart/EPSG:28992/{z}/{x}/{y}.png',
+          projection: 'EPSG:28992',
+          tileGridRef: 'dutch_rd',
+          displayInLayerList: true,
+          visible: true
         }]
       };
       comp = mount(Map, { vuetify });

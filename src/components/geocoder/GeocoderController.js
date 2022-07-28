@@ -28,9 +28,9 @@ import { json } from './helpers/ajax';
 
 // Geocoder Provider types
 export const PROVIDERS = {
-  'osm': OpenStreetMap,
-  'photon': Photon,
-  'opencage': OpenCage
+  osm: OpenStreetMap,
+  photon: Photon,
+  opencage: OpenCage
 };
 
 /**
@@ -65,7 +65,7 @@ export class GeocoderController {
       limit: this.options.limit
     });
 
-    let ajax = {
+    const ajax = {
       url: parameters.url,
       data: parameters.params
     };

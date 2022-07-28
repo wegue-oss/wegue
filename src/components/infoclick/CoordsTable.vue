@@ -43,7 +43,7 @@ export default {
       const coordinate = me.coordsData.coordinate;
       const projection = me.coordsData.projection;
       const coordinateWgs84 = transform(coordinate, projection, 'EPSG:4326');
-      let coordRows = {};
+      const coordRows = {};
 
       if (me.showMapPos) {
         // show coordinate in map' SRS
@@ -59,7 +59,7 @@ export default {
       if (me.showHdms) {
         // show coordinate in WGS 84 as formatted degree / min / secs
         const hdms = toStringHDMS(coordinateWgs84);
-        coordRows['HDMS'] = hdms
+        coordRows.HDMS = hdms
       }
 
       me.coordRows = coordRows;

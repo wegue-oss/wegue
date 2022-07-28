@@ -63,7 +63,7 @@ export default {
       // if the geolocationLayer is already included it has to be removed
       layers.remove(layers.getArray().filter(layer => layerId === (layer.get('lid')))[0]);
       // create new layer
-      let layer = new VectorLayer({
+      const layer = new VectorLayer({
         source: new VectorSource(),
         style: this.geolocationMarker
       });

@@ -17,7 +17,7 @@ const LayerUtil = {
       return [];
     }
 
-    let layerMatches = [];
+    const layerMatches = [];
     olMap.getLayers().forEach(function (layer) {
       if (layer.get(key) === value) {
         layerMatches.push(layer);
