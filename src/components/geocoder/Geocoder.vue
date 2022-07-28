@@ -151,7 +151,7 @@ export default {
     },
     // User has selected entry from suggested items
     selected (item) {
-      if (!item || !item.hasOwnProperty('text') || !item.hasOwnProperty('value')) {
+      if (!item || !Object.prototype.hasOwnProperty.call(item, 'text') || !Object.prototype.hasOwnProperty.call(item, 'value')) {
         return;
       }
       this.selecting = true;
@@ -163,7 +163,7 @@ export default {
       const coords = fromLonLat([result.lon, result.lat], mapProjection);
 
       // Prefer zooming to bounding box if present in result
-      if (result.hasOwnProperty('boundingbox')) {
+      if (Object.prototype.hasOwnProperty.call(result, 'boundingbox')) {
         // Result with bounding box.
         // bbox is in EPSG:4326, needs to be transformed to Map Projection (e.g. EPSG:3758)
         const extent = applyTransform(result.boundingbox, getTransform('EPSG:4326', mapProjection));

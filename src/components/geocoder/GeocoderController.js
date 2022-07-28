@@ -47,7 +47,7 @@ export class GeocoderController {
     this.options = options;
 
     // Must have Provider class defined for name
-    if (!PROVIDERS.hasOwnProperty(providerName)) {
+    if (!Object.prototype.hasOwnProperty.call(PROVIDERS, providerName)) {
       console.warn(`No class defined for Geocoder Provider: '${providerName}'`);
       return;
     }
