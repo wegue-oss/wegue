@@ -55,11 +55,11 @@ npm run serve
 
 ### Unit tests
 
-To run all unit tests execute the following:
+To run all unit tests using Karma test runner execute the following:
 
 ``` bash
 # run all tests
-npm test
+npm test:karma
 ```
 
 NB the unit tests require Chrome or Chromium browser executable to be found.
