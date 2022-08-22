@@ -14,7 +14,7 @@ const permalinkDef = {
     'displayInLayerList': false
   },
   {
-    'type': 'WMS',
+    'type': 'TILEWMS',
     'lid': 'ahocevar-wms',
     'format': 'image/png',
     'layers': 'topp:states',

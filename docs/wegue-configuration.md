@@ -510,7 +510,7 @@ Example configurations can be found in the `app-starter/static` directory. Below
       }
     },
     {
-      "type": "WMS",
+      "type": "TILEWMS",
       "lid": "ahocevar-wms",
       "format": "image/png",
       "layers": "topp:states",

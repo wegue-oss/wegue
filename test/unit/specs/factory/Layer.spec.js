@@ -32,7 +32,7 @@ describe('LayerFactory', () => {
 
   it('getInstance returns correct instance', () => {
     let layerConf = {
-      type: 'WMS'
+      type: 'TILEWMS'
     };
     const style = LayerFactory.getInstance(layerConf);
     expect((style instanceof TileLayer)).to.equal(true);
@@ -55,7 +55,7 @@ describe('LayerFactory', () => {
   describe('layer types', () => {
     it('createTileWmsLayer returns correct layer instance', () => {
       const layerConf = {
-        'type': 'WMS',
+        'type': 'TILEWMS',
         'lid': 'ahocevar-wms',
         'format': 'image/png',
         'layers': 'topp:states',
