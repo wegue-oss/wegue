@@ -136,7 +136,7 @@ describe('DraggableWin Directive', () => {
 
   // it('getInstance returns correct instance', () => {
   //   let layerConf = {
-  //     type: 'WMS'
+  //     type: 'TILEWMS'
   //   };
   //   const style = LayerFactory.getInstance(layerConf);
   //   expect((style instanceof TileLayer)).to.equal(true);
@@ -152,14 +152,13 @@ describe('DraggableWin Directive', () => {
   // describe('layer types', () => {
   //   it('createWmsLayer returns correct layer instance', () => {
   //     const layerConf = {
-  //       'type': 'WMS',
+  //       'type': 'TILEWMS',
   //       'lid': 'ahocevar-wms',
   //       'name': 'WMS (ahocevar)',
   //       'format': 'image/png',
   //       'layers': 'topp:states',
   //       'url': 'https://ahocevar.com/geoserver/wms',
   //       'transparent': true,
-  //       'singleTile': false,
   //       'projection': 'EPSG:3857',
   //       'attribution': '',
   //       'isBaseLayer': false,
