@@ -60,7 +60,7 @@ export const LayerFactory = {
    */
   getInstance (lConf, olMap) {
     // create correct layer type
-    if (lConf.type === 'WMS' || lConf.type === 'TILEWMS') {
+    if (lConf.type === 'TILEWMS') {
       return this.createTileWmsLayer(lConf);
     } else if (lConf.type === 'IMAGEWMS') {
       return this.createImageWmsLayer(lConf);

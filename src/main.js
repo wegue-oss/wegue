@@ -135,11 +135,15 @@ const migrateAppConfig = function (appConfig) {
     }
   };
 
-  // Create a warning if the 'lid' property of mapLayers is missing.
+  // Create warnings and migrate settings related to mapLayers configuration:
   if (appConfig.mapLayers) {
     appConfig.mapLayers.forEach((layer, i) => {
       if (!layer.lid) {
         console.warn('mapLayers[' + i + '] does not declare a lid property');
+      }
+      if (layer.type === 'WMS') {
+        console.warn('mapLayers[' + i + '] uses the depreated type WMS. Use TILEWMS instead.');
+        layer.type = 'TILEWMS';
       }
     });
   }
