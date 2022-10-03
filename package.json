@@ -13,8 +13,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "test": "vue-cli-service test:unit",
-    "test:karma": "cross-env NODE_ENV=test karma start tests/unit/karma.conf.js --single-run",
+    "test": "cross-env NODE_ENV=test karma start tests/unit/karma.conf.js --single-run",
     "lint": "vue-cli-service lint --no-fix *.js app src tests",
     "lint:fix": "vue-cli-service lint *.js app src tests",
     "deploy": "gh-pages -d dist",

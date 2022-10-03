@@ -59,7 +59,7 @@ To run all unit tests using Karma test runner execute the following:
 
 ``` bash
 # run all tests
-npm test:karma
+npm run test
 ```
 
 NB the unit tests require Chrome or Chromium browser executable to be found.
