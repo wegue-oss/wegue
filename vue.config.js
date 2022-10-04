@@ -45,9 +45,7 @@ module.exports = {
         options.formatter = require('eslint-formatter-friendly')
       })
 
-    if (process.env.NODE_ENV === 'test') {
-      config.resolve.alias.set('APP', path.resolve(config.resolve.alias.get('@'), '../app'))
-    }
+    config.resolve.alias.set('APP', path.resolve(config.resolve.alias.get('@'), '../app'))
 
     if (process.env.NODE_ENV === 'test') {
       config.devtool('inline-source-map')
