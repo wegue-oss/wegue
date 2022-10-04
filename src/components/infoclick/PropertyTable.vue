@@ -7,8 +7,7 @@
           <td class="key-td">
             {{key}}
           </td>
-          <td class="val-td">
-            {{value}}
+          <td class="val-td" v-html="value">
           </td>
         </tr>
       </tbody>

@@ -263,7 +263,7 @@ The "positron" basemap we are using, (intentionally) does not show much context.
 
 ```json
  {
-    "type": "WMS",
+    "type": "TILEWMS",
     "name": "TopPlusOpen",
     "url": "https://sgx.geodatenzentrum.de/wms_topplus_open?",
     "layers": "web",
@@ -295,7 +295,7 @@ This is how the `mapLayers` property should look like:
         "url": "https://raw.githubusercontent.com/martynafford/natural-earth-geojson/90266457d82d3717e47313e72a921e31a087d2c4/50m/cultural/ne_50m_airports.json"
       },
       {
-        "type": "WMS",
+        "type": "TILEWMS",
         "name": "TopPlusOpen",
         "url": "https://sgx.geodatenzentrum.de/wms_topplus_open?",
         "layers": "web",
@@ -375,7 +375,7 @@ The whole config file should look like this:
         "url": "https://raw.githubusercontent.com/martynafford/natural-earth-geojson/90266457d82d3717e47313e72a921e31a087d2c4/50m/cultural/ne_50m_airports.json"
       },
       {
-        "type": "WMS",
+        "type": "TILEWMS",
         "name": "TopPlusOpen",
         "url": "https://sgx.geodatenzentrum.de/wms_topplus_open?",
         "layers": "web",

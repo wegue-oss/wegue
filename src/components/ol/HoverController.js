@@ -78,7 +78,8 @@ export default class HoverController {
     const pixel = event.pixel;
     const coordinate = event.coordinate;
     const cancelToken = axios.CancelToken;
-    var featureInfos = [];
+    let featureInfos = [];
+    let resetTooltip = true;
 
     // Cancel pending requests and create a new cancel token source which corresponds
     // to all async requests sent in this iteration.
@@ -94,6 +95,7 @@ export default class HoverController {
       }
       var source = layer.getSource();
       if (source instanceof TileWmsSource || source instanceof ImageWMSSource) {
+        resetTooltip = false;
         me.getWMSFeaturesAsync(map, layer, coordinate, me.pendingRequestsCancelSrc)
           .then(function (features) {
             featureInfos.push(...features.map((feat) => {
@@ -107,6 +109,7 @@ export default class HoverController {
             }
           })
       } else if (source instanceof VectorSource || source instanceof VectorTileSource) {
+        resetTooltip = false;
         const features = me.getVectorFeatures(map, layer, pixel);
         featureInfos.push(...features.map((feat) => {
           return { layer: layer, feature: feat };
@@ -114,6 +117,9 @@ export default class HoverController {
         me.displayTooltip(featureInfos, coordinate)
       }
     });
+    if (resetTooltip) {
+      me.displayTooltip(null);
+    }
   }
 
   /**
