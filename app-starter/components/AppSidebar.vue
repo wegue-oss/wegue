@@ -47,6 +47,9 @@ export default {
     WguEventBus.$on('sidebar-scroll', comp => {
       this.scrollTo(comp);
     });
+    WguEventBus.$on('sidebar-toggle', () => {
+      this.sidebarOpen = !this.sidebarOpen;
+    });
   },
   methods: {
     /**
