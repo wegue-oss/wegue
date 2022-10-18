@@ -8,6 +8,7 @@
           v-if="showDetails(layer)"
           :value="false"
           :key="layer.lid"
+          class="text--primary"         
           >
           <template v-slot:activator>
             <v-list-item-action>
