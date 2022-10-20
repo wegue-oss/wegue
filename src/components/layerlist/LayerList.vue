@@ -68,6 +68,7 @@
     },
     mixins: [Mapable],
     props: {
+      showLegends: { type: Boolean, required: true }
     },
     data () {
       return {
@@ -95,7 +96,7 @@
        * Returns true, if the layer item should show an extension slider with layer details.
        **/
       showDetails (layer) {
-        return layer.get('legend');
+        return this.showLegends && layer.get('legend');
       }
     },
     computed: {
