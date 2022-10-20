@@ -2,7 +2,7 @@
   <!-- Show layer details -->
   <v-list-group
     v-if="showDetails"
-    :value="false"
+    v-model="open"
     class="text--primary"         
     >
     <template v-slot:activator>
@@ -18,9 +18,12 @@
         {{ layer.get('name') }}
       </v-list-item-title>
     </template>
-    
-    <v-list-item>
-      <wgu-layerlegendimage
+    <v-list-item> 
+      <!-- Remarks: 
+      The legend image item is wrapped by an v-if block to avoid unneccesary image 
+      requests when the layer item is not expanded. 
+      -->
+      <wgu-layerlegendimage v-if="open"
         :layer="layer"
         :mapView="mapView"
       />
@@ -55,6 +58,11 @@ export default {
   name: 'wgu-layerlistitem',
   components: {
     'wgu-layerlegendimage': LayerLegendImage
+  },
+  data () {
+    return {
+      open: false
+    }
   },
   props: {
     layer: { type: Object, required: true },
