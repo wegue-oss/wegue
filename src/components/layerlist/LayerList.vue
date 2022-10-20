@@ -3,7 +3,7 @@
   <v-list expand>
     <wgu-layerlistitem
       v-for="layer in displayedLayers"
-      :key="layer.lid"
+      :key="layer.get('lid')"
       :layer="layer"
       :mapView="map.getView()"
       :showDetails="showDetails(layer)"
