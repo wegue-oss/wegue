@@ -59,7 +59,6 @@ const LayerLegend = {
    */
   getOptions (options) {
     const appConfig = Vue.prototype.$appConfig;
-    // TODO check if undefined if both are empty ?
     return {
       ...appConfig?.legend,
       ...options
