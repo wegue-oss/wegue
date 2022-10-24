@@ -162,7 +162,8 @@
       "attribution": "Kindly provided by @ahocevar",
       "isBaseLayer": false,
       "visible": false,
-      "displayInLayerList": true
+      "displayInLayerList": true,
+      "legend": true
     },
     {
       "type": "IMAGEWMS",
