@@ -85,7 +85,9 @@ Module identifier: `wgu-infoclick`
 
 Module identifier: `wgu-layerlist`
 
-No additional config options besides the general ones.
+| Property             | Meaning   | Example |
+|----------------------|:---------:|---------|
+| showLegends          |  Flag to enable/disable rendering of layer legend images in the LayerList. Defaults to `true`. | `"showLegends": false` |
 
 ## MeasureTool
 
