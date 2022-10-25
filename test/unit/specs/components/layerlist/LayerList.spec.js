@@ -4,6 +4,10 @@ import OlMap from 'ol/Map';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 
+const moduleProps = {
+  'showLegends': true
+};
+
 describe('layerlist/LayerList.vue', () => {
   it('is defined', () => {
     expect(LayerList).to.not.be.an('undefined');
@@ -13,7 +17,9 @@ describe('layerlist/LayerList.vue', () => {
     let comp;
     let vm;
     beforeEach(() => {
-      comp = shallowMount(LayerList);
+      comp = shallowMount(LayerList, {
+        propsData: moduleProps
+      });
       vm = comp.vm;
     });
 
@@ -32,7 +38,9 @@ describe('layerlist/LayerList.vue', () => {
     let comp;
     let vm;
     beforeEach(() => {
-      comp = shallowMount(LayerList);
+      comp = shallowMount(LayerList, {
+        propsData: moduleProps
+      });
       vm = comp.vm;
     });
 
@@ -83,32 +91,14 @@ describe('layerlist/LayerList.vue', () => {
     let comp;
     let vm;
     beforeEach(() => {
-      comp = shallowMount(LayerList);
+      comp = shallowMount(LayerList, {
+        propsData: moduleProps
+      });
       vm = comp.vm;
     });
 
     it('are implemented', () => {
       expect(typeof vm.onMapBound).to.equal('function');
-      expect(typeof vm.onItemClick).to.equal('function');
-    });
-
-    it('onItemClick toggles layer visibility', () => {
-      const layerIn = new VectorLayer({
-        visible: true,
-        displayInLayerList: true,
-        source: new VectorSource()
-      });
-      const map = new OlMap({
-        layers: [layerIn]
-      });
-      vm.map = map;
-      vm.onMapBound();
-
-      expect(layerIn.getVisible()).to.equal(true);
-
-      vm.onItemClick(layerIn);
-
-      expect(layerIn.getVisible()).to.equal(false);
     });
   });
 });
