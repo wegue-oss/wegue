@@ -101,17 +101,14 @@ describe('layerlist/LayerLegendImage.vue', () => {
     });
 
     it('has correct legendURL for legend format URL', () => {
-      /* eslint-disable no-template-curly-in-string */
       const layer = new TileLayer({
         source: new OSM(),
-        legendUrl: 'http://my-image.png?transparent=${TRANSPARENT}&width=${WIDTH}&SCALE=${SCALE}&language=${LANGUAGE}',
+        legendUrl: 'http://my-image.png?transparent={{TRANSPARENT}}&width={{WIDTH}}&SCALE={{SCALE}}&language={{LANGUAGE}}',
         legendOptions: {
           transparent: true,
           width: 14
         }
       });
-      /* eslint-enable no-template-curly-in-string */
-
       comp.setProps({ layer: layer });
       expect(vm.legendURL).to.equal('http://my-image.png?transparent=true&width=14&SCALE=139770566.00717944&language=en');
     });

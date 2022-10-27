@@ -30,7 +30,7 @@ const CustomLegend = {
     }
 
     for (const key in placeholders) {
-      let regex = new RegExp('\\${' + key + '}', 'gi');
+      let regex = new RegExp('{{' + key + '}}', 'gi');
       url = url.replace(regex, placeholders[key]);
     }
     return url;
