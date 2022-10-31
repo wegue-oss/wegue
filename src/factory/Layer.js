@@ -97,7 +97,10 @@ export const LayerFactory = {
       opacity: lConf.opacity,
       zIndex: lConf.zIndex,
       confName: lConf.name,
-      confAttributions: lConf.attributions
+      confAttributions: lConf.attributions,
+      legend: lConf.legend,
+      legendUrl: lConf.legendUrl,
+      legendOptions: lConf.legendOptions
     };
   },
 

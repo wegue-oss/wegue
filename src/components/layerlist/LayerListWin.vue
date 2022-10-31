@@ -4,7 +4,9 @@
       class="wgu-layerlist" 
       :icon="icon" 
       >
-      <wgu-layerlist />
+      <wgu-layerlist 
+        :showLegends="showLegends"
+      />
    </wgu-module-card>
 
 </template>
@@ -21,7 +23,8 @@
       'wgu-layerlist': LayerList
     },
     props: {
-      icon: { type: String, required: false, default: 'layers' }
+      icon: { type: String, required: false, default: 'layers' },
+      showLegends: { type: Boolean, required: false, default: true }
     }
   }
 </script>

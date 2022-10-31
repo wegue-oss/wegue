@@ -1,34 +1,28 @@
 <template>
 
-  <v-list>
-    <v-list-item class="wgu-layerlist-item" 
-      v-for="layer in displayedLayers" 
-      :key="layer.lid" 
-      @click="onItemClick(layer)">
-      <v-list-item-action>
-        <v-checkbox
-          color="secondary"
-          hide-details
-          :input-value="layer.getVisible()"
-        />
-      </v-list-item-action>
-       <v-list-item-content>
-          <v-list-item-title>
-            {{ layer.get('name') }}
-          </v-list-item-title>
-       </v-list-item-content>
-    </v-list-item>
-  </v-list>
-
+  <v-list expand>
+    <wgu-layerlistitem
+      v-for="layer in displayedLayers"
+      :key="layer.get('lid')"
+      :layer="layer"
+      :mapView="map.getView()"
+      :showDetails="showDetails(layer)"
+    />
+  </v-list> 
 </template>
 
 <script>
   import { Mapable } from '../../mixins/Mapable';
+  import LayerListItem from './LayerListItem'
   
   export default {
     name: 'wgu-layerlist',
+    components: {
+      'wgu-layerlistitem': LayerListItem
+    },
     mixins: [Mapable],
     props: {
+      showLegends: { type: Boolean, required: true }
     },
     data () {
       return {
@@ -44,13 +38,10 @@
         this.layers = this.map.getLayers().getArray();
       },
       /**
-       * Handler for click on item in layer list:
-       * Toggles the corresponding layer visibility.
-       *
-       * @param  {Object} layer Layer object
-       */
-      onItemClick (layer) {
-        layer.setVisible(!layer.getVisible());
+       * Returns true, if the layer item should show an extension slider with layer details.
+       **/
+      showDetails (layer) {
+        return this.showLegends && !!layer.get('legend');
       }
     },
     computed: {
