@@ -540,11 +540,14 @@ Example configurations can be found in the `app-starter/static` directory. Below
       "attribution": "Kindly provided by @ahocevar",
       "isBaseLayer": false,
       "visible": false,
-      "displayInLayerList": true
+      "displayInLayerList": true,
+      "legend": true,
+      "opacityControl": true
     },
     {
       "type": "IMAGEWMS",
       "lid": "ahocevar-imagewms",
+      "ratio": 1.5,
       "format": "image/png",
       "layers": "ne:ne_10m_populated_places",
       "url": "https://ahocevar.com/geoserver/wms",
@@ -553,14 +556,17 @@ Example configurations can be found in the `app-starter/static` directory. Below
       "attribution": "Kindly provided by @ahocevar",
       "isBaseLayer": false,
       "visible": false,
-      "displayInLayerList": true
+      "displayInLayerList": true,
+      "opacityControl": true
     },
     {
       "type": "VECTORTILE",
       "lid": "ahocevar-vectortyle",
       "url": "https://ahocevar.com/geoserver/gwc/service/tms/1.0.0/ne:ne_10m_admin_0_countries@EPSG%3A900913@pbf/{z}/{x}/{-y}.pbf",
       "format": "MVT",
+      "attribution": "Kindly provided by @ahocevar",
       "visible": false,
+      "opacityControl": true,  
       "style": {
         "strokeColor": "gray",
         "strokeWidth": 1,
@@ -662,6 +668,11 @@ Example configurations can be found in the `app-starter/static` directory. Below
     },
     "wgu-localeswitcher": {
       "target": "toolbar"
+    },
+    "sample-module": {
+      "target": "toolbar",
+      "win": "floating",
+      "icon": "star"
     }
   }
 }
