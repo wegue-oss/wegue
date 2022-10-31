@@ -22,18 +22,9 @@
       v-if="showOpacityControl" 
       class="overflow-visible"
     >
-      <v-slider
-        color="secondary"
-        prepend-icon="opacity"
-        :value="layer.getOpacity()"
-        min="0"
-        max="1"
-        step="0.01"
-        thumb-label
-        hide-details
-        @input="onOpacitySliderInput"
-        >   
-      </v-slider>
+      <wgu-layeropacitycontrol 
+        :layer="layer"
+      />
     </v-list-item> 
     <v-list-item 
       v-if="showLegend"
@@ -72,11 +63,13 @@
 
 <script>
 import LayerLegendImage from './LayerLegendImage'
+import LayerOpacityControl from './LayerOpacityControl'
 
 export default {
   name: 'wgu-layerlistitem',
   components: {
-    'wgu-layerlegendimage': LayerLegendImage
+    'wgu-layerlegendimage': LayerLegendImage,
+    'wgu-layeropacitycontrol': LayerOpacityControl
   },
   data () {
     return {
@@ -95,12 +88,6 @@ export default {
      */
     onItemClick () {
       this.layer.setVisible(!this.layer.getVisible());
-    },
-    /**
-     * Handler for input on the opacity slider, updates the layer`s opacity.
-     **/
-    onOpacitySliderInput (value) {
-      this.layer.setOpacity(value);
     }
   },
   computed: {
