@@ -86,12 +86,6 @@ describe('layerlist/LayerListItem.vue', () => {
       vm.onItemClick();
       expect(osmLayer.getVisible()).to.equal(false);
     });
-
-    it('onOpacitySliderInput changes layer opacity', () => {
-      expect(osmLayer.getOpacity()).to.equal(1.0);
-      vm.onOpacitySliderInput(0.5);
-      expect(osmLayer.getOpacity()).to.equal(0.5);
-    });
   });
 
   describe('computed properties', () => {
