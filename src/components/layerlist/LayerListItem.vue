@@ -18,7 +18,26 @@
         {{ layer.get('name') }}
       </v-list-item-title>
     </template>
-    <v-list-item> 
+    <v-list-item 
+      v-if="showOpacityControl" 
+      class="overflow-visible"
+    >
+      <v-slider
+        color="secondary"
+        prepend-icon="opacity"
+        :value="layer.getOpacity()"
+        min="0"
+        max="1"
+        step="0.01"
+        thumb-label
+        hide-details
+        @input="onOpacitySliderInput"
+        >   
+      </v-slider>
+    </v-list-item> 
+    <v-list-item 
+      v-if="showLegend"
+    > 
       <!-- Remarks: 
       The legend image item is wrapped by an v-if block to avoid unneccesary image 
       requests when the layer item is not expanded. 
@@ -67,7 +86,8 @@ export default {
   props: {
     layer: { type: Object, required: true },
     mapView: { type: Object, required: true },
-    showDetails: { type: Boolean, required: true }
+    showLegends: { type: Boolean, required: true },
+    showOpacityControls: { type: Boolean, required: true }
   },
   methods: {
     /**
@@ -75,6 +95,32 @@ export default {
      */
     onItemClick () {
       this.layer.setVisible(!this.layer.getVisible());
+    },
+    /**
+     * Handler for input on the opacity slider, updates the layer`s opacity.
+     **/
+    onOpacitySliderInput (value) {
+      this.layer.setOpacity(value);
+    }
+  },
+  computed: {
+    /**
+     * Returns true, if the layer item should show an extension slider with layer details.
+     **/
+    showDetails () {
+      return this.showLegend || this.showOpacityControl;
+    },
+    /**
+     * Returns true, if the layer item should show a legend image.
+     */
+    showLegend () {
+      return this.showLegends && !!this.layer.get('legend');
+    },
+    /**
+     * Returns true, if the layer item should show an opacity control.
+     */
+    showOpacityControl () {
+      return this.showOpacityControls && !!this.layer.get('opacityControl');
     }
   }
 };
