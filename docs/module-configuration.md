@@ -88,6 +88,7 @@ Module identifier: `wgu-layerlist`
 | Property             | Meaning   | Example |
 |----------------------|:---------:|---------|
 | showLegends          |  Flag to enable/disable rendering of layer legend images in the LayerList. Defaults to `true`. | `"showLegends": false` |
+| showOpacityControls  |  Flag to enable/disable rendering of slider controls to customize the layers opacity. Defaults to `true`. | `"showOpacityControls": false` |
 
 ## MeasureTool
 
