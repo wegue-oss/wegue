@@ -12,6 +12,8 @@ describe('layerlist/LayerListWin.vue', () => {
     }).$mount();
 
     expect(comp.icon).to.equal('layers');
+    expect(comp.showLegends).to.equal(true);
+    expect(comp.showOpacityControls).to.equal(true);
   });
 
   // Mount an instance and inspect the render output

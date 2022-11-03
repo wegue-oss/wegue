@@ -89,6 +89,7 @@
       "selectable": true,
       "hoverable": true,
       "hoverAttribute": "naam",
+      "opacityControl": true,
       "style": {
         "strokeColor": "white",
         "strokeWidth": 2,
@@ -111,6 +112,7 @@
       "tileGridRef": "dutch_rd",
       "isBaseLayer": false,
       "visible": false,
+      "opacityControl": true,
       "crossOrigin": "anonymous"
     },
     {

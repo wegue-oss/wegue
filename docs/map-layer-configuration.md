@@ -15,6 +15,7 @@ The following properties can be applied to all map layer types
 | visible            | Boolean value, whether the layer should be initially visible. Defaults to `true`. | `"visible": false` |
 | extent             | Array containing the bounding extent for layer rendering. The layer will not be rendered outside of this extent. Per default the extent of the layer is not constrained. | `"extent": [600584.4677702306, 5906357.431606389, 1864172.5237905537, 7388769.588491274]` |
 | opacity            | Numeric value ranging from 0 to 1 describing the opaqueness of the layer. Defaults to `1.0`. | `"opacity": 0.5` |
+| opacityControl     | Boolean value, whether a slider control to customize the layers opacity should appear in the LayerList. Defaults to `false`.  | `"opacityControl": true`|
 | zIndex             | Numeric value specifying the stack order of layers. Layers will be ordered by z-index and then by order of declaration. Defaults to `-1` for background layers and `0` for all other layers.  | `"zIndex": 2` |
 | displayInLayerList | Boolean value, whether the layer should appear in the LayerList. Ignored if the layer is a background layer - see option `isBaseLayer`  | `"displayInLayerList": true` |
 | supportsPermalink  | Boolean value, whether the layers state should be considered in permanent links - see also [permalink](wegue-configuration?id=permalink). Defaults to `true`.  | `"supportsPermalink": true` |

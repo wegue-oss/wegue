@@ -6,6 +6,7 @@
       >
       <wgu-layerlist 
         :showLegends="showLegends"
+        :showOpacityControls="showOpacityControls"
       />
    </wgu-module-card>
 
@@ -24,7 +25,8 @@
     },
     props: {
       icon: { type: String, required: false, default: 'layers' },
-      showLegends: { type: Boolean, required: false, default: true }
+      showLegends: { type: Boolean, required: false, default: true },
+      showOpacityControls: { type: Boolean, required: false, default: true }
     }
   }
 </script>

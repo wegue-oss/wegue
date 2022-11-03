@@ -5,7 +5,8 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 
 const moduleProps = {
-  'showLegends': true
+  'showLegends': true,
+  'showOpacityControls': true
 };
 
 describe('layerlist/LayerList.vue', () => {

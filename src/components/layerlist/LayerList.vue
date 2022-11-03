@@ -6,7 +6,8 @@
       :key="layer.get('lid')"
       :layer="layer"
       :mapView="map.getView()"
-      :showDetails="showDetails(layer)"
+      :showLegends="showLegends"
+      :showOpacityControls="showOpacityControls"
     />
   </v-list> 
 </template>
@@ -22,7 +23,8 @@
     },
     mixins: [Mapable],
     props: {
-      showLegends: { type: Boolean, required: true }
+      showLegends: { type: Boolean, required: true },
+      showOpacityControls: { type: Boolean, required: true }
     },
     data () {
       return {
@@ -36,12 +38,6 @@
        */
       onMapBound () {
         this.layers = this.map.getLayers().getArray();
-      },
-      /**
-       * Returns true, if the layer item should show an extension slider with layer details.
-       **/
-      showDetails (layer) {
-        return this.showLegends && !!layer.get('legend');
       }
     },
     computed: {

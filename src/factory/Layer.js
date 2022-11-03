@@ -95,6 +95,7 @@ export const LayerFactory = {
       extent: lConf.extent,
       visible: lConf.visible,
       opacity: lConf.opacity,
+      opacityControl: lConf.opacityControl,
       zIndex: lConf.zIndex,
       confName: lConf.name,
       confAttributions: lConf.attributions,

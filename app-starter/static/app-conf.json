@@ -156,7 +156,8 @@
       "isBaseLayer": false,
       "visible": false,
       "displayInLayerList": true,
-      "legend": true
+      "legend": true,
+      "opacityControl": true
     },
     {
       "type": "IMAGEWMS",
@@ -170,7 +171,8 @@
       "attribution": "Kindly provided by @ahocevar",
       "isBaseLayer": false,
       "visible": false,
-      "displayInLayerList": true
+      "displayInLayerList": true,
+      "opacityControl": true
     },
     {
       "type": "VECTORTILE",
@@ -179,6 +181,7 @@
       "format": "MVT",
       "attribution": "Kindly provided by @ahocevar",
       "visible": false,
+      "opacityControl": true,  
       "style": {
         "strokeColor": "gray",
         "strokeWidth": 1,
