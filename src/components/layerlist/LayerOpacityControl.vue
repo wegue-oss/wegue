@@ -22,7 +22,7 @@ export default {
   methods: {
     /**
      * Handler for input on the opacity slider, updates the layer`s opacity.
-     **/
+     */
     onOpacitySliderInput (value) {
       this.layer.setOpacity(value);
     }

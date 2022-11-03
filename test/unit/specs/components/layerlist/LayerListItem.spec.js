@@ -40,7 +40,7 @@ describe('layerlist/LayerListItem.vue', () => {
       expect(vm.mapView).to.equal(view);
       expect(vm.layer).to.equal(osmLayer);
       expect(vm.showLegends).to.equal(true);
-      expect(vm.showOpacityControls).to.equal(true)
+      expect(vm.showOpacityControls).to.equal(true);
     });
 
     afterEach(() => {

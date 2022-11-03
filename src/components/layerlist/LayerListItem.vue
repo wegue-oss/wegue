@@ -93,7 +93,7 @@ export default {
   computed: {
     /**
      * Returns true, if the layer item should show an extension slider with layer details.
-     **/
+     */
     showDetails () {
       return this.showLegend || this.showOpacityControl;
     },
