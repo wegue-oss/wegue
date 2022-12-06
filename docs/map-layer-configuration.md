@@ -99,10 +99,11 @@ The following properties can be applied to all map layer types
 | hoverable           | Boolean value, whether the features of the layer can be hovered in order to display information in a tooltip. The WMS must support `GetFeatureInfo` requests to obtain feature information. Wegue's default hover tooltip renders a single feature attribute which has to be declared by `hoverAttribute`. You can also choose to implement a custom overlay declared by `hoverOverlay` to render multiple feature attributes in a custom tooltip. | `"hoverable": true` |
 | hoverAttribute      | Attribute to be shown if a feature of the layer is hovered. Only has an effect if `hoverable` is set to `true`.  | `"hoverAttribute": "name"` |
 | hoverOverlay        | ID of a custom map overlay to display when a feature of the layer is hovered. Only has an effect if `hoverable` is set to `true`. For more information on how to implement a map overlay see the [reusable components](reusable-components?id=map-overlay) section. | `"hoverOverlay": "my-custom-overlay"` |
+| additionalParams        | This allows to inject custom HTTP parameters to the GetMap request of the layer. | `"additionalParams": {"FEATUREID": 1}"` |
 
 ## WMS (image)
 
-Similar properties as Tiled WMS, with these exceptions: 
+Similar properties as Tiled WMS, with these exceptions:
 
 | Property           | Meaning   | Example |
 |--------------------|:---------:|---------|

@@ -65,11 +65,16 @@ describe('LayerFactory', () => {
         'attribution': 'Kindly provided by @ahocevar',
         'isBaseLayer': false,
         'visibility': false,
-        'displayInLayerList': true
+        'displayInLayerList': true,
+        'additionalParams': {
+          'foo': 'bar-tile'
+        }
       };
       const layer = LayerFactory.createTileWmsLayer(layerConf);
       expect(layer instanceof TileLayer).to.equal(true);
       expect(layer.getSource() instanceof TileWmsSource);
+      expect(layer.getSource().getParams().LAYERS).to.equal('topp:states');
+      expect(layer.getSource().getParams().foo).to.equal('bar-tile');
     });
 
     it('createImageWmsLayer returns correct layer instance', () => {
@@ -85,11 +90,16 @@ describe('LayerFactory', () => {
         'attribution': 'Kindly provided by @ahocevar',
         'isBaseLayer': false,
         'visibility': false,
-        'displayInLayerList': true
+        'displayInLayerList': true,
+        'additionalParams': {
+          'foo': 'bar-image'
+        }
       };
       const layer = LayerFactory.createImageWmsLayer(layerConf);
       expect(layer instanceof ImageLayer).to.equal(true);
       expect(layer.getSource() instanceof ImageWMS);
+      expect(layer.getSource().getParams().LAYERS).to.equal('ne:ne_10m_populated_places');
+      expect(layer.getSource().getParams().foo).to.equal('bar-image');
     });
 
     it('createWfsLayer returns correct layer instance', () => {
