@@ -28,7 +28,7 @@
     "ahocevar-imagewms": {
       "name": "Image WMS (ahocevar)"
     },
-    "ahocevar-vectortyle": {
+    "ahocevar-vectortiles": {
       "name": "Vector Tile Layer"
     },
     "opentopomap": {

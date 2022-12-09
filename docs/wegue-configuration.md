@@ -561,7 +561,7 @@ Example configurations can be found in the `app-starter/static` directory. Below
     },
     {
       "type": "VECTORTILE",
-      "lid": "ahocevar-vectortyle",
+      "lid": "ahocevar-vectortiles",
       "url": "https://ahocevar.com/geoserver/gwc/service/tms/1.0.0/ne:ne_10m_admin_0_countries@EPSG%3A900913@pbf/{z}/{x}/{-y}.pbf",
       "format": "MVT",
       "attribution": "Kindly provided by @ahocevar",
