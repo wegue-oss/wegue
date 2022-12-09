@@ -122,7 +122,7 @@ Below is an example configuration for an English language pack.
     "ahocevar-imagewms": {
       "name": "Image WMS (ahocevar)"
     },
-    "ahocevar-vectortyle": {
+    "ahocevar-vectortiles": {
       "name": "Vector Tile Layer"
     },
     "opentopomap": {
