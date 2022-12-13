@@ -66,7 +66,7 @@ describe('LayerFactory', () => {
         'isBaseLayer': false,
         'visibility': false,
         'displayInLayerList': true,
-        'additionalParams': {
+        'params': {
           'foo': 'bar-tile'
         }
       };
@@ -91,7 +91,7 @@ describe('LayerFactory', () => {
         'isBaseLayer': false,
         'visibility': false,
         'displayInLayerList': true,
-        'additionalParams': {
+        'params': {
           'foo': 'bar-image'
         }
       };

@@ -115,7 +115,7 @@ export const LayerFactory = {
   createImageWmsLayer (lConf) {
     // apply additional HTTP params
     const params = { 'LAYERS': lConf.layers };
-    ObjectUtil.mergeDeep(params, lConf.additionalParams);
+    ObjectUtil.mergeDeep(params, lConf.params);
 
     const layer = new ImageLayer({
       ...this.getCommonLayerOptions(lConf),
@@ -145,7 +145,7 @@ export const LayerFactory = {
   createTileWmsLayer (lConf) {
     // apply additional HTTP params
     const params = { 'LAYERS': lConf.layers };
-    ObjectUtil.mergeDeep(params, lConf.additionalParams);
+    ObjectUtil.mergeDeep(params, lConf.params);
 
     const layer = new TileLayer({
       ...this.getCommonLayerOptions(lConf),
