@@ -58,6 +58,10 @@
 
     <slot name="wgu-after-footer" />
 
+    <!-- app wide loading mask,
+    use WguEventBus.$emit('app-loading-mask-toggle', newViz) to show/hide -->
+    <wgu-app-loading-mask />
+
     <slot name="wgu-app-end" />
 
   </v-app>
@@ -72,6 +76,7 @@
   import AppFooter from './components/AppFooter'
   import AppSidebar from './components/AppSidebar'
   import AppLogo from '../src/components/AppLogo'
+  import AppLoadingMask from '../src/components/AppLoadingMask'
   import BgLayerSwitcher from '../src/components/bglayerswitcher/BgLayerSwitcher.vue'
   import OverviewMap from '../src/components/overviewmap/OverviewMap.vue'
   import MeasureWin from '../src/components/measuretool/MeasureWin'
@@ -92,6 +97,7 @@
       'wgu-app-footer': AppFooter,
       'wgu-app-sidebar': AppSidebar,
       'wgu-app-logo': AppLogo,
+      'wgu-app-loading-mask': AppLoadingMask,
       'wgu-bglayerswitcher': BgLayerSwitcher,
       'wgu-overviewmap': OverviewMap,
       'wgu-measuretool-win': MeasureWin,
