@@ -98,36 +98,36 @@ describe('layerlist/LayerListItem.vue', () => {
       vm = comp.vm;
     });
 
-    it('has correct showLegend property for layer', () => {
+    it('has correct showLegend property for layer', async () => {
       expect(vm.showLegend).to.equal(false);
 
       const osmLayer2 = new TileLayer({
         source: new OSM(),
         legend: true
       });
-      comp.setProps({ layer: osmLayer2 });
+      await comp.setProps({ layer: osmLayer2 });
       expect(vm.showLegend).to.equal(true);
     });
 
-    it('has correct showOpacityControl property for layer', () => {
+    it('has correct showOpacityControl property for layer', async () => {
       expect(vm.showOpacityControl).to.equal(false);
 
       const osmLayer2 = new TileLayer({
         source: new OSM(),
         opacityControl: true
       });
-      comp.setProps({ layer: osmLayer2 });
+      await comp.setProps({ layer: osmLayer2 });
       expect(vm.showOpacityControl).to.equal(true);
     });
 
-    it('has correct showDetails property for layer', () => {
+    it('has correct showDetails property for layer', async () => {
       expect(vm.showDetails).to.equal(false);
 
       const osmLayer2 = new TileLayer({
         source: new OSM(),
         legend: true
       });
-      comp.setProps({ layer: osmLayer2 });
+      await comp.setProps({ layer: osmLayer2 });
       expect(vm.showDetails).to.equal(true);
 
       const osmLayer3 = new TileLayer({
