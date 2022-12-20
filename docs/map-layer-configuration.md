@@ -15,11 +15,15 @@ The following properties can be applied to all map layer types
 | visible            | Boolean value, whether the layer should be initially visible. Defaults to `true`. | `"visible": false` |
 | extent             | Array containing the bounding extent for layer rendering. The layer will not be rendered outside of this extent. Per default the extent of the layer is not constrained. | `"extent": [600584.4677702306, 5906357.431606389, 1864172.5237905537, 7388769.588491274]` |
 | opacity            | Numeric value ranging from 0 to 1 describing the opaqueness of the layer. Defaults to `1.0`. | `"opacity": 0.5` |
+| opacityControl     | Boolean value, whether a slider control to customize the layers opacity should appear in the LayerList. Defaults to `false`.  | `"opacityControl": true`|
 | zIndex             | Numeric value specifying the stack order of layers. Layers will be ordered by z-index and then by order of declaration. Defaults to `-1` for background layers and `0` for all other layers.  | `"zIndex": 2` |
 | displayInLayerList | Boolean value, whether the layer should appear in the LayerList. Ignored if the layer is a background layer - see option `isBaseLayer`  | `"displayInLayerList": true` |
 | supportsPermalink  | Boolean value, whether the layers state should be considered in permanent links - see also [permalink](wegue-configuration?id=permalink). Defaults to `true`.  | `"supportsPermalink": true` |
 | attributions       | Text or HTML string to be displayed as source attribution in the map. This setting will override the layer attributions declared in the language packs.  | `"attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> by Dutch Kadaster",` |
 | previewImage       | URL to a preview image for layers to be displayed in the background layer selection control. This option has no effect if the layer is not a background layer - see option `isBaseLayer`  | `"previewImage": "static/icon/my-layer-preview.png"`  |
+| legend             | Boolean value, whether a layer legend image should be displayed in the LayerList. Defaults to `false`.  | `"legend": true`|
+| legendUrl          | URL to a legend image. This value is required to produce a legend, if the layer is not a WMS layer. The URL may contain format placeholders corresponding to the parameters `language`, `scale` or any of the additional options given among `legendOptions`. A placeholder is delimited by `{{` and `}}` – i.e. `{{VAR_NAME}}`. | `"legendUrl": "static/icon/my-layer-legend-{{LANGUAGE}}.png"`
+| legendOptions      | An object, containing additional parameters to request the legend image. Supported options may be vendor specific, e.g. see [GeoServer Docs](https://docs.geoserver.org/latest/en/user/services/wms/get_legend_graphic/index.html) for the options supported for WMS layers in GeoServer. | `"legendOptions": {"transparent": true, "width": 14 }`
 
 
 
@@ -95,10 +99,11 @@ The following properties can be applied to all map layer types
 | hoverable           | Boolean value, whether the features of the layer can be hovered in order to display information in a tooltip. The WMS must support `GetFeatureInfo` requests to obtain feature information. Wegue's default hover tooltip renders a single feature attribute which has to be declared by `hoverAttribute`. You can also choose to implement a custom overlay declared by `hoverOverlay` to render multiple feature attributes in a custom tooltip. | `"hoverable": true` |
 | hoverAttribute      | Attribute to be shown if a feature of the layer is hovered. Only has an effect if `hoverable` is set to `true`.  | `"hoverAttribute": "name"` |
 | hoverOverlay        | ID of a custom map overlay to display when a feature of the layer is hovered. Only has an effect if `hoverable` is set to `true`. For more information on how to implement a map overlay see the [reusable components](reusable-components?id=map-overlay) section. | `"hoverOverlay": "my-custom-overlay"` |
+| params        | This allows to inject custom HTTP parameters to the GetMap request of the layer. | `"params": {"FEATUREID": 1}"` |
 
 ## WMS (image)
 
-Similar properties as Tiled WMS, with these exceptions: 
+Similar properties as Tiled WMS, with these exceptions:
 
 | Property           | Meaning   | Example |
 |--------------------|:---------:|---------|

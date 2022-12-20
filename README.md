@@ -1,11 +1,12 @@
 # Wegue (WebGIS with OpenLayers and Vue.js)
 Template and re-usable components for webmapping applications with OpenLayers and Vue.js
 
-[![Build Status](https://travis-ci.org/meggsimum/wegue.svg?branch=master)](https://travis-ci.org/meggsimum/wegue)
-[![Known Vulnerabilities](https://snyk.io/test/github/meggsimum/wegue/badge.svg)](https://snyk.io/test/github/meggsimum/wegue)
-[![dependencies Status](https://david-dm.org/meggsimum/wegue/status.svg)](https://david-dm.org/meggsimum/wegue)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/wegue-oss/wegue/ci-tests?label=Tests)
+[![Known Vulnerabilities](https://snyk.io/test/github/wegue-oss/wegue/badge.svg)](https://snyk.io/test/github/wegue-oss/wegue)
 [![license: 2-Clause BSD](https://img.shields.io/badge/license-2--Clause%20BSD-brightgreen.svg)](https://opensource.org/licenses/BSD-2-Clause)
 [![Join the chat at https://gitter.im/wegue/community](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/wegue/community)
+![GitHub Release Date](https://img.shields.io/github/release-date/wegue-oss/wegue)
+![GitHub last commit](https://img.shields.io/github/last-commit/wegue-oss/wegue)
 
 <img align="left" style="padding-bottom: 20px;" src="screenshots/wegue-app-1.png" />
 

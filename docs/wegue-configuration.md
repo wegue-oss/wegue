@@ -27,6 +27,7 @@ This describes the Wegue application configuration, which is modelled as JSON do
 | tileGridDefs       | Array of tile grid definition objects | See [tileGridDefs](wegue-configuration?id=tilegriddefs) |
 | viewAnimation      | Configuration object for view animations | See [viewAnimation](wegue-configuration?id=viewAnimation) |
 | sidebar            | Configuration object for the application sidebar. | See [sidebar](wegue-configuration?id=sidebar) |
+| legend             | Configuration object containing application wide parameters for layer legends. | See [legend](wegue-configuration?id=legend) |
 
 ### colorTheme
 
@@ -246,6 +247,25 @@ Below is an example for such a configuration object:
   }
 ```
 
+### legend
+
+Wegue supports rendering of layer legend images, which will be displayed in the [LayerList module](module-configuration?id=LayerList). The optional property `legend` in the main Wegue configuration provides sensible defaults to legend request parameters for all layers in the application. This can be useful e.g. for parameters like fonts, font-sizes and other common options, which you want to share between all legends. 
+
+Supported options may be vendor specific, e.g. see [GeoServer Docs](https://docs.geoserver.org/latest/en/user/services/wms/get_legend_graphic/index.html) for the options supported for WMS layers in GeoServer.
+
+Example:
+```json
+  "legend": {
+    "transparent": true, 
+    "width": 14,
+    "height": 16,
+  }
+```
+
+Alternatively you can specify legend request parameters on a per layer basis, by assigning a layers `legendOptions` attribute - see [mapLayers](layer-configuration?id=General).
+Settings for the individual layers are merged with the application wide option, while the specific layer setting takes precedence.
+
+For information on how to enable and customize legends for specific layers, see the documentation of [mapLayers](layer-configuration?id=General).
 
 ### viewAnimation
 
@@ -520,11 +540,14 @@ Example configurations can be found in the `app-starter/static` directory. Below
       "attribution": "Kindly provided by @ahocevar",
       "isBaseLayer": false,
       "visible": false,
-      "displayInLayerList": true
+      "displayInLayerList": true,
+      "legend": true,
+      "opacityControl": true
     },
     {
       "type": "IMAGEWMS",
       "lid": "ahocevar-imagewms",
+      "ratio": 1.5,
       "format": "image/png",
       "layers": "ne:ne_10m_populated_places",
       "url": "https://ahocevar.com/geoserver/wms",
@@ -533,14 +556,17 @@ Example configurations can be found in the `app-starter/static` directory. Below
       "attribution": "Kindly provided by @ahocevar",
       "isBaseLayer": false,
       "visible": false,
-      "displayInLayerList": true
+      "displayInLayerList": true,
+      "opacityControl": true
     },
     {
       "type": "VECTORTILE",
-      "lid": "ahocevar-vectortyle",
+      "lid": "ahocevar-vectortiles",
       "url": "https://ahocevar.com/geoserver/gwc/service/tms/1.0.0/ne:ne_10m_admin_0_countries@EPSG%3A900913@pbf/{z}/{x}/{-y}.pbf",
       "format": "MVT",
+      "attribution": "Kindly provided by @ahocevar",
       "visible": false,
+      "opacityControl": true,  
       "style": {
         "strokeColor": "gray",
         "strokeWidth": 1,
@@ -642,6 +668,11 @@ Example configurations can be found in the `app-starter/static` directory. Below
     },
     "wgu-localeswitcher": {
       "target": "toolbar"
+    },
+    "sample-module": {
+      "target": "toolbar",
+      "win": "floating",
+      "icon": "star"
     }
   }
 }

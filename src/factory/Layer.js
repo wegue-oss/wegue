@@ -19,6 +19,7 @@ import { OlStyleFactory } from './OlStyle'
 import { applyTransform } from 'ol/extent';
 import { getTransform } from 'ol/proj';
 import axios from 'axios';
+import ObjectUtil from '../util/Object';
 
 /**
  * Factory, which creates OpenLayers layer instances according to a given config
@@ -95,9 +96,13 @@ export const LayerFactory = {
       extent: lConf.extent,
       visible: lConf.visible,
       opacity: lConf.opacity,
+      opacityControl: lConf.opacityControl,
       zIndex: lConf.zIndex,
       confName: lConf.name,
-      confAttributions: lConf.attributions
+      confAttributions: lConf.attributions,
+      legend: lConf.legend,
+      legendUrl: lConf.legendUrl,
+      legendOptions: lConf.legendOptions
     };
   },
 
@@ -108,13 +113,15 @@ export const LayerFactory = {
    * @return {ol.layer.Image} OL WMS layer instance
    */
   createImageWmsLayer (lConf) {
+    // apply additional HTTP params
+    const params = { 'LAYERS': lConf.layers };
+    ObjectUtil.mergeDeep(params, lConf.params);
+
     const layer = new ImageLayer({
       ...this.getCommonLayerOptions(lConf),
       source: new ImageWMS({
         url: lConf.url,
-        params: {
-          'LAYERS': lConf.layers
-        },
+        params: params,
         serverType: lConf.serverType,
         ratio: lConf.ratio,
         interpolate: lConf.interpolate,
@@ -136,13 +143,15 @@ export const LayerFactory = {
    * @return {ol.layer.Tile} OL Tiled WMS layer instance
    */
   createTileWmsLayer (lConf) {
+    // apply additional HTTP params
+    const params = { 'LAYERS': lConf.layers };
+    ObjectUtil.mergeDeep(params, lConf.params);
+
     const layer = new TileLayer({
       ...this.getCommonLayerOptions(lConf),
       source: new TileWmsSource({
         url: lConf.url,
-        params: {
-          'LAYERS': lConf.layers
-        },
+        params: params,
         serverType: lConf.serverType,
         tileGrid: lConf.tileGrid,
         projection: lConf.projection,
