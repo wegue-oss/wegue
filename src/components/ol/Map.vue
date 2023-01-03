@@ -67,7 +67,7 @@ export default {
 
     // Set the target for the OL canvas and tie it`s size to ol-map-container.
     // Remarks: 'ol-map-container' does not exist in the scope of the current unit test,
-    //  therefore flag the initialization to prevent errors.
+    // therefore flag the initialization to prevent errors.
     const container = document.getElementById('ol-map-container');
     if (container) {
       me.map.setTarget(container);
