@@ -78,22 +78,21 @@ export default {
      * Resize the sidebar, if the 'resizable' option is enabled.
      */
     onResize () {
-      const me = this;
-      const sidebarEl = me.$refs.sidebar.$el;
+      const sidebarEl = this.$refs.sidebar.$el;
       sidebarEl.style.transition = 'initial';
 
       // Resize on mouse move
-      function onMouseMove (e) {
+      const onMouseMove = (e) => {
         document.body.style.cursor = 'ew-resize';
         let w = e.clientX;
-        w = Number.isNaN(me.minWidth) ? w : Math.max(me.minWidth, w);
-        w = Number.isNaN(me.maxWidth) ? w : Math.min(me.maxWidth, w);
-        me.sidebarWidth = w;
+        w = Number.isNaN(this.minWidth) ? w : Math.max(this.minWidth, w);
+        w = Number.isNaN(this.maxWidth) ? w : Math.min(this.maxWidth, w);
+        this.sidebarWidth = w;
       }
       document.addEventListener('mousemove', onMouseMove, false);
 
       // Stop the interaction on the next mouse up.
-      function onMouseUp () {
+      const onMouseUp = () => {
         sidebarEl.style.transition = '';
         document.body.style.cursor = '';
         document.removeEventListener('mousemove', onMouseMove, false);
