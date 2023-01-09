@@ -65,7 +65,18 @@ export default {
     // already been fired. Don not use directly in cmps, use Mapable instead.
     Vue.prototype.$map = me.map;
 
-    me.map.setTarget(document.getElementById('ol-map-container'));
+    // Set the target for the OL canvas and tie it`s size to ol-map-container.
+    // Remarks: 'ol-map-container' does not exist in the scope of the current unit test,
+    // therefore flag the initialization to prevent errors.
+    const container = document.getElementById('ol-map-container');
+    if (container) {
+      me.map.setTarget(container);
+
+      const resizeObserver = new ResizeObserver(() => {
+        me.map.updateSize();
+      });
+      resizeObserver.observe(container);
+    }
 
     // Send the event 'ol-map-mounted' with the OL map as payload
     WguEventBus.$emit('ol-map-mounted', me.map);
@@ -75,9 +86,6 @@ export default {
     //  If so, a better implementation could be to rely on this.$nextTick(), which currently causes trouble
     //  for the units tests (deferred operations are invoked after the component has already been destroyed).
     me.timerHandle = setTimeout(() => {
-      // resize the map, so it fits to parent
-      me.map.updateSize();
-
       // adjust the bg color of the OL buttons (like zoom, rotate north, ...)
       me.setOlButtonColor();
     }, 200);

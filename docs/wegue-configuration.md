@@ -310,9 +310,12 @@ The `sidebar` object supports the following properties:
 | Property           | Meaning   | Example |
 |--------------------|:---------:|---------|
 | width              | Width of the sidebar in pixels. Defaults to 400px.  | `"width": 400` |
+| minWidth           | Minimal width of the sidebar in pixels. This option will only take effect if the `resizable` option is enabled. | `"minWidth": 400` |
+| maxWidth           | Maximal width of the sidebar in pixels. This option will only take effect if the `resizable` option is enabled.   | `"maxWidth": 600` |
 | visible            | Specifies whether the sidebar appears in open or closed state on application start. Defaults to true. | `"visible": true` |
 | autoScroll         | Whether to automatically scroll the sidebar to the active module. Defaults to true. | `"autoScroll": true` |
 | scrollDuration     | Animation duration in milliseconds to automatically scroll the sidebar to the active module. Defaults to 500ms. | `"scrollDuration": 500` |
+| resizable          | Specifies whether the sidebar's width can be adjusted. Defaults to false. | `"resizable": true`
 
 Below is an example for a sidebar configuration object:
 
@@ -320,8 +323,11 @@ Below is an example for a sidebar configuration object:
   "sidebar": {
     "visible": true,
     "width": 400,
+    "minWidth": 400,
+    "maxWidth": 600,
     "autoScroll": true,
-    "scrollDuration": 500
+    "scrollDuration": 500,
+    "resizable": true,
   }
 ```
 

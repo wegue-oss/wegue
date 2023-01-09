@@ -52,8 +52,11 @@
   "sidebar": {
     "visible": true,
     "width": 400,
+    "minWidth": 400,
+    "maxWidth": 600,
     "autoScroll": true,
-    "scrollDuration": 500
+    "scrollDuration": 500,
+    "resizable": true
   },
 
   "mapLayers": [
