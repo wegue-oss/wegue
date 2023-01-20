@@ -11,9 +11,9 @@
   ],
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "test": "cross-env NODE_ENV=test karma start tests/unit/karma.conf.js --single-run",
+    "serve": "cross-env NODE_OPTIONS=--openssl-legacy-provider vue-cli-service serve",
+    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider vue-cli-service build",
+    "test": "cross-env NODE_OPTIONS=--openssl-legacy-provider NODE_ENV=test karma start tests/unit/karma.conf.js --single-run",
     "lint": "vue-cli-service lint --no-fix *.js app src tests",
     "lint:fix": "vue-cli-service lint *.js app src tests",
     "deploy": "gh-pages -d dist",
