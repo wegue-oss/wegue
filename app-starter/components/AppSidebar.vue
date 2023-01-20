@@ -25,7 +25,7 @@
       <div v-if="resizable"
         class="wgu-app-sidebar-resizer"
         @mousedown.prevent="onResize"
-      /> 
+      />
   </v-navigation-drawer>
 </template>
 
