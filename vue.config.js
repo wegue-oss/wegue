@@ -24,26 +24,26 @@ module.exports = {
   },
 
   devServer: {
-    clientLogLevel: 'warn',
+    client: {
+      logging: 'warn',
+      overlay: {
+        warnings: false,
+        errors: true
+      }
+    },
     hot: true,
-    compress: true,
     host: 'localhost',
     port: 8081,
     open: true,
-    overlay: {
-      warnings: false,
-      errors: true
-    },
-    quiet: true // necessary for FriendlyErrorsPlugin
+    // quiet: true // necessary for FriendlyErrorsPlugin
   },
 
   chainWebpack: config => {
-    config.module
-      .rule('eslint')
-      .use('eslint-loader')
+    config.plugin('eslint')
       .tap(options => {
-        options.formatter = require('eslint-formatter-friendly')
-      })
+        options[0].formatter = require('eslint-formatter-friendly')
+        return options
+    })
 
     config.resolve.alias.set('APP', path.resolve(config.resolve.alias.get('@'), '../app'))
 
@@ -54,9 +54,9 @@ module.exports = {
     return config
       .plugin('copy')
       .tap(options => {
-        options[0][0].from = path.resolve(options[0][0].from, '../app/static')
-        options[0][0].to = process.env.NODE_ENV === 'production'
-          ? path.resolve(options[0][0].to, '../dist/static')
+        options[0].patterns[0].from = path.resolve(options[0].patterns[0].from, '../app/static')
+        options[0].patterns[0].to = process.env.NODE_ENV === 'production'
+          ? path.resolve(options[0].patterns[0].to, '../dist/static')
           : 'static'
         return options
       })
