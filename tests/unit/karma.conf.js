@@ -3,13 +3,13 @@
 // we are also using it with karma-webpack
 //   https://github.com/webpack/karma-webpack
 
-var webpackConfig = require('../../node_modules/@vue/cli-service/webpack.config.js');
+const webpackConfig = require('../../node_modules/@vue/cli-service/webpack.config.js');
 
 // Optionally override the specfile index.js
 // Idea from: https://glebbahmutov.com/blog/debugging-karma-unit-tests/
-var specFile = './index.js';
+let specFile = './index.js';
 const preprocessors = ['webpack', 'sourcemap'];
-var preprocessorFiles = { './index.js': preprocessors };
+let preprocessorFiles = { './index.js': preprocessors };
 
 const argSpecFileIndex = process.argv.indexOf('--spec-file');
 if (argSpecFileIndex > -1) {

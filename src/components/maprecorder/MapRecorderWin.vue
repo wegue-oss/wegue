@@ -206,7 +206,7 @@ export default {
      * https://openlayers.org/en/latest/examples/export-map.html
      */
     drawCanvas () {
-      var me = this;
+      const me = this;
       me.mapContext.fillStyle = 'white';
       me.mapContext.fillRect(0, 0, me.mapCanvas.width, me.mapCanvas.height);
 
@@ -214,14 +214,14 @@ export default {
         document.querySelectorAll('.ol-layer canvas'),
         function (canvas) {
           if (canvas.width > 0) {
-            var opacity = canvas.parentNode.style.opacity;
+            const opacity = canvas.parentNode.style.opacity;
             me.mapContext.globalAlpha = opacity === '' ? 1 : Number(opacity);
 
             // Get the transform parameters from the style's transform matrix
             // and apply the transform to the export map context.
-            var transform = canvas.style.transform;
+            const transform = canvas.style.transform;
             /* eslint-disable-next-line no-useless-escape */
-            var matrix = transform.match(/^matrix\(([^\(]*)\)$/)[1]
+            const matrix = transform.match(/^matrix\(([^\(]*)\)$/)[1]
               .split(',').map(Number);
             CanvasRenderingContext2D.prototype.setTransform.apply(
               me.mapContext,
@@ -237,7 +237,7 @@ export default {
      * Starts / stops recording
      */
     toggleRecord () {
-      var me = this;
+      const me = this;
       if (me.recording) {
         me.stopRecording();
       } else {
@@ -250,8 +250,8 @@ export default {
      * is active.
      */
     mapSizeChanged () {
-      var me = this;
-      var size = me.map.getSize();
+      const me = this;
+      const size = me.map.getSize();
       me.mapCanvas.width = size[0];
       me.mapCanvas.height = size[1];
     },
@@ -261,7 +261,7 @@ export default {
      * capturing process.
      */
     startRecording () {
-      var me = this;
+      const me = this;
       me.mapCanvas = document.createElement('canvas');
       me.mapSizeChanged();
       me.mapContext = me.mapCanvas.getContext('2d');
@@ -293,7 +293,7 @@ export default {
      * Stop recording and free all associated resources.
      */
     stopRecording () {
-      var me = this;
+      const me = this;
       if (me.recorder) {
         me.recorder.stop();
         me.recorder.dispose();

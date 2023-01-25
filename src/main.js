@@ -93,7 +93,7 @@ const migrateAppConfig = function (appConfig) {
   // Migrate boolean values for module.win.
   if (appConfig.modules) {
     Object.keys(appConfig.modules).forEach(name => {
-      var module = appConfig.modules[name];
+      const module = appConfig.modules[name];
       if (typeof module.win === 'boolean') {
         module.win = module.win ? 'floating' : undefined;
       }

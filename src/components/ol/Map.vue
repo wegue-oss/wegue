@@ -62,7 +62,7 @@ export default {
     }
   },
   mounted () {
-    var me = this;
+    const me = this;
     // Make the OL map accessible for Mapable mixin even 'ol-map-mounted' has
     // already been fired. Don not use directly in cmps, use Mapable instead.
     Vue.prototype.$map = me.map;

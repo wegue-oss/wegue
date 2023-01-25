@@ -41,7 +41,7 @@ export default class OlMeasureController {
     const me = this;
     const measureConf = me.measureConf;
     // create a vector layer to
-    var source = new VectorSource();
+    const source = new VectorSource();
     this.measureLayer = new VectorLayer({
       lid: 'wgu-measure-layer',
       displayInLayerList: false,
@@ -74,8 +74,8 @@ export default class OlMeasureController {
       me.removeInteraction();
     }
 
-    var type = (measureType === 'area' ? 'Polygon' : 'LineString');
-    var draw = new DrawInteraction({
+    const type = (measureType === 'area' ? 'Polygon' : 'LineString');
+    const draw = new DrawInteraction({
       source: me.source,
       type: type,
       style: new Style({
@@ -100,8 +100,8 @@ export default class OlMeasureController {
     });
     me.map.addInteraction(draw);
 
-    var listener;
-    var sketch;
+    let listener;
+    let sketch;
     draw.on('drawstart', (evt) => {
       // clear old measure features
       me.source.clear();

@@ -89,21 +89,21 @@ export default {
     cardStyles () {
       return (this.win === 'floating')
         ? {
-          left: this.initPos ? this.initPos.left + 'px' : '0px',
-          top: this.initPos ? this.initPos.top + 'px' : '0px'
-        }
+            left: this.initPos ? this.initPos.left + 'px' : '0px',
+            top: this.initPos ? this.initPos.top + 'px' : '0px'
+          }
         : {}
     },
     cardAttr () {
       return (this.win === 'floating')
         ? {
-          height: this.height,
-          width: this.width,
-          maxHeight: this.maxHeight,
-          maxWidth: this.maxWidth,
-          minHeight: this.minHeight,
-          minWidth: this.minWidth
-        }
+            height: this.height,
+            width: this.width,
+            maxHeight: this.maxHeight,
+            maxWidth: this.maxWidth,
+            minHeight: this.minHeight,
+            minWidth: this.minWidth
+          }
         : {}
     },
     cardDraggable () {
@@ -114,14 +114,14 @@ export default {
     toolbarAttr () {
       return this.backgroundImage
         ? {
-          dark: true,
-          flat: true,
-          color: 'transparent'
-        }
+            dark: true,
+            flat: true,
+            color: 'transparent'
+          }
         : {
-          color: 'primary',
-          class: 'onprimary--text'
-        }
+            color: 'primary',
+            class: 'onprimary--text'
+          }
     }
   },
   methods: {

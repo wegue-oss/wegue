@@ -93,7 +93,7 @@ export default class HoverController {
       if (!layer.get('hoverable')) {
         return;
       }
-      var source = layer.getSource();
+      const source = layer.getSource();
       if (source instanceof TileWmsSource || source instanceof ImageWMSSource) {
         resetTooltip = false;
         me.getWMSFeaturesAsync(map, layer, coordinate, me.pendingRequestsCancelSrc)

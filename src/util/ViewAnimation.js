@@ -286,8 +286,8 @@ const FlyAnimation = {
    * @param {Number} maxZoom The maximal zoom level.
    */
   animate (view, location, completionCallback, duration, zoomOut, zoom, maxZoom) {
-    var parts = 2;
-    var finished = false;
+    let parts = 2;
+    let finished = false;
 
     function callback (complete) {
       --parts;
@@ -385,8 +385,8 @@ const BounceAnimation =
    * @param {Number} maxZoom The maximal zoom level.
    */
   animate (view, location, completionCallback, duration, zoom, maxZoom) {
-    var parts = 2;
-    var finished = false;
+    let parts = 2;
+    let finished = false;
 
     function callback (complete) {
       --parts;
