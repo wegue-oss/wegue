@@ -42,6 +42,9 @@ module.exports = {
 
     if (process.env.NODE_ENV === 'test') {
       config.devtool('eval')
+
+      config.optimization.runtimeChunk(false)
+      config.optimization.splitChunks(false)
     }
 
     return config
