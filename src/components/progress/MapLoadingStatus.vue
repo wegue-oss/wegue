@@ -17,7 +17,7 @@ import { Mapable } from '../../mixins/Mapable';
 import {
   Image as ImageSource, TileImage as TileImageSource,
   Vector as VectorSource, Cluster as ClusterSource
-} from 'ol/source/';
+} from 'ol/source';
 import LayerGroup from 'ol/layer/Group';
 
 export default {
