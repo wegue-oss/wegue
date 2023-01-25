@@ -157,7 +157,7 @@ export default {
     }
 
     // Optional TileGrid definitions by name, for ref in Layers
-    Object.keys(this.tileGridDefs).map(name => {
+    Object.keys(this.tileGridDefs).forEach(name => {
       this.tileGrids[name] = new TileGrid(this.tileGridDefs[name]);
     });
 
