@@ -34,17 +34,10 @@ module.exports = {
     hot: true,
     host: 'localhost',
     port: 8081,
-    open: true,
-    // quiet: true // necessary for FriendlyErrorsPlugin
+    open: true
   },
 
   chainWebpack: config => {
-    config.plugin('eslint')
-      .tap(options => {
-        options[0].formatter = require('eslint-formatter-friendly')
-        return options
-    })
-
     config.resolve.alias.set('APP', path.resolve(config.resolve.alias.get('@'), '../app'))
 
     if (process.env.NODE_ENV === 'test') {
