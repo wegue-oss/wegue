@@ -31,7 +31,7 @@ module.exports = {
     'arrow-spacing': process.env.NODE_ENV  === 'development' ? 'warn' : 'error'
   },
   parserOptions: {
-    parser: 'babel-eslint',
+    parser: '@babel/eslint-parser'
   },
   overrides: [
     {
