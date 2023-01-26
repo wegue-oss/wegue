@@ -1,7 +1,7 @@
 # Wegue (WebGIS with OpenLayers and Vue.js)
 Template and re-usable components for webmapping applications with OpenLayers and Vue.js
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/wegue-oss/wegue/ci-tests?label=Tests)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/wegue-oss/wegue/ci-tests.yml?branch=master)
 [![Known Vulnerabilities](https://snyk.io/test/github/wegue-oss/wegue/badge.svg)](https://snyk.io/test/github/wegue-oss/wegue)
 [![license: 2-Clause BSD](https://img.shields.io/badge/license-2--Clause%20BSD-brightgreen.svg)](https://opensource.org/licenses/BSD-2-Clause)
 [![Join the chat at https://gitter.im/wegue/community](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/wegue/community)
