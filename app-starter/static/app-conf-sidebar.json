@@ -223,7 +223,8 @@
       "win": "sidebar",
       "icon": "layers",
       "visible": true,
-      "minimizable": true
+      "minimizable": true,
+      "closable": false
     },
     "wgu-measuretool": {
       "target": "menu",
