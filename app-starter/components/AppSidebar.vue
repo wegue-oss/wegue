@@ -16,16 +16,16 @@
           absolute
           top
           color="secondary"
-          @click="sidebarOpen = !sidebarOpen"> 
-          <v-icon color="onsecondary" v-if="sidebarOpen">chevron_left</v-icon> 
-          <v-icon color="onsecondary" v-else>chevron_right</v-icon> 
+          @click="sidebarOpen = !sidebarOpen">
+          <v-icon color="onsecondary" v-if="sidebarOpen">chevron_left</v-icon>
+          <v-icon color="onsecondary" v-else>chevron_right</v-icon>
         </v-btn>
       </template>
       <!-- Invisible sidebar resizer -->
       <div v-if="resizable"
         class="wgu-app-sidebar-resizer"
         @mousedown.prevent="onResize"
-      /> 
+      />
   </v-navigation-drawer>
 </template>
 
@@ -57,8 +57,13 @@ export default {
     WguEventBus.$on('sidebar-scroll', comp => {
       this.scrollTo(comp);
     });
-    WguEventBus.$on('sidebar-toggle', () => {
-      this.sidebarOpen = !this.sidebarOpen;
+    WguEventBus.$on('sidebar-toggle', (open) => {
+      // toggle or force a opening state of the sidebar
+      if (typeof open === 'boolean') {
+        this.sidebarOpen = open;
+      } else {
+        this.sidebarOpen = !this.sidebarOpen;
+      }
     });
   },
   methods: {
