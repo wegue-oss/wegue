@@ -1,11 +1,11 @@
 <template>
-  <v-card :class="cardClasses" 
+  <v-card :class="cardClasses"
     :style="cardStyles"
     v-bind="cardAttr"
     v-if=show
     v-draggable-win="cardDraggable"
-    > 
-    
+    >
+
     <v-img :src="backgroundImage">
       <v-toolbar v-bind="toolbarAttr">
         <v-icon color="onprimary" class="mr-4">{{ icon }}</v-icon>
@@ -16,18 +16,18 @@
         <slot name="wgu-win-toolbar"></slot>
 
         <v-spacer></v-spacer>
-        <v-btn color="onprimary" v-if="minimizable" icon small 
+        <v-btn color="onprimary" v-if="minimizable" icon small
           @click="minimized = !minimized">
-          <v-icon v-if="minimized">web_asset</v-icon> 
+          <v-icon v-if="minimized">web_asset</v-icon>
           <v-icon v-else>remove</v-icon>
         </v-btn>
-        <v-btn color="onprimary" icon small class="mr-0" 
+        <v-btn color="onprimary" v-if="closable" icon small class="mr-0"
           @click="toggleUi">
           <v-icon>close</v-icon>
         </v-btn>
       </v-toolbar>
     </v-img>
-    
+
     <!-- Default slot for module content -->
     <div v-show="!minimized">
       <slot name="default"></slot>
@@ -51,6 +51,7 @@
       icon: { type: String, required: true },
       win: { type: String, required: false, default: 'floating' },
       minimizable: { type: Boolean, required: false, default: false },
+      closable: { type: Boolean, required: false, default: true },
       backgroundImage: { type: String, required: false, default: undefined },
       visible: { type: Boolean, required: false, default: false },
       // Positioning / sizing properties will be ignored for sidebar cards.
