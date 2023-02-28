@@ -3,7 +3,7 @@
 // we are also using it with karma-webpack
 //   https://github.com/webpack/karma-webpack
 
-var webpackConfig = require('../../build/webpack.test.conf');
+var webpackConfig = require('../../node_modules/@vue/cli-service/webpack.config.js');
 
 // Optionally override the specfile index.js
 // Idea from: https://glebbahmutov.com/blog/debugging-karma-unit-tests/
