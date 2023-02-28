@@ -15,7 +15,7 @@ Vue.use(VueI18n)
 // language pack.
 Vue.prototype._i18n = new VueI18n({
   locale: 'en',
-  messages: { 'en': i18nMessages },
+  messages: { en: i18nMessages },
   silentTranslationWarn: true
 })
 

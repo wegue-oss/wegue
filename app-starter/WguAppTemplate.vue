@@ -129,7 +129,7 @@
     // make the refs (floating module window, which are not connected to their
     // related components, e.g. buttons to toggle them)
     const refs = this.$refs;
-    let cmpLookup = {};
+    const cmpLookup = {};
     for (const key of Object.keys(refs)) {
       cmpLookup[key] = refs[key][0];
     }
@@ -145,7 +145,7 @@
        */
     getSidebarConfig () {
       const appConfig = Vue.prototype.$appConfig || {};
-      return appConfig['sidebar'];
+      return appConfig.sidebar;
     },
     /**
        * Returns the configuration object for the overview map from app-config.
@@ -153,7 +153,7 @@
        */
     getOverviewMapConfig () {
       const appConfig = Vue.prototype.$appConfig || {};
-      return appConfig['overviewMap'];
+      return appConfig.overviewMap;
     },
     /**
        * Determines the module window configuration objects from app-config:
@@ -167,7 +167,7 @@
     getModuleWinData (target) {
       const appConfig = Vue.prototype.$appConfig || {};
       const modulesConfs = appConfig.modules || {};
-      let moduleWins = [];
+      const moduleWins = [];
       for (const key of Object.keys(modulesConfs)) {
         const moduleOpts = appConfig.modules[key];
         if (moduleOpts.win === target) {

@@ -50,16 +50,19 @@ describe('WguAppTpl.vue', () => {
 
     it('getModuleWinData(\'floating\') returns correct data', () => {
       // mock a module conf
-      Vue.prototype.$appConfig = { modules: {
-        'wgu-infoclick': {
-          'target': 'menu',
-          'win': 'floating',
-          'draggable': false,
-          'initPos': {
-            'left': 8,
-            'top': 16
+      Vue.prototype.$appConfig = {
+        modules: {
+          'wgu-infoclick': {
+            target: 'menu',
+            win: 'floating',
+            draggable: false,
+            initPos: {
+              left: 8,
+              top: 16
+            }
           }
-        } } };
+        }
+      };
       const moduleData = vm.getModuleWinData('floating');
       expect(moduleData).to.be.an('array');
       expect(moduleData.length).to.equal(1);
@@ -72,11 +75,14 @@ describe('WguAppTpl.vue', () => {
 
     it('getModuleWinData(\'sidebar\') returns correct data', () => {
       // mock a module conf
-      Vue.prototype.$appConfig = { modules: {
-        'wgu-infoclick': {
-          'target': 'menu',
-          'win': 'sidebar'
-        } } };
+      Vue.prototype.$appConfig = {
+        modules: {
+          'wgu-infoclick': {
+            target: 'menu',
+            win: 'sidebar'
+          }
+        }
+      };
       const moduleData = vm.getModuleWinData('sidebar');
       expect(moduleData).to.be.an('array');
       expect(moduleData.length).to.equal(1);

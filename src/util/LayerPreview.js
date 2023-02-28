@@ -77,7 +77,7 @@ const LayerPreview = {
       // Make sure to request an extent within the layers extent.
       var e = layer.getExtent();
       if (e && !extentContainsCoordinate(e, coords)) {
-        coords = [ (e[0] + e[2]) / 2, (e[1] + e[3]) / 2 ];
+        coords = [(e[0] + e[2]) / 2, (e[1] + e[3]) / 2];
       }
 
       // Transform the projection of the coords if necessary.

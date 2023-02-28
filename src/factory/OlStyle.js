@@ -1,5 +1,4 @@
-import {
-  Circle as CircleStyle, Icon as IconStyle, Fill, Stroke, Style, Text }
+import { Circle as CircleStyle, Icon as IconStyle, Fill, Stroke, Style, Text }
 from 'ol/style';
 
 /**
@@ -99,7 +98,7 @@ export const OlStyleFactory = {
    * @return {Style}             OL style instance
    */
   createPolygonStyle (styleConf) {
-    let olStyle = OlStyleFactory.createLineStyle(styleConf);
+    const olStyle = OlStyleFactory.createLineStyle(styleConf);
     olStyle.setFill(OlStyleFactory.createFill(styleConf));
 
     return olStyle;

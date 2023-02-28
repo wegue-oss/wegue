@@ -4,7 +4,7 @@
       class="wgu-layerlist"
       :icon="icon"
       >
-      <wgu-layerlist 
+      <wgu-layerlist
         :showLegends="showLegends"
         :showOpacityControls="showOpacityControls"
       />

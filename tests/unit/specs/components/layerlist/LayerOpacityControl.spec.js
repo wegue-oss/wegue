@@ -8,7 +8,7 @@ const osmLayer = new TileLayer({
 });
 
 const moduleProps = {
-  'layer': osmLayer
+  layer: osmLayer
 };
 
 describe('layerlist/LayerOpacityControl.vue', () => {

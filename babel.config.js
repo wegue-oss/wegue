@@ -1,14 +1,14 @@
 module.exports = {
   presets: [
-    '@vue/app'
+    '@vue/cli-plugin-babel/preset'
   ],
-  plugins: [
-    '@babel/plugin-proposal-nullish-coalescing-operator',
-    '@babel/plugin-proposal-optional-chaining'
-  ],
-  'env': {
-    'test': {
-      'plugins': ['istanbul']
+  env: {
+    test: {
+      plugins: [
+        ['istanbul', {
+          extension: ['.js', '.vue']
+        }]
+      ]
     }
   }
 }

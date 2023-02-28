@@ -1,12 +1,12 @@
 import LocaleUtil from '@/util/Locale'
 
 const appConfig = {
-  'lang': {
-    'supported': {
-      'en': 'English',
-      'de': 'Deutsch'
+  lang: {
+    supported: {
+      en: 'English',
+      de: 'Deutsch'
     },
-    'fallback': 'de'
+    fallback: 'de'
   }
 };
 
@@ -29,15 +29,15 @@ describe('LocaleUtil', () => {
     const supported = LocaleUtil.getSupportedLanguages(appConfig);
     expect(supported).to.be.an('object');
     expect(Object.keys(supported).length).to.eql(2);
-    expect(supported['en']).to.eql('English');
-    expect(supported['de']).to.eql('Deutsch');
+    expect(supported.en).to.eql('English');
+    expect(supported.de).to.eql('Deutsch');
   });
 
   it('getSupportedLanguages returns correct fallback language when lang is unconfigured', () => {
     const supported = LocaleUtil.getSupportedLanguages({});
     expect(supported).to.be.an('object');
     expect(Object.keys(supported).length).to.eql(1);
-    expect(supported['en']).to.eql('English');
+    expect(supported.en).to.eql('English');
   });
 
   it('getFallbackLanguage returns correct language', () => {

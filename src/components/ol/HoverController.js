@@ -78,7 +78,7 @@ export default class HoverController {
     const pixel = event.pixel;
     const coordinate = event.coordinate;
     const cancelToken = axios.CancelToken;
-    let featureInfos = [];
+    const featureInfos = [];
     let resetTooltip = true;
 
     // Cancel pending requests and create a new cancel token source which corresponds
@@ -154,7 +154,7 @@ export default class HoverController {
         view.getResolution(),
         view.getProjection(),
         {
-          'INFO_FORMAT': 'application/vnd.ogc.gml/3.1.1'
+          INFO_FORMAT: 'application/vnd.ogc.gml/3.1.1'
         }
       );
       if (!url) {

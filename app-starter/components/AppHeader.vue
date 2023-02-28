@@ -102,7 +102,7 @@ export default {
     getModuleButtons (target) {
       const appConfig = Vue.prototype.$appConfig || {};
       const modulesConfs = appConfig.modules || {};
-      let buttons = [];
+      const buttons = [];
       for (const key of Object.keys(modulesConfs)) {
         const moduleOpts = appConfig.modules[key];
         if (moduleOpts.target === target) {

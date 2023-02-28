@@ -18,7 +18,7 @@ const CustomLegend = {
    */
   getUrl (source, resolution, options, formatUrl) {
     let url = formatUrl;
-    let placeholders = options || {};
+    const placeholders = options || {};
 
     // Remarks: Resolution to scale conversion taken from OL - TileWMS.js.
     if (resolution !== undefined) {
@@ -26,11 +26,11 @@ const CustomLegend = {
         ? source.getProjection().getMetersPerUnit()
         : 1;
       const pixelSize = 0.00028;
-      placeholders['SCALE'] = (resolution * mpu) / pixelSize;
+      placeholders.SCALE = (resolution * mpu) / pixelSize;
     }
 
     for (const key in placeholders) {
-      let regex = new RegExp('{{' + key + '}}', 'gi');
+      const regex = new RegExp('{{' + key + '}}', 'gi');
       url = url.replace(regex, placeholders[key]);
     }
     return url;

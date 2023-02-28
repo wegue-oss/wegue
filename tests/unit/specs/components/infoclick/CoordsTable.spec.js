@@ -54,15 +54,17 @@ describe('infoclick/CoordsTable.vue', () => {
           projection: 'EPSG:4326'
         }
       });
+      /* eslint-disable quote-props */
       const expextedCoordRows = {
         'MAP PROJ': '1.00 1.00',
         'WGS 84': '1.0000000° 1.0000000°',
         'HDMS': '1° 00′ 00″ N 1° 00′ 00″ E'
       };
+      /* eslint-enable quote-props */
       comp.vm.$nextTick(() => {
         expect(comp.vm.coordRows['MAP PROJ']).to.equal(expextedCoordRows['MAP PROJ']);
         expect(comp.vm.coordRows['WGS 84']).to.equal(expextedCoordRows['WGS 84']);
-        expect(comp.vm.coordRows['HDMS']).to.equal(expextedCoordRows['HDMS']);
+        expect(comp.vm.coordRows.HDMS).to.equal(expextedCoordRows.HDMS);
         done();
       });
     });

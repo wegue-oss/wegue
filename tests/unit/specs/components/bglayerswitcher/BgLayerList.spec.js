@@ -5,9 +5,9 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 
 const moduleProps = {
-  'imageWidth': 152,
-  'imageHeight': 114,
-  'previewIcon': 'map'
+  imageWidth: 152,
+  imageHeight: 114,
+  previewIcon: 'map'
 };
 
 describe('bglayerswitcher/BgLayerList.vue', () => {

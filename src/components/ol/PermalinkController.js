@@ -17,7 +17,7 @@ export default class PermalinkController {
   constructor (map, permalinkConf) {
     this.map = map;
     this.conf = permalinkConf || {};
-    this.projection = this.conf.projection ? new Projection({ 'code': this.conf.projection }) : null;
+    this.projection = this.conf.projection ? new Projection({ code: this.conf.projection }) : null;
     this.conf.paramPrefix = this.conf.paramPrefix || '';
     this.conf.location = this.conf.location || 'hash';
     this.conf.separator = this.conf.location === 'hash' ? '#' : '?';
@@ -108,7 +108,7 @@ export default class PermalinkController {
       const key = layer.on('change:visible', () => {
         this.onMapChange();
       });
-      this.layerListeners.push({ 'key': key, 'layer': layer });
+      this.layerListeners.push({ key: key, layer: layer });
     });
   }
 
@@ -146,12 +146,12 @@ export default class PermalinkController {
 
     // Both extent (bbox) or center+zoom supported.
     if (permalinkParams[e]) {
-      let extent = permalinkParams[e].split(',').map((n) => {
+      const extent = permalinkParams[e].split(',').map((n) => {
         return parseFloat(n);
       });
       this.applyExtent(extent);
     } else if (permalinkParams[c]) {
-      let center = permalinkParams[c].split(',').map((n) => {
+      const center = permalinkParams[c].split(',').map((n) => {
         return parseFloat(n);
       });
       this.applyCenter(center);

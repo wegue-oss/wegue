@@ -31,7 +31,7 @@ describe('LayerFactory', () => {
   });
 
   it('getInstance returns correct instance', () => {
-    let layerConf = {
+    const layerConf = {
       type: 'TILEWMS'
     };
     const style = LayerFactory.getInstance(layerConf);
@@ -55,19 +55,19 @@ describe('LayerFactory', () => {
   describe('layer types', () => {
     it('createTileWmsLayer returns correct layer instance', () => {
       const layerConf = {
-        'type': 'TILEWMS',
-        'lid': 'ahocevar-wms',
-        'format': 'image/png',
-        'layers': 'topp:states',
-        'url': 'https://ahocevar.com/geoserver/wms',
-        'transparent': true,
-        'projection': 'EPSG:3857',
-        'attribution': 'Kindly provided by @ahocevar',
-        'isBaseLayer': false,
-        'visibility': false,
-        'displayInLayerList': true,
-        'params': {
-          'foo': 'bar-tile'
+        type: 'TILEWMS',
+        lid: 'ahocevar-wms',
+        format: 'image/png',
+        layers: 'topp:states',
+        url: 'https://ahocevar.com/geoserver/wms',
+        transparent: true,
+        projection: 'EPSG:3857',
+        attribution: 'Kindly provided by @ahocevar',
+        isBaseLayer: false,
+        visibility: false,
+        displayInLayerList: true,
+        params: {
+          foo: 'bar-tile'
         }
       };
       const layer = LayerFactory.createTileWmsLayer(layerConf);
@@ -79,20 +79,20 @@ describe('LayerFactory', () => {
 
     it('createImageWmsLayer returns correct layer instance', () => {
       const layerConf = {
-        'type': 'IMAGEWMS',
-        'lid': 'ahocevar-imagewms',
-        'ratio': 2,
-        'format': 'image/png',
-        'layers': 'ne:ne_10m_populated_places',
-        'url': 'https://ahocevar.com/geoserver/wms',
-        'transparent': true,
-        'projection': 'EPSG:3857',
-        'attribution': 'Kindly provided by @ahocevar',
-        'isBaseLayer': false,
-        'visibility': false,
-        'displayInLayerList': true,
-        'params': {
-          'foo': 'bar-image'
+        type: 'IMAGEWMS',
+        lid: 'ahocevar-imagewms',
+        ratio: 2,
+        format: 'image/png',
+        layers: 'ne:ne_10m_populated_places',
+        url: 'https://ahocevar.com/geoserver/wms',
+        transparent: true,
+        projection: 'EPSG:3857',
+        attribution: 'Kindly provided by @ahocevar',
+        isBaseLayer: false,
+        visibility: false,
+        displayInLayerList: true,
+        params: {
+          foo: 'bar-image'
         }
       };
       const layer = LayerFactory.createImageWmsLayer(layerConf);
@@ -104,16 +104,16 @@ describe('LayerFactory', () => {
 
     it('createWfsLayer returns correct layer instance', () => {
       const layerConf = {
-        'type': 'WFS',
-        'lid': 'a-wfs',
-        'url': 'https://a-wfs-url.de',
-        'typeName': 'foo:tn',
-        'version': '2.0.0',
-        'format': 'GeoJSON',
-        'formatConfig': {},
-        'projection': 'EPSG:3857',
-        'visible': true,
-        'selectable': false
+        type: 'WFS',
+        lid: 'a-wfs',
+        url: 'https://a-wfs-url.de',
+        typeName: 'foo:tn',
+        version: '2.0.0',
+        format: 'GeoJSON',
+        formatConfig: {},
+        projection: 'EPSG:3857',
+        visible: true,
+        selectable: false
       };
       const olMap = new Map({
         view: new View({
@@ -129,11 +129,11 @@ describe('LayerFactory', () => {
 
     it('createXyzLayer returns correct layer instance', () => {
       const layerConf = {
-        'type': 'XYZ',
-        'lid': 'a-xyz-layer',
-        'visibility': true,
-        'transparent': true,
-        'displayInLayerList': false
+        type: 'XYZ',
+        lid: 'a-xyz-layer',
+        visibility: true,
+        transparent: true,
+        displayInLayerList: false
       };
       const layer = LayerFactory.createXyzLayer(layerConf);
       expect(layer instanceof TileLayer).to.equal(true);
@@ -142,11 +142,11 @@ describe('LayerFactory', () => {
 
     it('createOsmLayer returns correct layer instance', () => {
       const layerConf = {
-        'type': 'OSM',
-        'lid': 'a-osm-layer',
-        'visibility': true,
-        'transparent': true,
-        'displayInLayerList': false
+        type: 'OSM',
+        lid: 'a-osm-layer',
+        visibility: true,
+        transparent: true,
+        displayInLayerList: false
       };
       const layer = LayerFactory.createXyzLayer(layerConf);
       expect(layer instanceof TileLayer).to.equal(true);
@@ -155,17 +155,17 @@ describe('LayerFactory', () => {
 
     it('createVectorLayer returns correct layer instance', () => {
       const layerConf = {
-        'type': 'VECTOR',
-        'lid': 'earthquakes',
-        'url': './static/data/2012_Earthquakes_Mag5.kml',
-        'formatConfig': {
-          'extractStyles': false
+        type: 'VECTOR',
+        lid: 'earthquakes',
+        url: './static/data/2012_Earthquakes_Mag5.kml',
+        formatConfig: {
+          extractStyles: false
         },
-        'format': 'KML',
-        'visible': true,
-        'selectable': true,
-        'hoverable': true,
-        'hoverAttribute': 'name'
+        format: 'KML',
+        visible: true,
+        selectable: true,
+        hoverable: true,
+        hoverAttribute: 'name'
       };
       const layer = LayerFactory.createVectorLayer(layerConf);
       expect(layer instanceof VectorLayer).to.equal(true);
@@ -174,11 +174,11 @@ describe('LayerFactory', () => {
 
     it('createVectorTileLayer returns correct layer instance', () => {
       const layerConf = {
-        'type': 'VECTORTILE',
-        'url': 'https://ahocevar.com/geoserver/gwc/service/tms/1.0.0/ne:ne_10m_admin_0_countries@EPSG%3A900913@pbf/{z}/{x}/{-y}.pbf',
-        'format': 'MVT',
-        'visible': false,
-        'styleRef': 'neWorldMvt'
+        type: 'VECTORTILE',
+        url: 'https://ahocevar.com/geoserver/gwc/service/tms/1.0.0/ne:ne_10m_admin_0_countries@EPSG%3A900913@pbf/{z}/{x}/{-y}.pbf',
+        format: 'MVT',
+        visible: false,
+        styleRef: 'neWorldMvt'
       };
       const layer = LayerFactory.createVectorTileLayer(layerConf);
       expect(layer instanceof VectorTileLayer).to.equal(true);

@@ -34,7 +34,7 @@ import { ColorTheme } from '../../mixins/ColorTheme'
 
 export default {
   name: 'wgu-map',
-  mixins: [ ColorTheme ],
+  mixins: [ColorTheme],
   props: {
     collapsibleAttribution: { type: Boolean, default: false },
     rotateableMap: { type: Boolean, required: false, default: false }
@@ -129,7 +129,7 @@ export default {
       interactions.push(dragAndDropInteraction);
     }
 
-    let controls = [
+    const controls = [
       new Zoom(),
       new Attribution({
         collapsible: this.collapsibleAttribution
@@ -194,7 +194,7 @@ export default {
      */
     createLayers () {
       const me = this;
-      let layers = [];
+      const layers = [];
       const appConfig = this.$appConfig;
       const mapLayersConfig = appConfig.mapLayers || [];
       mapLayersConfig.reverse().forEach(function (lConf) {
@@ -210,12 +210,12 @@ export default {
         // Default usage of permalink to true, if not explicitly defined.
         lConf.supportsPermalink = lConf.supportsPermalink ?? true;
 
-        let layer = LayerFactory.getInstance(lConf, me.map);
+        const layer = LayerFactory.getInstance(lConf, me.map);
         layers.push(layer);
 
         // if layer is selectable register a select interaction
         if (lConf.selectable) {
-          let selectClick = MapInteractionUtil.createSelectInteraction(
+          const selectClick = MapInteractionUtil.createSelectInteraction(
             layer,
             lConf.selectStyle,
             lConf.doAppendSelectStyle

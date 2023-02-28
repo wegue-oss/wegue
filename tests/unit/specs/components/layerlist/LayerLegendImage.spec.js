@@ -27,8 +27,8 @@ const view = new View({
 });
 
 const moduleProps = {
-  'mapView': view,
-  'layer': osmLayer
+  mapView: view,
+  layer: osmLayer
 };
 
 describe('layerlist/LayerLegendImage.vue', () => {
@@ -90,17 +90,17 @@ describe('layerlist/LayerLegendImage.vue', () => {
       expect(vm.legendURL).to.be.undefined;
     });
 
-    it('has correct legendURL for static legend URL', () => {
+    it('has correct legendURL for static legend URL', async () => {
       const layer = new TileLayer({
         source: new OSM(),
         legendUrl: 'http://my-image.png'
       });
 
-      comp.setProps({ layer: layer });
+      await comp.setProps({ layer: layer });
       expect(vm.legendURL).to.equal('http://my-image.png');
     });
 
-    it('has correct legendURL for legend format URL', () => {
+    it('has correct legendURL for legend format URL', async () => {
       const layer = new TileLayer({
         source: new OSM(),
         legendUrl: 'http://my-image.png?transparent={{TRANSPARENT}}&width={{WIDTH}}&SCALE={{SCALE}}&language={{LANGUAGE}}',
@@ -109,19 +109,19 @@ describe('layerlist/LayerLegendImage.vue', () => {
           width: 14
         }
       });
-      comp.setProps({ layer: layer });
+      await comp.setProps({ layer: layer });
       expect(vm.legendURL).to.equal('http://my-image.png?transparent=true&width=14&SCALE=139770566.00717944&language=en');
     });
 
-    it('has correct legendURL for WMS', () => {
-      comp.setProps({ layer: wmsLayer });
+    it('has correct legendURL for WMS', async () => {
+      await comp.setProps({ layer: wmsLayer });
       expect(vm.legendURL).to.equal('https://ahocevar.com/geoserver/wms?' +
         'SERVICE=WMS&VERSION=1.3.0&REQUEST=GetLegendGraphic&FORMAT=image%2Fpng&LAYER=topp%3Astates&' +
         'SCALE=139770286.4660474&language=en');
     });
 
-    it('legendURL supports localization and scale', () => {
-      comp.setProps({ layer: wmsLayer });
+    it('legendURL supports localization and scale', async () => {
+      await comp.setProps({ layer: wmsLayer });
       expect(vm.legendURL).to.equal('https://ahocevar.com/geoserver/wms?' +
         'SERVICE=WMS&VERSION=1.3.0&REQUEST=GetLegendGraphic&FORMAT=image%2Fpng&LAYER=topp%3Astates&' +
         'SCALE=139770286.4660474&language=en');

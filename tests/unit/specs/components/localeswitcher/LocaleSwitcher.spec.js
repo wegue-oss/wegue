@@ -3,12 +3,12 @@ import { mount, shallowMount } from '@vue/test-utils';
 import LocaleSwitcher from '@/components/localeswitcher/LocaleSwitcher';
 
 const appConfig = {
-  'lang': {
-    'supported': {
-      'en': 'English',
-      'de': 'Deutsch'
+  lang: {
+    supported: {
+      en: 'English',
+      de: 'Deutsch'
     },
-    'fallback': 'de'
+    fallback: 'de'
   }
 };
 
@@ -47,8 +47,8 @@ describe('localeswitcher/LocaleSwitcher.vue', () => {
       expect(typeof LocaleSwitcher.data).to.equal('function');
       expect(vm.lang).to.be.an('object');
       expect(Object.keys(vm.lang).length).to.eql(2);
-      expect(vm.lang['en']).to.eql('English');
-      expect(vm.lang['de']).to.eql('Deutsch');
+      expect(vm.lang.en).to.eql('English');
+      expect(vm.lang.de).to.eql('Deutsch');
     });
 
     afterEach(() => {
