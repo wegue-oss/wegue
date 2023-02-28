@@ -90,7 +90,7 @@ export default {
     }
   },
   created () {
-    var me = this;
+    const me = this;
     // Listen to the ol-map-mounted event and receive the OL map instance
     WguEventBus.$on('ol-map-mounted', (olMap) => {
       // make the OL map accessible in this component
@@ -99,7 +99,7 @@ export default {
   },
   methods: {
     registerMapClick (unregister) {
-      var me = this;
+      const me = this;
 
       if (unregister === true) {
         me.map.un('singleclick', me.onMapClick);

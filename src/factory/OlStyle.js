@@ -1,5 +1,5 @@
 import { Circle as CircleStyle, Icon as IconStyle, Fill, Stroke, Style, Text }
-from 'ol/style';
+  from 'ol/style';
 
 /**
  * Factory, which creates OpenLayers style instances according to a given config

@@ -72,7 +72,7 @@ export default {
        */
     createOlOverlay () {
       if (!this.olOverlay) {
-        var overlayContainer = this.$refs.overlayContainer;
+        const overlayContainer = this.$refs.overlayContainer;
         this.olOverlay = new Overlay({
           element: overlayContainer,
           id: this.overlayId,

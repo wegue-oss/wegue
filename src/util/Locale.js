@@ -87,7 +87,7 @@ const LocaleUtil = {
   * @returns The language code of the preferred language.
   */
   getPreferredLanguage (appConfig) {
-    var precedence = [
+    const precedence = [
       UrlUtil.getQueryParam('lang'),
       navigator.language || navigator.userLanguage,
       ...navigator.languages,
@@ -96,7 +96,7 @@ const LocaleUtil = {
     ];
 
     // Transform codes like 'de-DE' or 'en-GB' to 'de' or 'en'.
-    var languages = precedence
+    const languages = precedence
       .filter(value => !!value)
       .map(value => {
         return value ? value.trim().split(/-|_/)[0] : null;
@@ -145,7 +145,7 @@ const LocaleUtil = {
    * @returns {Boolean} True if the language code is supported by the application.
    */
   isLanguageSupported (code, appConfig) {
-    var supported = LocaleUtil.getSupportedLanguages(appConfig);
+    const supported = LocaleUtil.getSupportedLanguages(appConfig);
     return Object.keys(supported).includes(code);
   }
 }

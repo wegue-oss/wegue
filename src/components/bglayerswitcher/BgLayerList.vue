@@ -66,7 +66,7 @@ export default {
     // when the control is initially rendered. The underlying implementation relies on the clientWidth
     // property of DOM elements, which is not computed on mount time. The bug is related to
     // https://github.com/vuejs/Discussion/issues/394 .The following works in Firefox and Chrome.
-    var slideGroup = this.$refs.slideGroup;
+    const slideGroup = this.$refs.slideGroup;
     if (slideGroup) {
       this.timerHandle = setTimeout(() => {
         slideGroup.onResize();

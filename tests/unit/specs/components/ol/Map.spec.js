@@ -197,8 +197,8 @@ describe('ol/Map.vue', () => {
       document.body.append(mockZoomDiv);
 
       // mock a OL rotate button
-      var mockRotDiv = document.createElement('div');
-      var mockSubRotEl = document.createElement('button');
+      const mockRotDiv = document.createElement('div');
+      const mockSubRotEl = document.createElement('button');
       mockRotDiv.classList.add('ol-rotate');
       mockSubRotEl.classList.add('ol-rotate-reset');
       mockRotDiv.append(mockSubRotEl);

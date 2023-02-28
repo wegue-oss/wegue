@@ -237,7 +237,7 @@ export const LayerFactory = {
       strategy: lConf.loadOnlyVisible !== false ? bboxStrategy : undefined
     });
 
-    var vector = new VectorLayer({
+    const vector = new VectorLayer({
       ...this.getCommonLayerOptions(lConf),
       source: vectorSource,
       style: OlStyleFactory.getInstance(lConf.style),

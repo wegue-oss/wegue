@@ -81,7 +81,7 @@ describe('DraggableWin Directive', () => {
           cnt++;
         }
 
-        var clickEvent = document.createEvent('MouseEvents');
+        const clickEvent = document.createEvent('MouseEvents');
         clickEvent.initEvent('mouseup', true, true);
         mockDomEl.dispatchEvent(clickEvent);
 
@@ -103,7 +103,7 @@ describe('DraggableWin Directive', () => {
           cnt++;
         }
 
-        var clickEvent = document.createEvent('MouseEvents');
+        const clickEvent = document.createEvent('MouseEvents');
         clickEvent.initEvent('mousedown', true, true);
         mockDomEl.dispatchEvent(clickEvent);
 
@@ -125,7 +125,7 @@ describe('DraggableWin Directive', () => {
           cnt++;
         }
 
-        var clickEvent = document.createEvent('MouseEvents');
+        const clickEvent = document.createEvent('MouseEvents');
         clickEvent.initEvent('mousemove', true, true);
         mockDomEl.dispatchEvent(clickEvent);
 
