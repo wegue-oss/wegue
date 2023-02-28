@@ -21,7 +21,7 @@
             v-bind="moduleWin"
           />
       </template>
-    </wgu-app-sidebar>      
+    </wgu-app-sidebar>
 
     <slot name="wgu-before-content" />
     <v-content app>
@@ -29,7 +29,7 @@
         <wgu-map />
         <!-- layer loading indicator -->
         <wgu-maploading-status />
-        <slot name="wgu-after-map"> 
+        <slot name="wgu-after-map">
         </slot>
         <!-- Portal to overlay the map content from an application module -->
         <portal-target name="map-overlay" />
@@ -126,36 +126,36 @@
       // apply the isEmbedded state to the member var
       this.isEmbedded = this.$isEmbedded;
 
-      // make the refs (floating module window, which are not connected to their
-      // related components, e.g. buttons to toggle them)
-      const refs = this.$refs;
-      let cmpLookup = {};
-      for (const key of Object.keys(refs)) {
-        cmpLookup[key] = refs[key][0];
-      }
-      Vue.prototype.cmpLookup = cmpLookup;
-      // inform registered cmps that the app is mounted and the dynamic
-      // components are available
-      WguEventBus.$emit('app-mounted');
-    },
-    methods: {
-      /**
+    // make the refs (floating module window, which are not connected to their
+    // related components, e.g. buttons to toggle them)
+    const refs = this.$refs;
+    let cmpLookup = {};
+    for (const key of Object.keys(refs)) {
+      cmpLookup[key] = refs[key][0];
+    }
+    Vue.prototype.cmpLookup = cmpLookup;
+    // inform registered cmps that the app is mounted and the dynamic
+    // components are available
+    WguEventBus.$emit('app-mounted');
+  },
+  methods: {
+    /**
        * Returns the configuration object for the sidebar from app-config.
        * @return {Object} Sidebar configuration object.
        */
-      getSidebarConfig () {
-        const appConfig = Vue.prototype.$appConfig || {};
-        return appConfig['sidebar'];
-      },
-      /**
+    getSidebarConfig () {
+      const appConfig = Vue.prototype.$appConfig || {};
+      return appConfig['sidebar'];
+    },
+    /**
        * Returns the configuration object for the overview map from app-config.
        * @return {Object} Overview map configuration object.
        */
-      getOverviewMapConfig () {
-        const appConfig = Vue.prototype.$appConfig || {};
-        return appConfig['overviewMap'];
-      },
-      /**
+    getOverviewMapConfig () {
+      const appConfig = Vue.prototype.$appConfig || {};
+      return appConfig['overviewMap'];
+    },
+    /**
        * Determines the module window configuration objects from app-config:
        *     moduleWins: [
        *       {type: 'wgu-layerlist-win'},
@@ -164,35 +164,35 @@
        * @param  {String} target Either 'floating' or 'sidebar'
        * @return {Array} module window configuration objects
        */
-      getModuleWinData (target) {
-        const appConfig = Vue.prototype.$appConfig || {};
-        const modulesConfs = appConfig.modules || {};
-        let moduleWins = [];
-        for (const key of Object.keys(modulesConfs)) {
-          const moduleOpts = appConfig.modules[key];
-          if (moduleOpts.win === target) {
-            moduleWins.push({
-              type: key + '-win',
-              ...moduleOpts
-            });
-          }
+    getModuleWinData (target) {
+      const appConfig = Vue.prototype.$appConfig || {};
+      const modulesConfs = appConfig.modules || {};
+      let moduleWins = [];
+      for (const key of Object.keys(modulesConfs)) {
+        const moduleOpts = appConfig.modules[key];
+        if (moduleOpts.win === target) {
+          moduleWins.push({
+            type: key + '-win',
+            ...moduleOpts
+          });
         }
-        return moduleWins;
-      },
-      /**
+      }
+      return moduleWins;
+    },
+    /**
        * Sets the document title from language file.
        */
-      setDocumentTitle () {
-        document.title = this.$t('app.browserTitle') || document.title;
-      }
-    },
-    watch: {
-      /**
+    setDocumentTitle () {
+      document.title = this.$t('app.browserTitle') || document.title;
+    }
+  },
+  watch: {
+    /**
        * Watch for locale changes.
        */
-      '$i18n.locale': function () {
-        this.setDocumentTitle();
-      }
+    '$i18n.locale': function () {
+      this.setDocumentTitle();
     }
   }
+}
 </script>

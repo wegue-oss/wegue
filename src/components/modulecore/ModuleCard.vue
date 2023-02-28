@@ -123,6 +123,66 @@
             color: 'primary',
             class: 'onprimary--text'
           }
+      }  
+    },
+    methods: {
+      toggleUi () {
+        WguEventBus.$emit(this.moduleName + '-visibility-change', !this.show)
+      }
+    },
+    created () {
+      WguEventBus.$on(this.moduleName + '-visibility-change', visible => {
+        this.show = visible;
+        this.$emit('visibility-change', visible);
+      });
+    },
+    updated () {
+      if (this.show && this.win === 'sidebar') {
+        WguEventBus.$emit('sidebar-scroll', this);
+      }
+    },
+    computed: {
+      cardClasses () {
+        return (this.win === 'floating')
+          ? ['wgu-module-card', 'wgu-floating']
+          : ['wgu-module-card', 'wgu-sidebar']
+      },
+      cardStyles () {
+        return (this.win === 'floating')
+          ? {
+            left: this.initPos ? this.initPos.left + 'px' : '0px',
+            top: this.initPos ? this.initPos.top + 'px' : '0px'
+          }
+          : {}
+      },
+      cardAttr () {
+        return (this.win === 'floating')
+          ? {
+            height: this.height,
+            width: this.width,
+            maxHeight: this.maxHeight,
+            maxWidth: this.maxWidth,
+            minHeight: this.minHeight,
+            minWidth: this.minWidth
+          }
+          : {}
+      },
+      cardDraggable () {
+        return (this.win === 'floating')
+          ? this.draggable
+          : false
+      },
+      toolbarAttr () {
+        return this.backgroundImage
+          ? {
+            dark: true,
+            flat: true,
+            color: 'transparent'
+          }
+          : {
+            color: 'primary',
+            class: 'onprimary--text'
+          }
       }
     },
     methods: {
@@ -130,5 +190,5 @@
         WguEventBus.$emit(this.moduleName + '-visibility-change', !this.show)
       }
     }
-}
+  }
 </script>

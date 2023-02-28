@@ -45,11 +45,11 @@
        * Reactive property to return the OpenLayers layers to be shown in the control.
        * Remarks: The 'displayInLayerList' attribute should default to true per convention.
        */
-      displayedLayers () {
-        return this.layers
-          .filter(layer => layer.get('displayInLayerList') !== false && !layer.get('isBaseLayer'))
-          .reverse();
-      }
+    displayedLayers () {
+      return this.layers
+        .filter(layer => layer.get('displayInLayerList') !== false && !layer.get('isBaseLayer'))
+        .reverse();
     }
   }
+}
 </script>
