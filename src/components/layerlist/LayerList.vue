@@ -9,13 +9,13 @@
       :showLegends="showLegends"
       :showOpacityControls="showOpacityControls"
     />
-  </v-list> 
+  </v-list>
 </template>
 
 <script>
   import { Mapable } from '../../mixins/Mapable';
   import LayerListItem from './LayerListItem'
-  
+
   export default {
     name: 'wgu-layerlist',
     components: {
