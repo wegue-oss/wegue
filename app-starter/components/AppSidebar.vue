@@ -57,8 +57,13 @@ export default {
     WguEventBus.$on('sidebar-scroll', comp => {
       this.scrollTo(comp);
     });
-    WguEventBus.$on('sidebar-toggle', () => {
-      this.sidebarOpen = !this.sidebarOpen;
+    WguEventBus.$on('sidebar-toggle', (open) => {
+      // toggle or force a opening state of the sidebar
+      if (typeof open === 'boolean') {
+        this.sidebarOpen = open;
+      } else {
+        this.sidebarOpen = !this.sidebarOpen;
+      }
     });
   },
   methods: {

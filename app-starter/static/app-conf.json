@@ -181,7 +181,7 @@
       "format": "MVT",
       "attribution": "Kindly provided by @ahocevar",
       "visible": false,
-      "opacityControl": true,  
+      "opacityControl": true,
       "style": {
         "strokeColor": "gray",
         "strokeWidth": 1,
@@ -287,7 +287,8 @@
     "sample-module": {
       "target": "toolbar",
       "win": "floating",
-      "icon": "star"
+      "icon": "star",
+      "closable": false
     }
   }
 }

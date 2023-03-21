@@ -21,7 +21,7 @@
           <v-icon v-if="minimized">web_asset</v-icon>
           <v-icon v-else>remove</v-icon>
         </v-btn>
-        <v-btn color="onprimary" icon small class="mr-0"
+        <v-btn color="onprimary" v-if="closable" icon small class="mr-0"
           @click="toggleUi">
           <v-icon>close</v-icon>
         </v-btn>
@@ -51,6 +51,7 @@ export default {
     icon: { type: String, required: true },
     win: { type: String, required: false, default: 'floating' },
     minimizable: { type: Boolean, required: false, default: false },
+    closable: { type: Boolean, required: false, default: true },
     backgroundImage: { type: String, required: false, default: undefined },
     visible: { type: Boolean, required: false, default: false },
     // Positioning / sizing properties will be ignored for sidebar cards.
