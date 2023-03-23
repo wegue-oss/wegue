@@ -1,9 +1,10 @@
 const path = require('path')
+const { defineConfig } = require('@vue/cli-service')
 
 /**
  * @type {import('@vue/cli-service').ProjectOptions}
  */
-module.exports = {
+module.exports = defineConfig({
   assetsDir: 'static',
   runtimeCompiler: true,
   pages: {
@@ -57,4 +58,4 @@ module.exports = {
         return options
       })
   }
-}
+})
