@@ -41,13 +41,6 @@ module.exports = defineConfig({
   chainWebpack: config => {
     config.resolve.alias.set('APP', path.resolve(config.resolve.alias.get('@'), '../app'))
 
-    if (process.env.NODE_ENV === 'test') {
-      config.devtool('eval')
-
-      config.optimization.runtimeChunk(false)
-      config.optimization.splitChunks(false)
-    }
-
     return config
       .plugin('copy')
       .tap(options => {
@@ -57,6 +50,19 @@ module.exports = defineConfig({
           : 'static'
         return options
       })
+  },
+
+  configureWebpack: config => {
+    // Tweak configuration options for Karma test runner to produce a bundle
+    // which can run under Chrome headless. Avoid warnings due to custom entries
+    // and customized filenames. Enable correct code coverage of .vue files.
+    if (process.env.NODE_ENV === 'test') {
+      config.devtool = 'eval'
+      config.optimization.runtimeChunk = false
+      config.optimization.splitChunks= false
+      delete config.entry
+      delete config.output.filename
+    }
   },
 
   // Disable dependencies transpilation as browsers currently targetted by
