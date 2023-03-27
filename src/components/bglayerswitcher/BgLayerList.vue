@@ -9,7 +9,7 @@
     >
       <v-slide-item
         v-for="layer in displayedLayers"
-        :key="layer.lid"
+        :key="layer.get('lid')"
         :value="layer"
         v-slot:default="{ active, toggle }"
       >
