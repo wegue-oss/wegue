@@ -167,7 +167,8 @@
       "visible": false,
       "displayInLayerList": true,
       "legend": true,
-      "opacityControl": true
+      "opacityControl": true,
+      "crossOrigin": "anonymous"
     },
     {
       "type": "IMAGEWMS",
@@ -181,7 +182,8 @@
       "isBaseLayer": false,
       "visible": false,
       "displayInLayerList": true,
-      "opacityControl": true
+      "opacityControl": true,
+      "crossOrigin": "anonymous"
     },
     {
       "type": "VECTORTILE",

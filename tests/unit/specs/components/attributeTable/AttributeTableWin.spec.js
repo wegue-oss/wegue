@@ -49,8 +49,6 @@ describe('attributeTable/AttributeTableWin.vue', () => {
     });
 
     it('are implemented', () => {
-      expect(vm.onResize).to.be.a('function');
-      expect(vm.resizeOlMap).to.be.a('function');
       expect(vm.onMapBound).to.be.a('function');
     });
   });
