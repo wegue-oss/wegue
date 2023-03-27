@@ -59,7 +59,8 @@ module.exports = defineConfig({
     if (process.env.NODE_ENV === 'test') {
       config.devtool = 'eval'
       config.optimization.runtimeChunk = false
-      config.optimization.splitChunks= false
+      config.optimization.splitChunks = false
+      delete config.target
       delete config.entry
       delete config.output.filename
     }
