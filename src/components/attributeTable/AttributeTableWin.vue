@@ -3,7 +3,7 @@
     :moduleName="moduleName"
     class="wgu-attributetable-win" 
     :icon="icon" 
-    v-on:visibility-change="show">
+  >
 
     <template v-slot:wgu-win-toolbar>
       <v-select
@@ -29,7 +29,6 @@
   
     <wgu-attributetable
       v-if="selLayer"
-      v-resize="onResize"
       :layerId="selLayer.get('lid')"
       :syncTableMapSelection="syncTableMapSelection"
     >
@@ -65,29 +64,6 @@ export default {
     'wgu-attributetable': AttributeTable
   },
   methods: {
-    show () {
-      // resize map properly after closing
-      // the AttributeTable
-      this.resizeOlMap()
-    },
-    onResize () {
-      // change map size when window is changing
-      this.resizeOlMap()
-    },
-
-    /**
-     * Update the OpenLayers map size.
-     *
-     * Necessary because the map does not automatically
-     * notice when its size is changed externally.
-     */
-    resizeOlMap () {
-      this.$nextTick(() => {
-        // must be within '$nextTick' to take effect
-        this.map.updateSize();
-      })
-    },
-
     /**
      * This function is executed, after the map is bound (see mixins/Mapable).
      * Bind to the layers from the OpenLayers map.

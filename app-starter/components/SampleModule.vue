@@ -103,7 +103,7 @@ export default {
 <!-- Here we do the styling of our module -->
 <style scoped>
 /* our module has the class '.sample-module' and we reference it here */
-.sample-module {
+.sample-module.wgu-floating {
   left: auto !important;
   top: 300px !important;
   right: 10px;
