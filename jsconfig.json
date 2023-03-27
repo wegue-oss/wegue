@@ -15,5 +15,5 @@
       "scripthost"
     ]
   },
-  "exclude": ["dist", "node_modules"]
+  "exclude": ["app-starter", "dist", "node_modules"]
 }
