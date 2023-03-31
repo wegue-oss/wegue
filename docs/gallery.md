@@ -2,7 +2,13 @@
 
 A list of existing Wegue projects.
 
-## [Ortsdaten der Variationskorpora des Archivs für Gesprochenes Deutsch](https://agd-karten.ids-mannheim.de/)
+## [Wärmeatlas Hessen](https://www.waermeatlas-hessen.de/)
+
+The "Wärmeatlas Hessen" (free translated: "Thermal Atlas of Hessen") shows the heat demand for space heating and hot water of your desired planning unit in the federal state of Hessen in Germany. Data can be retrieved for a neighborhood, a municipality or a single street.
+
+![](_media/screenshot_waermeatlas_hessen.jpeg)
+
+## [Ortsdaten der Variationskorpora des Archivs für Gesprochenes Deutsch](screenshot_waermeatlas_hessen.jpeg)
 
 An interactive webmap to search and explore worldwide locations of voice recordings.
 The locations come from the "Archiv für Gesprochenes Deutsch" (free translated: "Archive for Spoken German") which manages, among other things, such corpora of speech recordings that were collected for the study of regional linguistic variation (e.g. dialects).
