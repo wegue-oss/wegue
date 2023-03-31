@@ -2,6 +2,12 @@
 
 A list of existing Wegue projects.
 
+## [Ortsdaten der Variationskorpora des Archivs für Gesprochenes Deutsch](https://agd-karten.ids-mannheim.de/)
+
+An interactive webmap to search and explore worldwide locations of voice recordings.
+The locations come from the "Archiv für Gesprochenes Deutsch" (free translated: "Archive for Spoken German") which manages, among other things, such corpora of speech recordings that were collected for the study of regional linguistic variation (e.g. dialects).
+
+![](_media/screenshot_agd_karten.jpeg)
 
 ## [SAUBER time viewer](https://sauber-projekt.meggsimum.de/wms-time-viewer/)
 
@@ -36,7 +42,7 @@ Rheinland-Pfalz (LVermGeo)](https://lvermgeo.rlp.de/de/startseite/) as a time en
 
 ## [German Wine Route](https://apps.meggsimum.de/weinstrassenreise/#!/)
 
-This applications shows the locations of the [German Wine Route ](https://en.wikipedia.org/wiki/German_Wine_Route). By clicking a location a sidebar appears with information queried from the Wikipedia API. 
+This applications shows the locations of the [German Wine Route ](https://en.wikipedia.org/wiki/German_Wine_Route). By clicking a location a sidebar appears with information queried from the Wikipedia API.
 
 ![screenshot wine route](_media/screenshot_wine_route.jpg)
 
@@ -54,7 +60,7 @@ A proof of concept how to include data from a global scale. It displays cities, 
 
 ## [Architect Oeds de Leeuw Wieland](https://bevinggevoeld.nl/oeds/groot/)
 
-A web application for exploring the work of the Dutch architect Oeds de Leeuw Wieland. By clicking on a map icon a card with detailed information is opened showing both data and images. 
+A web application for exploring the work of the Dutch architect Oeds de Leeuw Wieland. By clicking on a map icon a card with detailed information is opened showing both data and images.
 
 ![screenshot architect](_media/screenshot_bevinggevoeld.jpg)
 
@@ -78,7 +84,7 @@ This application visualizes time-dependent traffic data from "here". It makes us
 
 ## [SAUBER Study Regions](https://sauber-projekt.de/de/home/pilotregionen/)
 
-This example shows how very basic maps can quickly be generated using Wegue. It shows the outlines of two regions combined with some metadata. Maps like this can be made without any coding. 
+This example shows how very basic maps can quickly be generated using Wegue. It shows the outlines of two regions combined with some metadata. Maps like this can be made without any coding.
 
 ![screenshot sauber study regions](_media/screenshot_sauber.jpg)
 
@@ -86,7 +92,7 @@ This example shows how very basic maps can quickly be generated using Wegue. It 
 
 ## [Heron](https://wegue.heron-mc.org/)
 
-This webmap displays windmills in the Netherlands. By clicking on a windmill location a sidebar with additional information and a picture opens up. The application shows how Wegue can be used as a next generation client for [Heron](https://heron-mc.org/) 
+This webmap displays windmills in the Netherlands. By clicking on a windmill location a sidebar with additional information and a picture opens up. The application shows how Wegue can be used as a next generation client for [Heron](https://heron-mc.org/)
 
 ![screenshot windmills](_media/screenshot_heron.jpg)
 
@@ -104,7 +110,7 @@ This website shows a classic Web-GIS application. The user can choose from a var
 
 [Source Code](https://github.com/GISolutionsAT/wegue)
 
-This thematic map shows the locations of public defibrillators in Vienna. It comes with an advanced search and filter component. 
+This thematic map shows the locations of public defibrillators in Vienna. It comes with an advanced search and filter component.
 
 ![screenshot defibrilator locations](_media/screenshot_wien.jpg)
 
