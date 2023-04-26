@@ -40,6 +40,8 @@ Prerequisites: Node.js and npm need to be available on your system.
 npm install
 ```
 
+> Note: The **package-lock.json** is generated using the minimum NPM version specified in **package.json** `engines.npm`. If you use a more recent version, please do not commit this file.
+
   - Run the init-app script, which creates a base application (a copy of the `app-starter` dir) under `app/` to extend with custom components and resources (e.g. CSS styling) for your project.
 
 ``` bash
