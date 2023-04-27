@@ -20,11 +20,11 @@
     "init:app": "node util/init-app.js"
   },
   "dependencies": {
-    "axios": "^0.21.4",
-    "canvas-record": "^3.0.0",
-    "core-js": "^3.8.3",
+    "axios": "^1.3.6",
+    "canvas-record": "^3.1.0",
+    "core-js": "^3.30.1",
     "ol": "7.3.0",
-    "proj4": "2.8.1",
+    "proj4": "2.9.0",
     "vue": "2.7.14",
     "vue-i18n": "^8.28.2",
     "vuetify": "2.6.15"
