@@ -1,6 +1,6 @@
 # Workshop
 
-This workshop uses Wegue version [`v1.2.0`](https://github.com/wegue-oss/wegue/releases/tag/v1.2.0) but works for higher versions with no or little adaptation.
+This workshop uses Wegue version [`v1.2.1`](https://github.com/wegue-oss/wegue/releases/tag/v1.2.1) but works for higher versions with no or little adaptation.
 
 ## Prerequisites
 
@@ -12,7 +12,7 @@ You should have basic knowledge of using a commandline and a basic understanding
 
 For this workshop or to quickly try something, you can use the online-environment Gitpod. For this you need a browser and you need to register at Gitpod. That can be done with an existing GitHub account.
 
-To get started navigate to [**gitpod.io/#https://github.com/wegue-oss/wegue/tree/v1.2.0**](https://gitpod.io/#https://github.com/wegue-oss/wegue/tree/v1.2.0). Ideally, you will see a terminal running commands to set up Wegue. After some moments (~1 minute) you should see a running Wegue instance in one of the editor's panes like in this screenshot.
+To get started navigate to [**gitpod.io/#https://github.com/wegue-oss/wegue/tree/v1.2.1**](https://gitpod.io/#https://github.com/wegue-oss/wegue/tree/v1.2.1). Ideally, you will see a terminal running commands to set up Wegue. After some moments (~1 minute) you should see a running Wegue instance in one of the editor's panes like in this screenshot.
 
 ![Wegue running in Gitpod](_media/workshop/gitpod-wegue.png)
 
@@ -37,10 +37,10 @@ We need to download Wegue. This can be done in two ways:
     cd wegue
 
     # checkout the version of the Workshop
-    git checkout v1.2.0
+    git checkout v1.2.1
     ```
 
-- Alternatively download a zip-archive of Wegue via GitHub using this [link](https://github.com/wegue-oss/wegue/archive/refs/tags/v1.2.0.zip) and extract it.
+- Alternatively download a zip-archive of Wegue via GitHub using this [link](https://github.com/wegue-oss/wegue/archive/refs/tags/v1.2.1.zip) and extract it.
 
 ## Start Wegue
 
