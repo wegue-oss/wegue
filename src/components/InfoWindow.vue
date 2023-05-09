@@ -18,7 +18,7 @@
          </v-card-media>
          <v-card-title primary-title>
            <div>
-             <h3 class="headline mb-0">{{title}}</h3>
+             <h3 class="text-h5 mb-0">{{title}}</h3>
              <div>{{description1}} <br> {{description2}}</div>
            </div>
          </v-card-title>
