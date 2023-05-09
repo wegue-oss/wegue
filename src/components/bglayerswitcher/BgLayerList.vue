@@ -30,7 +30,7 @@
             :height="imageHeight"
             :previewIcon="previewIcon"
           />
-          <v-card-title class="caption">
+          <v-card-title class="text-caption">
             <span class="d-inline-block text-truncate">
               {{ layer.get('name') }}
             </span>
