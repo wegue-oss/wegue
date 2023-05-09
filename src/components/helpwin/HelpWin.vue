@@ -6,7 +6,7 @@
       :width="width">
     <v-card-title primary-title>
       <div>
-        <h3 class="headline mb-0" v-if="$t('wgu-helpwin.textTitle')">
+        <h3 class="text-h5 mb-0" v-if="$t('wgu-helpwin.textTitle')">
           {{ $t('wgu-helpwin.textTitle') }}</h3>
       </div>
     </v-card-title>
