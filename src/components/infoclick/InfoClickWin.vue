@@ -29,7 +29,7 @@
          done in FeatureInfoWindow -->
     <div v-if="this.showMedia">
 
-      <v-card-text v-if="!this.attributeData" class="no-data"> 
+      <v-card-text v-if="!this.attributeData" class="no-data">
         {{ $t('wgu-infoclick.mediaClick') }}
       </v-card-text>
 
@@ -90,7 +90,7 @@ export default {
     }
   },
   created () {
-    var me = this;
+    const me = this;
     // Listen to the ol-map-mounted event and receive the OL map instance
     WguEventBus.$on('ol-map-mounted', (olMap) => {
       // make the OL map accessible in this component
@@ -99,7 +99,7 @@ export default {
   },
   methods: {
     registerMapClick (unregister) {
-      var me = this;
+      const me = this;
 
       if (unregister === true) {
         me.map.un('singleclick', me.onMapClick);
@@ -115,7 +115,7 @@ export default {
      */
     onMapClick (evt) {
       const me = this;
-      let featureLayer = me.map.forEachFeatureAtPixel(evt.pixel,
+      const featureLayer = me.map.forEachFeatureAtPixel(evt.pixel,
         (feature, layer) => {
           return [feature, layer];
         });
@@ -123,7 +123,7 @@ export default {
       // collect feature attributes --> PropertyTable
       if (featureLayer) {
         const feat = featureLayer[0];
-        let props = feat.getProperties();
+        const props = feat.getProperties();
         // do not show geometry property
         delete props.geometry;
 

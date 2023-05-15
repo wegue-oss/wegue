@@ -32,13 +32,13 @@ export const LayerFactory = {
    * @type {Object}
    */
   formatMapping: {
-    'MVT': MvtFormat,
-    'GeoJSON': GeoJsonFormat,
-    'TopoJSON': TopoJsonFormat,
-    'KML': KmlFormat,
-    'GML2': GML2Format,
-    'GML3': GML3Format,
-    'GML32': GML32Format
+    MVT: MvtFormat,
+    GeoJSON: GeoJsonFormat,
+    TopoJSON: TopoJsonFormat,
+    KML: KmlFormat,
+    GML2: GML2Format,
+    GML3: GML3Format,
+    GML32: GML32Format
   },
 
   /**
@@ -46,10 +46,10 @@ export const LayerFactory = {
    * @type {Object}
    */
   wfsFormatMapping: {
-    'GeoJSON': 'application/json',
-    'GML2': 'text/xml; subtype=gml/2.1.2',
-    'GML3': 'text/xml; subtype=gml/3.1.1',
-    'GML32': 'text/xml; subtype=gml/3.2'
+    GeoJSON: 'application/json',
+    GML2: 'text/xml; subtype=gml/2.1.2',
+    GML3: 'text/xml; subtype=gml/3.1.1',
+    GML32: 'text/xml; subtype=gml/3.2'
   },
 
   /**
@@ -114,7 +114,7 @@ export const LayerFactory = {
    */
   createImageWmsLayer (lConf) {
     // apply additional HTTP params
-    const params = { 'LAYERS': lConf.layers };
+    const params = { LAYERS: lConf.layers };
     ObjectUtil.mergeDeep(params, lConf.params);
 
     const layer = new ImageLayer({
@@ -144,7 +144,7 @@ export const LayerFactory = {
    */
   createTileWmsLayer (lConf) {
     // apply additional HTTP params
-    const params = { 'LAYERS': lConf.layers };
+    const params = { LAYERS: lConf.layers };
     ObjectUtil.mergeDeep(params, lConf.params);
 
     const layer = new TileLayer({
@@ -237,7 +237,7 @@ export const LayerFactory = {
       strategy: lConf.loadOnlyVisible !== false ? bboxStrategy : undefined
     });
 
-    var vector = new VectorLayer({
+    const vector = new VectorLayer({
       ...this.getCommonLayerOptions(lConf),
       source: vectorSource,
       style: OlStyleFactory.getInstance(lConf.style),

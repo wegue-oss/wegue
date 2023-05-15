@@ -64,10 +64,10 @@ function encodeUrlXhr (url, data) {
 
 function jsonp (url, key, callback) {
   // https://github.com/Fresheyeball/micro-jsonp/blob/master/src/jsonp.js
-  let head = document.head;
-  let script = document.createElement('script');
+  const head = document.head;
+  const script = document.createElement('script');
   // generate minimally unique name for callback function
-  let callbackName = 'f' + Math.round(Math.random() * Date.now());
+  const callbackName = 'f' + Math.round(Math.random() * Date.now());
 
   // set request url
   script.setAttribute(

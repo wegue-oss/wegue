@@ -28,9 +28,9 @@ import { json } from './helpers/ajax';
 
 // Geocoder Provider types
 export const PROVIDERS = {
-  'osm': OpenStreetMap,
-  'photon': Photon,
-  'opencage': OpenCage
+  osm: OpenStreetMap,
+  photon: Photon,
+  opencage: OpenCage
 };
 
 /**
@@ -47,7 +47,7 @@ export class GeocoderController {
     this.options = options;
 
     // Must have Provider class defined for name
-    if (!PROVIDERS.hasOwnProperty(providerName)) {
+    if (!Object.prototype.hasOwnProperty.call(PROVIDERS, providerName)) {
       console.warn(`No class defined for Geocoder Provider: '${providerName}'`);
       return;
     }
@@ -65,7 +65,7 @@ export class GeocoderController {
       limit: this.options.limit
     });
 
-    let ajax = {
+    const ajax = {
       url: parameters.url,
       data: parameters.params
     };

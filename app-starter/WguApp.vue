@@ -6,12 +6,12 @@
 </template>
 
 <script>
-  import WguAppTemplate from './WguAppTemplate.vue';
-  export default {
-    name: 'my-wgu-app',
-    components: {
-      'wgu-app-tpl': WguAppTemplate
-    }
-    // add Vue methods and hooks here
+import WguAppTemplate from './WguAppTemplate.vue';
+export default {
+  name: 'my-wgu-app',
+  components: {
+    'wgu-app-tpl': WguAppTemplate
   }
+  // add Vue methods and hooks here
+}
 </script>

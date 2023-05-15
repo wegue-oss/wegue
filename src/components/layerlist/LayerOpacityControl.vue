@@ -9,7 +9,7 @@
     thumb-label
     hide-details
     @input="onOpacitySliderInput"
-    >   
+    >
   </v-slider>
 </template>
 

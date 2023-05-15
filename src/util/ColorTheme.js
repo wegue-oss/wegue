@@ -2,21 +2,21 @@ import ColorUtil from './Color'
 
 // Macro for default color themes configuration
 const DEFAULT_THEMES = Object.freeze({
-  'light': {
-    'primary': '#af2622',
-    'onprimary': '#ffffff',
-    'secondary': '#af2622',
-    'onsecondary': '#ffffff',
-    'anchor': '#af2622',
-    'error': '#ff6f00'
+  light: {
+    primary: '#af2622',
+    onprimary: '#ffffff',
+    secondary: '#af2622',
+    onsecondary: '#ffffff',
+    anchor: '#af2622',
+    error: '#ff6f00'
   },
-  'dark': {
-    'primary': '#272727',
-    'onprimary': '#ffffff',
-    'secondary': '#ea9b9b',
-    'onsecondary': '#272727',
-    'anchor': '#ea9b9b',
-    'error': '#ff6f00'
+  dark: {
+    primary: '#272727',
+    onprimary: '#ffffff',
+    secondary: '#ea9b9b',
+    onsecondary: '#272727',
+    anchor: '#ea9b9b',
+    error: '#ff6f00'
   }
 });
 
@@ -175,7 +175,7 @@ const ColorThemeUtil = {
     // Set customProperties.
     // This creates css colors for each vuetify color class
     outputConfig.options = {
-      'customProperties': true
+      customProperties: true
     }
 
     return outputConfig;

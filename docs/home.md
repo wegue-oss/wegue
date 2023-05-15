@@ -29,7 +29,7 @@ npm run init:app
 Serve with hot reload at [localhost:8081](http://localhost:8081)
 
 ```shell
-npm run dev
+npm run serve
 ```
 
 Build for production with minification

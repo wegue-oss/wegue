@@ -60,7 +60,7 @@ npm run init:app
 Now we have everything ready to start a local Wegue application that we can view on our computer using this command:
 
 ```shell
-npm run dev
+npm run serve
 ```
 
 It assembles all the source files of Wegue and publishes them on a local webserver via port `8081`. This can take up to one minute. To view it open [localhost:8081](http://localhost:8081) in your web browser. Then you should see the a default Wegue web mapping application.

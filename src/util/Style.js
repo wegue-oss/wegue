@@ -14,7 +14,7 @@ const StyleUtil = {
         const layerStyleFunction = originalStyle;
 
         // check what kind of result we can expect
-        let layerStyle = layerStyleFunction(feature, resolution);
+        const layerStyle = layerStyleFunction(feature, resolution);
 
         if (Array.isArray(layerStyle)) {
           // case result is an style array

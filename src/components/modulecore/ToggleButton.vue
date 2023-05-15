@@ -1,9 +1,9 @@
 <template>
   <v-btn-toggle
     borderless
-    dense 
+    dense
     color="onprimary"
-    background-color="transparent" 
+    background-color="transparent"
     :title="$t(moduleName + '.title')"
     v-model="show">
     <v-btn icon :value="true" color="onprimary" @click="toggleUi">
