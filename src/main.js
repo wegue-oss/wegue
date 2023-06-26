@@ -93,7 +93,7 @@ const migrateAppConfig = function (appConfig) {
   // Migrate boolean values for module.win.
   if (appConfig.modules) {
     Object.keys(appConfig.modules).forEach(name => {
-      var module = appConfig.modules[name];
+      const module = appConfig.modules[name];
       if (typeof module.win === 'boolean') {
         module.win = module.win ? 'floating' : undefined;
       }
@@ -103,6 +103,7 @@ const migrateAppConfig = function (appConfig) {
   // Create warnings for text based configuration properties,
   // which are no longer supported and have been moved to the language files.
   /* eslint-disable no-useless-escape */
+  /* eslint-disable quote-props */
   const deprecatedTextProps = {
     'title': 'app.title',
     'browserTitle': 'app.browserTitle',
@@ -120,6 +121,7 @@ const migrateAppConfig = function (appConfig) {
     'modules\\.wgu-helpwin\\.infoLinkText': 'wgu-helpwin.infoLinkText',
     'modules\\..*\\.title': '<moduleName>.title'
   };
+  /* eslint-enable quote-props */
   /* eslint-enable no-useless-escape */
 
   const configPaths = ObjectUtil.toPaths(appConfig);
@@ -183,14 +185,11 @@ const createApp = function (appConfig) {
   // make app config accessible for all components
   Vue.prototype.$appConfig = migrateAppConfig(appConfig);
 
-  /* eslint-disable no-new */
   new Vue({
     vuetify: createVuetify(appConfig),
     i18n: createVueI18n(appConfig),
-    el: '#app',
-    template: '<wgu-app/>',
-    components: { WguApp }
-  });
+    render: h => h(WguApp)
+  }).$mount('#app');
 };
 
 // Look in the static dir for an app-specific config file.

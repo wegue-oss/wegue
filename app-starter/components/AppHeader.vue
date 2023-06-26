@@ -43,7 +43,7 @@
       <v-list color="primary">
           <template v-for="(tbButton, index) in menuButtons">
             <v-list-item :key="index">
-              <component 
+              <component
                   :is="tbButton.type" :key="index"
                   v-bind="tbButton"
                />
@@ -102,7 +102,7 @@ export default {
     getModuleButtons (target) {
       const appConfig = Vue.prototype.$appConfig || {};
       const modulesConfs = appConfig.modules || {};
-      let buttons = [];
+      const buttons = [];
       for (const key of Object.keys(modulesConfs)) {
         const moduleOpts = appConfig.modules[key];
         if (moduleOpts.target === target) {

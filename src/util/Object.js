@@ -40,14 +40,14 @@ const ObjectUtil = {
    * @returns {Array} An array containing all paths to keys of the object.
    */
   toPaths (item, path = '') {
-    var result = [];
+    const result = [];
     if (item && typeof item === 'object') {
       if (Array.isArray(item)) {
-        for (var i = 0; i < item.length; i++) {
+        for (let i = 0; i < item.length; i++) {
           result.push(...ObjectUtil.toPaths(item[i], path + '[' + i + ']'));
         }
       } else {
-        for (var p in item) {
+        for (const p in item) {
           result.push(...ObjectUtil.toPaths(item[p], path + '.' + p));
         }
       }

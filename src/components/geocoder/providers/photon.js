@@ -66,7 +66,7 @@ export class Photon {
       const geometry = feature.geometry;
       const properties = feature.properties;
       const displayName = `${properties.name} ${properties.city || ''} ${properties.postcode || ''} ${properties.state || ''} ${properties.country || ''}`;
-      let result = {
+      const result = {
         lon: geometry.coordinates[0],
         lat: geometry.coordinates[1],
         address: {

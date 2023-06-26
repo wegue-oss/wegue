@@ -1,4 +1,6 @@
 app/
 dist/
 node_modules/
+test/unit/coverage/
+tests/unit/coverage/
 .git/

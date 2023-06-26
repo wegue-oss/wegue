@@ -11,7 +11,7 @@
       <template v-slot:activator="{on}">
         <v-sheet class="wgu-map-button wgu-overviewmap">
           <v-btn v-on="on"
-            color="secondary" 
+            color="secondary"
             fab
             :title="$t('wgu-overviewmap.title')"
             >
@@ -19,7 +19,7 @@
           </v-btn>
         </v-sheet>
       </template>
-      <!-- Remarks: The overviewmap-panel is wrapped by an v-if block to avoid unneccesary image 
+      <!-- Remarks: The overviewmap-panel is wrapped by an v-if block to avoid unneccesary image
           requests when the panel is not visible -->
       <wgu-overviewmap-panel v-if="open"
         :rotateWithView="rotateWithView"

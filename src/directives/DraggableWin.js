@@ -31,7 +31,7 @@ export const DraggableWin = {
       return;
     }
     // get the header element to bind the events on it
-    var header = elmnt.querySelector('div.wgu-win-title');
+    const header = elmnt.querySelector('div.wgu-win-title');
     if (!header) {
       return;
     }

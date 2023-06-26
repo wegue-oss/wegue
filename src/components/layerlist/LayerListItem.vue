@@ -3,7 +3,7 @@
   <v-list-group
     v-if="showDetails"
     v-model="open"
-    class="text--primary"         
+    class="text--primary"
     >
     <template v-slot:activator>
       <v-list-item-action>
@@ -11,27 +11,27 @@
           color="secondary"
           hide-details
           :input-value="layer.getVisible()"
-          @click.capture.stop="onItemClick()"   
+          @click.capture.stop="onItemClick()"
         />
-      </v-list-item-action> 
+      </v-list-item-action>
       <v-list-item-title>
         {{ layer.get('name') }}
       </v-list-item-title>
     </template>
-    <v-list-item 
-      v-if="showOpacityControl" 
+    <v-list-item
+      v-if="showOpacityControl"
       class="overflow-visible"
     >
-      <wgu-layeropacitycontrol 
+      <wgu-layeropacitycontrol
         :layer="layer"
       />
-    </v-list-item> 
-    <v-list-item 
+    </v-list-item>
+    <v-list-item
       v-if="showLegend"
-    > 
-      <!-- Remarks: 
-      The legend image item is wrapped by an v-if block to avoid unneccesary image 
-      requests when the layer item is not expanded. 
+    >
+      <!-- Remarks:
+      The legend image item is wrapped by an v-if block to avoid unneccesary image
+      requests when the layer item is not expanded.
       -->
       <wgu-layerlegendimage v-if="open"
         :layer="layer"
@@ -41,9 +41,9 @@
   </v-list-group>
 
   <!-- Simple layer entry -->
-  <v-list-item 
+  <v-list-item
     v-else
-    class="wgu-layerlist-item" 
+    class="wgu-layerlist-item"
     >
     <v-list-item-action>
       <v-checkbox

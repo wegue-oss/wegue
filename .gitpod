@@ -4,7 +4,7 @@ ports:
     onOpen: open-preview
 tasks:
   - init: npm install && npm run init:app
-    command: npm run dev
+    command: npm run serve
 vscode:
   extensions:
     - dbaeumer.vscode-eslint

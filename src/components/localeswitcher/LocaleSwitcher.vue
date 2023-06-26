@@ -5,9 +5,9 @@
       <template v-slot:activator="{ on, attrs}">
         <v-btn
           borderless
-          dense 
+          dense
           color="onprimary"
-          background-color="transparent" 
+          background-color="transparent"
           :title="$t('wgu-localeswitcher.title')"
           class="ma-2"
           icon
@@ -15,14 +15,14 @@
           v-bind="attrs"
         >
           <v-icon class="mr-1" medium>{{icon}}</v-icon>
-          {{ $i18n.locale }} 
+          {{ $i18n.locale }}
         </v-btn>
       </template>
-    
+
       <v-list>
-        <v-list-item class="wgu-langlist-item" 
-          v-for="langCode in Object.keys(lang)" 
-          :key="langCode" 
+        <v-list-item class="wgu-langlist-item"
+          v-for="langCode in Object.keys(lang)"
+          :key="langCode"
           @click="onItemClick(langCode)">
           <v-list-item-content>
             <v-list-item-title>
