@@ -33,18 +33,18 @@ export default {
   },
   methods: {
     /**
-       * This function is executed, after the map is bound (see mixins/Mapable).
-       * Bind to the layers from the OpenLayers map.
-       */
+     * This function is executed, after the map is bound (see mixins/Mapable).
+     * Bind to the layers from the OpenLayers map.
+     */
     onMapBound () {
       this.layers = this.map.getLayers().getArray();
     }
   },
   computed: {
     /**
-       * Reactive property to return the OpenLayers layers to be shown in the control.
-       * Remarks: The 'displayInLayerList' attribute should default to true per convention.
-       */
+     * Reactive property to return the OpenLayers layers to be shown in the control.
+     * Remarks: The 'displayInLayerList' attribute should default to true per convention.
+     */
     displayedLayers () {
       return this.layers
         .filter(layer => layer.get('displayInLayerList') !== false && !layer.get('isBaseLayer'))

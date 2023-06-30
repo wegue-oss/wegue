@@ -1,23 +1,30 @@
 <template>
-  <v-card :class="cardClasses"
+  <v-card
+    :class="cardClasses"
     :style="cardStyles"
     v-bind="cardAttr"
-    v-if=show
+    v-if="show"
     v-draggable-win="cardDraggable"
-    >
-
+  >
     <v-img :src="backgroundImage">
       <v-toolbar v-bind="toolbarAttr">
         <v-icon color="onprimary" class="mr-4">{{ icon }}</v-icon>
-        <v-toolbar-title class="wgu-win-title">{{ $t(moduleName + '.title') }}</v-toolbar-title>
+        <v-toolbar-title class="wgu-win-title">{{
+          $t(moduleName + '.title')
+        }}</v-toolbar-title>
         <v-spacer></v-spacer>
 
         <!-- Slot for optional window toolbar content -->
         <slot name="wgu-win-toolbar"></slot>
 
         <v-spacer></v-spacer>
-        <v-btn color="onprimary" v-if="minimizable" icon small
-          @click="minimized = !minimized">
+        <v-btn
+          color="onprimary"
+          v-if="minimizable"
+          icon
+          small
+          @click="minimized = !minimized"
+        >
           <v-icon v-if="minimized">web_asset</v-icon>
           <v-icon v-else>remove</v-icon>
         </v-btn>
@@ -32,13 +39,12 @@
     <div v-show="!minimized">
       <slot name="default"></slot>
     </div>
-
   </v-card>
 </template>
 
 <script>
 import { DraggableWin } from '../../directives/DraggableWin';
-import { WguEventBus } from '../../WguEventBus'
+import { WguEventBus } from '../../WguEventBus';
 export default {
   name: 'wgu-module-card',
   inheritAttrs: false,
@@ -68,10 +74,10 @@ export default {
     return {
       show: this.visible,
       minimized: false
-    }
+    };
   },
   created () {
-    WguEventBus.$on(this.moduleName + '-visibility-change', visible => {
+    WguEventBus.$on(this.moduleName + '-visibility-change', (visible) => {
       this.show = visible;
       this.$emit('visibility-change', visible);
     });
@@ -83,20 +89,20 @@ export default {
   },
   computed: {
     cardClasses () {
-      return (this.win === 'floating')
+      return this.win === 'floating'
         ? ['wgu-module-card', 'wgu-floating']
-        : ['wgu-module-card', 'wgu-sidebar']
+        : ['wgu-module-card', 'wgu-sidebar'];
     },
     cardStyles () {
-      return (this.win === 'floating')
+      return this.win === 'floating'
         ? {
             left: this.initPos ? this.initPos.left + 'px' : '0px',
             top: this.initPos ? this.initPos.top + 'px' : '0px'
           }
-        : {}
+        : {};
     },
     cardAttr () {
-      return (this.win === 'floating')
+      return this.win === 'floating'
         ? {
             height: this.height,
             width: this.width,
@@ -105,12 +111,10 @@ export default {
             minHeight: this.minHeight,
             minWidth: this.minWidth
           }
-        : {}
+        : {};
     },
     cardDraggable () {
-      return (this.win === 'floating')
-        ? this.draggable
-        : false
+      return this.win === 'floating' ? this.draggable : false;
     },
     toolbarAttr () {
       return this.backgroundImage
@@ -122,13 +126,13 @@ export default {
         : {
             color: 'primary',
             class: 'onprimary--text'
-          }
+          };
     }
   },
   methods: {
     toggleUi () {
-      WguEventBus.$emit(this.moduleName + '-visibility-change', !this.show)
+      WguEventBus.$emit(this.moduleName + '-visibility-change', !this.show);
     }
   }
-}
+};
 </script>
