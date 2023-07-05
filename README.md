@@ -25,6 +25,13 @@ Ensure that you have clean commits (and messages) and a meaningful description i
 
 We look forward to your contributions!
 
+## Versions
+
+The latest development points towards a Wegue version v2. This development is reflected within the `master` branch.
+Herewith some breaking changes come along. In case you have to remain on the v1.x version of Wegue you can use the latest release [v1.2.1](https://github.com/wegue-oss/wegue/releases/tag/v1.2.1) or to the maintenance development of v1 in the [v1 branch](https://github.com/wegue-oss/wegue/tree/v1). For a reasonable amount of time `v1` branch will be maintained. At least until there is an official `v2` release plus some additional buffer time.
+
+In case you want to upgrade an existing Wegue app from v1 to the current v2 development stream please have a look at the `upgrade-notes.md` file.
+
 ## Development
 
 Prerequisites: Node.js and npm need to be available on your system.
