@@ -35,6 +35,11 @@ export default {
       if (geom instanceof PolygonGeom) {
         output = me.formatArea(geom);
         me.area = output;
+
+        // perimeter of  outer LinearRing of measure polygon
+        me.distance = me.formatLength(new LineStringGeom(
+          geom.getLinearRing(0).getCoordinates()
+        ));
       } else if (geom instanceof LineStringGeom) {
         output = me.formatLength(geom);
         me.distance = output;

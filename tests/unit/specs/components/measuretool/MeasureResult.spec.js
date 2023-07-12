@@ -70,6 +70,7 @@ describe('measuretool/MeasureResult.vue', () => {
       comp.setProps({ measureGeom: { geom: polyGeom } });
       comp.vm.$nextTick(() => {
         expect(comp.vm.area).to.equal('1 m²');
+        expect(comp.vm.distance).to.equal('4 m');
         done();
       });
     });
