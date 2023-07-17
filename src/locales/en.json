@@ -18,7 +18,7 @@
       "name": "Drag/Drop Data"
     }
   },
-  
+
   "wgu-toolbar-menu": {
     "title": "Open toolbar menu"
   },
@@ -56,13 +56,13 @@
 
   "wgu-infoclick": {
     "title": "Map Click Info",
-    "mapClick": "Click on the map to get information for the clicked map position.",    
+    "mapClick": "Click on the map to get information for the clicked map position.",
     "mediaClick": "Click on a feature on the map to show connected media information.",
     "mediaInfoLinkText": null
   },
 
   "wgu-layerlist": {
-    "title": "Layers" 
+    "title": "Layers"
   },
 
   "wgu-maprecorder": {
@@ -76,7 +76,7 @@
     "stop": "Stop",
     "error": "Failed to start recording."
   },
-  
+
   "wgu-zoomtomaxextent": {
     "title": "Reset Map Extent"
   },
@@ -86,6 +86,7 @@
     "distance": "Distance",
     "length": "Length",
     "area": "Area",
+    "angle": "Angle",
     "lengthKm": "{0} km",
     "lengthMeter": "{0} m",
     "areaSquareKm": "{0} km²",

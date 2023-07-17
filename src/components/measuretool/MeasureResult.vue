@@ -1,30 +1,35 @@
 <template>
 
   <div class="">
-    <div class="measure-result">
+    <div class="measure-result" v-if="measureType === 'distance' || measureType === 'area'">
       {{ $t("wgu-measuretool.length") }}: {{distance}}
     </div>
-    <div class="measure-result">
+    <div class="measure-result" v-if="measureType === 'area'">
       {{ $t("wgu-measuretool.area") }}: {{area}}
+    </div>
+    <div class="measure-result" v-if="measureType === 'angle'">
+      {{ $t("wgu-measuretool.angle") }}: {{angle}}
     </div>
   </div>
 
 </template>
 
 <script>
+import AngleUtil from '../../../src/util/Angle';
 import LineStringGeom from 'ol/geom/LineString';
-import PolygonGeom from 'ol/geom/Polygon';
 import { getArea, getLength } from 'ol/sphere.js';
 
 export default {
   name: 'wgu-measure-result',
   props: {
-    measureGeom: { type: Object }
+    measureGeom: { type: Object },
+    measureType: { type: String }
   },
   data () {
     return {
       area: ' -- ',
-      distance: ' -- '
+      distance: ' -- ',
+      angle: ' -- '
     }
   },
   watch: {
@@ -32,7 +37,7 @@ export default {
       const me = this;
       const geom = me.measureGeom.geom;
       let output;
-      if (geom instanceof PolygonGeom) {
+      if (geom && this.measureType === 'area') {
         output = me.formatArea(geom);
         me.area = output;
 
@@ -40,12 +45,15 @@ export default {
         me.distance = me.formatLength(new LineStringGeom(
           geom.getLinearRing(0).getCoordinates()
         ));
-      } else if (geom instanceof LineStringGeom) {
+      } else if (geom && this.measureType === 'distance') {
         output = me.formatLength(geom);
         me.distance = output;
+      } else if (geom && this.measureType === 'angle') {
+        me.angle = me.formatAngle(geom);
       } else {
         me.area = ' -- ';
         me.distance = ' -- ';
+        me.angle = ' -- ';
       }
     }
   },
@@ -83,6 +91,33 @@ export default {
           [Math.round(area * 100) / 100]);
       }
       return output;
+    },
+
+    /**
+     * Calculates and formats the angle of the given 2 point line.
+     */
+    formatAngle (line) {
+      const coords = line.getCoordinates();
+      const numCoords = coords.length;
+      if (numCoords < 2) {
+        return ' -- ';
+      }
+
+      const firstPoint = coords[0];
+      const lastPoint = coords[1];
+
+      // when clicked only once the geom is a line with 2 identical points
+      const isSamePoint = firstPoint.toString() === lastPoint.toString();
+      if (isSamePoint) {
+        return ' -- ';
+      }
+
+      let angle = AngleUtil.angle360(firstPoint, lastPoint);
+      angle = AngleUtil.makeZeroDegreesAtNorth(angle);
+      angle = AngleUtil.makeClockwise(angle);
+      angle = angle.toFixed(2);
+
+      return angle + '°';
     }
   }
 }

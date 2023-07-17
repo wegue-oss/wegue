@@ -78,6 +78,7 @@ export default class OlMeasureController {
     const draw = new DrawInteraction({
       source: me.source,
       type: type,
+      maxPoints: measureType === 'angle' ? 2 : undefined,
       style: new Style({
         fill: new Fill({
           color: measureConf.sketchFillColor || 'rgba(255, 255, 255, 0.2)'
@@ -98,6 +99,8 @@ export default class OlMeasureController {
         })
       })
     });
+    // preserve measure type to re-use in draw events
+    draw.set('measureType', measureType);
     me.map.addInteraction(draw);
 
     let listener;
@@ -116,8 +119,15 @@ export default class OlMeasureController {
     }, me);
 
     draw.on('drawend', () => {
+      if (draw.get('measureType') === 'angle') {
+        // execute given callback to update angle
+        const geom = sketch.getGeometry();
+        mapClickCb(geom);
+      }
+
       // unset sketch
       sketch = null;
+
       unByKey(listener);
     }, me);
 

@@ -16,6 +16,7 @@ describe('measuretool/MeasureWin.vue', () => {
 
     it('has correct default props', () => {
       expect(comp.vm.icon).to.equal('photo_size_select_small');
+      expect(comp.vm.showAngleTool).to.equal(false);
     });
 
     afterEach(() => {
