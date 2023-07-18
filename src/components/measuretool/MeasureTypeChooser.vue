@@ -1,16 +1,31 @@
 <template>
 
-  <v-btn-toggle color="secondary"  v-model="measureTypeData" mandatory>
-     <v-btn large value="distance">
-       {{ $t("wgu-measuretool.distance") }}
+  <v-btn-toggle color="secondary" v-model="measureTypeData" mandatory>
+    <v-btn large value="distance">
+      <v-icon>
+        mdi-vector-polyline
+      </v-icon>
+      <span v-if="!iconsOnly">
+        {{ $t("wgu-measuretool.distance") }}
+      </span>
      </v-btn>
      <v-btn large value="area">
-       {{ $t("wgu-measuretool.area") }}
+      <v-icon>
+        mdi-vector-square
+      </v-icon>
+      <span v-if="!iconsOnly">
+        {{ $t("wgu-measuretool.area") }}
+      </span>
      </v-btn>
      <v-btn large value="angle" v-if="showAngleTool">
-       {{ $t("wgu-measuretool.angle") }}
-     </v-btn>
-   </v-btn-toggle>
+      <v-icon>
+        mdi-vector-line
+      </v-icon>
+      <span v-if="!iconsOnly">
+        {{ $t("wgu-measuretool.angle") }}
+      </span>
+    </v-btn>
+  </v-btn-toggle>
 
 </template>
 
@@ -19,7 +34,8 @@ export default {
   name: 'wgu-measure-type-chooser',
   props: {
     measureType: { type: String, default: 'distance' },
-    showAngleTool: { type: Boolean, default: false }
+    showAngleTool: { type: Boolean, default: false },
+    iconsOnly: { type: Boolean, default: false }
   },
   data () {
     return {
