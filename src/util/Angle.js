@@ -9,9 +9,9 @@ const AngleUtil = {
    *
    * Inspired by http://stackoverflow.com/a/31136507
    *
-   * @param {Array<Number>} start The start coordinates of the line with the
+   * @param {ol/coordinate} start The start coordinates of the line with the
    *   x-coordinate being at index `0` and y-coordinate being at index `1`.
-   * @param {Array<Number>} end The end coordinates of the line with the
+   * @param {ol/coordinate} end The end coordinates of the line with the
    *   x-coordinate being at index `0` and y-coordinate being at index `1`.
    * @returns {Number} the angle in degrees, ranging from -180° to 180°.
    */
@@ -32,9 +32,9 @@ const AngleUtil = {
    *
    * Inspired by http://stackoverflow.com/a/31136507
    *
-   * @param {Array<Number>} start The start coordinates of the line with the
+   * @param {ol/coordinate} start The start coordinates of the line with the
    *   x-coordinate being at index `0` and y-coordinate being at index `1`.
-   * @param {Array<Number>} end The end coordinates of the line with the
+   * @param {ol/coordinate} end The end coordinates of the line with the
    *   x-coordinate being at index `0` and y-coordinate being at index `1`.
    * @returns {Number} the angle in degreees, ranging from 0° and 360°.
    */

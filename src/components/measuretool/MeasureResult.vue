@@ -19,6 +19,8 @@ import AngleUtil from '../../../src/util/Angle';
 import LineStringGeom from 'ol/geom/LineString';
 import { getArea, getLength } from 'ol/sphere.js';
 
+const EMPTY_RESULT_TEXT = ' -- ';
+
 export default {
   name: 'wgu-measure-result',
   props: {
@@ -27,9 +29,9 @@ export default {
   },
   data () {
     return {
-      area: ' -- ',
-      distance: ' -- ',
-      angle: ' -- '
+      area: EMPTY_RESULT_TEXT,
+      distance: EMPTY_RESULT_TEXT,
+      angle: EMPTY_RESULT_TEXT
     }
   },
   watch: {
@@ -51,9 +53,9 @@ export default {
       } else if (geom && this.measureType === 'angle') {
         me.angle = me.formatAngle(geom);
       } else {
-        me.area = ' -- ';
-        me.distance = ' -- ';
-        me.angle = ' -- ';
+        me.area = EMPTY_RESULT_TEXT;
+        me.distance = EMPTY_RESULT_TEXT;
+        me.angle = EMPTY_RESULT_TEXT;
       }
     }
   },
@@ -100,7 +102,7 @@ export default {
       const coords = line.getCoordinates();
       const numCoords = coords.length;
       if (numCoords < 2) {
-        return ' -- ';
+        return EMPTY_RESULT_TEXT;
       }
 
       const firstPoint = coords[0];
@@ -109,7 +111,7 @@ export default {
       // when clicked only once the geom is a line with 2 identical points
       const isSamePoint = firstPoint.toString() === lastPoint.toString();
       if (isSamePoint) {
-        return ' -- ';
+        return EMPTY_RESULT_TEXT;
       }
 
       let angle = AngleUtil.angle360(firstPoint, lastPoint);

@@ -22,15 +22,16 @@ describe('measuretool/MeasureResult.vue', () => {
   });
 
   describe('data', () => {
+    const EMPTY_RESULT_TEXT = ' -- ';
     let comp;
     beforeEach(() => {
       comp = shallowMount(MeasureResult);
     });
 
     it('has correct default data', () => {
-      expect(comp.vm.area).to.equal(' -- ');
-      expect(comp.vm.distance).to.equal(' -- ');
-      expect(comp.vm.angle).to.equal(' -- ');
+      expect(comp.vm.area).to.equal(EMPTY_RESULT_TEXT);
+      expect(comp.vm.distance).to.equal(EMPTY_RESULT_TEXT);
+      expect(comp.vm.angle).to.equal(EMPTY_RESULT_TEXT);
     });
   });
 
