@@ -33,7 +33,7 @@ module.exports = defineConfig({
       }
     },
     hot: true,
-    host: 'localhost',
+    host: '0.0.0.0',
     port: 8081,
     open: true
   },
