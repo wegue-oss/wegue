@@ -22,7 +22,7 @@
   "wgu-toolbar-menu": {
     "title": "Menüleiste ausklappen"
   },
-  
+
   "wgu-attributetable": {
     "title": "Attribut Tabelle",
     "selectorLabel": "Layer auswählen",
@@ -62,7 +62,7 @@
   },
 
   "wgu-layerlist": {
-    "title": "Layer" 
+    "title": "Layer"
   },
 
   "wgu-maprecorder": {
@@ -86,6 +86,7 @@
     "distance": "Entfernung",
     "length": "Länge",
     "area": "Fläche",
+    "angle": "Winkel",
     "lengthKm": "{0} km",
     "lengthMeter": "{0} m",
     "areaSquareKm": "{0} km²",

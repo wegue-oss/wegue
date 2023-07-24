@@ -7,6 +7,9 @@
      <v-btn large value="area">
        {{ $t("wgu-measuretool.area") }}
      </v-btn>
+     <v-btn large value="angle" v-if="showAngleTool">
+       {{ $t("wgu-measuretool.angle") }}
+     </v-btn>
    </v-btn-toggle>
 
 </template>
@@ -15,7 +18,8 @@
 export default {
   name: 'wgu-measure-type-chooser',
   props: {
-    measureType: { type: String, default: 'distance' }
+    measureType: { type: String, default: 'distance' },
+    showAngleTool: { type: Boolean, default: false }
   },
   data () {
     return {

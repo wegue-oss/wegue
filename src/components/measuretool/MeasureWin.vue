@@ -10,13 +10,14 @@
       <!-- toggle button to choose measure type -->
       <wgu-measure-type-chooser
         :measureType="measureType"
+        :showAngleTool="showAngleTool"
         @wgu-measuretype-change="applyMeasureType"
       />
       </v-card-title>
 
       <v-card-actions>
         <!-- result display -->
-        <wgu-measure-result :measureGeom="measureGeom" />
+        <wgu-measure-result :measureGeom="measureGeom" :measureType="measureType" />
       </v-card-actions>
   </wgu-module-card>
 </template>
@@ -38,7 +39,8 @@ export default {
   },
   mixins: [Mapable],
   props: {
-    icon: { type: String, required: false, default: 'photo_size_select_small' }
+    icon: { type: String, required: false, default: 'photo_size_select_small' },
+    showAngleTool: { type: Boolean, required: false, default: false }
   },
   data () {
     return {

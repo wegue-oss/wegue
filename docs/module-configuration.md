@@ -103,6 +103,7 @@ Module identifier: `wgu-measuretool`
 | sketchFillColor                | Fill color of the measurement sketch geometry (while measuring). Takes a CSS3 compliant color value. | `"sketchFillColor": "rgba(198,40,40,0.1)"`. |
 | sketchVertexStrokeColor        | Stroke color of the vertex of the sketch geometry (while measuring). Takes a CSS3 compliant color value. | `"sketchVertexStrokeColor": "#c62828"`. |
 | sketchVertexFillColor          | Fill color of the vertex of the sketch geometry (while measuring). Takes a CSS3 compliant color value | `"sketchVertexFillColor": "rgba(198,40,40,0.2)"`. |
+| showAngleTool                  | Flag to show / hide the angle tool to calculate the azimuth of a drawn 2-point line. | `"showAngleTool": true` |
 
 ## ZoomToMaxExtent
 

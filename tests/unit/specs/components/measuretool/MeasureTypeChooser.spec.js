@@ -14,6 +14,7 @@ describe('measuretool/MeasureTypeChooser.vue', () => {
 
     it('has correct default props', () => {
       expect(comp.vm.measureType).to.equal('distance');
+      expect(comp.vm.showAngleTool).to.equal(false);
     });
   });
 
