@@ -89,7 +89,7 @@ export default class HoverController {
     me.pendingRequestsCancelSrc = cancelToken.source();
 
     // Acquire features for all layers.
-    map.forEachLayerAtPixel(pixel, (layer) => {
+    map.getLayers().forEach((layer) => {
       if (!layer.get('hoverable')) {
         return;
       }
@@ -117,6 +117,7 @@ export default class HoverController {
         me.displayTooltip(featureInfos, coordinate)
       }
     });
+
     if (resetTooltip) {
       me.displayTooltip(null);
     }

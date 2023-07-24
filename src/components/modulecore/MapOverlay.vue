@@ -79,10 +79,11 @@ export default {
           offset: this.offset,
           positioning: this.positioning,
           position: this.position,
-          autoPan: this.autoPan,
-          autoPanAnimation: {
-            autoPanDuration: this.autoPanDuration
-          }
+          autoPan: this.autoPan
+            ? {
+                animation: { duration: this.autoPanDuration }
+              }
+            : false
         });
         this.map.addOverlay(this.olOverlay);
       }

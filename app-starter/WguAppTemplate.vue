@@ -24,7 +24,7 @@
     </wgu-app-sidebar>
 
     <slot name="wgu-before-content" />
-    <v-content app>
+    <v-main app>
       <v-container id="ol-map-container" fluid fill-height class="pa-0">
         <wgu-map />
         <!-- layer loading indicator -->
@@ -39,7 +39,7 @@
         <!-- Register custom overlays, e.g. feature hover components here -->
         <wgu-hover-tooltip />
       </v-container>
-    </v-content>
+    </v-main>
 
     <template v-for="(moduleWin, index) in floatingWins">
       <component
