@@ -11,6 +11,7 @@
       <wgu-measure-type-chooser
         :measureType="measureType"
         :showAngleTool="showAngleTool"
+        :iconsOnly="iconsOnly"
         @wgu-measuretype-change="applyMeasureType"
       />
       </v-card-title>
@@ -40,7 +41,8 @@ export default {
   mixins: [Mapable],
   props: {
     icon: { type: String, required: false, default: 'photo_size_select_small' },
-    showAngleTool: { type: Boolean, required: false, default: false }
+    showAngleTool: { type: Boolean, required: false, default: false },
+    iconsOnly: { type: Boolean, required: false, default: false }
   },
   data () {
     return {
