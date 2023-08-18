@@ -202,14 +202,20 @@ describe('geocoder/Geocoder.vue', () => {
     });
 
     it('search watcher assigns last query string', done => {
+      sinon.replace(window, 'fetch', sinon.fake.resolves(new Response(fetchResults)))
+
       vm.search = queryString;
       vm.$nextTick(() => {
-        expect(vm.lastQueryStr === queryString).to.equal(true);
-        done();
+        setTimeout(function () {
+          expect(vm.lastQueryStr === queryString).to.equal(true);
+          done();
+        }, 50)
       });
     });
 
     it('search watcher query with results', done => {
+      sinon.replace(window, 'fetch', sinon.fake.resolves(new Response(fetchResults)))
+
       vm.search = queryString;
       vm.$nextTick(() => {
         expect(vm.lastQueryStr === queryString).to.equal(true);
@@ -227,7 +233,7 @@ describe('geocoder/Geocoder.vue', () => {
           expect(selectionItems === undefined).to.equal(false);
           expect(selectionItems.length === vm.results.length).to.equal(true);
           done();
-        }, 1800);
+        }, 50);
       });
     });
 
