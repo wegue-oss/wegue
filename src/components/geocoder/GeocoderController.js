@@ -76,12 +76,8 @@ export class GeocoderController {
       ajax.callbackName = parameters.callbackName;
     }
 
-    try {
-      const response = await json(ajax);
-      return this.provider.handleResponse(response)
-    } catch (err) {
-      return err
-    }
+    const response = await json(ajax);
+    return this.provider.handleResponse(response)
 
     // // Do the query via Ajax XHR, returning JSON. Async callback via Promise.
     // json(ajax)

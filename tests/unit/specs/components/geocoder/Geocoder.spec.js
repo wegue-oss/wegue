@@ -115,6 +115,49 @@ describe('geocoder/Geocoder.vue', () => {
   describe('methods - search', () => {
     let comp;
     let vm;
+    let onQueryResultsSpy;
+    let onQueryErrorSpy;
+    const fetchResults = JSON.stringify([
+      {
+        lon: '7.0928944',
+        lat: '50.7400352',
+        boundingbox: ['50.7399852', '50.7400852', '7.0928444', '7.0929444'],
+        display_name: 'John Barleycorn, 52, Heerstraße, Altstadt, Nordstadt, Stadtbezirk Bonn, Bonn, North Rhine-Westphalia, 53111, Germany',
+        address: {
+          amenity: 'John Barleycorn',
+          house_number: '52',
+          road: 'Heerstraße',
+          neighbourhood: 'Altstadt',
+          quarter: 'Nordstadt',
+          city_district: 'Stadtbezirk Bonn',
+          city: 'Bonn',
+          state: 'North Rhine-Westphalia',
+          'ISO3166-2-lvl4': 'DE-NW',
+          postcode: '53111',
+          country: 'Germany',
+          country_code: 'de'
+        }
+      },
+      {
+        lon: '7.092862308035045',
+        lat: '50.7400625',
+        boundingbox: ['50.7399456', '50.7402129', '7.0926186', '7.0931026'],
+        display_name: '52, Heerstraße, Altstadt, Nordstadt, Stadtbezirk Bonn, Bonn, North Rhine-Westphalia, 53111, Germany',
+        address: {
+          house_number: '52',
+          road: 'Heerstraße',
+          neighbourhood: 'Altstadt',
+          quarter: 'Nordstadt',
+          city_district: 'Stadtbezirk Bonn',
+          city: 'Bonn',
+          state: 'North Rhine-Westphalia',
+          'ISO3166-2-lvl4': 'DE-NW',
+          postcode: '53111',
+          country: 'Germany',
+          country_code: 'de'
+        }
+      }
+    ])
     // let fakeXhr;
     // let clock;
     // let requests = [];
@@ -133,6 +176,8 @@ describe('geocoder/Geocoder.vue', () => {
       });
       vm = comp.vm;
 
+      onQueryResultsSpy = sinon.replace(vm, 'onQueryResults', sinon.fake(vm.onQueryResults))
+      onQueryErrorSpy = sinon.replace(vm, 'onQueryError', sinon.fake(vm.onQueryError))
       // TODO: Sinon Fake XMLHttpRequest and Fake Timers did not work for us...
       // clock = sinon.useFakeTimers();
       // global.XMLHttpRequest = sinon.useFakeXMLHttpRequest();
@@ -157,14 +202,20 @@ describe('geocoder/Geocoder.vue', () => {
     });
 
     it('search watcher assigns last query string', done => {
+      sinon.replace(window, 'fetch', sinon.fake.resolves(new Response(fetchResults)))
+
       vm.search = queryString;
       vm.$nextTick(() => {
-        expect(vm.lastQueryStr === queryString).to.equal(true);
-        done();
+        setTimeout(function () {
+          expect(vm.lastQueryStr === queryString).to.equal(true);
+          done();
+        }, 50)
       });
     });
 
     it('search watcher query with results', done => {
+      sinon.replace(window, 'fetch', sinon.fake.resolves(new Response(fetchResults)))
+
       vm.search = queryString;
       vm.$nextTick(() => {
         expect(vm.lastQueryStr === queryString).to.equal(true);
@@ -182,7 +233,7 @@ describe('geocoder/Geocoder.vue', () => {
           expect(selectionItems === undefined).to.equal(false);
           expect(selectionItems.length === vm.results.length).to.equal(true);
           done();
-        }, 1800);
+        }, 50);
       });
     });
 
@@ -203,7 +254,32 @@ describe('geocoder/Geocoder.vue', () => {
       });
     });
 
+    it('calls onQueryResults if fetch successful', done => {
+      sinon.replace(window, 'fetch', sinon.fake.resolves(new Response(fetchResults)))
+
+      vm.search = queryString;
+      vm.$nextTick(() => {
+        setTimeout(function () {
+          expect(onQueryResultsSpy).to.have.been.called;
+          done();
+        }, 50);
+      });
+    })
+
+    it('calls onQueryError if error during fetch', done => {
+      sinon.replace(window, 'fetch', sinon.fake.rejects())
+
+      vm.search = queryString;
+      vm.$nextTick(() => {
+        setTimeout(function () {
+          expect(onQueryErrorSpy).to.have.been.called;
+          done();
+        }, 50);
+      });
+    })
+
     afterEach(function () {
+      sinon.restore()
       // Like before we must clean up when tampering with globals.
       // global.XMLHttpRequest.restore();
       // clock.restore();
