@@ -12,6 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - run: npm install
+      - run: npm ci
       - run: npm run init:app
       - run: npm run test
