@@ -39,7 +39,7 @@
             <v-card-text class="pt-0">
               <v-slider
                   color="secondary"
-                  prepend-icon="mdi-iframe-variable-outline"
+                  prepend-icon="mdi-application-variable-outline"
                   v-model.number="frameRate"
                   min="20"
                   max="50"

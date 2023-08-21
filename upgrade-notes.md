@@ -17,3 +17,12 @@ Please have a look at the official [OpenLayers upgrade notes](https://github.com
 This lists some essentials, which had to be adapted in the Wegue code regarding to the upgrade to Vuetify in version 2.6.15:
 
 - The component `<v-content>` was renamed to `<v-main>`. Please adapt this in the `WguAppTemplate.vue` file of your Wegue application.
+
+### MDI Icons
+
+The MDI icon libraries used were upgraded to the following versions:
+
+- `@mdi/font` => 7.2.x
+- `material-icons` => 1.13.x
+
+Please refer to the [official changelog](https://pictogrammers.com/docs/library/mdi/releases/changelog/) for versions later than `5.9.55` and check if you are using `removed` or `renamed` icons. Those have to be adapted and/or replaced in your Wegue application.
