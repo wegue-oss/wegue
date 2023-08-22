@@ -10,7 +10,7 @@ This lists some essentials, which had to be adapted in the Wegue code regarding 
  Now the animation delay is passed as an object directly to the autoPan option.
 - `map.forEachLayerAtPixel()` is removed. Replaced with e.g. `map.getLayers().forEach()`.
 
-Please have a look at the official [OpenLayers upgrade notes](https://github.com/openlayers/openlayers/releases/tag/v7.0.0), when you upgrade your Wegue app.
+Please have a look at the official [OpenLayers upgrade notes](https://github.com/openlayers/openlayers/blob/main/changelog/upgrade-notes.md), when you upgrade your Wegue app. Especially look for any breaking change between OpenLayers v6.4.3 and the current OpenLayers version used in Wegue v2, see [package.json](https://github.com/wegue-oss/wegue/blob/master/package.json).
 
 ### Vuetify
 
