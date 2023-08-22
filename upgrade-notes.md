@@ -45,3 +45,17 @@ The MDI icon libraries used were upgraded to the following versions:
 - `material-icons` => 1.13.x
 
 Please refer to the [official changelog](https://pictogrammers.com/docs/library/mdi/releases/changelog/) for versions later than `5.9.55` and check if you are using `removed` or `renamed` icons. Those have to be adapted and/or replaced in your Wegue application.
+
+### ESLint
+
+ESLint and its associated plugins were upgraded to the following versions:
+
+- `eslint` => 7.32.x
+- `eslint-plugin-standard` => 4.1.x
+- `eslint-plugin-vue` => 7.20.x
+- `eslint-config-standard` => 16.0.x
+- `@vue/eslint-config-standard` => 6.1.x
+
+As lots of new linting rules were added, you should expect to see error and warnings the first time you will build your updated Wegue app.  
+The majority of those can be fixed automatically by running the `npm run lint:fix` command.  
+If you want to momentarily bypass some advanced errors to test your upgraded app or want to adapt linting rules to better suit your preferences, you can modify the `.eslintrc.js` file as needed.
