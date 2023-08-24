@@ -187,7 +187,7 @@ export default {
       /**
        * The video codecs supported by the browser.
        */
-      mimeTypes: mimeTypes,
+      mimeTypes,
       /**
        * Timer handle for canvas draw callbacks.
        */

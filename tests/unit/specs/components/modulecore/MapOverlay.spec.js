@@ -1,4 +1,3 @@
-
 import MapOverlay from '@/components/modulecore/MapOverlay'
 import { WguEventBus } from '@/WguEventBus'
 import OlMap from 'ol/Map';
