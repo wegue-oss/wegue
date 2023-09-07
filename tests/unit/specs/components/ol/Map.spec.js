@@ -160,8 +160,11 @@ describe('ol/Map.vue', () => {
           isBaseLayer: false,
           visible: true,
           selectable: true,
-          displayInLayerList: true
-        }]
+          displayInLayerList: true,
+          customProp: true,
+          otherCustomProp: true
+        }],
+        customLayerProperties: ['customProp']
       };
       comp = mount(Map, { vuetify });
       vm = comp.vm;
@@ -182,6 +185,16 @@ describe('ol/Map.vue', () => {
         }
       });
       expect(typeof selectIa).to.not.equal('undefined');
+    });
+
+    it('createLayers adds customLayerProperties if configured', () => {
+      const layers = vm.createLayers();
+      expect(layers[0].get('customProp')).to.be.true
+    });
+
+    it('createLayers ignores non configured layer properties', () => {
+      const layers = vm.createLayers();
+      expect(layers[0].get('otherCustomProp')).to.be.undefined
     });
 
     it('setOlButtonColor applies Vuetify color to OL buttons', () => {
