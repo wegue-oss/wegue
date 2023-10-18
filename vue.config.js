@@ -6,6 +6,7 @@ const { defineConfig } = require('@vue/cli-service')
  */
 module.exports = defineConfig({
   assetsDir: 'static',
+  publicPath: process.env.WGU_PUBLIC_PATH || './',
   runtimeCompiler: true,
   pages: {
     app: {
