@@ -36,7 +36,7 @@ describe('ViewAnimationUtil', () => {
     describe('animation type ' + animType, () => {
       beforeEach(() => {
         Vue.prototype.$appConfig = {
-          viewAnimation: { type: animType, options: options }
+          viewAnimation: { type: animType, options }
         };
       });
 

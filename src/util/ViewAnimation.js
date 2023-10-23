@@ -209,7 +209,7 @@ const PanAnimation = {
 
     view.animate({
       center: location,
-      duration: duration,
+      duration,
       zoom: Math.min(zoom, maxZoom)
     }, callback);
   }
@@ -304,7 +304,7 @@ const FlyAnimation = {
 
     view.animate({
       center: location,
-      duration: duration
+      duration
     }, callback);
 
     view.animate({
@@ -403,13 +403,13 @@ const BounceAnimation =
 
     view.animate({
       center: location,
-      duration: duration,
+      duration,
       easing: this.elastic
     }, callback);
 
     view.animate({
       zoom: Math.min(zoom, maxZoom),
-      duration: duration
+      duration
     }, callback);
   }
 };

@@ -123,7 +123,7 @@ export default {
       // wrap geom into object, otherwise the injection into childs does
       // not work. Maybe the OL object does not feel changed for Vue
       this.measureGeom = {
-        geom: geom
+        geom
       };
     }
   }

@@ -1,4 +1,3 @@
-
 import DrawInteraction from 'ol/interaction/Draw';
 import { unByKey } from 'ol/Observable.js';
 import VectorSource from 'ol/source/Vector';
@@ -45,7 +44,7 @@ export default class OlMeasureController {
     this.measureLayer = new VectorLayer({
       lid: 'wgu-measure-layer',
       displayInLayerList: false,
-      source: source,
+      source,
       style: new Style({
         fill: new Fill({
           color: measureConf.fillColor || 'rgba(255, 255, 255, 0.2)'
@@ -77,7 +76,7 @@ export default class OlMeasureController {
     const type = (measureType === 'area' ? 'Polygon' : 'LineString');
     const draw = new DrawInteraction({
       source: me.source,
-      type: type,
+      type,
       maxPoints: measureType === 'angle' ? 2 : undefined,
       style: new Style({
         fill: new Fill({

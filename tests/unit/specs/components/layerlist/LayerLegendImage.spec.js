@@ -96,7 +96,7 @@ describe('layerlist/LayerLegendImage.vue', () => {
         legendUrl: 'http://my-image.png'
       });
 
-      await comp.setProps({ layer: layer });
+      await comp.setProps({ layer });
       expect(vm.legendURL).to.equal('http://my-image.png');
     });
 
@@ -109,7 +109,7 @@ describe('layerlist/LayerLegendImage.vue', () => {
           width: 14
         }
       });
-      await comp.setProps({ layer: layer });
+      await comp.setProps({ layer });
       expect(vm.legendURL).to.equal('http://my-image.png?transparent=true&width=14&SCALE=139770566.00717944&language=en');
     });
 
