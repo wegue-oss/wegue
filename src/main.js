@@ -4,6 +4,7 @@ import Vue from 'vue';
 import Vuetify from 'vuetify';
 import PortalVue from 'portal-vue'
 import VueI18n from 'vue-i18n';
+import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
 import 'material-icons/iconfont/material-icons.css'
 import '../node_modules/ol/ol.css';
