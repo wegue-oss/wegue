@@ -6,10 +6,10 @@
       v-on:error="imgLoaded=false"
       >
       <!-- Fallback if no preview image is available or the image can't be loaded. -->
-      <v-layout v-if="!previewURL || !imgLoaded"
-        fill-height align-center justify-center>
+      <v-row v-if="!previewURL || !imgLoaded"
+        class="fill-height" align="center" justify="center">
         <v-icon x-large>{{previewIcon}}</v-icon>
-      </v-layout>
+      </v-row>
   </v-img>
 </template>
 
