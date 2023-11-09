@@ -112,6 +112,12 @@ npm run lint:fix
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
+### ENV VARs
+
+Besides the environment variables supported by Vue CLI Wegue offers the following ENV VARs:
+
+- `WGU_PUBLIC_PATH` allows to modify the [publicPath](https://cli.vuejs.org/config/#publicpath) Vue CLI configuration, which is used in the production build. Default of `publicPath` is `'./'`.
+
 ## Run with Docker
 
 Versioned Docker images are available on [DockerHub](https://hub.docker.com/r/meggsimum/wegue/tags).
