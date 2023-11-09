@@ -120,6 +120,7 @@ export default {
     }
   },
   created () {
+    this.setGlobalAppLang(); // initially set global app language lookup
     this.setDocumentTitle();
   },
   mounted () {
@@ -180,17 +181,24 @@ export default {
       return moduleWins;
     },
     /**
-       * Sets the document title from language file.
-       */
+     * Sets the document title from language file.
+     */
     setDocumentTitle () {
       document.title = this.$t('app.browserTitle') || document.title;
+    },
+    /**
+     * Sets the current i18n language to the global app language lookup.
+     */
+    setGlobalAppLang () {
+      Vue.prototype.appLanguage = this.$i18n.locale;
     }
   },
   watch: {
     /**
-       * Watch for locale changes.
-       */
+     * Watch for locale changes.
+     */
     '$i18n.locale': function () {
+      this.setGlobalAppLang();
       this.setDocumentTitle();
     }
   }

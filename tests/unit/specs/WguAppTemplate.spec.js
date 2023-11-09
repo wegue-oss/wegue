@@ -89,5 +89,26 @@ describe('WguAppTpl.vue', () => {
       expect(moduleData[0].type).to.equal('wgu-infoclick-win');
       expect(moduleData[0].target).to.equal('menu');
     });
+
+    it('has a method setGlobalAppLang', () => {
+      expect(vm.setGlobalAppLang).to.be.a('function');
+    });
+  });
+
+  describe('global app language lookup', () => {
+    let comp;
+    let vm;
+    beforeEach(() => {
+      comp = shallowMount(WguAppTpl);
+      vm = comp.vm;
+    });
+
+    it('is set correctly', () => {
+      expect(vm.$i18n.locale).to.equal(Vue.prototype.appLanguage);
+    });
+
+    afterEach(() => {
+      comp.destroy();
+    });
   });
 });
