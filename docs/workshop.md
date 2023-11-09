@@ -1004,3 +1004,16 @@ npm run build
 ```
 
 Now, you can move the contents of the `dist` directory to a web space and it can be seen online.
+
+### Modify deployment path (publicPath)
+
+In case you want to deploy your app somewhere else than at the root of a domain, e.g. in a sub-path like https://www.foobar.com/my-app/,
+you will need to specify that sub-path for the production build. This can be done by using the custom Wegue ENV VAR `WGU_PUBLIC_PATH`:
+
+```bash
+WGU_PUBLIC_PATH=/my-app/
+```
+
+For more information see [publicPath VUE CLI documentation](https://cli.vuejs.org/config/#publicpath).
+
+Note: The default of `publicPath` is `'./'`, which should work for a lot of common scenarios.
