@@ -8,10 +8,10 @@
     <v-expansion-panels :multiple="true" :accordion="true" class="overflow-y-auto">
       <v-expansion-panel>
         <v-expansion-panel-header>
-          <v-layout align-center>
+          <v-row align="center">
             <v-icon class="mr-4">settings</v-icon>
             {{ $t('wgu-maprecorder.options') }}
-          </v-layout>
+          </v-row>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-card
@@ -82,8 +82,8 @@
 
     <v-card-actions class="pb-5">
       <v-row
-        align-center
-        justify-center
+        align="center"
+        justify="center"
         no-gutters
         class="px-3"
       >

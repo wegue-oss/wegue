@@ -49,6 +49,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-vue": "^9.17.0",
+    "eslint-plugin-vuetify": "^1.1.0",
     "gh-pages": "^1.1.0",
     "karma": "^6.4.0",
     "karma-chrome-launcher": "^3.1.1",
@@ -61,10 +62,12 @@
     "karma-webpack": "^5.0.0",
     "material-icons": "^1.13.9",
     "portal-vue": "^2.1.7",
+    "roboto-fontface": "*",
     "sass": "^1.32.7",
     "sass-loader": "^12.0.0",
     "sinon": "^9.2.4",
     "sinon-chai": "^3.5.0",
+    "vue-cli-plugin-vuetify": "~2.5.8",
     "vue-template-compiler": "2.7.14"
   },
   "engines": {

@@ -6,6 +6,7 @@ module.exports = {
   extends: [
     // consider switching to `plugin:vue/strongly-recommended` or `plugin:vue/recommended` for stricter rules.
     'plugin:vue/essential',
+    'plugin:vuetify/recommended',
     '@vue/standard'
   ],
   rules: {
