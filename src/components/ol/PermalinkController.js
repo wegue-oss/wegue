@@ -108,7 +108,7 @@ export default class PermalinkController {
       const key = layer.on('change:visible', () => {
         this.onMapChange();
       });
-      this.layerListeners.push({ key: key, layer: layer });
+      this.layerListeners.push({ key, layer });
     });
   }
 
@@ -284,8 +284,8 @@ export default class PermalinkController {
     }
     return {
       zoom: mapView.getZoom(),
-      center: center,
-      extent: extent,
+      center,
+      extent,
       rotation: mapView.getRotation(),
       layers: this.getLayerIds()
     };

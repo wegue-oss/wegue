@@ -100,11 +100,13 @@ const UrlUtil = {
   toQueryString (obj) {
     return Object.keys(obj)
       .reduce((a, k) => {
-        a.push(
-          typeof obj[k] === 'object'
-            ? this.toQueryString(obj[k])
-            : `${encodeURIComponent(k)}=${encodeURIComponent(obj[k])}`
-        );
+        if (obj[k] !== null) {
+          a.push(
+            (typeof obj[k] === 'object')
+              ? this.toQueryString(obj[k])
+              : `${encodeURIComponent(k)}=${encodeURIComponent(obj[k])}`
+          );
+        }
         return a;
       }, [])
       .join('&');

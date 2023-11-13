@@ -1,4 +1,3 @@
-
 import { shallowMount } from '@vue/test-utils';
 import OverviewMapPanel from '@/components/overviewmap/OverviewMapPanel';
 import OlMap from 'ol/Map';

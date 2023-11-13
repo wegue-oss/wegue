@@ -52,11 +52,11 @@ export default {
       mapGeodataDragDop: this.$appConfig.mapGeodataDragDop,
       // mapping format string to OL module / class
       formatMapping: {
-        GPX: GPX,
-        GeoJSON: GeoJSON,
-        IGC: IGC,
-        KML: KML,
-        TopoJSON: TopoJSON
+        GPX,
+        GeoJSON,
+        IGC,
+        KML,
+        TopoJSON
       },
       dragDropLayerCreated: false
     }
@@ -163,12 +163,12 @@ export default {
 
     this.map = new Map({
       layers: [],
-      controls: controls,
-      interactions: interactions,
+      controls,
+      interactions,
       view: new View({
         center: this.center,
         zoom: this.zoom,
-        projection: projection
+        projection
       })
     });
 

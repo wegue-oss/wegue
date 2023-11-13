@@ -99,7 +99,7 @@ export default class HoverController {
         me.getWMSFeaturesAsync(map, layer, coordinate, me.pendingRequestsCancelSrc)
           .then(function (features) {
             featureInfos.push(...features.map((feat) => {
-              return { layer: layer, feature: feat };
+              return { layer, feature: feat };
             }));
             me.displayTooltip(featureInfos, coordinate)
           })
@@ -112,7 +112,7 @@ export default class HoverController {
         resetTooltip = false;
         const features = me.getVectorFeatures(map, layer, pixel);
         featureInfos.push(...features.map((feat) => {
-          return { layer: layer, feature: feat };
+          return { layer, feature: feat };
         }));
         me.displayTooltip(featureInfos, coordinate)
       }
@@ -164,7 +164,7 @@ export default class HoverController {
 
       const request = {
         method: 'GET',
-        url: url,
+        url,
         cancelToken: cancelTokenSrc?.token
       };
       axios(request)
@@ -205,7 +205,7 @@ export default class HoverController {
       WguEventBus.$emit(me.activeOverlayId + '-update-overlay', false);
     };
     WguEventBus.$emit(overlayId + '-update-overlay', true, coordinate, {
-      feature: feature,
+      feature,
       hoverAttribute: hoverAttr
     });
     me.activeOverlayId = overlayId;

@@ -121,7 +121,7 @@ export const LayerFactory = {
       ...this.getCommonLayerOptions(lConf),
       source: new ImageWMS({
         url: lConf.url,
-        params: params,
+        params,
         serverType: lConf.serverType,
         ratio: lConf.ratio,
         interpolate: lConf.interpolate,
@@ -151,7 +151,7 @@ export const LayerFactory = {
       ...this.getCommonLayerOptions(lConf),
       source: new TileWmsSource({
         url: lConf.url,
-        params: params,
+        params,
         serverType: lConf.serverType,
         tileGrid: lConf.tileGrid,
         projection: lConf.projection,

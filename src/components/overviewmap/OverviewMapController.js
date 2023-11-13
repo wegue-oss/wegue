@@ -23,7 +23,7 @@ export default class OverviewMapController {
 
     this.overviewMapControl = new OverviewMap({
       className: 'ol-overviewmap wgu-overviewmap-ctrl',
-      target: target,
+      target,
       collapsible: false,
       rotateWithView: this.conf.rotateWithView
     });
