@@ -39,4 +39,19 @@ describe('UrlUtil', () => {
     const paramVal = UrlUtil.getQueryParam('foo');
     expect(paramVal).to.equal(undefined);
   });
+
+  it('toQueryString returns correct query string', () => {
+    const params = {
+      foo: 'bar',
+      kalle: 0,
+      ralle: 8.88,
+      bully: true,
+      nullinger: null,
+      obj: {
+        sub1: 1
+      }
+    };
+    const queryString = UrlUtil.toQueryString(params);
+    expect(queryString).to.eql('foo=bar&kalle=0&ralle=8.88&bully=true&sub1=1');
+  });
 });
