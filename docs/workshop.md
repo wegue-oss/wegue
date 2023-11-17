@@ -607,7 +607,7 @@ export default {
   components: {
     'wgu-app-tpl': WguAppTemplate
   },
-  data() {
+  data () {
     return {
       buttonValue: undefined
     }
@@ -616,7 +616,7 @@ export default {
     /**
      * Executed once the button value changes
      */
-    buttonValue(value) {
+    buttonValue (value) {
       // the button is pressed when its value is 0
       const buttonPressed = (value === 0);
 
@@ -737,23 +737,23 @@ Create new file at `app/components/MyTool.vue` with the content below. Note the 
 
 <!-- This part contains the logic of our module and is written in JavaScript -->
 <script>
-  // the module card is a the template for a typical Wegue module
-  import ModuleCard from '../../src/components/modulecore/ModuleCard';
+// the module card is a the template for a typical Wegue module
+import ModuleCard from '../../src/components/modulecore/ModuleCard';
 
-  /**
-   * The part below is specific to the Vue.js framework
-   * and is reduced to a minimum for the moment
-   */
-  export default {
-    name: 'my-tool',
-    inheritAttrs: false,
-    components: {
-      'wgu-module-card': ModuleCard
-    },
-    props: {
-      icon: { type: String, required: false, default: 'star' }
-    }
+/**
+ * The part below is specific to the Vue.js framework
+ * and is reduced to a minimum for the moment
+ */
+export default {
+  name: 'my-tool',
+  inheritAttrs: false,
+  components: {
+    'wgu-module-card': ModuleCard
+  },
+  props: {
+    icon: { type: String, required: false, default: 'star' }
   }
+}
 </script>
 
 <!-- Here we do the styling of our module -->
@@ -765,6 +765,7 @@ Create new file at `app/components/MyTool.vue` with the content below. Note the 
     right: 10px;
   }
 </style>
+
 ```
 
 We need to register our modules in `app/WguAppTemplate.vue`. Add this line to the imports:
@@ -875,70 +876,70 @@ Let's add some more functionality to the tool. At the moment we show the static 
 </template>
 
 <script>
-  // the module card is a the template for a typical Wegue module
-  import ModuleCard from '../../src/components/modulecore/ModuleCard';
+// the module card is a the template for a typical Wegue module
+import ModuleCard from '../../src/components/modulecore/ModuleCard';
 
-  // we import a so called "mixin" that helps us to interact with the map
-  import { Mapable } from '../../src/mixins/Mapable';
+// we import a so called "mixin" that helps us to interact with the map
+import { Mapable } from '../../src/mixins/Mapable';
 
-  // an OpenLayers helper function to display coordinates
-  import { toStringXY } from 'ol/coordinate';
+// an OpenLayers helper function to display coordinates
+import { toStringXY } from 'ol/coordinate';
 
-  export default {
-    name: 'my-tool',
-    // make sure to register the 'Mapable' mixin
-    mixins: [Mapable],
-    inheritAttrs: false,
-    components: {
-      'wgu-module-card': ModuleCard
-    },
-    props: {
-      icon: { type: String, required: false, default: 'star' }
-    },
-    // here we define variables that are used in the HTML above
-    data () {
-      return {
-        zoom: '',
-        center: ''
-      }
-    },
-    methods: {
+export default {
+  name: 'my-tool',
+  // make sure to register the 'Mapable' mixin
+  mixins: [Mapable],
+  inheritAttrs: false,
+  components: {
+    'wgu-module-card': ModuleCard
+  },
+  props: {
+    icon: { type: String, required: false, default: 'star' }
+  },
+  // here we define variables that are used in the HTML above
+  data () {
+    return {
+      zoom: '',
+      center: ''
+    }
+  },
+  methods: {
 
-      /**
-       * This function is called once the map is bound to the application
-       */
-      onMapBound () {
-        // the mixin 'Mapable' provides access to our OpenLayer map
-        // via the variable 'this.map'
-        // here we get the 'view' from the map
-        const view = this.map.getView();
+    /**
+     * This function is called once the map is bound to the application
+     */
+    onMapBound () {
+      // the mixin 'Mapable' provides access to our OpenLayer map
+      // via the variable 'this.map'
+      // here we get the 'view' from the map
+      const view = this.map.getView();
 
-        // we call the function to extract zoom and center from the map
-        // once it is initially created
+      // we call the function to extract zoom and center from the map
+      // once it is initially created
+      this.extractMapViewProperties(view);
+
+      // to ensure that we react on updates of the map,
+      // we need to register a listener
+      view.on('change', () => {
+        // always when the map view is changing we extract
+        // the current zoom and center from it
         this.extractMapViewProperties(view);
+      })
+    },
 
-        // to ensure that we react on updates of the map,
-        // we need to register a listener
-        view.on('change', () => {
-          // always when the map view is changing we extract
-          // the current zoom and center from it
-          this.extractMapViewProperties(view);
-        })
-      },
-
-      /**
-       * We extract the current zoom and center coordinates
-       * from the OpenLayers view and store the values
-       * to our module's 'zoom' and 'center' variables
-       *
-       * @param {ol.View} view The OpenLayers view
-       */
-      extractMapViewProperties (view) {
-        this.zoom = Math.round(view.getZoom());
-        this.center = toStringXY(view.getCenter());
-      }
+    /**
+     * We extract the current zoom and center coordinates
+     * from the OpenLayers view and store the values
+     * to our module's 'zoom' and 'center' variables
+     *
+     * @param {ol.View} view The OpenLayers view
+     */
+    extractMapViewProperties (view) {
+      this.zoom = Math.round(view.getZoom());
+      this.center = toStringXY(view.getCenter());
     }
   }
+}
 </script>
 
 <!-- Here we do the styling of our module -->
@@ -950,6 +951,7 @@ Let's add some more functionality to the tool. At the moment we show the static 
     right: 10px;
   }
 </style>
+
 ```
 
 Refresh your application and check the result. When you zoom or pan the map, the values in your new module should change.
