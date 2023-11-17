@@ -687,7 +687,7 @@ export default {
 </script>
 
 <style>
-  .myCard{
+  .v-card.myCard{
     width: 400px;
     position: absolute;
     top: 75px;
