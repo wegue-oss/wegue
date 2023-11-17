@@ -1,14 +1,14 @@
 import TileWmsSource from 'ol/source/TileWMS';
 import ImageWMSSource from 'ol/source/ImageWMS';
 import VectorSource from 'ol/source/Vector';
-import VectorTileSource from 'ol/source/VectorTile'
+import VectorTileSource from 'ol/source/VectorTile';
 import WMSGetFeatureInfo from 'ol/format/WMSGetFeatureInfo';
-import { WguEventBus } from '../../WguEventBus'
+import { WguEventBus } from '../../WguEventBus';
 import axios from 'axios';
 
 export default class HoverController {
   DEFAULT_POINTER_REST_INTERVAL = 150;
-  DEFAULT_HOVER_OVERLAY = 'wgu-hover-tooltip'
+  DEFAULT_HOVER_OVERLAY = 'wgu-hover-tooltip';
 
   map = null;
   timerHandle = null;
@@ -101,7 +101,7 @@ export default class HoverController {
             featureInfos.push(...features.map((feat) => {
               return { layer, feature: feat };
             }));
-            me.displayTooltip(featureInfos, coordinate)
+            me.displayTooltip(featureInfos, coordinate);
           })
           .catch(function (error) {
             if (!axios.isCancel(error)) {
@@ -114,7 +114,7 @@ export default class HoverController {
         featureInfos.push(...features.map((feat) => {
           return { layer, feature: feat };
         }));
-        me.displayTooltip(featureInfos, coordinate)
+        me.displayTooltip(featureInfos, coordinate);
       }
     });
 
@@ -206,6 +206,7 @@ export default class HoverController {
     };
     WguEventBus.$emit(overlayId + '-update-overlay', true, coordinate, {
       feature,
+      layer,
       hoverAttribute: hoverAttr
     });
     me.activeOverlayId = overlayId;
