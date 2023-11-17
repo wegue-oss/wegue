@@ -77,8 +77,9 @@ The following example implements a customized tooltip to render an attribute of 
   <wgu-map-overlay
     overlayId="my-custom-tooltip"
     :visible=false
+    v-slot="{feature}"
   >
-    <v-sheet slot-scope="{feature}"  v-if="feature"> 
+    <v-sheet v-if="feature">
       {{ feature.get('name') }}
     </v-sheet>
   </wgu-map-overlay>
