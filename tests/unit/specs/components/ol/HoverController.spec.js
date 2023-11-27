@@ -72,6 +72,7 @@ describe('ol/HoverController.js', () => {
         expect(visible).to.equal(true);
         expect(position).to.equal(undefined);
         expect(data.feature).to.equal(feat);
+        expect(data.layer).to.equal(layer);
         expect(data.hoverAttribute).to.equal('foo');
         done();
       });
