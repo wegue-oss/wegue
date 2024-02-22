@@ -19,6 +19,7 @@ This describes the Wegue application configuration, which is modelled as JSON do
 | **mapCenter**      | Initial center of the map in map projection | `"mapCenter": [0, 0]` |
 | mapProjection      | Configuration object for CRS / projection used for the map | see [mapProjection](wegue-configuration?id=mapprojection) |
 | mapGeodataDragDop  | Configuration object for geodata file drag/drop functionality on the map. Only by setting the config this function will be enabled. | see [mapGeodataDragDop](wegue-configuration?id=mapGeodataDragDop) |
+| mapHover           | Configuration object to customize the bevahior of hover tooltips on the map. | see [mapHover](wegue-configuration?id=mapHover)
 | **modules**        | Array of module configuration objects | See [modules](module-configuration) |
 | **mapLayers**      | Array of map layer configuration objects | See [mapLayers](map-layer-configuration) |
 | overviewMap        | Configuration object for the overview map. | See [overviewMap](wegue-configuration?id=overviewMap)
@@ -225,6 +226,29 @@ Below is an example for such a configuration object:
       "displayInLayerList": true
     }
 ```
+
+### mapHover
+
+Optional configuration object to customize the behavior of hover tooltips on the map. 
+The following properties are supported:
+
+| Property           | Meaning   | Example |
+|--------------------|:---------:|---------|
+| delay              | Timespan in milliseconds, by which displaying the tooltip is deferred after the mouse pointer rests. Defaults to `150`. | `"delay": 150`
+| hideOnMousemove    | Hide the tooltip when the mouse cursor is moved. Defaults to `false`. | `"hideOnMousemove": false`
+| hoverOverlay       | ID of a custom map overlay to use as a default display when a feature of the layer is hovered. Declaration of the `hoverOverlay` property on a mapLayer level takes precedence. For more information on how to implement a map overlay see the [reusable components](reusable-components?id=map-overlay) section. Defaults to Wegue's default tooltip `wgu-hover-tooltip` |  `"hoverOverlay": "my-custom-overlay"`
+
+Example:
+
+```json
+"mapHover":
+    {
+      "delay": 150,
+      "hideOnMousemove": false,
+      "hoverOverlay": "my-custom-overlay"
+    }
+```
+
 
 ### lang
 
