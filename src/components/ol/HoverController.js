@@ -40,6 +40,15 @@ export default class HoverController {
         me.onPointerRest(event);
       }, timeout);
     });
+
+    // If the mouse leaves the map canvas, clear out the "pointer rest" timer and hide
+    // the existing tooltip.
+    map.getViewport().addEventListener('mouseout', (event) => {
+      if (me.timerHandle) {
+        clearTimeout(me.timerHandle);
+      }
+      me.displayTooltip(null);
+    }, false);
   }
 
   /**
