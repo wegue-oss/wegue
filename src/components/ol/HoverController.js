@@ -4,13 +4,18 @@ import VectorSource from 'ol/source/Vector';
 import VectorTileSource from 'ol/source/VectorTile';
 import WMSGetFeatureInfo from 'ol/format/WMSGetFeatureInfo';
 import { WguEventBus } from '../../WguEventBus';
+import ObjectUtil from '../../util/Object';
 import axios from 'axios';
 
 export default class HoverController {
-  DEFAULT_POINTER_REST_INTERVAL = 150;
-  DEFAULT_HOVER_OVERLAY = 'wgu-hover-tooltip';
+  DEFAULT_OPTIONS = {
+    delay: 150,
+    hideOnMousemove: false,
+    hoverOverlay: 'wgu-hover-tooltip'
+  };
 
   map = null;
+  conf = null;
   timerHandle = null;
   activeOverlayId = null;
   pendingRequestsCancelSrc = null;
@@ -23,22 +28,26 @@ export default class HoverController {
    * 'hoverAttribute' if the layer is configured as 'hoverable'
    *
    * @param {ol.Map} map OpenLayers map.
-   * @param {Number} pointerRestInterval Timespan in milliseconds, by which displaying the tooltip is deferred.
+   * @param {object} hoverConf Global configuration options.
    */
-  constructor (map, pointerRestInterval) {
+  constructor (map, hoverConf) {
     const me = this;
     me.map = map;
+    me.conf = me.DEFAULT_OPTIONS;
+    ObjectUtil.mergeDeep(me.conf, hoverConf);
 
     // To limit the amount of asynchronous requests, implement a "pointer rest" behavior,
     // which will potentially show a tooltip after the mouse has not moved for a given time period.
-    const timeout = pointerRestInterval ?? me.DEFAULT_POINTER_REST_INTERVAL;
     map.on('pointermove', (event) => {
       if (me.timerHandle) {
         clearTimeout(me.timerHandle);
       }
       me.timerHandle = setTimeout(() => {
         me.onPointerRest(event);
-      }, timeout);
+      }, me.conf.delay);
+      if (me.conf.hideOnMousemove) {
+        me.displayTooltip(null);
+      }
     });
 
     // If the mouse leaves the map canvas, clear out the "pointer rest" timer and hide
@@ -208,7 +217,7 @@ export default class HoverController {
     const feature = featureInfo.feature;
     const layer = featureInfo.layer;
     const hoverAttr = layer.get('hoverAttribute');
-    const overlayId = layer.get('hoverOverlay') || me.DEFAULT_HOVER_OVERLAY;
+    const overlayId = layer.get('hoverOverlay') || me.conf.hoverOverlay;
 
     if (me.activeOverlayId !== overlayId) {
       WguEventBus.$emit(me.activeOverlayId + '-update-overlay', false);
