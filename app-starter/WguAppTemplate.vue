@@ -5,11 +5,21 @@
 
     <wgu-app-header>
       <!-- forward the slots of AppHeader -->
-      <slot name="wgu-tb-start" slot="wgu-tb-start" />
-      <slot name="wgu-tb-after-title" slot="wgu-tb-after-title" />
-      <slot name="wgu-tb-before-auto-buttons" slot="wgu-tb-before-auto-buttons" />
-      <slot name="wgu-tb-after-auto-buttons" slot="wgu-tb-after-auto-buttons" />
-      <slot name="wgu-tb-end" slot="wgu-tb-end" />
+      <template v-slot:wgu-tb-start>
+        <slot name="wgu-tb-start" />
+      </template>
+      <template v-slot:wgu-tb-after-title>
+        <slot name="wgu-tb-after-title" />
+      </template>
+      <template v-slot:wgu-tb-before-auto-buttons>
+        <slot name="wgu-tb-before-auto-buttons" />
+      </template>
+      <template v-slot:wgu-tb-after-auto-buttons>
+        <slot name="wgu-tb-after-auto-buttons" />
+      </template>
+      <template v-slot:wgu-tb-end>
+        <slot name="wgu-tb-end" />
+      </template>
     </wgu-app-header>
 
     <slot name="wgu-after-header" />
@@ -29,8 +39,7 @@
         <wgu-map />
         <!-- layer loading indicator -->
         <wgu-maploading-status />
-        <slot name="wgu-after-map">
-        </slot>
+        <slot name="wgu-after-map" />
         <!-- Portal to overlay the map content from an application module -->
         <portal-target name="map-overlay" />
         <wgu-app-logo />

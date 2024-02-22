@@ -565,29 +565,30 @@ As you probably notice, there is currently no way to deactivate the drawing beha
 <template>
   <wgu-app-tpl>
 
-    <v-card
-      class="myCard"
-      slot="wgu-before-content"
-    >
-      <v-card-title>
-        Point Tool
-      </v-card-title>
+    <template v-slot:wgu-before-content>
+      <v-card
+        class="myCard"
+      >
+        <v-card-title>
+          Point Tool
+        </v-card-title>
 
-      <v-card-text>
-        This tool can add points to the map.
-      </v-card-text>
+        <v-card-text>
+          This tool can add points to the map.
+        </v-card-text>
 
-      <v-card-actions>
-        <v-btn-toggle v-model="buttonValue">
-          <v-btn>
-            <v-icon dark>
-              mdi-star
-            </v-icon>
-          </v-btn>
-        </v-btn-toggle>
-      </v-card-actions>
+        <v-card-actions>
+          <v-btn-toggle v-model="buttonValue">
+            <v-btn>
+              <v-icon dark>
+                mdi-star
+              </v-icon>
+            </v-btn>
+          </v-btn-toggle>
+        </v-card-actions>
 
-    </v-card>
+      </v-card>
+    </template>
   </wgu-app-tpl>
 </template>
 
