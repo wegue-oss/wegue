@@ -1,7 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in vue.config.js with runtimeCompiler.
 import Vue from 'vue';
-import Vuetify from 'vuetify';
+import Vuetify from 'vuetify/lib/framework';
 import PortalVue from 'portal-vue'
 import VueI18n from 'vue-i18n';
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
@@ -13,7 +13,6 @@ import UrlUtil from './util/Url';
 import LocaleUtil from './util/Locale';
 import ObjectUtil from './util/Object';
 import ColorThemeUtil from './util/ColorTheme'
-import 'vuetify/dist/vuetify.min.css';
 import axios from 'axios';
 
 Vue.use(Vuetify);

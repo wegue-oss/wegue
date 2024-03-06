@@ -57,10 +57,12 @@ module.exports = defineConfig({
     // Tweak configuration options for Karma test runner to produce a bundle
     // which can run under Chrome headless. Avoid warnings due to custom entries
     // and customized filenames. Enable correct code coverage of .vue files.
+    // Disable Vuetify treeshaking.
     if (process.env.NODE_ENV === 'test') {
       config.devtool = 'eval'
       config.optimization.runtimeChunk = false
       config.optimization.splitChunks = false
+      config.plugins = config.plugins.filter(plugin => plugin.constructor.name !== 'VuetifyLoaderPlugin')
       delete config.target
       delete config.entry
       delete config.output.filename
