@@ -25,6 +25,8 @@ The following properties can be applied to all map layer types
 | legendUrl          | URL to a legend image. This value is required to produce a legend, if the layer is not a WMS layer. The URL may contain format placeholders corresponding to the parameters `language`, `scale` or any of the additional options given among `legendOptions`. A placeholder is delimited by `{{` and `}}` – i.e. `{{VAR_NAME}}`. | `"legendUrl": "static/icon/my-layer-legend-{{LANGUAGE}}.png"`
 | legendOptions      | An object, containing additional parameters to request the legend image. Supported options may be vendor specific, e.g. see [GeoServer Docs](https://docs.geoserver.org/latest/en/user/services/wms/get_legend_graphic/index.html) for the options supported for WMS layers in GeoServer. | `"legendOptions": {"transparent": true, "width": 14 }`
 
+All map layer types can also make use of the properties listed in `customLayerProperties` in the main Wegue application configuration object. This is useful if specific configuration is needed on all layers by a custom module. See [Wegue configuration](wegue-configuration?id=general) for more details.
+
 
 
 ## OSM
