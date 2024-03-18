@@ -251,7 +251,7 @@ export default {
      * @return {HoverController} HoverController instance.
      */
     createHoverController () {
-      return new HoverController(this.map);
+      return new HoverController(this.map, this.$appConfig.mapHover);
     },
 
     /**
