@@ -88,11 +88,6 @@ export default {
     imageProp: { type: String, required: false },
     imageDescriptionProp: { type: String, required: false }
   },
-  computed: {
-    numfeaTts() {
-      return 23
-    }
-  },
   data: function () {
     return {
       moduleName: 'wgu-infoclick',
@@ -101,7 +96,7 @@ export default {
       featureIdx: 0,
       features: null,
       layerName: null,
-      numfeats: null,
+      numfeats: null
     }
   },
   created () {
@@ -131,9 +126,9 @@ export default {
     onMapClick (evt) {
       const me = this;
       me.features = []
-      const featureLayer = me.map.forEachFeatureAtPixel(evt.pixel,
+      me.map.forEachFeatureAtPixel(evt.pixel,
         (feature, layer) => {
-          me.features.push([feature,layer])
+          me.features.push([feature, layer])
         });
 
       // collect feature attributes --> PropertyTable
@@ -153,40 +148,40 @@ export default {
     },
 
     prevFeat () {
-        this.featureIdx -= 1
-        if (this.featureIdx < 0) {
-          this.featureIdx = this.features.length - 1
-        }
-        this.viewProps(this.featureIdx)
+      this.featureIdx -= 1
+      if (this.featureIdx < 0) {
+        this.featureIdx = this.features.length - 1
+      }
+      this.viewProps(this.featureIdx)
     },
 
     nextFeat () {
-        this.featureIdx += 1
-        if (this.featureIdx > this.features.length - 1) {
-          this.featureIdx = 0
-        }
-        this.viewProps(this.featureIdx)
+      this.featureIdx += 1
+      if (this.featureIdx > this.features.length - 1) {
+        this.featureIdx = 0
+      }
+      this.viewProps(this.featureIdx)
     },
 
     viewProps (idx) {
-        const infofeat = this.features[idx][0];
-        const props = infofeat.getProperties();
-        // do not show geometry property
-        delete props.geometry;
-        this.attributeData = props;
-        this.layerName = this.features[idx][1].get('name')
-        const lid = this.features[idx][1].get('lid')
+      const infofeat = this.features[idx][0];
+      const props = infofeat.getProperties();
+      // do not show geometry property
+      delete props.geometry;
+      this.attributeData = props;
+      this.layerName = this.features[idx][1].get('name')
+      const lid = this.features[idx][1].get('lid')
 
-        const correspondingInteraction = MapInteractionUtil.getSelectInteraction(this.map, lid);
+      const correspondingInteraction = MapInteractionUtil.getSelectInteraction(this.map, lid);
 
-        // we can only select layers that have a select interaction
-        if (!correspondingInteraction) {
-          return;
-        }
+      // we can only select layers that have a select interaction
+      if (!correspondingInteraction) {
+        return;
+      }
 
-        // add to map selection
-        correspondingInteraction.getFeatures().clear();
-        correspondingInteraction.getFeatures().push(infofeat);
+      // add to map selection
+      correspondingInteraction.getFeatures().clear();
+      correspondingInteraction.getFeatures().push(infofeat);
     },
 
     /**
