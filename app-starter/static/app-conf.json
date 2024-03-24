@@ -160,6 +160,27 @@
       "opacityControl": true,
       "crossOrigin": "anonymous"
     },
+
+    {
+      "type": "TILEARCGIS",
+      "lid": "test_arcgisrest",
+      "format": "image/jpeg",
+      "url": "https://cartografia.comune.padova.it/server/rest/services/topo/MapServer",
+      "params": {
+        "LAYERS":"show:3,16",
+        "TRANSPARENT": true
+      },
+      "transparent": true,
+      "projection": "EPSG:3003",
+      "attribution": "Comune di padova",
+      "isBaseLayer": false,
+      "visible": false,
+      "displayInLayerList": true,
+      "legend": false,
+      "opacityControl": true,
+      "crossOrigin": "anonymous"
+    },
+
     {
       "type": "IMAGEWMS",
       "lid": "ahocevar-imagewms",
