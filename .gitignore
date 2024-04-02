@@ -25,3 +25,5 @@ tests/unit/coverage/
 *.njsproj
 *.sln
 *.sw?
+
+app/*
