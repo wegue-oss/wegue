@@ -14,4 +14,5 @@ jobs:
 
       - run: npm ci
       - run: npm run init:app
+      - run: npm run lint
       - run: npm run test
