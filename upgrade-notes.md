@@ -23,7 +23,7 @@ If you're using environment variables inside your Wegue app, please read [Vue-CL
 
 ### OpenLayers
 
-This lists some essentials, which had to be adapted in the Wegue code regarding to the upgrade to OpenLayers in version 7:
+This lists some essentials, which had to be adapted in the Wegue code regarding to the upgrade to OpenLayers in version 7/8/9:
 
 - OL `Overlay` no longer accepts `autoPanAnimation` as an option.
  Now the animation delay is passed as an object directly to the autoPan option.
