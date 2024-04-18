@@ -20,7 +20,7 @@
       "de": "Deutsch",
       "pt": "Portugues"
     },
-    "fallback": "pt"
+    "fallback": "en"
   },
 
   "mapZoom": 2,

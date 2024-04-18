@@ -1,73 +1,89 @@
+
 {
     "app": {
-      "title": "Vue.js / OpenLayers WebGIS",
-      "browserTitle": "Aplicativo de demonstração Wegue",
-      "footerTextLeft": "Desenvolvido por <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>",
-      "footerTextRight": "meggsimum",
-      "logo": "Logotipo do Aplicativo"
+    "title": "Vue.js / OpenLayers WebGIS",
+    "browserTitle": "Aplicativo de Demonstração Wegue",
+    "footerTextLeft": "Desenvolvido por <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>",
+    "footerTextRight": "meggsimum",
+    "logo": "Logotipo do Aplicativo"
     },
     "mapLayers": {
-      "wgu-drag-drop-layer": {
-        "name": "Dados Carregados por Arrastar e Soltar"
-      },
-      "Shops": {
-        "name": "Lojas DaSchau"
-      },
-      "gas-wfs": {
-        "name": "Postos de Gasolina WFS",
-        "attributions": "© <a href=\"https://www.openstreetmap.org/copyright\">Colaboradores do OpenStreetMap</a>"
-      },
-      "earthquakes": {
-        "name": "Terremotos de 2012 (Mag 5)",
-        "attributions": "Serviço Geológico dos Estados Unidos"
-      },
-      "ahocevar-wms": {
-        "name": "WMS em Azulejos (ahocevar)"
-      },
-      "ahocevar-imagewms": {
-        "name": "WMS de Imagem (ahocevar)"
-      },
-      "ahocevar-vectortiles": {
-        "name": "Camada de Azulejos Vetoriais"
-      },
-      "opentopomap": {
-        "name": "OpenTopoMap",
-        "attributions": "Dados do Mapa: <a href=\"https://openstreetmap.org/copyright\">© Colaboradores do OpenStreetMap</a>, SRTM | Representação do Mapa: © <a href=\"http://opentopomap.org/\">OpenTopoMap</a> (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC-BY-SA</a>)"
-      },
-      "osm-bg": {
-        "name": "OpenStreetMap"
-      },
-      "dutch-nat-parks": {
-        "name": "WFS (Parques Nacionais Holandeses PDOK)",
-        "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> do Cadastro Holandês"
-      },
-      "pdok-natura2000-wms": {
-        "name": "WMS - Áreas Natura 2000 - PDOK",
-        "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> do Cadastro Holandês"
-      },
-      "pdok-lufo-wms": {
-        "name": "WMS - Imagem Aérea Holandesa - PDOK",
-        "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> do Cadastro Holandês"
-      },
-      "brtachtergrondkaart": {
-        "name": "WMTS - Mapa Base Topo - PDOK",
-        "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> do Cadastro Holandês"
-      },
-      "terrestris-osm-wms": {
-        "name": "OSM WMS",
-        "attributions": "<a href='https://www.openstreetmap.org/copyright' target='_blank'>© Colaboradores do OpenStreetMap</a>"
-      }
+    "wgu-geolocator-layer": {
+    "name": "Posição Atual"
+    },
+    "wgu-measure-layer": {
+    "name": "Camada de Medição"
+    },
+    "wgu-drag-drop-layer" : {
+    "name": "Arrastar/Soltar Dados"
+    }
+    },
+    "wgu-toolbar-menu": {
+    "title": "Abrir menu da barra de ferramentas"
+    },
+    "wgu-attributetable": {
+    "title": "Tabela de Atributos",
+    "selectorLabel": "Escolha uma camada",
+    "loadingText": "Carregando... Por favor, mova-se para uma área onde a camada seja visível"
+    },
+    "wgu-bglayerswitcher": {
+    "title": "Alterar mapa de fundo"
+    },
+    "wgu-overviewmap": {
+    "title": "Mostrar mapa de visão geral"
+    },
+    "wgu-geocoder": {
+    "title": "Pesquisa de Endereço",
+    "placeHolder": "Pesquisar por um endereço"
+    },
+    "wgu-geolocator": {
+    "title": "Geolocalizador"
     },
     "wgu-helpwin": {
-      "title": "Ajuda",
-      "textTitle": "Sobre o Wegue",
-      "htmlContent": "<b>WebGIS baseado em OpenLayers e Vue.js</b></br>Templates e componentes reutilizáveis para aplicações de mapas da web com OpenLayers e Vue.js",
-      "infoLinkUrl": "http://wegue.org/",
-      "infoLinkText": "Mais Informações"
+    "title": "Sobre",
+    "textTitle": "Sobre Wegue",
+    "htmlContent": "<b>WebGIS com OpenLayers e Vue.js</b> Template e componentes reutilizáveis para aplicações de mapeamento da web com OpenLayers e Vue.js",
+    "infoLinkUrl": "http://wegue.org/",
+    "infoLinkText": "Mais informações"
     },
-    "sample-module": {
-      "title": "Módulo de Exemplo",
-      "text": "Olá Wegue"
+    "wgu-infoclick": {
+    "title": "Informações do Clique no Mapa",
+    "mapClick": "Clique no mapa para obter informações sobre a posição clicada.",
+    "mediaClick": "Clique em uma entidade no mapa para mostrar informações de mídia conectadas.",
+    "mediaInfoLinkText": null
+    },
+    "wgu-layerlist": {
+    "title": "Camadas"
+    },
+    "wgu-maprecorder": {
+    "title": "Gravador de Mapa",
+    "options": "Opções",
+    "videoFormat": "Formato de Vídeo",
+    "frameRate": "Taxa de Quadros (quadros/s)",
+    "bitRate": "Taxa de Bits (MBits/s)",
+    "fileName": "Nome do Arquivo",
+    "start": "Iniciar",
+    "stop": "Parar",
+    "error": "Falha ao iniciar a gravação."
+    },
+    "wgu-zoomtomaxextent": {
+    "title": "Restaurar Extensão do Mapa"
+    },
+    "wgu-measuretool": {
+    "title": "Medição",
+    "distance": "Distância",
+    "length": "Comprimento",
+    "area": "Área",
+    "angle": "Ângulo",
+    "lengthKm": "{0} km",
+    "lengthMeter": "{0} m",
+    "areaSquareKm": "{0} km²",
+    "areaSquareMeter": "{0} m²"
+    },
+    "wgu-localeswitcher": {
+    "title": "Configurações de Idioma"
+    },
+    "wgu-themeswitcher": {
+    "title": "Modo Escuro"
     }
-  }
-  
+    }
