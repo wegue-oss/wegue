@@ -190,7 +190,7 @@ export default {
      * Sets the current i18n language to the global app language lookup.
      */
     setGlobalAppLang () {
-      Vue.prototype.appLanguage = this.$i18n.locale;
+      Vue.prototype.$appLanguage = this.$i18n.locale;
     }
   },
   watch: {

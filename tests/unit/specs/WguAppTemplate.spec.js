@@ -104,7 +104,7 @@ describe('WguAppTpl.vue', () => {
     });
 
     it('is set correctly', () => {
-      expect(vm.$i18n.locale).to.equal(Vue.prototype.appLanguage);
+      expect(vm.$i18n.locale).to.equal(Vue.prototype.$appLanguage);
     });
 
     afterEach(() => {
