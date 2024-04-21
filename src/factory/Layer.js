@@ -227,7 +227,7 @@ export const LayerFactory = {
       format: new this.formatMapping[lConf.format](lConf.formatConfig),
       loader: (extent) => {
         // assemble WFS GetFeature request
-        const pre = lConf.url.includes('?') ? '&' : '?'
+        const pre = lConf.url.includes('?') ? '&' : '?';
         let wfsRequest = lConf.url + pre + 'service=WFS&' +
           'version=' + lConf.version + '&request=GetFeature&' +
           'typename=' + lConf.typeName + '&' +
