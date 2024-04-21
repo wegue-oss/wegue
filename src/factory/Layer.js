@@ -169,10 +169,10 @@ export const LayerFactory = {
   },
 
   /**
-   * Returns an OpenLayers Tiled WMS layer instance due to given config.
+   * Returns an OpenLayers Tiled Arcgis REST tiled layer instance due to given config.
    *
    * @param  {Object} lConf  Layer config object
-   * @return {ol.layer.Tile} OL Tiled WMS layer instance
+   * @return {ol.layer.Tile} OL Tiled Arcgis REST layer instance
    */
   createTileArcGISRestLayer (lConf) {
     // apply additional HTTP params
