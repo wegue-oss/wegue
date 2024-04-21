@@ -202,6 +202,16 @@
     },
     "wgu-localeswitcher": {
       "target": "toolbar"
+    },
+    "wgu-print": {
+      "target": "toolbar",
+      "icon": "mdi-printer",
+      "win": "floating",
+      "draggable": false,
+      "initPos": {
+        "left": 8,
+        "top": 74
+      }
     }
   }
 

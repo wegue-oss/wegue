@@ -138,3 +138,15 @@ Module identifier: `wgu-localeswitcher`
 No additional config options besides the general ones.
 
 LocaleSwitcher will automatically pick up the supported languages configured by the [lang](wegue-configuration?id=lang) property and offers to switch between them at runtime.
+
+## Print
+
+The module allows to print and export the current map in PDF format.
+The paper format, orientation, dpi resolution and paper map scale have to be specified in order to perform print
+
+Module identifier: `wgu-print`
+
+| Property           | Meaning   | Example |
+|--------------------|:---------:|---------|
+| scales | (optional) the allowed print scales list | `"scales": [100000, 50000, 25000, 10000, 5000]` |
+| resolutions | (optional) the allowed print dpi resolution list | `"resolutions": [72, 150, 200, 300]` |
