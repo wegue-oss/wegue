@@ -4,6 +4,7 @@
     dense
     color="onprimary"
     background-color="transparent"
+    class="wgu-toggle-button"
     :title="$t(moduleName + '.title')"
     v-model="show">
     <v-btn icon :value="true" color="onprimary" @click="toggleUi">

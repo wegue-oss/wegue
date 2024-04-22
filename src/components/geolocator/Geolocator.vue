@@ -1,6 +1,7 @@
 <template>
 <span>
    <v-btn @click="geolocateUserAndShowMarkerOnMap" icon
+      class="wgu-action-button"
       color="onprimary"
       :title="$t('wgu-geolocator.title')">
       <v-icon v-if='this.isSearchingForGeolocation'>update</v-icon>
