@@ -86,7 +86,7 @@ describe('infoclick/InfoClickWin.vue', () => {
         layers: [layer]
       });
       map.forEachFeatureAtPixel = () => {
-        return [feat, layer];
+        vm.features.push([feat, layer]);
       };
       vm.map = map;
       vm.onMapClick(mockEvt);
