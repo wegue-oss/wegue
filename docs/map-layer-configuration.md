@@ -101,6 +101,22 @@ The following properties can be applied to all map layer types
 | hoverOverlay        | ID of a custom map overlay to display when a feature of the layer is hovered. Only has an effect if `hoverable` is set to `true`. For more information on how to implement a map overlay see the [reusable components](reusable-components?id=map-overlay) section. | `"hoverOverlay": "my-custom-overlay"` |
 | params        | This allows to inject custom HTTP parameters to the GetMap request of the layer. | `"params": {"FEATUREID": 1}"` |
 
+## Arcgis REST (tiled)
+
+| Property           | Meaning   | Example |
+|--------------------|:---------:|---------|
+| **type**           | Indicator that the layer is `"TILEARCGIS"`  | `"type": "TILEARCGIS"` |
+| **url**            | The GetMap URL of the WMS | `"url": "https://cartografia.comune.padova.it/server/rest/services/topo/MapServer"` |
+| projection         |  The projection of the layer. Has to be defined in `projectionDefs` if not `EPSG:4326` or `EPSG:3857`. if not set the projection of the map is used | `"projection": "EPSG:3857"` |
+| format             | Image format for the WMS (has to be supported by the WMS) | `"format": "image/png"` |
+| transparent        | Boolean value, whether the WMS layer should be queried with a transparent background  | `"transparent": true` |
+| tileGridRef        | Identifier of the tile grid to use for this layer (has to be defined in `tileGridDefs` | `"tileGridRef": "dutch_rd"` |
+| crossOrigin        | Provides support for CORS, defining how the layers source handles crossorigin requests. For more information and the supported values see [HTML attribute: crossorigin](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin)  | `"crossOrigin": "anonymous"` |
+| hoverable           | Boolean value, whether the features of the layer can be hovered in order to display information in a tooltip. The WMS must support `GetFeatureInfo` requests to obtain feature information. Wegue's default hover tooltip renders a single feature attribute which has to be declared by `hoverAttribute`. You can also choose to implement a custom overlay declared by `hoverOverlay` to render multiple feature attributes in a custom tooltip. | `"hoverable": true` |
+| hoverAttribute      | Attribute to be shown if a feature of the layer is hovered. Only has an effect if `hoverable` is set to `true`.  | `"hoverAttribute": "name"` |
+| hoverOverlay        | ID of a custom map overlay to display when a feature of the layer is hovered. Only has an effect if `hoverable` is set to `true`. For more information on how to implement a map overlay see the [reusable components](reusable-components?id=map-overlay) section. | `"hoverOverlay": "my-custom-overlay"` |
+| params         | The REST `LAYERS` custom parameters | `params:{"LAYERS": show:1,4,5,6}` |
+
 ## WMS (image)
 
 Similar properties as Tiled WMS, with these exceptions:
