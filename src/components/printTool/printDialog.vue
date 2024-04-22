@@ -51,23 +51,21 @@
 
 <script>
 import ModuleCard from './../modulecore/ModuleCard';
-import { WguEventBus } from '../../WguEventBus.js';
 import { Mapable } from '../../mixins/Mapable';
-import {ScaleLine, defaults as defaultControls} from 'ol/control.js';
-import {getPointResolution, get as getProjection} from 'ol/proj.js';
+import { ScaleLine } from 'ol/control.js';
+import { getPointResolution } from 'ol/proj.js';
 import html2canvas from 'html2canvas';
-import { jsPDF as PDF } from "jspdf";
-
+import { jsPDF as PDF } from 'jspdf';
 
 export default {
   name: 'wgu-print-win',
   inheritAttrs: false,
   mixins: [Mapable],
   components: {
-    'wgu-module-card': ModuleCard,
+    'wgu-module-card': ModuleCard
   },
   props: {
-    icon: { type: String, required: false, default: 'info' },
+    icon: { type: String, required: false, default: 'info' }
   },
   data: function () {
     return {
@@ -81,28 +79,28 @@ export default {
         A2: [594, 420],
         A3: [420, 297],
         A4: [297, 210],
-        A5: [210, 148],
+        A5: [210, 148]
       },
       orientation: undefined,
       orientations: {
         landscape: this.$t('wgu-print.landscape'),
-        portrait: this.$t('wgu-print.portrait'),
+        portrait: this.$t('wgu-print.portrait')
       },
       resolution: undefined,
       resolutions: [
-        "72",
-        "150",
-        "200",
-        "300",
-        "400"
+        '72',
+        '150',
+        '200',
+        '300',
+        '400'
       ],
       scale: undefined,
       scales: {
-        "1:100000": 100,
-        "1:50000": 50,
-        "1:25000": 25,
-        "1:10000": 10,
-        "1:5000": 5,
+        '1:100000': 100,
+        '1:50000': 50,
+        '1:25000': 25,
+        '1:10000': 10,
+        '1:5000': 5
       }
     }
   },
@@ -110,7 +108,7 @@ export default {
     if (this.$t('wgu-print.scales') && Array.isArray(this.$t('wgu-print.scales'))) {
       this.scales = {};
       this.$t('wgu-print.scales').forEach((element) => {
-        this.scales["1:" + element] = element / 1000
+        this.scales['1:' + element] = element / 1000
       });
     }
     if (this.$t('wgu-print.resolutions') && Array.isArray(this.$t('wgu-print.resolutions'))) {
@@ -118,9 +116,9 @@ export default {
     }
   },
   computed: {
-    allParams() {
+    allParams () {
       return (!this.format || !this.orientation || !this.resolution || !this.scale)
-    },
+    }
   },
   methods: {
     registerMapClick (unregister) {
@@ -140,7 +138,7 @@ export default {
        */
     show (visible) {
       if (visible) {
-        this.scaleLine = new ScaleLine({bar: true, text: true, minWidth: 200});
+        this.scaleLine = new ScaleLine({ bar: true, text: true, minWidth: 200 });
         this.map.addControl(this.scaleLine)
       } else {
         if (this.scaleLine) {
@@ -153,7 +151,7 @@ export default {
     exportPDF () {
       const mapElement = this.map.getTargetElement();
       const mapElementClass = mapElement.className;
-      mapElement.className = "";
+      mapElement.className = '';
       let dim = this.dims[this.format];
       if (this.orientation === 'portrait') dim = dim.reverse();
       const scale = this.scales[this.scale];
@@ -174,8 +172,8 @@ export default {
       this.map.once('rendercomplete', function () {
         const exportOptions = {
           useCORS: true,
-          width: width,
-          height: height,
+          width,
+          height,
           ignoreElements: function (element) {
             if (!element) return
             const className = element.className || '';
@@ -218,15 +216,13 @@ export default {
       this.scaleLine.setDpi(parseInt(this.resolution));
       mapElement.style.width = width + 'px';
       mapElement.style.height = height + 'px';
-      console.log("render sizes",this.map.getTargetElement().style.width,this.map.getTargetElement().style.height)
+      console.log('render sizes', this.map.getTargetElement().style.width, this.map.getTargetElement().style.height)
       this.map.getView().setResolution(scaleResolution);
       this.map.updateSize();
-    },
-
+    }
 
   }
 };
-
 
 </script>
 
