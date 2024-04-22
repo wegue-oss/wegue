@@ -59,7 +59,7 @@
       "attributions": "<a href='https://www.openstreetmap.org/copyright' target='_blank'>© OpenStreetMap-contributors</a>"
     },
     "test_arcgisrest" : {
-      "name": "unità urbane",
+      "name": "Arcgis REST test tiled layer",
       "attributions": "<a href='https://www.padovanet.it' target='_blank'>© Comune di Padova</a>"
     }
   },
