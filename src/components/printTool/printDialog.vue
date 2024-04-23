@@ -153,7 +153,7 @@ export default {
       const mapElementClass = mapElement.className;
       mapElement.className = '';
       let dim = this.dims[this.format];
-      if (this.orientation === 'portrait') dim = dim.reverse();
+      if (this.orientation === this.$t('wgu-print.portrait')) dim = dim.reverse();
       const scale = this.scales[this.scale];
       const width = Math.round((dim[0] * parseInt(this.resolution)) / 25.4);
       const height = Math.round((dim[1] * parseInt(this.resolution)) / 25.4);
@@ -189,7 +189,7 @@ export default {
         }
         html2canvas(viewport, exportOptions).then(function (canvas) {
           const pdf = new PDF({
-            orientation: me.orientation,
+            orientation: me.orientation === me.$t('wgu-print.portrait') ? 'p' : 'l',
             unit: 'mm',
             format: me.format
           });
