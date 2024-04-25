@@ -35,6 +35,7 @@
       <template v-slot:activator="{on}">
 
       <v-btn icon v-on="on"
+        class="wgu-menu-button"
         color="onprimary"
         :title="$t('wgu-toolbar-menu.title')">
         <v-icon medium>menu</v-icon>

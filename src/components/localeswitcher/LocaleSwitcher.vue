@@ -9,7 +9,7 @@
           color="onprimary"
           background-color="transparent"
           :title="$t('wgu-localeswitcher.title')"
-          class="ma-2"
+          class="ma-2 wgu-menu-button"
           icon
           v-on="on"
           v-bind="attrs"
