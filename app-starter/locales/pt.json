@@ -1,73 +1,75 @@
 {
-    "app": {
-      "title": "Vue.js / OpenLayers WebGIS",
-      "browserTitle": "Aplicativo de demonstração Wegue",
-      "footerTextLeft": "Desenvolvido por <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>",
-      "footerTextRight": "meggsimum",
-      "logo": "Logotipo do Aplicativo"
+  "app": {
+    "title": "Vue.js / OpenLayers WebGIS",
+    "browserTitle": "Aplicativo de Demonstração Wegue",
+    "footerTextLeft": "Desenvolvido por <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>",
+    "footerTextRight": "meggsimum",
+    "logo": "Logotipo do Aplicativo"
+  },
+
+  "mapLayers": {
+    "wgu-drag-drop-layer" : {
+      "name": "Dados Enviados"
     },
-    "mapLayers": {
-      "wgu-drag-drop-layer": {
-        "name": "Dados Carregados por Arrastar e Soltar"
-      },
-      "Shops": {
-        "name": "Lojas DaSchau"
-      },
-      "gas-wfs": {
-        "name": "Postos de Gasolina WFS",
-        "attributions": "© <a href=\"https://www.openstreetmap.org/copyright\">Colaboradores do OpenStreetMap</a>"
-      },
-      "earthquakes": {
-        "name": "Terremotos de 2012 (Mag 5)",
-        "attributions": "Serviço Geológico dos Estados Unidos"
-      },
-      "ahocevar-wms": {
-        "name": "WMS em Azulejos (ahocevar)"
-      },
-      "ahocevar-imagewms": {
-        "name": "WMS de Imagem (ahocevar)"
-      },
-      "ahocevar-vectortiles": {
-        "name": "Camada de Azulejos Vetoriais"
-      },
-      "opentopomap": {
-        "name": "OpenTopoMap",
-        "attributions": "Dados do Mapa: <a href=\"https://openstreetmap.org/copyright\">© Colaboradores do OpenStreetMap</a>, SRTM | Representação do Mapa: © <a href=\"http://opentopomap.org/\">OpenTopoMap</a> (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC-BY-SA</a>)"
-      },
-      "osm-bg": {
-        "name": "OpenStreetMap"
-      },
-      "dutch-nat-parks": {
-        "name": "WFS (Parques Nacionais Holandeses PDOK)",
-        "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> do Cadastro Holandês"
-      },
-      "pdok-natura2000-wms": {
-        "name": "WMS - Áreas Natura 2000 - PDOK",
-        "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> do Cadastro Holandês"
-      },
-      "pdok-lufo-wms": {
-        "name": "WMS - Imagem Aérea Holandesa - PDOK",
-        "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> do Cadastro Holandês"
-      },
-      "brtachtergrondkaart": {
-        "name": "WMTS - Mapa Base Topo - PDOK",
-        "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> do Cadastro Holandês"
-      },
-      "terrestris-osm-wms": {
-        "name": "OSM WMS",
-        "attributions": "<a href='https://www.openstreetmap.org/copyright' target='_blank'>© Colaboradores do OpenStreetMap</a>"
-      }
+    "Shops": {
+      "name": "Shops DaSchau"
     },
-    "wgu-helpwin": {
-      "title": "Ajuda",
-      "textTitle": "Sobre o Wegue",
-      "htmlContent": "<b>WebGIS baseado em OpenLayers e Vue.js</b></br>Templates e componentes reutilizáveis para aplicações de mapas da web com OpenLayers e Vue.js",
-      "infoLinkUrl": "http://wegue.org/",
-      "infoLinkText": "Mais Informações"
+    "gas-wfs": {
+      "name": "Estações de Gás WFS",
+      "attributions": "© <a href=\"https://www.openstreetmap.org/copyright\">Colaboradores do OpenStreetMap</a>"
     },
-    "sample-module": {
-      "title": "Módulo de Exemplo",
-      "text": "Olá Wegue"
+    "earthquakes": {
+      "name": "Terremotos 2012 (Magnitude 5)",
+      "attributions": "Serviço Geológico dos Estados Unidos"
+    },
+    "ahocevar-wms": {
+      "name": "WMS em Mosaico (ahocevar)"
+    },
+    "ahocevar-imagewms": {
+      "name": "WMS de Imagens (ahocevar)"
+    },
+    "ahocevar-vectortiles": {
+      "name": "Camada de Dados Vetoriais"
+    },
+    "opentopomap": {
+      "name": "OpenTopoMap",
+      "attributions": "Dados do mapa: <a href=\"https://openstreetmap.org/copyright\">© Colaboradores do OpenStreetMap</a>, SRTM | Representação do mapa: © <a href=\"http://opentopomap.org/\">OpenTopoMap</a> (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC-BY-SA</a>)"
+    },
+    "osm-bg": {
+      "name": "OpenStreetMap"
+    },
+    "dutch-nat-parks" : {
+      "name": "WFS (Parques Nacionais Holandeses PDOK)",
+      "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> pelo Kadaster Holandês"
+    },
+    "pdok-natura2000-wms" : {
+      "name": "WMS - Áreas Natura 2000 - PDOK",
+      "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> pelo Kadaster Holandês"
+    },
+    "pdok-lufo-wms" : {
+      "name": "WMS - Mapa Aéreo Holandês - PDOK",
+      "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> pelo Kadaster Holandês"
+    },
+    "brtachtergrondkaart" : {
+      "name": "WMTS - Mapa de Base Topográfico - PDOK",
+      "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> pelo Kadaster Holandês"
+    },
+    "terrestris-osm-wms" : {
+      "name": "WMS do OSM",
+      "attributions": "<a href='https://www.openstreetmap.org/copyright' target='_blank'>© Colaboradores do OpenStreetMap</a>"
     }
+  },
+
+  "wgu-helpwin": {
+    "title": "Sobre",
+    "textTitle": "Sobre Wegue",
+    "htmlContent": "<b>WebGIS com OpenLayers e Vue.js</b> Modelo e componentes reutilizáveis para aplicações de mapeamento web com OpenLayers e Vue.js",
+    "infoLinkUrl": "http://wegue.org/",
+    "infoLinkText": "Mais informações"
+  },
+
+  "sample-module": {
+    "title": "Módulo de Exemplo",
+    "text": "Olá Wegue"
   }
-  
+}
