@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { Mapable } from '../../mixins/Mapable';
 import AngleUtil from '../../../src/util/Angle';
 import LineStringGeom from 'ol/geom/LineString';
 import { getArea, getLength } from 'ol/sphere.js';
@@ -23,12 +24,14 @@ const EMPTY_RESULT_TEXT = ' -- ';
 
 export default {
   name: 'wgu-measure-result',
+  mixins: [Mapable],
   props: {
     measureGeom: { type: Object },
     measureType: { type: String }
   },
   data () {
     return {
+      map: null,
       area: EMPTY_RESULT_TEXT,
       distance: EMPTY_RESULT_TEXT,
       angle: EMPTY_RESULT_TEXT
@@ -61,12 +64,13 @@ export default {
   },
   methods: {
     /**
-       * Calculates and formats the length of the given line.
-       *
-       * @param  {ol.geom.LineString} line The LineString object to calculate length for
-       */
+     * Calculates and formats the length of the given line.
+     *
+     * @param  {ol.geom.LineString} line The LineString object to calculate length for
+     */
     formatLength (line) {
-      const length = getLength(line);
+      const mapSrs = this.map.getView().getProjection().getCode();
+      const length = getLength(line, { projection: mapSrs });
       let output;
       if (length > 100) {
         output = this.$t('wgu-measuretool.lengthKm',
@@ -83,7 +87,8 @@ export default {
        * @param  {ol.geom.Polygon} polygon The Polygon object to calculate area for
        */
     formatArea (polygon) {
-      const area = getArea(polygon);
+      const mapSrs = this.map.getView().getProjection().getCode();
+      const area = getArea(polygon, { projection: mapSrs });
       let output;
       if (area > 10000) {
         output = this.$t('wgu-measuretool.areaSquareKm',
