@@ -13,7 +13,8 @@
   "lang": {
     "supported": {
       "en": "English",
-      "de": "Deutsch"
+      "de": "Deutsch",
+      "pt": "Portugues"
     },
     "fallback": "en"
   },

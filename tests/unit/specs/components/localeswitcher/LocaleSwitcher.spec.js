@@ -9,9 +9,10 @@ const appConfig = {
   lang: {
     supported: {
       en: 'English',
+      pt: 'Portugues',
       de: 'Deutsch'
     },
-    fallback: 'de'
+    fallback: 'pt'
   }
 };
 
@@ -49,9 +50,10 @@ describe('localeswitcher/LocaleSwitcher.vue', () => {
     it('has correct default data', () => {
       expect(typeof LocaleSwitcher.data).to.equal('function');
       expect(vm.lang).to.be.an('object');
-      expect(Object.keys(vm.lang).length).to.eql(2);
+      expect(Object.keys(vm.lang).length).to.eql(3);
       expect(vm.lang.en).to.eql('English');
       expect(vm.lang.de).to.eql('Deutsch');
+      expect(vm.lang.pt).to.eql('Portugues');
     });
 
     afterEach(() => {
