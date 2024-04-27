@@ -152,6 +152,7 @@ export default {
       const mapElement = this.map.getTargetElement();
       const mapElementClass = mapElement.className;
       mapElement.className = '';
+      const scaleLineElement = document.getElementsByClassName('ol-scale-bar')[0]
       let dim = this.dims[this.format];
       if (this.orientation === this.$t('wgu-print.portrait')) dim = dim.reverse();
       const scale = this.scales[this.scale];
@@ -204,6 +205,8 @@ export default {
           pdf.save('map.pdf');
           // Reset original map size
           me.scaleLine.setDpi();
+          scaleLineElement.style.left = '';
+          scaleLineElement.style.bottom = '';
           mapElement.className = mapElementClass;
           mapElement.style.width = '';
           mapElement.style.height = '';
@@ -214,9 +217,10 @@ export default {
 
       // Set print size
       this.scaleLine.setDpi(parseInt(this.resolution));
+      scaleLineElement.style.left = '10mm';
+      scaleLineElement.style.bottom = '10mm';
       mapElement.style.width = width + 'px';
       mapElement.style.height = height + 'px';
-      console.log('render sizes', this.map.getTargetElement().style.width, this.map.getTargetElement().style.height)
       this.map.getView().setResolution(scaleResolution);
       this.map.updateSize();
     }
