@@ -194,10 +194,22 @@ export const LayerFactory = {
       })
       .then(function (text) {
         const capabilities = parser.read(text);
-        const Source = new WMTS(optionsFromCapabilities(capabilities, {
-          layer: lConf.optionsFromCapabilities.layername,
+        const options = optionsFromCapabilities(capabilities, {
+          layer: lConf.optionsFromCapabilities.layer,
           matrixSet: lConf.optionsFromCapabilities.matrixSet,
-        }))
+          projection: lConf.optionsFromCapabilities.projection,
+          requestEncoding: lConf.optionsFromCapabilities.requestEncoding,
+          style: lConf.optionsFromCapabilities.style,
+          format: lConf.optionsFromCapabilities.format,
+          crossOrigin: lConf.optionsFromCapabilities.crossOrigin,
+        })
+        const Source = new WMTS({
+          ...options,
+          attributions: lConf.attributions,
+          hoverable: lConf.hoverable,
+          hoverAttribute: lConf.hoverAttribute,
+          hoverOverlay: lConf.hoverOverlay
+        })
 
         WMTSlayer.setSource(Source)
 
@@ -206,7 +218,6 @@ export const LayerFactory = {
     } else {
       WMTSlayer.setSource(new WMTS({
           url: lConf.url,
-          serverType: lConf.serverType,
           tileGrid: lConf.tileGrid,
           cacheSize: lConf.cacheSize,
           interpolate: lConf.interpolate,
@@ -222,7 +233,10 @@ export const LayerFactory = {
           urls: lConf.urls,
           wrapX: lConf.wrapX,
           transition: lConf.transition,
-          zDirection: lConf.zDirection
+          zDirection: lConf.zDirection,
+          hoverable: lConf.hoverable,
+          hoverAttribute: lConf.hoverAttribute,
+          hoverOverlay: lConf.hoverOverlay
         })
       )
     }
