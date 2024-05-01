@@ -16,6 +16,7 @@ import {
 import RotateControl from 'ol/control/Rotate';
 import Projection from 'ol/proj/Projection';
 import TileGrid from 'ol/tilegrid/TileGrid';
+import WMTSTileGrid from 'ol/tilegrid/WMTS.js';
 import { register as olproj4 } from 'ol/proj/proj4';
 import { get as getProj } from 'ol/proj';
 import { GPX, GeoJSON, IGC, KML, TopoJSON } from 'ol/format';
@@ -163,7 +164,7 @@ export default {
 
     // Optional TileGrid definitions by name, for ref in Layers
     Object.keys(this.tileGridDefs).forEach(name => {
-      this.tileGrids[name] = new TileGrid(this.tileGridDefs[name]);
+      this.tileGrids[name] = this.tileGridDefs[name].type === 'WMTS' ? new WMTSTileGrid(this.tileGridDefs[name]) : new TileGrid(this.tileGridDefs[name]);
     });
 
     this.map = new Map({
@@ -207,7 +208,6 @@ export default {
         // Remarks: Passing null instead of undefined as parameters into the
         //  constructor of OpenLayers sources overwrites OpenLayers defaults.
         lConf.tileGrid = lConf.tileGridRef ? me.tileGrids[lConf.tileGridRef] : undefined;
-
         // Automatically set the appropriate z-index for the layer type,
         // if not defined explicitly.
         lConf.zIndex = lConf.zIndex ?? (lConf.isBaseLayer ? -1 : 0);

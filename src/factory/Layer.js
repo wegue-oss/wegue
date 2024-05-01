@@ -1,6 +1,8 @@
 import { Image as ImageLayer, Tile as TileLayer } from 'ol/layer';
 import ImageWMS from 'ol/source/ImageWMS';
 import TileWmsSource from 'ol/source/TileWMS';
+import WMTS, {optionsFromCapabilities} from 'ol/source/WMTS.js';
+import WMTSCapabilities from 'ol/format/WMTSCapabilities.js';
 import OsmSource from 'ol/source/OSM';
 import VectorTileLayer from 'ol/layer/VectorTile'
 import VectorTileSource from 'ol/source/VectorTile'
@@ -65,6 +67,8 @@ export const LayerFactory = {
       return this.createTileWmsLayer(lConf);
     } else if (lConf.type === 'IMAGEWMS') {
       return this.createImageWmsLayer(lConf);
+    } else if (lConf.type === 'WMTS') {
+      return this.createTileWmtsLayer(lConf);
     } else if (lConf.type === 'WFS') {
       return this.createWfsLayer(lConf, olMap);
     } else if (lConf.type === 'XYZ') {
@@ -163,6 +167,68 @@ export const LayerFactory = {
     });
 
     return layer;
+  },
+
+  /**
+   * Returns an OpenLayers Tiled WMTS layer instance due to given config.
+   *
+   * @param  {Object} lConf  Layer config object
+   * @return {ol.layer.Tile} OL Tiled WMTS layer instance
+   */
+  createTileWmtsLayer (lConf) {
+    // apply additional HTTP params
+
+    const WMTSlayer = new TileLayer({
+      ...this.getCommonLayerOptions(lConf),
+      source: new TileWmsSource({ // fake source, will be replaced
+        url: ""
+      })
+    })
+
+    if (lConf.optionsFromCapabilities) {
+      const parser = new WMTSCapabilities();
+
+      fetch(lConf.optionsFromCapabilities.url)
+      .then(function (response) {
+        return response.text();
+      })
+      .then(function (text) {
+        const capabilities = parser.read(text);
+        const Source = new WMTS(optionsFromCapabilities(capabilities, {
+          layer: lConf.optionsFromCapabilities.layername,
+          matrixSet: lConf.optionsFromCapabilities.matrixSet,
+        }))
+
+        WMTSlayer.setSource(Source)
+
+      });
+
+    } else {
+      WMTSlayer.setSource(new WMTS({
+          url: lConf.url,
+          serverType: lConf.serverType,
+          tileGrid: lConf.tileGrid,
+          cacheSize: lConf.cacheSize,
+          interpolate: lConf.interpolate,
+          reprojectionErrorThreshold: lConf.reprojectionErrorThreshold,
+          projection: lConf.projection,
+          crossOrigin: lConf.crossOrigin,
+          layer: lConf.layer,
+          style: lConf.style,
+          tilePixelRatio: lConf.tilePixelRatio,
+          format: lConf.format,
+          version: lConf.version,
+          matrixSet: lConf.matrixSet,
+          urls: lConf.urls,
+          wrapX: lConf.wrapX,
+          transition: lConf.transition,
+          zDirection: lConf.zDirection
+        })
+      )
+    }
+
+    return WMTSlayer;
+
   },
 
   /**
