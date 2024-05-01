@@ -50,6 +50,21 @@
     "history": true
   },
 
+  "tileGridDefs": {
+    "usgs": {
+      "type": "WMTS",
+      "origin": [ -20037508.342789244, 20037508.342789244 ],
+      "resolutions": [156543.03,78271.51,39135.75,19567.87,9783.93,4891.96,2445.984,1222.99,611.49,305.748,152.87,76.437,38.218,19.109,9.55,4.77,2.388,1.194,0.595],
+      "matrixIds": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]
+    },
+    "ignfr": {
+      "type": "WMTS",
+      "origin": [ -20037508.342789244, 20037508.342789244 ],
+      "resolutions": [156543.03392804097,78271.51696402048,39135.75848201024,19567.87924100512,9783.93962050256,4891.96981025128,2445.98490512564,1222.99245256282,611.49622628141,305.748113140705,152.8740565703525,76.43702828517625,38.21851414258813,19.109257071294063,9.554628535647032,4.777314267823516,2.388657133911758,1.194328566955879,0.5971642834779395,0.29858214173896974],
+      "matrixIds": ["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19"]
+    }
+  },
+
   "mapLayers": [
 
     {
@@ -144,6 +159,49 @@
         "strokeWidth": 5,
         "fillColor": "rgb(255, 255, 0, 0.2)"
       }
+    },
+    {
+      "type": "WMTS",
+      "name": "USGS demo",
+      "format": "image/png",
+      "url": "https://mrdata.usgs.gov/mapcache/wmts",
+      "lid": "usgs_demo",
+      "isBaseLayer": false,
+      "layers": "",
+      "projection": "EPSG:3857",
+      "layer": "sgmc2",
+      "matrixSet": "GoogleMapsCompatible",
+      "attributions": "Tiles © <a href=\"https://mrdata.usgs.gov/geology/state/\" target=\"_blank\">USGS</a>",
+      "tileGridRef": "usgs",
+      "style": "default",
+      "wrapX": true
+    },
+    {
+      "type": "WMTS",
+      "name": "IGN Plan",
+      "format": "image/png",
+      "url": "https://wxs.ign.fr/choisirgeoportail/geoportail/wmts",
+      "lid": "ign_demo",
+      "isBaseLayer": true,
+      "projection": "EPSG:3857",
+      "layer": "GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2",
+      "matrixSet": "PM",
+      "attributions": "Basemap © <a href=\"https://www.ign.fr/\" target=\"_blank\">'<img src=\"https://wxs.ign.fr/static/logos/IGN/IGN.gif\" title=\"Institut national de l'information géographique et forestière\" alt=\"IGN\"></a>",
+      "tileGridRef": "ignfr",
+      "style": "normal"
+    },
+    {
+      "type": "WMTS",
+      "name": "RV_DTM",
+      "lid": "rv-dtm",
+      "optionsFromCapabilities": {
+        "url": "https://idt2.regione.veneto.it/gwc/service/wmts?request=GetCapabilities",
+        "layer": "rv:DTM_RV_5m_3003", 
+        "format": "image/png",
+        "matrixSet": "EPSG:4326",
+        "crossOrigin": "anonymous"
+      },
+      "attributions": "DTM © 2024 Regione del Veneto"
     },
     {
       "type": "TILEWMS",
