@@ -112,6 +112,24 @@ Similar properties as Tiled WMS, with these exceptions:
 | interpolate        | By default, linear interpolation is used when resampling. Set to false to use the nearest neighbor instead. | `"interpolate": false` |
 | tileGridRef        | Parameter is not used for `IMAGEWMS` | |
 
+## WMTS (tiled)
+
+| Property           | Meaning (from Openlayers [API docs](https://openlayers.org/en/latest/apidoc/module-ol_source_WMTS.html)) | Example |
+|--------------------|:----------|---------|
+| **type**           | Indicator that the layer is a WMTS, use `WMTS` | `"type": "WMTS"` |
+| **layer**         | Layer name as advertised in the WMTS capabilities. | `"layer": "sgmc2"` |
+| **url**            | A URL for the service. For the RESTful request encoding, this is a URL template.  For KVP encoding, it is normal URL. A `{?-?}` template pattern, for example `subdomain{a-f}.domain.com`, may be used instead of defining each one separately in the `urls` option. | `"url": "https://mrdata.usgs.gov/mapcache/wmts"` |
+| projection         |  The projection of the layer. Has to be defined in `projectionDefs` if not `EPSG:4326` or `EPSG:3857`. if not set the projection of the map is used | `"projection": "EPSG:3857"` |
+| format             | Image format. Only used when requestEncoding is 'KVP' | `"format": "image/png"` |
+| transparent        | Boolean value, whether the WMS layer should be queried with a transparent background  | `"transparent": true` |
+| tileGridRef        | Identifier of the tile grid to use for this layer (has to be defined in `tileGridDefs`) The grid has to be correctly identified with `"type": "WMTS"` | `"tileGridRef": "usgs"` |
+| crossOrigin        | Provides support for CORS, defining how the layers source handles crossorigin requests. For more information and the supported values see [HTML attribute: crossorigin](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin)  | `"crossOrigin": "anonymous"` |
+| cacheSize, interpolate, reprojectionErrorThreshold, tilePixelRatio, version, matrixSet, urls, wrapX, transition, zDirection | The module wraps ol/source/WMTS layer options: https://openlayers.org/en/latest/apidoc/module-ol_source_WMTS.html | `"cacheSize": 16`                                            |
+| optionsFromCapabilities                                      | In WMTS layers options can be retrieved parsing the service capabilities document, the option is an object containing at least the following keys: `url`, `layer`, `matrixSet` or `projection` | `"optionsFromCapabilities": {"url": "https://idt2.regione.veneto.it/gwc/service/wmts?request=GetCapabilities", "layer": "rv:DTM_RV_5m_3003", "matrixSet": "EPSG:4326"}` |
+| hoverAttribute      | Attribute to be shown if a feature of the layer is hovered. Only has an effect if `hoverable` is set to `true`.  | `"hoverAttribute": "name"` |
+| hoverOverlay        | ID of a custom map overlay to display when a feature of the layer is hovered. Only has an effect if `hoverable` is set to `true`. For more information on how to implement a map overlay see the [reusable components](reusable-components?id=map-overlay) section. | `"hoverOverlay": "my-custom-overlay"` |
+| params        | This allows to inject custom HTTP parameters to the GetMap request of the layer. | `"params": {"FEATUREID": 1}"` |
+
 
 ## XYZ
 
