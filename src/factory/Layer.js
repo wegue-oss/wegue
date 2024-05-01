@@ -1,7 +1,7 @@
 import { Image as ImageLayer, Tile as TileLayer } from 'ol/layer';
 import ImageWMS from 'ol/source/ImageWMS';
 import TileWmsSource from 'ol/source/TileWMS';
-import WMTS, {optionsFromCapabilities} from 'ol/source/WMTS.js';
+import WMTS, { optionsFromCapabilities } from 'ol/source/WMTS.js';
 import WMTSCapabilities from 'ol/format/WMTSCapabilities.js';
 import OsmSource from 'ol/source/OSM';
 import VectorTileLayer from 'ol/layer/VectorTile'
@@ -181,18 +181,16 @@ export const LayerFactory = {
     const WMTSlayer = new TileLayer({
       ...this.getCommonLayerOptions(lConf),
       source: new TileWmsSource({ // fake source, will be replaced
-        url: ""
+        url: ''
       })
     })
 
     if (lConf.optionsFromCapabilities) {
       const parser = new WMTSCapabilities();
 
-      fetch(lConf.optionsFromCapabilities.url)
-      .then(function (response) {
+      fetch(lConf.optionsFromCapabilities.url).then(function (response) {
         return response.text();
-      })
-      .then(function (text) {
+      }).then(function (text) {
         const capabilities = parser.read(text);
         const options = optionsFromCapabilities(capabilities, {
           layer: lConf.optionsFromCapabilities.layer,
@@ -201,7 +199,7 @@ export const LayerFactory = {
           requestEncoding: lConf.optionsFromCapabilities.requestEncoding,
           style: lConf.optionsFromCapabilities.style,
           format: lConf.optionsFromCapabilities.format,
-          crossOrigin: lConf.optionsFromCapabilities.crossOrigin,
+          crossOrigin: lConf.optionsFromCapabilities.crossOrigin
         })
         const Source = new WMTS({
           ...options,
@@ -210,39 +208,33 @@ export const LayerFactory = {
           hoverAttribute: lConf.hoverAttribute,
           hoverOverlay: lConf.hoverOverlay
         })
-
         WMTSlayer.setSource(Source)
-
       });
-
     } else {
       WMTSlayer.setSource(new WMTS({
-          url: lConf.url,
-          tileGrid: lConf.tileGrid,
-          cacheSize: lConf.cacheSize,
-          interpolate: lConf.interpolate,
-          reprojectionErrorThreshold: lConf.reprojectionErrorThreshold,
-          projection: lConf.projection,
-          crossOrigin: lConf.crossOrigin,
-          layer: lConf.layer,
-          style: lConf.style,
-          tilePixelRatio: lConf.tilePixelRatio,
-          format: lConf.format,
-          version: lConf.version,
-          matrixSet: lConf.matrixSet,
-          urls: lConf.urls,
-          wrapX: lConf.wrapX,
-          transition: lConf.transition,
-          zDirection: lConf.zDirection,
-          hoverable: lConf.hoverable,
-          hoverAttribute: lConf.hoverAttribute,
-          hoverOverlay: lConf.hoverOverlay
-        })
-      )
+        url: lConf.url,
+        tileGrid: lConf.tileGrid,
+        cacheSize: lConf.cacheSize,
+        interpolate: lConf.interpolate,
+        reprojectionErrorThreshold: lConf.reprojectionErrorThreshold,
+        projection: lConf.projection,
+        crossOrigin: lConf.crossOrigin,
+        layer: lConf.layer,
+        style: lConf.style,
+        tilePixelRatio: lConf.tilePixelRatio,
+        format: lConf.format,
+        version: lConf.version,
+        matrixSet: lConf.matrixSet,
+        urls: lConf.urls,
+        wrapX: lConf.wrapX,
+        transition: lConf.transition,
+        zDirection: lConf.zDirection,
+        hoverable: lConf.hoverable,
+        hoverAttribute: lConf.hoverAttribute,
+        hoverOverlay: lConf.hoverOverlay
+      }))
     }
-
     return WMTSlayer;
-
   },
 
   /**
