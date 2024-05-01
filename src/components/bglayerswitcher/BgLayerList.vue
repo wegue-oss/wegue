@@ -22,6 +22,7 @@
             'onsecondary--text': active
           }"
           @click="toggle"
+          @keyup.enter="toggle"
         >
           <wgu-layerpreviewimage
             :layer="layer"

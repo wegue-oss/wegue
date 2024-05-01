@@ -1,5 +1,5 @@
 <template>
-  <v-btn icon color="onprimary" @click="onClick"
+  <v-btn icon color="onprimary" @click="onClick" class="wgu-action-button"
     :title="$t('wgu-zoomtomaxextent.title')">
     <v-icon medium>{{icon}}</v-icon>
   </v-btn>

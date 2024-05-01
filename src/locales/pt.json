@@ -1,0 +1,104 @@
+{
+    "app": {
+      "title": "Vue.js / OpenLayers WebGIS",
+      "browserTitle": "Aplicativo de Demonstração Wegue",
+      "footerTextLeft": "Desenvolvido por <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>",
+      "footerTextRight": "meggsimum",
+      "logo": "Logotipo do Aplicativo"
+    },
+  
+    "mapLayers": {
+      "wgu-geolocator-layer": {
+        "name": "Posição Atual"
+      },
+      "wgu-measure-layer": {
+        "name": "Camada de Medição"
+      },
+      "wgu-drag-drop-layer" : {
+        "name": "Arraste/Descarregue Dados"
+      }
+    },
+  
+    "wgu-toolbar-menu": {
+      "title": "Abrir menu de barra de ferramentas"
+    },
+  
+    "wgu-attributetable": {
+      "title": "Tabela de Atributos",
+      "selectorLabel": "Escolha uma camada",
+      "loadingText": "Carregando... Por favor, mova-se para uma área onde a camada seja visível"
+    },
+  
+    "wgu-bglayerswitcher": {
+      "title": "Alterar mapa de fundo"
+    },
+  
+    "wgu-overviewmap": {
+      "title": "Mostrar mapa de visão geral"
+    },
+  
+    "wgu-geocoder": {
+      "title": "Busca de Endereço",
+      "placeHolder": "Pesquisar por um endereço"
+    },
+  
+    "wgu-geolocator": {
+      "title": "Geolocalização"
+    },
+  
+    "wgu-helpwin": {
+      "title": "Sobre",
+      "textTitle": "Sobre Wegue",
+      "htmlContent": "<b>WebGIS com OpenLayers e Vue.js</b> Modelo e componentes reutilizáveis para aplicações de mapeamento web com OpenLayers e Vue.js",
+      "infoLinkUrl": "http://wegue.org/",
+      "infoLinkText": "Mais informações"
+    },
+  
+    "wgu-infoclick": {
+      "title": "Informações de Clique no Mapa",
+      "mapClick": "Clique no mapa para obter informações sobre a posição clicada.",
+      "mediaClick": "Clique em um recurso no mapa para mostrar informações de mídia conectadas.",
+      "mediaInfoLinkText": null
+    },
+  
+    "wgu-layerlist": {
+      "title": "Camadas"
+    },
+  
+    "wgu-maprecorder": {
+      "title": "Gravador de Mapa",
+      "options": "Opções",
+      "videoFormat": "Formato de Vídeo",
+      "frameRate": "Taxa de quadros (frames/s)",
+      "bitRate": "Taxa de bits (MBits/s)",
+      "fileName": "Nome do Arquivo",
+      "start": "Iniciar",
+      "stop": "Parar",
+      "error": "Falha ao iniciar a gravação."
+    },
+  
+    "wgu-zoomtomaxextent": {
+      "title": "Redefinir Extensão do Mapa"
+    },
+  
+    "wgu-measuretool": {
+      "title": "Medir",
+      "distance": "Distância",
+      "length": "Comprimento",
+      "area": "Área",
+      "angle": "Ângulo",
+      "lengthKm": "{0} km",
+      "lengthMeter": "{0} m",
+      "areaSquareKm": "{0} km²",
+      "areaSquareMeter": "{0} m²"
+    },
+  
+    "wgu-localeswitcher": {
+      "title": "Configurações de Idioma"
+    },
+  
+    "wgu-themeswitcher": {
+      "title": "Modo Escuro"
+    }
+  }
+  

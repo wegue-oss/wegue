@@ -43,6 +43,9 @@ describe('ol/HoverController.js', () => {
       expect(comp.timerHandle).to.equal(null);
       expect(comp.activeOverlayId).to.equal(null);
       expect(comp.pendingRequestsCancelSrc).to.equal(null);
+      expect(comp.conf.delay).to.equal(150)
+      expect(comp.conf.hideOnMousemove).to.equal(false)
+      expect(comp.conf.hoverOverlay).to.equal('wgu-hover-tooltip')
     });
 
     afterEach(() => {
