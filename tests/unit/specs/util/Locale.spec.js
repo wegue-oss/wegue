@@ -1,4 +1,5 @@
 import LocaleUtil from '@/util/Locale'
+import Vue from 'vue';
 
 const appConfig = {
   lang: {
@@ -10,6 +11,8 @@ const appConfig = {
     fallback: 'de'
   }
 };
+
+Vue.prototype.$appConfig = appConfig;
 
 describe('LocaleUtil', () => {
   it('is defined', () => {
