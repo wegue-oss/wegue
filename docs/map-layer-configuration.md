@@ -106,7 +106,7 @@ The following properties can be applied to all map layer types
 | Property           | Meaning   | Example |
 |--------------------|:---------:|---------|
 | **type**           | Indicator that the layer is `"TILEARCGIS"`  | `"type": "TILEARCGIS"` |
-| **url**            | The GetMap URL of the WMS | `"url": "https://cartografia.comune.padova.it/server/rest/services/topo/MapServer"` |
+| **url**            | The base URL of the Arcgis REST service | `"url": "https://cartografia.comune.padova.it/server/rest/services/topo/MapServer"` |
 | projection         |  The projection of the layer. Has to be defined in `projectionDefs` if not `EPSG:4326` or `EPSG:3857`. if not set the projection of the map is used | `"projection": "EPSG:3857"` |
 | tileGrid        |  	Identifier of the tile grid to use for this layer (has to be defined in `tileGridDefs`) | `"tileGridRef": "dutch_rd"` |
 | crossOrigin        | Provides support for CORS, defining how the layers source handles crossorigin requests. For more information and the supported values see [HTML attribute: crossorigin](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin)  | `"crossOrigin": "anonymous"` |
