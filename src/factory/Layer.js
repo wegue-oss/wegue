@@ -1,6 +1,7 @@
 import { Image as ImageLayer, Tile as TileLayer } from 'ol/layer';
 import ImageWMS from 'ol/source/ImageWMS';
 import TileWmsSource from 'ol/source/TileWMS';
+import TileArcGISRest from 'ol/source/TileArcGISRest.js';
 import OsmSource from 'ol/source/OSM';
 import VectorTileLayer from 'ol/layer/VectorTile'
 import VectorTileSource from 'ol/source/VectorTile'
@@ -63,6 +64,8 @@ export const LayerFactory = {
     // create correct layer type
     if (lConf.type === 'TILEWMS') {
       return this.createTileWmsLayer(lConf);
+    } else if (lConf.type === 'TILEARCGIS') {
+      return this.createTileArcGISRestLayer(lConf);
     } else if (lConf.type === 'IMAGEWMS') {
       return this.createImageWmsLayer(lConf);
     } else if (lConf.type === 'WFS') {
@@ -159,6 +162,31 @@ export const LayerFactory = {
         hoverable: lConf.hoverable,
         hoverAttribute: lConf.hoverAttribute,
         hoverOverlay: lConf.hoverOverlay
+      })
+    });
+
+    return layer;
+  },
+
+  /**
+   * Returns an OpenLayers Tiled Arcgis REST tiled layer instance due to given config.
+   *
+   * @param  {Object} lConf  Layer config object
+   * @return {ol.layer.Tile} OL Tiled Arcgis REST layer instance
+   */
+  createTileArcGISRestLayer (lConf) {
+    // apply additional HTTP params
+    const params = { LAYERS: lConf.layers };
+    ObjectUtil.mergeDeep(params, lConf.params);
+
+    const layer = new TileLayer({
+      ...this.getCommonLayerOptions(lConf),
+      source: new TileArcGISRest({
+        url: lConf.url,
+        params,
+        projection: lConf.projection,
+        crossOrigin: lConf.crossOrigin,
+        tileGrid: lConf.tileGrid
       })
     });
 
