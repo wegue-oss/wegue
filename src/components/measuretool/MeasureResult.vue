@@ -31,7 +31,7 @@ export default {
   },
   data () {
     return {
-      map: null,
+      map: null, // the OL map is injected into this var by the Mapable mixin
       area: EMPTY_RESULT_TEXT,
       distance: EMPTY_RESULT_TEXT,
       angle: EMPTY_RESULT_TEXT
