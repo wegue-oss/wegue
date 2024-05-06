@@ -3,7 +3,6 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify/lib/framework';
 import PortalVue from 'portal-vue'
-import VueI18n from 'vue-i18n';
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
 import 'material-icons/iconfont/material-icons.css'
@@ -17,7 +16,6 @@ import axios from 'axios';
 
 Vue.use(Vuetify);
 Vue.use(PortalVue);
-Vue.use(VueI18n);
 
 require('./assets/css/wegue.css');
 
@@ -60,21 +58,6 @@ const createVuetify = function (appConfig) {
     }
   };
   return new Vuetify(preset);
-}
-
-/**
- * Creates the VueI18n object used for internationalization.
- *
- * @param {Object} appConfig Global application context.
- * @returns The active I18n instance.
- */
-const createVueI18n = function (appConfig) {
-  const preset = {
-    locale: LocaleUtil.getPreferredLanguage(appConfig),
-    fallbackLocale: LocaleUtil.getFallbackLanguage(appConfig),
-    messages: LocaleUtil.importVueI18nLocales()
-  };
-  return new VueI18n(preset);
 }
 
 /**
@@ -181,13 +164,17 @@ const migrateAppConfig = function (appConfig) {
  *
  * @param {Object} appConfig Global application context.
  */
-const createApp = function (appConfig) {
+const createApp = async function (appConfig) {
   // make app config accessible for all components
   Vue.prototype.$appConfig = migrateAppConfig(appConfig);
 
+  // dynamic import, otherwise Vue.prototype.$appConfig won't be set yet on
+  // static import
+  const { i18n } = await import('./locales/wgu-i18n.js');
+
   new Vue({
     vuetify: createVuetify(appConfig),
-    i18n: createVueI18n(appConfig),
+    i18n,
     render: h => h(WguApp)
   }).$mount('#app');
 };
