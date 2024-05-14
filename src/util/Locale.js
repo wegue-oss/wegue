@@ -68,7 +68,7 @@ const LocaleUtil = {
     const moduleDefaultExtractor = i => i.default;
 
     return LocaleUtil.importLocales(
-      require.context('vuetify/es5/locale', false, /[a-z0-9-_]+\.js$/i),
+      require.context('vuetify/lib/locale', false, /[a-z0-9-_]+\.js$/i),
       moduleDefaultExtractor
     );
   },
