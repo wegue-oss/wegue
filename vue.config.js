@@ -40,7 +40,22 @@ module.exports = defineConfig({
   },
 
   chainWebpack: config => {
+    config.resolve.alias.set('vue', '@vue/compat')
     config.resolve.alias.set('APP', path.resolve(config.resolve.alias.get('@'), '../app'))
+
+    config.module
+      .rule('vue')
+      .use('vue-loader')
+      .tap(options => {
+        return {
+          ...options,
+          compilerOptions: {
+            compatConfig: {
+              MODE: 2
+            }
+          }
+        }
+      })
 
     return config
       .plugin('copy')
