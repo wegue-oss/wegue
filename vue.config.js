@@ -72,5 +72,10 @@ module.exports = defineConfig({
   // Disable dependencies transpilation as browsers currently targetted by
   // .browserlistrc doesn't need it anymore. If legacy browsers need to be supported
   // modules to be processed can be granularly specified here.
-  transpileDependencies: false
+  transpileDependencies: false,
+
+  // Needed by vue-cli-plugin-vuetify to generate configuration correctly.
+  pluginOptions: {
+    vuetify: {}
+  }
 })
