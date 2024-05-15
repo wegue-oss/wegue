@@ -41,7 +41,7 @@ export default {
   /**
      * Destroy the overlay component.
      */
-  destroyed () {
+  unmounted () {
     WguEventBus.$off(this.overlayId + '-update-overlay', this.onUpdateOverlay);
     this.destroyOlOverlay();
   },

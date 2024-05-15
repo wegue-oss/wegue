@@ -10,17 +10,16 @@
         v-model="selLayer"
         color="accent"
         item-color="secondary"
-        :dark="isPrimaryDark"
-        filled
-        outlined
+        :theme="isPrimaryDark ? 'dark' : undefined"
+        variant="solo-filled"
         class="wgu-vector-layer-select wgu-solo-field"
         :items="displayedLayers"
-        :item-text="item => item.get('name')"
+        :item-title="item => item.get('name')"
         :menu-props="{
           bottom: true,
           'offset-y': true,
         }"
-        dense
+        density="compact"
         return-object
         hide-details
         :label="$t('wgu-attributetable.selectorLabel')"

@@ -23,7 +23,7 @@ export default {
   mounted () {
     this.createOverviewMapCtrl();
   },
-  destroyed () {
+  unmounted () {
     this.destroyOverviewMapCtrl();
   },
   methods: {

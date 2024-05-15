@@ -5,20 +5,20 @@
       :icon="icon"
       width=350>
 
-    <v-expansion-panels :multiple="true" :accordion="true" class="overflow-y-auto">
+    <v-expansion-panels :multiple="true" :variant="true ? 'accordion' : undefined" class="overflow-y-auto">
       <v-expansion-panel>
-        <v-expansion-panel-header>
+        <v-expansion-panel-title>
           <v-row align="center">
             <v-icon class="mr-4">settings</v-icon>
             {{ $t('wgu-maprecorder.options') }}
           </v-row>
-        </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        </v-expansion-panel-title>
+        <v-expansion-panel-text>
           <v-card
             flat
             color="transparent"
           >
-          <v-subheader>{{ $t('wgu-maprecorder.videoFormat') }}</v-subheader>
+          <div class="text-subtitle-2">{{ $t('wgu-maprecorder.videoFormat') }}</div>
             <v-card-text class="pt-0">
               <v-select
                   color="secondary"
@@ -30,12 +30,12 @@
                   v-model="mimeType"
                   :items="mimeTypes"
                   prepend-icon="mdi-video-image"
-                  dense
+                  density="compact"
                   hide-details>
               </v-select>
             </v-card-text>
 
-            <v-subheader>{{ $t('wgu-maprecorder.frameRate') }}</v-subheader>
+            <div class="text-subtitle-2">{{ $t('wgu-maprecorder.frameRate') }}</div>
             <v-card-text class="pt-0">
               <v-slider
                   color="secondary"
@@ -49,7 +49,7 @@
               </v-slider>
             </v-card-text>
 
-            <v-subheader>{{ $t('wgu-maprecorder.bitRate') }}</v-subheader>
+            <div class="text-subtitle-2">{{ $t('wgu-maprecorder.bitRate') }}</div>
             <v-card-text class="pt-0">
               <v-slider
                   color="secondary"
@@ -63,20 +63,20 @@
               </v-slider>
             </v-card-text>
 
-            <v-subheader>{{ $t('wgu-maprecorder.fileName') }}</v-subheader>
+            <div class="text-subtitle-2">{{ $t('wgu-maprecorder.fileName') }}</div>
             <v-card-text class="pt-0">
               <v-text-field
                 color="secondary"
                 v-model="filename"
                 prepend-icon="mdi-rename-box"
                 label="YYYY-MM-DD at HH.MM.SS"
-                dense
+                density="compact"
                 single-line
                 hide-details
               ></v-text-field>
             </v-card-text>
           </v-card>
-        </v-expansion-panel-content>
+        </v-expansion-panel-text>
       </v-expansion-panel>
     </v-expansion-panels>
 
@@ -96,11 +96,11 @@
           @click="toggleRecord"
         >
           <template v-if="!recording">
-            <v-icon left>fiber_manual_record</v-icon>
+            <v-icon start>fiber_manual_record</v-icon>
             {{ $t('wgu-maprecorder.start') }}
           </template>
           <template v-else>
-            <v-icon left>stop</v-icon>
+            <v-icon start>stop</v-icon>
             {{ $t('wgu-maprecorder.stop') }}
           </template>
         </v-btn>
@@ -118,9 +118,8 @@
           <v-alert
             v-model="error"
             type="error"
-            dismissible
-            dense
-            transition="scroll-y-transition"
+            closable
+            density="compact"
             class="mt-2 mb-0"
           >
             {{ $t('wgu-maprecorder.error') }}

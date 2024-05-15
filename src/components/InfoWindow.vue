@@ -10,7 +10,7 @@
        absolute
        height="100%"
        light
-       right
+       location="right"
      >
      <v-card
         class="info-card">
@@ -23,8 +23,8 @@
            </div>
          </v-card-title>
          <v-card-actions>
-           <v-btn text class="orange--text">Share</v-btn>
-           <v-btn text class="orange--text">Explore</v-btn>
+           <v-btn variant="text" class="text-orange">Share</v-btn>
+           <v-btn variant="text" class="text-orange">Explore</v-btn>
          </v-card-actions>
     </v-card>
 

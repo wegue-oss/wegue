@@ -1,13 +1,11 @@
 <template>
   <v-btn-toggle
-    borderless
-    dense
+    density="compact"
     color="onprimary"
-    background-color="transparent"
     :title="$t(moduleName + '.title')"
     v-model="show">
     <v-btn icon :value="true" color="onprimary" @click="toggleUi">
-      <v-icon color="onprimary" medium>{{icon}}</v-icon>
+      <v-icon color="onprimary" size="medium">{{icon}}</v-icon>
     </v-btn>
   </v-btn-toggle>
 </template>

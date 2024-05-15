@@ -2,13 +2,13 @@
   <v-slider
     color="secondary"
     prepend-icon="opacity"
-    :value="layer.getOpacity()"
+    :model-value="layer.getOpacity()"
     min="0"
     max="1"
     step="0.01"
     thumb-label
     hide-details
-    @input="onOpacitySliderInput"
+    @update:model-value="onOpacitySliderInput"
     >
   </v-slider>
 </template>

@@ -4,8 +4,8 @@
       mandatory
       show-arrows
       class="pa-1"
-      @change="onSelectLayer"
-      :value="selectedLayer"
+      @update:model-value="onSelectLayer"
+      :model-value="selectedLayer"
     >
       <v-slide-item
         v-for="layer in displayedLayers"
@@ -73,7 +73,7 @@ export default {
       }, 10);
     }
   },
-  destroyed () {
+  unmounted () {
     if (this.timerHandle) {
       clearTimeout(this.timerHandle);
     }

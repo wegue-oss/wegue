@@ -3,11 +3,10 @@
   <v-combobox
     v-show="!hideSearch"
     class="wgu-geocoder-combo wgu-solo-field"
-    outlined
-    dense
+    variant="solo-filled"
+    density="compact"
     color="accent"
-    :dark="isPrimaryDark"
-    filled
+    :theme="isPrimaryDark ? 'dark' : undefined"
     return-object
     hide-details
     :no-filter="noFilter"
@@ -19,7 +18,7 @@
     :persistent-hint="persistentHint"
     :hidden="hideSearch"
     :rounded="rounded"
-    :search-input.sync="search"
+    v-model:search-input="search"
   ></v-combobox>
 
   <div>
@@ -28,7 +27,7 @@
       color="onprimary"
       icon
       :title="$t('wgu-geocoder.title')">
-      <v-icon medium>{{icon}}</v-icon>
+      <v-icon size="medium">{{icon}}</v-icon>
     </v-btn>
 
   </div>

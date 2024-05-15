@@ -2,8 +2,7 @@
 
   <v-avatar
      v-if="!!logoSrc"
-     :width="logoWidth"
-     :height="logoHeight"
+     :size="logoWidth > logoHeight ? logoWidth : logoHeight"
      :tile="true"
      class="wgu-app-logo"
      rounded="0"

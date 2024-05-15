@@ -46,7 +46,7 @@
 
       <v-card-actions>
         <v-btn
-          text color="secondary"
+          variant="text" color="secondary"
           v-if="this.attributeData && this.attributeData[mediaInfoLinkUrlProp]"
           :href="this.attributeData[mediaInfoLinkUrlProp]"
           target="_blank"

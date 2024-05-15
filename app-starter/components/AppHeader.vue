@@ -2,10 +2,6 @@
   <v-app-bar
     class="wgu-app-toolbar onprimary--text"
     color="primary"
-    fixed
-    app
-    clipped-left
-    clipped-right
   >
 
     <!-- slot to inject components at the beginning (before title) -->
@@ -31,13 +27,13 @@
     <!-- slot to inject components after the auto-generated buttons (by config) -->
     <slot name="wgu-tb-after-auto-buttons"></slot>
 
-    <v-menu v-if="menuButtons.length" offset-y nudge-bottom="15">
-      <template v-slot:activator="{on}">
+    <v-menu v-if="menuButtons.length" offset="15">
+      <template v-slot:activator="{props}">
 
-      <v-btn icon v-on="on"
+      <v-btn icon v-bind="props"
         color="onprimary"
         :title="$t('wgu-toolbar-menu.title')">
-        <v-icon medium>menu</v-icon>
+        <v-icon size="medium">menu</v-icon>
       </v-btn>
       </template>
       <v-list color="primary">

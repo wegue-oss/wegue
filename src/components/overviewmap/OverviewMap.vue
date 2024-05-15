@@ -1,21 +1,22 @@
 <template>
   <div id="wgu-overviewmap-wrapper">
-    <v-menu offset-x nudge-right="15"
+    <v-menu
+      location="end"
+      offset="15"
       transition="scale-transition"
       :close-on-content-click="false"
-      :close-on-click="false"
+      persistent
       z-index=2
       v-model="open"
       attach="#wgu-overviewmap-wrapper"
       >
-      <template v-slot:activator="{on}">
+      <template v-slot:activator="{props}">
         <v-sheet class="wgu-map-button wgu-overviewmap">
-          <v-btn v-on="on"
+          <v-btn v-bind="props"
             color="secondary"
-            fab
+            :icon="icon"
             :title="$t('wgu-overviewmap.title')"
             >
-            <v-icon color="onsecondary" medium>{{icon}}</v-icon>
           </v-btn>
         </v-sheet>
       </template>

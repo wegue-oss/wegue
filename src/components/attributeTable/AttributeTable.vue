@@ -10,7 +10,7 @@
     :headers="headers"
     :items="records"
     mobile-breakpoint="0"
-    :page.sync="page"
+    v-model:page="page"
     :footer-props="{
         'items-per-page-options': [],
         'show-first-last-page': true
@@ -83,7 +83,7 @@ export default {
       this.activateSelectRowOnMapClick();
     }
   },
-  beforeDestroy () {
+  beforeUnmount () {
     if (this.layer && this.layer.getSource()) {
       // unregister event after table is closed
       this.layer.getSource().un('change', this.prepareTableDataAndColumns);

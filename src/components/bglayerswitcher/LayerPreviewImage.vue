@@ -8,7 +8,7 @@
       <!-- Fallback if no preview image is available or the image can't be loaded. -->
       <v-row v-if="!previewURL || !imgLoaded"
         class="fill-height" align="center" justify="center">
-        <v-icon x-large>{{previewIcon}}</v-icon>
+        <v-icon size="x-large">{{previewIcon}}</v-icon>
       </v-row>
   </v-img>
 </template>

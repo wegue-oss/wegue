@@ -1,6 +1,6 @@
 <template>
 
-  <v-list expand>
+  <v-list>
     <wgu-layerlistitem
       v-for="layer in displayedLayers"
       :key="layer.get('lid')"

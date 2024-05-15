@@ -92,7 +92,7 @@ export default {
       me.setOlButtonColor();
     }, 200);
   },
-  destroyed () {
+  unmounted () {
     // Send the event 'ol-map-unmounted' with the OL map as payload
     WguEventBus.$emit('ol-map-unmounted', this.map);
 

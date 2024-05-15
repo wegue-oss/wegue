@@ -2,8 +2,6 @@
   <v-navigation-drawer
       class="wgu-app-sidebar"
       ref="sidebar"
-      app
-      clipped
       :width=sidebarWidth
       v-model="sidebarOpen"
       >
@@ -11,10 +9,10 @@
       <slot></slot>
       <!-- Sidebar toggle button -->
       <template v-slot:prepend>
-        <v-btn small
+        <v-btn size="small"
           class="wgu-app-sidebar-toggle-btn px0"
           absolute
-          top
+          location="top"
           color="secondary"
           @click="sidebarOpen = !sidebarOpen">
           <v-icon color="onsecondary" v-if="sidebarOpen">chevron_left</v-icon>

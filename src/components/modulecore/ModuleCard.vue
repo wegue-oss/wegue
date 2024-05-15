@@ -22,13 +22,13 @@
           color="onprimary"
           v-if="minimizable"
           icon
-          small
+          size="small"
           @click="minimized = !minimized"
         >
           <v-icon v-if="minimized">web_asset</v-icon>
           <v-icon v-else>remove</v-icon>
         </v-btn>
-        <v-btn color="onprimary" v-if="closable" icon small class="mr-0"
+        <v-btn color="onprimary" v-if="closable" icon size="small" class="mr-0"
           @click="toggleUi">
           <v-icon>close</v-icon>
         </v-btn>

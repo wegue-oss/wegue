@@ -10,7 +10,7 @@
         <v-checkbox
           color="secondary"
           hide-details
-          :input-value="layer.getVisible()"
+          :model-value="layer.getVisible()"
           @click.capture.stop="onItemClick()"
         />
       </v-list-item-action>
@@ -49,15 +49,15 @@
       <v-checkbox
         color="secondary"
         hide-details
-        :input-value="layer.getVisible()"
+        :model-value="layer.getVisible()"
         @click.capture.stop="onItemClick(layer)"
       />
     </v-list-item-action>
-    <v-list-item-content>
+
       <v-list-item-title>
         {{ layer.get('name') }}
       </v-list-item-title>
-    </v-list-item-content>
+
   </v-list-item>
 </template>
 
