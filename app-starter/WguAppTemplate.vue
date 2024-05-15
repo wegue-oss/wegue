@@ -25,9 +25,9 @@
     <slot name="wgu-after-header" />
 
     <wgu-app-sidebar v-if="sidebarWins.length" v-bind="sidebarConfig">
-        <template v-for="(moduleWin, index) in sidebarWins">
+        <template v-for="(moduleWin, index) in sidebarWins" :key="index">
           <component
-            :is="moduleWin.type" :key="index"
+            :is="moduleWin.type"
             v-bind="moduleWin"
           />
       </template>
@@ -50,9 +50,9 @@
       </v-container>
     </v-main>
 
-    <template v-for="(moduleWin, index) in floatingWins">
+    <template v-for="(moduleWin, index) in floatingWins" :key="index">
       <component
-        :is="moduleWin.type" :key="index"
+        :is="moduleWin.type"
         v-bind="moduleWin"
       />
     </template>

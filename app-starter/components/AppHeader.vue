@@ -21,9 +21,9 @@
     <!-- slot to inject components before the auto-generated buttons (by config) -->
     <slot name="wgu-tb-before-auto-buttons"></slot>
 
-    <template v-for="(tbButton, index) in tbButtons">
+    <template v-for="(tbButton, index) in tbButtons" :key="index">
       <component
-        :is="tbButton.type" :key="index"
+        :is="tbButton.type"
         v-bind="tbButton"
       />
     </template>
@@ -41,8 +41,8 @@
       </v-btn>
       </template>
       <v-list color="primary">
-          <template v-for="(tbButton, index) in menuButtons">
-            <v-list-item :key="index">
+          <template v-for="(tbButton, index) in menuButtons" :key="index">
+            <v-list-item>
               <component
                   :is="tbButton.type" :key="index"
                   v-bind="tbButton"
