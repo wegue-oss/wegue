@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import Vue from 'vue'
+import { getCurrentInstance } from 'vue'
 import { WguEventBus } from '../src/WguEventBus'
 import OlMap from '../src/components/ol/Map'
 import HoverTooltip from '../src/components/ol/HoverTooltip'
@@ -118,6 +118,10 @@ export default {
     'wgu-maprecorder-win': MapRecorderWin,
     'sample-module-win': SampleModuleWin
   },
+  setup () {
+    const vueInstance = getCurrentInstance();
+    return { vueInstance };
+  },
   data () {
     return {
       isEmbedded: false,
@@ -125,7 +129,7 @@ export default {
       overviewMapConfig: this.getOverviewMapConfig(),
       floatingWins: this.getModuleWinData('floating'),
       sidebarWins: this.getModuleWinData('sidebar'),
-      showCopyrightYear: Vue.prototype.$appConfig.showCopyrightYear
+      showCopyrightYear: this.$appConfig.showCopyrightYear
     }
   },
   created () {
@@ -143,7 +147,7 @@ export default {
     for (const key of Object.keys(refs)) {
       cmpLookup[key] = refs[key][0];
     }
-    Vue.prototype.cmpLookup = cmpLookup;
+    this.vueInstance.appContext.config.globalProperties.cmpLookup = cmpLookup;
     // inform registered cmps that the app is mounted and the dynamic
     // components are available
     WguEventBus.$emit('app-mounted');
@@ -154,7 +158,7 @@ export default {
        * @return {Object} Sidebar configuration object.
        */
     getSidebarConfig () {
-      const appConfig = Vue.prototype.$appConfig || {};
+      const appConfig = this.$appConfig || {};
       return appConfig.sidebar;
     },
     /**
@@ -162,7 +166,7 @@ export default {
        * @return {Object} Overview map configuration object.
        */
     getOverviewMapConfig () {
-      const appConfig = Vue.prototype.$appConfig || {};
+      const appConfig = this.$appConfig || {};
       return appConfig.overviewMap;
     },
     /**
@@ -175,7 +179,7 @@ export default {
        * @return {Array} module window configuration objects
        */
     getModuleWinData (target) {
-      const appConfig = Vue.prototype.$appConfig || {};
+      const appConfig = this.$appConfig || {};
       const modulesConfs = appConfig.modules || {};
       const moduleWins = [];
       for (const key of Object.keys(modulesConfs)) {
@@ -199,7 +203,7 @@ export default {
      * Sets the current i18n language to the global app language lookup.
      */
     setGlobalAppLang () {
-      Vue.prototype.$appLanguage = this.$i18n.locale;
+      this.vueInstance.appContext.config.globalProperties.$appLanguage = this.$i18n.locale;
     }
   },
   watch: {

@@ -4,7 +4,7 @@
 
 <script>
 
-import Vue from 'vue';
+import { getCurrentInstance } from 'vue'
 import Map from 'ol/Map'
 import View from 'ol/View'
 import Attribution from 'ol/control/Attribution';
@@ -39,6 +39,10 @@ export default {
     collapsibleAttribution: { type: Boolean, default: false },
     rotateableMap: { type: Boolean, required: false, default: false }
   },
+  setup () {
+    const vueInstance = getCurrentInstance();
+    return { vueInstance };
+  },
   data () {
     return {
       zoom: this.$appConfig.mapZoom,
@@ -65,7 +69,7 @@ export default {
     const me = this;
     // Make the OL map accessible for Mapable mixin even 'ol-map-mounted' has
     // already been fired. Don not use directly in cmps, use Mapable instead.
-    Vue.prototype.$map = me.map;
+    this.vueInstance.appContext.config.globalProperties.$map = me.map;
 
     // Set the target for the OL canvas and tie it`s size to ol-map-container.
     // Remarks: 'ol-map-container' does not exist in the scope of the current unit test,

@@ -96,7 +96,7 @@ export default {
      * @return {Array} module button configuration objects
      */
     getModuleButtons (target) {
-      const appConfig = Vue.prototype.$appConfig || {};
+      const appConfig = this.$appConfig || {};
       const modulesConfs = appConfig.modules || {};
       const buttons = [];
       for (const key of Object.keys(modulesConfs)) {

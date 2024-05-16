@@ -1,7 +1,6 @@
 import * as Extent from 'ol/extent';
 import Point from 'ol/geom/Point';
 import Geometry from 'ol/geom/Geometry';
-import Vue from 'vue';
 
 /**
  * A collection of view animations to zoom an OpenLayers view to a given location or extent.
@@ -22,7 +21,7 @@ const ViewAnimationUtil = {
       default: NoAnimation
     };
 
-    const appConfig = Vue.prototype.$appConfig;
+    const appConfig = this.$appConfig;
     const animType = appConfig?.viewAnimation?.type;
     return animations[animType] || animations.default;
   },
@@ -36,7 +35,7 @@ const ViewAnimationUtil = {
    * @private
    */
   getOptions (options) {
-    const appConfig = Vue.prototype.$appConfig;
+    const appConfig = this.$appConfig;
     return options || appConfig?.viewAnimation?.options || {};
   },
 
