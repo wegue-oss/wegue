@@ -75,7 +75,7 @@ html {
 }
 
 .wgu-overviewmap-ctrl .ol-overviewmap-box {
-  border: 2px dotted var(--v-secondary-base);
+  border: 2px dotted var(--v-theme-secondary);
 }
 
 /* 
@@ -89,7 +89,7 @@ html {
 
 /*
   TODO Review ccs colorization.
-  Used to force the onprimary color for solo fields (light theme only).
+  Used to force the on-primary color for solo fields (light theme only).
   Components affected:
     - wgu-geocoder-combo
     - wgu-vector-layer-select
@@ -103,7 +103,7 @@ html {
 .wgu-solo-field.theme--light > .v-input__control input,
 .wgu-solo-field.theme--light > .v-input__control .v-select__selection
 {
-  color: var(--v-onprimary-base) !important;
+  color: rgb(var(--v-theme-on-primary)) !important;
 }
 
 /* TODO 

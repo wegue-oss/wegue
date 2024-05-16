@@ -5,8 +5,8 @@
     "themes": {
       "light": {
         "primary": "#EF6C00",
-        "onprimary": "#FFFFFF",
-        "onsecondary": "#FFFFFF"
+        "on-primary": "#FFFFFF",
+        "on-secondary": "#FFFFFF"
       },
       "dark": {
         "secondary": "#FFCC80"
