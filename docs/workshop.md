@@ -1,6 +1,6 @@
 # Workshop
 
-This workshop uses Wegue version [`v1.2.1`](https://github.com/wegue-oss/wegue/releases/tag/v1.2.1) but works for higher versions with no or little adaptation.
+This workshop uses Wegue version [`v2.0.0`](https://github.com/wegue-oss/wegue/releases/tag/v2.0.0) but works for higher versions with no or little adaptation.
 
 ## Prerequisites
 
@@ -12,7 +12,7 @@ You should have basic knowledge of using a commandline and a basic understanding
 
 For this workshop or to quickly try something, you can use the online-environment Gitpod. For this you need a browser and you need to register at Gitpod. That can be done with an existing GitHub account.
 
-To get started navigate to [**gitpod.io/#https://github.com/wegue-oss/wegue/tree/v1.2.1**](https://gitpod.io/#https://github.com/wegue-oss/wegue/tree/v1.2.1). Ideally, you will see a terminal running commands to set up Wegue. After some moments (~1 minute) you should see a running Wegue instance in one of the editor's panes like in this screenshot.
+To get started navigate to [**gitpod.io/#https://github.com/wegue-oss/wegue/tree/v2.0.0**](https://gitpod.io/#https://github.com/wegue-oss/wegue/tree/v2.0.0). Ideally, you will see a terminal running commands to set up Wegue. After some moments (~1 minute) you should see a running Wegue instance in one of the editor's panes like in this screenshot.
 
 ![Wegue running in Gitpod](_media/workshop/gitpod-wegue.png)
 
@@ -37,10 +37,10 @@ We need to download Wegue. This can be done in two ways:
     cd wegue
 
     # checkout the version of the Workshop
-    git checkout v1.2.1
+    git checkout v2.0.0
     ```
 
-- Alternatively download a zip-archive of Wegue via GitHub using this [link](https://github.com/wegue-oss/wegue/archive/refs/tags/v1.2.1.zip) and extract it.
+- Alternatively download a zip-archive of Wegue via GitHub using this [link](https://github.com/wegue-oss/wegue/archive/refs/tags/v2.0.0.zip) and extract it.
 
 ## Start Wegue
 
@@ -151,7 +151,7 @@ Let's apply the values to our config file. Change `mapZoom` and `mapCenter` to:
   "mapCenter": [965552, 6466228],
 ```
 
-The text strings of the application are changed in a different file, namely `app-starter/locales/en.json`. When you open the file, you will see numerous entries. Most of them we do not need for our application yet. Replace the content of the file with this:
+The text strings of the application are changed in a different file, namely `app/locales/en.json`. When you open the file, you will see numerous entries. Most of them we do not need for our application yet. Replace the content of the file with this:
 
 ```json
 {
@@ -331,7 +331,7 @@ Let's inspect what is happening here. The property `modules` is a JSON object wi
 
 - `"target": "toolbar"` adds the button for the layer list to the toolbar, alternatively it can be added to a menu using `"target": "menu"`
 - `"win": "floating"` tells Wegue to place the module floating over the map, alternatively `"win": "sidebar",` would place it in a sidebar
-- `"icon": "layers"` defines the icon image that is displayed, it can be chosen from the same [icon font](https://fonts.google.com/icons?selected=Material+Icons&icon.query=airport) that we used earlier for the layer style
+- `"icon": "layers"` defines the icon image that is displayed, it can be chosen from the same [icon font](https://fonts.google.com/icons?icon.query=local_airport) that we used earlier for the layer style
 
 The layer list on the top right enables us to switch the airport layer on and off.
 
@@ -397,6 +397,9 @@ The whole config file should look like this:
         "target": "toolbar",
         "win": "floating",
         "icon": "layers"
+      },
+      "wgu-zoomtomaxextent": {
+        "target": "toolbar"
       }
     }
   }
@@ -472,9 +475,10 @@ export default {
   }
 }
 </script>
+
 ```
 
-We include the mixing `Mapable`, we need that for accessing the map. The function `onMapBound()` is automatically executed once the map is bound. Here we can write plain JavaScript and access our OpenLayers map and add a layer containing a single point.
+We include the mixing `Mapable`, we need that for accessing the map. The function `onMapBound()` is automatically executed once the OpenLayers map is bound and ready. Here we can write plain JavaScript and access our map object and add a layer containing a single point.
 
 In the next step we want to make it possible to add more points to the layer by clicking on the map. This can be done using a [`DrawInteraction`](https://openlayers.org/en/latest/apidoc/module-ol_interaction_Draw-Draw.html). This is the new content of `WguApp.vue`:
 
@@ -553,6 +557,7 @@ export default {
   }
 }
 </script>
+
 ```
 
 When you refresh the app in your browser. You can instantly add points to the map by clicking with your cursor on a location. Like in this screenshot.
@@ -705,11 +710,11 @@ Refresh the app in your browser and you should see a card in the top right corne
 
 The next logical step would be to add the possibility to delete points. But this would exceed the extent of this workshop.
 
-Let's review what we have done: We added functionality by directly writing code to `WguApp.vue`. This is totally legitimate and fine for many use cases. However, once the functionality becomes more complex or should be shared with other applications, it is recommend to encapsulate this functionality in separate modules. This is explained in the next section.
+Let's review what we have done: We added functionality by directly writing code to `WguApp.vue`. This is totally legitimate and fine for many use cases. However, once the functionality becomes more complex or should be shared with other applications, it is recommended to encapsulate functionality in separate modules. This is explained in the next section.
 
 ## Add a custom module
 
-So far we modified the functionality of Wegue using the configuration file or by writing code into `WguApp.vue`. Now we will create a custom module using JavaScript. For this we need to change a couple of files:
+So far we modified the functionality of Wegue using the configuration file or by writing code into `WguApp.vue`. Now we will create a custom Wegue module using JavaScript. For this we need to change a couple of files:
 
 Create new file at `app/components/MyTool.vue` with the content below. Note the comments inline that explain what is happening here:
 
