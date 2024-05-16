@@ -1,4 +1,12 @@
-import Vue from 'vue'
+import mitt from 'mitt'
 
-// Vue instance acting as app-wide event-bus
-export const WguEventBus = new Vue();
+const emitter = mitt()
+
+const WguEventBus = {
+  $on: (...args) => emitter.on(...args),
+  $off: (...args) => emitter.off(...args),
+  $emit: (...args) => emitter.emit(...args)
+}
+
+// Exported object acting as an app-wide event-bus in Vue2
+export { WguEventBus }
