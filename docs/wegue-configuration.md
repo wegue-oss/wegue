@@ -29,6 +29,7 @@ This describes the Wegue application configuration, which is modelled as JSON do
 | viewAnimation      | Configuration object for view animations | See [viewAnimation](wegue-configuration?id=viewAnimation) |
 | sidebar            | Configuration object for the application sidebar. | See [sidebar](wegue-configuration?id=sidebar) |
 | legend             | Configuration object containing application wide parameters for layer legends. | See [legend](wegue-configuration?id=legend) |
+| customLayerProperties | Array of custom property names that can be defined inside `mapLayers`. Properties which are not known by `Wegue` are silently discarded when layers are created. See [mapLayers](map-layer-configuration?id=general) for more information. | `["myCustomProperty", "anotherCustomProperty"]` |
 
 ### colorTheme
 
