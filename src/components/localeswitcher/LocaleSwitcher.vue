@@ -6,6 +6,7 @@
       v-model="show">
       <template v-slot:activator="{ props}">
         <v-btn
+          v-bind="props"
           borderless
           dense
           color="onprimary"
@@ -13,8 +14,6 @@
           :title="$t('wgu-localeswitcher.title')"
           class="ma-2"
           icon
-          v-bind="props"
-
         >
           <v-icon class="mr-1" size="medium">{{icon}}</v-icon>
           {{ $i18n.locale }}

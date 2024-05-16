@@ -19,8 +19,8 @@
 
     <template v-for="(tbButton, index) in tbButtons" :key="index">
       <component
-        :is="tbButton.type"
         v-bind="tbButton"
+        :is="tbButton.type"
       />
     </template>
 
@@ -40,8 +40,8 @@
           <template v-for="(tbButton, index) in menuButtons" :key="index">
             <v-list-item>
               <component
-                  :is="tbButton.type" :key="index"
                   v-bind="tbButton"
+                  :is="tbButton.type" :key="index"
                />
               </v-list-item>
           </template>

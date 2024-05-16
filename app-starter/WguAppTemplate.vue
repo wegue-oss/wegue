@@ -27,8 +27,8 @@
     <wgu-app-sidebar v-if="sidebarWins.length" v-bind="sidebarConfig">
         <template v-for="(moduleWin, index) in sidebarWins" :key="index">
           <component
-            :is="moduleWin.type"
             v-bind="moduleWin"
+            :is="moduleWin.type"
           />
       </template>
     </wgu-app-sidebar>
@@ -52,8 +52,8 @@
 
     <template v-for="(moduleWin, index) in floatingWins" :key="index">
       <component
-        :is="moduleWin.type"
         v-bind="moduleWin"
+        :is="moduleWin.type"
       />
     </template>
 
