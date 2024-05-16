@@ -75,7 +75,7 @@ html {
 }
 
 .wgu-overviewmap-ctrl .ol-overviewmap-box {
-  border: 2px dotted var(--v-theme-secondary);
+  border: 2px dotted rgb(var(--v-theme-secondary));
 }
 
 /* 

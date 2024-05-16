@@ -78,7 +78,9 @@ export default {
        * Watch for background layer selection change.
        */
     selectedBgLayer () {
-      this.overviewMap.setLayer(this.selectedBgLayer);
+      if (this.overviewMap) {
+        this.overviewMap.setLayer(this.selectedBgLayer);
+      }
     }
   }
 }

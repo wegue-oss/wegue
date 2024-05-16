@@ -14,6 +14,7 @@
         <v-sheet class="wgu-map-button wgu-overviewmap">
           <v-btn v-bind="props"
             color="secondary"
+            size="large"
             :icon="icon"
             :title="$t('wgu-overviewmap.title')"
             >
@@ -39,7 +40,7 @@ export default {
     'wgu-overviewmap-panel': OverviewMapPanel
   },
   props: {
-    icon: { type: String, required: false, default: 'zoom_out_map' },
+    icon: { type: String, required: false, default: 'md:zoom_out_map' },
     visible: { type: Boolean, required: false, default: true },
     rotateWithView: { type: Boolean, required: false, default: true },
     width: { type: Number, required: false, default: 164 },
