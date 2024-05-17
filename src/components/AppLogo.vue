@@ -1,14 +1,15 @@
 <template>
 
-  <v-avatar
+  <v-img
      v-if="!!logoSrc"
-     :size="logoWidth > logoHeight ? logoWidth : logoHeight"
-     :tile="true"
-     class="wgu-app-logo"
-     rounded="0"
+     :src="logoSrc"
+     :width="logoWidth"
+     :height="logoHeight"
+     :alt="$t('app.logo')"
+     class="position-absolute wgu-app-logo"
+     cover
   >
-    <img :src="logoSrc" :alt="$t('app.logo')">
-  </v-avatar>
+  </v-img>
 
 </template>
 

@@ -21,6 +21,7 @@ html {
 }
 
 .wgu-app-logo {
+  z-index: 2;
   left: 15px;
   bottom: 45px;
 }
