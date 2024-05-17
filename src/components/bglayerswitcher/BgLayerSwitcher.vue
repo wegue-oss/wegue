@@ -12,6 +12,7 @@
         <v-sheet class="wgu-map-button wgu-bglayerswitcher">
           <v-btn v-bind="props"
             color="secondary"
+            size="large"
             :icon="icon"
             :title="$t('wgu-bglayerswitcher.title')"
             >
@@ -40,7 +41,7 @@ export default {
   },
   mixins: [Mapable],
   props: {
-    icon: { type: String, required: false, default: 'map' },
+    icon: { type: String, required: false, default: 'md:map' },
     imageWidth: { type: Number, required: false, default: 152 },
     imageHeight: { type: Number, required: false, default: 114 }
   },

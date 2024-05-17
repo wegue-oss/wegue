@@ -4,23 +4,20 @@
       mandatory
       show-arrows
       class="pa-1"
-      @update:model-value="onSelectLayer"
-      :model-value="selectedLayer"
+      selected-class="bg-secondary"
+      @update:modelValue="onSelectLayer"
+      :model-value="selectedLid"
     >
-      <v-slide-item
+      <v-slide-group-item
         v-for="layer in displayedLayers"
         :key="layer.get('lid')"
-        :value="layer"
-        v-slot:default="{ active, toggle }"
+        :value="layer.get('lid')"
+        v-slot:default="{ toggle, selectedClass }"
       >
         <v-card
           hover
           :width="imageWidth"
-          :class="{
-            'ma-1': true,
-            'secondary': active,
-            'onsecondary--text': active
-          }"
+          :class="['ma-1', selectedClass]"
           @click="toggle"
         >
           <wgu-layerpreviewimage
@@ -30,20 +27,20 @@
             :height="imageHeight"
             :previewIcon="previewIcon"
           />
-          <v-card-title class="text-caption">
-            <span class="d-inline-block text-truncate">
+          <v-card-title class="pt-3">
+            <span class="d-inline-block text-truncate text-caption font-weight-regular">
               {{ layer.get('name') }}
             </span>
           </v-card-title>
         </v-card>
-      </v-slide-item>
+      </v-slide-group-item>
     </v-slide-group>
   </v-sheet>
 </template>
 
 <script>
 import { Mapable } from '../../mixins/Mapable';
-import LayerPreviewImage from './LayerPreviewImage'
+import LayerPreviewImage from './LayerPreviewImage';
 
 export default {
   name: 'wgu-bglayerlist',
@@ -58,6 +55,7 @@ export default {
   },
   data () {
     return {
+      selectedLid: undefined,
       layers: []
     }
   },
@@ -66,32 +64,45 @@ export default {
     // when the control is initially rendered. The underlying implementation relies on the clientWidth
     // property of DOM elements, which is not computed on mount time. The bug is related to
     // https://github.com/vuejs/Discussion/issues/394 .The following works in Firefox and Chrome.
-    const slideGroup = this.$refs.slideGroup;
-    if (slideGroup) {
-      this.timerHandle = setTimeout(() => {
-        slideGroup.onResize();
-      }, 10);
-    }
+    // const slideGroup = this.$refs.slideGroup;
+    // if (slideGroup) {
+    //   this.timerHandle = setTimeout(() => {
+    //     slideGroup.onResize();
+    //   }, 10);
+    // }
   },
   unmounted () {
-    if (this.timerHandle) {
-      clearTimeout(this.timerHandle);
-    }
+    // if (this.timerHandle) {
+    //   clearTimeout(this.timerHandle);
+    // }
   },
   methods: {
     /**
-       * This function is executed, after the map is bound (see mixins/Mapable).
-       * Bind to the layers from the OpenLayers map.
-       */
+      * This function is executed, after the map is bound (see mixins/Mapable).
+      * Bind to the layers from the OpenLayers map.
+      * Store the ID of the currently visible OpenLayers background layer.
+      * To disambiguate multiple selected background layers - which may occur programmatically -
+      * this returns the first in the list of visible background layers.
+      */
     onMapBound () {
       this.layers = this.map.getLayers().getArray();
+      const selectedBaseLayer = this.displayedLayers.find(layer => layer.getVisible());
+      this.selectedLid = selectedBaseLayer?.get('lid');
+      // In Vuetify2, a mandatory slide group automatically selected the first item when value was null.
+      // In Vuetify3, we should assign it ourselves down here if we want to keep the same behaviour.
+      // if (!this.selectedLid) {
+      //   this.selectedLid = this.displayedLayers[0].get('lid');
+      //   this.displayedLayers[0].setVisible(true);
+      // }
     },
     /**
-       * Handler for click on item in layer list:
-       * Set the selected background layer to visible and hide all other background layers.
-       * @param  {Object} selLayer  Layer selected by the user
-       */
-    onSelectLayer (selLayer) {
+      * Handler for click on item in layer list:
+      * Set the selected background layer to visible and hide all other background layers.
+      * @param  {Object} selLid  ID of layer selected by the user
+      */
+    onSelectLayer (selLid) {
+      this.selectedLid = selLid;
+      const selLayer = this.displayedLayers.find(layer => layer.get('lid') === selLid);
       selLayer.setVisible(true);
       this.displayedLayers
         .filter(layer => layer !== selLayer)
@@ -102,20 +113,12 @@ export default {
   },
   computed: {
     /**
-       * Reactive property to return the OpenLayers layers marked as 'isBaseLayer'.
-       */
+      * Reactive property to return the OpenLayers layers marked as 'isBaseLayer'.
+      */
     displayedLayers () {
       return this.layers
         .filter(layer => layer.get('isBaseLayer'))
         .reverse();
-    },
-    /**
-       * Reactive property to return the currently visible OpenLayers background layer.
-       * To disambiguate multiple selected background layers - which may occur programmatically -
-       * this returns the first in the list of background layers.
-       */
-    selectedLayer () {
-      return this.displayedLayers.find(layer => layer.getVisible());
     }
   }
 }

@@ -2,6 +2,7 @@
   <v-img
       :src="previewURL"
       :width="width" :height="height"
+      cover
       v-on:load="imgLoaded=true"
       v-on:error="imgLoaded=false"
       >
