@@ -35,7 +35,7 @@
 
     <slot name="wgu-before-content" />
     <v-main app>
-      <v-container id="ol-map-container" fluid class="fill-height pa-0">
+      <v-container id="ol-map-container" fluid class="fill-height pa-0 position-relative">
         <wgu-map />
         <!-- layer loading indicator -->
         <wgu-maploading-status />

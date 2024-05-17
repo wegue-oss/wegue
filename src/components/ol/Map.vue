@@ -271,7 +271,7 @@ export default {
      * Sets the background color of the OL buttons to the color property.
      */
     setOlButtonColor () {
-      const colors = 'secondary onsecondary--text'
+      const colors = 'bg-secondary'
 
       // apply vuetify color by transforming the color to the corresponding
       // CSS class (see https://vuetifyjs.com/en/framework/colors)
