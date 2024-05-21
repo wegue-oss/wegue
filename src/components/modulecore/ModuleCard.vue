@@ -89,9 +89,10 @@ export default {
   },
   computed: {
     cardClasses () {
+      const inheritedClasses = this.$attrs.class ? [this.$attrs.class] : []
       return this.win === 'floating'
-        ? ['wgu-module-card', 'wgu-floating']
-        : ['wgu-module-card', 'wgu-sidebar'];
+        ? ['wgu-module-card', 'wgu-floating', ...inheritedClasses]
+        : ['wgu-module-card', 'wgu-sidebar', ...inheritedClasses];
     },
     cardStyles () {
       return this.win === 'floating'
