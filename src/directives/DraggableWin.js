@@ -25,7 +25,7 @@ export const DraggableWin = {
     initialZIndex: undefined
   },
 
-  bind (elmnt, binding, vnode) {
+  beforeMount (elmnt, binding, vnode) {
     if (binding.value === false) {
       // disable this directive if set to v-draggable-win="false"
       return;
