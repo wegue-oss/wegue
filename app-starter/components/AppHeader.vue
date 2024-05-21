@@ -1,6 +1,6 @@
 <template>
   <v-app-bar
-    class="wgu-app-toolbar onprimary--text"
+    class="wgu-app-toolbar"
     color="primary"
   >
 
@@ -30,15 +30,14 @@
     <v-menu v-if="menuButtons.length" offset="15">
       <template v-slot:activator="{props}">
 
-      <v-btn icon v-bind="props"
-        color="onprimary"
-        :title="$t('wgu-toolbar-menu.title')">
-        <v-icon size="medium">menu</v-icon>
+      <v-btn v-bind="props"
+        :title="$t('wgu-toolbar-menu.title')"
+        icon="md:menu">
       </v-btn>
       </template>
-      <v-list color="primary">
+      <v-list bg-color="primary">
           <template v-for="(tbButton, index) in menuButtons" :key="index">
-            <v-list-item>
+            <v-list-item class="py-0">
               <component
                   v-bind="tbButton"
                   :is="tbButton.type" :key="index"
@@ -55,8 +54,6 @@
 </template>
 
 <script>
-
-import Vue from 'vue'
 import ToggleButton from '../../src/components/modulecore/ToggleButton'
 import ZoomToMaxExtentButton from '../../src/components/maxextentbutton/ZoomToMaxExtentButton'
 import Geocoder from '../../src/components/geocoder/Geocoder'
