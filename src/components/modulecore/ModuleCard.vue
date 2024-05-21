@@ -7,8 +7,8 @@
     v-draggable-win="cardDraggable"
   >
     <v-img :src="backgroundImage">
-      <v-toolbar v-bind="toolbarAttr">
-        <v-icon color="onprimary" class="mr-4">{{ icon }}</v-icon>
+      <v-toolbar v-bind="toolbarAttr" class="pl-4 pr-1 py-0">
+        <v-icon :icon="icon"></v-icon>
         <v-toolbar-title class="wgu-win-title">{{
           $t(moduleName + '.title')
         }}</v-toolbar-title>
@@ -19,18 +19,16 @@
 
         <v-spacer></v-spacer>
         <v-btn
-          color="onprimary"
           v-if="minimizable"
           icon
           size="small"
           @click="minimized = !minimized"
         >
-          <v-icon v-if="minimized">web_asset</v-icon>
-          <v-icon v-else>remove</v-icon>
+          <v-icon v-if="minimized" icon="md:web_asset"></v-icon>
+          <v-icon v-else icon="md:remove"></v-icon>
         </v-btn>
-        <v-btn color="onprimary" v-if="closable" icon size="small" class="mr-0"
+        <v-btn v-if="closable" icon="md:close" class="mr-0"
           @click="toggleUi">
-          <v-icon>close</v-icon>
         </v-btn>
       </v-toolbar>
     </v-img>
@@ -125,8 +123,7 @@ export default {
             color: 'transparent'
           }
         : {
-            color: 'primary',
-            class: 'onprimary--text'
+            color: 'primary'
           };
     }
   },
