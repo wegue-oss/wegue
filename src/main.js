@@ -50,9 +50,10 @@ const createVuetifyInstance = function (appConfig) {
         mdi
       }
     },
-    lang: {
-      current: LocaleUtil.getPreferredLanguage(appConfig),
-      locales: LocaleUtil.importVuetifyLocales()
+    locale: {
+      locale: LocaleUtil.getPreferredLanguage(appConfig),
+      fallback: LocaleUtil.getFallbackLanguage(appConfig),
+      messages: LocaleUtil.importVuetifyLocales()
     }
   };
 
