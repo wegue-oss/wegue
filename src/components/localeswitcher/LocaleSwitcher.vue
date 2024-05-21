@@ -9,13 +9,11 @@
           v-bind="props"
           borderless
           dense
-          color="onprimary"
-          background-color="transparent"
           :title="$t('wgu-localeswitcher.title')"
           class="ma-2"
           icon
         >
-          <v-icon class="mr-1" size="medium">{{icon}}</v-icon>
+          <v-icon class="mr-1">{{icon}}</v-icon>
           {{ $i18n.locale }}
         </v-btn>
       </template>
@@ -36,12 +34,17 @@
 </template>
 
 <script>
-import LocaleUtil from '../../util/Locale'
+import LocaleUtil from '../../util/Locale';
+import { useLocale } from 'vuetify';
 
 export default {
   name: 'wgu-localeswitcher',
   props: {
-    icon: { type: String, required: false, default: 'language' }
+    icon: { type: String, required: false, default: 'md:language' }
+  },
+  setup () {
+    const { current: vuetifyLang } = useLocale();
+    return { vuetifyLang };
   },
   data () {
     return {
@@ -54,7 +57,7 @@ export default {
      * Change the i18n and built-in vuetify locale.
      */
     onItemClick (langCode) {
-      this.$i18n.locale = this.$vuetify.lang.current = langCode;
+      this.$i18n.locale = this.vuetifyLang = langCode;
     }
   }
 }
