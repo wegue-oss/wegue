@@ -13,7 +13,7 @@
           class="ma-2"
           icon
         >
-          <v-icon class="mr-1">{{icon}}</v-icon>
+          <v-icon :icon="icon" class="mr-1"></v-icon>
           {{ $i18n.locale }}
         </v-btn>
       </template>
