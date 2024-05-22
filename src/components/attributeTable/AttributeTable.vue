@@ -17,6 +17,7 @@
       }"
     @click:row="onRowClick"
     single-select
+    density="compact"
     :value="selectedRow"
     :item-key="uniqueRecordKeyName"
     :items-per-page="rowsPerPage"
@@ -25,6 +26,7 @@
 </template>
 
 <script>
+import { useDisplay } from 'vuetify'
 import { Mapable } from '../../mixins/Mapable';
 import LayerUtil from '../../util/Layer';
 import { WguEventBus } from '../../WguEventBus';
@@ -64,6 +66,10 @@ export default {
         return ['geometry', 'the_geom']
       }
     }
+  },
+  setup () {
+    const { name: breakpoint } = useDisplay();
+    return { breakpoint };
   },
   data () {
     return {
@@ -149,7 +155,7 @@ export default {
      * @returns {int} The height of the table.
      */
     getTableHeight () {
-      if (this.$vuetify.breakpoint.xs) {
+      if (this.breakpoint.xs) {
         // we do not want to set this property
         return undefined;
       } else {
@@ -293,7 +299,7 @@ export default {
       if (this.layer.get('columnMapping')) {
         for (const [propertyName, displayName] of Object.entries(this.layer.get('columnMapping'))) {
           headers.push({
-            text: displayName,
+            title: displayName,
             value: propertyName
           });
         }
@@ -307,7 +313,7 @@ export default {
         );
         filtered.forEach(propertyName => {
           headers.push({
-            text: propertyName,
+            title: propertyName,
             value: propertyName
           });
         });

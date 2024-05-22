@@ -8,10 +8,10 @@
     <template v-slot:wgu-win-toolbar>
       <v-select
         v-model="selLayer"
-        color="accent"
+        :color="primaryDarkWithLightTheme ? 'white' : 'accent'"
         item-color="secondary"
-        :theme="isPrimaryDark ? 'dark' : undefined"
-        variant="solo-filled"
+        :theme="isDarkTheme ? 'dark' : 'light'"
+        variant="outlined"
         class="wgu-vector-layer-select wgu-solo-field"
         :items="displayedLayers"
         :item-title="item => item.get('name')"
@@ -38,7 +38,7 @@
 <script>
 import ModuleCard from './../modulecore/ModuleCard';
 import { Mapable } from '../../mixins/Mapable';
-import { ColorTheme } from '../../mixins/ColorTheme';
+import { useColorTheme } from '../../composables/ColorTheme';
 import VectorLayer from 'ol/layer/Vector'
 import AttributeTable from './AttributeTable';
 
@@ -50,6 +50,10 @@ export default {
     icon: { type: String, required: false, default: 'table_chart' },
     syncTableMapSelection: { type: Boolean, required: false, default: false }
   },
+  setup () {
+    const { isDarkTheme, isPrimaryDark } = useColorTheme();
+    return { isDarkTheme, isPrimaryDark };
+  },
   data () {
     return {
       moduleName: 'wgu-attributetable',
@@ -57,7 +61,7 @@ export default {
       selLayer: null
     }
   },
-  mixins: [Mapable, ColorTheme],
+  mixins: [Mapable],
   components: {
     'wgu-module-card': ModuleCard,
     'wgu-attributetable': AttributeTable
@@ -83,6 +87,9 @@ export default {
           layer.get('lid') !== 'wgu-geolocator-layer'
         )
         .reverse();
+    },
+    primaryDarkWithLightTheme () {
+      return !this.isDarkTheme && this.isPrimaryDark;
     }
   }
 };
