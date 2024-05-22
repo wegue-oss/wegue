@@ -6,7 +6,15 @@ import Geometry from 'ol/geom/Geometry';
  * A collection of view animations to zoom an OpenLayers view to a given location or extent.
  * Inspired by http://openlayers.org/en/latest/examples/animation.html
  */
-const ViewAnimationUtil = {
+class ViewAnimationUtil {
+  /**
+   * Instantiates a view animation util object with current application configuration.
+   * @param {Object} appConfig  Current application configuration
+   */
+  constructor(appConfig) {
+    this.appConfig = appConfig
+  }
+
   /**
    * Returns the animation object configured in the application context.
    * @returns The animation object.
@@ -21,10 +29,9 @@ const ViewAnimationUtil = {
       default: NoAnimation
     };
 
-    const appConfig = this.$appConfig;
-    const animType = appConfig?.viewAnimation?.type;
+    const animType = this.appConfig?.viewAnimation?.type;
     return animations[animType] || animations.default;
-  },
+  }
 
   /**
    * Returns the configuration object for the animation. If options have been provided by the caller,
@@ -35,9 +42,8 @@ const ViewAnimationUtil = {
    * @private
    */
   getOptions (options) {
-    const appConfig = this.$appConfig;
-    return options || appConfig?.viewAnimation?.options || {};
-  },
+    return options || this.appConfig?.viewAnimation?.options || {};
+  }
 
   /**
    * Zoom to the given destination.
@@ -59,7 +65,7 @@ const ViewAnimationUtil = {
     } else {
       console.error('Unsupported type for destination.');
     }
-  },
+  }
 
   /**
    * Zoom to the given location.
@@ -70,7 +76,7 @@ const ViewAnimationUtil = {
    */
   toLocation (view, location, completionCallback, options) {
     this.getAnimation().toLocation(view, location, completionCallback, this.getOptions(options));
-  },
+  }
 
   /**
    * Zoom to the given extent.
