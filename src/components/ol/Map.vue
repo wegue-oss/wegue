@@ -21,7 +21,7 @@ import { get as getProj } from 'ol/proj';
 import { GPX, GeoJSON, IGC, KML, TopoJSON } from 'ol/format';
 import { Vector as VectorLayer } from 'ol/layer';
 import { Vector as VectorSource } from 'ol/source';
-import proj4 from 'proj4'
+import proj4 from 'proj4';
 // import the app-wide EventBus
 import { WguEventBus } from '../../WguEventBus.js';
 import { LayerFactory } from '../../factory/Layer.js';
@@ -30,11 +30,9 @@ import PermalinkController from './PermalinkController';
 import HoverController from './HoverController';
 import MapInteractionUtil from '../../util/MapInteraction';
 import ViewAnimationUtil from '../../util/ViewAnimation';
-import { ColorTheme } from '../../mixins/ColorTheme'
 
 export default {
   name: 'wgu-map',
-  mixins: [ColorTheme],
   props: {
     collapsibleAttribution: { type: Boolean, default: false },
     rotateableMap: { type: Boolean, required: false, default: false }
