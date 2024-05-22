@@ -8,7 +8,7 @@
     <template v-slot:wgu-win-toolbar>
       <v-select
         v-model="selLayer"
-        :color="primaryDarkWithLightTheme ? 'white' : 'accent'"
+        :color="isPrimaryDarkWithLightTheme ? 'white' : 'accent'"
         item-color="secondary"
         :theme="isDarkTheme ? 'dark' : 'light'"
         variant="outlined"
@@ -51,8 +51,8 @@ export default {
     syncTableMapSelection: { type: Boolean, required: false, default: false }
   },
   setup () {
-    const { isDarkTheme, isPrimaryDark } = useColorTheme();
-    return { isDarkTheme, isPrimaryDark };
+    const { isDarkTheme, isPrimaryDark, isPrimaryDarkWithLightTheme } = useColorTheme();
+    return { isDarkTheme, isPrimaryDark, isPrimaryDarkWithLightTheme };
   },
   data () {
     return {
@@ -87,9 +87,6 @@ export default {
           layer.get('lid') !== 'wgu-geolocator-layer'
         )
         .reverse();
-    },
-    primaryDarkWithLightTheme () {
-      return !this.isDarkTheme && this.isPrimaryDark;
     }
   }
 };

@@ -3,10 +3,11 @@
   <v-combobox
     v-show="!hideSearch"
     class="wgu-geocoder-combo wgu-solo-field"
-    variant="solo-filled"
+    variant="outlined"
     density="compact"
-    color="accent"
-    :theme="isPrimaryDark ? 'dark' : undefined"
+    width="320"
+    :color="isPrimaryDarkWithLightTheme ? 'white' : 'accent'"
+    :theme="isDarkTheme ? 'dark' : 'light'"
     return-object
     hide-details
     :no-filter="noFilter"
@@ -18,16 +19,14 @@
     :persistent-hint="persistentHint"
     :hidden="hideSearch"
     :rounded="rounded"
-    v-model:search-input="search"
+    @update:search="search"
   ></v-combobox>
 
   <div>
 
     <v-btn @click='toggle()'
-      color="onprimary"
-      icon
+      :icon="icon"
       :title="$t('wgu-geocoder.title')">
-      <v-icon size="medium">{{icon}}</v-icon>
     </v-btn>
 
   </div>
@@ -36,7 +35,7 @@
 
 <script>
 import { Mapable } from '../../mixins/Mapable';
-import { ColorTheme } from '../../mixins/ColorTheme';
+import { useColorTheme } from '../../composables/ColorTheme';
 import { GeocoderController } from './GeocoderController';
 import { applyTransform } from 'ol/extent';
 import { getTransform, fromLonLat } from 'ol/proj';
@@ -44,9 +43,9 @@ import ViewAnimationUtil from '../../util/ViewAnimation';
 
 export default {
   name: 'wgu-geocoder-input',
-  mixins: [Mapable, ColorTheme],
+  mixins: [Mapable],
   props: {
-    icon: { type: String, required: false, default: 'search' },
+    icon: { type: String, required: false, default: 'md:search' },
     rounded: { type: Boolean, required: false, default: true },
     autofocus: { type: Boolean, required: false, default: true },
     clearable: { type: Boolean, required: false, default: true },
@@ -58,12 +57,15 @@ export default {
     providerOptions: { type: Object, required: false, default: function () { return {}; } }
 
   },
+  setup () {
+    const { isDarkTheme, isPrimaryDark, isPrimaryDarkWithLightTheme } = useColorTheme();
+    return { isDarkTheme, isPrimaryDark, isPrimaryDarkWithLightTheme };
+  },
   data () {
     return {
       results: [],
       lastQueryStr: '',
       noFilter: true,
-      search: null,
       selecting: false,
       selected: null,
       hideSearch: true,
@@ -78,10 +80,10 @@ export default {
       }
       this.trace(`computed.resultItems() - cur results len=${this.results.length}`);
 
-      // Convert results to v-combobox (text, value) Items
+      // Convert results to v-combobox (title, value) Items
       this.results.forEach(result => {
         this.trace(`add to this.items: ${result.address.name}`);
-        items.push({ text: result.address.name, value: result });
+        items.push({ title: result.address.name, value: result });
       });
 
       return items;
@@ -99,7 +101,7 @@ export default {
     querySelections (queryStr) {
       this.timeout = setTimeout(() => {
         // Let Geocoder Provider do the query
-        // items (item.text fields) will be shown in combobox dropdown suggestions
+        // items (item.title fields) will be shown in combobox dropdown suggestions
         this.trace(`geocoderController.query: ${queryStr}`);
         this.geocoderController.query(queryStr)
           .then(results => this.onQueryResults(results))
@@ -124,9 +126,7 @@ export default {
       if (err) {
         this.trace(`onQueryResult error: ${err}`);
       }
-    }
-  },
-  watch: {
+    },
     // Input string value changed
     search (queryStr) {
       if (this.timeout || this.selecting) {
@@ -147,14 +147,16 @@ export default {
       // Only query if minimal number chars typed and querystring has changed
       queryStr.length >= this.minChars && queryStr !== this.lastQueryStr && this.querySelections(queryStr);
       this.lastQueryStr = queryStr;
-    },
+    }
+  },
+  watch: {
     // User has selected entry from suggested items
     selected (item) {
-      if (!item || !Object.prototype.hasOwnProperty.call(item, 'text') || !Object.prototype.hasOwnProperty.call(item, 'value')) {
+      if (!item || !Object.prototype.hasOwnProperty.call(item, 'title') || !Object.prototype.hasOwnProperty.call(item, 'value')) {
         return;
       }
       this.selecting = true;
-      this.trace(`selected=${item.text}`);
+      this.trace(`selected=${item.title}`);
 
       // Position Map on result
       const result = item.value;

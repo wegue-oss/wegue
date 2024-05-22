@@ -10,7 +10,7 @@ export function useColorTheme () {
   theme.value = useTheme();
 
   /**
-   * Checks if the theme is in dark mode
+   * Checks if the theme is in dark mode.
    * @returns true if dark mode
    */
   const isDarkTheme = computed(() => {
@@ -36,5 +36,14 @@ export function useColorTheme () {
     return Color.checkLuminance(primary);
   })
 
-  return { isDarkTheme, isPrimaryDark };
+  /**
+   * Checks if the theme is in light mode and primary
+   * color is a dark color.
+   * @returns true if primary is a dark color and theme is light
+   */
+  const isPrimaryDarkWithLightTheme = computed(() => {
+    return isDarkTheme.value && isPrimaryDark.value;
+  })
+
+  return { isDarkTheme, isPrimaryDark, isPrimaryDarkWithLightTheme };
 }
