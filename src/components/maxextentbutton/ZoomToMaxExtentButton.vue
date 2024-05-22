@@ -1,7 +1,6 @@
 <template>
-  <v-btn icon color="onprimary" @click="onClick"
+  <v-btn :icon="icon" @click="onClick"
     :title="$t('wgu-zoomtomaxextent.title')">
-    <v-icon size="medium">{{icon}}</v-icon>
   </v-btn>
 </template>
 
@@ -14,14 +13,15 @@ export default {
   name: 'wgu-zoomtomaxextent-btn',
   mixins: [Mapable],
   props: {
-    icon: { type: String, required: false, default: 'zoom_out_map' }
+    icon: { type: String, required: false, default: 'md:zoom_out_map' }
   },
   methods: {
     onClick () {
       // derive correct initial zoom and center
       const initialCenter = this.$appConfig.mapCenter;
       const initalZoom = this.$appConfig.mapZoom;
-      ViewAnimationUtil.to(this.map.getView(), initialCenter, null, {
+      const viewAnimationUtil = new ViewAnimationUtil(this.$appConfig);
+      viewAnimationUtil.to(this.map.getView(), initialCenter, null, {
         zoom: initalZoom,
         maxZoom: initalZoom
       });
