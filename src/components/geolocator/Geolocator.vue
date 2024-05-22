@@ -1,12 +1,9 @@
 <template>
 <span>
-   <v-btn @click="geolocateUserAndShowMarkerOnMap" icon
+   <v-btn @click="geolocateUserAndShowMarkerOnMap"
       color="onprimary"
-      :title="$t('wgu-geolocator.title')">
-      <v-icon v-if='this.isSearchingForGeolocation'>update</v-icon>
-      <v-icon v-else-if='this.isGeolocationAPIAvailable && (!this.isGeolocationFound)'>location_searching</v-icon>
-      <v-icon v-else-if='this.isGeolocationAPIAvailable && this.isGeolocationFound'>gps_fixed</v-icon>
-      <v-icon v-else>location_disabled</v-icon>
+      :title="$t('wgu-geolocator.title')"
+      :icon="icon">
     </v-btn>
 </span>
 </template>
@@ -94,7 +91,8 @@ export default {
             this.map.addLayer(geolocLayer);
 
             // zoom to geolocation position
-            ViewAnimationUtil.to(this.map.getView(), currentPosGeom);
+            const viewAnimationUtil = new ViewAnimationUtil(this.$appConfig);
+            viewAnimationUtil.to(this.map.getView(), currentPosGeom);
           } else {
             console.error('The map is not defined in the getCurrentPosition callback');
           }
@@ -111,6 +109,22 @@ export default {
         { enableHighAccuracy: true, maximumAge: 60000, timeout: 27000 })
       } else {
         this.isGeolocationAPIAvailable = false;
+      }
+    }
+  },
+  computed: {
+    /**
+     * Reactive property to return the icon to be displayed in the menu bar.
+     */
+    icon () {
+      if (this.isSearchingForGeolocation) {
+        return 'md:update';
+      } else if (this.isGeolocationAPIAvailable && (!this.isGeolocationFound)) {
+        return 'md:location_searching';
+      } else if (this.isGeolocationAPIAvailable && this.isGeolocationFound) {
+        return 'md:gps_fixed';
+      } else {
+        return 'md:location_disabled';
       }
     }
   }
