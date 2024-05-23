@@ -6,6 +6,7 @@
     variant="outlined"
     density="compact"
     width="320"
+    :list-props="{ nav: true, density: 'compact' }"
     :color="isPrimaryDarkWithLightTheme ? 'white' : 'accent'"
     :theme="isDarkTheme ? 'dark' : 'light'"
     return-object
