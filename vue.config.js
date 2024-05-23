@@ -29,6 +29,19 @@ module.exports = defineConfig({
     client: {
       logging: 'warn',
       overlay: {
+        // Added to remove ResizeObserver errors thrown when Vuetify lists become too large. Vuetify bug ?
+        // See https://stackoverflow.com/questions/77564331/vuetify-crashes-with-resizeobserver-loop-completed-with-undelivered-notification
+        // See also https://stackoverflow.com/questions/49384120/resizeobserver-loop-limit-exceeded#answer-50387233
+        runtimeErrors: (error) => {
+          const ignoreErrors = [
+            'ResizeObserver loop limit exceeded',
+            'ResizeObserver loop completed with undelivered notifications.'
+          ];
+          if (ignoreErrors.includes(error.message)) {
+            return false;
+          }
+          return true;
+        },
         warnings: false,
         errors: true
       }
