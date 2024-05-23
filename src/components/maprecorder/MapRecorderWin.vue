@@ -9,7 +9,7 @@
       <v-expansion-panel>
         <v-expansion-panel-title>
           <v-row align="center">
-            <v-icon class="mr-4">settings</v-icon>
+            <v-icon icon="md:settings" class="mr-4"></v-icon>
             {{ $t('wgu-maprecorder.options') }}
           </v-row>
         </v-expansion-panel-title>
@@ -89,18 +89,15 @@
       >
         <v-btn
           :block="!recording"
-          :class="{
-            'secondary': true,
-            'onsecondary--text': true
-          }"
+          class="bg-secondary"
           @click="toggleRecord"
         >
           <template v-if="!recording">
-            <v-icon start>fiber_manual_record</v-icon>
+            <v-icon icon="md:fiber_manual_record" start></v-icon>
             {{ $t('wgu-maprecorder.start') }}
           </template>
           <template v-else>
-            <v-icon start>stop</v-icon>
+            <v-icon icon="md:stop" start></v-icon>
             {{ $t('wgu-maprecorder.stop') }}
           </template>
         </v-btn>
