@@ -8,8 +8,7 @@
        class="pb-0 wgu-infowindow"
        permanent
        absolute
-       height="100%"
-       light
+       theme="light"
        location="right"
      >
      <v-card
