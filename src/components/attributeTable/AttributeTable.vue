@@ -230,7 +230,8 @@ export default {
       }
 
       // zoom to feature
-      ViewAnimationUtil.to(this.map.getView(), foundFeature.getGeometry());
+      const viewAnimationUtil = new ViewAnimationUtil(this.$appConfig);
+      viewAnimationUtil.to(this.map.getView(), foundFeature.getGeometry());
 
       const correspondingInteraction = MapInteractionUtil.getSelectInteraction(this.map, this.layerId);
 

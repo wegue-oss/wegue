@@ -11,7 +11,7 @@ class ViewAnimationUtil {
    * Instantiates a view animation util object with current application configuration.
    * @param {Object} appConfig  Current application configuration
    */
-  constructor(appConfig) {
+  constructor (appConfig) {
     this.appConfig = appConfig
   }
 
