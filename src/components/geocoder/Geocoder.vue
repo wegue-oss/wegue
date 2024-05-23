@@ -162,16 +162,17 @@ export default {
       const result = item.value;
       const mapProjection = this.map.getView().getProjection();
       const coords = fromLonLat([result.lon, result.lat], mapProjection);
+      const viewAnimationUtil = new ViewAnimationUtil(this.$appConfig);
 
       // Prefer zooming to bounding box if present in result
       if (Object.prototype.hasOwnProperty.call(result, 'boundingbox')) {
         // Result with bounding box.
         // bbox is in EPSG:4326, needs to be transformed to Map Projection (e.g. EPSG:3758)
         const extent = applyTransform(result.boundingbox, getTransform('EPSG:4326', mapProjection));
-        ViewAnimationUtil.to(this.map.getView(), extent);
+        viewAnimationUtil.to(this.map.getView(), extent);
       } else {
         // No bbox in result: center on lon/lat from result and zoom in
-        ViewAnimationUtil.to(this.map.getView(), coords);
+        viewAnimationUtil.to(this.map.getView(), coords);
       }
       this.selecting = false;
     }
