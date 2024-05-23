@@ -34,7 +34,7 @@ export default {
     'wgu-module-card': ModuleCard
   },
   props: {
-    icon: { type: String, required: false, default: 'help' },
+    icon: { type: String, required: false, default: 'md:help' },
     width: { type: Number, required: false, default: 300 }
   },
   data () {
