@@ -95,6 +95,7 @@ import InfoClickWin from '../src/components/infoclick/InfoClickWin'
 import MapLoadingStatus from '../src/components/progress/MapLoadingStatus'
 import AttributeTableWin from '../src/components/attributeTable/AttributeTableWin.vue'
 import MapRecorderWin from '../src/components/maprecorder/MapRecorderWin'
+import printDialog from '../src/components/printTool/printDialog.vue'
 import SampleModuleWin from './components/SampleModule.vue'
 
 export default {
@@ -116,6 +117,7 @@ export default {
     'wgu-maploading-status': MapLoadingStatus,
     'wgu-attributetable-win': AttributeTableWin,
     'wgu-maprecorder-win': MapRecorderWin,
+    'wgu-print-win': printDialog,
     'sample-module-win': SampleModuleWin
   },
   data () {
