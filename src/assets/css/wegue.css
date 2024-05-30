@@ -145,7 +145,9 @@ html {
    /* Introduced in IE 10, See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/ */
    -ms-user-select: none;
    user-select: none;
-   overflow: none;
+   /* Temporary fix for buggy flex styling in vuetify toolbar title.
+      See https://github.com/vuetifyjs/vuetify/issues/18825 */
+   flex-basis: auto
 }
 
 .wgu-app-sidebar {
@@ -169,11 +171,4 @@ html {
   width: 5px;
   cursor: ew-resize;
   z-index: 10000;
-}
-
-/* Temporary fix for buggy word-breaking in vuetify card texts and titles.
-  This will go away in a future vuetify version - 
-  see https://github.com/vuetifyjs/vuetify/issues/9130 */
-.v-card__text, .v-card__title {
-  word-break: normal;
 }
