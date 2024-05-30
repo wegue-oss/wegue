@@ -1,6 +1,12 @@
 <template>
 
-  <v-btn-toggle color="secondary" v-model="measureTypeData" mandatory>
+  <v-btn-toggle
+    color="secondary"
+    variant="outlined"
+    v-model="measureTypeData"
+    divided
+    mandatory
+    >
     <v-btn size="large" value="distance">
       <v-icon>
         mdi-vector-polyline
