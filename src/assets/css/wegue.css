@@ -123,6 +123,16 @@ html {
   right: 10px;
 }
 
+/* Added to avoid listgroups items to get some padding.
+   See https://github.com/vuetifyjs/vuetify/issues/15813 */
+.wgu-layerlist-listgroup .v-list-item {
+  padding-inline-start: 8px !important;
+}
+
+.wgu-layerlist-listgroup .v-list-item__content {
+  overflow: visible !important;
+}
+
 .wgu-footer-left {
   padding-left: 5px;
 }

@@ -1,6 +1,6 @@
 <template>
 
-  <v-list>
+  <v-list v-model:opened="openedListItems">
     <wgu-layerlistitem
       v-for="layer in displayedLayers"
       :key="layer.get('lid')"
@@ -8,6 +8,7 @@
       :mapView="map.getView()"
       :showLegends="showLegends"
       :showOpacityControls="showOpacityControls"
+      :openedListItems="openedListItems"
     />
   </v-list>
 </template>
@@ -28,7 +29,8 @@ export default {
   },
   data () {
     return {
-      layers: []
+      layers: [],
+      openedListItems: []
     }
   },
   methods: {

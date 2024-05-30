@@ -1,7 +1,7 @@
 <template>
   <v-slider
     color="secondary"
-    prepend-icon="opacity"
+    prepend-icon="md:opacity"
     :model-value="layer.getOpacity()"
     min="0"
     max="1"
