@@ -7,7 +7,7 @@
     v-draggable-win="cardDraggable"
   >
     <v-img :src="backgroundImage">
-      <v-toolbar v-bind="toolbarAttr" class="pl-4 pr-1 py-0">
+      <v-toolbar v-bind="toolbarAttr" class="px-4 py-0">
         <v-icon :icon="icon"></v-icon>
         <v-toolbar-title class="wgu-win-title" :text="$t(moduleName + '.title')"></v-toolbar-title>
         <v-spacer></v-spacer>
