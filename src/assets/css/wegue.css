@@ -160,6 +160,12 @@ html {
    flex-basis: auto
 }
 
+/* Added to keep same behaviour as in Vuetify 2 */
+.wgu-infoclick-win-title.v-card-title {
+  hyphens: unset;
+  white-space: wrap;
+}
+
 .wgu-app-sidebar {
   overflow: visible
 }
