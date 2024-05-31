@@ -154,8 +154,8 @@ export const DraggableWin = {
 
       // preserve the current position as property of the vue / Wegue window
       // so it can be restored when the window is re-opened
-      vnode.componentInstance.$parent.top = (_data.draggerOffsetTop) + 'px';
-      vnode.componentInstance.$parent.left = (_data.draggerOffsetLeft) + 'px';
+      binding.instance.$parent.top = (_data.draggerOffsetTop) + 'px';
+      binding.instance.$parent.left = (_data.draggerOffsetLeft) + 'px';
     }
     DraggableWin.mouseup = mouseup;
 
