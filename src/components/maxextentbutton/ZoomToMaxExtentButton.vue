@@ -1,6 +1,8 @@
 <template>
-  <v-btn :icon="icon" @click="onClick"
-    :title="$t('wgu-zoomtomaxextent.title')">
+  <v-btn @click="onClick"
+    class="wgu-action-button"
+    :title="$t('wgu-zoomtomaxextent.title')"
+    :icon="icon">
   </v-btn>
 </template>
 

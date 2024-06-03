@@ -80,6 +80,11 @@ export default {
         me.map.updateSize();
       });
       resizeObserver.observe(container);
+
+      // add tabIndex attribute to the map's container, so it gets focusable.
+      // Otherwise the OL keyboard navigation won't work, see keyboardEventTarget
+      // in https://openlayers.org/en/latest/apidoc/module-ol_Map.html
+      container.tabIndex = '0';
     }
 
     // Send the event 'ol-map-mounted' with the OL map as payload

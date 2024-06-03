@@ -19,6 +19,7 @@
           :width="imageWidth"
           :class="['ma-1', selectedClass]"
           @click="toggle"
+          @keyup.enter="toggle"
         >
           <wgu-layerpreviewimage
             :layer="layer"

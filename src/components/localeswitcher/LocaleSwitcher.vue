@@ -10,7 +10,7 @@
           borderless
           dense
           :title="$t('wgu-localeswitcher.title')"
-          class="ma-2"
+          class="ma-2 wgu-menu-button"
           icon
         >
           <v-icon :icon="icon" class="mr-1"></v-icon>

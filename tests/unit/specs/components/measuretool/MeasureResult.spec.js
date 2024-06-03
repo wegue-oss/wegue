@@ -2,6 +2,8 @@ import { shallowMount } from '@vue/test-utils';
 import MeasureResult from '@/components/measuretool/MeasureResult';
 import PolygonGeom from 'ol/geom/Polygon'
 import LineStringGeom from 'ol/geom/LineString';
+import Map from 'ol/Map';
+import View from 'ol/View';
 
 describe('measuretool/MeasureResult.vue', () => {
   // Inspect the raw component options
@@ -39,7 +41,16 @@ describe('measuretool/MeasureResult.vue', () => {
     let comp;
     let vm;
     beforeEach(() => {
-      comp = shallowMount(MeasureResult);
+      const olMap = new Map({
+        view: new View({ center: [0, 0], zoom: 2 })
+      });
+      comp = shallowMount(MeasureResult, {
+        data () {
+          return {
+            map: olMap
+          }
+        }
+      });
       vm = comp.vm;
     });
 
@@ -71,7 +82,16 @@ describe('measuretool/MeasureResult.vue', () => {
   describe('watchers', () => {
     let comp;
     beforeEach(() => {
-      comp = shallowMount(MeasureResult);
+      const olMap = new Map({
+        view: new View({ center: [0, 0], zoom: 2 })
+      });
+      comp = shallowMount(MeasureResult, {
+        data () {
+          return {
+            map: olMap
+          }
+        }
+      });
     });
 
     it('watches measureGeom Area', done => {

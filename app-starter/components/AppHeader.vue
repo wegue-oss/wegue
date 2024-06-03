@@ -31,6 +31,7 @@
       <template v-slot:activator="{props}">
 
       <v-btn v-bind="props"
+        class="wgu-menu-button"
         :title="$t('wgu-toolbar-menu.title')"
         icon="md:menu">
       </v-btn>

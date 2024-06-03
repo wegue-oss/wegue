@@ -67,6 +67,11 @@ const createVuetifyInstance = function (appConfig) {
  * @returns The active I18n instance.
  */
 const createVueI18nInstance = function (appConfig) {
+  // dynamic import, otherwise Vue.prototype.$appConfig won't be set yet on
+  // static import
+  // const { i18n } = await import('./locales/wgu-i18n.js');
+
+  // return i18n;
   const preset = {
     locale: LocaleUtil.getPreferredLanguage(appConfig),
     fallbackLocale: LocaleUtil.getFallbackLanguage(appConfig),
