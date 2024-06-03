@@ -16,8 +16,20 @@
         </v-card-text>
         <v-card-actions v-show="attributeData">
           <v-spacer class="text-overline">{{ featureIdx + 1 }}/{{ numfeats }}: {{ layerName }}</v-spacer>
-          <v-btn v-show="numfeats > 1" x-small @click="prevFeat" ><v-icon>mdi-menu-left</v-icon></v-btn>
-          <v-btn v-show="numfeats > 1" x-small @click="nextFeat" ><v-icon>mdi-menu-right</v-icon></v-btn>
+          <v-btn v-show="numfeats > 1"
+            size="x-small"
+            variant="elevated"
+            @click="prevFeat"
+          >
+            <v-icon size="x-large">mdi-menu-left</v-icon>
+          </v-btn>
+          <v-btn v-show="numfeats > 1"
+            size="x-small"
+            variant="elevated"
+            @click="nextFeat"
+          >
+            <v-icon size="x-large">mdi-menu-right</v-icon>
+          </v-btn>
         </v-card-actions>
 
         <!-- feature property grid -->
