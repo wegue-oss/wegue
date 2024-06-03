@@ -5,7 +5,7 @@ import { createVuetify } from 'vuetify';
 import { md } from 'vuetify/iconsets/md';
 import { aliases, mdi } from 'vuetify/iconsets/mdi';
 import 'vuetify/styles';
-import { createI18n } from 'vue-i18n';
+import { createI18nInstance } from './locales/wgu-i18n';
 import PortalVue from 'portal-vue';
 import 'roboto-fontface/css/roboto/roboto-fontface.css';
 import '@mdi/font/css/materialdesignicons.css';
@@ -72,12 +72,7 @@ const createVueI18nInstance = function (appConfig) {
   // const { i18n } = await import('./locales/wgu-i18n.js');
 
   // return i18n;
-  const preset = {
-    locale: LocaleUtil.getPreferredLanguage(appConfig),
-    fallbackLocale: LocaleUtil.getFallbackLanguage(appConfig),
-    messages: LocaleUtil.importVueI18nLocales()
-  };
-  return createI18n(preset);
+  return createI18nInstance(appConfig);
 }
 
 /**
