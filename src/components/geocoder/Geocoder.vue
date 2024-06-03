@@ -26,6 +26,7 @@
   <div>
 
     <v-btn @click='toggle()'
+      :style="{ height: false }"
       :icon="icon"
       :title="$t('wgu-geocoder.title')">
     </v-btn>
