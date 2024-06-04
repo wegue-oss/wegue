@@ -129,11 +129,11 @@ export const LayerFactory = {
         ratio: lConf.ratio,
         interpolate: lConf.interpolate,
         projection: lConf.projection,
-        crossOrigin: lConf.crossOrigin,
-        hoverable: lConf.hoverable,
-        hoverAttribute: lConf.hoverAttribute,
-        hoverOverlay: lConf.hoverOverlay
-      })
+        crossOrigin: lConf.crossOrigin
+      }),
+      hoverable: lConf.hoverable,
+      hoverAttribute: lConf.hoverAttribute,
+      hoverOverlay: lConf.hoverOverlay
     });
 
     return layer;
@@ -158,11 +158,11 @@ export const LayerFactory = {
         serverType: lConf.serverType,
         tileGrid: lConf.tileGrid,
         projection: lConf.projection,
-        crossOrigin: lConf.crossOrigin,
-        hoverable: lConf.hoverable,
-        hoverAttribute: lConf.hoverAttribute,
-        hoverOverlay: lConf.hoverOverlay
-      })
+        crossOrigin: lConf.crossOrigin
+      }),
+      hoverable: lConf.hoverable,
+      hoverAttribute: lConf.hoverAttribute,
+      hoverOverlay: lConf.hoverOverlay
     });
 
     return layer;
