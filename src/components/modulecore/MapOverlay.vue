@@ -29,7 +29,7 @@ export default {
       show: this.visible,
       position: this.coordinates,
       olOverlay: null,
-      contentData: null
+      contentData: {}
     }
   },
   /**
