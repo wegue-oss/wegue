@@ -33,7 +33,7 @@ The latest developments are reflected within the `master` branch. We always try 
 
 In case you have to remain on the 1.x version of Wegue you can use the latest release [v1.2.1](https://github.com/wegue-oss/wegue/releases/tag/v1.2.1) or the maintenance development of v1 in the [v1 branch](https://github.com/wegue-oss/wegue/tree/v1). For a reasonable amount of time `v1` branch will be maintained.
 
-In case you want to upgrade an existing Wegue app from v1 to the current v2 stream please have a look at the `upgrade-notes.md` file.
+In case you want to upgrade an existing Wegue app from v1 to the current v2 stream please have a look at the [upgrade-notes.md](upgrade-notes.md) file.
 
 ## Development
 
@@ -133,7 +133,7 @@ Build a Wegue Docker image as follows:
 docker build -t my-wegue-img:latest .
 ```
 
-Start the freshly build image as container:
+Start the freshly build image as a container:
 
 ``` bash
 docker run -it -p 8080:80 my-wegue-img:latest
