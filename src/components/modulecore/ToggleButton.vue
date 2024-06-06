@@ -7,7 +7,7 @@
     class="wgu-toggle-button"
     :title="$t(moduleName + '.title')"
     v-model="show">
-    <v-btn icon :value="true" color="onprimary" @click="toggleUi">
+    <v-btn icon :value="true" @click="toggleUi">
       <v-icon color="onprimary" medium>{{icon}}</v-icon>
     </v-btn>
   </v-btn-toggle>
