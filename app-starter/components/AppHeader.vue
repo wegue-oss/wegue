@@ -27,7 +27,7 @@
     <!-- slot to inject components after the auto-generated buttons (by config) -->
     <slot name="wgu-tb-after-auto-buttons"></slot>
 
-    <v-menu v-if="menuButtons.length" offset="15">
+    <v-menu v-if="menuButtons.length" eager offset="15">
       <template v-slot:activator="{props}">
 
       <v-btn v-bind="props"
