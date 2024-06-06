@@ -220,6 +220,7 @@ export default {
 
   .wgu-infoclick-win {
     width: 450px;
+    max-width: 100%;
   }
 
   .wgu-infoclick-win .v-card__title {
