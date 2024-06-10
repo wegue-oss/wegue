@@ -20,6 +20,10 @@ import axios from 'axios';
 
 require('./assets/css/wegue.css');
 
+configureCompat({
+  MODE: 3
+})
+
 // try to load an optional app specific CSS file (set project-specific styles)
 try {
   require('../app/static/css/app.css');
