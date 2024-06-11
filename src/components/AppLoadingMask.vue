@@ -1,6 +1,10 @@
 <template>
 
-  <v-overlay :model-value="show" :opacity="0.25">
+  <v-overlay
+    :model-value="show"
+    :opacity="0.25"
+    class="align-center justify-center"
+  >
     <v-progress-circular
       indeterminate
       color="primary"
