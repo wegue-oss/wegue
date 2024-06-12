@@ -98,11 +98,11 @@ html {
   More on material design for solo fields:
   https://material.io/archive/guidelines/components/text-fields.html#text-fields-field-variations
 */
-.wgu-solo-field.theme--light > .v-input__control fieldset,
-.wgu-solo-field.theme--light > .v-input__control .v-icon, 
-.wgu-solo-field.theme--light > .v-input__control .v-label,
-.wgu-solo-field.theme--light > .v-input__control input,
-.wgu-solo-field.theme--light > .v-input__control .v-select__selection
+.wgu-solo-field.v-theme--light > .v-input__control .v-icon,
+.wgu-solo-field.v-theme--light > .v-input__control .v-label,
+.wgu-solo-field.v-theme--light > .v-input__control input,
+.wgu-solo-field.v-theme--light > .v-input__control .v-field__outline,
+.wgu-solo-field.v-theme--light > .v-input__control .v-select__selection
 {
   color: rgb(var(--v-theme-on-primary)) !important;
 }
