@@ -129,7 +129,7 @@ Similar properties as Tiled WMS, with these exceptions:
 | Property           | Meaning   | Example |
 |--------------------|:---------:|---------|
 | **type**           | Indicator that the layer is a XYZ tiled image layer, always `XYZ` here  | `"type": "XYZ"` |
-| **url**            | The URL of the service providing the image tiles | `"url": "https://geodata.nationaalgeoregister.nl/tiles/service/wmts/brtachtergrondkaart/EPSG:28992/{z}/{x}/{y}.png"` |
+| **url**            | The URL of the service providing the image tiles | `"url": "https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/standaard/EPSG:28992/{z}/{x}/{y}.png"` |
 | projection         |  The projection of the layer. Has to be defined in `projectionDefs` if not `EPSG:4326` or `EPSG:3857`. if not set the projection of the map is used | `"projection": "EPSG:3857"` |
 | tileGridRef        | Identifier of the tile grid to use for this layer (has to be defined in `tileGridDefs` | `"tileGridRef": "dutch_rd"` |
 | crossOrigin        | Provides support for CORS, defining how the layers source handles crossorigin requests. For more information and the supported values see [HTML attribute: crossorigin](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin)  | `"crossOrigin": "anonymous"` |
