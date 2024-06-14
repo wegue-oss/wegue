@@ -80,6 +80,7 @@ export default {
         me.map.updateSize();
       });
       resizeObserver.observe(container);
+      this.resizeObserver = resizeObserver;
 
       // add tabIndex attribute to the map's container, so it gets focusable.
       // Otherwise the OL keyboard navigation won't work, see keyboardEventTarget
@@ -100,6 +101,11 @@ export default {
     }, 200);
   },
   unmounted () {
+    // unregister resizing of the map
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+    }
+
     // Send the event 'ol-map-unmounted' with the OL map as payload
     WguEventBus.$emit('ol-map-unmounted', this.map);
 

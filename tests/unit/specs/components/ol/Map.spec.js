@@ -246,7 +246,7 @@ describe('ol/Map.vue', () => {
         mapLayers: [{
           type: 'XYZ',
           lid: 'brtachtergrondkaart',
-          url: 'https://geodata.nationaalgeoregister.nl/tiles/service/wmts/brtachtergrondkaart/EPSG:28992/{z}/{x}/{y}.png',
+          url: 'https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/standaard/EPSG:28992/{z}/{x}/{y}.png',
           projection: 'EPSG:28992',
           tileGridRef: 'dutch_rd',
           displayInLayerList: true,

@@ -27,10 +27,13 @@ We look forward to your contributions!
 
 ## Versions
 
-The latest development points towards a Wegue version v2. This development is reflected within the `master` branch.
-Herewith some breaking changes come along. In case you have to remain on the v1.x version of Wegue you can use the latest release [v1.2.1](https://github.com/wegue-oss/wegue/releases/tag/v1.2.1) or to the maintenance development of v1 in the [v1 branch](https://github.com/wegue-oss/wegue/tree/v1). For a reasonable amount of time `v1` branch will be maintained. At least until there is an official `v2` release plus some additional buffer time.
+The lastest stable and released version stream is 2.x.
 
-In case you want to upgrade an existing Wegue app from v1 to the current v2 development stream please have a look at the `upgrade-notes.md` file.
+The latest developments are reflected within the `master` branch. We always try to have a robust state at the `master` branch, but be aware that breaking changes could come along.
+
+In case you have to remain on the 1.x version of Wegue you can use the latest release [v1.2.1](https://github.com/wegue-oss/wegue/releases/tag/v1.2.1) or the maintenance development of v1 in the [v1 branch](https://github.com/wegue-oss/wegue/tree/v1). For a reasonable amount of time `v1` branch will be maintained.
+
+In case you want to upgrade an existing Wegue app from v1 to the current v2 stream please have a look at the [upgrade-notes.md](upgrade-notes.md) file.
 
 ## Development
 
@@ -120,41 +123,45 @@ Besides the environment variables supported by Vue CLI Wegue offers the followin
 
 ## Run with Docker
 
-Versioned Docker images are available on [DockerHub](https://hub.docker.com/r/meggsimum/wegue/tags).
-Run the `latest` (`master`) version of the Wegue Docker Image as follows:
+The shipped Dockerfile gives you a basic idea how to use Wegue with Docker.
+Maybe the Dockerfile needs some modification if you use custom application code.
+Once you get along with just modifying the application config JSON it should be sufficient to do the following steps:
+
+Build a Wegue Docker image as follows:
 
 ``` bash
-docker run -it -p 8080:80 meggsimum/wegue:latest
+docker build -t my-wegue-img:latest .
+```
+
+Start the freshly build image as a container:
+
+``` bash
+docker run -it -p 8080:80 my-wegue-img:latest
 ```
 
 Open
-  - http://127.0.0.1:8080/ or
-  - http://localhost:8080/?appCtx=minimal or
-  - http://localhost:8080/?appCtx=projected
+
+- <http://127.0.0.1:8080/> or
+- <http://localhost:8080/?appCtx=minimal> or
+- <http://localhost:8080/?appCtx=projected>
 
 in a browser.
 
-Use Docker Volume Mapping to run with your custom Wegue JSON config:
+Use Docker Volume mapping to run with your custom Wegue JSON config:
 
 ``` bash
-docker run -it -p 8080:80 -v $(pwd)/app-conf-mine.json:/usr/share/nginx/html/static/app-conf-mine.json meggsimum/wegue:latest
+docker run -it -p 8080:80 -v $(pwd)/app-conf-mine.json:/usr/share/nginx/html/static/app-conf-mine.json my-wegue-img:latest
 ```
 
-and open http://localhost:8080/?appCtx=mine.
+and open <http://localhost:8080/?appCtx=mine>.
 
 You can even overwrite the default config `app-conf.json`:
 
 ``` bash
-docker run -it -p 8080:80 -v $(pwd)/app-conf-mine.json:/usr/share/nginx/html/static/app-conf.json meggsimum/wegue:latest
+docker run -it -p 8080:80 -v $(pwd)/app-conf-mine.json:/usr/share/nginx/html/static/app-conf.json my-wegue-img:latest
 ```
 
-and then open http://localhost:8080/.
-
-Build a Wegue Docker Image as follows:
-
-``` bash
-docker build -t meggsimum/wegue:latest .
-```
+and then open <http://localhost:8080/>.
 
 ## Developing online using Gitpod.io
 

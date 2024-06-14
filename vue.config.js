@@ -86,14 +86,25 @@ module.exports = defineConfig({
     // which can run under Chrome headless. Avoid warnings due to custom entries
     // and customized filenames. Enable correct code coverage of .vue files.
     // Disable Vuetify treeshaking.
+    // Ensure build is sent to a temporary directory and keep only necessary plugins.
     if (process.env.NODE_ENV === 'test') {
+      const PLUGINS_TO_KEEEP = [
+        'VueLoaderPlugin',
+        'DefinePlugin',
+        'CaseSensitivePathsPlugin',
+        'FriendlyErrorsWebpackPlugin'
+      ]
+
       config.devtool = 'eval'
       config.optimization.runtimeChunk = false
       config.optimization.splitChunks = false
-      config.plugins = config.plugins.filter(plugin => plugin.constructor.name !== 'VuetifyLoaderPlugin')
+      config.plugins = config.plugins.filter(plugin =>
+        PLUGINS_TO_KEEEP.includes(plugin.constructor.name)
+      )
       delete config.target
       delete config.entry
       delete config.output.filename
+      delete config.output.path
     }
   },
 
