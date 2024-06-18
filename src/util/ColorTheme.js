@@ -112,6 +112,14 @@ const ColorThemeUtil = {
     merged.light.warning = light.warning ? light.warning : LIGHT_WARNING;
     merged.light.error = light.error ? light.error : LIGHT_ERROR;
 
+    // apply unknown / custom theme properties to light theme
+    for (const themeProp in light) {
+      const hasProp = themeProp in merged.light;
+      if (!hasProp) {
+        merged.light[themeProp] = light[themeProp];
+      }
+    }
+
     // If light theme is configured with at least the secondary color
     if (!dark || !dark.secondary) {
       // fallback to default dark theme
@@ -143,6 +151,14 @@ const ColorThemeUtil = {
     merged.dark.success = dark.success ? dark.success : DARK_SUCCESS;
     merged.dark.warning = dark.warning ? dark.warning : DARK_WARNING;
     merged.dark.error = dark.error ? dark.error : DARK_ERROR;
+
+    // apply unknown / custom theme properties to dark theme
+    for (const themeProp in dark) {
+      const hasProp = themeProp in merged.dark;
+      if (!hasProp) {
+        merged.dark[themeProp] = dark[themeProp];
+      }
+    }
 
     return merged;
   },
