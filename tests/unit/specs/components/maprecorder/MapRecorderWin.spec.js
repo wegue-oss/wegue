@@ -47,7 +47,7 @@ describe('maprecorder/MapRecorderWin.vue', () => {
       expect(vm.error).to.equal(false);
       // Supported codecs under chrome.
       expect(vm.mimeType).to.equal('video/webm');
-      expect(vm.mimeTypes.length).to.equal(2);
+      expect(vm.mimeTypes.length).to.equal(3);
     });
 
     afterEach(() => {
@@ -65,9 +65,10 @@ describe('maprecorder/MapRecorderWin.vue', () => {
 
     it('correct supported mime types under chrome', () => {
       const mimeTypes = vm.getSupportedMimeTypes();
-      expect(mimeTypes.length).to.equal(2);
+      expect(mimeTypes.length).to.equal(3);
       expect(mimeTypes[0]).to.equal('video/webm');
-      expect(mimeTypes[1]).to.equal('video/x-matroska');
+      expect(mimeTypes[1]).to.equal('video/mp4');
+      expect(mimeTypes[2]).to.equal('video/x-matroska');
     });
 
     it('start / stop recording sets correct states', () => {
