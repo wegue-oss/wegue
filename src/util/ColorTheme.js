@@ -198,10 +198,13 @@ const ColorThemeUtil = {
       }
     }
 
+    const lightColorsList = new Set(Object.keys(mergedThemes.light))
+    const darkColorsList = new Set(Object.keys(mergedThemes.dark))
+
     // Set variations.
     // This creates 5 lighten and 4 darken variants for some vuetify color class to keep same behaviour as in Vuetify2
     outputConfig.variations = {
-      colors: ['primary', 'on-primary', 'secondary', 'on-secondary', 'accent', 'error', 'info', 'success', 'warning'],
+      colors: lightColorsList.union(darkColorsList),
       lighten: 5,
       darken: 4
     }
