@@ -94,6 +94,10 @@ export default {
       // unregister event after table is closed
       this.layer.getSource().un('change', this.prepareTableDataAndColumns);
     }
+
+    if (this.syncTableMapSelection) {
+      this.deactivateSelectRowOnMapClick();
+    }
   },
   watch: {
     layerId () {
@@ -179,6 +183,14 @@ export default {
     },
 
     /**
+     * Deactivate behaviour that a selected feature on the
+     * map will be selected in the AttributeTable as well.
+     */
+    deactivateSelectRowOnMapClick () {
+      WguEventBus.$off('map-selectionchange');
+    },
+
+    /**
      * Highlight row matching the feature ID
      * and set correct page of the table.
      *
@@ -252,6 +264,11 @@ export default {
     populateTable () {
       if (!this.map || !this.layerId) {
         return;
+      }
+
+      // unregister change event on previous layer source if any
+      if (this.layer) {
+        this.layer.getSource().un('change', this.prepareTableDataAndColumns);
       }
 
       // reset table properties

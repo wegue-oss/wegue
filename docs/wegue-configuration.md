@@ -32,7 +32,7 @@ This describes the Wegue application configuration, which is modelled as JSON do
 
 ### colorTheme
 
-Wegue supports the Vuetify (light and dark) theme configuration out of the box. This property expects a json object with the same format described in the [vuetify documentation](https://vuetifyjs.com/en/features/theme/#customizing).
+Wegue supports the Vuetify (light and dark) theme configuration out of the box. This property expects a json object with the same format described in the [vuetify documentation](https://v2.vuetifyjs.com/en/features/theme/#customizing).
 
 Example:
 ```json
@@ -75,6 +75,8 @@ In addition, Wegue also supports the following "on" colors:
 | ------------- |:-------------------:| ------------- |
 | on-primary     | color over primary color   | typography/icons over primary color   |
 | on-secondary   | color over secondary color | typography/icons over secondary color |
+
+Moreover, custom colors which are not listed in the Vuetify documentation can also be defined here. Lighten and darken variants will also be generated for them like for the default ones.
 
 To simplify the theming configuration, if the "themes" property isn't configured, Wegue will fallback to the default colors in the example above. Otherwise, both the "light" and "dark" themes will be built based on the respective configured colors. The following tables specify which colors are mandatory and their respective default values.
 
@@ -273,14 +275,14 @@ Below is an example for such a configuration object:
 
 ### legend
 
-Wegue supports rendering of layer legend images, which will be displayed in the [LayerList module](module-configuration?id=LayerList). The optional property `legend` in the main Wegue configuration provides sensible defaults to legend request parameters for all layers in the application. This can be useful e.g. for parameters like fonts, font-sizes and other common options, which you want to share between all legends. 
+Wegue supports rendering of layer legend images, which will be displayed in the [LayerList module](module-configuration?id=LayerList). The optional property `legend` in the main Wegue configuration provides sensible defaults to legend request parameters for all layers in the application. This can be useful e.g. for parameters like fonts, font-sizes and other common options, which you want to share between all legends.
 
 Supported options may be vendor specific, e.g. see [GeoServer Docs](https://docs.geoserver.org/latest/en/user/services/wms/get_legend_graphic/index.html) for the options supported for WMS layers in GeoServer.
 
 Example:
 ```json
   "legend": {
-    "transparent": true, 
+    "transparent": true,
     "width": 14,
     "height": 16,
   }
@@ -596,7 +598,7 @@ Example configurations can be found in the `app-starter/static` directory. Below
       "format": "MVT",
       "attribution": "Kindly provided by @ahocevar",
       "visible": false,
-      "opacityControl": true,  
+      "opacityControl": true,
       "style": {
         "strokeColor": "gray",
         "strokeWidth": 1,
