@@ -157,7 +157,8 @@ html {
    user-select: none;
    /* Temporary fix for buggy flex styling in vuetify toolbar title.
       See https://github.com/vuetifyjs/vuetify/issues/18825 */
-   flex-basis: auto
+   flex-basis: auto;
+   flex-grow: 0;
 }
 
 /* Added to keep same behaviour as in Vuetify 2 */

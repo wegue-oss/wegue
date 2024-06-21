@@ -101,7 +101,7 @@ export default {
   .wgu-attributetable-win.wgu-floating {
     top: inherit !important;
     position: relative;
-    bottom: 35px;
+    bottom: 40px;
   }
 
   @media only screen and (max-width: 600px) {
