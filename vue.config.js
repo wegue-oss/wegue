@@ -70,6 +70,17 @@ module.exports = defineConfig({
         }
       })
 
+    // Added to remove some warnings in Vue 3.4+
+    // See https://vuejs.org/api/compile-time-flags#vue-cli
+    config.plugin('define').tap((definitions) => {
+      Object.assign(definitions[0], {
+        __VUE_OPTIONS_API__: 'true',
+        __VUE_PROD_DEVTOOLS__: 'false',
+        __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'false'
+      })
+      return definitions
+    })
+
     return config
       .plugin('copy')
       .tap(options => {
@@ -89,7 +100,7 @@ module.exports = defineConfig({
     // Ensure build is sent to a temporary directory and keep only necessary plugins.
     if (process.env.NODE_ENV === 'test') {
       const PLUGINS_TO_KEEEP = [
-        'VueLoaderPlugin',
+        'Plugin',
         'DefinePlugin',
         'CaseSensitivePathsPlugin',
         'FriendlyErrorsWebpackPlugin'
