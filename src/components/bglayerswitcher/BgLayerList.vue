@@ -56,43 +56,19 @@ export default {
   },
   data () {
     return {
-      selectedLid: undefined,
       layers: []
     }
-  },
-  mounted () {
-    // Work around a bug in vuetify which doesn't realize the overflow of slideGroups properly,
-    // when the control is initially rendered. The underlying implementation relies on the clientWidth
-    // property of DOM elements, which is not computed on mount time. The bug is related to
-    // https://github.com/vuejs/Discussion/issues/394 .The following works in Firefox and Chrome.
-    // const slideGroup = this.$refs.slideGroup;
-    // if (slideGroup) {
-    //   this.timerHandle = setTimeout(() => {
-    //     slideGroup.onResize();
-    //   }, 10);
-    // }
-  },
-  unmounted () {
-    // if (this.timerHandle) {
-    //   clearTimeout(this.timerHandle);
-    // }
   },
   methods: {
     /**
       * This function is executed, after the map is bound (see mixins/Mapable).
       * Bind to the layers from the OpenLayers map.
-      * Store the ID of the currently visible OpenLayers background layer.
-      * To disambiguate multiple selected background layers - which may occur programmatically -
-      * this returns the first in the list of visible background layers.
       */
     onMapBound () {
       this.layers = this.map.getLayers().getArray();
-      const selectedBaseLayer = this.displayedLayers.find(layer => layer.getVisible());
-      this.selectedLid = selectedBaseLayer?.get('lid');
       // In Vuetify2, a mandatory slide group automatically selected the first item when value was null.
       // In Vuetify3, we should assign it ourselves down here if we want to keep the same behaviour.
-      // if (!this.selectedLid) {
-      //   this.selectedLid = this.displayedLayers[0].get('lid');
+      // if (!this.selectedLid && this.displayedLayers.length) {
       //   this.displayedLayers[0].setVisible(true);
       // }
     },
@@ -102,7 +78,6 @@ export default {
       * @param  {Object} selLid  ID of layer selected by the user
       */
     onSelectLayer (selLid) {
-      this.selectedLid = selLid;
       const selLayer = this.displayedLayers.find(layer => layer.get('lid') === selLid);
       selLayer.setVisible(true);
       this.displayedLayers
@@ -120,6 +95,14 @@ export default {
       return this.layers
         .filter(layer => layer.get('isBaseLayer'))
         .reverse();
+    },
+    /**
+      * Reactive property to return the currently visible OpenLayers background layer.
+      * To disambiguate multiple selected background layers - which may occur programmatically -
+      * this returns the first in the list of background layers.
+      */
+    selectedLid () {
+      return this.displayedLayers.find(layer => layer.getVisible())?.get('lid');
     }
   }
 }
