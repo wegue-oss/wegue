@@ -208,6 +208,7 @@ export default {
       const layers = [];
       const appConfig = this.$appConfig;
       const mapLayersConfig = appConfig.mapLayers || [];
+      const customLayerProperties = appConfig.customLayerProperties || [];
       mapLayersConfig.reverse().forEach(function (lConf) {
         // Some Layers may require a TileGrid object
         // Remarks: Passing null instead of undefined as parameters into the
@@ -222,6 +223,7 @@ export default {
         lConf.supportsPermalink = lConf.supportsPermalink ?? true;
 
         const layer = LayerFactory.getInstance(lConf, me.map);
+        me.addCustomLayerProperties(layer, lConf, customLayerProperties)
         layers.push(layer);
 
         // if layer is selectable register a select interaction
@@ -237,6 +239,18 @@ export default {
       });
 
       return layers;
+    },
+
+    /**
+     * Adds properties listed in the "customLayerProperties" array in app config to the layer.
+     * They are added only if defined in the layer configuration.
+     */
+    addCustomLayerProperties (layer, lConf, customProperties) {
+      for (const property of customProperties) {
+        if (lConf[property]) {
+          layer.set(property, lConf[property])
+        }
+      }
     },
 
     /**
