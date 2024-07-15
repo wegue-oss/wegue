@@ -10,7 +10,8 @@ export function createI18nInstance (appConfig) {
   const preset = {
     locale: LocaleUtil.getPreferredLanguage(appConfig),
     fallbackLocale: LocaleUtil.getFallbackLanguage(appConfig),
-    messages: LocaleUtil.importVueI18nLocales()
+    messages: LocaleUtil.importVueI18nLocales(),
+    warnHtmlInMessage: 'off'
   };
   i18nInstance = createI18n(preset);
   return i18nInstance;
