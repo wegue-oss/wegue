@@ -93,7 +93,7 @@ export default {
     'wgu-coords-table': CoordsTable
   },
   props: {
-    icon: { type: String, required: false, default: 'info' },
+    icon: { type: String, required: false, default: 'md:info' },
     showMedia: { type: Boolean, required: false, default: false },
     // below props only have an effect if showMedia=true
     mediaInfoLinkUrlProp: { type: String, required: false },
