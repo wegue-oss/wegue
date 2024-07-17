@@ -18,7 +18,6 @@
     :label="$t('wgu-geocoder.placeHolder')"
     :clearable="clearable"
     :persistent-hint="persistentHint"
-    :hidden="hideSearch"
     :rounded="rounded"
     @update:search="search"
   ></v-combobox>
@@ -142,7 +141,6 @@ export default {
         this.results = null;
         return
       }
-
       // ASSERTION: queryStr is valid
       queryStr = queryStr.trim();
 
