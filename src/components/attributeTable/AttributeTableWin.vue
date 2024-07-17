@@ -47,7 +47,7 @@ export default {
   inheritAttrs: false,
 
   props: {
-    icon: { type: String, required: false, default: 'table_chart' },
+    icon: { type: String, required: false, default: 'md:table_chart' },
     syncTableMapSelection: { type: Boolean, required: false, default: false }
   },
   setup () {
