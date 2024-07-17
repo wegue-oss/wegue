@@ -24,7 +24,7 @@ export default {
     'wgu-layerlist': LayerList
   },
   props: {
-    icon: { type: String, required: false, default: 'layers' },
+    icon: { type: String, required: false, default: 'md:layers' },
     showLegends: { type: Boolean, required: false, default: true },
     showOpacityControls: { type: Boolean, required: false, default: true }
   }
