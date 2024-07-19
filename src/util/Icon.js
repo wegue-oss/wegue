@@ -6,9 +6,9 @@ import ObjectUtil from './Object.js';
 const IconUtil = {
 
   /**
-   * Import custom icons from 'app/icons'. Those icons will be included in an
-   * object ready to be injected inside Vuetify configuration options object under
-   * the icons['values'] property.
+   * Import custom icons from 'app/custom-icons'. Those icons will be included
+   * in an object ready to be injected inside Vuetify configuration options
+   * object under the icons['values'] property.
    *
    * @returns {Object} An object containing the imported icons.
    *                   Key is the icon name, value contains the icon.
@@ -20,15 +20,17 @@ const IconUtil = {
       const pathIcons = IconUtil.importPathIcons();
       ObjectUtil.mergeDeep(icons, pathIcons);
     } catch (e) {
+      console.warn('An error occured while importing the custom icons, ' +
+        'they will not be registered inside Vuetify. The error was: ', e);
     }
 
     return icons;
   },
 
   /**
-   * Import custom icons from 'app/icons/*.js'. Those icons will be included in an
-   * object ready to be injected inside Vuetify configuration options object under
-   * the icons['values'] property.
+   * Import custom icons from 'app/custom-icons/*.js'. Those icons will be included
+   * in an object ready to be injected inside Vuetify configuration options object
+   * under the icons['values'] property.
    * The icons must be .js files with a default export which contains an SVG path.
    *
    * @returns {Object} An object containing icon SVG paths.
@@ -36,12 +38,12 @@ const IconUtil = {
    */
   importPathIcons () {
     const moduleDefaultExtractor = (i) => i.default;
-    const testExp = /icons\/(?:.+\/)*([a-z0-9_-]+).js$/i;
+    const testExp = /custom-icons\/(?:.+\/)*([a-z0-9_-]+).js$/i;
 
     const context = require.context(
       '../../app',
       true,
-      /icons\/(?:(?:.+)\/)*([a-z0-9_-]+).js$/i
+      /custom-icons\/(?:.+\/)*([a-z0-9_-]+).js$/i
     );
     const pathIcons = {};
     for (const key of context.keys()) {
