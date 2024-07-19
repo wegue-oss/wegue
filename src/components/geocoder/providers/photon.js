@@ -23,7 +23,7 @@
 //
 
 /**
- * Photon Provider. See https://photon.komoot.de.
+ * Photon Provider. See https://photon.komoot.io.
  *
  * @class Photon
  */
@@ -33,7 +33,7 @@ export class Photon {
    */
   constructor () {
     this.settings = {
-      url: 'https://photon.komoot.de/api/',
+      url: 'https://photon.komoot.io/api/',
       params: {
         q: '',
         limit: 10,
