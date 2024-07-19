@@ -84,6 +84,12 @@ export class Photon {
       // Sometimes has bbox
       if (properties.extent) {
         result.boundingbox = properties.extent;
+        // Ensure bbox is llx,lly,urx,ury
+        if (result.boundingbox[1] > result.boundingbox[3]) {
+          const tmp = result.boundingbox[1];
+          result.boundingbox[1] = result.boundingbox[3];
+          result.boundingbox[3] = tmp;
+        }
       }
       return result;
     });
