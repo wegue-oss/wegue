@@ -8,7 +8,8 @@
     - [Map Layers](map-layer-configuration.md)
     - [Module Configuration](module-configuration.md)
     - [Reusable Components](reusable-components.md)
-    - [Language packs](language-packs.md)
+    - [Language Packs](language-packs.md)
+    - [Custom Icons](custom-icons.md)
 - [QGIS2Wegue](qgis_plugin.md)
 
 

@@ -2,16 +2,17 @@
 // (runtime-only or standalone) has been set in vue.config.js with runtimeCompiler.
 import Vue from 'vue';
 import Vuetify from 'vuetify/lib/framework';
-import PortalVue from 'portal-vue'
-import 'roboto-fontface/css/roboto/roboto-fontface.css'
-import '@mdi/font/css/materialdesignicons.css'
-import 'material-icons/iconfont/material-icons.css'
-import '../node_modules/ol/ol.css';
+import PortalVue from 'portal-vue';
+import 'roboto-fontface/css/roboto/roboto-fontface.css';
+import '@mdi/font/css/materialdesignicons.css';
+import 'material-icons/iconfont/material-icons.css';
+import 'ol/ol.css';
 import WguApp from '../app/WguApp';
 import UrlUtil from './util/Url';
+import IconUtil from './util/Icon';
 import LocaleUtil from './util/Locale';
 import ObjectUtil from './util/Object';
-import ColorThemeUtil from './util/ColorTheme'
+import ColorThemeUtil from './util/ColorTheme';
 import axios from 'axios';
 
 Vue.use(Vuetify);
@@ -50,7 +51,8 @@ const createVuetify = function (appConfig) {
   const preset = {
     theme: ColorThemeUtil.buildTheme(appConfig.colorTheme),
     icons: {
-      iconfont: 'mdiSvg'
+      iconfont: 'mdiSvg',
+      values: IconUtil.importIcons()
     },
     lang: {
       current: LocaleUtil.getPreferredLanguage(appConfig),
