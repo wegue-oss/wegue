@@ -1,5 +1,3 @@
-import Vue from 'vue';
-
 /**
  * Directive to make a window component draggable by dragging it's header.
  * Proudly inspired by and most of the essential code taken from
@@ -222,6 +220,3 @@ export const DraggableWin = {
     }
   }
 };
-
-// Make directive available globally
-Vue.directive('draggable-win', DraggableWin);
