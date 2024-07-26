@@ -1,57 +1,50 @@
+import { reactive, toRaw } from 'vue';
 import { shallowMount } from '@vue/test-utils';
 import BgLayerList from '@/components/bglayerswitcher/BgLayerList';
 import OlMap from 'ol/Map';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
-import Vuetify from 'vuetify';
-
-const vuetify = new Vuetify();
 
 const moduleProps = {
   imageWidth: 152,
   imageHeight: 114,
-  previewIcon: 'map'
+  previewIcon: 'md:map'
 };
 
+function createWrapper (props = moduleProps) {
+  return shallowMount(BgLayerList, {
+    props
+  });
+}
+
 describe('bglayerswitcher/BgLayerList.vue', () => {
+  let comp;
+  let vm;
+
   it('is defined', () => {
     expect(BgLayerList).to.not.be.an('undefined');
   });
 
-  it('has a mounted hook', () => {
-    expect(BgLayerList.mounted).to.be.a('function');
-  });
-
   describe('props', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(BgLayerList, {
-        propsData: moduleProps,
-        vuetify
-      });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
     it('has correct props', () => {
       expect(vm.imageWidth).to.equal(152);
       expect(vm.imageHeight).to.equal(114);
-      expect(vm.previewIcon).to.equal('map');
+      expect(vm.previewIcon).to.equal('md:map');
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('data', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(BgLayerList, {
-        propsData: moduleProps,
-        vuetify
-      });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
@@ -62,28 +55,25 @@ describe('bglayerswitcher/BgLayerList.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('computed properties', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(BgLayerList, {
-        propsData: moduleProps,
-        vuetify
-      });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
     it('detects base layer items', () => {
       const layerIn = new VectorLayer({
+        lid: 'in',
         visible: true,
         isBaseLayer: true,
         source: new VectorSource()
       });
       const layerOut = new VectorLayer({
+        lid: 'out',
         visible: true,
         isBaseLayer: false,
         source: new VectorSource()
@@ -91,23 +81,26 @@ describe('bglayerswitcher/BgLayerList.vue', () => {
       const map = new OlMap({
         layers: [layerIn, layerOut]
       });
+      map.setLayers(reactive(map.getLayers()))
       vm.map = map;
       vm.onMapBound();
 
       expect(vm.displayedLayers.length).to.equal(1);
       const li = vm.displayedLayers[0];
-      expect(li).to.equal(layerIn);
+      expect(toRaw(li)).to.equal(layerIn);
       expect(li.getVisible()).to.equal(true);
-      expect(vm.selectedLayer).to.equal(layerIn);
+      expect(vm.selectedLid).to.equal(layerIn.get('lid'));
     });
 
     it('displayedLayers items are synced with the layer stack', () => {
       const layerIn = new VectorLayer({
+        lid: 'in',
         visible: true,
         isBaseLayer: true,
         source: new VectorSource()
       });
       const layerOut = new VectorLayer({
+        lid: 'out',
         visible: false,
         isBaseLayer: true,
         source: new VectorSource()
@@ -115,6 +108,7 @@ describe('bglayerswitcher/BgLayerList.vue', () => {
       const map = new OlMap({
         layers: [layerIn]
       });
+      map.setLayers(reactive(map.getLayers()))
       vm.map = map;
       vm.onMapBound();
 
@@ -126,18 +120,13 @@ describe('bglayerswitcher/BgLayerList.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('methods', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(BgLayerList, {
-        propsData: moduleProps,
-        vuetify
-      });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
@@ -148,11 +137,13 @@ describe('bglayerswitcher/BgLayerList.vue', () => {
 
     it('onSelectLayer toggles layer visibility and selection', () => {
       const layerIn = new VectorLayer({
+        lid: 'in',
         visible: true,
         isBaseLayer: true,
         source: new VectorSource()
       });
       const layerOut = new VectorLayer({
+        lid: 'out',
         visible: false,
         isBaseLayer: true,
         source: new VectorSource()
@@ -160,22 +151,23 @@ describe('bglayerswitcher/BgLayerList.vue', () => {
       const map = new OlMap({
         layers: [layerIn, layerOut]
       });
+      map.setLayers(reactive(map.getLayers()))
       vm.map = map;
       vm.onMapBound();
 
       expect(layerIn.getVisible()).to.equal(true);
       expect(layerOut.getVisible()).to.equal(false);
-      expect(vm.selectedLayer).to.equal(layerIn);
+      expect(vm.selectedLid).to.equal(layerIn.get('lid'));
 
-      vm.onSelectLayer(layerOut);
+      vm.onSelectLayer(layerOut.get('lid'));
 
       expect(layerIn.getVisible()).to.equal(false);
       expect(layerOut.getVisible()).to.equal(true);
-      expect(vm.selectedLayer).to.equal(layerOut);
+      expect(vm.selectedLid).to.equal(layerOut.get('lid'));
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 });

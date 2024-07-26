@@ -1,45 +1,46 @@
+import { nextTick, reactive } from 'vue';
 import { mount, shallowMount } from '@vue/test-utils';
-import Vuetify from 'vuetify';
 import BgLayerSwitcher from '@/components/bglayerswitcher/BgLayerSwitcher';
 import OlMap from 'ol/Map';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 
+function createWrapper (stubChildrenComponents = true) {
+  if (stubChildrenComponents) {
+    return shallowMount(BgLayerSwitcher);
+  } else {
+    return mount(BgLayerSwitcher);
+  }
+}
+
 describe('bglayerswitcher/BgLayerSwitcher.vue', () => {
-  const vuetify = new Vuetify();
+  let comp;
+  let vm;
 
   it('is defined', () => {
     expect(BgLayerSwitcher).to.not.be.an('undefined');
   });
 
   describe('props', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(BgLayerSwitcher, {
-        vuetify
-      });
-      vm = comp.vm
+      comp = createWrapper();
+      vm = comp.vm;
     });
 
     it('has correct default props', () => {
-      expect(vm.icon).to.equal('map');
+      expect(vm.icon).to.equal('md:map');
       expect(vm.imageWidth).to.equal(152);
       expect(vm.imageHeight).to.equal(114);
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('data', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(BgLayerSwitcher, {
-        vuetify
-      });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
@@ -50,27 +51,25 @@ describe('bglayerswitcher/BgLayerSwitcher.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('computed properties', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(BgLayerSwitcher, {
-        vuetify
-      });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
     it('only visible when more than one layer', () => {
       const layerIn = new VectorLayer({
+        lid: 'in',
         visible: true,
         isBaseLayer: true,
         source: new VectorSource()
       });
       const layerOut = new VectorLayer({
+        lid: 'out',
         visible: false,
         isBaseLayer: true,
         source: new VectorSource()
@@ -78,6 +77,7 @@ describe('bglayerswitcher/BgLayerSwitcher.vue', () => {
       const map = new OlMap({
         layers: [layerIn]
       });
+      map.setLayers(reactive(map.getLayers()))
       vm.map = map;
       vm.onMapBound();
 
@@ -89,14 +89,11 @@ describe('bglayerswitcher/BgLayerSwitcher.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('user interactions', () => {
-    let comp;
-    let vm;
-
     // Remarks: The following is necessary to avoid warnings.
     //  For reasons not fully understood the test utils will fail to attach
     //  the v-menu to the wgu-bglayerswitcher-wrapper div element created
@@ -106,31 +103,41 @@ describe('bglayerswitcher/BgLayerSwitcher.vue', () => {
     document.body.appendChild(div);
 
     beforeEach(() => {
-      comp = mount(BgLayerSwitcher, {
-        vuetify,
-        computed: {
-          show () {
-            return true;
-          }
-        }
-      });
+      comp = createWrapper(false);
       vm = comp.vm;
     });
 
-    it('button click switches open', done => {
+    it('button click switches open', async () => {
+      const layerIn = new VectorLayer({
+        lid: 'in',
+        visible: true,
+        isBaseLayer: true,
+        source: new VectorSource()
+      });
+      const layerOut = new VectorLayer({
+        lid: 'out',
+        visible: false,
+        isBaseLayer: true,
+        source: new VectorSource()
+      });
+      const map = new OlMap({
+        layers: [layerIn, layerOut]
+      });
+      map.setLayers(reactive(map.getLayers()))
+      vm.map = map;
+      vm.onMapBound();
+      await nextTick()
+
       expect(vm.open).to.equal(false);
 
       const button = comp.findComponent({ name: 'v-btn' });
-      button.trigger('click');
+      await button.trigger('click');
 
-      vm.$nextTick(() => {
-        expect(vm.open).to.equal(true);
-        done();
-      });
+      expect(vm.open).to.equal(true);
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 });

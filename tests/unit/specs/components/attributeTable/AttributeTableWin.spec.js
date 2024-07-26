@@ -1,55 +1,63 @@
-import Vue from 'vue';
-import AttributeTableWin from '@/components/attributeTable/AttributeTableWin'
-import { expect } from 'chai';
 import { shallowMount } from '@vue/test-utils';
+import AttributeTableWin from '@/components/attributeTable/AttributeTableWin';
 
-const appConfig = { modules: { 'wgu-attributetable': {} } };
+function createWrapper () {
+  return shallowMount(AttributeTableWin);
+}
 
 describe('attributeTable/AttributeTableWin.vue', () => {
+  let comp;
+  let vm;
+
   it('is defined', () => {
     expect(typeof AttributeTableWin).to.not.equal('undefined');
   });
 
   describe('props', () => {
-    let comp;
     beforeEach(() => {
-      Vue.prototype.$appConfig = appConfig;
-      comp = shallowMount(AttributeTableWin);
+      comp = createWrapper();
+      vm = comp.vm;
     });
 
     it('has correct default props', () => {
-      expect(comp.vm.icon).to.equal('table_chart');
+      expect(vm.icon).to.equal('md:table_chart');
+      expect(vm.syncTableMapSelection).to.be.false;
     });
 
     afterEach(() => {
-      comp.destroy();
-      Vue.prototype.$appConfig = undefined;
+      comp.unmount();
     });
   });
 
-  // Evaluate the results of functions in
-  // the raw component options
-  it('sets the correct default data', () => {
-    expect(AttributeTableWin.data).to.be.a('function');
-    const defaultData = AttributeTableWin.data();
-    expect(defaultData).to.be.an('object');
+  describe('data', () => {
+    beforeEach(() => {
+      comp = createWrapper();
+      vm = comp.vm;
+    });
 
-    expect(defaultData.layers).to.be.an('array');
-    expect(defaultData.layers.length).to.eql(0);
-    expect(defaultData.selLayer).to.be.null;
+    it('has correct default data', () => {
+      expect(vm.layers).to.be.an('array');
+      expect(vm.layers.length).to.eql(0);
+      expect(vm.selLayer).to.be.null;
+    });
+
+    afterEach(() => {
+      comp.unmount();
+    });
   });
 
   describe('methods', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      Vue.prototype.$appConfig = appConfig;
-      comp = shallowMount(AttributeTableWin);
+      comp = createWrapper();
       vm = comp.vm;
     });
 
     it('are implemented', () => {
       expect(vm.onMapBound).to.be.a('function');
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 });

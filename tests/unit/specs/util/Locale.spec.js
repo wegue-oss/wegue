@@ -12,8 +12,6 @@ const appConfig = {
   }
 };
 
-Vue.prototype.$appConfig = appConfig;
-
 describe('LocaleUtil', () => {
   it('is defined', () => {
     expect(typeof LocaleUtil).to.not.equal(undefined);

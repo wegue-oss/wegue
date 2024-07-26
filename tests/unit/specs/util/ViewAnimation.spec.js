@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import ViewAnimationUtil from '@/util/ViewAnimation';
 import View from 'ol/View';
 import { getCenter, containsExtent } from 'ol/extent';
@@ -42,12 +41,6 @@ describe('ViewAnimationUtil', () => {
 
   for (const animType of animTypes) {
     describe('animation type ' + animType, () => {
-      beforeEach(() => {
-        Vue.prototype.$appConfig = {
-          viewAnimation: { type: animType, options }
-        };
-      });
-
       it('zooms to extent correctly', done => {
         const viewAnimationUtil = createViewAnimationUtil(animType);
 

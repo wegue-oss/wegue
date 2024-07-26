@@ -1,3 +1,4 @@
+import { reactive, toRaw } from 'vue';
 import { shallowMount } from '@vue/test-utils';
 import OverviewMapPanel from '@/components/overviewmap/OverviewMapPanel';
 import OlMap from 'ol/Map';
@@ -10,7 +11,16 @@ const moduleProps = {
   height: 178
 };
 
+function createWrapper (props = moduleProps) {
+  return shallowMount(OverviewMapPanel, {
+    props
+  });
+}
+
 describe('overviewmap/OverviewMapPanel.vue', () => {
+  let comp;
+  let vm;
+
   it('is defined', () => {
     expect(OverviewMapPanel).to.not.be.an('undefined');
   });
@@ -20,12 +30,8 @@ describe('overviewmap/OverviewMapPanel.vue', () => {
   });
 
   describe('props', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(OverviewMapPanel, {
-        propsData: moduleProps
-      });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
@@ -36,17 +42,13 @@ describe('overviewmap/OverviewMapPanel.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('data', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(OverviewMapPanel, {
-        propsData: moduleProps
-      });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
@@ -57,17 +59,13 @@ describe('overviewmap/OverviewMapPanel.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('computed properties', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(OverviewMapPanel, {
-        propsData: moduleProps
-      });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
@@ -85,13 +83,14 @@ describe('overviewmap/OverviewMapPanel.vue', () => {
       const map = new OlMap({
         layers: [layerIn, layerOut]
       });
+      map.setLayers(reactive(map.getLayers()));
       vm.map = map;
       vm.onMapBound();
 
-      expect(vm.selectedBgLayer).to.equal(layerIn);
+      expect(toRaw(vm.selectedBgLayer)).to.equal(layerIn);
     });
 
-    it('selectedBgLayer is synced with the layer stack', () => {
+    it('selectedBgLayer is synced with the layer stack', async () => {
       const layerIn = new VectorLayer({
         visible: true,
         isBaseLayer: true,
@@ -105,29 +104,26 @@ describe('overviewmap/OverviewMapPanel.vue', () => {
       const map = new OlMap({
         layers: [layerIn]
       });
+      map.setLayers(reactive(map.getLayers()));
       vm.map = map;
       vm.onMapBound();
 
-      expect(vm.selectedBgLayer).to.equal(layerIn);
+      expect(toRaw(vm.selectedBgLayer)).to.equal(layerIn);
 
       layerIn.setVisible(false);
       map.addLayer(layerOut);
 
-      expect(vm.selectedBgLayer).to.equal(layerOut);
+      expect(toRaw(vm.selectedBgLayer)).to.equal(layerOut);
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('methods', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(OverviewMapPanel, {
-        propsData: moduleProps
-      });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
@@ -139,7 +135,7 @@ describe('overviewmap/OverviewMapPanel.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 });

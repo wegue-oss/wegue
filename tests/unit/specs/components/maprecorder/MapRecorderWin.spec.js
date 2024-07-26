@@ -1,20 +1,25 @@
-import MapRecorderWin from '@/components/maprecorder/MapRecorderWin'
 import { shallowMount } from '@vue/test-utils';
+import MapRecorderWin from '@/components/maprecorder/MapRecorderWin';
 import OlMap from 'ol/Map';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 
+function createWrapper () {
+  return shallowMount(MapRecorderWin);
+}
+
 describe('maprecorder/MapRecorderWin.vue', () => {
+  let comp;
+  let vm;
+
   it('is defined', () => {
     expect(MapRecorderWin).to.not.be.an('undefined');
   });
 
   describe('props', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(MapRecorderWin);
-      vm = comp.vm
+      comp = createWrapper();
+      vm = comp.vm;
     });
 
     it('has correct default props', () => {
@@ -22,16 +27,14 @@ describe('maprecorder/MapRecorderWin.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('data', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(MapRecorderWin);
-      vm = comp.vm
+      comp = createWrapper();
+      vm = comp.vm;
     });
 
     it('has correct default data', () => {
@@ -51,16 +54,14 @@ describe('maprecorder/MapRecorderWin.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('methods', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(MapRecorderWin);
-      vm = comp.vm
+      comp = createWrapper();
+      vm = comp.vm;
     });
 
     it('correct supported mime types under chrome', () => {
@@ -102,7 +103,7 @@ describe('maprecorder/MapRecorderWin.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 });

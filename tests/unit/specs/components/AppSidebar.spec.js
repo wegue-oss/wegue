@@ -1,29 +1,33 @@
+import { shallowMount } from '@vue/test-utils';
 import AppSidebar from 'APP/components/AppSidebar';
 import { WguEventBus } from '@/WguEventBus';
-import { shallowMount } from '@vue/test-utils';
-import Vuetify from 'vuetify';
 
-const vuetify = new Vuetify();
+function createWrapper () {
+  return shallowMount(AppSidebar);
+}
 
 describe('AppSidebar.vue', () => {
+  let comp;
+  let vm;
+
   describe('data', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(AppSidebar, { vuetify });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
     it('has correct default data', () => {
       expect(vm.sidebarOpen).to.equal(true);
     });
+
+    afterEach(() => {
+      comp.unmount();
+    });
   });
 
   describe('events', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(AppSidebar, { vuetify });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
@@ -34,6 +38,10 @@ describe('AppSidebar.vue', () => {
       // toggle sidebar open state by skipping parameter
       WguEventBus.$emit('sidebar-toggle');
       expect(vm.sidebarOpen).to.equal(true);
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 });

@@ -1,6 +1,17 @@
-import Vue from 'vue';
 import { shallowMount } from '@vue/test-utils';
+import PortalVue from 'portal-vue';
 import WguAppTpl from 'APP/WguAppTemplate';
+
+function createWrapper ($appConfig = {}) {
+  return shallowMount(WguAppTpl, {
+    global: {
+      mocks: {
+        $appConfig
+      },
+      plugins: [PortalVue]
+    }
+  });
+}
 
 describe('WguAppTpl.vue', () => {
   // Inspect the raw component options
@@ -9,18 +20,15 @@ describe('WguAppTpl.vue', () => {
   });
 
   describe('data', () => {
-    let comp;
-    let vm;
-    beforeEach(() => {
-      Vue.prototype.$appConfig = {
-        showCopyrightYear: true,
-        modules: {}
-      };
-      comp = shallowMount(WguAppTpl);
-      vm = comp.vm;
-    });
+    const appConfig = {
+      showCopyrightYear: true,
+      modules: {}
+    };
 
     it('has correct default data', () => {
+      const comp = createWrapper(appConfig);
+      const vm = comp.vm;
+
       expect(vm.isEmbedded).to.equal(undefined);
       expect(vm.floatingWins).to.be.an('array');
       expect(vm.sidebarWins).to.be.an('array');
@@ -29,30 +37,32 @@ describe('WguAppTpl.vue', () => {
   });
 
   describe('methods', () => {
-    let comp;
-    let vm;
-    beforeEach(() => {
-      comp = shallowMount(WguAppTpl);
-      vm = comp.vm;
-    });
-
     it('getModuleWinData(\'floating\') returns always an array', () => {
+      const comp = createWrapper();
+      const vm = comp.vm;
+
       // mock a window UI instance
       const moduleData = vm.getModuleWinData('floating');
+
       expect(moduleData).to.be.an('array');
     });
 
     it('getModuleWinData(\'sidebar\') returns always an array', () => {
+      const comp = createWrapper();
+      const vm = comp.vm;
+
       // mock a window UI instance
       const moduleData = vm.getModuleWinData('sidebar');
+
       expect(moduleData).to.be.an('array');
     });
 
     it('getModuleWinData(\'floating\') returns correct data', () => {
       // mock a module conf
-      Vue.prototype.$appConfig = {
+      const appConfig = {
         modules: {
           'wgu-infoclick': {
+            icon: 'md:info',
             target: 'menu',
             win: 'floating',
             draggable: false,
@@ -63,7 +73,11 @@ describe('WguAppTpl.vue', () => {
           }
         }
       };
+      const comp = createWrapper(appConfig);
+      const vm = comp.vm;
+
       const moduleData = vm.getModuleWinData('floating');
+
       expect(moduleData).to.be.an('array');
       expect(moduleData.length).to.equal(1);
       expect(moduleData[0].type).to.equal('wgu-infoclick-win');
@@ -75,15 +89,20 @@ describe('WguAppTpl.vue', () => {
 
     it('getModuleWinData(\'sidebar\') returns correct data', () => {
       // mock a module conf
-      Vue.prototype.$appConfig = {
+      const appConfig = {
         modules: {
           'wgu-infoclick': {
+            icon: 'md:info',
             target: 'menu',
             win: 'sidebar'
           }
         }
       };
+      const comp = createWrapper(appConfig);
+      const vm = comp.vm;
+
       const moduleData = vm.getModuleWinData('sidebar');
+
       expect(moduleData).to.be.an('array');
       expect(moduleData.length).to.equal(1);
       expect(moduleData[0].type).to.equal('wgu-infoclick-win');
@@ -91,24 +110,19 @@ describe('WguAppTpl.vue', () => {
     });
 
     it('has a method setGlobalAppLang', () => {
+      const comp = createWrapper();
+      const vm = comp.vm;
+
       expect(vm.setGlobalAppLang).to.be.a('function');
     });
   });
 
   describe('global app language lookup', () => {
-    let comp;
-    let vm;
-    beforeEach(() => {
-      comp = shallowMount(WguAppTpl);
-      vm = comp.vm;
-    });
-
     it('is set correctly', () => {
-      expect(vm.$i18n.locale).to.equal(Vue.prototype.$appLanguage);
-    });
+      const comp = createWrapper();
+      const vm = comp.vm;
 
-    afterEach(() => {
-      comp.destroy();
+      expect(vm.$i18n.locale).to.equal(vm.vueInstance.appContext.config.globalProperties.$appLanguage);
     });
   });
 });

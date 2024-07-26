@@ -1,22 +1,34 @@
-import AppLogo from '@/components/AppLogo'
+import { shallowMount } from '@vue/test-utils';
+import AppLogo from '@/components/AppLogo';
+
+function createWrapper ($appConfig = {}) {
+  return shallowMount(AppLogo, {
+    global: {
+      mocks: {
+        $appConfig
+      }
+    }
+  });
+}
 
 describe('AppLogo.vue', () => {
   it('sets the correct default data', () => {
-    AppLogo.$appConfig = {};
-    expect(typeof AppLogo.data).to.equal('function');
-    const data = AppLogo.data();
-    expect(data.logoSrc).to.equal(undefined);
-    expect(data.logoSize).to.equal(undefined);
+    const comp = createWrapper();
+    const vm = comp.vm;
+
+    expect(vm.logoSrc).to.be.undefined;
+    expect(vm.logoSize).to.be.undefined;
   });
 
   it('applies correct data from $appConfig', () => {
-    AppLogo.$appConfig = {
+    const appConfig = {
       logo: 'foobar',
       logoSize: 100
     };
-    expect(typeof AppLogo.data).to.equal('function');
-    const data = AppLogo.data();
-    expect(data.logoSrc).to.equal('foobar');
-    expect(data.logoSize).to.equal(100);
+    const comp = createWrapper(appConfig);
+    const vm = comp.vm;
+
+    expect(vm.logoSrc).to.equal('foobar');
+    expect(vm.logoSize).to.equal(100);
   });
 });

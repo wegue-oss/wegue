@@ -1,15 +1,18 @@
-import { shallowMount } from '@vue/test-utils';
-import Vuetify from 'vuetify'
+import { mount } from '@vue/test-utils';
 import Geocoder from '@/components/geocoder/Geocoder';
-import { OpenStreetMap } from '../../../../../src/components/geocoder/providers/osm';
-import { Photon } from '../../../../../src/components/geocoder/providers/photon';
-import { OpenCage } from '../../../../../src/components/geocoder/providers/opencage';
+import { OpenStreetMap } from '@/components/geocoder/providers/osm';
+import { Photon } from '@/components/geocoder/providers/photon';
+import { OpenCage } from '@/components/geocoder/providers/opencage';
 import OlMap from 'ol/Map';
 import { fromLonLat } from 'ol/proj';
-// import * as sinon from 'sinon';
+
+function createWrapper (options = {}) {
+  return mount(Geocoder, options);
+}
 
 describe('geocoder/Geocoder.vue', () => {
-  const vuetify = new Vuetify();
+  let comp;
+  let vm;
 
   // Inspect the raw component options
   it('is defined', () => {
@@ -21,29 +24,22 @@ describe('geocoder/Geocoder.vue', () => {
   });
 
   describe('props', () => {
-    let comp;
     beforeEach(() => {
-      comp = shallowMount(Geocoder, {
-        vuetify
-      });
+      comp = createWrapper();
+      vm = comp.vm;
     });
 
     it('has correct default props', () => {
-      expect(comp.vm.icon).to.equal('search');
-      expect(comp.vm.rounded).to.equal(true);
-      expect(comp.vm.autofocus).to.equal(true);
-      expect(comp.vm.persistentHint).to.equal(true);
+      expect(vm.icon).to.equal('md:search');
+      expect(vm.rounded).to.equal(true);
+      expect(vm.autofocus).to.equal(true);
+      expect(vm.persistentHint).to.equal(true);
     });
   });
 
   describe('default data and Provider', () => {
-    let comp;
-    let vm;
-
     beforeEach(() => {
-      comp = shallowMount(Geocoder, {
-        vuetify
-      });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
@@ -57,9 +53,6 @@ describe('geocoder/Geocoder.vue', () => {
   });
 
   describe('configured data and Provider - Photon', () => {
-    let comp;
-    let vm;
-
     beforeEach(() => {
       const moduleProps = {
         target: 'toolbar',
@@ -68,10 +61,8 @@ describe('geocoder/Geocoder.vue', () => {
         debug: false,
         provider: 'photon'
       };
-      comp = shallowMount(Geocoder, {
-        vuetify,
-        propsData: moduleProps
-      });
+
+      comp = createWrapper({ props: moduleProps });
       vm = comp.vm;
     });
 
@@ -85,9 +76,6 @@ describe('geocoder/Geocoder.vue', () => {
   });
 
   describe('configured data and Provider - OpenCage', () => {
-    let comp;
-    let vm;
-
     beforeEach(() => {
       const moduleProps = {
         target: 'toolbar',
@@ -96,10 +84,8 @@ describe('geocoder/Geocoder.vue', () => {
         debug: false,
         provider: 'opencage'
       };
-      comp = shallowMount(Geocoder, {
-        vuetify,
-        propsData: moduleProps
-      });
+
+      comp = createWrapper({ props: moduleProps });
       vm = comp.vm;
     });
 
@@ -113,8 +99,6 @@ describe('geocoder/Geocoder.vue', () => {
   });
 
   describe('methods - search', () => {
-    let comp;
-    let vm;
     let onQueryResultsSpy;
     let onQueryErrorSpy;
     const fetchResults = JSON.stringify([
@@ -157,7 +141,7 @@ describe('geocoder/Geocoder.vue', () => {
           country_code: 'de'
         }
       }
-    ])
+    ]);
     // let fakeXhr;
     // let clock;
     // let requests = [];
@@ -170,14 +154,12 @@ describe('geocoder/Geocoder.vue', () => {
         queryDelay: 2,
         provider: 'osm'
       };
-      comp = shallowMount(Geocoder, {
-        vuetify,
-        propsData: moduleProps
-      });
+
+      comp = createWrapper({ props: moduleProps });
       vm = comp.vm;
 
-      onQueryResultsSpy = sinon.replace(vm, 'onQueryResults', sinon.fake(vm.onQueryResults))
-      onQueryErrorSpy = sinon.replace(vm, 'onQueryError', sinon.fake(vm.onQueryError))
+      onQueryResultsSpy = sinon.replace(vm, 'onQueryResults', sinon.fake(vm.onQueryResults));
+      onQueryErrorSpy = sinon.replace(vm, 'onQueryError', sinon.fake(vm.onQueryError));
       // TODO: Sinon Fake XMLHttpRequest and Fake Timers did not work for us...
       // clock = sinon.useFakeTimers();
       // global.XMLHttpRequest = sinon.useFakeXMLHttpRequest();
@@ -201,25 +183,25 @@ describe('geocoder/Geocoder.vue', () => {
       });
     });
 
-    it('search watcher assigns last query string', done => {
-      sinon.replace(window, 'fetch', sinon.fake.resolves(new Response(fetchResults)))
+    it('search method assigns last query string', done => {
+      sinon.replace(window, 'fetch', sinon.fake.resolves(new Response(fetchResults)));
 
-      vm.search = queryString;
+      const comboBox = comp.findComponent({ name: 'v-combobox' });
+      comboBox.vm.$emit('update:search', queryString);
       vm.$nextTick(() => {
         setTimeout(function () {
           expect(vm.lastQueryStr === queryString).to.equal(true);
           done();
-        }, 50)
+        }, 50);
       });
     });
 
-    it('search watcher query with results', done => {
-      sinon.replace(window, 'fetch', sinon.fake.resolves(new Response(fetchResults)))
+    it('search method query with results', done => {
+      sinon.replace(window, 'fetch', sinon.fake.resolves(new Response(fetchResults)));
 
-      vm.search = queryString;
+      const comboBox = comp.findComponent({ name: 'v-combobox' });
+      comboBox.vm.$emit('update:search', queryString);
       vm.$nextTick(() => {
-        expect(vm.lastQueryStr === queryString).to.equal(true);
-
         // We do a timeout, to beat setTimeout() with async query in Geocoder
         // TODO find a more elegant way. sinon.useFakeTimers did not work for us.
         setTimeout(function () {
@@ -228,8 +210,7 @@ describe('geocoder/Geocoder.vue', () => {
           expect(vm.results[0].address.road === 'Heerstraße').to.equal(true);
 
           // Items from query result should be assigned to combobox
-          const comboBox = comp.findComponent({ name: 'v-combobox' });
-          selectionItems = comboBox.vnode.data.attrs.items;
+          selectionItems = comboBox.props('items');
           expect(selectionItems === undefined).to.equal(false);
           expect(selectionItems.length === vm.results.length).to.equal(true);
           done();
@@ -237,27 +218,37 @@ describe('geocoder/Geocoder.vue', () => {
       });
     });
 
-    it('select items watcher assigns result and zooms/centers Map at result', done => {
-      vm.map = new OlMap();
-      vm.selected = selectionItems[0];
-      vm.$nextTick(() => {
-        // Map center should be at coordinates from selected item
-        const mapCenter = vm.map.getView().getCenter();
+    it('selected item watcher assigns result and zooms/centers Map at result', done => {
+      sinon.replace(window, 'fetch', sinon.fake.resolves(new Response(fetchResults)));
 
-        // Map may have different projection than WGS84
-        const coords = fromLonLat(
-          [selectionItems[0].value.lon, selectionItems[0].value.lat],
-          vm.map.getView().getProjection());
-        expect(mapCenter[0] === coords[0]);
-        expect(mapCenter[1] === coords[1]);
-        done();
+      const comboBox = comp.findComponent({ name: 'v-combobox' });
+      comboBox.vm.$emit('update:search', queryString);
+      vm.$nextTick(() => {
+        setTimeout(function () {
+          selectionItems = comboBox.props('items');
+          vm.map = new OlMap();
+          comp.setData({ selected: selectionItems[0] });
+          vm.$nextTick(() => {
+            // Map center should be at coordinates from selected item
+            const mapCenter = vm.map.getView().getCenter();
+
+            // Map may have different projection than WGS84
+            const coords = fromLonLat(
+              [selectionItems[0].value.lon, selectionItems[0].value.lat],
+              vm.map.getView().getProjection());
+            expect(mapCenter[0] === coords[0]);
+            expect(mapCenter[1] === coords[1]);
+            done();
+          });
+        }, 50);
       });
     });
 
     it('calls onQueryResults if fetch successful', done => {
       sinon.replace(window, 'fetch', sinon.fake.resolves(new Response(fetchResults)))
 
-      vm.search = queryString;
+      const comboBox = comp.findComponent({ name: 'v-combobox' });
+      comboBox.vm.$emit('update:search', queryString);
       vm.$nextTick(() => {
         setTimeout(function () {
           expect(onQueryResultsSpy).to.have.been.called;
@@ -267,9 +258,10 @@ describe('geocoder/Geocoder.vue', () => {
     })
 
     it('calls onQueryError if error during fetch', done => {
-      sinon.replace(window, 'fetch', sinon.fake.rejects())
+      sinon.replace(window, 'fetch', sinon.fake.rejects());
 
-      vm.search = queryString;
+      const comboBox = comp.findComponent({ name: 'v-combobox' });
+      comboBox.vm.$emit('update:search', queryString);
       vm.$nextTick(() => {
         setTimeout(function () {
           expect(onQueryErrorSpy).to.have.been.called;
@@ -279,7 +271,7 @@ describe('geocoder/Geocoder.vue', () => {
     })
 
     afterEach(function () {
-      sinon.restore()
+      sinon.restore();
       // Like before we must clean up when tampering with globals.
       // global.XMLHttpRequest.restore();
       // clock.restore();
@@ -287,13 +279,8 @@ describe('geocoder/Geocoder.vue', () => {
   });
 
   describe('user interactions for search activation', () => {
-    let comp;
-    let vm;
-
     beforeEach(() => {
-      comp = shallowMount(Geocoder, {
-        vuetify
-      });
+      comp = createWrapper({ attachTo: document.body });
       vm = comp.vm;
     });
 
@@ -304,40 +291,41 @@ describe('geocoder/Geocoder.vue', () => {
       expect(vm.hideSearch).to.equal(true);
     });
 
-    it('button click should toggle search input visibility', done => {
+    it('button click should toggle search input visibility', async () => {
       // Two subwidgets
       const button = comp.findComponent({ name: 'v-btn' });
       const comboBox = comp.findComponent({ name: 'v-combobox' });
 
       // Initial state
       expect(vm.hideSearch).to.equal(true);
-      expect(comboBox.attributes('hidden')).to.equal('true');
+      expect(comboBox.isVisible()).to.equal(false);
 
       // Make visible
-      button.vm.$emit('click');
-      vm.$nextTick(() => {
-        expect(vm.hideSearch).to.equal(false);
-        // So looks like the 'hidden' attr is simply removed/added through toggle()!
-        expect(comboBox.attributes('hidden')).to.equal(undefined);
+      await button.trigger('click');
 
-        // And hide
-        button.vm.$emit('click');
-        vm.$nextTick(() => {
-          expect(vm.hideSearch).to.equal(true);
-          expect(comboBox.attributes('hidden')).to.equal('true');
-          done();
-        });
-      });
+      expect(vm.hideSearch).to.equal(false);
+      expect(comboBox.isVisible()).to.equal(true);
+
+      // And hide
+      await button.trigger('click');
+
+      expect(vm.hideSearch).to.equal(true);
+      expect(comboBox.isVisible()).to.equal(false);
     });
 
     it('search input string should trigger search', done => {
       const queryString = 'heerstrasse 52 bonn';
       // Trigger watcher for search input string in combobox
-      vm.search = queryString;
+      const comboBox = comp.findComponent({ name: 'v-combobox' });
+      comboBox.vm.$emit('update:search', queryString);
       vm.$nextTick(() => {
         expect(vm.lastQueryStr).to.equal(queryString);
         done();
       });
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 });
