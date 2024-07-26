@@ -4,10 +4,11 @@
 
 <script>
 
-import { getCurrentInstance, reactive } from 'vue'
+// import { getCurrentInstance, reactive } from 'vue'
+import { getCurrentInstance } from 'vue'
 import Map from 'ol/Map'
 import View from 'ol/View'
-import Collection from 'ol/Collection'
+// import Collection from 'ol/Collection'
 import Attribution from 'ol/control/Attribution';
 import Zoom from 'ol/control/Zoom';
 import {
@@ -39,10 +40,11 @@ export default {
     rotateableMap: { type: Boolean, required: false, default: false }
   },
   setup () {
-    const reactiveLayers = reactive(new Collection())
+    // const reactiveLayers = reactive(new Collection())
     const vueInstance = getCurrentInstance();
 
-    return { vueInstance, reactiveLayers };
+    // return { vueInstance, reactiveLayers };
+    return { vueInstance }
   },
   data () {
     return {
@@ -188,7 +190,7 @@ export default {
       })
     });
 
-    this.map.setLayers(this.reactiveLayers)
+    // this.map.setLayers(this.reactiveLayers)
 
     // create layers from config and add them to map
     this.registerLayerEvents();
