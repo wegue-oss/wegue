@@ -3,7 +3,7 @@
     variant="text"
     class="wgu-toggle-button bg-primary"
     :title="$t(moduleName + '.title')"
-    v-model="show">
+    :model-value="show">
     <v-btn :icon="icon" :value="true" @click="toggleUi">
     </v-btn>
   </v-btn-toggle>
@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     toggleUi () {
-      WguEventBus.$emit(this.moduleName + '-visibility-change', !!this.show);
+      WguEventBus.$emit(this.moduleName + '-visibility-change', !this.show);
     }
   }
 };
