@@ -10,12 +10,12 @@
         <v-checkbox
           color="secondary"
           hide-details
-          :input-value="layer.getVisible()"
+          :input-value="layerProxy.getVisible()"
           @click.capture.stop="onItemClick()"
         />
       </v-list-item-action>
       <v-list-item-title>
-        {{ layer.get('name') }}
+        {{ layerProxy.get('name') }}
       </v-list-item-title>
     </template>
     <v-list-item
@@ -23,7 +23,7 @@
       class="overflow-visible"
     >
       <wgu-layeropacitycontrol
-        :layer="layer"
+        :layer="layerProxy.getLayer()"
       />
     </v-list-item>
     <v-list-item
@@ -34,7 +34,7 @@
       requests when the layer item is not expanded.
       -->
       <wgu-layerlegendimage v-if="open"
-        :layer="layer"
+        :layer="layerProxy.getLayer()"
         :mapView="mapView"
       />
     </v-list-item>
@@ -49,13 +49,13 @@
       <v-checkbox
         color="secondary"
         hide-details
-        :input-value="layer.getVisible()"
-        @click.capture.stop="onItemClick(layer)"
+        :input-value="layerProxy.getVisible()"
+        @click.capture.stop="onItemClick(layerProxy)"
       />
     </v-list-item-action>
     <v-list-item-content>
       <v-list-item-title>
-        {{ layer.get('name') }}
+        {{ layerProxy.get('name') }}
       </v-list-item-title>
     </v-list-item-content>
   </v-list-item>
@@ -64,6 +64,7 @@
 <script>
 import LayerLegendImage from './LayerLegendImage'
 import LayerOpacityControl from './LayerOpacityControl'
+import { LayerProxy } from '../../util/Layer'
 
 export default {
   name: 'wgu-layerlistitem',
@@ -73,7 +74,8 @@ export default {
   },
   data () {
     return {
-      open: false
+      open: false,
+      layerProxy: new LayerProxy(this.layer, ['name', 'legend', 'opacityControl'])
     }
   },
   props: {
@@ -82,12 +84,15 @@ export default {
     showLegends: { type: Boolean, required: true },
     showOpacityControls: { type: Boolean, required: true }
   },
+  destroyed () {
+    this.layerProxy.destroy();
+  },
   methods: {
     /**
      * Handler for click on layer item, toggles the layer`s visibility.
      */
     onItemClick () {
-      this.layer.setVisible(!this.layer.getVisible());
+      this.layerProxy.setVisible(!this.layerProxy.getVisible());
     }
   },
   computed: {
@@ -101,13 +106,13 @@ export default {
      * Returns true, if the layer item should show a legend image.
      */
     showLegend () {
-      return this.showLegends && !!this.layer.get('legend');
+      return this.showLegends && !!this.layerProxy.get('legend');
     },
     /**
      * Returns true, if the layer item should show an opacity control.
      */
     showOpacityControl () {
-      return this.showOpacityControls && !!this.layer.get('opacityControl');
+      return this.showOpacityControls && !!this.layerProxy.get('opacityControl');
     }
   }
 };

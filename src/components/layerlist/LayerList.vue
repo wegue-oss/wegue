@@ -4,7 +4,7 @@
     <wgu-layerlistitem
       v-for="layer in displayedLayers"
       :key="layer.get('lid')"
-      :layer="layer"
+      :layer="layer.getLayer()"
       :mapView="map.getView()"
       :showLegends="showLegends"
       :showOpacityControls="showOpacityControls"
@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { LayerCollectionProxy } from '@/util/Layer';
 import { Mapable } from '../../mixins/Mapable';
 import LayerListItem from './LayerListItem'
 
@@ -28,7 +29,7 @@ export default {
   },
   data () {
     return {
-      layers: []
+      layersProxy: undefined
     }
   },
   methods: {
@@ -37,8 +38,12 @@ export default {
      * Bind to the layers from the OpenLayers map.
      */
     onMapBound () {
-      this.layers = this.map.getLayers().getArray();
+      this.layersProxy = new LayerCollectionProxy(this.map.getLayers(),
+        ['lid', 'displayInLayerList', 'isBaseLayer']);
     }
+  },
+  destroyed () {
+    this.layersProxy.destroy();
   },
   computed: {
     /**
@@ -46,7 +51,10 @@ export default {
      * Remarks: The 'displayInLayerList' attribute should default to true per convention.
      */
     displayedLayers () {
-      return this.layers
+      if (!this.layersProxy) {
+        return [];
+      }
+      return this.layersProxy.getArray()
         .filter(layer => layer.get('displayInLayerList') !== false && !layer.get('isBaseLayer'))
         .reverse();
     }
