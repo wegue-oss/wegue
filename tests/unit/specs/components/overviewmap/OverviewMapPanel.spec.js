@@ -1,4 +1,5 @@
-import { reactive, toRaw } from 'vue';
+// import { reactive, toRaw } from 'vue';
+import { toRaw } from 'vue';
 import { shallowMount } from '@vue/test-utils';
 import OverviewMapPanel from '@/components/overviewmap/OverviewMapPanel';
 import OlMap from 'ol/Map';
@@ -71,11 +72,13 @@ describe('overviewmap/OverviewMapPanel.vue', () => {
 
     it('detects selected base layer', () => {
       const layerIn = new VectorLayer({
+        lid: 'in',
         visible: true,
         isBaseLayer: true,
         source: new VectorSource()
       });
       const layerOut = new VectorLayer({
+        lid: 'out',
         visible: true,
         isBaseLayer: false,
         source: new VectorSource()
@@ -83,7 +86,7 @@ describe('overviewmap/OverviewMapPanel.vue', () => {
       const map = new OlMap({
         layers: [layerIn, layerOut]
       });
-      map.setLayers(reactive(map.getLayers()));
+      // map.setLayers(reactive(map.getLayers()));
       vm.map = map;
       vm.onMapBound();
 
@@ -92,11 +95,13 @@ describe('overviewmap/OverviewMapPanel.vue', () => {
 
     it('selectedBgLayer is synced with the layer stack', async () => {
       const layerIn = new VectorLayer({
+        lid: 'in',
         visible: true,
         isBaseLayer: true,
         source: new VectorSource()
       });
       const layerOut = new VectorLayer({
+        lid: 'out',
         visible: true,
         isBaseLayer: true,
         source: new VectorSource()
@@ -104,7 +109,7 @@ describe('overviewmap/OverviewMapPanel.vue', () => {
       const map = new OlMap({
         layers: [layerIn]
       });
-      map.setLayers(reactive(map.getLayers()));
+      // map.setLayers(reactive(map.getLayers()));
       vm.map = map;
       vm.onMapBound();
 

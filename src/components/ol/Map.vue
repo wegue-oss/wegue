@@ -262,7 +262,7 @@ export default {
             this.updateLocalizedLayerProps(evt.target)
           }
         })
-      })
+      });
     },
 
     /**

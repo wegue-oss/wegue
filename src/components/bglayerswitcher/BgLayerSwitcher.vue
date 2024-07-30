@@ -48,8 +48,12 @@ export default {
   data () {
     return {
       open: false,
+      show: false,
       layers: []
     }
+  },
+  beforeUnmount () {
+    this.unregisterLayersCollectionChangedEvent(this.layersChanged);
   },
   methods: {
     /**
@@ -58,18 +62,28 @@ export default {
      */
     onMapBound () {
       this.layers = this.map.getLayers().getArray();
-    }
-  },
-  computed: {
-    /**
-     * Reactive property to return true, when more than one OpenLayers layer is available,
-     * which is marked as 'isBaseLayer'.
-     */
-    show () {
-      return this.layers
+      this.computeShow();
+      this.registerLayersCollectionChangedEvent(this.layersChanged);
+    },
+    layersChanged () {
+      this.computeShow();
+    },
+    computeShow () {
+      this.show = this.layers
         .filter(layer => layer.get('isBaseLayer'))
         .length > 1;
     }
   }
+  // computed: {
+  //   /**
+  //    * Reactive property to return true, when more than one OpenLayers layer is available,
+  //    * which is marked as 'isBaseLayer'.
+  //    */
+  //   show () {
+  //     return this.layers
+  //       .filter(layer => layer.get('isBaseLayer'))
+  //       .length > 1;
+  //   }
+  // }
 };
 </script>

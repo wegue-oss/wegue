@@ -147,7 +147,6 @@ describe('layerlist/LayerLegendImage.vue', () => {
 
       vm.$i18n.locale = 'de';
       // This is not changed when run in the whole suite for unknown reasons
-      // console.log(vm.$i18n.locale),
       expect(vm.legendURL).to.equal('https://ahocevar.com/geoserver/wms?' +
         'SERVICE=WMS&VERSION=1.3.0&REQUEST=GetLegendGraphic&FORMAT=image%2Fpng&LAYER=topp%3Astates&' +
         'SCALE=139770566.00717944&language=de');

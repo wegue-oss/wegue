@@ -56,8 +56,12 @@ export default {
   },
   data () {
     return {
-      layers: []
+      layers: [],
+      displayedLayers: []
     }
+  },
+  beforeUnmount () {
+    this.unregisterLayersCollectionChangedEvent(this.layersChanged);
   },
   methods: {
     /**
@@ -71,6 +75,17 @@ export default {
       // if (!this.selectedLid && this.displayedLayers.length) {
       //   this.displayedLayers[0].setVisible(true);
       // }
+      this.layers = this.map.getLayers().getArray();
+      this.computeDisplayedLayers();
+      this.registerLayersCollectionChangedEvent(this.layersChanged);
+    },
+    layersChanged () {
+      this.computeDisplayedLayers();
+    },
+    computeDisplayedLayers () {
+      this.displayedLayers = this.layers
+        .filter(layer => layer.get('isBaseLayer'))
+        .reverse();
     },
     /**
       * Handler for click on item in layer list:
@@ -91,11 +106,11 @@ export default {
     /**
       * Reactive property to return the OpenLayers layers marked as 'isBaseLayer'.
       */
-    displayedLayers () {
-      return this.layers
-        .filter(layer => layer.get('isBaseLayer'))
-        .reverse();
-    },
+    // displayedLayers () {
+    //   return this.layers
+    //     .filter(layer => layer.get('isBaseLayer'))
+    //     .reverse();
+    // },
     /**
       * Reactive property to return the currently visible OpenLayers background layer.
       * To disambiguate multiple selected background layers - which may occur programmatically -

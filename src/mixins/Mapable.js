@@ -34,5 +34,21 @@ export const Mapable = {
         this.unbound = true;
       }
     });
+  },
+  methods: {
+    registerLayersCollectionChangedEvent (handler) {
+      const layers = this.map?.getLayers();
+      if (layers) {
+        layers.on('add', handler);
+        layers.on('remove', handler);
+      }
+    },
+    unregisterLayersCollectionChangedEvent (handler) {
+      const layers = this.map?.getLayers();
+      if (layers) {
+        layers.un('add', handler);
+        layers.un('remove', handler);
+      }
+    }
   }
 };

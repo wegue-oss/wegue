@@ -77,7 +77,7 @@ describe('bglayerswitcher/BgLayerSwitcher.vue', () => {
       const map = new OlMap({
         layers: [layerIn]
       });
-      map.setLayers(reactive(map.getLayers()))
+      // map.setLayers(reactive(map.getLayers()))
       vm.map = map;
       vm.onMapBound();
 
@@ -123,7 +123,7 @@ describe('bglayerswitcher/BgLayerSwitcher.vue', () => {
       const map = new OlMap({
         layers: [layerIn, layerOut]
       });
-      map.setLayers(reactive(map.getLayers()))
+      // map.setLayers(reactive(map.getLayers()))
       vm.map = map;
       vm.onMapBound();
       await nextTick()

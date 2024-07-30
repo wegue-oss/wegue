@@ -1,4 +1,5 @@
-import { reactive, toRaw } from 'vue';
+// import { reactive, toRaw } from 'vue';
+import { toRaw } from 'vue';
 import { shallowMount } from '@vue/test-utils';
 import LayerList from '@/components/layerlist/LayerList';
 import OlMap from 'ol/Map';
@@ -49,11 +50,13 @@ describe('layerlist/LayerList.vue', () => {
 
     it('detects wanted layer items', () => {
       const layerIn = new VectorLayer({
+        lid: 'in',
         visible: true,
         displayInLayerList: true,
         source: new VectorSource()
       });
       const layerOut = new VectorLayer({
+        lid: 'out',
         visible: true,
         displayInLayerList: false,
         source: new VectorSource()
@@ -61,7 +64,7 @@ describe('layerlist/LayerList.vue', () => {
       const map = new OlMap({
         layers: [layerIn, layerOut]
       });
-      map.setLayers(reactive(map.getLayers()))
+      // map.setLayers(reactive(map.getLayers()))
       vm.map = map;
       vm.onMapBound();
 
@@ -76,7 +79,7 @@ describe('layerlist/LayerList.vue', () => {
       const map = new OlMap({
         layers: [layerIn]
       });
-      map.setLayers(reactive(map.getLayers()));
+      // map.setLayers(reactive(map.getLayers()));
       vm.map = map;
       vm.onMapBound();
 

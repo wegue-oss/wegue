@@ -58,8 +58,12 @@ export default {
     return {
       moduleName: 'wgu-attributetable',
       layers: [],
+      displayedLayers: [],
       selLayer: null
     }
+  },
+  beforeUnmount () {
+    this.unregisterLayersCollectionChangedEvent(this.layersChanged);
   },
   mixins: [Mapable],
   components: {
@@ -73,14 +77,14 @@ export default {
      */
     onMapBound () {
       this.layers = this.map.getLayers().getArray();
-    }
-  },
-  computed: {
-    /**
-     * Reactive property to return the OpenLayers vector layers to be shown in the selection menu.
-     */
-    displayedLayers () {
-      return this.layers
+      this.computeDisplayedLayers();
+      this.registerLayersCollectionChangedEvent(this.layersChanged);
+    },
+    layersChanged () {
+      this.computeDisplayedLayers();
+    },
+    computeDisplayedLayers () {
+      this.displayedLayers = this.layers
         .filter(layer =>
           layer instanceof VectorLayer &&
           layer.get('lid') !== 'wgu-measure-layer' &&
@@ -89,6 +93,20 @@ export default {
         .reverse();
     }
   }
+  // computed: {
+  //   /**
+  //    * Reactive property to return the OpenLayers vector layers to be shown in the selection menu.
+  //    */
+  //   displayedLayers () {
+  //     return this.layers
+  //       .filter(layer =>
+  //         layer instanceof VectorLayer &&
+  //         layer.get('lid') !== 'wgu-measure-layer' &&
+  //         layer.get('lid') !== 'wgu-geolocator-layer'
+  //       )
+  //       .reverse();
+  //   }
+  // }
 };
 </script>
 

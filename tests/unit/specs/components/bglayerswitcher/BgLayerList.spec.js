@@ -1,4 +1,5 @@
-import { reactive, toRaw } from 'vue';
+// import { reactive, toRaw } from 'vue';
+import { toRaw } from 'vue';
 import { shallowMount } from '@vue/test-utils';
 import BgLayerList from '@/components/bglayerswitcher/BgLayerList';
 import OlMap from 'ol/Map';
@@ -81,7 +82,7 @@ describe('bglayerswitcher/BgLayerList.vue', () => {
       const map = new OlMap({
         layers: [layerIn, layerOut]
       });
-      map.setLayers(reactive(map.getLayers()))
+      // map.setLayers(reactive(map.getLayers()))
       vm.map = map;
       vm.onMapBound();
 
@@ -108,7 +109,7 @@ describe('bglayerswitcher/BgLayerList.vue', () => {
       const map = new OlMap({
         layers: [layerIn]
       });
-      map.setLayers(reactive(map.getLayers()))
+      // map.setLayers(reactive(map.getLayers()))
       vm.map = map;
       vm.onMapBound();
 
@@ -151,7 +152,7 @@ describe('bglayerswitcher/BgLayerList.vue', () => {
       const map = new OlMap({
         layers: [layerIn, layerOut]
       });
-      map.setLayers(reactive(map.getLayers()))
+      // map.setLayers(reactive(map.getLayers()))
       vm.map = map;
       vm.onMapBound();
 
