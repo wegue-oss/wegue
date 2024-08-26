@@ -42,7 +42,7 @@
     "@vue/cli-plugin-unit-mocha": "~5.0.8",
     "@vue/cli-service": "~5.0.8",
     "@vue/eslint-config-standard": "^8.0.1",
-    "@vue/test-utils": "github:sronveaux/test-utils#issue-2462-fix",
+    "@vue/test-utils": "github:vuejs/test-utils#e3c88273ace7a0e1c5a5eaf8f7cd60c80f73e39c",
     "babel-plugin-istanbul": "^6.1.1",
     "chai": "^4.3.10",
     "copy-dir": "^1.2.0",
