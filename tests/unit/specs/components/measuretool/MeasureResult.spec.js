@@ -1,4 +1,6 @@
 import { shallowMount } from '@vue/test-utils';
+import { createI18n } from 'vue-i18n';
+import i18nMessages from '@/locales/en.json';
 import MeasureResult from '@/components/measuretool/MeasureResult';
 import PolygonGeom from 'ol/geom/Polygon';
 import LineStringGeom from 'ol/geom/LineString';
@@ -12,11 +14,30 @@ const olMap = new Map({
 function createWrapper (assignMap = false) {
   const map = assignMap ? olMap : undefined;
 
+  const i18nInstance = createI18n({
+    legacy: false,
+    globalInjection: true,
+    locale: 'en',
+    fallbackLocale: 'en',
+    messages: { en: i18nMessages },
+    missingWarn: false,
+    fallbackWarn: false,
+    warnHtmlMessage: false
+  })
+
   return shallowMount(MeasureResult, {
     data () {
       return {
         map
       }
+    },
+    global: {
+      mocks: {
+        $t: (tKey, ...rest) => {
+          return i18nInstance.global.t(tKey, ...rest);
+        }
+      },
+      plugins: [i18nInstance]
     }
   });
 }
@@ -40,6 +61,10 @@ describe('measuretool/MeasureResult.vue', () => {
       expect(vm.measureGeom).to.equal(undefined);
       expect(vm.measureType).to.equal(undefined);
     });
+
+    afterEach(() => {
+      comp.unmount();
+    });
   });
 
   describe('data', () => {
@@ -54,6 +79,10 @@ describe('measuretool/MeasureResult.vue', () => {
       expect(vm.area).to.equal(EMPTY_RESULT_TEXT);
       expect(vm.distance).to.equal(EMPTY_RESULT_TEXT);
       expect(vm.angle).to.equal(EMPTY_RESULT_TEXT);
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 
@@ -85,6 +114,10 @@ describe('measuretool/MeasureResult.vue', () => {
       const lineGeom = new LineStringGeom([[0, 0], [1000, 1000]]);
       const fAngleText = vm.formatAngle(lineGeom);
       expect(fAngleText).to.equal('45.00°');
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 
@@ -119,6 +152,10 @@ describe('measuretool/MeasureResult.vue', () => {
     it('watches measureGeom non supported geom', async () => {
       await comp.setProps({ measureGeom: { geom: null } });
       expect(comp.vm.distance).to.equal(' -- ');
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 });

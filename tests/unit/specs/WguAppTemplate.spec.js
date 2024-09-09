@@ -1,14 +1,27 @@
 import { shallowMount } from '@vue/test-utils';
+import { createI18n } from 'vue-i18n';
 import PortalVue from 'portal-vue';
+import i18nMessages from '@/locales/en.json';
 import WguAppTpl from 'APP/WguAppTemplate';
 
 function createWrapper ($appConfig = {}) {
+  const i18nInstance = createI18n({
+    legacy: false,
+    globalInjection: true,
+    locale: 'en',
+    fallbackLocale: 'en',
+    messages: { en: i18nMessages },
+    missingWarn: false,
+    fallbackWarn: false,
+    warnHtmlMessage: false
+  })
+
   return shallowMount(WguAppTpl, {
     global: {
       mocks: {
         $appConfig
       },
-      plugins: [PortalVue]
+      plugins: [i18nInstance, PortalVue]
     }
   });
 }
