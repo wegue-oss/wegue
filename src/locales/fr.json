@@ -1,0 +1,103 @@
+{
+  "app": {
+    "title": "Vue.js / OpenLayers WebGIS",
+    "browserTitle": "Application de Démonstration Wegue",
+    "footerTextLeft": "Powered by <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>",
+    "footerTextRight": "meggsimum",
+    "logo": "Logo de l'Application"
+  },
+
+  "mapLayers": {
+    "wgu-geolocator-layer": {
+      "name": "Position Actuelle"
+    },
+    "wgu-measure-layer": {
+      "name": "Résultats des Mesures"
+    },
+    "wgu-drag-drop-layer" : {
+      "name": "Données Glissées"
+    }
+  },
+
+  "wgu-toolbar-menu": {
+    "title": "Ouvrir le menu de la barre d'outils"
+  },
+
+  "wgu-attributetable": {
+    "title": "Table d'Attributs",
+    "selectorLabel": "Choisissez une couche",
+    "loadingText": "Chargement... Veuillez déplacer la vue vers une zone où la couche est visible"
+  },
+
+  "wgu-bglayerswitcher": {
+    "title": "Changer la couche de fond"
+  },
+
+  "wgu-overviewmap": {
+    "title": "Montrer le plan d'ensemble"
+  },
+
+  "wgu-geocoder": {
+    "title": "Chercher une adresse",
+    "placeHolder": "Chercher après une adresse"
+  },
+
+  "wgu-geolocator": {
+    "title": "Géolocalisation"
+  },
+
+  "wgu-helpwin": {
+    "title": "À Propos de",
+    "textTitle": "À Propos de Wegue",
+    "htmlContent": "<b>WebGIS basé sur OpenLayers et Vue.js</b><br>Modèle et composants réutilisables pour applications de cartographie avec OpenLayers et Vue.js",
+    "infoLinkUrl": "http://wegue.org/",
+    "infoLinkText": "Plus d'informations"
+  },
+
+  "wgu-infoclick": {
+    "title": "Informations sur la zone cliquée",
+    "mapClick": "Cliquez sur la carte pour obtenir de l'information sur la zone cliquée.",
+    "mediaClick": "Cliquez sur une entité de la carte pour afficher les informations multimédia associées.",
+    "mediaInfoLinkText": null
+  },
+
+  "wgu-layerlist": {
+    "title": "Couches"
+  },
+
+  "wgu-maprecorder": {
+    "title": "Capture vidéo",
+    "options": "Options",
+    "videoFormat": "Format vidéo",
+    "frameRate": "Cadence d'image (images/s)",
+    "bitRate": "Débit binaire (MBits/s)",
+    "fileName": "Nom du fichier",
+    "start": "Démarrage",
+    "stop": "Arrêt",
+    "error": "Erreur lors du démarrage de l'enregistrement."
+  },
+
+  "wgu-zoomtomaxextent": {
+    "title": "Réinitialiser l'étendue de la carte"
+  },
+
+  "wgu-measuretool": {
+    "title": "Mesure",
+    "distance": "Distance",
+    "length": "Longueur",
+    "area": "Surface",
+    "angle": "Angle",
+    "lengthKm": "{0} km",
+    "lengthMeter": "{0} m",
+    "areaSquareKm": "{0} km²",
+    "areaSquareMeter": "{0} m²"
+  },
+
+  "wgu-localeswitcher": {
+    "title": "Paramètres de Langue"
+  },
+
+  "wgu-themeswitcher": {
+    "title": "Mode sombre"
+  }
+}
