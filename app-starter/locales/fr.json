@@ -16,7 +16,7 @@
     },
     "gas-wfs": {
       "name": "Pompes à Essence WFS",
-      "attributions": "© <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributeurs."
+      "attributions": "© <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a>-contributeurs"
     },
     "earthquakes": {
       "name": "Tremblements de Terre 2012 (Mag 5)",
@@ -37,7 +37,7 @@
     },
     "osm-bg": {
       "name": "OpenStreetMap",
-      "attributions": "© <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributeurs."
+      "attributions": "© <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a>-contributeurs"
     },
     "dutch-nat-parks" : {
       "name": "WFS (Parcs Nationaux Néerlandaiss PDOK)",
