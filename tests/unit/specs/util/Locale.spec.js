@@ -6,7 +6,8 @@ const appConfig = {
     supported: {
       en: 'English',
       de: 'Deutsch',
-      pt: 'Portugues'
+      pt: 'Portugues',
+      fr: 'Français'
     },
     fallback: 'de'
   }
@@ -32,10 +33,11 @@ describe('LocaleUtil', () => {
   it('getSupportedLanguages returns correct languages', () => {
     const supported = LocaleUtil.getSupportedLanguages(appConfig);
     expect(supported).to.be.an('object');
-    expect(Object.keys(supported).length).to.eql(3);
+    expect(Object.keys(supported).length).to.eql(4);
     expect(supported.en).to.eql('English');
     expect(supported.de).to.eql('Deutsch');
     expect(supported.pt).to.eql('Portugues');
+    expect(supported.fr).to.eql('Français');
   });
 
   it('getSupportedLanguages returns correct fallback language when lang is unconfigured', () => {
@@ -58,12 +60,14 @@ describe('LocaleUtil', () => {
   it('isLanguageSupported returns correct results', () => {
     const enSupported = LocaleUtil.isLanguageSupported('en', appConfig);
     const deSupported = LocaleUtil.isLanguageSupported('de', appConfig);
-    const frSupported = LocaleUtil.isLanguageSupported('fr', appConfig);
+    const nlSupported = LocaleUtil.isLanguageSupported('nl', appConfig);
     const ptSupported = LocaleUtil.isLanguageSupported('pt', appConfig);
+    const frSupported = LocaleUtil.isLanguageSupported('fr', appConfig);
     expect(enSupported).to.be.true;
     expect(deSupported).to.be.true;
-    expect(frSupported).to.be.false;
+    expect(nlSupported).to.be.false;
     expect(ptSupported).to.be.true;
+    expect(frSupported).to.be.true;
   });
 
   it('isLanguageSupported returns correct results when lang is unconfigured', () => {
