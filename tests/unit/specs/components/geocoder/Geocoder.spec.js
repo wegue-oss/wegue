@@ -203,7 +203,7 @@ describe('geocoder/Geocoder.vue', () => {
       vm.geocoderController.query(queryString).then(results => {
         expect(results).to.not.be.undefined;
         expect(results).to.not.be.empty;
-        expect(results[0].address.road).to.be('Heerstraße');
+        expect(results[0].address.road).to.equal('Heerstraße');
         done();
       });
     });
