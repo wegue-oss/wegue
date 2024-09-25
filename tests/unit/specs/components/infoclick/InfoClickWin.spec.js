@@ -104,15 +104,25 @@ describe('infoclick/InfoClickWin.vue', () => {
     });
 
     it('show registers map click when module is opened', () => {
-      let cnt = 0;
-      const mockFn = () => {
-        cnt++;
-      };
-      vm.registerMapClick = mockFn;
+      const map = new OlMap();
+      vm.map = map;
+      const onSPy = sinon.replace(map, 'on', sinon.fake(map.on));
 
       vm.show(false);
       vm.show(true);
-      expect(cnt).to.equal(1);
+
+      expect(onSPy).to.have.been.calledOnceWithExactly('singleclick', vm.onMapClick);
+    });
+
+    it('show unregisters map click when module is closed', () => {
+      const map = new OlMap();
+      vm.map = map;
+      const unSPy = sinon.replace(map, 'un', sinon.fake(map.un));
+
+      vm.show(true);
+      vm.show(false);
+
+      expect(unSPy).to.have.been.calledOnceWithExactly('singleclick', vm.onMapClick);
     });
   });
 });
