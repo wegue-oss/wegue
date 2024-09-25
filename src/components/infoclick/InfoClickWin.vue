@@ -197,6 +197,7 @@ export default {
         me.registerMapClick();
       } else {
         // cleanup old data
+        me.registerMapClick(true);
         me.attributeData = null;
         me.coordsData = null;
       }
