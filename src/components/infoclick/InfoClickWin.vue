@@ -128,7 +128,9 @@ export default {
       me.features = []
       me.map.forEachFeatureAtPixel(evt.pixel,
         (feature, layer) => {
-          me.features.push([feature, layer])
+          if (layer) {
+            me.features.push([feature, layer])
+          }
         });
 
       // collect feature attributes --> PropertyTable
