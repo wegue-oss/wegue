@@ -1,4 +1,4 @@
-# Wegue <small>2.0.2</small>
+# Wegue <small>2.1.0</small>
 
 > Simple Webmapping with OpenLayers and Vue.js
 
