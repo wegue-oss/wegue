@@ -24,7 +24,7 @@
 import { OpenStreetMap } from './providers/osm';
 import { Photon } from './providers/photon';
 import { OpenCage } from './providers/opencage';
-import { json } from './helpers/ajax';
+import axios from 'axios';
 
 // Geocoder Provider types
 export const PROVIDERS = {
@@ -41,10 +41,10 @@ export class GeocoderController {
    * @constructor
    * @param {String} providerName name of Provider.
    * @param {Object} options config options for Provider
-   * @param {Object} parent callback parent
    */
-  constructor (providerName, options, parent) {
+  constructor (providerName, options) {
     this.options = options;
+    this.abortController = null;
 
     // Must have Provider class defined for name
     if (!Object.prototype.hasOwnProperty.call(PROVIDERS, providerName)) {
@@ -53,10 +53,21 @@ export class GeocoderController {
     }
     // Create Provider from name via Factory Method
     this.provider = new PROVIDERS[providerName]();
-    this.parent = parent;
+  }
+
+  destroy () {
+    if (this.abortController) {
+      this.abortController.abort();
+      this.abortController = null;
+    }
   }
 
   async query (q) {
+    if (this.abortController) {
+      this.abortController.abort();
+    }
+    this.abortController = new AbortController();
+
     const parameters = this.provider.getParameters({
       query: q,
       key: this.options.key,
@@ -65,28 +76,14 @@ export class GeocoderController {
       limit: this.options.limit
     });
 
-    const ajax = {
+    const request = {
+      method: 'GET',
       url: parameters.url,
-      data: parameters.params
-    };
-
-    // Optional XHR with JSONP (Provider-specific)
-    if (parameters.callbackName) {
-      ajax.jsonp = true;
-      ajax.callbackName = parameters.callbackName;
+      params: parameters.params,
+      signal: this.abortController?.signal
     }
 
-    const response = await json(ajax);
-    return this.provider.handleResponse(response)
-
-    // // Do the query via Ajax XHR, returning JSON. Async callback via Promise.
-    // json(ajax)
-    //   .then(response => {
-    //     // Call back parent with data formatted by Provider
-    //     this.parent.onQueryResult(this.provider.handleResponse(response));
-    //   })
-    //   .catch(err => {
-    //     this.parent.onQueryResult(undefined, err);
-    //   });
+    const response = await axios(request);
+    return this.provider.handleResponse(response.data)
   }
 }

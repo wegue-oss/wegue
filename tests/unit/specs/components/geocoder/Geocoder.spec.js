@@ -4,7 +4,12 @@ import { OpenStreetMap } from '@/components/geocoder/providers/osm';
 import { Photon } from '@/components/geocoder/providers/photon';
 import { OpenCage } from '@/components/geocoder/providers/opencage';
 import OlMap from 'ol/Map';
-import { fromLonLat } from 'ol/proj';
+import { applyTransform, getCenter } from 'ol/extent';
+import { getTransform } from 'ol/proj';
+
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
+import { nextTick } from 'vue';
 
 function createWrapper (options = {}) {
   return mount(Geocoder, options);
@@ -16,11 +21,11 @@ describe('geocoder/Geocoder.vue', () => {
 
   // Inspect the raw component options
   it('is defined', () => {
-    expect(typeof Geocoder).to.not.equal('undefined');
+    expect(Geocoder).to.not.be.undefined;
   });
 
   it('has a mounted hook', () => {
-    expect(typeof Geocoder.mounted).to.equal('function');
+    expect(Geocoder.mounted).to.be.a('function');
   });
 
   describe('props', () => {
@@ -31,9 +36,9 @@ describe('geocoder/Geocoder.vue', () => {
 
     it('has correct default props', () => {
       expect(vm.icon).to.equal('md:search');
-      expect(vm.rounded).to.equal(true);
-      expect(vm.autofocus).to.equal(true);
-      expect(vm.persistentHint).to.equal(true);
+      expect(vm.rounded).to.be.true;
+      expect(vm.autofocus).to.be.true;
+      expect(vm.persistentHint).to.be.true;
     });
   });
 
@@ -44,11 +49,11 @@ describe('geocoder/Geocoder.vue', () => {
     });
 
     it('has correct default data and Provider', () => {
-      expect(vm.hideSearch).to.equal(true);
+      expect(vm.hideSearch).to.be.true;
       expect(vm.minChars).to.equal(3);
       expect(vm.queryDelay).to.equal(300);
-      expect(vm.geocoderController !== undefined).to.equal(true);
-      expect(vm.geocoderController.provider instanceof OpenStreetMap).to.equal(true);
+      expect(vm.geocoderController).to.not.be.undefined;
+      expect(vm.geocoderController.provider instanceof OpenStreetMap).to.be.true;
     });
   });
 
@@ -67,11 +72,11 @@ describe('geocoder/Geocoder.vue', () => {
     });
 
     it('has correct configured data and Provider', () => {
-      expect(vm.hideSearch).to.equal(true);
+      expect(vm.hideSearch).to.be.true;
       expect(vm.minChars).to.equal(5);
       expect(vm.queryDelay).to.equal(200);
-      expect(vm.geocoderController !== undefined).to.equal(true);
-      expect(vm.geocoderController.provider instanceof Photon).to.equal(true);
+      expect(vm.geocoderController).to.not.be.undefined;
+      expect(vm.geocoderController.provider instanceof Photon).to.be.true;
     });
   });
 
@@ -90,17 +95,19 @@ describe('geocoder/Geocoder.vue', () => {
     });
 
     it('has correct configured data and Provider', () => {
-      expect(vm.hideSearch).to.equal(true);
+      expect(vm.hideSearch).to.be.true;
       expect(vm.minChars).to.equal(6);
       expect(vm.queryDelay).to.equal(200);
-      expect(vm.geocoderController !== undefined).to.equal(true);
-      expect(vm.geocoderController.provider instanceof OpenCage).to.equal(true);
+      expect(vm.geocoderController).to.not.be.undefined;
+      expect(vm.geocoderController.provider instanceof OpenCage).to.be.true;
     });
   });
 
   describe('methods - search', () => {
+    let axiosMock;
     let onQueryResultsSpy;
     let onQueryErrorSpy;
+    const osmURL = 'https://nominatim.openstreetmap.org/search';
     const fetchResults = JSON.stringify([
       {
         lon: '7.0928944',
@@ -142,11 +149,18 @@ describe('geocoder/Geocoder.vue', () => {
         }
       }
     ]);
-    // let fakeXhr;
-    // let clock;
-    // let requests = [];
+    let clock;
     const queryString = 'Heerstraße 52 bonn';
     let selectionItems;
+
+    function applyAxiosMock (error = false) {
+      axiosMock = new MockAdapter(axios);
+      if (!error) {
+        axiosMock.onGet(osmURL).reply(200, fetchResults);
+      } else {
+        axiosMock.onGet(osmURL).networkError();
+      }
+    };
 
     beforeEach(() => {
       const moduleProps = {
@@ -160,121 +174,109 @@ describe('geocoder/Geocoder.vue', () => {
 
       onQueryResultsSpy = sinon.replace(vm, 'onQueryResults', sinon.fake(vm.onQueryResults));
       onQueryErrorSpy = sinon.replace(vm, 'onQueryError', sinon.fake(vm.onQueryError));
-      // TODO: Sinon Fake XMLHttpRequest and Fake Timers did not work for us...
-      // clock = sinon.useFakeTimers();
-      // global.XMLHttpRequest = sinon.useFakeXMLHttpRequest();
-      // global.XMLHttpRequest.onCreate = function (xhr) {
-      // requests.push(xhr);
-      // };
+      clock = sinon.useFakeTimers();
     });
 
     it('functions are implemented', () => {
-      expect(typeof vm.toggle).to.equal('function');
-      expect(typeof vm.querySelections).to.equal('function');
-      expect(typeof vm.onQueryResults).to.equal('function');
+      expect(vm.toggle).to.be.a('function');
+      expect(vm.querySelections).to.be.a('function');
+      expect(vm.onQueryResults).to.be.a('function');
     });
 
     it('GeoCoderController calls remote service', done => {
       vm.geocoderController.query(queryString).then(results => {
-        expect(results === undefined).to.equal(false);
-        expect(results.length > 0).to.equal(true);
-        expect(results[0].address.road === 'Heerstraße').to.equal(true);
+        expect(results).to.not.be.undefined;
+        expect(results).to.not.be.empty;
+        expect(results[0].address.road).to.equal('Heerstraße');
         done();
       });
     });
 
-    it('search method assigns last query string', done => {
-      sinon.replace(window, 'fetch', sinon.fake.resolves(new Response(fetchResults)));
+    it('search watcher assigns last query string', async () => {
+      applyAxiosMock();
 
       const comboBox = comp.findComponent({ name: 'v-combobox' });
       comboBox.vm.$emit('update:search', queryString);
-      vm.$nextTick(() => {
-        setTimeout(function () {
-          expect(vm.lastQueryStr === queryString).to.equal(true);
-          done();
-        }, 50);
-      });
+      await clock.tickAsync(200);
+      await nextTick();
+      
+      expect(vm.lastQueryStr === queryString).to.equal(true);
     });
 
-    it('search method query with results', done => {
-      sinon.replace(window, 'fetch', sinon.fake.resolves(new Response(fetchResults)));
+    it('search method query with results', async () => {
+      applyAxiosMock();
 
       const comboBox = comp.findComponent({ name: 'v-combobox' });
       comboBox.vm.$emit('update:search', queryString);
-      vm.$nextTick(() => {
-        // We do a timeout, to beat setTimeout() with async query in Geocoder
-        // TODO find a more elegant way. sinon.useFakeTimers did not work for us.
-        setTimeout(function () {
-          expect(vm.results === undefined).to.equal(false);
-          expect(vm.results.length > 0).to.equal(true);
-          expect(vm.results[0].address.road === 'Heerstraße').to.equal(true);
+      await clock.tickAsync(200);
+      await nextTick();
 
-          // Items from query result should be assigned to combobox
-          selectionItems = comboBox.props('items');
-          expect(selectionItems === undefined).to.equal(false);
-          expect(selectionItems.length === vm.results.length).to.equal(true);
-          done();
-        }, 50);
-      });
+      expect(vm.results).to.not.be.undefined;
+      expect(vm.results).to.not.be.empty;
+      expect(vm.results[0].address.road).to.equal('Heerstraße');
+
+      // Items from query result should be assigned to combobox
+      selectionItems = comboBox.props('items');
+      expect(selectionItems).to.not.be.undefined;
+      expect(selectionItems).to.have.length(vm.results.length);
     });
 
-    it('selected item watcher assigns result and zooms/centers Map at result', done => {
-      sinon.replace(window, 'fetch', sinon.fake.resolves(new Response(fetchResults)));
+    it('select items watcher assigns result and zooms/centers Map at result', async () => {
+      applyAxiosMock();
 
+      vm.map = new OlMap();
       const comboBox = comp.findComponent({ name: 'v-combobox' });
       comboBox.vm.$emit('update:search', queryString);
-      vm.$nextTick(() => {
-        setTimeout(function () {
-          selectionItems = comboBox.props('items');
-          vm.map = new OlMap();
-          comp.setData({ selected: selectionItems[0] });
-          vm.$nextTick(() => {
-            // Map center should be at coordinates from selected item
-            const mapCenter = vm.map.getView().getCenter();
+      await clock.tickAsync(200);
+      await nextTick();
 
-            // Map may have different projection than WGS84
-            const coords = fromLonLat(
-              [selectionItems[0].value.lon, selectionItems[0].value.lat],
-              vm.map.getView().getProjection());
-            expect(mapCenter[0] === coords[0]);
-            expect(mapCenter[1] === coords[1]);
-            done();
-          });
-        }, 50);
-      });
+      selectionItems = comboBox.props('items');
+      comp.setData({ selected: selectionItems[0] });
+      await nextTick();
+
+      // Map center should be at coordinates from selected item
+      const mapCenter = vm.map.getView().getCenter();
+
+      // Map may have different projection than WGS84
+      const extent = applyTransform(
+        selectionItems[0].value.boundingbox,
+        getTransform('EPSG:4326', vm.map.getView().getProjection()));
+      const coords = getCenter(extent);
+
+      expect(mapCenter[0]).to.equal(coords[0]);
+      expect(mapCenter[1]).to.equal(coords[1]);
     });
 
-    it('calls onQueryResults if fetch successful', done => {
-      sinon.replace(window, 'fetch', sinon.fake.resolves(new Response(fetchResults)))
+    it('calls onQueryResults if fetch successful', async () => {
+      applyAxiosMock();
 
       const comboBox = comp.findComponent({ name: 'v-combobox' });
       comboBox.vm.$emit('update:search', queryString);
-      vm.$nextTick(() => {
-        setTimeout(function () {
-          expect(onQueryResultsSpy).to.have.been.called;
-          done();
-        }, 50);
-      });
-    })
+      await clock.tickAsync(200);
+      await nextTick();
 
-    it('calls onQueryError if error during fetch', done => {
-      sinon.replace(window, 'fetch', sinon.fake.rejects());
+      expect(onQueryResultsSpy).to.have.been.called;
+    });
+
+    it('calls onQueryError if error during fetch', async () => {
+      applyAxiosMock(true);
 
       const comboBox = comp.findComponent({ name: 'v-combobox' });
       comboBox.vm.$emit('update:search', queryString);
-      vm.$nextTick(() => {
-        setTimeout(function () {
-          expect(onQueryErrorSpy).to.have.been.called;
-          done();
-        }, 50);
-      });
-    })
+      await clock.tickAsync(200);
+      await nextTick();
+
+      expect(onQueryErrorSpy).to.have.been.called;
+    });
 
     afterEach(function () {
-      sinon.restore();
+      if (axiosMock) {
+        axiosMock.restore();
+      }
+
       // Like before we must clean up when tampering with globals.
-      // global.XMLHttpRequest.restore();
-      // clock.restore();
+      clock.restore();
+      sinon.restore();
     });
   });
 
@@ -286,9 +288,9 @@ describe('geocoder/Geocoder.vue', () => {
 
     it('toggle show/hides search input', () => {
       vm.toggle();
-      expect(vm.hideSearch).to.equal(false);
+      expect(vm.hideSearch).to.be.false;
       vm.toggle();
-      expect(vm.hideSearch).to.equal(true);
+      expect(vm.hideSearch).to.be.true;
     });
 
     it('button click should toggle search input visibility', async () => {
@@ -297,7 +299,7 @@ describe('geocoder/Geocoder.vue', () => {
       const comboBox = comp.findComponent({ name: 'v-combobox' });
 
       // Initial state
-      expect(vm.hideSearch).to.equal(true);
+      expect(vm.hideSearch).to.be.true;
       expect(comboBox.isVisible()).to.equal(false);
 
       // Make visible
@@ -313,15 +315,16 @@ describe('geocoder/Geocoder.vue', () => {
       expect(comboBox.isVisible()).to.equal(false);
     });
 
-    it('search input string should trigger search', done => {
+    it('search input string should trigger search', async () => {
       const queryString = 'heerstrasse 52 bonn';
+
       // Trigger watcher for search input string in combobox
       const comboBox = comp.findComponent({ name: 'v-combobox' });
       comboBox.vm.$emit('update:search', queryString);
-      vm.$nextTick(() => {
-        expect(vm.lastQueryStr).to.equal(queryString);
-        done();
-      });
+      await clock.tickAsync(200);
+      await nextTick();
+
+      expect(vm.lastQueryStr).to.equal(queryString);
     });
 
     afterEach(() => {

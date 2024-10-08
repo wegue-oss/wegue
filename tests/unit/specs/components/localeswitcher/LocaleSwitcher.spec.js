@@ -7,10 +7,11 @@ const appConfig = {
   lang: {
     supported: {
       en: 'English',
+      de: 'Deutsch',
       pt: 'Portugues',
-      de: 'Deutsch'
+      fr: 'Français'
     },
-    fallback: 'pt'
+    fallback: 'de'
   }
 };
 
@@ -68,10 +69,11 @@ describe('localeswitcher/LocaleSwitcher.vue', () => {
     it('has correct default data', () => {
       expect(typeof LocaleSwitcher.data).to.equal('function');
       expect(vm.lang).to.be.an('object');
-      expect(Object.keys(vm.lang).length).to.eql(3);
+      expect(Object.keys(vm.lang).length).to.eql(4);
       expect(vm.lang.en).to.eql('English');
       expect(vm.lang.de).to.eql('Deutsch');
       expect(vm.lang.pt).to.eql('Portugues');
+      expect(vm.lang.fr).to.eql('Français');
     });
 
     afterEach(() => {

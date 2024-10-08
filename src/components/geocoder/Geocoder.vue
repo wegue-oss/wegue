@@ -41,6 +41,7 @@ import { GeocoderController } from './GeocoderController';
 import { applyTransform } from 'ol/extent';
 import { getTransform, fromLonLat } from 'ol/proj';
 import ViewAnimationUtil from '../../util/ViewAnimation';
+import axios from 'axios';
 
 export default {
   name: 'wgu-geocoder-input',
@@ -64,7 +65,7 @@ export default {
   },
   data () {
     return {
-      results: [],
+      results: null,
       lastQueryStr: '',
       noFilter: true,
       selecting: false,
@@ -100,19 +101,25 @@ export default {
     },
     // Query by string - should return list of selection items (adresses) for ComboBox
     querySelections (queryStr) {
+      if (this.timeout) {
+        clearTimeout(this.timeout);
+      }
       this.timeout = setTimeout(() => {
         // Let Geocoder Provider do the query
         // items (item.title fields) will be shown in combobox dropdown suggestions
         this.trace(`geocoderController.query: ${queryStr}`);
         this.geocoderController.query(queryStr)
           .then(results => this.onQueryResults(results))
-          .catch(err => this.onQueryError(err))
+          .catch(err => {
+            if (!axios.isCancel(err)) {
+              this.onQueryError(err);
+            }
+          });
+        this.timeout = null;
       }, this.queryDelay);
     },
     onQueryResults (results) {
       // Handle query results from GeocoderController
-      this.timeout && clearTimeout(this.timeout);
-      this.timeout = null;
       this.results = null;
 
       if (!results || results.length === 0) {
@@ -130,9 +137,9 @@ export default {
     },
     // Input string value changed
     search (queryStr) {
-      if (this.timeout || this.selecting) {
-        // Query or selection in progress
-        this.trace('query or selection in progress...');
+      if (this.selecting) {
+        // Selection in progress
+        this.trace('selection in progress...');
         return;
       }
       if (!queryStr || queryStr.length === 0) {
@@ -145,8 +152,10 @@ export default {
       queryStr = queryStr.trim();
 
       // Only query if minimal number chars typed and querystring has changed
-      queryStr.length >= this.minChars && queryStr !== this.lastQueryStr && this.querySelections(queryStr);
-      this.lastQueryStr = queryStr;
+      if (queryStr.length >= this.minChars && queryStr !== this.lastQueryStr) {
+        this.querySelections(queryStr);
+        this.lastQueryStr = queryStr;
+      }
     }
   },
   watch: {
@@ -161,7 +170,6 @@ export default {
       // Position Map on result
       const result = item.value;
       const mapProjection = this.map.getView().getProjection();
-      const coords = fromLonLat([result.lon, result.lat], mapProjection);
       const viewAnimationUtil = new ViewAnimationUtil(this.$appConfig);
 
       // Prefer zooming to bounding box if present in result
@@ -172,6 +180,7 @@ export default {
         viewAnimationUtil.to(this.map.getView(), extent);
       } else {
         // No bbox in result: center on lon/lat from result and zoom in
+        const coords = fromLonLat([result.lon, result.lat], mapProjection);
         viewAnimationUtil.to(this.map.getView(), coords);
       }
       this.selecting = false;
@@ -179,7 +188,15 @@ export default {
   },
   mounted () {
     // Setup GeocoderController to which we delegate Provider and query-handling
-    this.geocoderController = new GeocoderController(this.provider, this.providerOptions, this);
+    this.geocoderController = new GeocoderController(this.provider, this.providerOptions);
+  },
+  destroyed () {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+      this.timeout = null;
+    }
+
+    this.geocoderController.destroy();
   }
 }
 </script>

@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import ModuleCard from './../modulecore/ModuleCard';
+import ModuleCard from '../modulecore/ModuleCard';
 import { WguEventBus } from '../../WguEventBus.js';
 import PropertyTable from './PropertyTable';
 import CoordsTable from './CoordsTable';
@@ -137,16 +137,18 @@ export default {
      */
     onMapClick (evt) {
       const me = this;
-      me.features = []
+      me.features = [];
       me.map.forEachFeatureAtPixel(evt.pixel,
         (feature, layer) => {
-          me.features.push([feature, layer])
+          if (layer) {
+            me.features.push([feature, layer]);
+          }
         });
 
       // collect feature attributes --> PropertyTable
       if (this.features.length !== 0) {
-        this.featureIdx = 0
-        this.numfeats = me.features.length
+        this.featureIdx = 0;
+        this.numfeats = me.features.length;
         this.viewProps(this.featureIdx)
       } else {
         this.attributeData = null;
@@ -160,19 +162,19 @@ export default {
     },
 
     prevFeat () {
-      this.featureIdx -= 1
+      this.featureIdx -= 1;
       if (this.featureIdx < 0) {
-        this.featureIdx = this.features.length - 1
+        this.featureIdx = this.features.length - 1;
       }
-      this.viewProps(this.featureIdx)
+      this.viewProps(this.featureIdx);
     },
 
     nextFeat () {
-      this.featureIdx += 1
+      this.featureIdx += 1;
       if (this.featureIdx > this.features.length - 1) {
-        this.featureIdx = 0
+        this.featureIdx = 0;
       }
-      this.viewProps(this.featureIdx)
+      this.viewProps(this.featureIdx);
     },
 
     viewProps (idx) {
@@ -181,8 +183,8 @@ export default {
       // do not show geometry property
       delete props.geometry;
       this.attributeData = props;
-      this.layerName = this.features[idx][1].get('name')
-      const lid = this.features[idx][1].get('lid')
+      this.layerName = this.features[idx][1].get('name');
+      const lid = this.features[idx][1].get('lid');
 
       const correspondingInteraction = MapInteractionUtil.getSelectInteraction(this.map, lid);
 
@@ -207,6 +209,7 @@ export default {
         me.registerMapClick();
       } else {
         // cleanup old data
+        me.registerMapClick(true);
         me.attributeData = null;
         me.coordsData = null;
       }

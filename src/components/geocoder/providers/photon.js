@@ -23,7 +23,7 @@
 //
 
 /**
- * Photon Provider. See https://photon.komoot.de.
+ * Photon Provider. See https://photon.komoot.io.
  *
  * @class Photon
  */
@@ -33,7 +33,7 @@ export class Photon {
    */
   constructor () {
     this.settings = {
-      url: 'https://photon.komoot.de/api/',
+      url: 'https://photon.komoot.io/api/',
       params: {
         q: '',
         limit: 10,
@@ -84,6 +84,12 @@ export class Photon {
       // Sometimes has bbox
       if (properties.extent) {
         result.boundingbox = properties.extent;
+        // Ensure bbox is llx,lly,urx,ury
+        if (result.boundingbox[1] > result.boundingbox[3]) {
+          const tmp = result.boundingbox[1];
+          result.boundingbox[1] = result.boundingbox[3];
+          result.boundingbox[3] = tmp;
+        }
       }
       return result;
     });

@@ -18,7 +18,8 @@
     "supported": {
       "en": "English",
       "de": "Deutsch",
-      "pt": "Portugues"
+      "pt": "Portugues",
+      "fr": "Français"
     },
     "fallback": "en"
   },
