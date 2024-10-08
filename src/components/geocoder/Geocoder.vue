@@ -190,7 +190,7 @@ export default {
     // Setup GeocoderController to which we delegate Provider and query-handling
     this.geocoderController = new GeocoderController(this.provider, this.providerOptions);
   },
-  destroyed () {
+  unmounted () {
     if (this.timeout) {
       clearTimeout(this.timeout);
       this.timeout = null;

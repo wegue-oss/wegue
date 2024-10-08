@@ -9,7 +9,6 @@ import { getTransform } from 'ol/proj';
 
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { nextTick } from 'vue';
 
 function createWrapper (options = {}) {
   return mount(Geocoder, options);
@@ -192,13 +191,12 @@ describe('geocoder/Geocoder.vue', () => {
       });
     });
 
-    it('search watcher assigns last query string', async () => {
+    it('search method assigns last query string', async () => {
       applyAxiosMock();
 
       const comboBox = comp.findComponent({ name: 'v-combobox' });
       comboBox.vm.$emit('update:search', queryString);
       await clock.tickAsync(200);
-      await nextTick();
 
       expect(vm.lastQueryStr === queryString).to.equal(true);
     });
@@ -209,7 +207,6 @@ describe('geocoder/Geocoder.vue', () => {
       const comboBox = comp.findComponent({ name: 'v-combobox' });
       comboBox.vm.$emit('update:search', queryString);
       await clock.tickAsync(200);
-      await nextTick();
 
       expect(vm.results).to.not.be.undefined;
       expect(vm.results).to.not.be.empty;
@@ -221,18 +218,15 @@ describe('geocoder/Geocoder.vue', () => {
       expect(selectionItems).to.have.length(vm.results.length);
     });
 
-    it('select items watcher assigns result and zooms/centers Map at result', async () => {
+    it('selected item watcher assigns result and zooms/centers Map at result', async () => {
       applyAxiosMock();
-
       vm.map = new OlMap();
+
       const comboBox = comp.findComponent({ name: 'v-combobox' });
       comboBox.vm.$emit('update:search', queryString);
       await clock.tickAsync(200);
-      await nextTick();
-
       selectionItems = comboBox.props('items');
-      comp.setData({ selected: selectionItems[0] });
-      await nextTick();
+      await comp.setData({ selected: selectionItems[0] });
 
       // Map center should be at coordinates from selected item
       const mapCenter = vm.map.getView().getCenter();
@@ -253,7 +247,6 @@ describe('geocoder/Geocoder.vue', () => {
       const comboBox = comp.findComponent({ name: 'v-combobox' });
       comboBox.vm.$emit('update:search', queryString);
       await clock.tickAsync(200);
-      await nextTick();
 
       expect(onQueryResultsSpy).to.have.been.called;
     });
@@ -264,7 +257,6 @@ describe('geocoder/Geocoder.vue', () => {
       const comboBox = comp.findComponent({ name: 'v-combobox' });
       comboBox.vm.$emit('update:search', queryString);
       await clock.tickAsync(200);
-      await nextTick();
 
       expect(onQueryErrorSpy).to.have.been.called;
     });
@@ -300,19 +292,19 @@ describe('geocoder/Geocoder.vue', () => {
 
       // Initial state
       expect(vm.hideSearch).to.be.true;
-      expect(comboBox.isVisible()).to.equal(false);
+      expect(comboBox.isVisible()).to.be.false;
 
       // Make visible
       await button.trigger('click');
 
-      expect(vm.hideSearch).to.equal(false);
-      expect(comboBox.isVisible()).to.equal(true);
+      expect(vm.hideSearch).to.be.false;
+      expect(comboBox.isVisible()).to.be.true;
 
       // And hide
       await button.trigger('click');
 
-      expect(vm.hideSearch).to.equal(true);
-      expect(comboBox.isVisible()).to.equal(false);
+      expect(vm.hideSearch).to.be.true;
+      expect(comboBox.isVisible()).to.be.false;
     });
 
     it('search input string should trigger search', async () => {
@@ -321,7 +313,6 @@ describe('geocoder/Geocoder.vue', () => {
       // Trigger watcher for search input string in combobox
       const comboBox = comp.findComponent({ name: 'v-combobox' });
       comboBox.vm.$emit('update:search', queryString);
-      await nextTick();
 
       expect(vm.lastQueryStr).to.equal(queryString);
     });
