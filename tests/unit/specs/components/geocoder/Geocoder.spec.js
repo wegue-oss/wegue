@@ -199,7 +199,7 @@ describe('geocoder/Geocoder.vue', () => {
       comboBox.vm.$emit('update:search', queryString);
       await clock.tickAsync(200);
       await nextTick();
-      
+
       expect(vm.lastQueryStr === queryString).to.equal(true);
     });
 
@@ -321,7 +321,6 @@ describe('geocoder/Geocoder.vue', () => {
       // Trigger watcher for search input string in combobox
       const comboBox = comp.findComponent({ name: 'v-combobox' });
       comboBox.vm.$emit('update:search', queryString);
-      await clock.tickAsync(200);
       await nextTick();
 
       expect(vm.lastQueryStr).to.equal(queryString);

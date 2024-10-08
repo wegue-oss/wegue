@@ -1,5 +1,4 @@
 import LocaleUtil from '@/util/Locale'
-import Vue from 'vue';
 
 const appConfig = {
   lang: {

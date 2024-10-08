@@ -1,4 +1,4 @@
-import { nextTick, reactive } from 'vue';
+import { nextTick } from 'vue';
 import { mount, shallowMount } from '@vue/test-utils';
 import BgLayerSwitcher from '@/components/bglayerswitcher/BgLayerSwitcher';
 import OlMap from 'ol/Map';
