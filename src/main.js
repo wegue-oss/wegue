@@ -3,7 +3,7 @@
 import { configureCompat, createApp } from 'vue'
 import { createVuetify } from 'vuetify';
 import { md } from 'vuetify/iconsets/md';
-import { aliases, mdi } from 'vuetify/iconsets/mdi';
+import { aliases as defaultAliases, mdi } from 'vuetify/iconsets/mdi';
 import 'vuetify/styles';
 import { createI18nInstance } from './locales/wgu-i18n';
 import PortalVue from 'portal-vue';
@@ -45,6 +45,8 @@ if (appCtx) {
  * @returns The active vuetify instance.
  */
 const createVuetifyInstance = function (appConfig) {
+  const customIcons = IconUtil.importIcons();
+  const aliases = { ...defaultAliases, ...customIcons };
   const preset = {
     theme: ColorThemeUtil.buildTheme(appConfig.colorTheme),
     icons: {
