@@ -1,7 +1,7 @@
-import Vue from 'vue';
 import { mount } from '@vue/test-utils';
 import Map from '@/components/ol/Map';
 import VectorLayer from 'ol/layer/Vector';
+
 const permalinkDef = {
   mapZoom: 2,
   mapCenter: [0, 0],
@@ -61,13 +61,23 @@ const permalinkDef = {
 
 document.location.hash = '';
 
+function createWrapper ($appConfig = {}) {
+  return mount(Map, {
+    global: {
+      mocks: {
+        $appConfig
+      }
+    }
+  });
+}
+
 describe('ol/Map.vue', () => {
+  let comp;
+  let vm;
+
   describe('data - Map NOT Provides PermalinkController when NOT defined', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      Vue.prototype.$appConfig = {};
-      comp = mount(Map);
+      comp = createWrapper();
       vm = comp.vm;
     });
 
@@ -76,16 +86,13 @@ describe('ol/Map.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('data - Map Provides PermalinkController when defined', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      Vue.prototype.$appConfig = permalinkDef;
-      comp = mount(Map);
+      comp = createWrapper(permalinkDef);
       vm = comp.vm;
     });
 
@@ -94,16 +101,13 @@ describe('ol/Map.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('data - PermalinkController successfully setup', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      Vue.prototype.$appConfig = permalinkDef;
-      comp = mount(Map);
+      comp = createWrapper(permalinkDef);
       vm = comp.vm;
     });
 
@@ -125,16 +129,13 @@ describe('ol/Map.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('data - PermalinkController up to date with Map View', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      Vue.prototype.$appConfig = permalinkDef;
-      comp = mount(Map);
+      comp = createWrapper(permalinkDef);
       vm = comp.vm;
     });
 
@@ -164,16 +165,13 @@ describe('ol/Map.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('data - PermalinkController applied from document.location.hash/search', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      Vue.prototype.$appConfig = permalinkDef;
-      comp = mount(Map);
+      comp = createWrapper(permalinkDef);
       vm = comp.vm;
     });
 
@@ -209,7 +207,7 @@ describe('ol/Map.vue', () => {
     // });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 });

@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import ViewAnimationUtil from '@/util/ViewAnimation';
 import View from 'ol/View';
 import { getCenter, containsExtent } from 'ol/extent';
@@ -19,29 +18,33 @@ const view = new View({
 const extent = [966000, 6341000, 967000, 6342000];
 const coordinate = [966000, 6341000];
 
+function createViewAnimationUtil (animType) {
+  const $appConfig = {
+    viewAnimation: { type: animType, options }
+  };
+
+  return new ViewAnimationUtil($appConfig);
+}
+
 describe('ViewAnimationUtil', () => {
   it('is defined', () => {
     expect(typeof ViewAnimationUtil).to.not.equal(undefined);
   });
 
   it('has the correct functions', () => {
-    expect(typeof ViewAnimationUtil.getAnimation).to.equal('function');
-    expect(typeof ViewAnimationUtil.getOptions).to.equal('function');
-    expect(typeof ViewAnimationUtil.to).to.equal('function');
-    expect(typeof ViewAnimationUtil.toLocation).to.equal('function');
-    expect(typeof ViewAnimationUtil.toExtent).to.equal('function');
+    expect(typeof ViewAnimationUtil.prototype.getAnimation).to.equal('function');
+    expect(typeof ViewAnimationUtil.prototype.getOptions).to.equal('function');
+    expect(typeof ViewAnimationUtil.prototype.to).to.equal('function');
+    expect(typeof ViewAnimationUtil.prototype.toLocation).to.equal('function');
+    expect(typeof ViewAnimationUtil.prototype.toExtent).to.equal('function');
   });
 
   for (const animType of animTypes) {
     describe('animation type ' + animType, () => {
-      beforeEach(() => {
-        Vue.prototype.$appConfig = {
-          viewAnimation: { type: animType, options }
-        };
-      });
-
       it('zooms to extent correctly', done => {
-        ViewAnimationUtil.to(view, extent, (complete) => {
+        const viewAnimationUtil = createViewAnimationUtil(animType);
+
+        viewAnimationUtil.to(view, extent, (complete) => {
           expect(complete).to.equal(true);
           expect(containsExtent(view.calculateExtent(), extent)).to.equal(true);
           expect(view.getZoom()).to.equal(options.maxZoom);
@@ -56,7 +59,9 @@ describe('ViewAnimationUtil', () => {
       });
 
       it('zooms to location correctly', done => {
-        ViewAnimationUtil.to(view, coordinate, (complete) => {
+        const viewAnimationUtil = createViewAnimationUtil(animType);
+
+        viewAnimationUtil.to(view, coordinate, (complete) => {
           expect(complete).to.equal(true);
           expect(view.getZoom()).to.equal(options.zoom);
 
@@ -67,10 +72,6 @@ describe('ViewAnimationUtil', () => {
 
           done();
         });
-      });
-
-      afterEach(() => {
-        Vue.prototype.$appConfig = undefined;
       });
     });
   }

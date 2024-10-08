@@ -1,7 +1,7 @@
 <template>
 
   <v-card-text class="px-0" v-if="coordRows">
-    <v-simple-table class="wgu-coordstable">
+    <v-table class="wgu-coordstable">
       <tbody>
         <tr v-for="(value, key) in coordRows" :key="key">
           <td class="key-td">
@@ -12,7 +12,7 @@
           </td>
         </tr>
       </tbody>
-    </v-simple-table>
+    </v-table>
   </v-card-text>
 
 </template>

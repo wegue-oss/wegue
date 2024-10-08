@@ -1,3 +1,5 @@
+// import { reactive, toRaw } from 'vue';
+import { toRaw } from 'vue';
 import { shallowMount } from '@vue/test-utils';
 import LayerList from '@/components/layerlist/LayerList';
 import OlMap from 'ol/Map';
@@ -9,18 +11,23 @@ const moduleProps = {
   showOpacityControls: true
 };
 
+function createWrapper (props = moduleProps) {
+  return shallowMount(LayerList, {
+    props
+  });
+}
+
 describe('layerlist/LayerList.vue', () => {
+  let comp;
+  let vm;
+
   it('is defined', () => {
     expect(LayerList).to.not.be.an('undefined');
   });
 
   describe('data', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(LayerList, {
-        propsData: moduleProps
-      });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
@@ -31,27 +38,25 @@ describe('layerlist/LayerList.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('computed properties', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(LayerList, {
-        propsData: moduleProps
-      });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
     it('detects wanted layer items', () => {
       const layerIn = new VectorLayer({
+        lid: 'in',
         visible: true,
         displayInLayerList: true,
         source: new VectorSource()
       });
       const layerOut = new VectorLayer({
+        lid: 'out',
         visible: true,
         displayInLayerList: false,
         source: new VectorSource()
@@ -59,12 +64,13 @@ describe('layerlist/LayerList.vue', () => {
       const map = new OlMap({
         layers: [layerIn, layerOut]
       });
+      // map.setLayers(reactive(map.getLayers()))
       vm.map = map;
       vm.onMapBound();
 
       expect(vm.displayedLayers.length).to.equal(1);
       const li = vm.displayedLayers[0];
-      expect(li).to.equal(layerIn);
+      expect(toRaw(li)).to.equal(layerIn);
       expect(li.getVisible()).to.equal(true);
     });
 
@@ -73,6 +79,7 @@ describe('layerlist/LayerList.vue', () => {
       const map = new OlMap({
         layers: [layerIn]
       });
+      // map.setLayers(reactive(map.getLayers()));
       vm.map = map;
       vm.onMapBound();
 
@@ -84,17 +91,13 @@ describe('layerlist/LayerList.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('methods', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(LayerList, {
-        propsData: moduleProps
-      });
+      comp = createWrapper();
       vm = comp.vm;
     });
 

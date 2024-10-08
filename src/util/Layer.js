@@ -44,13 +44,15 @@ const LayerUtil = {
    *
    * @param  {ol.layer.Base} vecLayer OL vector layer
    * @param  {ol.Map} olMap           The map to perform the zoom on
+   * @param {Object} appConfig        The application config containing optional animation configuration
    */
-  zoomToLayerExtent (vecLayer, olMap) {
+  zoomToLayerExtent (vecLayer, olMap, appConfig) {
     if (!vecLayer || !vecLayer.getSource().getExtent || !olMap) {
       return;
     }
     const extent = vecLayer.getSource().getExtent();
-    ViewAnimationUtil.to(olMap.getView(), extent);
+    const viewAnimationUtil = new ViewAnimationUtil(appConfig);
+    viewAnimationUtil.to(olMap.getView(), extent);
   }
 }
 

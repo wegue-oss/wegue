@@ -1,6 +1,6 @@
 <template>
 
-  <v-footer color="primary" class="onprimary--text" app>
+  <v-footer color="primary" app>
     <span class="wgu-footer-left" v-html="footerTextLeft"></span>
     <v-spacer></v-spacer>
     <div class="wgu-footer-right">

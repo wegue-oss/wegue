@@ -1,18 +1,29 @@
-import Vue from 'vue'
-import ZoomToMaxExtentButton from '@/components/maxextentbutton/ZoomToMaxExtentButton'
+import { shallowMount } from '@vue/test-utils';
+import ZoomToMaxExtentButton from '@/components/maxextentbutton/ZoomToMaxExtentButton';
 import OlMap from 'ol/Map';
 import OlView from 'ol/View';
-import { shallowMount } from '@vue/test-utils';
+
+const appConfig = {
+  mapCenter: [0, 0],
+  mapZoom: 0
+};
+
+function createWrapper ($appConfig = {}) {
+  return shallowMount(ZoomToMaxExtentButton, {
+    global: {
+      mocks: {
+        $appConfig
+      }
+    }
+  });
+}
 
 describe('maxextentbutton/ZoomToMaxExtentButton.vue', () => {
   let comp;
   let vm;
+
   beforeEach(() => {
-    Vue.prototype.$appConfig = {
-      mapCenter: [0, 0],
-      mapZoom: 0
-    };
-    comp = shallowMount(ZoomToMaxExtentButton);
+    comp = createWrapper(appConfig);
     vm = comp.vm;
   });
 
@@ -38,7 +49,6 @@ describe('maxextentbutton/ZoomToMaxExtentButton.vue', () => {
   });
 
   afterEach(() => {
-    comp.destroy();
-    Vue.prototype.$appConfig = undefined;
+    comp.unmount();
   });
 });

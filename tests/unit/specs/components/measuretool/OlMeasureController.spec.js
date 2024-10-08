@@ -3,14 +3,15 @@ import OlMap from 'ol/Map';
 import VectorLayer from 'ol/layer/Vector';
 import DrawInteraction from 'ol/interaction/Draw';
 
-describe('measuretool/MeasureWin.vue', () => {
+describe('measuretool/OlMeasureController.js', () => {
+  let olmc;
+  let map;
+
   it('is defined', () => {
     expect(typeof OlMeasureController).to.not.equal('undefined');
   });
 
   describe('methods', () => {
-    let olmc;
-    let map;
     beforeEach(() => {
       map = new OlMap({ interactions: [] });
       olmc = new OlMeasureController(map);

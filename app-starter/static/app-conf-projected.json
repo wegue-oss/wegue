@@ -5,8 +5,8 @@
     "themes": {
       "light": {
         "primary": "#EF6C00",
-        "onprimary": "#FFFFFF",
-        "onsecondary": "#FFFFFF"
+        "on-primary": "#FFFFFF",
+        "on-secondary": "#FFFFFF"
       },
       "dark": {
         "secondary": "#FFCC80"
@@ -146,13 +146,13 @@
     "wgu-layerlist": {
       "target": "menu",
       "win": "floating",
-      "icon": "layers",
+      "icon": "md:layers",
       "draggable": false
     },
     "wgu-measuretool": {
       "target": "menu",
       "win": "floating",
-      "icon": "photo_size_select_small",
+      "icon": "md:photo_size_select_small",
       "draggable": false,
       "strokeColor": "#c62828",
       "fillColor": "rgba(198,40,40,0.2)",
@@ -163,8 +163,8 @@
     },
     "wgu-infoclick": {
       "target": "menu",
-      "win":"floating",
-      "icon": "info",
+      "win": "floating",
+      "icon": "md:info",
       "draggable": false,
       "initPos": {
         "left": 8,
@@ -200,11 +200,10 @@
     "wgu-helpwin": {
       "target": "toolbar",
       "win": "floating",
-      "icon": "help"
+      "icon": "md:help"
     },
     "wgu-localeswitcher": {
       "target": "toolbar"
     }
   }
-
 }

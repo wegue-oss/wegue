@@ -1,27 +1,26 @@
-import Vue from 'vue'
-import LayerListWin from '@/components/layerlist/LayerListWin'
+import { shallowMount } from '@vue/test-utils';
+import LayerListWin from '@/components/layerlist/LayerListWin';
+
+function createWrapper () {
+  return shallowMount(LayerListWin);
+}
 
 describe('layerlist/LayerListWin.vue', () => {
-  it('has the correct properties', () => {
-    // Extend the component to get the constructor, which we can then
-    // initialize directly.
-    const Constructor = Vue.extend(LayerListWin);
-    const comp = new Constructor({
-      // Props are passed in "propsData"
-      propsData: {}
-    }).$mount();
+  let comp;
+  let vm;
 
-    expect(comp.icon).to.equal('layers');
-    expect(comp.showLegends).to.equal(true);
-    expect(comp.showOpacityControls).to.equal(true);
+  beforeEach(() => {
+    comp = createWrapper();
+    vm = comp.vm;
   });
 
-  // Mount an instance and inspect the render output
-  it('does not render on startup', () => {
-    const Constructor = Vue.extend(LayerListWin);
-    const vm = new Constructor().$mount();
+  it('has the correct properties', () => {
+    expect(vm.icon).to.equal('md:layers');
+    expect(vm.showLegends).to.equal(true);
+    expect(vm.showOpacityControls).to.equal(true);
+  });
 
-    // el is not undefined but this tests that it is not rendered
-    expect(vm.$el.textContent).to.equal('');
+  it('does not render on startup', () => {
+    expect(comp.text()).to.equal('');
   });
 });

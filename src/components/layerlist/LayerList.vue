@@ -1,6 +1,6 @@
 <template>
 
-  <v-list expand>
+  <v-list v-model:opened="openedListItems">
     <wgu-layerlistitem
       v-for="layer in displayedLayers"
       :key="layer.get('lid')"
@@ -8,6 +8,7 @@
       :mapView="map.getView()"
       :showLegends="showLegends"
       :showOpacityControls="showOpacityControls"
+      :openedListItems="openedListItems"
     />
   </v-list>
 </template>
@@ -28,8 +29,13 @@ export default {
   },
   data () {
     return {
-      layers: []
+      layers: [],
+      displayedLayers: [],
+      openedListItems: []
     }
+  },
+  beforeUnmount () {
+    this.unregisterLayersCollectionChangedEvent(this.layersChanged);
   },
   methods: {
     /**
@@ -38,18 +44,31 @@ export default {
      */
     onMapBound () {
       this.layers = this.map.getLayers().getArray();
-    }
-  },
-  computed: {
-    /**
-     * Reactive property to return the OpenLayers layers to be shown in the control.
-     * Remarks: The 'displayInLayerList' attribute should default to true per convention.
-     */
-    displayedLayers () {
-      return this.layers
+      this.computeDisplayedLayers();
+      this.registerLayersCollectionChangedEvent(this.layersChanged);
+    },
+    onMapUnbound () {
+      this.unregisterLayersCollectionChangedEvent(this.layersChanged);
+    },
+    layersChanged () {
+      this.computeDisplayedLayers();
+    },
+    computeDisplayedLayers () {
+      this.displayedLayers = this.layers
         .filter(layer => layer.get('displayInLayerList') !== false && !layer.get('isBaseLayer'))
         .reverse();
     }
   }
+  // computed: {
+  //   /**
+  //    * Reactive property to return the OpenLayers layers to be shown in the control.
+  //    * Remarks: The 'displayInLayerList' attribute should default to true per convention.
+  //    */
+  //   displayedLayers () {
+  //     return this.layers
+  //       .filter(layer => layer.get('displayInLayerList') !== false && !layer.get('isBaseLayer'))
+  //       .reverse();
+  //   }
+  // }
 }
 </script>

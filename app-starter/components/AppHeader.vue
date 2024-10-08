@@ -1,11 +1,7 @@
 <template>
   <v-app-bar
-    class="wgu-app-toolbar onprimary--text"
+    class="wgu-app-toolbar"
     color="primary"
-    fixed
-    app
-    clipped-left
-    clipped-right
   >
 
     <!-- slot to inject components at the beginning (before title) -->
@@ -21,32 +17,31 @@
     <!-- slot to inject components before the auto-generated buttons (by config) -->
     <slot name="wgu-tb-before-auto-buttons"></slot>
 
-    <template v-for="(tbButton, index) in tbButtons">
+    <template v-for="(tbButton, index) in tbButtons" :key="index">
       <component
-        :is="tbButton.type" :key="index"
         v-bind="tbButton"
+        :is="tbButton.type"
       />
     </template>
 
     <!-- slot to inject components after the auto-generated buttons (by config) -->
     <slot name="wgu-tb-after-auto-buttons"></slot>
 
-    <v-menu v-if="menuButtons.length" offset-y nudge-bottom="15">
-      <template v-slot:activator="{on}">
+    <v-menu v-if="menuButtons.length" eager offset="15">
+      <template v-slot:activator="{props}">
 
-      <v-btn icon v-on="on"
+      <v-btn v-bind="props"
         class="wgu-menu-button"
-        color="onprimary"
-        :title="$t('wgu-toolbar-menu.title')">
-        <v-icon medium>menu</v-icon>
+        :title="$t('wgu-toolbar-menu.title')"
+        icon="md:menu">
       </v-btn>
       </template>
-      <v-list color="primary">
-          <template v-for="(tbButton, index) in menuButtons">
-            <v-list-item :key="index">
+      <v-list bg-color="primary">
+          <template v-for="(tbButton, index) in menuButtons" :key="index">
+            <v-list-item class="py-0">
               <component
-                  :is="tbButton.type" :key="index"
                   v-bind="tbButton"
+                  :is="tbButton.type" :key="index"
                />
               </v-list-item>
           </template>
@@ -60,8 +55,6 @@
 </template>
 
 <script>
-
-import Vue from 'vue'
 import ToggleButton from '../../src/components/modulecore/ToggleButton'
 import ZoomToMaxExtentButton from '../../src/components/maxextentbutton/ZoomToMaxExtentButton'
 import Geocoder from '../../src/components/geocoder/Geocoder'
@@ -101,7 +94,7 @@ export default {
      * @return {Array} module button configuration objects
      */
     getModuleButtons (target) {
-      const appConfig = Vue.prototype.$appConfig || {};
+      const appConfig = this.$appConfig || {};
       const modulesConfs = appConfig.modules || {};
       const buttons = [];
       for (const key of Object.keys(modulesConfs)) {

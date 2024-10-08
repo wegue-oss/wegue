@@ -45,7 +45,7 @@ export default {
     'wgu-module-card': ModuleCard
   },
   props: {
-    icon: { type: String, required: false, default: 'star' }
+    icon: { type: String, required: false, default: 'md:star' }
   },
   // here we define variables that are used in the HTML above
   data () {

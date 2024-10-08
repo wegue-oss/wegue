@@ -21,6 +21,7 @@ html {
 }
 
 .wgu-app-logo {
+  z-index: 2;
   left: 15px;
   bottom: 45px;
 }
@@ -75,7 +76,7 @@ html {
 }
 
 .wgu-overviewmap-ctrl .ol-overviewmap-box {
-  border: 2px dotted var(--v-secondary-base);
+  border: 2px dotted rgb(var(--v-theme-secondary));
 }
 
 /* 
@@ -89,7 +90,7 @@ html {
 
 /*
   TODO Review ccs colorization.
-  Used to force the onprimary color for solo fields (light theme only).
+  Used to force the on-primary color for solo fields (light theme only).
   Components affected:
     - wgu-geocoder-combo
     - wgu-vector-layer-select
@@ -97,13 +98,13 @@ html {
   More on material design for solo fields:
   https://material.io/archive/guidelines/components/text-fields.html#text-fields-field-variations
 */
-.wgu-solo-field.theme--light > .v-input__control fieldset,
-.wgu-solo-field.theme--light > .v-input__control .v-icon, 
-.wgu-solo-field.theme--light > .v-input__control .v-label,
-.wgu-solo-field.theme--light > .v-input__control input,
-.wgu-solo-field.theme--light > .v-input__control .v-select__selection
+.wgu-solo-field.v-theme--light > .v-input__control .v-icon,
+.wgu-solo-field.v-theme--light > .v-input__control .v-label,
+.wgu-solo-field.v-theme--light > .v-input__control input,
+.wgu-solo-field.v-theme--light > .v-input__control .v-field__outline,
+.wgu-solo-field.v-theme--light > .v-input__control .v-select__selection
 {
-  color: var(--v-onprimary-base) !important;
+  color: rgb(var(--v-theme-on-primary)) !important;
 }
 
 /* TODO 
@@ -120,6 +121,16 @@ html {
   left: auto !important;
   top: 75px !important;
   right: 10px;
+}
+
+/* Added to avoid listgroups items to get some padding.
+   See https://github.com/vuetifyjs/vuetify/issues/15813 */
+.wgu-layerlist-listgroup .v-list-item {
+  padding-inline-start: 8px !important;
+}
+
+.wgu-layerlist-listgroup .v-list-item__content {
+  overflow: visible !important;
 }
 
 .wgu-footer-left {
@@ -144,6 +155,16 @@ html {
    /* Introduced in IE 10, See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/ */
    -ms-user-select: none;
    user-select: none;
+   /* Temporary fix for buggy flex styling in vuetify toolbar title.
+      See https://github.com/vuetifyjs/vuetify/issues/18825 */
+   flex-basis: auto;
+   flex-grow: 0;
+}
+
+/* Added to keep same behaviour as in Vuetify 2 */
+.wgu-infoclick-win-title.v-card-title {
+  hyphens: unset;
+  white-space: wrap;
 }
 
 .wgu-app-sidebar {
@@ -167,11 +188,4 @@ html {
   width: 5px;
   cursor: ew-resize;
   z-index: 10000;
-}
-
-/* Temporary fix for buggy word-breaking in vuetify card texts and titles.
-  This will go away in a future vuetify version - 
-  see https://github.com/vuetifyjs/vuetify/issues/9130 */
-.v-card__text, .v-card__title {
-  word-break: normal;
 }

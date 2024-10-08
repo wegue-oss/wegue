@@ -4,9 +4,11 @@
 
 <script>
 
-import Vue from 'vue';
+// import { getCurrentInstance, reactive } from 'vue'
+import { getCurrentInstance } from 'vue'
 import Map from 'ol/Map'
 import View from 'ol/View'
+// import Collection from 'ol/Collection'
 import Attribution from 'ol/control/Attribution';
 import Zoom from 'ol/control/Zoom';
 import {
@@ -21,7 +23,7 @@ import { get as getProj } from 'ol/proj';
 import { GPX, GeoJSON, IGC, KML, TopoJSON } from 'ol/format';
 import { Vector as VectorLayer } from 'ol/layer';
 import { Vector as VectorSource } from 'ol/source';
-import proj4 from 'proj4'
+import proj4 from 'proj4';
 // import the app-wide EventBus
 import { WguEventBus } from '../../WguEventBus.js';
 import { LayerFactory } from '../../factory/Layer.js';
@@ -30,14 +32,19 @@ import PermalinkController from './PermalinkController';
 import HoverController from './HoverController';
 import MapInteractionUtil from '../../util/MapInteraction';
 import ViewAnimationUtil from '../../util/ViewAnimation';
-import { ColorTheme } from '../../mixins/ColorTheme'
 
 export default {
   name: 'wgu-map',
-  mixins: [ColorTheme],
   props: {
     collapsibleAttribution: { type: Boolean, default: false },
     rotateableMap: { type: Boolean, required: false, default: false }
+  },
+  setup () {
+    // const reactiveLayers = reactive(new Collection())
+    const vueInstance = getCurrentInstance();
+
+    // return { vueInstance, reactiveLayers };
+    return { vueInstance }
   },
   data () {
     return {
@@ -65,7 +72,7 @@ export default {
     const me = this;
     // Make the OL map accessible for Mapable mixin even 'ol-map-mounted' has
     // already been fired. Don not use directly in cmps, use Mapable instead.
-    Vue.prototype.$map = me.map;
+    this.vueInstance.appContext.config.globalProperties.$map = me.map;
 
     // Set the target for the OL canvas and tie it`s size to ol-map-container.
     // Remarks: 'ol-map-container' does not exist in the scope of the current unit test,
@@ -98,7 +105,7 @@ export default {
       me.setOlButtonColor();
     }, 200);
   },
-  destroyed () {
+  unmounted () {
     // unregister resizing of the map
     if (this.resizeObserver) {
       this.resizeObserver.disconnect();
@@ -183,6 +190,8 @@ export default {
       })
     });
 
+    // this.map.setLayers(this.reactiveLayers)
+
     // create layers from config and add them to map
     this.registerLayerEvents();
     const layers = this.createLayers();
@@ -253,7 +262,7 @@ export default {
             this.updateLocalizedLayerProps(evt.target)
           }
         })
-      })
+      });
     },
 
     /**
@@ -278,7 +287,7 @@ export default {
      * Sets the background color of the OL buttons to the color property.
      */
     setOlButtonColor () {
-      const colors = 'secondary onsecondary--text'
+      const colors = 'bg-secondary'
 
       // apply vuetify color by transforming the color to the corresponding
       // CSS class (see https://vuetifyjs.com/en/framework/colors)
@@ -340,7 +349,8 @@ export default {
         ddSource.addFeatures(event.features);
 
         if (mapDdConf.zoomToData === true) {
-          ViewAnimationUtil.to(this.map.getView(), ddSource.getExtent());
+          const viewAnimationUtil = new ViewAnimationUtil(this.$appConfig);
+          viewAnimationUtil.to(this.map.getView(), ddSource.getExtent());
         }
       }, this);
 

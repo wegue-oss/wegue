@@ -1,74 +1,77 @@
-import { mount } from '@vue/test-utils';
+import { nextTick, toRaw } from 'vue';
+import { shallowMount } from '@vue/test-utils';
 import MeasureWin from '@/components/measuretool/MeasureWin';
 import OlMap from 'ol/Map';
 import LineStringGeom from 'ol/geom/LineString';
 
+function createWrapper () {
+  return shallowMount(MeasureWin);
+}
+
 describe('measuretool/MeasureWin.vue', () => {
+  let comp;
+  let vm;
+
   it('is defined', () => {
     expect(typeof MeasureWin).to.not.equal('undefined');
   });
 
   describe('props', () => {
-    let comp;
     beforeEach(() => {
-      comp = mount(MeasureWin);
+      comp = createWrapper();
+      vm = comp.vm;
     });
 
     it('has correct default props', () => {
-      expect(comp.vm.icon).to.equal('photo_size_select_small');
-      expect(comp.vm.showAngleTool).to.equal(false);
+      expect(vm.icon).to.equal('md:photo_size_select_small');
+      expect(vm.showAngleTool).to.equal(false);
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('data', () => {
-    let comp;
     beforeEach(() => {
-      comp = mount(MeasureWin);
+      comp = createWrapper();
+      vm = comp.vm;
     });
 
     it('has correct default data', () => {
-      expect(comp.vm.moduleName).to.equal('wgu-measuretool');
-      expect(comp.vm.measureGeom).to.equal(null);
-      expect(comp.vm.measureType).to.equal('distance');
+      expect(vm.moduleName).to.equal('wgu-measuretool');
+      expect(vm.measureGeom).to.equal(null);
+      expect(vm.measureType).to.equal('distance');
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('watchers - measureType', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = mount(MeasureWin);
+      comp = createWrapper();
       vm = comp.vm;
     });
 
-    it('watches measureType resets old data', done => {
+    it('watches measureType resets old data', async () => {
       vm.map = new OlMap({});
       vm.onMapBound();
       vm.measureType = 'area';
-      vm.$nextTick(() => {
-        expect(vm.measureGeom).to.be.an('object').that.is.empty;
-        done();
-      })
+      await nextTick();
+
+      expect(vm.measureGeom).to.be.an('object').that.is.empty;
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('methods', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = mount(MeasureWin);
+      comp = createWrapper();
       vm = comp.vm;
     });
 
@@ -114,11 +117,11 @@ describe('measuretool/MeasureWin.vue', () => {
     it('onMeasureVertexSet sets measureGeom object', () => {
       const lineGeom = new LineStringGeom([[0, 0], [1000, 0], [1000, 1000], [0, 1000]]);
       vm.onMeasureVertexSet(lineGeom);
-      expect(vm.measureGeom.geom).to.equal(lineGeom);
+      expect(toRaw(vm.measureGeom.geom)).to.equal(lineGeom);
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 });

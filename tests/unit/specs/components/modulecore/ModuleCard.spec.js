@@ -1,5 +1,5 @@
-import ModuleCard from '@/components/modulecore/ModuleCard'
 import { shallowMount } from '@vue/test-utils';
+import ModuleCard from '@/components/modulecore/ModuleCard';
 
 const moduleProps = {
   moduleName: 'my-module',
@@ -7,7 +7,16 @@ const moduleProps = {
   win: 'floating'
 }
 
+function createWrapper (props = moduleProps) {
+  return shallowMount(ModuleCard, {
+    props
+  });
+}
+
 describe('modulecore/ModuleCard.vue', () => {
+  let comp;
+  let vm;
+
   it('is defined', () => {
     expect(ModuleCard).to.not.be.an('undefined');
   });
@@ -17,73 +26,67 @@ describe('modulecore/ModuleCard.vue', () => {
   });
 
   describe('props', () => {
-    let comp;
     beforeEach(() => {
-      comp = shallowMount(ModuleCard, {
-        propsData: moduleProps
-      });
+      comp = createWrapper();
+      vm = comp.vm;
     });
 
     it('has correct default props', () => {
-      expect(comp.vm.minimizable).to.equal(false);
-      expect(comp.vm.closable).to.equal(true);
-      expect(comp.vm.backgroundImage).to.be.undefined;
-      expect(comp.vm.draggable).to.equal(true);
-      expect(comp.vm.visible).to.equal(false);
-      expect(comp.vm.initPos).to.be.an('undefined');
-      expect(comp.vm.height).to.be.an('undefined');
-      expect(comp.vm.width).to.be.an('undefined');
-      expect(comp.vm.maxHeight).to.be.an('undefined');
-      expect(comp.vm.maxWidth).to.be.an('undefined');
-      expect(comp.vm.minHeight).to.be.an('undefined');
-      expect(comp.vm.minWidth).to.be.an('undefined');
+      expect(vm.minimizable).to.equal(false);
+      expect(vm.closable).to.equal(true);
+      expect(vm.backgroundImage).to.be.undefined;
+      expect(vm.draggable).to.equal(true);
+      expect(vm.visible).to.equal(false);
+      expect(vm.initPos).to.be.an('undefined');
+      expect(vm.height).to.be.an('undefined');
+      expect(vm.width).to.be.an('undefined');
+      expect(vm.maxHeight).to.be.an('undefined');
+      expect(vm.maxWidth).to.be.an('undefined');
+      expect(vm.minHeight).to.be.an('undefined');
+      expect(vm.minWidth).to.be.an('undefined');
     });
 
     it('has correct props', () => {
-      expect(comp.vm.moduleName).to.equal('my-module');
-      expect(comp.vm.icon).to.equal('my-icon');
-      expect(comp.vm.win).to.equal('floating');
+      expect(vm.moduleName).to.equal('my-module');
+      expect(vm.icon).to.equal('my-icon');
+      expect(vm.win).to.equal('floating');
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('data', () => {
-    let comp;
     beforeEach(() => {
-      comp = shallowMount(ModuleCard, {
-        propsData: moduleProps
-      });
+      comp = createWrapper();
+      vm = comp.vm;
     });
 
     it('has correct default data', () => {
-      expect(comp.vm.show).to.equal(false);
-      expect(comp.vm.minimized).to.equal(false);
+      expect(vm.show).to.equal(false);
+      expect(vm.minimized).to.equal(false);
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('methods', () => {
-    let comp;
     beforeEach(() => {
-      comp = shallowMount(ModuleCard, {
-        propsData: moduleProps
-      });
+      comp = createWrapper();
+      vm = comp.vm;
     });
 
     it('toggleUi switches show', () => {
-      comp.vm.show = false;
-      comp.vm.toggleUi();
-      expect(comp.vm.show).to.equal(true);
+      vm.show = false;
+      vm.toggleUi();
+      expect(vm.show).to.equal(true);
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 });

@@ -3,7 +3,7 @@
   <v-progress-circular
     v-if="visible"
     class="wgu-maploading-status"
-    :value="80"
+    :model-value="80"
     indeterminate
     color="secondary"
     >

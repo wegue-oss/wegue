@@ -17,13 +17,17 @@ export default {
   },
   data () {
     return {
-      layers: []
+      layers: [],
+      selectedBgLayer: undefined
     }
   },
   mounted () {
     this.createOverviewMapCtrl();
   },
-  destroyed () {
+  beforeUnmount () {
+    this.unregisterLayersCollectionChangedEvent(this.layersChanged);
+  },
+  unmounted () {
     this.destroyOverviewMapCtrl();
   },
   methods: {
@@ -33,6 +37,8 @@ export default {
        */
     onMapBound () {
       this.layers = this.map.getLayers().getArray();
+      this.computeSelectedBgLayer();
+      this.registerLayersCollectionChangedEvent(this.layersChanged);
       this.createOverviewMapCtrl();
     },
     /**
@@ -40,6 +46,15 @@ export default {
        */
     onMapUnbound () {
       this.destroyOverviewMapCtrl();
+    },
+    layersChanged () {
+      this.computeSelectedBgLayer();
+    },
+    computeSelectedBgLayer () {
+      this.selectedBgLayer = this.layers
+        .filter(layer => layer.get('isBaseLayer'))
+        .reverse()
+        .find(layer => layer.getVisible());
     },
     /**
        * Creates the OpenLayers overview map control.
@@ -60,25 +75,27 @@ export default {
       }
     }
   },
-  computed: {
-    /**
-       * Reactive property to return the currently visible OpenLayers background layer.
-       * To disambiguate multiple selected background layers - which may occur programmatically -
-       * this returns the first in the list of background layers.
-       */
-    selectedBgLayer () {
-      return this.layers
-        .filter(layer => layer.get('isBaseLayer'))
-        .reverse()
-        .find(layer => layer.getVisible());
-    }
-  },
+  // computed: {
+  //   /**
+  //      * Reactive property to return the currently visible OpenLayers background layer.
+  //      * To disambiguate multiple selected background layers - which may occur programmatically -
+  //      * this returns the first in the list of background layers.
+  //      */
+  //   selectedBgLayer () {
+  //     return this.layers
+  //       .filter(layer => layer.get('isBaseLayer'))
+  //       .reverse()
+  //       .find(layer => layer.getVisible());
+  //   }
+  // },
   watch: {
     /**
        * Watch for background layer selection change.
        */
     selectedBgLayer () {
-      this.overviewMap.setLayer(this.selectedBgLayer);
+      if (this.overviewMap) {
+        this.overviewMap.setLayer(this.selectedBgLayer);
+      }
     }
   }
 }

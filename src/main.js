@@ -1,7 +1,11 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in vue.config.js with runtimeCompiler.
-import Vue from 'vue';
-import Vuetify from 'vuetify/lib/framework';
+import { configureCompat, createApp } from 'vue'
+import { createVuetify } from 'vuetify';
+import { md } from 'vuetify/iconsets/md';
+import { aliases as defaultAliases, mdi } from 'vuetify/iconsets/mdi';
+import 'vuetify/styles';
+import { createI18nInstance } from './locales/wgu-i18n';
 import PortalVue from 'portal-vue';
 import 'roboto-fontface/css/roboto/roboto-fontface.css';
 import '@mdi/font/css/materialdesignicons.css';
@@ -15,23 +19,16 @@ import ObjectUtil from './util/Object';
 import ColorThemeUtil from './util/ColorTheme';
 import axios from 'axios';
 
-Vue.use(Vuetify);
-Vue.use(PortalVue);
-
 require('./assets/css/wegue.css');
+
+configureCompat({
+  MODE: 3
+})
 
 // try to load an optional app specific CSS file (set project-specific styles)
 try {
   require('../app/static/css/app.css');
 } catch (e) { }
-
-Vue.config.productionTip = false;
-
-// Detect isEmbedded state by attribute embedded and
-// make accessible for all components
-// recommended by https://vuejs.org/v2/cookbook/adding-instance-properties.html
-const appEl = document.querySelector('#app');
-Vue.prototype.$isEmbedded = appEl.hasAttribute('embedded');
 
 // Detect an URL parameter for a custom app context
 const appCtx = UrlUtil.getQueryParam('appCtx');
@@ -47,19 +44,42 @@ if (appCtx) {
  * @param {Object} appConfig Global application context.
  * @returns The active vuetify instance.
  */
-const createVuetify = function (appConfig) {
+const createVuetifyInstance = function (appConfig) {
+  const customIcons = IconUtil.importIcons();
+  const aliases = { ...defaultAliases, ...customIcons };
   const preset = {
     theme: ColorThemeUtil.buildTheme(appConfig.colorTheme),
     icons: {
-      iconfont: 'mdiSvg',
-      values: IconUtil.importIcons()
+      defaultSet: 'mdi',
+      aliases,
+      sets: {
+        md,
+        mdi
+      }
     },
-    lang: {
-      current: LocaleUtil.getPreferredLanguage(appConfig),
-      locales: LocaleUtil.importVuetifyLocales()
+    locale: {
+      locale: LocaleUtil.getPreferredLanguage(appConfig),
+      fallback: LocaleUtil.getFallbackLanguage(appConfig),
+      messages: LocaleUtil.importVuetifyLocales()
     }
   };
-  return new Vuetify(preset);
+
+  return createVuetify(preset);
+}
+
+/**
+ * Creates the VueI18n object used for internationalization.
+ *
+ * @param {Object} appConfig Global application context.
+ * @returns The active I18n instance.
+ */
+const createVueI18nInstance = function (appConfig) {
+  // dynamic import, otherwise Vue.prototype.$appConfig won't be set yet on
+  // static import
+  // const { i18n } = await import('./locales/wgu-i18n.js');
+
+  // return i18n;
+  return createI18nInstance(appConfig);
 }
 
 /**
@@ -166,19 +186,29 @@ const migrateAppConfig = function (appConfig) {
  *
  * @param {Object} appConfig Global application context.
  */
-const createApp = async function (appConfig) {
+const createAppInstance = function (appConfig) {
+  const effectiveAppConfig = migrateAppConfig(appConfig);
+  const vuetify = createVuetifyInstance(effectiveAppConfig);
+  const i18n = createVueI18nInstance(effectiveAppConfig);
+
+  const app = createApp(WguApp);
+  app.use(PortalVue);
+  app.use(vuetify);
+  app.use(i18n);
+
+  // it is recommended to use the provide/inject functionality instead of defining
+  // global proeprties in Vue3.
+  // see https://v3-migration.vuejs.org/breaking-changes/global-api#provide-inject
+
   // make app config accessible for all components
-  Vue.prototype.$appConfig = migrateAppConfig(appConfig);
+  app.config.globalProperties.$appConfig = effectiveAppConfig;
 
-  // dynamic import, otherwise Vue.prototype.$appConfig won't be set yet on
-  // static import
-  const { i18n } = await import('./locales/wgu-i18n.js');
+  // Detect isEmbedded state by attribute embedded and
+  // make accessible for all components
+  const appEl = document.querySelector('#app');
+  app.config.globalProperties.$isEmbedded = appEl.hasAttribute('embedded');
 
-  new Vue({
-    vuetify: createVuetify(appConfig),
-    i18n,
-    render: h => h(WguApp)
-  }).$mount('#app');
+  app.mount('#app');
 };
 
 // Look in the static dir for an app-specific config file.
@@ -189,7 +219,7 @@ const request = {
 };
 axios(request)
   .then(response => {
-    createApp(response.data);
+    createAppInstance(response.data);
   }).catch(function (error) {
     console.error(`Cannot load config file ${configFile}, ${error}`)
   });

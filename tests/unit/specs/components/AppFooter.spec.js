@@ -1,33 +1,38 @@
-import Vue from 'vue'
 import { shallowMount } from '@vue/test-utils';
-import AppFooter from 'APP/components/AppFooter'
+import AppFooter from 'APP/components/AppFooter';
 
 const footerProps = {
   footerTextLeft: 'my-text-left',
   footerTextRight: 'my-text-right'
+};
+
+function createWrapper (props = footerProps) {
+  return shallowMount(AppFooter, {
+    props
+  });
 }
 
 describe('AppFooter.vue', () => {
+  let comp;
+  let vm;
+
   // Inspect the raw component options
   it('is defined', () => {
     expect(typeof AppFooter).to.not.equal('undefined');
   });
 
   describe('props', () => {
-    let comp;
     beforeEach(() => {
-      Vue.prototype.$appConfig = { modules: {} };
-      comp = shallowMount(AppFooter, {
-        propsData: footerProps
-      });
+      comp = createWrapper();
+      vm = comp.vm;
     });
 
     it('has correct default props', () => {
-      expect(comp.vm.showCopyrightYear).to.equal(true);
+      expect(vm.showCopyrightYear).to.equal(true);
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 });

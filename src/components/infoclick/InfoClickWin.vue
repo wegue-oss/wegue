@@ -16,8 +16,20 @@
         </v-card-text>
         <v-card-actions v-show="attributeData">
           <v-spacer class="text-overline">{{ featureIdx + 1 }}/{{ numfeats }}: {{ layerName }}</v-spacer>
-          <v-btn v-show="numfeats > 1" x-small @click="prevFeat" ><v-icon>mdi-menu-left</v-icon></v-btn>
-          <v-btn v-show="numfeats > 1" x-small @click="nextFeat" ><v-icon>mdi-menu-right</v-icon></v-btn>
+          <v-btn v-show="numfeats > 1"
+            size="x-small"
+            variant="elevated"
+            @click="prevFeat"
+          >
+            <v-icon size="x-large">mdi-menu-left</v-icon>
+          </v-btn>
+          <v-btn v-show="numfeats > 1"
+            size="x-small"
+            variant="elevated"
+            @click="nextFeat"
+          >
+            <v-icon size="x-large">mdi-menu-right</v-icon>
+          </v-btn>
         </v-card-actions>
 
         <!-- feature property grid -->
@@ -51,7 +63,7 @@
 
       <v-card-actions>
         <v-btn
-          text color="secondary"
+          variant="text" color="secondary"
           v-if="this.attributeData && this.attributeData[mediaInfoLinkUrlProp]"
           :href="this.attributeData[mediaInfoLinkUrlProp]"
           target="_blank"
@@ -81,7 +93,7 @@ export default {
     'wgu-coords-table': CoordsTable
   },
   props: {
-    icon: { type: String, required: false, default: 'info' },
+    icon: { type: String, required: false, default: 'md:info' },
     showMedia: { type: Boolean, required: false, default: false },
     // below props only have an effect if showMedia=true
     mediaInfoLinkUrlProp: { type: String, required: false },
@@ -211,6 +223,7 @@ export default {
 
   .wgu-infoclick-win {
     width: 450px;
+    max-width: 100%;
   }
 
   .wgu-infoclick-win .v-card__title {

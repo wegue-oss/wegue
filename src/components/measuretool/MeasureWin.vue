@@ -40,7 +40,7 @@ export default {
   },
   mixins: [Mapable],
   props: {
-    icon: { type: String, required: false, default: 'photo_size_select_small' },
+    icon: { type: String, required: false, default: 'md:photo_size_select_small' },
     showAngleTool: { type: Boolean, required: false, default: false },
     iconsOnly: { type: Boolean, required: false, default: false }
   },

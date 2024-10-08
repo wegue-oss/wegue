@@ -1,5 +1,3 @@
-import Vue from 'vue';
-import Vuetify from 'vuetify'
 import { mount } from '@vue/test-utils';
 import Map from '@/components/ol/Map';
 import SelectInteraction from 'ol/interaction/Select';
@@ -14,8 +12,19 @@ const tileGridDefs = {
   }
 };
 
+function createWrapper ($appConfig = {}) {
+  return mount(Map, {
+    global: {
+      mocks: {
+        $appConfig
+      }
+    }
+  });
+}
+
 describe('ol/Map.vue', () => {
-  const vuetify = new Vuetify()
+  let comp;
+  let vm;
 
   // Inspect the raw component options
   it('is defined', () => {
@@ -31,11 +40,10 @@ describe('ol/Map.vue', () => {
   });
 
   describe('props', () => {
-    let comp;
-    let vm;
+    const appConfig = { modules: {} };
+
     beforeEach(() => {
-      Vue.prototype.$appConfig = { modules: {} };
-      comp = mount(Map, { vuetify });
+      comp = createWrapper(appConfig);
       vm = comp.vm;
     });
 
@@ -45,17 +53,13 @@ describe('ol/Map.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
-      Vue.prototype.$appConfig = undefined;
+      comp.unmount();
     });
   });
 
   describe('data', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      Vue.prototype.$appConfig = {};
-      comp = mount(Map, { vuetify });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
@@ -70,17 +74,15 @@ describe('ol/Map.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
-      Vue.prototype.$appConfig = undefined;
+      comp.unmount();
     });
   });
 
   describe('data - TileGrid Definitions', () => {
-    let comp;
-    let vm;
+    const appConfig = { tileGridDefs };
+
     beforeEach(() => {
-      Vue.prototype.$appConfig = { tileGridDefs };
-      comp = mount(Map, { vuetify });
+      comp = createWrapper(appConfig);
       vm = comp.vm;
     });
 
@@ -92,26 +94,24 @@ describe('ol/Map.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
-      Vue.prototype.$appConfig = undefined;
+      comp.unmount();
     });
   });
 
   describe('data - Projection Definitions', () => {
-    let comp;
-    let vm;
+    const appConfig = {
+      mapProjection: {
+        code: 'EPSG:28992',
+        units: 'm',
+        extent: epsg28992Extent
+      },
+      projectionDefs: [
+        ['EPSG:28992', '+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.999908 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +towgs84=565.2369,50.0087,465.658,-0.406857330322398,0.350732676542563,-1.8703473836068,4.0812 +no_defs']
+      ]
+    };
+
     beforeEach(() => {
-      Vue.prototype.$appConfig = {
-        mapProjection: {
-          code: 'EPSG:28992',
-          units: 'm',
-          extent: epsg28992Extent
-        },
-        projectionDefs: [
-          ['EPSG:28992', '+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.999908 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +towgs84=565.2369,50.0087,465.658,-0.406857330322398,0.350732676542563,-1.8703473836068,4.0812 +no_defs']
-        ]
-      };
-      comp = mount(Map, { vuetify });
+      comp = createWrapper(appConfig);
       vm = comp.vm;
     });
 
@@ -125,17 +125,13 @@ describe('ol/Map.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
-      Vue.prototype.$appConfig = undefined;
+      comp.unmount();
     });
   });
 
   describe('data - Hover controller', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      Vue.prototype.$appConfig = {};
-      comp = mount(Map, { vuetify });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
@@ -144,26 +140,24 @@ describe('ol/Map.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
-      Vue.prototype.$appConfig = undefined;
+      comp.unmount();
     });
   });
 
   describe('methods', () => {
-    let comp;
-    let vm;
+    const appConfig = {
+      mapLayers: [{
+        type: 'OSM',
+        lid: 'osm-bg',
+        isBaseLayer: false,
+        visible: true,
+        selectable: true,
+        displayInLayerList: true
+      }]
+    };
+
     beforeEach(() => {
-      Vue.prototype.$appConfig = {
-        mapLayers: [{
-          type: 'OSM',
-          lid: 'osm-bg',
-          isBaseLayer: false,
-          visible: true,
-          selectable: true,
-          displayInLayerList: true
-        }]
-      };
-      comp = mount(Map, { vuetify });
+      comp = createWrapper(appConfig);
       vm = comp.vm;
     });
 
@@ -204,17 +198,13 @@ describe('ol/Map.vue', () => {
       mockRotDiv.append(mockSubRotEl);
       document.body.append(mockRotDiv);
 
-      // set a vuetify color definition like 'secondary onsecondary--text'
-      const cssCls1 = 'secondary';
-      const cssCls2 = 'onsecondary--text';
+      // set a vuetify color definition like 'bg-secondary'
+      const cssCls = 'bg-secondary';
       vm.setOlButtonColor();
 
-      expect(mockSubZoomInEl.classList.contains(cssCls1)).to.equal(true);
-      expect(mockSubZoomInEl.classList.contains(cssCls2)).to.equal(true);
-      expect(mockSubZoomOutEl.classList.contains(cssCls1)).to.equal(true);
-      expect(mockSubZoomOutEl.classList.contains(cssCls2)).to.equal(true);
-      expect(mockSubRotEl.classList.contains(cssCls1)).to.equal(true);
-      expect(mockSubRotEl.classList.contains(cssCls2)).to.equal(true);
+      expect(mockSubZoomInEl.classList.contains(cssCls)).to.equal(true);
+      expect(mockSubZoomOutEl.classList.contains(cssCls)).to.equal(true);
+      expect(mockSubRotEl.classList.contains(cssCls)).to.equal(true);
 
       // cleanup (otherwise follow up tests fail)
       mockZoomDiv.parentNode.removeChild(mockZoomDiv);
@@ -222,38 +212,36 @@ describe('ol/Map.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
-      Vue.prototype.$appConfig = undefined;
+      comp.unmount();
     });
   });
 
   describe('methods - TileGrids and Projections', () => {
-    let comp;
-    let vm;
+    const appConfig = {
+      mapZoom: 3,
+      mapCenter: [155000, 463000],
+      mapProjection: {
+        code: 'EPSG:28992',
+        units: 'm',
+        extent: epsg28992Extent
+      },
+      projectionDefs: [
+        ['EPSG:28992', '+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.999908 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +towgs84=565.2369,50.0087,465.658,-0.406857330322398,0.350732676542563,-1.8703473836068,4.0812 +no_defs']
+      ],
+      tileGridDefs,
+      mapLayers: [{
+        type: 'XYZ',
+        lid: 'brtachtergrondkaart',
+        url: 'https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/standaard/EPSG:28992/{z}/{x}/{y}.png',
+        projection: 'EPSG:28992',
+        tileGridRef: 'dutch_rd',
+        displayInLayerList: true,
+        visible: true
+      }]
+    };
+
     beforeEach(() => {
-      Vue.prototype.$appConfig = {
-        mapZoom: 3,
-        mapCenter: [155000, 463000],
-        mapProjection: {
-          code: 'EPSG:28992',
-          units: 'm',
-          extent: epsg28992Extent
-        },
-        projectionDefs: [
-          ['EPSG:28992', '+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.999908 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +towgs84=565.2369,50.0087,465.658,-0.406857330322398,0.350732676542563,-1.8703473836068,4.0812 +no_defs']
-        ],
-        tileGridDefs,
-        mapLayers: [{
-          type: 'XYZ',
-          lid: 'brtachtergrondkaart',
-          url: 'https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/standaard/EPSG:28992/{z}/{x}/{y}.png',
-          projection: 'EPSG:28992',
-          tileGridRef: 'dutch_rd',
-          displayInLayerList: true,
-          visible: true
-        }]
-      };
-      comp = mount(Map, { vuetify });
+      comp = createWrapper(appConfig);
       vm = comp.vm;
     });
 
@@ -271,8 +259,7 @@ describe('ol/Map.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
-      Vue.prototype.$appConfig = undefined;
+      comp.unmount();
     });
   });
 });

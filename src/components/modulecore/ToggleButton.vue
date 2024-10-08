@@ -1,14 +1,10 @@
 <template>
   <v-btn-toggle
-    borderless
-    dense
-    color="onprimary"
-    background-color="transparent"
-    class="wgu-toggle-button"
+    variant="text"
+    class="wgu-toggle-button bg-primary"
     :title="$t(moduleName + '.title')"
-    v-model="show">
-    <v-btn icon :value="true" @click="toggleUi">
-      <v-icon color="onprimary" medium>{{icon}}</v-icon>
+    :model-value="show">
+    <v-btn :icon="icon" :value="true" @click="toggleUi">
     </v-btn>
   </v-btn-toggle>
 </template>
@@ -35,7 +31,7 @@ export default {
   },
   methods: {
     toggleUi () {
-      WguEventBus.$emit(this.moduleName + '-visibility-change', !this.show)
+      WguEventBus.$emit(this.moduleName + '-visibility-change', !this.show);
     }
   }
 };

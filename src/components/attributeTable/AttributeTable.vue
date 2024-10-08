@@ -4,27 +4,30 @@
   switch to a mobile optimized list on small devices
   -->
   <v-data-table
-    dense
+    density="compact"
+    hover
+    show-select
+    select-strategy="single"
     :loading="loading"
     :loading-text="$t('wgu-attributetable.loadingText')"
     :headers="headers"
     :items="records"
     mobile-breakpoint="0"
-    :page.sync="page"
-    :footer-props="{
-        'items-per-page-options': [],
-        'show-first-last-page': true
-      }"
-    @click:row="onRowClick"
-    single-select
-    :value="selectedRow"
-    :item-key="uniqueRecordKeyName"
+    :model-value="selectedRow"
+    :page="page"
+    :header-props="{
+      'class': 'wgu-attributetable-th'
+    }"
+    :items-per-page-options="[{value: 10, title: '10'}]"
+    @update:modelValue="onRowSelected"
+    :item-value="uniqueRecordKeyName"
     :items-per-page="rowsPerPage"
     :height="getTableHeight()"
   ></v-data-table>
 </template>
 
 <script>
+import { useDisplay } from 'vuetify'
 import { Mapable } from '../../mixins/Mapable';
 import LayerUtil from '../../util/Layer';
 import { WguEventBus } from '../../WguEventBus';
@@ -65,6 +68,10 @@ export default {
       }
     }
   },
+  setup () {
+    const { name: breakpoint } = useDisplay();
+    return { breakpoint };
+  },
   data () {
     return {
       headers: [],
@@ -83,7 +90,7 @@ export default {
       this.activateSelectRowOnMapClick();
     }
   },
-  beforeDestroy () {
+  beforeUnmount () {
     if (this.layer && this.layer.getSource()) {
       // unregister event after table is closed
       this.layer.getSource().un('change', this.prepareTableDataAndColumns);
@@ -153,7 +160,7 @@ export default {
      * @returns {int} The height of the table.
      */
     getTableHeight () {
-      if (this.$vuetify.breakpoint.xs) {
+      if (this.breakpoint.xs) {
         // we do not want to set this property
         return undefined;
       } else {
@@ -198,7 +205,7 @@ export default {
       if (!foundRecord) {
         return;
       }
-      this.selectedRow = [foundRecord];
+      this.selectedRow = [fid];
 
       const recIndex = this.records.indexOf(foundRecord);
       if (!recIndex) {
@@ -211,24 +218,31 @@ export default {
     },
 
     /**
-     * Handler for click on a row.
+     * Handler for selection of a row.
      *
-     * It zooms to the clicked features.
+     * It zooms to the selected feature.
      *
      * If the layer is 'selectable', the corresponding feature on the
      * map will be styled as selected.
      */
-    onRowClick (record) {
+    onRowSelected (itemValue) {
+      this.selectedRow = itemValue;
+
       if (!this.syncTableMapSelection) {
         return;
       }
 
-      const fid = record[this.uniqueRecordKeyName];
+      // remove current map selection
+      const correspondingInteraction = MapInteractionUtil.getSelectInteraction(this.map, this.layerId);
+      if (correspondingInteraction) {
+        correspondingInteraction.getFeatures().clear();
+      }
+
+      const fid = itemValue.at(0)
+      // if user deselected the row, return directly
       if (!fid) {
         return;
       }
-
-      this.selectedRow = [record];
 
       const foundFeature = this.features.find(feature => feature.getId() === fid);
       if (!foundFeature) {
@@ -236,18 +250,13 @@ export default {
       }
 
       // zoom to feature
-      ViewAnimationUtil.to(this.map.getView(), foundFeature.getGeometry());
-
-      const correspondingInteraction = MapInteractionUtil.getSelectInteraction(this.map, this.layerId);
-
-      // we can only select layers that have a select interaction
-      if (!correspondingInteraction) {
-        return;
-      }
+      const viewAnimationUtil = new ViewAnimationUtil(this.$appConfig);
+      viewAnimationUtil.to(this.map.getView(), foundFeature.getGeometry());
 
       // add to map selection
-      correspondingInteraction.getFeatures().clear();
-      correspondingInteraction.getFeatures().push(foundFeature);
+      if (correspondingInteraction) {
+        correspondingInteraction.getFeatures().push(foundFeature);
+      }
     },
 
     /**
@@ -310,7 +319,7 @@ export default {
       if (this.layer.get('columnMapping')) {
         for (const [propertyName, displayName] of Object.entries(this.layer.get('columnMapping'))) {
           headers.push({
-            text: displayName,
+            title: displayName,
             value: propertyName
           });
         }
@@ -324,7 +333,7 @@ export default {
         );
         filtered.forEach(propertyName => {
           headers.push({
-            text: propertyName,
+            title: propertyName,
             value: propertyName
           });
         });
@@ -334,3 +343,16 @@ export default {
   }
 }
 </script>
+
+<style>
+.wgu-attributetable-th {
+  height: 32px;
+  color: rgba(var(--v-theme-on-surface), var(--v-medium-emphasis-opacity));
+  font-size: 0.75rem;
+  font-weight: bold !important;
+}
+
+.wgu-attributetable-tr__selected {
+  background: #f5f5f5;
+}
+</style>

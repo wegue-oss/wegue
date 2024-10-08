@@ -1,10 +1,10 @@
-import { WguEventBus } from '@/WguEventBus'
+import HoverController from '@/components/ol/HoverController';
+import { WguEventBus } from '@/WguEventBus';
 import OlMap from 'ol/Map';
 import Feature from 'ol/Feature';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import Point from 'ol/geom/Point';
-import HoverController from '../../../../../src/components/ol/HoverController';
 
 // Test layers and feature
 const feat = new Feature({
@@ -23,16 +23,17 @@ const layerNonHoverable = new VectorLayer({
   source: new VectorSource({
     features: [feat]
   })
-})
+});
 
 describe('ol/HoverController.js', () => {
+  let comp;
+  let map;
+
   it('is defined', () => {
     expect(typeof HoverController).to.not.equal(undefined);
   });
 
   describe('data', () => {
-    let comp;
-    let map;
     beforeEach(() => {
       map = new OlMap({});
       comp = new HoverController(map);
@@ -54,8 +55,6 @@ describe('ol/HoverController.js', () => {
   });
 
   describe('user interactions', () => {
-    let comp;
-    let map;
     beforeEach(() => {
       map = new OlMap({});
       comp = new HoverController(map);

@@ -1,56 +1,94 @@
 import { shallowMount } from '@vue/test-utils';
+import { createI18n } from 'vue-i18n';
+import i18nMessages from '@/locales/en.json';
 import MeasureResult from '@/components/measuretool/MeasureResult';
-import PolygonGeom from 'ol/geom/Polygon'
+import PolygonGeom from 'ol/geom/Polygon';
 import LineStringGeom from 'ol/geom/LineString';
 import Map from 'ol/Map';
 import View from 'ol/View';
 
+const olMap = new Map({
+  view: new View({ center: [0, 0], zoom: 2 })
+});
+
+function createWrapper (assignMap = false) {
+  const map = assignMap ? olMap : undefined;
+
+  const i18nInstance = createI18n({
+    legacy: false,
+    globalInjection: true,
+    locale: 'en',
+    fallbackLocale: 'en',
+    messages: { en: i18nMessages },
+    missingWarn: false,
+    fallbackWarn: false,
+    warnHtmlMessage: false
+  })
+
+  return shallowMount(MeasureResult, {
+    data () {
+      return {
+        map
+      }
+    },
+    global: {
+      mocks: {
+        $t: (tKey, ...rest) => {
+          return i18nInstance.global.t(tKey, ...rest);
+        }
+      },
+      plugins: [i18nInstance]
+    }
+  });
+}
+
 describe('measuretool/MeasureResult.vue', () => {
+  let comp;
+  let vm;
+
   // Inspect the raw component options
   it('is defined', () => {
     expect(typeof MeasureResult).to.not.equal('undefined');
   });
 
   describe('props', () => {
-    let comp;
     beforeEach(() => {
-      comp = shallowMount(MeasureResult);
+      comp = createWrapper();
+      vm = comp.vm;
     });
 
     it('has correct default props', () => {
-      expect(comp.vm.measureGeom).to.equal(undefined);
-      expect(comp.vm.measureType).to.equal(undefined);
+      expect(vm.measureGeom).to.equal(undefined);
+      expect(vm.measureType).to.equal(undefined);
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 
   describe('data', () => {
     const EMPTY_RESULT_TEXT = ' -- ';
-    let comp;
+
     beforeEach(() => {
-      comp = shallowMount(MeasureResult);
+      comp = createWrapper();
+      vm = comp.vm;
     });
 
     it('has correct default data', () => {
-      expect(comp.vm.area).to.equal(EMPTY_RESULT_TEXT);
-      expect(comp.vm.distance).to.equal(EMPTY_RESULT_TEXT);
-      expect(comp.vm.angle).to.equal(EMPTY_RESULT_TEXT);
+      expect(vm.area).to.equal(EMPTY_RESULT_TEXT);
+      expect(vm.distance).to.equal(EMPTY_RESULT_TEXT);
+      expect(vm.angle).to.equal(EMPTY_RESULT_TEXT);
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 
   describe('methods', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      const olMap = new Map({
-        view: new View({ center: [0, 0], zoom: 2 })
-      });
-      comp = shallowMount(MeasureResult, {
-        data () {
-          return {
-            map: olMap
-          }
-        }
-      });
+      comp = createWrapper(true);
       vm = comp.vm;
     });
 
@@ -77,57 +115,47 @@ describe('measuretool/MeasureResult.vue', () => {
       const fAngleText = vm.formatAngle(lineGeom);
       expect(fAngleText).to.equal('45.00°');
     });
+
+    afterEach(() => {
+      comp.unmount();
+    });
   });
 
   describe('watchers', () => {
-    let comp;
     beforeEach(() => {
-      const olMap = new Map({
-        view: new View({ center: [0, 0], zoom: 2 })
-      });
-      comp = shallowMount(MeasureResult, {
-        data () {
-          return {
-            map: olMap
-          }
-        }
-      });
+      comp = createWrapper(true);
+      vm = comp.vm;
     });
 
-    it('watches measureGeom Area', done => {
+    it('watches measureGeom Area', async () => {
       const polyGeom = new PolygonGeom([[[0, 0], [1, 0], [1, 1], [0, 1], [0, 0]]]);
+      await comp.setProps({ measureGeom: { geom: polyGeom }, measureType: 'area' });
 
-      comp.setProps({ measureGeom: { geom: polyGeom }, measureType: 'area' });
-      comp.vm.$nextTick(() => {
-        expect(comp.vm.area).to.equal('1 m²');
-        expect(comp.vm.distance).to.equal('4 m');
-        done();
-      });
+      expect(vm.area).to.equal('1 m²');
+      expect(vm.distance).to.equal('4 m');
     });
 
-    it('watches measureGeom Distance', done => {
+    it('watches measureGeom Distance', async () => {
       const lineGeom = new LineStringGeom([[0, 0], [1, 0], [1, 1], [0, 1]]);
+      await comp.setProps({ measureGeom: { geom: lineGeom }, measureType: 'distance' });
 
-      comp.setProps({ measureGeom: { geom: lineGeom }, measureType: 'distance' });
-      comp.vm.$nextTick(() => {
-        expect(comp.vm.distance).to.equal('3 m');
-        done();
-      });
+      expect(comp.vm.distance).to.equal('3 m');
     });
 
-    it('watches measureGeom Angle', done => {
+    it('watches measureGeom Angle', async () => {
       const lineGeom = new LineStringGeom([[0, 0], [1, 0]]);
+      await comp.setProps({ measureGeom: { geom: lineGeom }, measureType: 'angle' });
 
-      comp.setProps({ measureGeom: { geom: lineGeom }, measureType: 'angle' });
-      comp.vm.$nextTick(() => {
-        expect(comp.vm.angle).to.equal('90.00°');
-        done();
-      });
+      expect(comp.vm.angle).to.equal('90.00°');
     });
 
-    it('watches measureGeom non supported geom', () => {
-      comp.setProps({ measureGeom: { geom: null } });
+    it('watches measureGeom non supported geom', async () => {
+      await comp.setProps({ measureGeom: { geom: null } });
       expect(comp.vm.distance).to.equal(' -- ');
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 });

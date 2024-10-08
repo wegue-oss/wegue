@@ -40,7 +40,7 @@ export default {
   /**
    * Unregister the event fired on resolution change.
    */
-  destroyed () {
+  unmounted () {
     if (this.viewResolutionChanged) {
       this.mapView.un('change:resolution', this.viewResolutionChanged);
     }

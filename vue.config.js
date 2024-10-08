@@ -29,6 +29,19 @@ module.exports = defineConfig({
     client: {
       logging: 'warn',
       overlay: {
+        // Added to remove ResizeObserver errors thrown when Vuetify lists become too large. Vuetify bug ?
+        // See https://stackoverflow.com/questions/77564331/vuetify-crashes-with-resizeobserver-loop-completed-with-undelivered-notification
+        // See also https://stackoverflow.com/questions/49384120/resizeobserver-loop-limit-exceeded#answer-50387233
+        runtimeErrors: (error) => {
+          const ignoreErrors = [
+            'ResizeObserver loop limit exceeded',
+            'ResizeObserver loop completed with undelivered notifications.'
+          ];
+          if (ignoreErrors.includes(error.message)) {
+            return false;
+          }
+          return true;
+        },
         warnings: false,
         errors: true
       }
@@ -40,7 +53,33 @@ module.exports = defineConfig({
   },
 
   chainWebpack: config => {
+    config.resolve.alias.set('vue', '@vue/compat')
     config.resolve.alias.set('APP', path.resolve(config.resolve.alias.get('@'), '../app'))
+
+    config.module
+      .rule('vue')
+      .use('vue-loader')
+      .tap(options => {
+        return {
+          ...options,
+          compilerOptions: {
+            compatConfig: {
+              MODE: 3
+            }
+          }
+        }
+      })
+
+    // Added to remove some warnings in Vue 3.4+
+    // See https://vuejs.org/api/compile-time-flags#vue-cli
+    config.plugin('define').tap((definitions) => {
+      Object.assign(definitions[0], {
+        __VUE_OPTIONS_API__: 'true',
+        __VUE_PROD_DEVTOOLS__: 'false',
+        __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'false'
+      })
+      return definitions
+    })
 
     return config
       .plugin('copy')
@@ -61,7 +100,7 @@ module.exports = defineConfig({
     // Ensure build is sent to a temporary directory and keep only necessary plugins.
     if (process.env.NODE_ENV === 'test') {
       const PLUGINS_TO_KEEEP = [
-        'VueLoaderPlugin',
+        'Plugin',
         'DefinePlugin',
         'CaseSensitivePathsPlugin',
         'FriendlyErrorsWebpackPlugin'
@@ -83,5 +122,10 @@ module.exports = defineConfig({
   // Disable dependencies transpilation as browsers currently targetted by
   // .browserlistrc doesn't need it anymore. If legacy browsers need to be supported
   // modules to be processed can be granularly specified here.
-  transpileDependencies: false
+  transpileDependencies: false,
+
+  // Needed by vue-cli-plugin-vuetify to generate configuration correctly.
+  pluginOptions: {
+    vuetify: {}
+  }
 })

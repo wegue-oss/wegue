@@ -4,7 +4,6 @@
 
 import TileWmsSource from 'ol/source/TileWMS';
 import ImageWmsSource from 'ol/source/ImageWMS';
-import Vue from 'vue';
 
 const CustomLegend = {
   /**
@@ -58,7 +57,7 @@ const LayerLegend = {
    * @returns {Object} Merged configuration params.
    */
   getOptions (options) {
-    const appConfig = Vue.prototype.$appConfig;
+    const appConfig = this.$appConfig;
     return {
       ...appConfig?.legend,
       ...options

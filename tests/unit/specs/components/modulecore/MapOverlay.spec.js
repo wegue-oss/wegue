@@ -1,9 +1,10 @@
-import MapOverlay from '@/components/modulecore/MapOverlay'
-import { WguEventBus } from '@/WguEventBus'
+import { nextTick, toRaw } from 'vue';
+import { shallowMount } from '@vue/test-utils';
+import MapOverlay from '@/components/modulecore/MapOverlay';
+import { WguEventBus } from '@/WguEventBus';
 import OlMap from 'ol/Map';
 import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point';
-import { shallowMount } from '@vue/test-utils';
 
 // Common test data
 const overlayProps = {
@@ -16,9 +17,18 @@ const contentData = {
     geometry: new Point([0, 0])
   }),
   hoverAttribute: 'foo'
+};
+
+function createWrapper (props = overlayProps) {
+  return shallowMount(MapOverlay, {
+    props
+  });
 }
 
 describe('modulecore/MapOverlay.vue', () => {
+  let comp;
+  let vm;
+
   it('is defined', () => {
     expect(MapOverlay).to.not.be.an('undefined');
   });
@@ -28,12 +38,8 @@ describe('modulecore/MapOverlay.vue', () => {
   });
 
   describe('props', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(MapOverlay, {
-        propsData: overlayProps
-      });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
@@ -51,17 +57,13 @@ describe('modulecore/MapOverlay.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('data', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(MapOverlay, {
-        propsData: overlayProps
-      });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
@@ -69,21 +71,17 @@ describe('modulecore/MapOverlay.vue', () => {
       expect(vm.show).to.equal(true);
       expect(vm.position).to.be.an('undefined');
       expect(vm.olOverlay).to.equal(null);
-      expect(vm.contentData).to.equal(null);
+      expect(toRaw(vm.contentData)).to.deep.equal({});
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('methods', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(MapOverlay, {
-        propsData: overlayProps
-      });
+      comp = createWrapper();
       vm = comp.vm;
       vm.map = new OlMap({});
       vm.onMapBound();
@@ -93,7 +91,7 @@ describe('modulecore/MapOverlay.vue', () => {
       vm.createOlOverlay();
 
       expect(vm.olOverlay).to.not.be.an('undefined');
-      expect(vm.olOverlay.getMap()).to.equal(vm.map);
+      expect(toRaw(vm.olOverlay.getMap())).to.equal(vm.map);
       expect(vm.olOverlay.getElement()).to.equal(vm.$refs.overlayContainer);
       expect(vm.olOverlay.getId()).to.equal('my-overlay');
       expect(vm.olOverlay.getOffset()).to.eql([0, 0]);
@@ -102,92 +100,80 @@ describe('modulecore/MapOverlay.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('watchers', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(MapOverlay, {
-        propsData: overlayProps
-      });
+      comp = createWrapper();
       vm = comp.vm;
       vm.map = new OlMap({});
       vm.onMapBound();
     });
 
-    it('watches show', done => {
+    it('watches show', async () => {
       expect(vm.show).to.equal(true);
       expect(vm.olOverlay).to.not.be.an('undefined');
 
       vm.show = false;
-      vm.$nextTick(() => {
-        expect(vm.olOverlay).to.be.an('undefined');
-        done();
-      });
+      await nextTick();
+
+      expect(vm.olOverlay).to.be.an('undefined');
     });
 
-    it('watches position', done => {
+    it('watches position', async () => {
       expect(vm.olOverlay.getPosition()).to.be.an('undefined');
 
       vm.position = coordinate;
-      vm.$nextTick(() => {
-        expect(vm.olOverlay.getPosition()).to.eql(coordinate);
-        done();
-      });
+      await nextTick();
+
+      expect(vm.olOverlay.getPosition()).to.eql(coordinate);
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('events', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(MapOverlay, {
-        propsData: overlayProps
-      });
+      comp = createWrapper();
       vm = comp.vm;
       vm.map = new OlMap({});
       vm.onMapBound();
     });
 
-    it('update-overlay event creates, positions and populates overlay', done => {
+    it('update-overlay event creates, positions and populates overlay', async () => {
       vm.show = false;
-      vm.$nextTick(() => {
-        expect(vm.olOverlay).to.be.an('undefined');
+      await nextTick();
 
-        WguEventBus.$emit('my-overlay-update-overlay', true, coordinate, contentData);
-        vm.$nextTick(() => {
-          expect(vm.olOverlay).to.not.be.an('undefined');
-          expect(vm.olOverlay.getPosition()).to.eql(coordinate);
-          expect(vm.show).to.equal(true);
-          expect(vm.contentData).to.equal(contentData);
-          done();
-        });
-      });
+      expect(vm.olOverlay).to.be.an('undefined');
+
+      WguEventBus.$emit('my-overlay-update-overlay', true, coordinate, contentData);
+      await nextTick();
+
+      expect(vm.olOverlay).to.not.be.an('undefined');
+      expect(vm.olOverlay.getPosition()).to.eql(coordinate);
+      expect(vm.show).to.equal(true);
+      expect(toRaw(vm.contentData)).to.equal(contentData);
     });
 
-    it('update-overlay event destroys overlay', done => {
+    it('update-overlay event destroys overlay', async () => {
       vm.show = true;
-      vm.$nextTick(() => {
-        expect(vm.olOverlay).to.not.be.an('undefined');
+      await nextTick();
 
-        WguEventBus.$emit('my-overlay-update-overlay', false);
-        vm.$nextTick(() => {
-          expect(vm.olOverlay).to.be.an('undefined');
-          expect(vm.show).to.equal(false);
-          done();
-        });
-      });
+      expect(vm.olOverlay).to.not.be.an('undefined');
+
+      WguEventBus.$emit('my-overlay-update-overlay', false);
+      await nextTick();
+
+      expect(vm.olOverlay).to.be.an('undefined');
+      expect(vm.show).to.equal(false);
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 });
