@@ -37,8 +37,10 @@ describe('attributeTable/AttributeTableWin.vue', () => {
 
     it('has correct default data', () => {
       expect(vm.layers).to.be.an('array');
-      expect(vm.layers.length).to.eql(0);
-      expect(vm.selLayer).to.be.null;
+      expect(vm.layers).to.have.lengthOf(0);
+      expect(vm.displayedLayers).to.be.an('array');
+      expect(vm.displayedLayers).to.have.lengthOf(0);
+      expect(vm.selLayerLid).to.be.null;
     });
 
     afterEach(() => {

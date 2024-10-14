@@ -7,28 +7,26 @@
 
     <template v-slot:wgu-win-toolbar>
       <v-select
-        v-model="selLayer"
+        v-model="selLayerLid"
         :color="isPrimaryDarkWithLightTheme ? 'white' : 'accent'"
         item-color="secondary"
         :theme="isDarkTheme ? 'dark' : 'light'"
         variant="outlined"
         class="wgu-vector-layer-select wgu-solo-field"
-        :items="displayedLayers"
-        :item-title="item => item.get('name')"
+        :items="displayedItems"
         :menu-props="{
           bottom: true,
           'offset-y': true,
         }"
         density="compact"
-        return-object
         hide-details
         :label="$t('wgu-attributetable.selectorLabel')"
         ></v-select>
     </template>
 
     <wgu-attributetable
-      v-if="selLayer"
-      :layerId="selLayer.get('lid')"
+      v-if="selLayerLid"
+      :layerId="selLayerLid"
       :syncTableMapSelection="syncTableMapSelection"
     >
     </wgu-attributetable>
@@ -59,7 +57,7 @@ export default {
       moduleName: 'wgu-attributetable',
       layers: [],
       displayedLayers: [],
-      selLayer: null
+      selLayerLid: null
     }
   },
   beforeUnmount () {
@@ -92,8 +90,11 @@ export default {
         )
         .reverse();
     }
-  }
-  // computed: {
+  },
+  computed: {
+    displayedItems () {
+      return this.displayedLayers.map((layer) => { return { title: layer.get('name'), value: layer.get('lid') } })
+    }
   //   /**
   //    * Reactive property to return the OpenLayers vector layers to be shown in the selection menu.
   //    */
@@ -106,7 +107,7 @@ export default {
   //       )
   //       .reverse();
   //   }
-  // }
+  }
 };
 </script>
 
