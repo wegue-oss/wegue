@@ -35,7 +35,8 @@
 </template>
 
 <script>
-import { Mapable } from '../../mixins/Mapable';
+// import { Mapable } from '../../mixins/Mapable';
+import { useMap } from '../../composables/Map';
 import { useColorTheme } from '../../composables/ColorTheme';
 import { GeocoderController } from './GeocoderController';
 import { applyTransform } from 'ol/extent';
@@ -45,7 +46,7 @@ import axios from 'axios';
 
 export default {
   name: 'wgu-geocoder-input',
-  mixins: [Mapable],
+  // mixins: [Mapable],
   props: {
     icon: { type: String, required: false, default: 'md:search' },
     rounded: { type: Boolean, required: false, default: true },
@@ -60,8 +61,10 @@ export default {
 
   },
   setup () {
+    const { map } = useMap();
     const { isDarkTheme, isPrimaryDark, isPrimaryDarkWithLightTheme } = useColorTheme();
-    return { isDarkTheme, isPrimaryDark, isPrimaryDarkWithLightTheme };
+
+    return { map, isDarkTheme, isPrimaryDark, isPrimaryDarkWithLightTheme };
   },
   data () {
     return {

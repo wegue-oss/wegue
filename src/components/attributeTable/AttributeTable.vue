@@ -28,7 +28,8 @@
 
 <script>
 import { useDisplay } from 'vuetify'
-import { Mapable } from '../../mixins/Mapable';
+// import { Mapable } from '../../mixins/Mapable';
+import { useMap } from '../../composables/Map';
 import LayerUtil from '../../util/Layer';
 import { WguEventBus } from '../../WguEventBus';
 import MapInteractionUtil from '../../util/MapInteraction';
@@ -36,7 +37,7 @@ import ViewAnimationUtil from '../../util/ViewAnimation';
 
 export default {
   name: 'wgu-attributetable',
-  mixins: [Mapable],
+  // mixins: [Mapable],
   props: {
     /** The ID of the vector layer to display */
     layerId: { type: String, required: false, default: null },
@@ -69,8 +70,10 @@ export default {
     }
   },
   setup () {
+    const { map } = useMap();
     const { name: breakpoint } = useDisplay();
-    return { breakpoint };
+
+    return { map, breakpoint };
   },
   data () {
     return {

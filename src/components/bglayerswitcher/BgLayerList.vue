@@ -40,7 +40,8 @@
 </template>
 
 <script>
-import { Mapable } from '../../mixins/Mapable';
+// import { Mapable } from '../../mixins/Mapable';
+import { useMap } from '../../composables/Map';
 import LayerPreviewImage from './LayerPreviewImage';
 
 export default {
@@ -48,50 +49,54 @@ export default {
   components: {
     'wgu-layerpreviewimage': LayerPreviewImage
   },
-  mixins: [Mapable],
+  // mixins: [Mapable],
   props: {
     imageWidth: { type: Number, required: true },
     imageHeight: { type: Number, required: true },
     previewIcon: { type: String, required: true }
   },
-  data () {
-    return {
-      layers: [],
-      displayedLayers: []
-    }
+  setup () {
+    const { map, layers } = useMap();
+    return { map, layers };
   },
-  beforeUnmount () {
-    this.unregisterLayersCollectionChangedEvent(this.layersChanged);
-  },
+  // data () {
+  //   return {
+  //     layers: [],
+  //     displayedLayers: []
+  //   }
+  // },
+  // beforeUnmount () {
+  //   this.unregisterLayersCollectionChangedEvent(this.layersChanged);
+  // },
   methods: {
     /**
-      * This function is executed, after the map is bound (see mixins/Mapable).
-      * Bind to the layers from the OpenLayers map.
-      */
-    onMapBound () {
-      this.layers = this.map.getLayers().getArray();
-      // In Vuetify2, a mandatory slide group automatically selected the first item when value was null.
-      // In Vuetify3, we should assign it ourselves down here if we want to keep the same behaviour.
-      // if (!this.selectedLid && this.displayedLayers.length) {
-      //   this.displayedLayers[0].setVisible(true);
-      // }
-      this.layers = this.map.getLayers().getArray();
-      this.computeDisplayedLayers();
-      this.registerLayersCollectionChangedEvent(this.layersChanged);
-    },
-    layersChanged () {
-      this.computeDisplayedLayers();
-    },
-    computeDisplayedLayers () {
-      this.displayedLayers = this.layers
-        .filter(layer => layer.get('isBaseLayer'))
-        .reverse();
-    },
+     * This function is executed, after the map is bound (see mixins/Mapable).
+     * Bind to the layers from the OpenLayers map.
+     */
+    // onMapBound () {
+    //   this.layers = this.map.getLayers().getArray();
+    //   // In Vuetify2, a mandatory slide group automatically selected the first item when value was null.
+    //   // In Vuetify3, we should assign it ourselves down here if we want to keep the same behaviour.
+    //   // if (!this.selectedLid && this.displayedLayers.length) {
+    //   //   this.displayedLayers[0].setVisible(true);
+    //   // }
+    //   this.layers = this.map.getLayers().getArray();
+    //   this.computeDisplayedLayers();
+    //   this.registerLayersCollectionChangedEvent(this.layersChanged);
+    // },
+    // layersChanged () {
+    //   this.computeDisplayedLayers();
+    // },
+    // computeDisplayedLayers () {
+    //   this.displayedLayers = this.layers
+    //     .filter(layer => layer.get('isBaseLayer'))
+    //     .reverse();
+    // },
     /**
-      * Handler for click on item in layer list:
-      * Set the selected background layer to visible and hide all other background layers.
-      * @param  {Object} selLid  ID of layer selected by the user
-      */
+     * Handler for click on item in layer list:
+     * Set the selected background layer to visible and hide all other background layers.
+     * @param  {Object} selLid  ID of layer selected by the user
+     */
     onSelectLayer (selLid) {
       const selLayer = this.displayedLayers.find(layer => layer.get('lid') === selLid);
       selLayer.setVisible(true);
@@ -104,18 +109,18 @@ export default {
   },
   computed: {
     /**
-      * Reactive property to return the OpenLayers layers marked as 'isBaseLayer'.
-      */
-    // displayedLayers () {
-    //   return this.layers
-    //     .filter(layer => layer.get('isBaseLayer'))
-    //     .reverse();
-    // },
+     * Reactive property to return the OpenLayers layers marked as 'isBaseLayer'.
+     */
+    displayedLayers () {
+      return this.layers
+        .filter(layer => layer.get('isBaseLayer'))
+        .reverse();
+    },
     /**
-      * Reactive property to return the currently visible OpenLayers background layer.
-      * To disambiguate multiple selected background layers - which may occur programmatically -
-      * this returns the first in the list of background layers.
-      */
+     * Reactive property to return the currently visible OpenLayers background layer ID.
+     * To disambiguate multiple selected background layers - which may occur programmatically -
+     * this returns the first in the list of background layers.
+     */
     selectedLid () {
       return this.displayedLayers.find(layer => layer.getVisible())?.get('lid');
     }

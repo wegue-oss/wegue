@@ -129,18 +129,23 @@
 
 <script>
 import ModuleCard from './../modulecore/ModuleCard';
-import { Mapable } from '../../mixins/Mapable';
+// import { Mapable } from '../../mixins/Mapable';
+import { useMap } from '../../composables/Map';
 import createCanvasRecorder from 'canvas-record';
 
 export default {
   name: 'wgu-maprecorder-win',
   inheritAttrs: false,
-  mixins: [Mapable],
+  // mixins: [Mapable],
   components: {
     'wgu-module-card': ModuleCard
   },
   props: {
     icon: { type: String, required: false, default: 'mdi-video' }
+  },
+  setup () {
+    const { map } = useMap();
+    return { map };
   },
   data () {
     const mimeTypes = this.getSupportedMimeTypes();

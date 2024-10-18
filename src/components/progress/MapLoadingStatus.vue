@@ -12,8 +12,8 @@
 </template>
 
 <script>
-
-import { Mapable } from '../../mixins/Mapable';
+// import { Mapable } from '../../mixins/Mapable';
+import { useMap } from '../../composables/Map';
 import {
   Image as ImageSource, TileImage as TileImageSource,
   Vector as VectorSource, Cluster as ClusterSource
@@ -22,11 +22,25 @@ import LayerGroup from 'ol/layer/Group';
 
 export default {
   name: 'wgu-maploading-status',
-  mixins: [Mapable],
+  // mixins: [Mapable],
+  setup () {
+    const { map, layers } = useMap(this);
+    return { map, layers };
+  },
   data () {
     return {
       loading: 0,
       visible: false
+    }
+  },
+  watch: {
+    map: {
+      handler (newMap) {
+        if (newMap) {
+          this.onMapBound();
+        }
+      },
+      immediate: true
     }
   },
   methods: {

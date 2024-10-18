@@ -35,7 +35,8 @@
 
 <script>
 import ModuleCard from './../modulecore/ModuleCard';
-import { Mapable } from '../../mixins/Mapable';
+// import { Mapable } from '../../mixins/Mapable';
+import { useMap } from '../../composables/Map';
 import { useColorTheme } from '../../composables/ColorTheme';
 import VectorLayer from 'ol/layer/Vector'
 import AttributeTable from './AttributeTable';
@@ -49,21 +50,23 @@ export default {
     syncTableMapSelection: { type: Boolean, required: false, default: false }
   },
   setup () {
+    const { layers } = useMap();
     const { isDarkTheme, isPrimaryDark, isPrimaryDarkWithLightTheme } = useColorTheme();
-    return { isDarkTheme, isPrimaryDark, isPrimaryDarkWithLightTheme };
+
+    return { layers, isDarkTheme, isPrimaryDark, isPrimaryDarkWithLightTheme };
   },
   data () {
     return {
       moduleName: 'wgu-attributetable',
-      layers: [],
-      displayedLayers: [],
+      // layers: [],
+      // displayedLayers: [],
       selLayerLid: null
     }
   },
-  beforeUnmount () {
-    this.unregisterLayersCollectionChangedEvent(this.layersChanged);
-  },
-  mixins: [Mapable],
+  // beforeUnmount () {
+  //   this.unregisterLayersCollectionChangedEvent(this.layersChanged);
+  // },
+  // mixins: [Mapable],
   components: {
     'wgu-module-card': ModuleCard,
     'wgu-attributetable': AttributeTable
@@ -73,40 +76,43 @@ export default {
      * This function is executed, after the map is bound (see mixins/Mapable).
      * Bind to the layers from the OpenLayers map.
      */
-    onMapBound () {
-      this.layers = this.map.getLayers().getArray();
-      this.computeDisplayedLayers();
-      this.registerLayersCollectionChangedEvent(this.layersChanged);
-    },
-    layersChanged () {
-      this.computeDisplayedLayers();
-    },
-    computeDisplayedLayers () {
-      this.displayedLayers = this.layers
+    // onMapBound () {
+    //   this.layers = this.map.getLayers().getArray();
+    //   this.computeDisplayedLayers();
+    //   this.registerLayersCollectionChangedEvent(this.layersChanged);
+    // },
+    // layersChanged () {
+    //   this.computeDisplayedLayers();
+    // },
+    // computeDisplayedLayers () {
+    //   this.displayedLayers = this.layers
+    //     .filter(layer =>
+    //       layer instanceof VectorLayer &&
+    //       layer.get('lid') !== 'wgu-measure-layer' &&
+    //       layer.get('lid') !== 'wgu-geolocator-layer'
+    //     )
+    //     .reverse();
+    // }
+  },
+  computed: {
+    /**
+     * Reactive property to return the OpenLayers vector layers to be shown in the selection menu.
+     */
+    displayedLayers () {
+      return this.layers
         .filter(layer =>
           layer instanceof VectorLayer &&
           layer.get('lid') !== 'wgu-measure-layer' &&
           layer.get('lid') !== 'wgu-geolocator-layer'
         )
         .reverse();
-    }
-  },
-  computed: {
+    },
+    /**
+     * Reactive property to return the items object to bind to the selection menu.
+     */
     displayedItems () {
-      return this.displayedLayers.map((layer) => { return { title: layer.get('name'), value: layer.get('lid') } })
+      return this.displayedLayers.map((layer) => { return { title: layer.get('name'), value: layer.get('lid') } });
     }
-  //   /**
-  //    * Reactive property to return the OpenLayers vector layers to be shown in the selection menu.
-  //    */
-  //   displayedLayers () {
-  //     return this.layers
-  //       .filter(layer =>
-  //         layer instanceof VectorLayer &&
-  //         layer.get('lid') !== 'wgu-measure-layer' &&
-  //         layer.get('lid') !== 'wgu-geolocator-layer'
-  //       )
-  //       .reverse();
-  //   }
   }
 };
 </script>

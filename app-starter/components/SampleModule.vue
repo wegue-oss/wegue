@@ -30,7 +30,8 @@
 // the module card is a the template for a typical Wegue module
 import ModuleCard from '../../src/components/modulecore/ModuleCard';
 // we import a so called "mixin" that helps us to interact with the map
-import { Mapable } from '../../src/mixins/Mapable';
+// import { Mapable } from '../../src/mixins/Mapable';
+import { useMap } from '../../src/composables/Map';
 // an OpenLayers helper function to display coordinates
 import { toStringXY } from 'ol/coordinate';
 // an OpenLayer helper function to transform coordinate reference systems
@@ -39,7 +40,7 @@ import { transform } from 'ol/proj.js';
 export default {
   name: 'sample-module',
   // make sure to register the 'Mapable' mixin
-  mixins: [Mapable],
+  // mixins: [Mapable],
   inheritAttrs: false,
   components: {
     'wgu-module-card': ModuleCard
@@ -48,11 +49,25 @@ export default {
     icon: { type: String, required: false, default: 'md:star' }
   },
   // here we define variables that are used in the HTML above
+  setup () {
+    const { map, layers } = useMap();
+    return { map, layers };
+  },
   data () {
     return {
       zoom: '',
       center: ''
     };
+  },
+  watch: {
+    map: {
+      handler (newMap) {
+        if (newMap) {
+          this.onMapBound();
+        }
+      },
+      immediate: true
+    }
   },
   methods: {
     /**

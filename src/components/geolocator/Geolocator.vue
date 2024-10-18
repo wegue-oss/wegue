@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import { useMap } from '../../composables/Map';
 import { fromLonLat } from 'ol/proj'
 import Point from 'ol/geom/Point'
 import Feature from 'ol/Feature';
@@ -17,7 +18,7 @@ import { Vector as VectorLayer } from 'ol/layer'
 import { Vector as VectorSource } from 'ol/source'
 import { Fill, Style, Text } from 'ol/style';
 
-import { WguEventBus } from '../../WguEventBus'
+// import { WguEventBus } from '../../WguEventBus'
 import ViewAnimationUtil from '../../util/ViewAnimation';
 
 export default {
@@ -25,6 +26,10 @@ export default {
   props: {
     markerColor: { type: String, required: false, default: 'blue' },
     markerText: { type: String, required: false, default: 'person_pin_circle' }
+  },
+  setup () {
+    const { map } = useMap(this);
+    return { map };
   },
   data: function () {
     return {
@@ -44,9 +49,9 @@ export default {
   },
   created () {
     const me = this;
-    WguEventBus.$on('ol-map-mounted', olMap => {
-      me.map = olMap;
-    });
+    // WguEventBus.$on('ol-map-mounted', olMap => {
+    //   me.map = olMap;
+    // });
     if (!navigator.geolocation) {
       me.isGeolocationAPIAvailable = false;
     } else {

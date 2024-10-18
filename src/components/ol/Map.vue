@@ -4,11 +4,9 @@
 
 <script>
 
-// import { getCurrentInstance, reactive } from 'vue'
-import { getCurrentInstance } from 'vue'
+// import { getCurrentInstance } from 'vue'
 import Map from 'ol/Map'
 import View from 'ol/View'
-// import Collection from 'ol/Collection'
 import Attribution from 'ol/control/Attribution';
 import Zoom from 'ol/control/Zoom';
 import {
@@ -25,7 +23,8 @@ import { Vector as VectorLayer } from 'ol/layer';
 import { Vector as VectorSource } from 'ol/source';
 import proj4 from 'proj4';
 // import the app-wide EventBus
-import { WguEventBus } from '../../WguEventBus.js';
+// import { WguEventBus } from '../../WguEventBus.js';
+import { bindMap, unbindMap } from '../../composables/Map';
 import { LayerFactory } from '../../factory/Layer.js';
 import LayerUtil from '../../util/Layer';
 import PermalinkController from './PermalinkController';
@@ -39,13 +38,11 @@ export default {
     collapsibleAttribution: { type: Boolean, default: false },
     rotateableMap: { type: Boolean, required: false, default: false }
   },
-  setup () {
-    // const reactiveLayers = reactive(new Collection())
-    const vueInstance = getCurrentInstance();
+  // setup () {
+  //   const vueInstance = getCurrentInstance();
 
-    // return { vueInstance, reactiveLayers };
-    return { vueInstance }
-  },
+  //   return { vueInstance }
+  // },
   data () {
     return {
       zoom: this.$appConfig.mapZoom,
@@ -72,7 +69,8 @@ export default {
     const me = this;
     // Make the OL map accessible for Mapable mixin even 'ol-map-mounted' has
     // already been fired. Don not use directly in cmps, use Mapable instead.
-    this.vueInstance.appContext.config.globalProperties.$map = me.map;
+    // this.vueInstance.appContext.config.globalProperties.$map = me.map;
+    bindMap(me.map);
 
     // Set the target for the OL canvas and tie it`s size to ol-map-container.
     // Remarks: 'ol-map-container' does not exist in the scope of the current unit test,
@@ -94,7 +92,7 @@ export default {
     }
 
     // Send the event 'ol-map-mounted' with the OL map as payload
-    WguEventBus.$emit('ol-map-mounted', me.map);
+    // WguEventBus.$emit('ol-map-mounted', me.map);
 
     // TODO
     //  Re-evaluate whether and if yes which of the following operations have to be deferred.
@@ -112,27 +110,32 @@ export default {
     }
 
     // Send the event 'ol-map-unmounted' with the OL map as payload
-    WguEventBus.$emit('ol-map-unmounted', this.map);
+    // WguEventBus.$emit('ol-map-unmounted', this.map);
+    unbindMap();
 
-    // Destroy controllers, remove map references
-    if (this.timerHandle) {
-      clearTimeout(this.timerHandle);
-    }
-    if (this.permalinkController) {
-      this.permalinkController.tearDown();
-      this.permalinkController = undefined;
-    }
-    if (this.hoverController) {
-      this.hoverController.destroy();
-      this.hoverController = undefined;
-    }
-    if (this.map) {
-      this.map.getLayers().clear();
-      this.map.getInteractions().clear();
-      this.map.getControls().clear();
-      this.map.getOverlays().clear();
-    }
-    this.map = undefined;
+    // End of function in setTimeout so the watchers on map can run before the map^
+    // is effectively destroyed
+    setTimeout(() => {
+      // Destroy controllers, remove map references
+      if (this.timerHandle) {
+        clearTimeout(this.timerHandle);
+      }
+      if (this.permalinkController) {
+        this.permalinkController.tearDown();
+        this.permalinkController = undefined;
+      }
+      if (this.hoverController) {
+        this.hoverController.destroy();
+        this.hoverController = undefined;
+      }
+      if (this.map) {
+        this.map.getLayers().clear();
+        this.map.getInteractions().clear();
+        this.map.getControls().clear();
+        this.map.getOverlays().clear();
+      }
+      this.map = undefined;
+    }, 0)
   },
   created () {
     // make map rotateable according to property
@@ -189,8 +192,6 @@ export default {
         projection
       })
     });
-
-    // this.map.setLayers(this.reactiveLayers)
 
     // create layers from config and add them to map
     this.registerLayerEvents();

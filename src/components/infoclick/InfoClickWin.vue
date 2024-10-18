@@ -78,8 +78,9 @@
 </template>
 
 <script>
+import { useMap } from '../../composables/Map';
 import ModuleCard from '../modulecore/ModuleCard';
-import { WguEventBus } from '../../WguEventBus.js';
+// import { WguEventBus } from '../../WguEventBus.js';
 import PropertyTable from './PropertyTable';
 import CoordsTable from './CoordsTable';
 import MapInteractionUtil from '../../util/MapInteraction';
@@ -100,6 +101,10 @@ export default {
     imageProp: { type: String, required: false },
     imageDescriptionProp: { type: String, required: false }
   },
+  setup () {
+    const { map } = useMap(this);
+    return { map };
+  },
   data: function () {
     return {
       moduleName: 'wgu-infoclick',
@@ -111,14 +116,14 @@ export default {
       numfeats: null
     }
   },
-  created () {
-    const me = this;
-    // Listen to the ol-map-mounted event and receive the OL map instance
-    WguEventBus.$on('ol-map-mounted', (olMap) => {
-      // make the OL map accessible in this component
-      me.map = olMap;
-    });
-  },
+  // created () {
+  //   const me = this;
+  //   // Listen to the ol-map-mounted event and receive the OL map instance
+  //   WguEventBus.$on('ol-map-mounted', (olMap) => {
+  //     // make the OL map accessible in this component
+  //     me.map = olMap;
+  //   });
+  // },
   methods: {
     registerMapClick (unregister) {
       const me = this;

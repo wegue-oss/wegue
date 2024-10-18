@@ -15,7 +15,8 @@
 </template>
 
 <script>
-import { Mapable } from '../../mixins/Mapable';
+// import { Mapable } from '../../mixins/Mapable';
+import { useMap } from '../../composables/Map';
 import AngleUtil from '../../../src/util/Angle';
 import LineStringGeom from 'ol/geom/LineString';
 import { getArea, getLength } from 'ol/sphere.js';
@@ -24,14 +25,18 @@ const EMPTY_RESULT_TEXT = ' -- ';
 
 export default {
   name: 'wgu-measure-result',
-  mixins: [Mapable],
+  // mixins: [Mapable],
   props: {
     measureGeom: { type: Object },
     measureType: { type: String }
   },
+  setup () {
+    const { map } = useMap(this);
+    return { map };
+  },
   data () {
     return {
-      map: null, // the OL map is injected into this var by the Mapable mixin
+      // map: null, // the OL map is injected into this var by the Mapable mixin
       area: EMPTY_RESULT_TEXT,
       distance: EMPTY_RESULT_TEXT,
       angle: EMPTY_RESULT_TEXT
@@ -82,10 +87,10 @@ export default {
       return output;
     },
     /**
-       * Calculates and formats the area of the given polygon.
-       *
-       * @param  {ol.geom.Polygon} polygon The Polygon object to calculate area for
-       */
+     * Calculates and formats the area of the given polygon.
+     *
+     * @param  {ol.geom.Polygon} polygon The Polygon object to calculate area for
+     */
     formatArea (polygon) {
       const mapSrs = this.map.getView().getProjection().getCode();
       const area = getArea(polygon, { projection: mapSrs });

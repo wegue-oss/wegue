@@ -31,7 +31,8 @@
 </template>
 
 <script>
-import { Mapable } from '../../mixins/Mapable';
+// import { Mapable } from '../../mixins/Mapable';
+import { useMap } from '../../composables/Map';
 import BgLayerList from './BgLayerList';
 
 export default {
@@ -39,51 +40,55 @@ export default {
   components: {
     'wgu-bglayerlist': BgLayerList
   },
-  mixins: [Mapable],
+  // mixins: [Mapable],
   props: {
     icon: { type: String, required: false, default: 'md:map' },
     imageWidth: { type: Number, required: false, default: 152 },
     imageHeight: { type: Number, required: false, default: 114 }
   },
+  setup () {
+    const { map, layers } = useMap();
+    return { map, layers };
+  },
   data () {
     return {
-      open: false,
-      show: false,
-      layers: []
+      open: false
+      // show: false,
+      // layers: []
     }
   },
-  beforeUnmount () {
-    this.unregisterLayersCollectionChangedEvent(this.layersChanged);
-  },
+  // beforeUnmount () {
+  //   this.unregisterLayersCollectionChangedEvent(this.layersChanged);
+  // },
   methods: {
     /**
      * This function is executed, after the map is bound (see mixins/Mapable).
      * Bind to the layers from the OpenLayers map.
      */
-    onMapBound () {
-      this.layers = this.map.getLayers().getArray();
-      this.computeShow();
-      this.registerLayersCollectionChangedEvent(this.layersChanged);
-    },
-    layersChanged () {
-      this.computeShow();
-    },
-    computeShow () {
-      this.show = this.layers
+    // onMapBound () {
+    //   this.layers = this.map.getLayers().getArray();
+    //   this.computeShow();
+    //   this.registerLayersCollectionChangedEvent(this.layersChanged);
+    // },
+    // layersChanged () {
+    //   this.computeShow();
+    // },
+    // computeShow () {
+    //   this.show = this.layers
+    //     .filter(layer => layer.get('isBaseLayer'))
+    //     .length > 1;
+    // }
+  },
+  computed: {
+    /**
+     * Reactive property to return true, when more than one OpenLayers layer is available,
+     * which is marked as 'isBaseLayer'.
+     */
+    show () {
+      return this.layers
         .filter(layer => layer.get('isBaseLayer'))
         .length > 1;
     }
   }
-  // computed: {
-  //   /**
-  //    * Reactive property to return true, when more than one OpenLayers layer is available,
-  //    * which is marked as 'isBaseLayer'.
-  //    */
-  //   show () {
-  //     return this.layers
-  //       .filter(layer => layer.get('isBaseLayer'))
-  //       .length > 1;
-  //   }
-  // }
 };
 </script>
