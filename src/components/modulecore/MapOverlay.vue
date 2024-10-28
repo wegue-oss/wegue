@@ -33,7 +33,7 @@ export default {
     return {
       show: this.visible,
       position: this.coordinates,
-      olOverlay: null,
+      olOverlay: undefined,
       contentData: {}
     }
   },
@@ -97,7 +97,7 @@ export default {
      * Destroys the OpenLayers overlay control and removes it from the map.
      */
     destroyOlOverlay () {
-      if (this.olOverlay) {
+      if (this.olOverlay && this.map) {
         this.map.removeOverlay(this.olOverlay);
         this.olOverlay = undefined;
       }
