@@ -1,5 +1,6 @@
 import { nextTick, toRaw } from 'vue';
 import { shallowMount } from '@vue/test-utils';
+import { bindMap, unbindMap } from '@/composables/Map';
 import MeasureWin from '@/components/measuretool/MeasureWin';
 import OlMap from 'ol/Map';
 import LineStringGeom from 'ol/geom/LineString';
@@ -11,6 +12,7 @@ function createWrapper () {
 describe('measuretool/MeasureWin.vue', () => {
   let comp;
   let vm;
+  let map;
 
   it('is defined', () => {
     expect(typeof MeasureWin).to.not.equal('undefined');
@@ -56,8 +58,10 @@ describe('measuretool/MeasureWin.vue', () => {
     });
 
     it('watches measureType resets old data', async () => {
-      vm.map = new OlMap({});
-      vm.onMapBound();
+      // vm.map = new OlMap({});
+      // vm.onMapBound();
+      map = new OlMap({});
+      bindMap(map);
       vm.measureType = 'area';
       await nextTick();
 
@@ -65,6 +69,8 @@ describe('measuretool/MeasureWin.vue', () => {
     });
 
     afterEach(() => {
+      unbindMap();
+      map = undefined;
       comp.unmount();
     });
   });
@@ -75,14 +81,17 @@ describe('measuretool/MeasureWin.vue', () => {
       vm = comp.vm;
     });
 
-    it('show resets map interaction when module is closed', () => {
+    it('show resets map interaction when module is closed', async () => {
       let cnt = 0;
       const mockFn = () => {
         cnt++;
       };
 
-      vm.map = new OlMap({});
-      vm.onMapBound();
+      // vm.map = new OlMap({});
+      // vm.onMapBound();
+      map = new OlMap({});
+      bindMap(map);
+      await nextTick();
       vm.olMapCtrl.removeInteraction = mockFn;
 
       vm.show(true);
@@ -90,13 +99,17 @@ describe('measuretool/MeasureWin.vue', () => {
       expect(cnt).to.equal(1);
     });
 
-    it('show registers map interaction when module is opened', () => {
+    it('show registers map interaction when module is opened', async () => {
       let cnt = 0;
       const mockFn = () => {
         cnt++;
       };
-      vm.map = new OlMap({});
-      vm.onMapBound();
+
+      // vm.map = new OlMap({});
+      // vm.onMapBound();
+      map = new OlMap({});
+      bindMap(map);
+      await nextTick();
       vm.olMapCtrl.addInteraction = mockFn;
 
       vm.show(false);
@@ -121,6 +134,8 @@ describe('measuretool/MeasureWin.vue', () => {
     });
 
     afterEach(() => {
+      unbindMap();
+      map = undefined;
       comp.unmount();
     });
   });

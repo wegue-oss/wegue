@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils';
+import { bindMap, unbindMap } from '@/composables/Map';
 import Geocoder from '@/components/geocoder/Geocoder';
 import { OpenStreetMap } from '@/components/geocoder/providers/osm';
 import { Photon } from '@/components/geocoder/providers/photon';
@@ -103,6 +104,7 @@ describe('geocoder/Geocoder.vue', () => {
   });
 
   describe('methods - search', () => {
+    let map;
     let axiosMock;
     let onQueryResultsSpy;
     let onQueryErrorSpy;
@@ -220,7 +222,9 @@ describe('geocoder/Geocoder.vue', () => {
 
     it('selected item watcher assigns result and zooms/centers Map at result', async () => {
       applyAxiosMock();
-      vm.map = new OlMap();
+      // vm.map = new OlMap();
+      map = new OlMap();
+      bindMap(map);
 
       const comboBox = comp.findComponent({ name: 'v-combobox' });
       comboBox.vm.$emit('update:search', queryString);
@@ -261,7 +265,10 @@ describe('geocoder/Geocoder.vue', () => {
       expect(onQueryErrorSpy).to.have.been.called;
     });
 
-    afterEach(function () {
+    afterEach(() => {
+      unbindMap();
+      map = undefined;
+
       if (axiosMock) {
         axiosMock.restore();
       }

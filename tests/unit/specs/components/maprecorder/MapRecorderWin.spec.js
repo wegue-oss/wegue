@@ -1,4 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
+import { bindMap, unbindMap } from '@/composables/Map';
 import MapRecorderWin from '@/components/maprecorder/MapRecorderWin';
 import OlMap from 'ol/Map';
 import VectorLayer from 'ol/layer/Vector';
@@ -59,6 +60,8 @@ describe('maprecorder/MapRecorderWin.vue', () => {
   });
 
   describe('methods', () => {
+    let map;
+
     beforeEach(() => {
       comp = createWrapper();
       vm = comp.vm;
@@ -77,11 +80,12 @@ describe('maprecorder/MapRecorderWin.vue', () => {
         visible: true,
         source: new VectorSource()
       });
-      const map = new OlMap({
+      map = new OlMap({
         layers: [layer]
       });
       map.setSize([1024, 768]);
-      vm.map = map;
+      bindMap(map);
+      // vm.map = map;
 
       vm.startRecording();
       expect(vm.mapCanvas).not.to.be.null;
@@ -103,6 +107,8 @@ describe('maprecorder/MapRecorderWin.vue', () => {
     });
 
     afterEach(() => {
+      unbindMap();
+      map = undefined;
       comp.unmount();
     });
   });

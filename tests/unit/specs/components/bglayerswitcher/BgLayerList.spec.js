@@ -1,6 +1,6 @@
-// import { reactive, toRaw } from 'vue';
 import { toRaw } from 'vue';
 import { shallowMount } from '@vue/test-utils';
+import { bindMap, unbindMap } from '@/composables/Map';
 import BgLayerList from '@/components/bglayerswitcher/BgLayerList';
 import OlMap from 'ol/Map';
 import VectorLayer from 'ol/layer/Vector';
@@ -21,6 +21,7 @@ function createWrapper (props = moduleProps) {
 describe('bglayerswitcher/BgLayerList.vue', () => {
   let comp;
   let vm;
+  let map;
 
   it('is defined', () => {
     expect(BgLayerList).to.not.be.an('undefined');
@@ -36,23 +37,6 @@ describe('bglayerswitcher/BgLayerList.vue', () => {
       expect(vm.imageWidth).to.equal(152);
       expect(vm.imageHeight).to.equal(114);
       expect(vm.previewIcon).to.equal('md:map');
-    });
-
-    afterEach(() => {
-      comp.unmount();
-    });
-  });
-
-  describe('data', () => {
-    beforeEach(() => {
-      comp = createWrapper();
-      vm = comp.vm;
-    });
-
-    it('has correct default data', () => {
-      expect(typeof BgLayerList.data).to.equal('function');
-      expect(vm.layers).to.be.an('array');
-      expect(vm.layers.length).to.eql(0);
     });
 
     afterEach(() => {
@@ -79,12 +63,12 @@ describe('bglayerswitcher/BgLayerList.vue', () => {
         isBaseLayer: false,
         source: new VectorSource()
       });
-      const map = new OlMap({
+      map = new OlMap({
         layers: [layerIn, layerOut]
       });
-      // map.setLayers(reactive(map.getLayers()))
-      vm.map = map;
-      vm.onMapBound();
+      // vm.map = map;
+      // vm.onMapBound();
+      bindMap(map);
 
       expect(vm.displayedLayers.length).to.equal(1);
       const li = vm.displayedLayers[0];
@@ -109,9 +93,9 @@ describe('bglayerswitcher/BgLayerList.vue', () => {
       const map = new OlMap({
         layers: [layerIn]
       });
-      // map.setLayers(reactive(map.getLayers()))
-      vm.map = map;
-      vm.onMapBound();
+      // vm.map = map;
+      // vm.onMapBound();
+      bindMap(map);
 
       expect(vm.displayedLayers.length).to.equal(1);
 
@@ -121,6 +105,8 @@ describe('bglayerswitcher/BgLayerList.vue', () => {
     });
 
     afterEach(() => {
+      unbindMap();
+      map = undefined;
       comp.unmount();
     });
   });
@@ -132,7 +118,7 @@ describe('bglayerswitcher/BgLayerList.vue', () => {
     });
 
     it('are implemented', () => {
-      expect(typeof vm.onMapBound).to.equal('function');
+      // expect(typeof vm.onMapBound).to.equal('function');
       expect(typeof vm.onSelectLayer).to.equal('function');
     });
 
@@ -149,12 +135,12 @@ describe('bglayerswitcher/BgLayerList.vue', () => {
         isBaseLayer: true,
         source: new VectorSource()
       });
-      const map = new OlMap({
+      map = new OlMap({
         layers: [layerIn, layerOut]
       });
-      // map.setLayers(reactive(map.getLayers()))
-      vm.map = map;
-      vm.onMapBound();
+      // vm.map = map;
+      // vm.onMapBound();
+      bindMap(map);
 
       expect(layerIn.getVisible()).to.equal(true);
       expect(layerOut.getVisible()).to.equal(false);
@@ -168,6 +154,8 @@ describe('bglayerswitcher/BgLayerList.vue', () => {
     });
 
     afterEach(() => {
+      unbindMap();
+      map = undefined;
       comp.unmount();
     });
   });

@@ -1,6 +1,6 @@
-// import { reactive, toRaw } from 'vue';
 import { toRaw } from 'vue';
 import { shallowMount } from '@vue/test-utils';
+import { bindMap, unbindMap } from '@/composables/Map';
 import LayerList from '@/components/layerlist/LayerList';
 import OlMap from 'ol/Map';
 import VectorLayer from 'ol/layer/Vector';
@@ -25,24 +25,26 @@ describe('layerlist/LayerList.vue', () => {
     expect(LayerList).to.not.be.an('undefined');
   });
 
-  describe('data', () => {
-    beforeEach(() => {
-      comp = createWrapper();
-      vm = comp.vm;
-    });
+  // describe('data', () => {
+  //   beforeEach(() => {
+  //     comp = createWrapper();
+  //     vm = comp.vm;
+  //   });
 
-    it('has correct default data', () => {
-      expect(typeof LayerList.data).to.equal('function');
-      expect(vm.layers).to.be.an('array');
-      expect(vm.layers.length).to.eql(0);
-    });
+  //   it('has correct default data', () => {
+  //     expect(typeof LayerList.data).to.equal('function');
+  //     expect(vm.layers).to.be.an('array');
+  //     expect(vm.layers.length).to.eql(0);
+  //   });
 
-    afterEach(() => {
-      comp.unmount();
-    });
-  });
+  //   afterEach(() => {
+  //     comp.unmount();
+  //   });
+  // });
 
   describe('computed properties', () => {
+    let map;
+
     beforeEach(() => {
       comp = createWrapper();
       vm = comp.vm;
@@ -61,12 +63,12 @@ describe('layerlist/LayerList.vue', () => {
         displayInLayerList: false,
         source: new VectorSource()
       });
-      const map = new OlMap({
+      map = new OlMap({
         layers: [layerIn, layerOut]
       });
-      // map.setLayers(reactive(map.getLayers()))
-      vm.map = map;
-      vm.onMapBound();
+      // vm.map = map;
+      // vm.onMapBound();
+      bindMap(map);
 
       expect(vm.displayedLayers.length).to.equal(1);
       const li = vm.displayedLayers[0];
@@ -79,9 +81,9 @@ describe('layerlist/LayerList.vue', () => {
       const map = new OlMap({
         layers: [layerIn]
       });
-      // map.setLayers(reactive(map.getLayers()));
-      vm.map = map;
-      vm.onMapBound();
+      // vm.map = map;
+      // vm.onMapBound();
+      bindMap(map);
 
       expect(vm.displayedLayers.length).to.equal(1);
 
@@ -91,18 +93,20 @@ describe('layerlist/LayerList.vue', () => {
     });
 
     afterEach(() => {
+      unbindMap();
+      map = undefined;
       comp.unmount();
     });
   });
 
-  describe('methods', () => {
-    beforeEach(() => {
-      comp = createWrapper();
-      vm = comp.vm;
-    });
+  // describe('methods', () => {
+  //   beforeEach(() => {
+  //     comp = createWrapper();
+  //     vm = comp.vm;
+  //   });
 
-    it('are implemented', () => {
-      expect(typeof vm.onMapBound).to.equal('function');
-    });
-  });
+  //   it('are implemented', () => {
+  //     expect(typeof vm.onMapBound).to.equal('function');
+  //   });
+  // });
 });

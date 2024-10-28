@@ -1,5 +1,6 @@
 import { toRaw } from 'vue';
 import { shallowMount } from '@vue/test-utils';
+import { bindMap, unbindMap } from '@/composables/Map';
 import InfoClickWin from '@/components/infoclick/InfoClickWin';
 import OlMap from 'ol/Map';
 import Feature from 'ol/Feature';
@@ -20,9 +21,9 @@ describe('infoclick/InfoClickWin.vue', () => {
     expect(typeof InfoClickWin).to.not.equal('undefined');
   });
 
-  it('has a created hook', () => {
-    expect(typeof InfoClickWin.created).to.equal('function');
-  });
+  // it('has a created hook', () => {
+  //   expect(typeof InfoClickWin.created).to.equal('function');
+  // });
 
   describe('props', () => {
     beforeEach(() => {
@@ -52,6 +53,8 @@ describe('infoclick/InfoClickWin.vue', () => {
   });
 
   describe('methods', () => {
+    let map;
+
     beforeEach(() => {
       comp = createWrapper();
       vm = comp.vm;
@@ -66,8 +69,9 @@ describe('infoclick/InfoClickWin.vue', () => {
         pixel: [0, 0],
         coordinate: [8, 8]
       };
-      const map = new OlMap();
-      vm.map = map;
+      map = new OlMap();
+      bindMap(map);
+      // vm.map = map;
       vm.onMapClick(mockEvt);
       expect(vm.attributeData).to.equal(null);
       expect(toRaw(vm.coordsData.coordinate)).to.equal(mockEvt.coordinate);
@@ -88,13 +92,14 @@ describe('infoclick/InfoClickWin.vue', () => {
           features: [feat]
         })
       });
-      const map = new OlMap({
+      map = new OlMap({
         layers: [layer]
       });
       map.forEachFeatureAtPixel = () => {
         vm.features.push([feat, layer]);
       };
-      vm.map = map;
+      // vm.map = map;
+      bindMap(map);
       vm.onMapClick(mockEvt);
       expect(vm.attributeData.foo).to.equal('bar');
       expect(toRaw(vm.coordsData.coordinate)).to.equal(mockEvt.coordinate);
@@ -102,7 +107,9 @@ describe('infoclick/InfoClickWin.vue', () => {
     });
 
     it('show resets data when module is closed', () => {
-      vm.map = new OlMap({});
+      // vm.map = new OlMap({});
+      map = new OlMap();
+      bindMap(map);
       vm.show(true);
       vm.show(false);
       expect(vm.attributeData).to.equal(null);
@@ -110,8 +117,9 @@ describe('infoclick/InfoClickWin.vue', () => {
     });
 
     it('show registers map click when module is opened', () => {
-      const map = new OlMap();
-      vm.map = map;
+      map = new OlMap();
+      bindMap(map);
+      // vm.map = map;
       const onSPy = sinon.replace(map, 'on', sinon.fake(map.on));
 
       vm.show(false);
@@ -121,14 +129,21 @@ describe('infoclick/InfoClickWin.vue', () => {
     });
 
     it('show unregisters map click when module is closed', () => {
-      const map = new OlMap();
-      vm.map = map;
+      map = new OlMap();
+      bindMap(map);
+      // vm.map = map;
       const unSPy = sinon.replace(map, 'un', sinon.fake(map.un));
 
       vm.show(true);
       vm.show(false);
 
       expect(unSPy).to.have.been.calledOnceWithExactly('singleclick', vm.onMapClick);
+    });
+
+    afterEach(() => {
+      unbindMap();
+      map = undefined;
+      comp.unmount();
     });
   });
 });

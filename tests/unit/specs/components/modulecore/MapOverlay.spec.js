@@ -1,5 +1,6 @@
 import { nextTick, toRaw } from 'vue';
 import { shallowMount } from '@vue/test-utils';
+import { bindMap, unbindMap } from '@/composables/Map';
 import MapOverlay from '@/components/modulecore/MapOverlay';
 import { WguEventBus } from '@/WguEventBus';
 import OlMap from 'ol/Map';
@@ -28,6 +29,7 @@ function createWrapper (props = overlayProps) {
 describe('modulecore/MapOverlay.vue', () => {
   let comp;
   let vm;
+  let map;
 
   it('is defined', () => {
     expect(MapOverlay).to.not.be.an('undefined');
@@ -70,7 +72,7 @@ describe('modulecore/MapOverlay.vue', () => {
     it('has correct default data', () => {
       expect(vm.show).to.equal(true);
       expect(vm.position).to.be.an('undefined');
-      expect(vm.olOverlay).to.equal(null);
+      expect(vm.olOverlay).to.be.an('undefined');
       expect(toRaw(vm.contentData)).to.deep.equal({});
     });
 
@@ -83,8 +85,10 @@ describe('modulecore/MapOverlay.vue', () => {
     beforeEach(() => {
       comp = createWrapper();
       vm = comp.vm;
-      vm.map = new OlMap({});
-      vm.onMapBound();
+      map = new OlMap({});
+      bindMap(map);
+      // vm.map = new OlMap({});
+      // vm.onMapBound();
     });
 
     it('createOlOverlay adds an OL overlay to map', () => {
@@ -100,16 +104,21 @@ describe('modulecore/MapOverlay.vue', () => {
     });
 
     afterEach(() => {
+      unbindMap();
+      map = undefined;
       comp.unmount();
     });
   });
 
   describe('watchers', () => {
-    beforeEach(() => {
+    beforeEach(async () => {
       comp = createWrapper();
       vm = comp.vm;
-      vm.map = new OlMap({});
-      vm.onMapBound();
+      map = new OlMap({});
+      bindMap(map);
+      await nextTick();
+      // vm.map = new OlMap({});
+      // vm.onMapBound();
     });
 
     it('watches show', async () => {
@@ -132,16 +141,21 @@ describe('modulecore/MapOverlay.vue', () => {
     });
 
     afterEach(() => {
+      unbindMap();
+      map = undefined;
       comp.unmount();
     });
   });
 
   describe('events', () => {
-    beforeEach(() => {
+    beforeEach(async () => {
       comp = createWrapper();
       vm = comp.vm;
-      vm.map = new OlMap({});
-      vm.onMapBound();
+      map = new OlMap({});
+      bindMap(map);
+      await nextTick();
+      // vm.map = new OlMap({});
+      // vm.onMapBound();
     });
 
     it('update-overlay event creates, positions and populates overlay', async () => {
@@ -173,6 +187,8 @@ describe('modulecore/MapOverlay.vue', () => {
     });
 
     afterEach(() => {
+      unbindMap();
+      map = undefined;
       comp.unmount();
     });
   });

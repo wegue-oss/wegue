@@ -36,10 +36,10 @@ describe('attributeTable/AttributeTableWin.vue', () => {
     });
 
     it('has correct default data', () => {
-      expect(vm.layers).to.be.an('array');
-      expect(vm.layers).to.have.lengthOf(0);
-      expect(vm.displayedLayers).to.be.an('array');
-      expect(vm.displayedLayers).to.have.lengthOf(0);
+      // expect(vm.layers).to.be.an('array');
+      // expect(vm.layers).to.have.lengthOf(0);
+      // expect(vm.displayedLayers).to.be.an('array');
+      // expect(vm.displayedLayers).to.have.lengthOf(0);
       expect(vm.selLayerLid).to.be.null;
     });
 
@@ -48,18 +48,18 @@ describe('attributeTable/AttributeTableWin.vue', () => {
     });
   });
 
-  describe('methods', () => {
-    beforeEach(() => {
-      comp = createWrapper();
-      vm = comp.vm;
-    });
+  // describe('methods', () => {
+  //   beforeEach(() => {
+  //     comp = createWrapper();
+  //     vm = comp.vm;
+  //   });
 
-    it('are implemented', () => {
-      expect(vm.onMapBound).to.be.a('function');
-    });
+  //   it('are implemented', () => {
+  //     expect(vm.onMapBound).to.be.a('function');
+  //   });
 
-    afterEach(() => {
-      comp.unmount();
-    });
-  });
+  //   afterEach(() => {
+  //     comp.unmount();
+  //   });
+  // });
 });

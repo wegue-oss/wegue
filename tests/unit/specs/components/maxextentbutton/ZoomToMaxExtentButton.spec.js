@@ -1,4 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
+import { bindMap, unbindMap } from '@/composables/Map';
 import ZoomToMaxExtentButton from '@/components/maxextentbutton/ZoomToMaxExtentButton';
 import OlMap from 'ol/Map';
 import OlView from 'ol/View';
@@ -21,6 +22,7 @@ function createWrapper ($appConfig = {}) {
 describe('maxextentbutton/ZoomToMaxExtentButton.vue', () => {
   let comp;
   let vm;
+  let map;
 
   beforeEach(() => {
     comp = createWrapper(appConfig);
@@ -33,12 +35,13 @@ describe('maxextentbutton/ZoomToMaxExtentButton.vue', () => {
   });
 
   it('onClick sets correct center and zoom', () => {
-    vm.map = new OlMap({
+    map = new OlMap({
       view: new OlView({
         center: [1, 1],
         zoom: 1
       })
     });
+    bindMap(map);
 
     // Remarks: This works synchronously, if no animation is used.
     vm.onClick();
@@ -49,6 +52,8 @@ describe('maxextentbutton/ZoomToMaxExtentButton.vue', () => {
   });
 
   afterEach(() => {
+    unbindMap();
+    map = undefined;
     comp.unmount();
   });
 });

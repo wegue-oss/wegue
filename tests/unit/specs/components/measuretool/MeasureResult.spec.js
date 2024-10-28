@@ -1,6 +1,7 @@
 import { shallowMount } from '@vue/test-utils';
 import { createI18n } from 'vue-i18n';
 import i18nMessages from '@/locales/en.json';
+import { bindMap, unbindMap } from '@/composables/Map';
 import MeasureResult from '@/components/measuretool/MeasureResult';
 import PolygonGeom from 'ol/geom/Polygon';
 import LineStringGeom from 'ol/geom/LineString';
@@ -25,7 +26,7 @@ function createWrapper (assignMap = false) {
     warnHtmlMessage: false
   })
 
-  return shallowMount(MeasureResult, {
+  const wrapper = shallowMount(MeasureResult, {
     data () {
       return {
         map
@@ -40,6 +41,11 @@ function createWrapper (assignMap = false) {
       plugins: [i18nInstance]
     }
   });
+
+  if (map) {
+    bindMap(map)
+  }
+  return wrapper;
 }
 
 describe('measuretool/MeasureResult.vue', () => {
@@ -117,6 +123,7 @@ describe('measuretool/MeasureResult.vue', () => {
     });
 
     afterEach(() => {
+      unbindMap();
       comp.unmount();
     });
   });
@@ -155,6 +162,7 @@ describe('measuretool/MeasureResult.vue', () => {
     });
 
     afterEach(() => {
+      unbindMap();
       comp.unmount();
     });
   });

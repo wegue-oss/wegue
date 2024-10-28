@@ -1,6 +1,6 @@
-// import { reactive, toRaw } from 'vue';
 import { toRaw } from 'vue';
 import { shallowMount } from '@vue/test-utils';
+import { bindMap, unbindMap } from '@/composables/Map';
 import OverviewMapPanel from '@/components/overviewmap/OverviewMapPanel';
 import OlMap from 'ol/Map';
 import VectorLayer from 'ol/layer/Vector';
@@ -47,24 +47,26 @@ describe('overviewmap/OverviewMapPanel.vue', () => {
     });
   });
 
-  describe('data', () => {
-    beforeEach(() => {
-      comp = createWrapper();
-      vm = comp.vm;
-    });
+  // describe('data', () => {
+  //   beforeEach(() => {
+  //     comp = createWrapper();
+  //     vm = comp.vm;
+  //   });
 
-    it('has correct default data', () => {
-      expect(typeof OverviewMapPanel.data).to.equal('function');
-      expect(vm.layers).to.be.an('array');
-      expect(vm.layers.length).to.eql(0);
-    });
+  //   it('has correct default data', () => {
+  //     expect(typeof OverviewMapPanel.data).to.equal('function');
+  //     expect(vm.layers).to.be.an('array');
+  //     expect(vm.layers.length).to.eql(0);
+  //   });
 
-    afterEach(() => {
-      comp.unmount();
-    });
-  });
+  //   afterEach(() => {
+  //     comp.unmount();
+  //   });
+  // });
 
   describe('computed properties', () => {
+    let map;
+
     beforeEach(() => {
       comp = createWrapper();
       vm = comp.vm;
@@ -83,12 +85,12 @@ describe('overviewmap/OverviewMapPanel.vue', () => {
         isBaseLayer: false,
         source: new VectorSource()
       });
-      const map = new OlMap({
+      map = new OlMap({
         layers: [layerIn, layerOut]
       });
-      // map.setLayers(reactive(map.getLayers()));
-      vm.map = map;
-      vm.onMapBound();
+      bindMap(map);
+      // vm.map = map;
+      // vm.onMapBound();
 
       expect(toRaw(vm.selectedBgLayer)).to.equal(layerIn);
     });
@@ -106,12 +108,12 @@ describe('overviewmap/OverviewMapPanel.vue', () => {
         isBaseLayer: true,
         source: new VectorSource()
       });
-      const map = new OlMap({
+      map = new OlMap({
         layers: [layerIn]
       });
-      // map.setLayers(reactive(map.getLayers()));
-      vm.map = map;
-      vm.onMapBound();
+      bindMap(map);
+      // vm.map = map;
+      // vm.onMapBound();
 
       expect(toRaw(vm.selectedBgLayer)).to.equal(layerIn);
 
@@ -122,6 +124,8 @@ describe('overviewmap/OverviewMapPanel.vue', () => {
     });
 
     afterEach(() => {
+      unbindMap();
+      map = undefined;
       comp.unmount();
     });
   });
