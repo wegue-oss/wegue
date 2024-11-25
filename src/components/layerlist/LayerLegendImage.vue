@@ -9,6 +9,7 @@
 <script>
 
 import LayerLegend from '../../util/LayerLegend';
+import { LayerProxy } from '../../util/Layer'
 
 /**
  * Module for one legend element.
@@ -22,7 +23,8 @@ export default {
   data () {
     return {
       resolution: this.mapView.getResolution(),
-      viewResolutionChanged: undefined
+      viewResolutionChanged: undefined,
+      layerProxy: new LayerProxy(this.layer, ['legend', 'legendOptions'])
     }
   },
 
@@ -44,6 +46,7 @@ export default {
     if (this.viewResolutionChanged) {
       this.mapView.un('change:resolution', this.viewResolutionChanged);
     }
+    this.layerProxy.destroy();
   },
   computed: {
     /**
@@ -52,10 +55,11 @@ export default {
     legendURL () {
       const options = {
         language: this.$i18n.locale,
-        ...this.layer.get('legendOptions')
+        ...this.layerProxy.get('legendOptions')
       };
       return LayerLegend.getUrl(
-        this.layer, this.resolution, options, this.layer.get('legendUrl'));
+        this.layerProxy.getLayer(), this.resolution, options,
+        this.layerProxy.get('legendUrl'));
     }
   }
 }
