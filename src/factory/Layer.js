@@ -225,7 +225,7 @@ export const LayerFactory = {
 
     const vectorSource = new VectorSource({
       format: new this.formatMapping[lConf.format](lConf.formatConfig),
-      loader: (extent) => {
+      loader: (extent, resolution, projection, success, failure) => {
         // assemble WFS GetFeature request
         const pre = lConf.url.includes('?') ? '&' : '?';
         let wfsRequest = lConf.url + pre + 'service=WFS&' +
@@ -258,9 +258,11 @@ export const LayerFactory = {
           .then(response => {
             const feats = vectorSource.getFormat().readFeatures(response.data);
             vectorSource.addFeatures(feats);
+            success(feats);
           })
           .catch(() => {
             vectorSource.removeLoadedExtent(extent);
+            failure();
           });
       },
       strategy: lConf.loadOnlyVisible !== false ? bboxStrategy : undefined
