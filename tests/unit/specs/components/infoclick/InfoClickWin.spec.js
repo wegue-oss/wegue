@@ -141,6 +141,7 @@ describe('infoclick/InfoClickWin.vue', () => {
     });
 
     afterEach(() => {
+      sinon.restore();
       unbindMap();
       map = undefined;
       comp.unmount();
