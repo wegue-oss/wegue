@@ -27,6 +27,10 @@ describe('bglayerswitcher/BgLayerList.vue', () => {
     expect(BgLayerList).to.not.be.an('undefined');
   });
 
+  it('has a setup hook', () => {
+    expect(BgLayerList.setup).to.be.a('function');
+  });
+
   describe('props', () => {
     beforeEach(() => {
       comp = createWrapper();
@@ -66,8 +70,6 @@ describe('bglayerswitcher/BgLayerList.vue', () => {
       map = new OlMap({
         layers: [layerIn, layerOut]
       });
-      // vm.map = map;
-      // vm.onMapBound();
       bindMap(map);
 
       expect(vm.displayedLayers.length).to.equal(1);
@@ -93,8 +95,6 @@ describe('bglayerswitcher/BgLayerList.vue', () => {
       const map = new OlMap({
         layers: [layerIn]
       });
-      // vm.map = map;
-      // vm.onMapBound();
       bindMap(map);
 
       expect(vm.displayedLayers.length).to.equal(1);
@@ -118,7 +118,6 @@ describe('bglayerswitcher/BgLayerList.vue', () => {
     });
 
     it('are implemented', () => {
-      // expect(typeof vm.onMapBound).to.equal('function');
       expect(typeof vm.onSelectLayer).to.equal('function');
     });
 
@@ -138,8 +137,6 @@ describe('bglayerswitcher/BgLayerList.vue', () => {
       map = new OlMap({
         layers: [layerIn, layerOut]
       });
-      // vm.map = map;
-      // vm.onMapBound();
       bindMap(map);
 
       expect(layerIn.getVisible()).to.equal(true);

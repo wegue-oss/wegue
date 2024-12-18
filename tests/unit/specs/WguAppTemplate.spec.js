@@ -32,6 +32,10 @@ describe('WguAppTpl.vue', () => {
     expect(typeof WguAppTpl).to.not.equal('undefined');
   });
 
+  it('has a setup hook', () => {
+    expect(WguAppTpl.setup).to.be.a('function');
+  });
+
   describe('data', () => {
     const appConfig = {
       showCopyrightYear: true,

@@ -24,7 +24,7 @@ function createWrapper (assignMap = false) {
     missingWarn: false,
     fallbackWarn: false,
     warnHtmlMessage: false
-  })
+  });
 
   const wrapper = shallowMount(MeasureResult, {
     data () {
@@ -43,7 +43,7 @@ function createWrapper (assignMap = false) {
   });
 
   if (map) {
-    bindMap(map)
+    bindMap(map);
   }
   return wrapper;
 }
@@ -55,6 +55,10 @@ describe('measuretool/MeasureResult.vue', () => {
   // Inspect the raw component options
   it('is defined', () => {
     expect(typeof MeasureResult).to.not.equal('undefined');
+  });
+
+  it('has a setup hook', () => {
+    expect(typeof MeasureResult.setup).to.equal('function');
   });
 
   describe('props', () => {

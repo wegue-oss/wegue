@@ -21,9 +21,9 @@ describe('infoclick/InfoClickWin.vue', () => {
     expect(typeof InfoClickWin).to.not.equal('undefined');
   });
 
-  // it('has a created hook', () => {
-  //   expect(typeof InfoClickWin.created).to.equal('function');
-  // });
+  it('has a setup hook', () => {
+    expect(typeof InfoClickWin.setup).to.equal('function');
+  });
 
   describe('props', () => {
     beforeEach(() => {
@@ -71,8 +71,9 @@ describe('infoclick/InfoClickWin.vue', () => {
       };
       map = new OlMap();
       bindMap(map);
-      // vm.map = map;
+
       vm.onMapClick(mockEvt);
+
       expect(vm.attributeData).to.equal(null);
       expect(toRaw(vm.coordsData.coordinate)).to.equal(mockEvt.coordinate);
       expect(toRaw(vm.coordsData.projection)).to.equal('EPSG:3857');
@@ -98,20 +99,22 @@ describe('infoclick/InfoClickWin.vue', () => {
       map.forEachFeatureAtPixel = () => {
         vm.features.push([feat, layer]);
       };
-      // vm.map = map;
       bindMap(map);
+
       vm.onMapClick(mockEvt);
+
       expect(vm.attributeData.foo).to.equal('bar');
       expect(toRaw(vm.coordsData.coordinate)).to.equal(mockEvt.coordinate);
       expect(toRaw(vm.coordsData.projection)).to.equal('EPSG:3857');
     });
 
     it('show resets data when module is closed', () => {
-      // vm.map = new OlMap({});
       map = new OlMap();
       bindMap(map);
+
       vm.show(true);
       vm.show(false);
+
       expect(vm.attributeData).to.equal(null);
       expect(vm.coordsData).to.equal(null);
     });
@@ -119,7 +122,6 @@ describe('infoclick/InfoClickWin.vue', () => {
     it('show registers map click when module is opened', () => {
       map = new OlMap();
       bindMap(map);
-      // vm.map = map;
       const onSPy = sinon.replace(map, 'on', sinon.fake(map.on));
 
       vm.show(false);
@@ -131,7 +133,6 @@ describe('infoclick/InfoClickWin.vue', () => {
     it('show unregisters map click when module is closed', () => {
       map = new OlMap();
       bindMap(map);
-      // vm.map = map;
       const unSPy = sinon.replace(map, 'un', sinon.fake(map.un));
 
       vm.show(true);
@@ -142,8 +143,10 @@ describe('infoclick/InfoClickWin.vue', () => {
 
     afterEach(() => {
       sinon.restore();
+
       unbindMap();
       map = undefined;
+
       comp.unmount();
     });
   });

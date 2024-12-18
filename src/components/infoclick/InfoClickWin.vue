@@ -1,5 +1,4 @@
 <template>
-
   <wgu-module-card v-bind="$attrs"
     :moduleName="moduleName"
     class="wgu-infoclick-win"
@@ -78,12 +77,11 @@
 </template>
 
 <script>
-import { useMap } from '../../composables/Map';
 import ModuleCard from '../modulecore/ModuleCard';
-// import { WguEventBus } from '../../WguEventBus.js';
+import { useMap } from '@/composables/Map';
 import PropertyTable from './PropertyTable';
 import CoordsTable from './CoordsTable';
-import MapInteractionUtil from '../../util/MapInteraction';
+import MapInteractionUtil from '@/util/MapInteraction';
 
 export default {
   name: 'wgu-infoclick-win',
@@ -116,22 +114,12 @@ export default {
       numfeats: null
     }
   },
-  // created () {
-  //   const me = this;
-  //   // Listen to the ol-map-mounted event and receive the OL map instance
-  //   WguEventBus.$on('ol-map-mounted', (olMap) => {
-  //     // make the OL map accessible in this component
-  //     me.map = olMap;
-  //   });
-  // },
   methods: {
     registerMapClick (unregister) {
-      const me = this;
-
       if (unregister === true) {
-        me.map.un('singleclick', me.onMapClick);
+        this.map.un('singleclick', this.onMapClick);
       } else {
-        me.map.on('singleclick', me.onMapClick);
+        this.map.on('singleclick', this.onMapClick);
       }
     },
     /**
@@ -154,7 +142,7 @@ export default {
       if (this.features.length !== 0) {
         this.featureIdx = 0;
         this.numfeats = me.features.length;
-        this.viewProps(this.featureIdx)
+        this.viewProps(this.featureIdx);
       } else {
         this.attributeData = null;
       }
@@ -209,14 +197,13 @@ export default {
      * @param  {boolean} visible New visibility state
     */
     show (visible) {
-      const me = this;
       if (visible) {
-        me.registerMapClick();
+        this.registerMapClick();
       } else {
         // cleanup old data
-        me.registerMapClick(true);
-        me.attributeData = null;
-        me.coordsData = null;
+        this.registerMapClick(true);
+        this.attributeData = null;
+        this.coordsData = null;
       }
     }
   }

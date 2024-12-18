@@ -10,6 +10,14 @@ describe('AppSidebar.vue', () => {
   let comp;
   let vm;
 
+  it('is defined', () => {
+    expect(AppSidebar).to.not.be.an('undefined');
+  });
+
+  it('has a setup hook', () => {
+    expect(AppSidebar.setup).to.be.a('function');
+  });
+
   describe('data', () => {
     beforeEach(() => {
       comp = createWrapper();

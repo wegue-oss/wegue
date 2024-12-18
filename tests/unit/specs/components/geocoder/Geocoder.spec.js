@@ -24,8 +24,16 @@ describe('geocoder/Geocoder.vue', () => {
     expect(Geocoder).to.not.be.undefined;
   });
 
+  it('has a setup hook', () => {
+    expect(Geocoder.setup).to.be.a('function');
+  });
+
   it('has a mounted hook', () => {
     expect(Geocoder.mounted).to.be.a('function');
+  });
+
+  it('has an unmounted hook', () => {
+    expect(Geocoder.unmounted).to.be.a('function');
   });
 
   describe('props', () => {
@@ -222,7 +230,7 @@ describe('geocoder/Geocoder.vue', () => {
 
     it('selected item watcher assigns result and zooms/centers Map at result', async () => {
       applyAxiosMock();
-      // vm.map = new OlMap();
+
       map = new OlMap();
       bindMap(map);
 

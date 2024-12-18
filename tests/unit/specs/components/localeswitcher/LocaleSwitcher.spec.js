@@ -45,6 +45,10 @@ describe('localeswitcher/LocaleSwitcher.vue', () => {
     expect(LocaleSwitcher).to.not.be.an('undefined');
   });
 
+  it('has a setup hook', () => {
+    expect(typeof LocaleSwitcher.setup).to.equal('function');
+  });
+
   describe('props', () => {
     beforeEach(() => {
       comp = createWrapper();

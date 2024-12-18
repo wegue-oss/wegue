@@ -14,6 +14,10 @@ describe('progress/MapLoadingStatus.vue', () => {
     expect(typeof MapLoadingStatus).to.not.equal('undefined');
   });
 
+  it('has a setup hook', () => {
+    expect(typeof MapLoadingStatus.setup).to.equal('function');
+  });
+
   describe('data', () => {
     beforeEach(() => {
       comp = createWrapper();

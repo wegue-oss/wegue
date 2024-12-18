@@ -128,15 +128,13 @@
 </template>
 
 <script>
-import ModuleCard from './../modulecore/ModuleCard';
-// import { Mapable } from '../../mixins/Mapable';
-import { useMap } from '../../composables/Map';
+import ModuleCard from '../modulecore/ModuleCard';
+import { useMap } from '@/composables/Map';
 import createCanvasRecorder from 'canvas-record';
 
 export default {
   name: 'wgu-maprecorder-win',
   inheritAttrs: false,
-  // mixins: [Mapable],
   components: {
     'wgu-module-card': ModuleCard
   },
@@ -238,11 +236,10 @@ export default {
      * Starts / stops recording
      */
     toggleRecord () {
-      const me = this;
-      if (me.recording) {
-        me.stopRecording();
+      if (this.recording) {
+        this.stopRecording();
       } else {
-        me.startRecording();
+        this.startRecording();
       }
     },
 
@@ -251,10 +248,9 @@ export default {
      * is active.
      */
     mapSizeChanged () {
-      const me = this;
-      const size = me.map.getSize();
-      me.mapCanvas.width = size[0];
-      me.mapCanvas.height = size[1];
+      const size = this.map.getSize();
+      this.mapCanvas.width = size[0];
+      this.mapCanvas.height = size[1];
     },
 
     /**
@@ -302,7 +298,7 @@ export default {
       }
       clearInterval(me.timerHandle);
       me.timerHandle = null;
-      me.map.un('change:size', me.mapSizeChanged)
+      me.map.un('change:size', me.mapSizeChanged);
       me.mapContext = me.mapCanvas = null;
       me.recording = false;
     },

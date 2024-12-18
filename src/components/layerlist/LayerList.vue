@@ -1,5 +1,4 @@
 <template>
-
   <v-list v-model:opened="openedListItems">
     <wgu-layerlistitem
       v-for="layer in displayedLayers"
@@ -14,16 +13,14 @@
 </template>
 
 <script>
-// import { Mapable } from '../../mixins/Mapable';
-import { useMap } from '../../composables/Map';
-import LayerListItem from './LayerListItem'
+import { useMap } from '@/composables/Map';
+import LayerListItem from './LayerListItem';
 
 export default {
   name: 'wgu-layerlist',
   components: {
     'wgu-layerlistitem': LayerListItem
   },
-  // mixins: [Mapable],
   props: {
     showLegends: { type: Boolean, required: true },
     showOpacityControls: { type: Boolean, required: true }
@@ -34,35 +31,8 @@ export default {
   },
   data () {
     return {
-      // layers: [],
-      // displayedLayers: [],
       openedListItems: []
     }
-  },
-  // beforeUnmount () {
-  //   this.unregisterLayersCollectionChangedEvent(this.layersChanged);
-  // },
-  methods: {
-    /**
-     * This function is executed, after the map is bound (see mixins/Mapable).
-     * Bind to the layers from the OpenLayers map.
-     */
-    // onMapBound () {
-    //   this.layers = this.map.getLayers().getArray();
-    //   this.computeDisplayedLayers();
-    //   this.registerLayersCollectionChangedEvent(this.layersChanged);
-    // },
-    // onMapUnbound () {
-    //   this.unregisterLayersCollectionChangedEvent(this.layersChanged);
-    // },
-    // layersChanged () {
-    //   this.computeDisplayedLayers();
-    // },
-    // computeDisplayedLayers () {
-    //   this.displayedLayers = this.layers
-    //     .filter(layer => layer.get('displayInLayerList') !== false && !layer.get('isBaseLayer'))
-    //     .reverse();
-    // }
   },
   computed: {
     /**
@@ -75,5 +45,5 @@ export default {
         .reverse();
     }
   }
-}
+};
 </script>

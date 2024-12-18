@@ -7,14 +7,11 @@
 </template>
 
 <script>
-
-// import { Mapable } from '../../mixins/Mapable';
-import { useMap } from '../../composables/Map';
-import ViewAnimationUtil from '../../util/ViewAnimation';
+import { useMap } from '@/composables/Map';
+import ViewAnimationUtil from '@/util/ViewAnimation';
 
 export default {
   name: 'wgu-zoomtomaxextent-btn',
-  // mixins: [Mapable],
   props: {
     icon: { type: String, required: false, default: 'md:zoom_out_map' }
   },
@@ -34,7 +31,7 @@ export default {
       });
     }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

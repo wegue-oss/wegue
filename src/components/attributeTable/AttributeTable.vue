@@ -27,22 +27,20 @@
 </template>
 
 <script>
-import { useDisplay } from 'vuetify'
-// import { Mapable } from '../../mixins/Mapable';
-import { useMap } from '../../composables/Map';
-import LayerUtil from '../../util/Layer';
-import { WguEventBus } from '../../WguEventBus';
-import MapInteractionUtil from '../../util/MapInteraction';
-import ViewAnimationUtil from '../../util/ViewAnimation';
+import { useDisplay } from 'vuetify';
+import { useMap } from '@/composables/Map';
+import { WguEventBus } from '@/WguEventBus';
+import LayerUtil from '@/util/Layer';
+import MapInteractionUtil from '@/util/MapInteraction';
+import ViewAnimationUtil from '@/util/ViewAnimation';
 
 export default {
   name: 'wgu-attributetable',
-  // mixins: [Mapable],
   props: {
-    /** The ID of the vector layer to display */
+    /** The ID of the vector layer to display. */
     layerId: { type: String, required: false, default: null },
 
-    /** The name of the unique feature identifier */
+    /** The name of the unique feature identifier. */
     uniqueRecordKeyName: { type: String, required: false, default: 'fid' },
 
     /**
@@ -57,7 +55,7 @@ export default {
      */
     tableHeight: { type: Number, required: false, default: 272 },
 
-    /** If map and table should be synced */
+    /** If map and table should be synced. */
     syncTableMapSelection: { type: Boolean, required: false, default: true },
 
     /** A list of column names that should not be displayed. */
@@ -87,7 +85,7 @@ export default {
     }
   },
   created () {
-    this.populateTable()
+    this.populateTable();
 
     if (this.syncTableMapSelection) {
       this.activateSelectRowOnMapClick();
@@ -105,14 +103,14 @@ export default {
   },
   watch: {
     layerId () {
-      this.populateTable()
+      this.populateTable();
     },
     features () {
       this.records = this.features.map(
         feature => {
           const record = feature.getProperties();
           // set feature id
-          record[this.uniqueRecordKeyName] = feature.getId()
+          record[this.uniqueRecordKeyName] = feature.getId();
           return record;
         }
       );
@@ -241,7 +239,7 @@ export default {
         correspondingInteraction.getFeatures().clear();
       }
 
-      const fid = itemValue.at(0)
+      const fid = itemValue.at(0);
       // if user deselected the row, return directly
       if (!fid) {
         return;
@@ -286,7 +284,7 @@ export default {
       this.layer = LayerUtil.getLayerByLid(this.layerId, this.map);
 
       // load currently available features
-      this.prepareTableDataAndColumns()
+      this.prepareTableDataAndColumns();
 
       // features can only be loaded if layer is visible
       // that's why we switch the layers on and retrieve them
@@ -344,18 +342,20 @@ export default {
       this.headers = headers;
     }
   }
-}
+};
 </script>
 
 <style>
-.wgu-attributetable-th {
-  height: 32px;
-  color: rgba(var(--v-theme-on-surface), var(--v-medium-emphasis-opacity));
-  font-size: 0.75rem;
-  font-weight: bold !important;
-}
 
-.wgu-attributetable-tr__selected {
-  background: #f5f5f5;
-}
+  .wgu-attributetable-th {
+    height: 32px;
+    color: rgba(var(--v-theme-on-surface), var(--v-medium-emphasis-opacity));
+    font-size: 0.75rem;
+    font-weight: bold !important;
+  }
+
+  .wgu-attributetable-tr__selected {
+    background: #f5f5f5;
+  }
+
 </style>

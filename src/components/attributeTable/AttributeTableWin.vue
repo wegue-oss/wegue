@@ -34,11 +34,10 @@
 </template>
 
 <script>
-import ModuleCard from './../modulecore/ModuleCard';
-// import { Mapable } from '../../mixins/Mapable';
-import { useMap } from '../../composables/Map';
-import { useColorTheme } from '../../composables/ColorTheme';
-import VectorLayer from 'ol/layer/Vector'
+import ModuleCard from '../modulecore/ModuleCard';
+import { useMap } from '@/composables/Map';
+import { useColorTheme } from '@/composables/ColorTheme';
+import VectorLayer from 'ol/layer/Vector';
 import AttributeTable from './AttributeTable';
 
 export default {
@@ -58,41 +57,12 @@ export default {
   data () {
     return {
       moduleName: 'wgu-attributetable',
-      // layers: [],
-      // displayedLayers: [],
       selLayerLid: null
     }
   },
-  // beforeUnmount () {
-  //   this.unregisterLayersCollectionChangedEvent(this.layersChanged);
-  // },
-  // mixins: [Mapable],
   components: {
     'wgu-module-card': ModuleCard,
     'wgu-attributetable': AttributeTable
-  },
-  methods: {
-    /**
-     * This function is executed, after the map is bound (see mixins/Mapable).
-     * Bind to the layers from the OpenLayers map.
-     */
-    // onMapBound () {
-    //   this.layers = this.map.getLayers().getArray();
-    //   this.computeDisplayedLayers();
-    //   this.registerLayersCollectionChangedEvent(this.layersChanged);
-    // },
-    // layersChanged () {
-    //   this.computeDisplayedLayers();
-    // },
-    // computeDisplayedLayers () {
-    //   this.displayedLayers = this.layers
-    //     .filter(layer =>
-    //       layer instanceof VectorLayer &&
-    //       layer.get('lid') !== 'wgu-measure-layer' &&
-    //       layer.get('lid') !== 'wgu-geolocator-layer'
-    //     )
-    //     .reverse();
-    // }
   },
   computed: {
     /**

@@ -1,5 +1,4 @@
 <template>
-
   <div class="">
     <div class="measure-result" v-if="measureType === 'distance' || measureType === 'area'">
       {{ $t("wgu-measuretool.length") }}: {{distance}}
@@ -11,13 +10,11 @@
       {{ $t("wgu-measuretool.angle") }}: {{angle}}
     </div>
   </div>
-
 </template>
 
 <script>
-// import { Mapable } from '../../mixins/Mapable';
-import { useMap } from '../../composables/Map';
-import AngleUtil from '../../../src/util/Angle';
+import { useMap } from '@/composables/Map';
+import AngleUtil from '@/util/Angle';
 import LineStringGeom from 'ol/geom/LineString';
 import { getArea, getLength } from 'ol/sphere.js';
 
@@ -25,7 +22,6 @@ const EMPTY_RESULT_TEXT = ' -- ';
 
 export default {
   name: 'wgu-measure-result',
-  // mixins: [Mapable],
   props: {
     measureGeom: { type: Object },
     measureType: { type: String }
@@ -36,7 +32,6 @@ export default {
   },
   data () {
     return {
-      // map: null, // the OL map is injected into this var by the Mapable mixin
       area: EMPTY_RESULT_TEXT,
       distance: EMPTY_RESULT_TEXT,
       angle: EMPTY_RESULT_TEXT
@@ -44,26 +39,25 @@ export default {
   },
   watch: {
     measureGeom () {
-      const me = this;
-      const geom = me.measureGeom.geom;
+      const geom = this.measureGeom.geom;
       let output;
       if (geom && this.measureType === 'area') {
-        output = me.formatArea(geom);
-        me.area = output;
+        output = this.formatArea(geom);
+        this.area = output;
 
         // perimeter of outer LinearRing of measure polygon
-        me.distance = me.formatLength(new LineStringGeom(
+        this.distance = this.formatLength(new LineStringGeom(
           geom.getLinearRing(0).getCoordinates()
         ));
       } else if (geom && this.measureType === 'distance') {
-        output = me.formatLength(geom);
-        me.distance = output;
+        output = this.formatLength(geom);
+        this.distance = output;
       } else if (geom && this.measureType === 'angle') {
-        me.angle = me.formatAngle(geom);
+        this.angle = this.formatAngle(geom);
       } else {
-        me.area = EMPTY_RESULT_TEXT;
-        me.distance = EMPTY_RESULT_TEXT;
-        me.angle = EMPTY_RESULT_TEXT;
+        this.area = EMPTY_RESULT_TEXT;
+        this.distance = EMPTY_RESULT_TEXT;
+        this.angle = EMPTY_RESULT_TEXT;
       }
     }
   },
@@ -132,7 +126,7 @@ export default {
       return angle + '°';
     }
   }
-}
+};
 </script>
 
 <style>

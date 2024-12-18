@@ -22,6 +22,10 @@ describe('themeswitcher/ThemeSwitcher.vue', () => {
     expect(typeof ThemeSwitcher).to.not.equal('undefined');
   });
 
+  it('has a setup hook', () => {
+    expect(typeof ThemeSwitcher.setup).to.equal('function');
+  });
+
   describe('configured', () => {
     beforeEach(() => {
       comp = createWrapper();

@@ -23,6 +23,10 @@ describe('bglayerswitcher/BgLayerSwitcher.vue', () => {
     expect(BgLayerSwitcher).to.not.be.an('undefined');
   });
 
+  it('has a setup hook', () => {
+    expect(BgLayerSwitcher.setup).to.be.a('function');
+  });
+
   describe('props', () => {
     beforeEach(() => {
       comp = createWrapper();
@@ -48,8 +52,6 @@ describe('bglayerswitcher/BgLayerSwitcher.vue', () => {
 
     it('has correct default data', () => {
       expect(vm.open).to.equal(false);
-      // expect(vm.layers).to.be.an('array');
-      // expect(vm.layers.length).to.eql(0);
     });
 
     afterEach(() => {
@@ -79,8 +81,6 @@ describe('bglayerswitcher/BgLayerSwitcher.vue', () => {
       map = new OlMap({
         layers: [layerIn]
       });
-      // vm.map = map;
-      // vm.onMapBound();
       bindMap(map);
 
       expect(vm.show).to.equal(false);
@@ -98,15 +98,17 @@ describe('bglayerswitcher/BgLayerSwitcher.vue', () => {
   });
 
   describe('user interactions', () => {
-    // Remarks: The following is necessary to avoid warnings.
-    //  For reasons not fully understood the test utils will fail to attach
-    //  the v-menu to the wgu-bglayerswitcher-wrapper div element created
-    //  in the component.
-    const div = document.createElement('div');
-    div.id = 'wgu-bglayerswitcher-wrapper';
-    document.body.appendChild(div);
+    let divElement;
 
     beforeEach(() => {
+      // Remarks: The following is necessary to avoid warnings.
+      //  For reasons not fully understood the test utils will fail to attach
+      //  the v-menu to the wgu-bglayerswitcher-wrapper div element created
+      //  in the component.
+      divElement = document.createElement('div');
+      divElement.id = 'wgu-bglayerswitcher-wrapper';
+      document.body.appendChild(divElement);
+
       comp = createWrapper(false);
       vm = comp.vm;
     });
@@ -127,10 +129,8 @@ describe('bglayerswitcher/BgLayerSwitcher.vue', () => {
       map = new OlMap({
         layers: [layerIn, layerOut]
       });
-      // vm.map = map;
-      // vm.onMapBound();
       bindMap(map);
-      await nextTick()
+      await nextTick();
 
       expect(vm.open).to.equal(false);
 
@@ -144,6 +144,11 @@ describe('bglayerswitcher/BgLayerSwitcher.vue', () => {
       unbindMap();
       map = undefined;
       comp.unmount();
+
+      if (divElement) {
+        divElement.remove();
+        divElement = undefined;
+      }
     });
   });
 });

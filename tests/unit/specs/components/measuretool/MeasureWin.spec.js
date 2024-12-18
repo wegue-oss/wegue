@@ -18,6 +18,10 @@ describe('measuretool/MeasureWin.vue', () => {
     expect(typeof MeasureWin).to.not.equal('undefined');
   });
 
+  it('has a setup hook', () => {
+    expect(typeof MeasureWin.setup).to.equal('function');
+  });
+
   describe('props', () => {
     beforeEach(() => {
       comp = createWrapper();
@@ -58,8 +62,6 @@ describe('measuretool/MeasureWin.vue', () => {
     });
 
     it('watches measureType resets old data', async () => {
-      // vm.map = new OlMap({});
-      // vm.onMapBound();
       map = new OlMap({});
       bindMap(map);
       vm.measureType = 'area';
@@ -71,6 +73,7 @@ describe('measuretool/MeasureWin.vue', () => {
     afterEach(() => {
       unbindMap();
       map = undefined;
+
       comp.unmount();
     });
   });
@@ -87,8 +90,6 @@ describe('measuretool/MeasureWin.vue', () => {
         cnt++;
       };
 
-      // vm.map = new OlMap({});
-      // vm.onMapBound();
       map = new OlMap({});
       bindMap(map);
       await nextTick();
@@ -96,6 +97,7 @@ describe('measuretool/MeasureWin.vue', () => {
 
       vm.show(true);
       vm.show(false);
+
       expect(cnt).to.equal(1);
     });
 
@@ -105,8 +107,6 @@ describe('measuretool/MeasureWin.vue', () => {
         cnt++;
       };
 
-      // vm.map = new OlMap({});
-      // vm.onMapBound();
       map = new OlMap({});
       bindMap(map);
       await nextTick();
@@ -114,6 +114,7 @@ describe('measuretool/MeasureWin.vue', () => {
 
       vm.show(false);
       vm.show(true);
+
       expect(cnt).to.equal(1);
     });
 
@@ -136,6 +137,7 @@ describe('measuretool/MeasureWin.vue', () => {
     afterEach(() => {
       unbindMap();
       map = undefined;
+
       comp.unmount();
     });
   });

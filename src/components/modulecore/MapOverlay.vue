@@ -8,13 +8,11 @@
 </template>
 
 <script>
-import { WguEventBus } from '../../WguEventBus'
-// import { Mapable } from '../../mixins/Mapable';
-import { useMap } from '../../composables/Map';
+import { WguEventBus } from '@/WguEventBus'
+import { useMap } from '@/composables/Map';
 import Overlay from 'ol/Overlay';
 export default {
   name: 'wgu-map-overlay',
-  // mixins: [Mapable],
   inheritAttrs: false,
   props: {
     overlayId: { type: String, required: true },
@@ -52,7 +50,7 @@ export default {
   },
   methods: {
     /**
-     * This function is executed, after the map is bound (see mixins/Mapable).
+     * This function is executed, after the map is bound.
      * Create the overlay if visible.
      */
     onMapBound () {
@@ -131,5 +129,5 @@ export default {
       }
     }
   }
-}
+};
 </script>

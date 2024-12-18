@@ -31,8 +31,7 @@
 </template>
 
 <script>
-// import { Mapable } from '../../mixins/Mapable';
-import { useMap } from '../../composables/Map';
+import { useMap } from '@/composables/Map';
 import BgLayerList from './BgLayerList';
 
 export default {
@@ -40,7 +39,6 @@ export default {
   components: {
     'wgu-bglayerlist': BgLayerList
   },
-  // mixins: [Mapable],
   props: {
     icon: { type: String, required: false, default: 'md:map' },
     imageWidth: { type: Number, required: false, default: 152 },
@@ -53,31 +51,7 @@ export default {
   data () {
     return {
       open: false
-      // show: false,
-      // layers: []
     }
-  },
-  // beforeUnmount () {
-  //   this.unregisterLayersCollectionChangedEvent(this.layersChanged);
-  // },
-  methods: {
-    /**
-     * This function is executed, after the map is bound (see mixins/Mapable).
-     * Bind to the layers from the OpenLayers map.
-     */
-    // onMapBound () {
-    //   this.layers = this.map.getLayers().getArray();
-    //   this.computeShow();
-    //   this.registerLayersCollectionChangedEvent(this.layersChanged);
-    // },
-    // layersChanged () {
-    //   this.computeShow();
-    // },
-    // computeShow () {
-    //   this.show = this.layers
-    //     .filter(layer => layer.get('isBaseLayer'))
-    //     .length > 1;
-    // }
   },
   computed: {
     /**

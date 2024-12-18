@@ -24,36 +24,47 @@ describe('maxextentbutton/ZoomToMaxExtentButton.vue', () => {
   let vm;
   let map;
 
-  beforeEach(() => {
-    comp = createWrapper(appConfig);
-    vm = comp.vm;
+  it('is defined', () => {
+    expect(ZoomToMaxExtentButton).to.not.be.an('undefined');
   });
 
-  // Check methods
-  it('has a method onClick', () => {
-    expect(typeof vm.onClick).to.equal('function');
+  it('has a setup hook', () => {
+    expect(typeof ZoomToMaxExtentButton.setup).to.equal('function');
   });
 
-  it('onClick sets correct center and zoom', () => {
-    map = new OlMap({
-      view: new OlView({
-        center: [1, 1],
-        zoom: 1
-      })
+  describe('methods', () => {
+    beforeEach(() => {
+      comp = createWrapper(appConfig);
+      vm = comp.vm;
     });
-    bindMap(map);
 
-    // Remarks: This works synchronously, if no animation is used.
-    vm.onClick();
+    // Check methods
+    it('has a method onClick', () => {
+      expect(typeof vm.onClick).to.equal('function');
+    });
 
-    expect(vm.map.getView().getCenter()[0]).to.equal(0);
-    expect(vm.map.getView().getCenter()[1]).to.equal(0);
-    expect(vm.map.getView().getZoom()).to.equal(0);
-  });
+    it('onClick sets correct center and zoom', () => {
+      map = new OlMap({
+        view: new OlView({
+          center: [1, 1],
+          zoom: 1
+        })
+      });
+      bindMap(map);
 
-  afterEach(() => {
-    unbindMap();
-    map = undefined;
-    comp.unmount();
+      // Remarks: This works synchronously, if no animation is used.
+      vm.onClick();
+
+      expect(vm.map.getView().getCenter()[0]).to.equal(0);
+      expect(vm.map.getView().getCenter()[1]).to.equal(0);
+      expect(vm.map.getView().getZoom()).to.equal(0);
+    });
+
+    afterEach(() => {
+      unbindMap();
+      map = undefined;
+
+      comp.unmount();
+    });
   });
 });

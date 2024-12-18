@@ -1,25 +1,24 @@
 <template>
-<span>
-   <v-btn @click="geolocateUserAndShowMarkerOnMap"
-      class="wgu-action-button"
-      color="onprimary"
-      :title="$t('wgu-geolocator.title')"
-      :icon="icon">
-    </v-btn>
-</span>
+  <span>
+    <v-btn @click="geolocateUserAndShowMarkerOnMap"
+        class="wgu-action-button"
+        color="onprimary"
+        :title="$t('wgu-geolocator.title')"
+        :icon="icon">
+      </v-btn>
+  </span>
 </template>
 
 <script>
-import { useMap } from '../../composables/Map';
-import { fromLonLat } from 'ol/proj'
-import Point from 'ol/geom/Point'
+import { useMap } from '@/composables/Map';
+import { fromLonLat } from 'ol/proj';
+import Point from 'ol/geom/Point';
 import Feature from 'ol/Feature';
-import { Vector as VectorLayer } from 'ol/layer'
-import { Vector as VectorSource } from 'ol/source'
+import { Vector as VectorLayer } from 'ol/layer';
+import { Vector as VectorSource } from 'ol/source';
 import { Fill, Style, Text } from 'ol/style';
 
-// import { WguEventBus } from '../../WguEventBus'
-import ViewAnimationUtil from '../../util/ViewAnimation';
+import ViewAnimationUtil from '@/util/ViewAnimation';
 
 export default {
   name: 'wgu-geolocator',
@@ -48,14 +47,10 @@ export default {
     }
   },
   created () {
-    const me = this;
-    // WguEventBus.$on('ol-map-mounted', olMap => {
-    //   me.map = olMap;
-    // });
     if (!navigator.geolocation) {
-      me.isGeolocationAPIAvailable = false;
+      this.isGeolocationAPIAvailable = false;
     } else {
-      me.isGeolocationAPIAvailable = true;
+      this.isGeolocationAPIAvailable = true;
     }
   },
   methods: {
@@ -134,7 +129,7 @@ export default {
       }
     }
   }
-}
+};
 </script>
 
 <style scoped>

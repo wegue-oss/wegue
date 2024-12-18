@@ -26,8 +26,16 @@ describe('overviewmap/OverviewMapPanel.vue', () => {
     expect(OverviewMapPanel).to.not.be.an('undefined');
   });
 
+  it('has a setup hook', () => {
+    expect(typeof OverviewMapPanel.setup).to.equal('function');
+  });
+
   it('has a mounted hook', () => {
     expect(OverviewMapPanel.mounted).to.be.a('function');
+  });
+
+  it('has an unmounted hook', () => {
+    expect(typeof OverviewMapPanel.unmounted).to.equal('function');
   });
 
   describe('props', () => {
@@ -46,23 +54,6 @@ describe('overviewmap/OverviewMapPanel.vue', () => {
       comp.unmount();
     });
   });
-
-  // describe('data', () => {
-  //   beforeEach(() => {
-  //     comp = createWrapper();
-  //     vm = comp.vm;
-  //   });
-
-  //   it('has correct default data', () => {
-  //     expect(typeof OverviewMapPanel.data).to.equal('function');
-  //     expect(vm.layers).to.be.an('array');
-  //     expect(vm.layers.length).to.eql(0);
-  //   });
-
-  //   afterEach(() => {
-  //     comp.unmount();
-  //   });
-  // });
 
   describe('computed properties', () => {
     let map;
@@ -89,8 +80,6 @@ describe('overviewmap/OverviewMapPanel.vue', () => {
         layers: [layerIn, layerOut]
       });
       bindMap(map);
-      // vm.map = map;
-      // vm.onMapBound();
 
       expect(toRaw(vm.selectedBgLayer)).to.equal(layerIn);
     });
@@ -112,8 +101,6 @@ describe('overviewmap/OverviewMapPanel.vue', () => {
         layers: [layerIn]
       });
       bindMap(map);
-      // vm.map = map;
-      // vm.onMapBound();
 
       expect(toRaw(vm.selectedBgLayer)).to.equal(layerIn);
 
@@ -126,6 +113,7 @@ describe('overviewmap/OverviewMapPanel.vue', () => {
     afterEach(() => {
       unbindMap();
       map = undefined;
+
       comp.unmount();
     });
   });

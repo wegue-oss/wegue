@@ -1,52 +1,50 @@
 <template>
-<v-toolbar-items class="d-flex align-center justify-center">
-  <v-combobox
-    v-show="!hideSearch"
-    class="wgu-geocoder-combo wgu-solo-field"
-    variant="outlined"
-    density="compact"
-    width="320"
-    :list-props="{ nav: true, density: 'compact' }"
-    :color="isPrimaryDarkWithLightTheme ? 'white' : 'accent'"
-    :theme="isDarkTheme ? 'dark' : 'light'"
-    return-object
-    hide-details
-    :no-filter="noFilter"
-    v-model="selected"
-    :autofocus="autofocus"
-    :items="resultItems"
-    :label="$t('wgu-geocoder.placeHolder')"
-    :clearable="clearable"
-    :persistent-hint="persistentHint"
-    :rounded="rounded"
-    @update:search="search"
-  ></v-combobox>
+  <v-toolbar-items class="d-flex align-center justify-center">
+    <v-combobox
+      v-show="!hideSearch"
+      class="wgu-geocoder-combo wgu-solo-field"
+      variant="outlined"
+      density="compact"
+      width="320"
+      :list-props="{ nav: true, density: 'compact' }"
+      :color="isPrimaryDarkWithLightTheme ? 'white' : 'accent'"
+      :theme="isDarkTheme ? 'dark' : 'light'"
+      return-object
+      hide-details
+      :no-filter="noFilter"
+      v-model="selected"
+      :autofocus="autofocus"
+      :items="resultItems"
+      :label="$t('wgu-geocoder.placeHolder')"
+      :clearable="clearable"
+      :persistent-hint="persistentHint"
+      :rounded="rounded"
+      @update:search="search"
+    ></v-combobox>
 
-  <div>
+    <div>
 
-    <v-btn @click='toggle()'
-      :style="{ height: false }"
-      :icon="icon"
-      :title="$t('wgu-geocoder.title')">
-    </v-btn>
+      <v-btn @click='toggle()'
+        :style="{ height: false }"
+        :icon="icon"
+        :title="$t('wgu-geocoder.title')">
+      </v-btn>
 
-  </div>
-</v-toolbar-items>
+    </div>
+  </v-toolbar-items>
 </template>
 
 <script>
-// import { Mapable } from '../../mixins/Mapable';
-import { useMap } from '../../composables/Map';
-import { useColorTheme } from '../../composables/ColorTheme';
+import { useMap } from '@/composables/Map';
+import { useColorTheme } from '@/composables/ColorTheme';
 import { GeocoderController } from './GeocoderController';
 import { applyTransform } from 'ol/extent';
 import { getTransform, fromLonLat } from 'ol/proj';
-import ViewAnimationUtil from '../../util/ViewAnimation';
+import ViewAnimationUtil from '@/util/ViewAnimation';
 import axios from 'axios';
 
 export default {
   name: 'wgu-geocoder-input',
-  // mixins: [Mapable],
   props: {
     icon: { type: String, required: false, default: 'md:search' },
     rounded: { type: Boolean, required: false, default: true },
@@ -149,7 +147,7 @@ export default {
         // Query reset
         this.trace('queryStr none');
         this.results = null;
-        return
+        return;
       }
       // ASSERTION: queryStr is valid
       queryStr = queryStr.trim();
@@ -201,5 +199,5 @@ export default {
 
     this.geocoderController.destroy();
   }
-}
+};
 </script>

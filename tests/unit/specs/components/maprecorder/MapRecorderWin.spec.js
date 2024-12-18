@@ -17,6 +17,10 @@ describe('maprecorder/MapRecorderWin.vue', () => {
     expect(MapRecorderWin).to.not.be.an('undefined');
   });
 
+  it('has a setup hook', () => {
+    expect(typeof MapRecorderWin.setup).to.equal('function');
+  });
+
   describe('props', () => {
     beforeEach(() => {
       comp = createWrapper();
@@ -85,7 +89,6 @@ describe('maprecorder/MapRecorderWin.vue', () => {
       });
       map.setSize([1024, 768]);
       bindMap(map);
-      // vm.map = map;
 
       vm.startRecording();
       expect(vm.mapCanvas).not.to.be.null;

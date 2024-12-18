@@ -25,22 +25,26 @@ describe('layerlist/LayerList.vue', () => {
     expect(LayerList).to.not.be.an('undefined');
   });
 
-  // describe('data', () => {
-  //   beforeEach(() => {
-  //     comp = createWrapper();
-  //     vm = comp.vm;
-  //   });
+  it('has a setup hook', () => {
+    expect(typeof LayerList.setup).to.equal('function');
+  });
 
-  //   it('has correct default data', () => {
-  //     expect(typeof LayerList.data).to.equal('function');
-  //     expect(vm.layers).to.be.an('array');
-  //     expect(vm.layers.length).to.eql(0);
-  //   });
+  describe('data', () => {
+    beforeEach(() => {
+      comp = createWrapper();
+      vm = comp.vm;
+    });
 
-  //   afterEach(() => {
-  //     comp.unmount();
-  //   });
-  // });
+    it('has correct default data', () => {
+      expect(typeof LayerList.data).to.equal('function');
+      expect(vm.openedListItems).to.be.an('array');
+      expect(vm.openedListItems).to.be.empty;
+    });
+
+    afterEach(() => {
+      comp.unmount();
+    });
+  });
 
   describe('computed properties', () => {
     let map;
@@ -66,8 +70,6 @@ describe('layerlist/LayerList.vue', () => {
       map = new OlMap({
         layers: [layerIn, layerOut]
       });
-      // vm.map = map;
-      // vm.onMapBound();
       bindMap(map);
 
       expect(vm.displayedLayers.length).to.equal(1);
@@ -81,8 +83,6 @@ describe('layerlist/LayerList.vue', () => {
       const map = new OlMap({
         layers: [layerIn]
       });
-      // vm.map = map;
-      // vm.onMapBound();
       bindMap(map);
 
       expect(vm.displayedLayers.length).to.equal(1);
@@ -95,18 +95,8 @@ describe('layerlist/LayerList.vue', () => {
     afterEach(() => {
       unbindMap();
       map = undefined;
+
       comp.unmount();
     });
   });
-
-  // describe('methods', () => {
-  //   beforeEach(() => {
-  //     comp = createWrapper();
-  //     vm = comp.vm;
-  //   });
-
-  //   it('are implemented', () => {
-  //     expect(typeof vm.onMapBound).to.equal('function');
-  //   });
-  // });
 });

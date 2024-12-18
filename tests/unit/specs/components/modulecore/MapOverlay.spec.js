@@ -35,8 +35,16 @@ describe('modulecore/MapOverlay.vue', () => {
     expect(MapOverlay).to.not.be.an('undefined');
   });
 
+  it('has a setup hook', () => {
+    expect(typeof MapOverlay.setup).to.equal('function');
+  });
+
   it('has a created hook', () => {
     expect(MapOverlay.created).to.be.a('function');
+  });
+
+  it('has an unmounted hook', () => {
+    expect(typeof MapOverlay.unmounted).to.equal('function');
   });
 
   describe('props', () => {
@@ -85,10 +93,9 @@ describe('modulecore/MapOverlay.vue', () => {
     beforeEach(() => {
       comp = createWrapper();
       vm = comp.vm;
+
       map = new OlMap({});
       bindMap(map);
-      // vm.map = new OlMap({});
-      // vm.onMapBound();
     });
 
     it('createOlOverlay adds an OL overlay to map', () => {
@@ -106,6 +113,7 @@ describe('modulecore/MapOverlay.vue', () => {
     afterEach(() => {
       unbindMap();
       map = undefined;
+
       comp.unmount();
     });
   });
@@ -114,11 +122,10 @@ describe('modulecore/MapOverlay.vue', () => {
     beforeEach(async () => {
       comp = createWrapper();
       vm = comp.vm;
+
       map = new OlMap({});
       bindMap(map);
       await nextTick();
-      // vm.map = new OlMap({});
-      // vm.onMapBound();
     });
 
     it('watches show', async () => {
@@ -143,6 +150,7 @@ describe('modulecore/MapOverlay.vue', () => {
     afterEach(() => {
       unbindMap();
       map = undefined;
+
       comp.unmount();
     });
   });
@@ -151,11 +159,10 @@ describe('modulecore/MapOverlay.vue', () => {
     beforeEach(async () => {
       comp = createWrapper();
       vm = comp.vm;
+
       map = new OlMap({});
       bindMap(map);
       await nextTick();
-      // vm.map = new OlMap({});
-      // vm.onMapBound();
     });
 
     it('update-overlay event creates, positions and populates overlay', async () => {
@@ -189,6 +196,7 @@ describe('modulecore/MapOverlay.vue', () => {
     afterEach(() => {
       unbindMap();
       map = undefined;
+
       comp.unmount();
     });
   });

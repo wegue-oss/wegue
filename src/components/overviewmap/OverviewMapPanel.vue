@@ -5,12 +5,10 @@
 </template>
 
 <script>
-// import { Mapable } from '../../mixins/Mapable';
-import { useMap } from '../../composables/Map';
+import { useMap } from '@/composables/Map';
 import OverviewMapController from './OverviewMapController';
 export default {
   name: 'wgu-overviewmap-panel',
-  // mixins: [Mapable],
   props: {
     rotateWithView: { type: Boolean, required: true },
     width: { type: Number, required: true },
@@ -20,47 +18,25 @@ export default {
     const { map, layers } = useMap();
     return { map, layers };
   },
-  // data () {
-  //   return {
-  //     layers: [],
-  //     selectedBgLayer: undefined
-  //   }
-  // },
   mounted () {
     this.createOverviewMapCtrl();
   },
-  // beforeUnmount () {
-  //   this.unregisterLayersCollectionChangedEvent(this.layersChanged);
-  // },
   unmounted () {
     this.destroyOverviewMapCtrl();
   },
   methods: {
     /**
-     * This function is executed, after the map is bound (see mixins/Mapable).
-     * Bind to the layers from the OpenLayers map.
+     * This function is executed, after the map is bound.
      */
     onMapBound () {
-      // this.layers = this.map.getLayers().getArray();
-      // this.computeSelectedBgLayer();
-      // this.registerLayersCollectionChangedEvent(this.layersChanged);
       this.createOverviewMapCtrl();
     },
     /**
-     * This function is executed, before the map is unbound (see mixins/Mapable)
+     * This function is executed, before the map is unbound.
      */
     onMapUnbound () {
       this.destroyOverviewMapCtrl();
     },
-    // layersChanged () {
-    //   this.computeSelectedBgLayer();
-    // },
-    // computeSelectedBgLayer () {
-    //   this.selectedBgLayer = this.layers
-    //     .filter(layer => layer.get('isBaseLayer'))
-    //     .reverse()
-    //     .find(layer => layer.getVisible());
-    // },
     /**
      * Creates the OpenLayers overview map control.
      */
@@ -115,5 +91,5 @@ export default {
       }
     }
   }
-}
+};
 </script>

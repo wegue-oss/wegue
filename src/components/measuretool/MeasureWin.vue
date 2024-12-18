@@ -1,5 +1,4 @@
 <template>
-
   <wgu-module-card v-bind="$attrs"
       :moduleName="moduleName"
       class="wgu-measurewin"
@@ -24,9 +23,8 @@
 </template>
 
 <script>
-import ModuleCard from './../modulecore/ModuleCard';
-// import { Mapable } from '../../mixins/Mapable';
-import { useMap } from '../../composables/Map';
+import ModuleCard from '../modulecore/ModuleCard';
+import { useMap } from '@/composables/Map';
 import MeasureTypeChooser from './MeasureTypeChooser';
 import MeasureResult from './MeasureResult';
 import OlMeasureController from './OlMeasureController';
@@ -39,7 +37,6 @@ export default {
     'wgu-measure-type-chooser': MeasureTypeChooser,
     'wgu-measure-result': MeasureResult
   },
-  // mixins: [Mapable],
   props: {
     icon: { type: String, required: false, default: 'md:photo_size_select_small' },
     showAngleTool: { type: Boolean, required: false, default: false },
@@ -113,7 +110,7 @@ export default {
       this.measureType = newMeasureType;
     },
     /**
-     * This function is executed, after the map is bound (see mixins/Mapable)
+     * This function is executed, after the map is bound.
      */
     onMapBound () {
       if (this.unbound) {
@@ -125,7 +122,7 @@ export default {
       this.olMapCtrl.createMeasureLayer();
     },
     /**
-     * This function is executed, after the map is bound (see mixins/Mapable)
+     * This function is executed, after the map is bound.
      */
     onMapUnbound () {
       if (this.olMapCtrl) {
@@ -146,5 +143,5 @@ export default {
       };
     }
   }
-}
+};
 </script>

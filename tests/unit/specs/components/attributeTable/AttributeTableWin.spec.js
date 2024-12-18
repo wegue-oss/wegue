@@ -13,6 +13,10 @@ describe('attributeTable/AttributeTableWin.vue', () => {
     expect(typeof AttributeTableWin).to.not.equal('undefined');
   });
 
+  it('has a setup hook', () => {
+    expect(AttributeTableWin.setup).to.be.a('function');
+  });
+
   describe('props', () => {
     beforeEach(() => {
       comp = createWrapper();
@@ -36,10 +40,6 @@ describe('attributeTable/AttributeTableWin.vue', () => {
     });
 
     it('has correct default data', () => {
-      // expect(vm.layers).to.be.an('array');
-      // expect(vm.layers).to.have.lengthOf(0);
-      // expect(vm.displayedLayers).to.be.an('array');
-      // expect(vm.displayedLayers).to.have.lengthOf(0);
       expect(vm.selLayerLid).to.be.null;
     });
 
@@ -47,19 +47,4 @@ describe('attributeTable/AttributeTableWin.vue', () => {
       comp.unmount();
     });
   });
-
-  // describe('methods', () => {
-  //   beforeEach(() => {
-  //     comp = createWrapper();
-  //     vm = comp.vm;
-  //   });
-
-  //   it('are implemented', () => {
-  //     expect(vm.onMapBound).to.be.a('function');
-  //   });
-
-  //   afterEach(() => {
-  //     comp.unmount();
-  //   });
-  // });
 });

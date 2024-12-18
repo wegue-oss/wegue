@@ -40,8 +40,7 @@
 </template>
 
 <script>
-// import { Mapable } from '../../mixins/Mapable';
-import { useMap } from '../../composables/Map';
+import { useMap } from '@/composables/Map';
 import LayerPreviewImage from './LayerPreviewImage';
 
 export default {
@@ -49,7 +48,6 @@ export default {
   components: {
     'wgu-layerpreviewimage': LayerPreviewImage
   },
-  // mixins: [Mapable],
   props: {
     imageWidth: { type: Number, required: true },
     imageHeight: { type: Number, required: true },
@@ -59,39 +57,7 @@ export default {
     const { map, layers } = useMap();
     return { map, layers };
   },
-  // data () {
-  //   return {
-  //     layers: [],
-  //     displayedLayers: []
-  //   }
-  // },
-  // beforeUnmount () {
-  //   this.unregisterLayersCollectionChangedEvent(this.layersChanged);
-  // },
   methods: {
-    /**
-     * This function is executed, after the map is bound (see mixins/Mapable).
-     * Bind to the layers from the OpenLayers map.
-     */
-    // onMapBound () {
-    //   this.layers = this.map.getLayers().getArray();
-    //   // In Vuetify2, a mandatory slide group automatically selected the first item when value was null.
-    //   // In Vuetify3, we should assign it ourselves down here if we want to keep the same behaviour.
-    //   // if (!this.selectedLid && this.displayedLayers.length) {
-    //   //   this.displayedLayers[0].setVisible(true);
-    //   // }
-    //   this.layers = this.map.getLayers().getArray();
-    //   this.computeDisplayedLayers();
-    //   this.registerLayersCollectionChangedEvent(this.layersChanged);
-    // },
-    // layersChanged () {
-    //   this.computeDisplayedLayers();
-    // },
-    // computeDisplayedLayers () {
-    //   this.displayedLayers = this.layers
-    //     .filter(layer => layer.get('isBaseLayer'))
-    //     .reverse();
-    // },
     /**
      * Handler for click on item in layer list:
      * Set the selected background layer to visible and hide all other background layers.
@@ -125,5 +91,5 @@ export default {
       return this.displayedLayers.find(layer => layer.getVisible())?.get('lid');
     }
   }
-}
+};
 </script>

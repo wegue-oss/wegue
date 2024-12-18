@@ -13,6 +13,10 @@ describe('attributeTable/AttributeTable.vue', () => {
     expect(typeof AttributeTable).to.not.equal('undefined');
   });
 
+  it('has a setup hook', () => {
+    expect(AttributeTable.setup).to.be.a('function');
+  });
+
   it('has a created hook', () => {
     expect(AttributeTable.created).to.be.a('function');
   });
