@@ -14,8 +14,8 @@
           location="top right"
           color="secondary"
           @click="sidebarOpen = !sidebarOpen">
-          <v-icon color="onsecondary" v-if="sidebarOpen">md:chevron_left</v-icon>
-          <v-icon color="onsecondary" v-else>md:chevron_right</v-icon>
+          <v-icon v-if="sidebarOpen">md:chevron_left</v-icon>
+          <v-icon v-else>md:chevron_right</v-icon>
         </v-btn>
       </template>
       <!-- Invisible sidebar resizer -->
@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import { WguEventBus } from '../../src/WguEventBus';
-import { useGoTo } from 'vuetify'
+import { WguEventBus } from '@/WguEventBus';
+import { useGoTo } from 'vuetify';
 
 export default {
   name: 'wgu-app-sidebar',
@@ -106,5 +106,5 @@ export default {
       document.addEventListener('mouseup', onMouseUp, { once: true });
     }
   }
-}
+};
 </script>
