@@ -2,7 +2,6 @@
   <span>
     <v-btn @click="geolocateUserAndShowMarkerOnMap"
         class="wgu-action-button"
-        color="onprimary"
         :title="$t('wgu-geolocator.title')"
         :icon="icon">
       </v-btn>
