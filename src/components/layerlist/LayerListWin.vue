@@ -9,11 +9,10 @@
         :showOpacityControls="showOpacityControls"
       />
    </wgu-module-card>
-
 </template>
 
 <script>
-import ModuleCard from './../modulecore/ModuleCard';
+import ModuleCard from '../modulecore/ModuleCard';
 import LayerList from './LayerList';
 
 export default {
@@ -28,5 +27,5 @@ export default {
     showLegends: { type: Boolean, required: false, default: true },
     showOpacityControls: { type: Boolean, required: false, default: true }
   }
-}
+};
 </script>

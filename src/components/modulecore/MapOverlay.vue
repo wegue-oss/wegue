@@ -8,9 +8,10 @@
 </template>
 
 <script>
-import { WguEventBus } from '@/WguEventBus'
+import { WguEventBus } from '@/WguEventBus';
 import { useMap } from '@/composables/Map';
 import Overlay from 'ol/Overlay';
+
 export default {
   name: 'wgu-map-overlay',
   inheritAttrs: false,

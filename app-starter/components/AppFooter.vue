@@ -1,5 +1,4 @@
 <template>
-
   <v-footer color="primary" app>
     <span class="wgu-footer-left" v-html="footerTextLeft"></span>
     <v-spacer></v-spacer>
@@ -8,11 +7,9 @@
       <span v-if="showCopyrightYear" >&copy; {{ new Date().getFullYear() }}</span>
     </div>
   </v-footer>
-
 </template>
 
 <script>
-
 export default {
   name: 'wgu-app-footer',
   props: {
@@ -20,7 +17,7 @@ export default {
     footerTextRight: { type: String, required: true },
     showCopyrightYear: { type: Boolean, required: false, default: true }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -94,4 +94,4 @@ export class Photon {
       return result;
     });
   }
-}
+};

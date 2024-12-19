@@ -26,6 +26,7 @@
     </v-card-text>
   </wgu-module-card>
 </template>
+
 <script>
 // the module card is a the template for a typical Wegue module
 import ModuleCard from '@/components/modulecore/ModuleCard';
@@ -114,12 +115,15 @@ export default {
   }
 };
 </script>
+
 <!-- Here we do the styling of our module -->
 <style scoped>
-/* our module has the class '.sample-module' and we reference it here */
-.sample-module.wgu-floating {
-  left: auto !important;
-  top: 300px !important;
-  right: 10px;
-}
+
+  /* our module has the class '.sample-module' and we reference it here */
+  .sample-module.wgu-floating {
+    left: auto !important;
+    top: 300px !important;
+    right: 10px;
+  }
+
 </style>

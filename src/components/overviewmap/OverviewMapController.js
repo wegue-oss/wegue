@@ -9,7 +9,7 @@ export default class OverviewMapController {
   overviewMapControl = null;
   map = null;
   layer = null;
-  timerHandle = null
+  timerHandle = null;
 
   /**
    * Construction
@@ -94,4 +94,4 @@ export default class OverviewMapController {
     overviewMap.getLayers().clear();
     overviewMap.addLayer(this.layer);
   }
-}
+};

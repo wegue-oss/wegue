@@ -1,5 +1,4 @@
 <template>
-
   <v-img
      v-if="!!logoSrc"
      :src="logoSrc"
@@ -10,11 +9,9 @@
      cover
   >
   </v-img>
-
 </template>
 
 <script>
-
 export default {
   name: 'wgu-app-logo',
   data () {
@@ -32,7 +29,7 @@ export default {
       this.logoHeight = this.logoSize;
     }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

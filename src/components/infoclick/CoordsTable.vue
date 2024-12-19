@@ -1,5 +1,4 @@
 <template>
-
   <v-card-text class="px-0" v-if="coordRows">
     <v-table class="wgu-coordstable">
       <tbody>
@@ -14,11 +13,9 @@
       </tbody>
     </v-table>
   </v-card-text>
-
 </template>
 
 <script>
-
 import { transform } from 'ol/proj.js';
 import { toStringHDMS } from 'ol/coordinate';
 
@@ -54,12 +51,12 @@ export default {
         // show coordinate in WGS 84
         const coordinateWgs84 = transform(coordinate, projection, 'EPSG:4326');
         coordRows['WGS 84'] =
-          coordinateWgs84[1].toFixed(7) + '° ' + coordinateWgs84[0].toFixed(7) + '°'
+          coordinateWgs84[1].toFixed(7) + '° ' + coordinateWgs84[0].toFixed(7) + '°';
       }
       if (me.showHdms) {
         // show coordinate in WGS 84 as formatted degree / min / secs
         const hdms = toStringHDMS(coordinateWgs84);
-        coordRows.HDMS = hdms
+        coordRows.HDMS = hdms;
       }
 
       me.coordRows = coordRows;
@@ -70,11 +67,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-.wgu-coordstable {
-  word-break: break-word;
-}
 
-.wgu-coordstable td.key-td {
-  width: 40%;
-}
+  .wgu-coordstable {
+    word-break: break-word;
+  }
+
+  .wgu-coordstable td.key-td {
+    width: 40%;
+  }
+
 </style>

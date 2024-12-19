@@ -1,5 +1,4 @@
 <template>
-
   <v-btn-toggle
     color="secondary"
     variant="outlined"
@@ -32,7 +31,6 @@
       </span>
     </v-btn>
   </v-btn-toggle>
-
 </template>
 
 <script>
@@ -54,7 +52,7 @@ export default {
       this.$emit('wgu-measuretype-change', newVal, oldVal);
     }
   }
-}
+};
 </script>
 
 <style>

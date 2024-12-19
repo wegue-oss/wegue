@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { WguEventBus } from '../../WguEventBus'
+import { WguEventBus } from '@/WguEventBus';
 
 export default {
   name: 'wgu-toggle-btn',

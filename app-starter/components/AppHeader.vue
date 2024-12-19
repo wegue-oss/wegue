@@ -55,12 +55,12 @@
 </template>
 
 <script>
-import ToggleButton from '../../src/components/modulecore/ToggleButton'
-import ZoomToMaxExtentButton from '../../src/components/maxextentbutton/ZoomToMaxExtentButton'
-import Geocoder from '../../src/components/geocoder/Geocoder'
-import Geolocator from '../../src/components/geolocator/Geolocator'
-import LocaleSwitcher from '../../src/components/localeswitcher/LocaleSwitcher'
-import ThemeSwitcher from '../../src/components/themeswitcher/ThemeSwitcher'
+import ToggleButton from '@/components/modulecore/ToggleButton';
+import ZoomToMaxExtentButton from '@/components/maxextentbutton/ZoomToMaxExtentButton';
+import Geocoder from '@/components/geocoder/Geocoder';
+import Geolocator from '@/components/geolocator/Geolocator';
+import LocaleSwitcher from '@/components/localeswitcher/LocaleSwitcher';
+import ThemeSwitcher from '@/components/themeswitcher/ThemeSwitcher';
 
 export default {
   name: 'wgu-app-header',
@@ -110,7 +110,7 @@ export default {
       return buttons;
     }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

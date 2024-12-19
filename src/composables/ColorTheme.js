@@ -1,4 +1,4 @@
-import Color from '../util/Color';
+import Color from '@/util/Color';
 import { ref, computed } from 'vue';
 import { useTheme } from 'vuetify';
 
@@ -46,4 +46,4 @@ export function useColorTheme () {
   })
 
   return { isDarkTheme, isPrimaryDark, isPrimaryDarkWithLightTheme };
-}
+};

@@ -1,4 +1,4 @@
-import ColorUtil from './Color'
+import ColorUtil from './Color';
 
 // Macro for default color themes configuration
 const DEFAULT_THEMES = Object.freeze({
@@ -196,10 +196,10 @@ const ColorThemeUtil = {
         dark: true,
         colors: mergedThemes.dark
       }
-    }
+    };
 
-    const lightColorsList = new Set(Object.keys(mergedThemes.light))
-    const darkColorsList = new Set(Object.keys(mergedThemes.dark))
+    const lightColorsList = new Set(Object.keys(mergedThemes.light));
+    const darkColorsList = new Set(Object.keys(mergedThemes.dark));
 
     // Set variations.
     // This creates 5 lighten and 4 darken variants for some vuetify color class to keep same behaviour as in Vuetify2
@@ -207,7 +207,7 @@ const ColorThemeUtil = {
       colors: lightColorsList.union(darkColorsList),
       lighten: 5,
       darken: 4
-    }
+    };
 
     return outputConfig;
   }

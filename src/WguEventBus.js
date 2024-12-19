@@ -1,9 +1,6 @@
 import Emitter from 'tiny-emitter';
 
 const emitter = new Emitter();
-// import mitt from 'mitt'
-
-// const emitter = mitt()
 
 const WguEventBus = {
   $on: (...args) => emitter.on(...args),
@@ -13,4 +10,4 @@ const WguEventBus = {
 }
 
 // Exported object acting as an app-wide event-bus in Vue2
-export { WguEventBus }
+export { WguEventBus };

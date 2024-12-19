@@ -56,7 +56,6 @@ export default {
     queryDelay: { type: Number, required: false, default: 300 },
     provider: { type: String, required: false, default: 'osm' },
     providerOptions: { type: Object, required: false, default: function () { return {}; } }
-
   },
   setup () {
     const { map } = useMap();

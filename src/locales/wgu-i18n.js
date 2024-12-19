@@ -4,7 +4,7 @@
 import { createI18n } from 'vue-i18n';
 import LocaleUtil from '@/util/Locale';
 
-let i18nInstance
+let i18nInstance;
 
 export function createI18nInstance (appConfig) {
   const preset = {

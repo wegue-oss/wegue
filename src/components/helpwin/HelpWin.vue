@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import ModuleCard from './../modulecore/ModuleCard';
+import ModuleCard from '../modulecore/ModuleCard';
 
 export default {
   name: 'wgu-helpwin-win',
@@ -42,10 +42,11 @@ export default {
       moduleName: 'wgu-helpwin'
     }
   }
-}
+};
 </script>
 
 <style scoped>
+
   /* TODO
     Generalize the positioning concept for windows,
     this interferes with positioning and draggable settings in the app.conf */
@@ -54,4 +55,5 @@ export default {
     top: 50% !important;
     transform: translate(-50%, -50%);
   }
+
 </style>

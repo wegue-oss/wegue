@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import LayerPreview from '../../util/LayerPreview';
+import LayerPreview from '@/util/LayerPreview';
 
 export default {
   name: 'wgu-layerpreviewimage',

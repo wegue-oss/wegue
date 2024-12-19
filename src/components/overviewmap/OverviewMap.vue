@@ -31,6 +31,7 @@
     </v-menu>
   </div>
 </template>
+
 <script>
 import OverviewMapPanel from './OverviewMapPanel';
 

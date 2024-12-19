@@ -25,10 +25,10 @@ const StyleUtil = {
           return resultArray;
         } else {
           // classic case that result is a simple style
-          return [additionalStyle, layerStyleFunction(feature, resolution)]
+          return [additionalStyle, layerStyleFunction(feature, resolution)];
         }
       } else {
-        return [additionalStyle, originalStyle]
+        return [additionalStyle, originalStyle];
       }
     };
   }

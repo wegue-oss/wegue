@@ -31,8 +31,8 @@ export function unbindMap () {
 };
 
 /**
- * Main composable function to be called by components to get reactive
- * references to the map and/or layers.
+ * Main composable function to be called by components to get references
+ * to the map and/or layers.
  */
 export function useMap () {
   return {

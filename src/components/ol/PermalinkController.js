@@ -122,7 +122,7 @@ export default class PermalinkController {
     }
     // Listen to each Layer's visibility changes.
     this.layerListeners.forEach((item) => {
-      item.layer.un(item.key.type, item.key.listener)
+      item.layer.un(item.key.type, item.key.listener);
     });
     this.layerListeners = [];
   }
@@ -194,7 +194,7 @@ export default class PermalinkController {
 
     // Permalink coordinates may have specific Projection like WGS84
     if (this.projection) {
-      center = transform(center, this.projection, mapView.getProjection())
+      center = transform(center, this.projection, mapView.getProjection());
     }
 
     mapView.setCenter(center);
@@ -210,7 +210,7 @@ export default class PermalinkController {
     const mapView = this.map.getView();
     // Permalink coordinates may have specific Projection like WGS84
     if (this.projection) {
-      extent = applyTransform(extent, getTransform(this.projection, mapView.getProjection()))
+      extent = applyTransform(extent, getTransform(this.projection, mapView.getProjection()));
     }
 
     // Fit the map in extent

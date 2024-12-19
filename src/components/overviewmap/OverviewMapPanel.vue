@@ -7,6 +7,7 @@
 <script>
 import { useMap } from '@/composables/Map';
 import OverviewMapController from './OverviewMapController';
+
 export default {
   name: 'wgu-overviewmap-panel',
   props: {

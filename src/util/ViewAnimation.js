@@ -144,7 +144,7 @@ const NoAnimation = {
     view.fit(new Point(location), {
       maxZoom: Math.min(zoom, maxZoom),
       callback: completionCallback
-    })
+    });
   }
 }
 

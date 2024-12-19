@@ -81,9 +81,9 @@ export class GeocoderController {
       url: parameters.url,
       params: parameters.params,
       signal: this.abortController?.signal
-    }
+    };
 
     const response = await axios(request);
-    return this.provider.handleResponse(response.data)
+    return this.provider.handleResponse(response.data);
   }
-}
+};

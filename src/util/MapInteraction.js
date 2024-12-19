@@ -1,6 +1,6 @@
 import SelectInteraction from 'ol/interaction/Select';
-import { WguEventBus } from '../WguEventBus.js';
-import { OlStyleFactory } from '../factory/OlStyle.js'
+import { WguEventBus } from '@/WguEventBus.js';
+import { OlStyleFactory } from '@/factory/OlStyle.js';
 import StyleUtil from './Style.js';
 
 const MapInteractionUtil = {
@@ -33,7 +33,7 @@ const MapInteractionUtil = {
     } else {
       selectClick = new SelectInteraction({
         layers: [layer]
-      })
+      });
     }
 
     // necessary for identifying referenced layer

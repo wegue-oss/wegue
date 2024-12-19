@@ -1,5 +1,5 @@
-const path = require('path')
-const { defineConfig } = require('@vue/cli-service')
+const path = require('path');
+const { defineConfig } = require('@vue/cli-service');
 
 /**
  * @type {import('@vue/cli-service').ProjectOptions}
@@ -53,8 +53,8 @@ module.exports = defineConfig({
   },
 
   chainWebpack: config => {
-    config.resolve.alias.set('vue', '@vue/compat')
-    config.resolve.alias.set('APP', path.resolve(config.resolve.alias.get('@'), '../app'))
+    config.resolve.alias.set('vue', '@vue/compat');
+    config.resolve.alias.set('APP', path.resolve(config.resolve.alias.get('@'), '../app'));
 
     config.module
       .rule('vue')
@@ -67,8 +67,8 @@ module.exports = defineConfig({
               MODE: 3
             }
           }
-        }
-      })
+        };
+      });
 
     // Added to remove some warnings in Vue 3.4+
     // See https://vuejs.org/api/compile-time-flags#vue-cli
@@ -77,19 +77,19 @@ module.exports = defineConfig({
         __VUE_OPTIONS_API__: 'true',
         __VUE_PROD_DEVTOOLS__: 'false',
         __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'false'
-      })
-      return definitions
-    })
+      });
+      return definitions;
+    });
 
     return config
       .plugin('copy')
       .tap(options => {
-        options[0].patterns[0].from = path.resolve(options[0].patterns[0].from, '../app/static')
+        options[0].patterns[0].from = path.resolve(options[0].patterns[0].from, '../app/static');
         options[0].patterns[0].to = process.env.NODE_ENV === 'production'
           ? path.resolve(options[0].patterns[0].to, '../dist/static')
-          : 'static'
-        return options
-      })
+          : 'static';
+        return options;
+      });
   },
 
   configureWebpack: config => {
@@ -104,18 +104,18 @@ module.exports = defineConfig({
         'DefinePlugin',
         'CaseSensitivePathsPlugin',
         'FriendlyErrorsWebpackPlugin'
-      ]
+      ];
 
-      config.devtool = 'eval'
-      config.optimization.runtimeChunk = false
-      config.optimization.splitChunks = false
+      config.devtool = 'eval';
+      config.optimization.runtimeChunk = false;
+      config.optimization.splitChunks = false;
       config.plugins = config.plugins.filter(plugin =>
         PLUGINS_TO_KEEEP.includes(plugin.constructor.name)
-      )
-      delete config.target
-      delete config.entry
-      delete config.output.filename
-      delete config.output.path
+      );
+      delete config.target;
+      delete config.entry;
+      delete config.output.filename;
+      delete config.output.path;
     }
   },
 
@@ -128,4 +128,4 @@ module.exports = defineConfig({
   pluginOptions: {
     vuetify: {}
   }
-})
+});

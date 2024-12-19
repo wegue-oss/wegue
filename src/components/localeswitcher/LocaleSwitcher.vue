@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import LocaleUtil from '../../util/Locale';
+import LocaleUtil from '@/util/Locale';
 import { useLocale } from 'vuetify';
 
 export default {
@@ -60,5 +60,5 @@ export default {
       this.$i18n.locale = this.vuetifyLang = langCode;
     }
   }
-}
+};
 </script>

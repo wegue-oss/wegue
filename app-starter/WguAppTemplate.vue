@@ -77,25 +77,25 @@
 </template>
 
 <script>
-import { getCurrentInstance } from 'vue'
-import { WguEventBus } from '../src/WguEventBus'
-import OlMap from '../src/components/ol/Map'
-import HoverTooltip from '../src/components/ol/HoverTooltip'
-import AppHeader from './components/AppHeader'
-import AppFooter from './components/AppFooter'
-import AppSidebar from './components/AppSidebar'
-import AppLogo from '../src/components/AppLogo'
-import AppLoadingMask from '../src/components/AppLoadingMask'
-import BgLayerSwitcher from '../src/components/bglayerswitcher/BgLayerSwitcher.vue'
-import OverviewMap from '../src/components/overviewmap/OverviewMap.vue'
-import MeasureWin from '../src/components/measuretool/MeasureWin'
-import LayerListWin from '../src/components/layerlist/LayerListWin'
-import HelpWin from '../src/components/helpwin/HelpWin'
-import InfoClickWin from '../src/components/infoclick/InfoClickWin'
-import MapLoadingStatus from '../src/components/progress/MapLoadingStatus'
-import AttributeTableWin from '../src/components/attributeTable/AttributeTableWin.vue'
-import MapRecorderWin from '../src/components/maprecorder/MapRecorderWin'
-import SampleModuleWin from './components/SampleModule.vue'
+import { getCurrentInstance } from 'vue';
+import { WguEventBus } from '@/WguEventBus';
+import OlMap from '@/components/ol/Map';
+import HoverTooltip from '@/components/ol/HoverTooltip';
+import AppHeader from './components/AppHeader';
+import AppFooter from './components/AppFooter';
+import AppSidebar from './components/AppSidebar';
+import AppLogo from '@/components/AppLogo';
+import AppLoadingMask from '@/components/AppLoadingMask';
+import BgLayerSwitcher from '@/components/bglayerswitcher/BgLayerSwitcher.vue';
+import OverviewMap from '@/components/overviewmap/OverviewMap.vue';
+import MeasureWin from '@/components/measuretool/MeasureWin';
+import LayerListWin from '@/components/layerlist/LayerListWin';
+import HelpWin from '@/components/helpwin/HelpWin';
+import InfoClickWin from '@/components/infoclick/InfoClickWin';
+import MapLoadingStatus from '@/components/progress/MapLoadingStatus';
+import AttributeTableWin from '@/components/attributeTable/AttributeTableWin.vue';
+import MapRecorderWin from '@/components/maprecorder/MapRecorderWin';
+import SampleModuleWin from './components/SampleModule.vue';
 
 export default {
   name: 'wgu-app-tpl',
@@ -215,5 +215,5 @@ export default {
       this.setDocumentTitle();
     }
   }
-}
+};
 </script>

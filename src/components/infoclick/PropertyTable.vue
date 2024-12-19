@@ -1,5 +1,4 @@
 <template>
-
   <v-card-text class="px-0" v-if="show">
     <v-table class="wgu-proptable">
       <tbody class="attr-tbody">
@@ -34,11 +33,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-.wgu-proptable {
-  word-break: break-word;
-}
 
-.wgu-proptable td.key-td {
-  width: 40%;
-}
+  .wgu-proptable {
+    word-break: break-word;
+  }
+
+  .wgu-proptable td.key-td {
+    width: 40%;
+  }
+
 </style>

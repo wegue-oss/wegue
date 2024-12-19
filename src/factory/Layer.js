@@ -3,24 +3,24 @@ import ImageWMS from 'ol/source/ImageWMS';
 import TileWmsSource from 'ol/source/TileWMS';
 import TileArcGISRest from 'ol/source/TileArcGISRest.js';
 import OsmSource from 'ol/source/OSM';
-import VectorTileLayer from 'ol/layer/VectorTile'
-import VectorTileSource from 'ol/source/VectorTile'
-import MvtFormat from 'ol/format/MVT'
-import GeoJsonFormat from 'ol/format/GeoJSON'
-import TopoJsonFormat from 'ol/format/TopoJSON'
-import KmlFormat from 'ol/format/KML'
-import GML2Format from 'ol/format/GML2'
-import GML3Format from 'ol/format/GML3'
-import GML32Format from 'ol/format/GML32'
-import VectorLayer from 'ol/layer/Vector'
-import VectorSource from 'ol/source/Vector'
-import XyzSource from 'ol/source/XYZ'
+import VectorTileLayer from 'ol/layer/VectorTile';
+import VectorTileSource from 'ol/source/VectorTile';
+import MvtFormat from 'ol/format/MVT';
+import GeoJsonFormat from 'ol/format/GeoJSON';
+import TopoJsonFormat from 'ol/format/TopoJSON';
+import KmlFormat from 'ol/format/KML';
+import GML2Format from 'ol/format/GML2';
+import GML3Format from 'ol/format/GML3';
+import GML32Format from 'ol/format/GML32';
+import VectorLayer from 'ol/layer/Vector';
+import VectorSource from 'ol/source/Vector';
+import XyzSource from 'ol/source/XYZ';
 import { bbox as bboxStrategy } from 'ol/loadingstrategy';
-import { OlStyleFactory } from './OlStyle'
+import { OlStyleFactory } from './OlStyle';
 import { applyTransform } from 'ol/extent';
 import { getTransform } from 'ol/proj';
 import axios from 'axios';
-import ObjectUtil from '../util/Object';
+import ObjectUtil from '@/util/Object';
 
 /**
  * Factory, which creates OpenLayers layer instances according to a given config
@@ -362,5 +362,4 @@ export const LayerFactory = {
 
     return vtLayer;
   }
-
-}
+};

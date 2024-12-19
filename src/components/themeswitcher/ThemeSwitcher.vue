@@ -1,15 +1,12 @@
 <script>
 // Control to switch between light and dark mode
-
 import ToggleButton from '../modulecore/ToggleButton.vue';
-import { useColorTheme } from '../../composables/ColorTheme';
+import { useColorTheme } from '@/composables/ColorTheme';
 import { useTheme } from 'vuetify';
 
 export default {
   extends: ToggleButton,
-
   name: 'wgu-themeswitcher',
-
   setup () {
     const theme = useTheme();
     const { isDarkTheme, isPrimaryDark } = useColorTheme();

@@ -7,8 +7,7 @@
 </template>
 
 <script>
-
-import LayerLegend from '../../util/LayerLegend';
+import LayerLegend from '@/util/LayerLegend';
 
 /**
  * Module for one legend element.
@@ -25,7 +24,6 @@ export default {
       viewResolutionChanged: undefined
     }
   },
-
   /**
    * Register for an event to update the legend on resolution change.
    */
@@ -58,5 +56,5 @@ export default {
         this.layer, this.resolution, options, this.layer.get('legendUrl'));
     }
   }
-}
+};
 </script>

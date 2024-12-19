@@ -16,7 +16,6 @@ import Feature from 'ol/Feature';
 import { Vector as VectorLayer } from 'ol/layer';
 import { Vector as VectorSource } from 'ol/source';
 import { Fill, Style, Text } from 'ol/style';
-
 import ViewAnimationUtil from '@/util/ViewAnimation';
 
 export default {
@@ -53,9 +52,6 @@ export default {
     }
   },
   methods: {
-    /**
-     *
-     */
     createAndRemoveExistingLayer (layers, layerId) {
       // if the geolocationLayer is already included it has to be removed
       layers.remove(layers.getArray().filter(layer => layerId === (layer.get('lid')))[0]);
@@ -67,10 +63,6 @@ export default {
       layer.setProperties({ lid: layerId });
       return layer;
     },
-
-    /**
-     *
-     */
     geolocateUserAndShowMarkerOnMap () {
       if (this.isGeolocationAPIAvailable) {
         this.isSearchingForGeolocation = true;

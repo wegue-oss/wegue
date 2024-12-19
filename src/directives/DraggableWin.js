@@ -137,9 +137,9 @@ export const DraggableWin = {
      * Event handler for mouse up.
      */
     function mouseup (e, el, _data) {
-      _data.down = false
+      _data.down = false;
       if (!_data.overlay) {
-        return
+        return;
       }
 
       _data.overlay.removeEventListener('mouseup', mouseup);

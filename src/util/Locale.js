@@ -1,4 +1,4 @@
-import ObjectUtil from './Object.js'
+import ObjectUtil from './Object.js';
 import UrlUtil from './Url.js';
 
 /**
@@ -134,7 +134,7 @@ const LocaleUtil = {
     const isDefined =
       appConfig.lang &&
       appConfig.lang.fallback;
-    return isDefined ? appConfig.lang.fallback : Object.keys(LocaleUtil.supportedLanguageFallback)[0]
+    return isDefined ? appConfig.lang.fallback : Object.keys(LocaleUtil.supportedLanguageFallback)[0];
   },
 
   /**

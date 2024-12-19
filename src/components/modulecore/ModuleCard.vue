@@ -39,8 +39,9 @@
 </template>
 
 <script>
-import { DraggableWin } from '../../directives/DraggableWin';
-import { WguEventBus } from '../../WguEventBus';
+import { DraggableWin } from '@/directives/DraggableWin';
+import { WguEventBus } from '@/WguEventBus';
+
 export default {
   name: 'wgu-module-card',
   inheritAttrs: false,
@@ -85,7 +86,7 @@ export default {
   },
   computed: {
     cardClasses () {
-      const inheritedClasses = this.$attrs.class ? [this.$attrs.class] : []
+      const inheritedClasses = this.$attrs.class ? [this.$attrs.class] : [];
       return this.win === 'floating'
         ? ['wgu-module-card', 'wgu-floating', ...inheritedClasses]
         : ['wgu-module-card', 'wgu-sidebar', ...inheritedClasses];

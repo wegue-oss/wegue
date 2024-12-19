@@ -1,6 +1,6 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in vue.config.js with runtimeCompiler.
-import { configureCompat, createApp } from 'vue'
+import { configureCompat, createApp } from 'vue';
 import { createVuetify } from 'vuetify';
 import { md } from 'vuetify/iconsets/md';
 import { aliases as defaultAliases, mdi } from 'vuetify/iconsets/mdi';
@@ -11,7 +11,7 @@ import 'roboto-fontface/css/roboto/roboto-fontface.css';
 import '@mdi/font/css/materialdesignicons.css';
 import 'material-icons/iconfont/material-icons.css';
 import 'ol/ol.css';
-import WguApp from '../app/WguApp';
+import WguApp from 'APP/WguApp';
 import UrlUtil from './util/Url';
 import IconUtil from './util/Icon';
 import LocaleUtil from './util/Locale';
@@ -74,11 +74,6 @@ const createVuetifyInstance = function (appConfig) {
  * @returns The active I18n instance.
  */
 const createVueI18nInstance = function (appConfig) {
-  // dynamic import, otherwise Vue.prototype.$appConfig won't be set yet on
-  // static import
-  // const { i18n } = await import('./locales/wgu-i18n.js');
-
-  // return i18n;
   return createI18nInstance(appConfig);
 }
 
@@ -149,13 +144,35 @@ const migrateAppConfig = function (appConfig) {
         console.warn('mapLayers[' + i + '] does not declare a lid property');
       }
       if (layer.type === 'WMS') {
-        console.warn('mapLayers[' + i + '] uses the depreated type WMS. Use TILEWMS instead.');
+        console.warn('mapLayers[' + i + '] uses the deprecated type WMS. Use TILEWMS instead.');
         layer.type = 'TILEWMS';
       }
     });
   }
 
-  // Create warnings, if one of the module specific animation properties is declared,
+  // Create warnings related to Vuetify color theme configuration,
+  // which name have changed in Vuetify 3.x:
+  /* eslint-disable no-useless-escape */
+  const deprecatedColorThemeProps = {
+    'colorTheme\\.themes\\.light\\.onprimary': '.colorTheme.themes.light.on-primary',
+    'colorTheme\\.themes\\.light\\.onsecondary': '.colorTheme.themes.light.on-secondary',
+    'colorTheme\\.themes\\.dark\\.onprimary': '.colorTheme.themes.dark.on-primary',
+    'colorTheme\\.themes\\.dark\\.onsecondary': '.colorTheme.themes.dark.on-secondary'
+  };
+  /* eslint-enable no-useless-escape */
+
+  for (const path of configPaths) {
+    const match = Object.keys(deprecatedColorThemeProps).find(pattern => {
+      const regex = new RegExp('^\\.' + pattern + '$', 'g');
+      return regex.test(path);
+    });
+    if (match) {
+      console.warn('The configuration path "' + path + '" is deprecated, ' +
+        'instead declare a path "' + deprecatedColorThemeProps[match] + '"');
+    }
+  };
+
+  // Create warnings, if one of the color specific animation properties is declared,
   // which are no longer supported due to global view animation configuration.
   /* eslint-disable no-useless-escape */
   const deprecatedAnimProps = {
@@ -221,5 +238,5 @@ axios(request)
   .then(response => {
     createAppInstance(response.data);
   }).catch(function (error) {
-    console.error(`Cannot load config file ${configFile}, ${error}`)
+    console.error(`Cannot load config file ${configFile}, ${error}`);
   });

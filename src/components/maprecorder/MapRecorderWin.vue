@@ -150,7 +150,6 @@ export default {
 
     return {
       moduleName: 'wgu-maprecorder',
-
       /**
        * Custom canvas element for drawing the OpenLayers map.
        */
