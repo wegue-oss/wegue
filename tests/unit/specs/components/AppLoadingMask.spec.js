@@ -11,6 +11,14 @@ describe('AppLoadingMask.vue', () => {
   let comp;
   let vm;
 
+  it('is defined', () => {
+    expect(AppLoadingMask).to.not.be.an('undefined');
+  });
+
+  it('has a created hook', () => {
+    expect(AppLoadingMask.created).to.be.a('function');
+  });
+
   describe('data', () => {
     beforeEach(() => {
       comp = createWrapper();
@@ -37,13 +45,13 @@ describe('AppLoadingMask.vue', () => {
       WguEventBus.$emit('app-loading-mask-toggle', true);
       await nextTick();
 
-      expect(vm.show).to.equal(true);
+      expect(vm.show).to.be.true;
 
       // toggle visibility by skipping parameter
       WguEventBus.$emit('app-loading-mask-toggle');
       await nextTick();
 
-      expect(vm.show).to.equal(false);
+      expect(vm.show).to.be.false;
     });
 
     afterEach(() => {

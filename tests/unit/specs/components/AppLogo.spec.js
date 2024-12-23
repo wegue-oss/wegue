@@ -12,23 +12,42 @@ function createWrapper ($appConfig = {}) {
 }
 
 describe('AppLogo.vue', () => {
-  it('sets the correct default data', () => {
-    const comp = createWrapper();
-    const vm = comp.vm;
+  let comp;
+  let vm;
 
-    expect(vm.logoSrc).to.be.undefined;
-    expect(vm.logoSize).to.be.undefined;
+  it('is defined', () => {
+    expect(AppLogo).to.not.be.an('undefined');
   });
 
-  it('applies correct data from $appConfig', () => {
-    const appConfig = {
-      logo: 'foobar',
-      logoSize: 100
-    };
-    const comp = createWrapper(appConfig);
-    const vm = comp.vm;
+  it('has a created hook', () => {
+    expect(AppLogo.created).to.be.a('function');
+  });
 
-    expect(vm.logoSrc).to.equal('foobar');
-    expect(vm.logoSize).to.equal(100);
+  describe('data', () => {
+    it('has correct default data', () => {
+      comp = createWrapper();
+      vm = comp.vm;
+
+      expect(vm.logoSrc).to.be.undefined;
+      expect(vm.logoSize).to.be.undefined;
+      expect(vm.logoWidth).to.be.undefined;
+      expect(vm.logoHeight).to.be.undefined;
+    });
+
+    it('applies correct data from $appConfig', () => {
+      const appConfig = {
+        logo: 'foobar',
+        logoSize: 100
+      };
+      comp = createWrapper(appConfig);
+      vm = comp.vm;
+
+      expect(vm.logoSrc).to.equal('foobar');
+      expect(vm.logoSize).to.equal(100);
+    });
+
+    afterEach(() => {
+      comp.unmount();
+    });
   });
 });

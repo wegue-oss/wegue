@@ -47,10 +47,9 @@ describe('layerlist/LayerListItem.vue', () => {
     it('has correct props', () => {
       expect(toRaw(vm.mapView)).to.equal(view);
       expect(toRaw(vm.layer)).to.equal(osmLayer);
-      expect(vm.showLegends).to.equal(true);
-      expect(vm.showOpacityControls).to.equal(true);
-      expect(vm.openedListItems).to.be.an('array');
-      expect(vm.openedListItems.length).to.eql(0);
+      expect(vm.showLegends).to.be.true;
+      expect(vm.showOpacityControls).to.be.true;
+      expect(vm.openedListItems).to.be.an('array').that.has.lengthOf(0);
     });
 
     afterEach(() => {
@@ -65,7 +64,7 @@ describe('layerlist/LayerListItem.vue', () => {
     });
 
     it('has correct default data', () => {
-      expect(vm.open).to.equal(false);
+      expect(vm.open).to.be.false;
     });
 
     afterEach(() => {
@@ -80,13 +79,15 @@ describe('layerlist/LayerListItem.vue', () => {
     });
 
     it('are implemented', () => {
-      expect(typeof vm.onItemClick).to.equal('function');
+      expect(vm.onItemClick).to.be.a('function');
     });
 
     it('onItemClick toggles layer visibility', () => {
-      expect(osmLayer.getVisible()).to.equal(true);
+      expect(osmLayer.getVisible()).to.be.true;
+
       vm.onItemClick();
-      expect(osmLayer.getVisible()).to.equal(false);
+
+      expect(osmLayer.getVisible()).to.be.false;
     });
 
     afterEach(() => {
@@ -101,7 +102,7 @@ describe('layerlist/LayerListItem.vue', () => {
     });
 
     it('has correct showLegend property for layer', async () => {
-      expect(vm.showLegend).to.equal(false);
+      expect(vm.showLegend).to.be.false;
 
       const osmLayer2 = new TileLayer({
         lid: 'osm2',
@@ -109,11 +110,12 @@ describe('layerlist/LayerListItem.vue', () => {
         legend: true
       });
       await comp.setProps({ layer: osmLayer2 });
-      expect(vm.showLegend).to.equal(true);
+
+      expect(vm.showLegend).to.be.true;
     });
 
     it('has correct showOpacityControl property for layer', async () => {
-      expect(vm.showOpacityControl).to.equal(false);
+      expect(vm.showOpacityControl).to.be.false;
 
       const osmLayer2 = new TileLayer({
         lid: 'osm2',
@@ -121,11 +123,12 @@ describe('layerlist/LayerListItem.vue', () => {
         opacityControl: true
       });
       await comp.setProps({ layer: osmLayer2 });
-      expect(vm.showOpacityControl).to.equal(true);
+
+      expect(vm.showOpacityControl).to.be.true;
     });
 
     it('has correct showDetails property for layer', async () => {
-      expect(vm.showDetails).to.equal(false);
+      expect(vm.showDetails).to.be.false;
 
       const osmLayer2 = new TileLayer({
         lid: 'osm2',
@@ -133,7 +136,8 @@ describe('layerlist/LayerListItem.vue', () => {
         legend: true
       });
       await comp.setProps({ layer: osmLayer2 });
-      expect(vm.showDetails).to.equal(true);
+
+      expect(vm.showDetails).to.be.true;
 
       const osmLayer3 = new TileLayer({
         lid: 'osm3',
@@ -141,7 +145,8 @@ describe('layerlist/LayerListItem.vue', () => {
         opacityControl: true
       });
       comp.setProps({ layer: osmLayer3 });
-      expect(vm.showDetails).to.equal(true);
+
+      expect(vm.showDetails).to.be.true;
     });
 
     it('has correct layerLid property for layer', async () => {
@@ -153,6 +158,7 @@ describe('layerlist/LayerListItem.vue', () => {
         legend: true
       });
       await comp.setProps({ layer: osmLayer2 });
+
       expect(vm.layerLid).to.equal('osm2');
     });
 

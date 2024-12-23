@@ -29,7 +29,7 @@ describe('maxextentbutton/ZoomToMaxExtentButton.vue', () => {
   });
 
   it('has a setup hook', () => {
-    expect(typeof ZoomToMaxExtentButton.setup).to.equal('function');
+    expect(ZoomToMaxExtentButton.setup).to.be.a('function');
   });
 
   describe('methods', () => {
@@ -40,7 +40,7 @@ describe('maxextentbutton/ZoomToMaxExtentButton.vue', () => {
 
     // Check methods
     it('has a method onClick', () => {
-      expect(typeof vm.onClick).to.equal('function');
+      expect(vm.onClick).to.be.a('function');
     });
 
     it('onClick sets correct center and zoom', () => {

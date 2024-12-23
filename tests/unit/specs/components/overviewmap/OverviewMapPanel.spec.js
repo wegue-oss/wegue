@@ -27,7 +27,7 @@ describe('overviewmap/OverviewMapPanel.vue', () => {
   });
 
   it('has a setup hook', () => {
-    expect(typeof OverviewMapPanel.setup).to.equal('function');
+    expect(OverviewMapPanel.setup).to.be.a('function');
   });
 
   it('has a mounted hook', () => {
@@ -35,7 +35,7 @@ describe('overviewmap/OverviewMapPanel.vue', () => {
   });
 
   it('has an unmounted hook', () => {
-    expect(typeof OverviewMapPanel.unmounted).to.equal('function');
+    expect(OverviewMapPanel.unmounted).to.be.a('function');
   });
 
   describe('props', () => {
@@ -45,7 +45,7 @@ describe('overviewmap/OverviewMapPanel.vue', () => {
     });
 
     it('has correct props', () => {
-      expect(vm.rotateWithView).to.equal(true);
+      expect(vm.rotateWithView).to.be.true;
       expect(vm.width).to.equal(164);
       expect(vm.height).to.equal(178);
     });
@@ -125,10 +125,10 @@ describe('overviewmap/OverviewMapPanel.vue', () => {
     });
 
     it('are implemented', () => {
-      expect(typeof vm.onMapBound).to.equal('function');
-      expect(typeof vm.onMapUnbound).to.equal('function');
-      expect(typeof vm.createOverviewMapCtrl).to.equal('function');
-      expect(typeof vm.destroyOverviewMapCtrl).to.equal('function');
+      expect(vm.onMapBound).to.be.a('function');
+      expect(vm.onMapUnbound).to.be.a('function');
+      expect(vm.createOverviewMapCtrl).to.be.a('function');
+      expect(vm.destroyOverviewMapCtrl).to.be.a('function');
     });
 
     afterEach(() => {

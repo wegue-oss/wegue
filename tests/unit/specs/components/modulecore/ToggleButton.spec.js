@@ -32,7 +32,7 @@ describe('modulecore/ToggleButton.vue', () => {
     });
 
     it('has correct default props', () => {
-      expect(vm.visible).to.equal(false);
+      expect(vm.visible).to.be.false;
     });
 
     it('has correct props', () => {
@@ -52,7 +52,7 @@ describe('modulecore/ToggleButton.vue', () => {
     });
 
     it('has correct default data', () => {
-      expect(vm.show).to.equal(false);
+      expect(vm.show).to.be.false;
     });
 
     afterEach(() => {
@@ -69,7 +69,8 @@ describe('modulecore/ToggleButton.vue', () => {
     it('toggleUi switches show', () => {
       vm.show = false;
       vm.toggleUi();
-      expect(vm.show).to.equal(true);
+
+      expect(vm.show).to.be.true;
     });
 
     afterEach(() => {

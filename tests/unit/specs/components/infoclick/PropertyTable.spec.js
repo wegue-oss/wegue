@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import PropertyTable from '@/components/infoclick/PropertyTable'
+import PropertyTable from '@/components/infoclick/PropertyTable';
 
 function createWrapper () {
   return shallowMount(PropertyTable);
@@ -11,7 +11,7 @@ describe('infoclick/PropertyTable.vue', () => {
 
   // Inspect the raw component options
   it('is defined', () => {
-    expect(typeof PropertyTable).to.not.equal('undefined');
+    expect(PropertyTable).to.not.be.an('undefined');
   });
 
   describe('props', () => {
@@ -21,7 +21,11 @@ describe('infoclick/PropertyTable.vue', () => {
     });
 
     it('has correct default props', () => {
-      expect(vm.properties).to.equal(undefined);
+      expect(vm.properties).to.be.undefined;
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 });

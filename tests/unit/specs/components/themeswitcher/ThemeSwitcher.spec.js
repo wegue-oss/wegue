@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils';
 import ThemeSwitcher from '@/components/themeswitcher/ThemeSwitcher';
 
 const defaultProps = {
-  moduleName: 'wgu-toolbar',
+  moduleName: 'wgu-themeswitcher',
   icon: 'md:dark_mode'
 }
 
@@ -19,27 +19,11 @@ describe('themeswitcher/ThemeSwitcher.vue', () => {
 
   // Inspect the raw component options
   it('is defined', () => {
-    expect(typeof ThemeSwitcher).to.not.equal('undefined');
+    expect(ThemeSwitcher).to.not.be.an('undefined');
   });
 
   it('has a setup hook', () => {
-    expect(typeof ThemeSwitcher.setup).to.equal('function');
-  });
-
-  describe('configured', () => {
-    beforeEach(() => {
-      comp = createWrapper();
-      vm = comp.vm;
-    });
-
-    it('has correct default props', () => {
-      expect(vm.moduleName).to.equal('wgu-toolbar');
-      expect(vm.icon).to.equal('md:dark_mode');
-    });
-
-    afterEach(() => {
-      comp.unmount();
-    });
+    expect(ThemeSwitcher.setup).to.be.a('function');
   });
 
   describe('theme switching', () => {
@@ -55,6 +39,7 @@ describe('themeswitcher/ThemeSwitcher.vue', () => {
 
     it('switch to dark theme', async () => {
       await button.trigger('click');
+
       expect(vm.theme.global.name.value).to.equal('dark');
     });
 
@@ -62,9 +47,11 @@ describe('themeswitcher/ThemeSwitcher.vue', () => {
       expect(vm.theme.global.name.value).to.equal('light');
 
       await button.trigger('click');
+
       expect(vm.theme.global.name.value).to.equal('dark');
 
       await button.trigger('click');
+
       expect(vm.theme.global.name.value).to.equal('light');
     });
 

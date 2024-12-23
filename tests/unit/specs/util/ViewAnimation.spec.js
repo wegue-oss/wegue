@@ -28,15 +28,15 @@ function createViewAnimationUtil (animType) {
 
 describe('ViewAnimationUtil', () => {
   it('is defined', () => {
-    expect(typeof ViewAnimationUtil).to.not.equal(undefined);
+    expect(ViewAnimationUtil).to.not.be.an('undefined');
   });
 
   it('has the correct functions', () => {
-    expect(typeof ViewAnimationUtil.prototype.getAnimation).to.equal('function');
-    expect(typeof ViewAnimationUtil.prototype.getOptions).to.equal('function');
-    expect(typeof ViewAnimationUtil.prototype.to).to.equal('function');
-    expect(typeof ViewAnimationUtil.prototype.toLocation).to.equal('function');
-    expect(typeof ViewAnimationUtil.prototype.toExtent).to.equal('function');
+    expect(ViewAnimationUtil.prototype.getAnimation).to.be.a('function');
+    expect(ViewAnimationUtil.prototype.getOptions).to.be.a('function');
+    expect(ViewAnimationUtil.prototype.to).to.be.a('function');
+    expect(ViewAnimationUtil.prototype.toLocation).to.be.a('function');
+    expect(ViewAnimationUtil.prototype.toExtent).to.be.a('function');
   });
 
   for (const animType of animTypes) {
@@ -45,8 +45,8 @@ describe('ViewAnimationUtil', () => {
         const viewAnimationUtil = createViewAnimationUtil(animType);
 
         viewAnimationUtil.to(view, extent, (complete) => {
-          expect(complete).to.equal(true);
-          expect(containsExtent(view.calculateExtent(), extent)).to.equal(true);
+          expect(complete).to.be.true;
+          expect(containsExtent(view.calculateExtent(), extent)).to.be.true;
           expect(view.getZoom()).to.equal(options.maxZoom);
 
           // Validate that the center points match.
@@ -62,7 +62,7 @@ describe('ViewAnimationUtil', () => {
         const viewAnimationUtil = createViewAnimationUtil(animType);
 
         viewAnimationUtil.to(view, coordinate, (complete) => {
-          expect(complete).to.equal(true);
+          expect(complete).to.be.true;
           expect(view.getZoom()).to.equal(options.zoom);
 
           // Validate that the views center point matches the location.

@@ -45,7 +45,7 @@ function createWrapper (props = moduleProps) {
     missingWarn: false,
     fallbackWarn: false,
     warnHtmlMessage: false
-  })
+  });
 
   return shallowMount(LayerLegendImage, {
     props,
@@ -62,6 +62,14 @@ describe('layerlist/LayerLegendImage.vue', () => {
 
   it('is defined', () => {
     expect(LayerLegendImage).to.not.be.an('undefined');
+  });
+
+  it('has a created hook', () => {
+    expect(LayerLegendImage.created).to.be.a('function');
+  });
+
+  it('has an unmounted hook', () => {
+    expect(LayerLegendImage.unmounted).to.be.a('function');
   });
 
   describe('props', () => {
@@ -112,8 +120,8 @@ describe('layerlist/LayerLegendImage.vue', () => {
         source: new OSM(),
         legendUrl: 'http://my-image.png'
       });
-
       await comp.setProps({ layer });
+
       expect(vm.legendURL).to.equal('http://my-image.png');
     });
 
@@ -128,6 +136,7 @@ describe('layerlist/LayerLegendImage.vue', () => {
         }
       });
       await comp.setProps({ layer });
+
       expect(vm.legendURL).to.equal('http://my-image.png?transparent=true&width=14&SCALE=139770566.00717944&language=en');
     });
 
@@ -138,24 +147,25 @@ describe('layerlist/LayerLegendImage.vue', () => {
         'SCALE=139770566.00717944&language=en');
     });
 
-    // For an unknown reason, this test alone passes but fails when run in the whole suite
     it('legendURL supports localization and scale', async () => {
       await comp.setProps({ layer: wmsLayer });
+
       expect(vm.legendURL).to.equal('https://ahocevar.com/geoserver/wms?' +
         'SERVICE=WMS&VERSION=1.3.0&REQUEST=GetLegendGraphic&FORMAT=image%2Fpng&LAYER=topp%3Astates&' +
         'SCALE=139770566.00717944&language=en');
 
       vm.$i18n.locale = 'de';
-      // This is not changed when run in the whole suite for unknown reasons
+
       expect(vm.legendURL).to.equal('https://ahocevar.com/geoserver/wms?' +
         'SERVICE=WMS&VERSION=1.3.0&REQUEST=GetLegendGraphic&FORMAT=image%2Fpng&LAYER=topp%3Astates&' +
         'SCALE=139770566.00717944&language=de');
 
       view.setResolution(1000.0);
+
       expect(vm.legendURL).to.equal('https://ahocevar.com/geoserver/wms?' +
         'SERVICE=WMS&VERSION=1.3.0&REQUEST=GetLegendGraphic&FORMAT=image%2Fpng&LAYER=topp%3Astates&' +
         'SCALE=3571428.571428572&language=de');
-    })
+    });
 
     afterEach(() => {
       vm.$i18n.locale = 'en';

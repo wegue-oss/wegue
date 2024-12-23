@@ -11,7 +11,7 @@ describe('infoclick/CoordsTable.vue', () => {
 
   // Inspect the raw component options
   it('is defined', () => {
-    expect(typeof CoordsTable).to.not.equal('undefined');
+    expect(CoordsTable).to.not.be.an('undefined');
   });
 
   describe('props', () => {
@@ -21,10 +21,14 @@ describe('infoclick/CoordsTable.vue', () => {
     });
 
     it('has correct default props', () => {
-      expect(vm.coordsData).to.equal(undefined);
-      expect(vm.showMapPos).to.equal(true);
-      expect(vm.showWgsPos).to.equal(true);
-      expect(vm.showHdms).to.equal(true);
+      expect(vm.coordsData).to.be.undefined;
+      expect(vm.showMapPos).to.be.true;
+      expect(vm.showWgsPos).to.be.true;
+      expect(vm.showHdms).to.be.true;
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 
@@ -35,7 +39,11 @@ describe('infoclick/CoordsTable.vue', () => {
     });
 
     it('has correct default data', () => {
-      expect(vm.coordRows).to.equal(null);
+      expect(vm.coordRows).to.be.null;
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 
@@ -63,6 +71,10 @@ describe('infoclick/CoordsTable.vue', () => {
       expect(vm.coordRows['MAP PROJ']).to.equal(expextedCoordRows['MAP PROJ']);
       expect(vm.coordRows['WGS 84']).to.equal(expextedCoordRows['WGS 84']);
       expect(vm.coordRows.HDMS).to.equal(expextedCoordRows.HDMS);
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 });

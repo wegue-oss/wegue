@@ -11,7 +11,7 @@ describe('measuretool/MeasureTypeChooser.vue', () => {
   let vm;
 
   it('is defined', () => {
-    expect(typeof MeasureTypeChooser).to.not.equal('undefined');
+    expect(MeasureTypeChooser).to.not.be.an('undefined');
   });
 
   describe('props', () => {
@@ -22,7 +22,12 @@ describe('measuretool/MeasureTypeChooser.vue', () => {
 
     it('has correct default props', () => {
       expect(vm.measureType).to.equal('distance');
-      expect(vm.showAngleTool).to.equal(false);
+      expect(vm.showAngleTool).to.be.false;
+      expect(vm.iconsOnly).to.be.false;
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 
@@ -34,6 +39,10 @@ describe('measuretool/MeasureTypeChooser.vue', () => {
 
     it('has correct default data', () => {
       expect(vm.measureTypeData).to.equal('distance');
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 
@@ -48,6 +57,10 @@ describe('measuretool/MeasureTypeChooser.vue', () => {
       await nextTick();
 
       expect(comp.emitted()['wgu-measuretype-change']).to.have.lengthOf(1);
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 });

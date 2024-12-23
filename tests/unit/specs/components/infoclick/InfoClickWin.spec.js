@@ -4,9 +4,9 @@ import { bindMap, unbindMap } from '@/composables/Map';
 import InfoClickWin from '@/components/infoclick/InfoClickWin';
 import OlMap from 'ol/Map';
 import Feature from 'ol/Feature';
-import VectorLayer from 'ol/layer/Vector'
-import VectorSource from 'ol/source/Vector'
-import Point from 'ol/geom/Point'
+import VectorLayer from 'ol/layer/Vector';
+import VectorSource from 'ol/source/Vector';
+import Point from 'ol/geom/Point';
 
 function createWrapper () {
   return shallowMount(InfoClickWin);
@@ -18,11 +18,11 @@ describe('infoclick/InfoClickWin.vue', () => {
 
   // Inspect the raw component options
   it('is defined', () => {
-    expect(typeof InfoClickWin).to.not.equal('undefined');
+    expect(InfoClickWin).to.not.be.an('undefined');
   });
 
   it('has a setup hook', () => {
-    expect(typeof InfoClickWin.setup).to.equal('function');
+    expect(InfoClickWin.setup).to.be.a('function');
   });
 
   describe('props', () => {
@@ -33,10 +33,14 @@ describe('infoclick/InfoClickWin.vue', () => {
 
     it('has correct default props', () => {
       expect(vm.icon).to.equal('md:info');
-      expect(vm.showMedia).to.equal(false);
-      expect(vm.mediaInfoLinkUrlProp).to.equal(undefined);
-      expect(vm.imageProp).to.equal(undefined);
-      expect(vm.imageDescriptionProp).to.equal(undefined);
+      expect(vm.showMedia).to.be.false;
+      expect(vm.mediaInfoLinkUrlProp).to.be.undefined;
+      expect(vm.imageProp).to.be.undefined;
+      expect(vm.imageDescriptionProp).to.be.undefined;
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 
@@ -47,8 +51,17 @@ describe('infoclick/InfoClickWin.vue', () => {
     });
 
     it('has correct default data', () => {
-      expect(vm.attributeData).to.equal(null);
-      expect(vm.coordsData).to.equal(null);
+      expect(vm.moduleName).to.equal('wgu-infoclick');
+      expect(vm.attributeData).to.be.null;
+      expect(vm.coordsData).to.be.null;
+      expect(vm.featureIdx).to.equal(0);
+      expect(vm.features).to.be.null;
+      expect(vm.layerName).to.be.null;
+      expect(vm.numfeats).to.be.null;
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 
@@ -61,7 +74,7 @@ describe('infoclick/InfoClickWin.vue', () => {
     });
 
     it('are implemented', () => {
-      expect(typeof vm.onMapClick).to.equal('function');
+      expect(vm.onMapClick).to.be.a('function');
     });
 
     it('onMapClick sets correct data if no feature found', () => {
@@ -74,7 +87,7 @@ describe('infoclick/InfoClickWin.vue', () => {
 
       vm.onMapClick(mockEvt);
 
-      expect(vm.attributeData).to.equal(null);
+      expect(vm.attributeData).to.be.null;
       expect(toRaw(vm.coordsData.coordinate)).to.equal(mockEvt.coordinate);
       expect(toRaw(vm.coordsData.projection)).to.equal('EPSG:3857');
     });
@@ -115,8 +128,8 @@ describe('infoclick/InfoClickWin.vue', () => {
       vm.show(true);
       vm.show(false);
 
-      expect(vm.attributeData).to.equal(null);
-      expect(vm.coordsData).to.equal(null);
+      expect(vm.attributeData).to.be.null;
+      expect(vm.coordsData).to.be.null;
     });
 
     it('show registers map click when module is opened', () => {

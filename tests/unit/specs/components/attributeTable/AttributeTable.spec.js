@@ -10,7 +10,7 @@ describe('attributeTable/AttributeTable.vue', () => {
   let vm;
 
   it('is defined', () => {
-    expect(typeof AttributeTable).to.not.equal('undefined');
+    expect(AttributeTable).to.not.be.an('undefined');
   });
 
   it('has a setup hook', () => {
@@ -21,6 +21,10 @@ describe('attributeTable/AttributeTable.vue', () => {
     expect(AttributeTable.created).to.be.a('function');
   });
 
+  it('has a beforeUnmount hook', () => {
+    expect(AttributeTable.beforeUnmount).to.be.a('function');
+  });
+
   describe('props', () => {
     beforeEach(() => {
       comp = createWrapper();
@@ -29,13 +33,11 @@ describe('attributeTable/AttributeTable.vue', () => {
 
     it('has correct default props', () => {
       expect(vm.layerId).to.be.null;
-      expect(vm.loadingText).to.not.be.null;
-      expect(vm.uniqueRecordKeyName).to.not.be.null;
-
-      expect(vm.rowsPerPage).to.be.a('number');
-      expect(vm.tableHeight).to.be.a('number');
-      expect(vm.syncTableMapSelection).to.be.a('boolean');
-      expect(vm.forbiddenColumnNames).to.be.an.instanceof(Array);
+      expect(vm.uniqueRecordKeyName).to.equal('fid');
+      expect(vm.rowsPerPage).to.equal(10);
+      expect(vm.tableHeight).to.equal(272);
+      expect(vm.syncTableMapSelection).to.be.true;
+      expect(vm.forbiddenColumnNames).to.be.an('array').that.has.lengthOf(2);
     });
 
     afterEach(() => {
@@ -50,14 +52,10 @@ describe('attributeTable/AttributeTable.vue', () => {
     });
 
     it('has correct default data', () => {
-      expect(vm.headers).to.be.an('array');
-      expect(vm.headers).to.have.lengthOf(0);
-      expect(vm.records).to.be.an('array');
-      expect(vm.records).to.have.lengthOf(0);
-      expect(vm.features).to.be.an('array');
-      expect(vm.features).to.have.lengthOf(0);
-      expect(vm.selectedRow).to.be.an('array');
-      expect(vm.selectedRow).to.have.lengthOf(0);
+      expect(vm.headers).to.be.an('array').that.is.empty;
+      expect(vm.records).to.be.an('array').that.is.empty;
+      expect(vm.features).to.be.an('array').that.is.empty;
+      expect(vm.selectedRow).to.be.an('array').that.is.empty;
       expect(vm.layer).to.be.null;
       expect(vm.loading).to.be.true;
       expect(vm.page).to.equal(1);

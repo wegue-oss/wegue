@@ -21,7 +21,7 @@ describe('geocoder/Geocoder.vue', () => {
 
   // Inspect the raw component options
   it('is defined', () => {
-    expect(Geocoder).to.not.be.undefined;
+    expect(Geocoder).to.not.be.an('undefined');
   });
 
   it('has a setup hook', () => {
@@ -46,7 +46,17 @@ describe('geocoder/Geocoder.vue', () => {
       expect(vm.icon).to.equal('md:search');
       expect(vm.rounded).to.be.true;
       expect(vm.autofocus).to.be.true;
+      expect(vm.clearable).to.be.true;
       expect(vm.persistentHint).to.be.true;
+      expect(vm.debug).to.be.false;
+      expect(vm.minChars).to.equal(3);
+      expect(vm.queryDelay).to.equal(300);
+      expect(vm.provider).to.equal('osm');
+      expect(vm.providerOptions).to.be.an('object');
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 
@@ -57,11 +67,19 @@ describe('geocoder/Geocoder.vue', () => {
     });
 
     it('has correct default data and Provider', () => {
+      expect(vm.results).to.be.null;
+      expect(vm.lastQueryStr).to.be.empty;
+      expect(vm.noFilter).to.be.true;
+      expect(vm.selecting).to.be.false;
+      expect(vm.selected).to.be.null;
       expect(vm.hideSearch).to.be.true;
-      expect(vm.minChars).to.equal(3);
-      expect(vm.queryDelay).to.equal(300);
+      expect(vm.timeout).to.be.null;
       expect(vm.geocoderController).to.not.be.undefined;
       expect(vm.geocoderController.provider instanceof OpenStreetMap).to.be.true;
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 
@@ -86,6 +104,10 @@ describe('geocoder/Geocoder.vue', () => {
       expect(vm.geocoderController).to.not.be.undefined;
       expect(vm.geocoderController.provider instanceof Photon).to.be.true;
     });
+
+    afterEach(() => {
+      comp.unmount();
+    });
   });
 
   describe('configured data and Provider - OpenCage', () => {
@@ -108,6 +130,10 @@ describe('geocoder/Geocoder.vue', () => {
       expect(vm.queryDelay).to.equal(200);
       expect(vm.geocoderController).to.not.be.undefined;
       expect(vm.geocoderController.provider instanceof OpenCage).to.be.true;
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 

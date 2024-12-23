@@ -25,7 +25,7 @@ function createWrapper ($appConfig = {}) {
     missingWarn: false,
     fallbackWarn: false,
     warnHtmlMessage: false
-  })
+  });
 
   return mount(LocaleSwitcher, {
     global: {
@@ -46,7 +46,7 @@ describe('localeswitcher/LocaleSwitcher.vue', () => {
   });
 
   it('has a setup hook', () => {
-    expect(typeof LocaleSwitcher.setup).to.equal('function');
+    expect(LocaleSwitcher.setup).to.be.a('function');
   });
 
   describe('props', () => {
@@ -71,9 +71,9 @@ describe('localeswitcher/LocaleSwitcher.vue', () => {
     });
 
     it('has correct default data', () => {
-      expect(typeof LocaleSwitcher.data).to.equal('function');
+      expect(vm.show).to.be.false;
       expect(vm.lang).to.be.an('object');
-      expect(Object.keys(vm.lang).length).to.eql(4);
+      expect(Object.keys(vm.lang)).to.have.lengthOf(4);
       expect(vm.lang.en).to.eql('English');
       expect(vm.lang.de).to.eql('Deutsch');
       expect(vm.lang.pt).to.eql('Portugues');
@@ -92,16 +92,17 @@ describe('localeswitcher/LocaleSwitcher.vue', () => {
     });
 
     it('are implemented', () => {
-      expect(typeof vm.onItemClick).to.equal('function');
+      expect(vm.onItemClick).to.be.a('function');
     });
 
-    // For an unknown reason, this test alone passes but fails when run in the whole suite
     it('onItemClick toggles language', () => {
       vm.onItemClick('de');
+
       expect(vm.$i18n.locale).to.equal('de');
       expect(vm.vuetifyLang).to.equal('de');
 
       vm.onItemClick('en');
+
       expect(vm.$i18n.locale).to.equal('en');
       expect(vm.vuetifyLang).to.equal('en');
     });

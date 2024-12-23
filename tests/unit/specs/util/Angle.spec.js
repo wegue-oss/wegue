@@ -1,15 +1,15 @@
-import AngleUtil from '@/util/Angle'
+import AngleUtil from '@/util/Angle';
 
 describe('AngleUtil', () => {
   it('is defined', () => {
-    expect(typeof AngleUtil).to.not.equal(undefined);
+    expect(AngleUtil).to.not.be.an('undefined');
   });
 
   it('has the correct functions', () => {
-    expect(typeof AngleUtil.calcAngle).to.equal('function');
-    expect(typeof AngleUtil.angle360).to.equal('function');
-    expect(typeof AngleUtil.makeZeroDegreesAtNorth).to.equal('function');
-    expect(typeof AngleUtil.makeClockwise).to.equal('function');
+    expect(AngleUtil.calcAngle).to.be.a('function');
+    expect(AngleUtil.angle360).to.be.a('function');
+    expect(AngleUtil.makeZeroDegreesAtNorth).to.be.a('function');
+    expect(AngleUtil.makeClockwise).to.be.a('function');
   });
 
   describe('functions', () => {
@@ -26,11 +26,13 @@ describe('AngleUtil', () => {
 
     it('makeZeroDegreesAtNorth returns correct value', () => {
       const angle360 = AngleUtil.angle360(p1, p2);
+
       expect(AngleUtil.makeZeroDegreesAtNorth(angle360)).to.equal(360);
     });
 
     it('makeClockwise returns correct value', () => {
       const angle360 = AngleUtil.angle360(p1, p2);
+
       expect(AngleUtil.makeClockwise(angle360)).to.equal(90);
     });
   });

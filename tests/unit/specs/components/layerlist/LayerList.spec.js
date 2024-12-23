@@ -26,7 +26,23 @@ describe('layerlist/LayerList.vue', () => {
   });
 
   it('has a setup hook', () => {
-    expect(typeof LayerList.setup).to.equal('function');
+    expect(LayerList.setup).to.be.a('function');
+  });
+
+  describe('props', () => {
+    beforeEach(() => {
+      comp = createWrapper();
+      vm = comp.vm;
+    });
+
+    it('has correct props', () => {
+      expect(toRaw(vm.showLegends)).to.be.true;
+      expect(toRaw(vm.showOpacityControls)).to.be.true;
+    });
+
+    afterEach(() => {
+      comp.unmount();
+    });
   });
 
   describe('data', () => {
@@ -36,9 +52,7 @@ describe('layerlist/LayerList.vue', () => {
     });
 
     it('has correct default data', () => {
-      expect(typeof LayerList.data).to.equal('function');
-      expect(vm.openedListItems).to.be.an('array');
-      expect(vm.openedListItems).to.be.empty;
+      expect(vm.openedListItems).to.be.an('array').that.is.empty;
     });
 
     afterEach(() => {
@@ -72,10 +86,10 @@ describe('layerlist/LayerList.vue', () => {
       });
       bindMap(map);
 
-      expect(vm.displayedLayers.length).to.equal(1);
+      expect(vm.displayedLayers).to.have.lengthOf(1);
       const li = vm.displayedLayers[0];
       expect(toRaw(li)).to.equal(layerIn);
-      expect(li.getVisible()).to.equal(true);
+      expect(li.getVisible()).to.be.true;
     });
 
     it('displayedLayers items are synced with the layer stack', () => {
@@ -85,11 +99,11 @@ describe('layerlist/LayerList.vue', () => {
       });
       bindMap(map);
 
-      expect(vm.displayedLayers.length).to.equal(1);
+      expect(vm.displayedLayers).to.have.lengthOf(1);
 
       map.addLayer(new VectorLayer());
 
-      expect(vm.displayedLayers.length).to.equal(2);
+      expect(vm.displayedLayers).to.have.lengthOf(2);
     });
 
     afterEach(() => {

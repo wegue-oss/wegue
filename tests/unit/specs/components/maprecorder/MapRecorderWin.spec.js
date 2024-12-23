@@ -18,7 +18,7 @@ describe('maprecorder/MapRecorderWin.vue', () => {
   });
 
   it('has a setup hook', () => {
-    expect(typeof MapRecorderWin.setup).to.equal('function');
+    expect(MapRecorderWin.setup).to.be.a('function');
   });
 
   describe('props', () => {
@@ -47,15 +47,15 @@ describe('maprecorder/MapRecorderWin.vue', () => {
       expect(vm.mapCanvas).to.be.null;
       expect(vm.mapContext).to.be.null;
       expect(vm.recorder).to.be.null;
-      expect(vm.recording).to.equal(false);
+      expect(vm.recording).to.be.false;
       expect(vm.filename).to.be.undefined;
       expect(vm.frameRate).to.equal(25);
       expect(vm.videoMBitsPerSecond).to.equal(2.5);
       expect(vm.timerHandle).to.be.null;
-      expect(vm.error).to.equal(false);
+      expect(vm.error).to.be.false;
       // Supported codecs under chrome.
       expect(vm.mimeType).to.equal('video/webm');
-      expect(vm.mimeTypes.length).to.equal(3);
+      expect(vm.mimeTypes).to.have.lengthOf(3);
     });
 
     afterEach(() => {
@@ -73,7 +73,7 @@ describe('maprecorder/MapRecorderWin.vue', () => {
 
     it('correct supported mime types under chrome', () => {
       const mimeTypes = vm.getSupportedMimeTypes();
-      expect(mimeTypes.length).to.equal(3);
+      expect(mimeTypes).to.have.lengthOf(3);
       expect(mimeTypes[0]).to.equal('video/webm');
       expect(mimeTypes[1]).to.equal('video/mp4');
       expect(mimeTypes[2]).to.equal('video/x-matroska');
@@ -91,27 +91,30 @@ describe('maprecorder/MapRecorderWin.vue', () => {
       bindMap(map);
 
       vm.startRecording();
+
       expect(vm.mapCanvas).not.to.be.null;
       expect(vm.mapCanvas.width).to.equal(1024);
       expect(vm.mapCanvas.height).to.equal(768);
       expect(vm.mapContext).not.to.be.null;
       expect(vm.recorder).not.to.be.null;
-      expect(vm.recording).to.equal(true);
+      expect(vm.recording).to.be.true;
       expect(vm.timerHandle).not.to.be.null;
-      expect(vm.error).to.equal(false);
+      expect(vm.error).to.be.false;
 
       vm.stopRecording();
+
       expect(vm.mapCanvas).to.be.null;
       expect(vm.mapContext).to.be.null;
       expect(vm.recorder).to.be.null;
-      expect(vm.recording).to.equal(false);
+      expect(vm.recording).to.be.false;
       expect(vm.timerHandle).to.be.null;
-      expect(vm.error).to.equal(false);
+      expect(vm.error).to.be.false;
     });
 
     afterEach(() => {
       unbindMap();
       map = undefined;
+
       comp.unmount();
     });
   });

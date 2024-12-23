@@ -61,8 +61,8 @@
 </template>
 
 <script>
-import LayerLegendImage from './LayerLegendImage'
-import LayerOpacityControl from './LayerOpacityControl'
+import LayerLegendImage from './LayerLegendImage';
+import LayerOpacityControl from './LayerOpacityControl';
 
 export default {
   name: 'wgu-layerlistitem',

@@ -10,7 +10,7 @@ describe('attributeTable/AttributeTableWin.vue', () => {
   let vm;
 
   it('is defined', () => {
-    expect(typeof AttributeTableWin).to.not.equal('undefined');
+    expect(AttributeTableWin).to.not.be.an('undefined');
   });
 
   it('has a setup hook', () => {
@@ -40,6 +40,7 @@ describe('attributeTable/AttributeTableWin.vue', () => {
     });
 
     it('has correct default data', () => {
+      expect(vm.moduleName).to.equal('wgu-attributetable');
       expect(vm.selLayerLid).to.be.null;
     });
 

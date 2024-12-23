@@ -9,18 +9,26 @@ describe('layerlist/LayerListWin.vue', () => {
   let comp;
   let vm;
 
+  it('is defined', () => {
+    expect(LayerListWin).to.not.be.an('undefined');
+  });
+
   beforeEach(() => {
     comp = createWrapper();
     vm = comp.vm;
   });
 
-  it('has the correct properties', () => {
+  it('has correct default props', () => {
     expect(vm.icon).to.equal('md:layers');
-    expect(vm.showLegends).to.equal(true);
-    expect(vm.showOpacityControls).to.equal(true);
+    expect(vm.showLegends).to.be.true;
+    expect(vm.showOpacityControls).to.be.true;
   });
 
   it('does not render on startup', () => {
-    expect(comp.text()).to.equal('');
+    expect(comp.text()).to.be.empty;
+  });
+
+  afterEach(() => {
+    comp.unmount();
   });
 });

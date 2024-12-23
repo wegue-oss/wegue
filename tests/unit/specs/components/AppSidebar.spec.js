@@ -18,6 +18,10 @@ describe('AppSidebar.vue', () => {
     expect(AppSidebar.setup).to.be.a('function');
   });
 
+  it('has a created hook', () => {
+    expect(AppSidebar.created).to.be.a('function');
+  });
+
   describe('data', () => {
     beforeEach(() => {
       comp = createWrapper();
@@ -25,7 +29,8 @@ describe('AppSidebar.vue', () => {
     });
 
     it('has correct default data', () => {
-      expect(vm.sidebarOpen).to.equal(true);
+      expect(vm.sidebarOpen).to.be.true;
+      expect(vm.sidebarWidth).to.equal(400);
     });
 
     afterEach(() => {
@@ -42,10 +47,10 @@ describe('AppSidebar.vue', () => {
     it('event "sidebar-toggle" forces correct open state', () => {
       // force closing sidebar by adding 'false' parameter
       WguEventBus.$emit('sidebar-toggle', false);
-      expect(vm.sidebarOpen).to.equal(false);
+      expect(vm.sidebarOpen).to.be.false;
       // toggle sidebar open state by skipping parameter
       WguEventBus.$emit('sidebar-toggle');
-      expect(vm.sidebarOpen).to.equal(true);
+      expect(vm.sidebarOpen).to.be.true;
     });
 
     afterEach(() => {

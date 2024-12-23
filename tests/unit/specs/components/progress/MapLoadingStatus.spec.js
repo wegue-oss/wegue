@@ -11,11 +11,11 @@ describe('progress/MapLoadingStatus.vue', () => {
 
   // Inspect the raw component options
   it('is defined', () => {
-    expect(typeof MapLoadingStatus).to.not.equal('undefined');
+    expect(MapLoadingStatus).to.not.be.an('undefined');
   });
 
   it('has a setup hook', () => {
-    expect(typeof MapLoadingStatus.setup).to.equal('function');
+    expect(MapLoadingStatus.setup).to.be.a('function');
   });
 
   describe('data', () => {
@@ -26,7 +26,11 @@ describe('progress/MapLoadingStatus.vue', () => {
 
     it('has correct default data', () => {
       expect(vm.loading).to.equal(0);
-      expect(vm.visible).to.equal(false);
+      expect(vm.visible).to.be.false;
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 });

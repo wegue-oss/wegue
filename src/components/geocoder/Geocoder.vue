@@ -91,6 +91,18 @@ export default {
       return items;
     }
   },
+  mounted () {
+    // Setup GeocoderController to which we delegate Provider and query-handling
+    this.geocoderController = new GeocoderController(this.provider, this.providerOptions);
+  },
+  unmounted () {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+      this.timeout = null;
+    }
+
+    this.geocoderController.destroy();
+  },
   methods: {
     trace (str) {
       this.debug && console && console.info(str);
@@ -185,18 +197,6 @@ export default {
       }
       this.selecting = false;
     }
-  },
-  mounted () {
-    // Setup GeocoderController to which we delegate Provider and query-handling
-    this.geocoderController = new GeocoderController(this.provider, this.providerOptions);
-  },
-  unmounted () {
-    if (this.timeout) {
-      clearTimeout(this.timeout);
-      this.timeout = null;
-    }
-
-    this.geocoderController.destroy();
   }
 };
 </script>

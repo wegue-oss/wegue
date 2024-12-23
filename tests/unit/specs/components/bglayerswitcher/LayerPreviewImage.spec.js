@@ -64,7 +64,7 @@ describe('bglayerswitcher/LayerPreviewImage.vue', () => {
     });
 
     it('has correct default data', () => {
-      expect(vm.imgLoaded).to.equal(false);
+      expect(vm.imgLoaded).to.be.false;
     });
 
     afterEach(() => {

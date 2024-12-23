@@ -72,7 +72,7 @@ describe('bglayerswitcher/BgLayerList.vue', () => {
       });
       bindMap(map);
 
-      expect(vm.displayedLayers.length).to.equal(1);
+      expect(vm.displayedLayers).to.have.lengthOf(1);
       const li = vm.displayedLayers[0];
       expect(toRaw(li)).to.equal(layerIn);
       expect(li.getVisible()).to.equal(true);
@@ -97,16 +97,17 @@ describe('bglayerswitcher/BgLayerList.vue', () => {
       });
       bindMap(map);
 
-      expect(vm.displayedLayers.length).to.equal(1);
+      expect(vm.displayedLayers).to.have.lengthOf(1);
 
       map.addLayer(layerOut);
 
-      expect(vm.displayedLayers.length).to.equal(2);
+      expect(vm.displayedLayers).to.have.lengthOf(2);
     });
 
     afterEach(() => {
       unbindMap();
       map = undefined;
+
       comp.unmount();
     });
   });
@@ -118,7 +119,7 @@ describe('bglayerswitcher/BgLayerList.vue', () => {
     });
 
     it('are implemented', () => {
-      expect(typeof vm.onSelectLayer).to.equal('function');
+      expect(vm.onSelectLayer).to.be.a('function');
     });
 
     it('onSelectLayer toggles layer visibility and selection', () => {
@@ -139,20 +140,21 @@ describe('bglayerswitcher/BgLayerList.vue', () => {
       });
       bindMap(map);
 
-      expect(layerIn.getVisible()).to.equal(true);
-      expect(layerOut.getVisible()).to.equal(false);
+      expect(layerIn.getVisible()).to.be.true;
+      expect(layerOut.getVisible()).to.be.false;
       expect(vm.selectedLid).to.equal(layerIn.get('lid'));
 
       vm.onSelectLayer(layerOut.get('lid'));
 
-      expect(layerIn.getVisible()).to.equal(false);
-      expect(layerOut.getVisible()).to.equal(true);
+      expect(layerIn.getVisible()).to.be.false;
+      expect(layerOut.getVisible()).to.be.true;
       expect(vm.selectedLid).to.equal(layerOut.get('lid'));
     });
 
     afterEach(() => {
       unbindMap();
       map = undefined;
+
       comp.unmount();
     });
   });

@@ -49,12 +49,14 @@ describe('layerlist/LayerOpacityControl.vue', () => {
     });
 
     it('are implemented', () => {
-      expect(typeof vm.onOpacitySliderInput).to.equal('function');
+      expect(vm.onOpacitySliderInput).to.be.a('function');
     });
 
     it('onOpacitySliderInput changes layer opacity', () => {
       expect(osmLayer.getOpacity()).to.equal(1.0);
+
       vm.onOpacitySliderInput(0.5);
+
       expect(osmLayer.getOpacity()).to.equal(0.5);
     });
 

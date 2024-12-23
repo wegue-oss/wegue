@@ -8,7 +8,7 @@ describe('measuretool/OlMeasureController.js', () => {
   let map;
 
   it('is defined', () => {
-    expect(typeof OlMeasureController).to.not.equal('undefined');
+    expect(OlMeasureController).to.not.be.an('undefined');
   });
 
   describe('methods', () => {
@@ -18,26 +18,26 @@ describe('measuretool/OlMeasureController.js', () => {
     });
 
     it('are implemented', () => {
-      expect(typeof olmc.createMeasureLayer).to.equal('function');
-      expect(typeof olmc.addInteraction).to.equal('function');
-      expect(typeof olmc.removeInteraction).to.equal('function');
+      expect(olmc.createMeasureLayer).to.be.a('function');
+      expect(olmc.addInteraction).to.be.a('function');
+      expect(olmc.removeInteraction).to.be.a('function');
     });
 
     it('createMeasureLayer creates and adds a vector layer to the map', () => {
       olmc.createMeasureLayer();
-      expect(map.getLayers().item(0) instanceof VectorLayer).to.equal(true);
+      expect(map.getLayers().item(0) instanceof VectorLayer).to.be.true;
     });
 
     it('addInteraction creates and adds a draw interaction to the map (distance)', () => {
       olmc.addInteraction('distance', () => undefined);
       expect(map.getInteractions().getLength()).to.equal(1);
-      expect(map.getInteractions().item(0) instanceof DrawInteraction).to.equal(true);
+      expect(map.getInteractions().item(0) instanceof DrawInteraction).to.be.true;
     });
 
     it('addInteraction creates and adds a draw interaction to the map (area)', () => {
       olmc.addInteraction('area', () => undefined);
       expect(map.getInteractions().getLength()).to.equal(1);
-      expect(map.getInteractions().item(0) instanceof DrawInteraction).to.equal(true);
+      expect(map.getInteractions().item(0) instanceof DrawInteraction).to.be.true;
     });
 
     it('addInteraction resets existing draw interaction on the map', () => {

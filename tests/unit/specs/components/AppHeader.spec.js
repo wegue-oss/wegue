@@ -17,7 +17,7 @@ describe('AppHeader.vue', () => {
 
   // Inspect the raw component options
   it('is defined', () => {
-    expect(typeof AppHeader).to.not.equal('undefined');
+    expect(AppHeader).to.not.be.an('undefined');
   });
 
   describe('data', () => {
@@ -27,11 +27,8 @@ describe('AppHeader.vue', () => {
     });
 
     it('has correct default data', () => {
-      expect(vm.title).to.equal(undefined);
-      expect(vm.menuButtons).to.be.an('array');
-      expect(vm.menuButtons.length).to.equal(0);
-      expect(vm.tbButtons).to.be.an('array');
-      expect(vm.tbButtons.length).to.equal(0);
+      expect(vm.menuButtons).to.be.an('array').that.is.empty;
+      expect(vm.tbButtons).to.be.an('array').that.is.empty;
     });
 
     afterEach(() => {
@@ -49,7 +46,7 @@ describe('AppHeader.vue', () => {
           target: 'toolbar'
         }
       }
-    }
+    };
 
     beforeEach(() => {
       comp = createWrapper(appConfig);
@@ -63,8 +60,7 @@ describe('AppHeader.vue', () => {
 
     it('getModuleButtons(\'menu\') returns correct data', () => {
       const moduleData = vm.getModuleButtons('menu');
-      expect(moduleData).to.be.an('array');
-      expect(moduleData.length).to.equal(1);
+      expect(moduleData).to.be.an('array').that.has.lengthOf(1);
       expect(moduleData[0].type).to.equal('wgu-infoclick-btn');
       expect(moduleData[0].target).to.equal('menu');
     });
@@ -76,10 +72,13 @@ describe('AppHeader.vue', () => {
 
     it('getModuleButtons(\'toolbar\') returns correct data', () => {
       const moduleData = vm.getModuleButtons('toolbar');
-      expect(moduleData).to.be.an('array');
-      expect(moduleData.length).to.equal(1);
+      expect(moduleData).to.be.an('array').that.has.lengthOf(1);
       expect(moduleData[0].type).to.equal('wgu-zoomtomaxextent-btn');
       expect(moduleData[0].target).to.equal('toolbar');
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 });

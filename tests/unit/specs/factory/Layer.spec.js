@@ -1,4 +1,4 @@
-import { LayerFactory } from '@/factory/Layer'
+import { LayerFactory } from '@/factory/Layer';
 import { Image as ImageLayer, Tile as TileLayer } from 'ol/layer';
 import ImageWMS from 'ol/source/ImageWMS';
 import TileWmsSource from 'ol/source/TileWMS';
@@ -8,26 +8,26 @@ import VectorTileSource from 'ol/source/VectorTile';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import XyzSource from 'ol/source/XYZ';
-import MvtFormat from 'ol/format/MVT'
-import GeoJsonFormat from 'ol/format/GeoJSON'
-import TopoJsonFormat from 'ol/format/TopoJSON'
-import KmlFormat from 'ol/format/KML'
+import MvtFormat from 'ol/format/MVT';
+import GeoJsonFormat from 'ol/format/GeoJSON';
+import TopoJsonFormat from 'ol/format/TopoJSON';
+import KmlFormat from 'ol/format/KML';
 import Map from 'ol/Map';
 import View from 'ol/View';
 
 describe('LayerFactory', () => {
   it('is defined', () => {
-    expect(typeof LayerFactory).to.not.equal(undefined);
+    expect(LayerFactory).to.not.be.an('undefined');
   });
 
   it('has the correct functions', () => {
-    expect(typeof LayerFactory.getInstance).to.equal('function');
-    expect(typeof LayerFactory.createTileWmsLayer).to.equal('function');
-    expect(typeof LayerFactory.createImageWmsLayer).to.equal('function');
-    expect(typeof LayerFactory.createXyzLayer).to.equal('function');
-    expect(typeof LayerFactory.createOsmLayer).to.equal('function');
-    expect(typeof LayerFactory.createVectorLayer).to.equal('function');
-    expect(typeof LayerFactory.createVectorTileLayer).to.equal('function');
+    expect(LayerFactory.getInstance).to.be.a('function');
+    expect(LayerFactory.createTileWmsLayer).to.be.a('function');
+    expect(LayerFactory.createXyzLayer).to.be.a('function');
+    expect(LayerFactory.createOsmLayer).to.be.a('function');
+    expect(LayerFactory.createVectorLayer).to.be.a('function');
+    expect(LayerFactory.createImageWmsLayer).to.be.a('function');
+    expect(LayerFactory.createVectorTileLayer).to.be.a('function');
   });
 
   it('getInstance returns correct instance', () => {
@@ -35,7 +35,8 @@ describe('LayerFactory', () => {
       type: 'TILEWMS'
     };
     const style = LayerFactory.getInstance(layerConf);
-    expect((style instanceof TileLayer)).to.equal(true);
+
+    expect((style instanceof TileLayer)).to.be.true;
   });
 
   it('has a correct formatMapping', () => {
@@ -71,7 +72,8 @@ describe('LayerFactory', () => {
         }
       };
       const layer = LayerFactory.createTileWmsLayer(layerConf);
-      expect(layer instanceof TileLayer).to.equal(true);
+
+      expect(layer instanceof TileLayer).to.be.true;
       expect(layer.getSource() instanceof TileWmsSource);
       expect(layer.getSource().getParams().LAYERS).to.equal('topp:states');
       expect(layer.getSource().getParams().foo).to.equal('bar-tile');
@@ -96,7 +98,8 @@ describe('LayerFactory', () => {
         }
       };
       const layer = LayerFactory.createImageWmsLayer(layerConf);
-      expect(layer instanceof ImageLayer).to.equal(true);
+
+      expect(layer instanceof ImageLayer).to.be.true;
       expect(layer.getSource() instanceof ImageWMS);
       expect(layer.getSource().getParams().LAYERS).to.equal('ne:ne_10m_populated_places');
       expect(layer.getSource().getParams().foo).to.equal('bar-image');
@@ -123,7 +126,8 @@ describe('LayerFactory', () => {
         layers: []
       });
       const layer = LayerFactory.createWfsLayer(layerConf, olMap);
-      expect(layer instanceof VectorLayer).to.equal(true);
+
+      expect(layer instanceof VectorLayer).to.be.true;
       expect(layer.getSource() instanceof VectorSource);
     });
 
@@ -136,7 +140,8 @@ describe('LayerFactory', () => {
         displayInLayerList: false
       };
       const layer = LayerFactory.createXyzLayer(layerConf);
-      expect(layer instanceof TileLayer).to.equal(true);
+
+      expect(layer instanceof TileLayer).to.be.true;
       expect(layer.getSource() instanceof XyzSource);
     });
 
@@ -149,7 +154,8 @@ describe('LayerFactory', () => {
         displayInLayerList: false
       };
       const layer = LayerFactory.createXyzLayer(layerConf);
-      expect(layer instanceof TileLayer).to.equal(true);
+
+      expect(layer instanceof TileLayer).to.be.true;
       expect(layer.getSource() instanceof OsmSource);
     });
 
@@ -168,7 +174,8 @@ describe('LayerFactory', () => {
         hoverAttribute: 'name'
       };
       const layer = LayerFactory.createVectorLayer(layerConf);
-      expect(layer instanceof VectorLayer).to.equal(true);
+
+      expect(layer instanceof VectorLayer).to.be.true;
       expect(layer.getSource() instanceof VectorSource);
     });
 
@@ -181,7 +188,8 @@ describe('LayerFactory', () => {
         styleRef: 'neWorldMvt'
       };
       const layer = LayerFactory.createVectorTileLayer(layerConf);
-      expect(layer instanceof VectorTileLayer).to.equal(true);
+
+      expect(layer instanceof VectorTileLayer).to.be.true;
       expect(layer.getSource() instanceof VectorTileSource);
     });
   });

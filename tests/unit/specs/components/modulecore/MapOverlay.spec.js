@@ -36,7 +36,7 @@ describe('modulecore/MapOverlay.vue', () => {
   });
 
   it('has a setup hook', () => {
-    expect(typeof MapOverlay.setup).to.equal('function');
+    expect(MapOverlay.setup).to.be.a('function');
   });
 
   it('has a created hook', () => {
@@ -44,7 +44,7 @@ describe('modulecore/MapOverlay.vue', () => {
   });
 
   it('has an unmounted hook', () => {
-    expect(typeof MapOverlay.unmounted).to.equal('function');
+    expect(MapOverlay.unmounted).to.be.a('function');
   });
 
   describe('props', () => {
@@ -54,11 +54,11 @@ describe('modulecore/MapOverlay.vue', () => {
     });
 
     it('has correct default props', () => {
-      expect(vm.visible).to.equal(true);
-      expect(vm.offset).to.be.an('undefined');
+      expect(vm.visible).to.be.true;
+      expect(vm.offset).to.be.undefined;
       expect(vm.positioning).to.equal('top-left');
-      expect(vm.coordinates).to.be.an('undefined');
-      expect(vm.autoPan).to.equal(false);
+      expect(vm.coordinates).to.be.undefined;
+      expect(vm.autoPan).to.be.false;
       expect(vm.autoPanDuration).to.equal(0);
     });
 
@@ -78,9 +78,9 @@ describe('modulecore/MapOverlay.vue', () => {
     });
 
     it('has correct default data', () => {
-      expect(vm.show).to.equal(true);
-      expect(vm.position).to.be.an('undefined');
-      expect(vm.olOverlay).to.be.an('undefined');
+      expect(vm.show).to.be.true;
+      expect(vm.position).to.be.undefined;
+      expect(vm.olOverlay).to.be.undefined;
       expect(toRaw(vm.contentData)).to.deep.equal({});
     });
 
@@ -101,12 +101,12 @@ describe('modulecore/MapOverlay.vue', () => {
     it('createOlOverlay adds an OL overlay to map', () => {
       vm.createOlOverlay();
 
-      expect(vm.olOverlay).to.not.be.an('undefined');
+      expect(vm.olOverlay).to.not.be.undefined;
       expect(toRaw(vm.olOverlay.getMap())).to.equal(vm.map);
       expect(vm.olOverlay.getElement()).to.equal(vm.$refs.overlayContainer);
       expect(vm.olOverlay.getId()).to.equal('my-overlay');
       expect(vm.olOverlay.getOffset()).to.eql([0, 0]);
-      expect(vm.olOverlay.getPosition()).to.be.an('undefined');
+      expect(vm.olOverlay.getPosition()).to.be.undefined;
       expect(vm.olOverlay.getPositioning()).to.equal('top-left');
     });
 
@@ -129,17 +129,17 @@ describe('modulecore/MapOverlay.vue', () => {
     });
 
     it('watches show', async () => {
-      expect(vm.show).to.equal(true);
-      expect(vm.olOverlay).to.not.be.an('undefined');
+      expect(vm.show).to.be.true;
+      expect(vm.olOverlay).to.not.be.undefined;
 
       vm.show = false;
       await nextTick();
 
-      expect(vm.olOverlay).to.be.an('undefined');
+      expect(vm.olOverlay).to.be.undefined;
     });
 
     it('watches position', async () => {
-      expect(vm.olOverlay.getPosition()).to.be.an('undefined');
+      expect(vm.olOverlay.getPosition()).to.be.undefined;
 
       vm.position = coordinate;
       await nextTick();
@@ -169,14 +169,14 @@ describe('modulecore/MapOverlay.vue', () => {
       vm.show = false;
       await nextTick();
 
-      expect(vm.olOverlay).to.be.an('undefined');
+      expect(vm.olOverlay).to.be.undefined;
 
       WguEventBus.$emit('my-overlay-update-overlay', true, coordinate, contentData);
       await nextTick();
 
-      expect(vm.olOverlay).to.not.be.an('undefined');
+      expect(vm.olOverlay).to.not.be.undefined;
       expect(vm.olOverlay.getPosition()).to.eql(coordinate);
-      expect(vm.show).to.equal(true);
+      expect(vm.show).to.be.true;
       expect(toRaw(vm.contentData)).to.equal(contentData);
     });
 
@@ -184,13 +184,13 @@ describe('modulecore/MapOverlay.vue', () => {
       vm.show = true;
       await nextTick();
 
-      expect(vm.olOverlay).to.not.be.an('undefined');
+      expect(vm.olOverlay).to.not.be.undefined;
 
       WguEventBus.$emit('my-overlay-update-overlay', false);
       await nextTick();
 
-      expect(vm.olOverlay).to.be.an('undefined');
-      expect(vm.show).to.equal(false);
+      expect(vm.olOverlay).to.be.undefined;
+      expect(vm.show).to.be.false;
     });
 
     afterEach(() => {

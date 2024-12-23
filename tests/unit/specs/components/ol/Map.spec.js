@@ -28,15 +28,19 @@ describe('ol/Map.vue', () => {
 
   // Inspect the raw component options
   it('is defined', () => {
-    expect(typeof Map).to.not.equal('undefined');
+    expect(Map).to.not.be.an('undefined');
   });
 
   it('has a mounted hook', () => {
-    expect(typeof Map.mounted).to.equal('function');
+    expect(Map.mounted).to.be.a('function');
+  });
+
+  it('has an unmounted hook', () => {
+    expect(Map.unmounted).to.be.a('function');
   });
 
   it('has a created hook', () => {
-    expect(typeof Map.created).to.equal('function');
+    expect(Map.created).to.be.a('function');
   });
 
   describe('props', () => {
@@ -48,8 +52,8 @@ describe('ol/Map.vue', () => {
     });
 
     it('has correct default props', () => {
-      expect(vm.collapsibleAttribution).to.equal(false);
-      expect(vm.rotateableMap).to.equal(false);
+      expect(vm.collapsibleAttribution).to.be.false;
+      expect(vm.rotateableMap).to.be.false;
     });
 
     afterEach(() => {
@@ -64,11 +68,18 @@ describe('ol/Map.vue', () => {
     });
 
     it('has correct default data', () => {
-      expect(vm.permalink).to.equal(undefined);
-      expect(vm.zoom).to.equal(undefined);
-      expect(vm.center).to.equal(undefined);
+      expect(vm.zoom).to.be.undefined;
+      expect(vm.center).to.be.undefined;
+      expect(vm.projection).to.be.undefined;
+      expect(vm.projectionObj).to.be.null;
+      expect(vm.projectionDefs).to.be.undefined;
       expect(vm.tileGridDefs).to.be.empty;
       expect(vm.tileGrids).to.be.empty;
+      expect(vm.permalink).to.be.undefined;
+      expect(vm.mapGeodataDragDop).to.be.undefined;
+      expect(vm.dragDropLayerCreated).to.be.false;
+      expect(vm.formatMapping).to.be.an('object');
+      expect(Object.keys(vm.formatMapping)).to.have.lengthOf(5);
       expect(vm.map.getView().getProjection().getCode()).to.equal('EPSG:3857');
       expect(vm.map.getView().getProjection().getUnits()).to.equal('m');
     });
@@ -163,8 +174,8 @@ describe('ol/Map.vue', () => {
 
     it('createLayers returns always an array', () => {
       const layers = vm.createLayers();
-      expect(layers).to.be.an('array');
-      expect(layers.length).to.equal(1);
+
+      expect(layers).to.be.an('array').that.has.lengthOf(1);
     });
 
     it('createLayers registers a select interaction if configured', () => {
@@ -175,7 +186,8 @@ describe('ol/Map.vue', () => {
           selectIa = ia;
         }
       });
-      expect(typeof selectIa).to.not.equal('undefined');
+
+      expect(selectIa).to.not.be.undefined;
     });
 
     it('setOlButtonColor applies Vuetify color to OL buttons', () => {
@@ -202,9 +214,9 @@ describe('ol/Map.vue', () => {
       const cssCls = 'bg-secondary';
       vm.setOlButtonColor();
 
-      expect(mockSubZoomInEl.classList.contains(cssCls)).to.equal(true);
-      expect(mockSubZoomOutEl.classList.contains(cssCls)).to.equal(true);
-      expect(mockSubRotEl.classList.contains(cssCls)).to.equal(true);
+      expect(mockSubZoomInEl.classList.contains(cssCls)).to.be.true;
+      expect(mockSubZoomOutEl.classList.contains(cssCls)).to.be.true;
+      expect(mockSubRotEl.classList.contains(cssCls)).to.be.true;
 
       // cleanup (otherwise follow up tests fail)
       mockZoomDiv.parentNode.removeChild(mockZoomDiv);
@@ -248,6 +260,7 @@ describe('ol/Map.vue', () => {
     it('createLayers assigns TileGrid to Layer Sources', () => {
       const layers = vm.createLayers();
       const tileGrid = layers[0].getSource().getTileGrid();
+
       expect(tileGrid).to.be.not.empty;
       expect(tileGrid.getResolutions()[0]).to.equal(3440.640);
     });
@@ -255,6 +268,7 @@ describe('ol/Map.vue', () => {
     it('createLayers assigns Projection to Layer Sources', () => {
       const layers = vm.createLayers();
       const source = layers[0].getSource();
+
       expect(source.getProjection().getCode()).to.equal('EPSG:28992');
     });
 

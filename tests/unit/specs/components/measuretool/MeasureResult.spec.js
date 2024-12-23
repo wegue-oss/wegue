@@ -54,11 +54,11 @@ describe('measuretool/MeasureResult.vue', () => {
 
   // Inspect the raw component options
   it('is defined', () => {
-    expect(typeof MeasureResult).to.not.equal('undefined');
+    expect(MeasureResult).to.not.be.an('undefined');
   });
 
   it('has a setup hook', () => {
-    expect(typeof MeasureResult.setup).to.equal('function');
+    expect(MeasureResult.setup).to.be.a('function');
   });
 
   describe('props', () => {
@@ -68,8 +68,8 @@ describe('measuretool/MeasureResult.vue', () => {
     });
 
     it('has correct default props', () => {
-      expect(vm.measureGeom).to.equal(undefined);
-      expect(vm.measureType).to.equal(undefined);
+      expect(vm.measureGeom).to.be.undefined;
+      expect(vm.measureType).to.be.undefined;
     });
 
     afterEach(() => {
@@ -103,26 +103,29 @@ describe('measuretool/MeasureResult.vue', () => {
     });
 
     it('are implemented', () => {
-      expect(typeof vm.formatLength).to.equal('function');
-      expect(typeof vm.formatArea).to.equal('function');
-      expect(typeof vm.formatAngle).to.equal('function');
+      expect(vm.formatLength).to.be.a('function');
+      expect(vm.formatArea).to.be.a('function');
+      expect(vm.formatAngle).to.be.a('function');
     });
 
     it('formatLength returns the correct formatted text for length', () => {
       const lineGeom = new LineStringGeom([[0, 0], [1000, 0], [1000, 1000], [0, 1000]]);
       const fLenText = vm.formatLength(lineGeom);
+
       expect(fLenText).to.equal('3 km');
     });
 
     it('formatArea returns the correct formatted text for area', () => {
       const polyGeom = new PolygonGeom([[[0, 0], [1000, 0], [1000, 1000], [0, 1000], [0, 0]]]);
       const fLenText = vm.formatArea(polyGeom);
+
       expect(fLenText).to.equal('1 km²');
     });
 
     it('formatAngle returns the correct formatted text for angle', () => {
       const lineGeom = new LineStringGeom([[0, 0], [1000, 1000]]);
       const fAngleText = vm.formatAngle(lineGeom);
+
       expect(fAngleText).to.equal('45.00°');
     });
 
@@ -150,19 +153,20 @@ describe('measuretool/MeasureResult.vue', () => {
       const lineGeom = new LineStringGeom([[0, 0], [1, 0], [1, 1], [0, 1]]);
       await comp.setProps({ measureGeom: { geom: lineGeom }, measureType: 'distance' });
 
-      expect(comp.vm.distance).to.equal('3 m');
+      expect(vm.distance).to.equal('3 m');
     });
 
     it('watches measureGeom Angle', async () => {
       const lineGeom = new LineStringGeom([[0, 0], [1, 0]]);
       await comp.setProps({ measureGeom: { geom: lineGeom }, measureType: 'angle' });
 
-      expect(comp.vm.angle).to.equal('90.00°');
+      expect(vm.angle).to.equal('90.00°');
     });
 
     it('watches measureGeom non supported geom', async () => {
       await comp.setProps({ measureGeom: { geom: null } });
-      expect(comp.vm.distance).to.equal(' -- ');
+
+      expect(vm.distance).to.equal(' -- ');
     });
 
     afterEach(() => {

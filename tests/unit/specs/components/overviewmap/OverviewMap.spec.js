@@ -25,8 +25,8 @@ describe('overviewmap/OverviewMap.vue', () => {
 
     it('has correct default props', () => {
       expect(vm.icon).to.equal('md:zoom_out_map');
-      expect(vm.visible).to.equal(true);
-      expect(vm.rotateWithView).to.equal(true);
+      expect(vm.visible).to.be.true;
+      expect(vm.rotateWithView).to.be.true;
       expect(vm.width).to.equal(164);
       expect(vm.height).to.equal(178);
     });
@@ -43,7 +43,7 @@ describe('overviewmap/OverviewMap.vue', () => {
     });
 
     it('has correct default data', () => {
-      expect(vm.open).to.equal(true);
+      expect(vm.open).to.be.true;
     });
 
     afterEach(() => {
@@ -52,15 +52,17 @@ describe('overviewmap/OverviewMap.vue', () => {
   });
 
   describe('user interactions', () => {
-    // Remarks: The following is necessary to avoid warnings.
-    //  For reasons not fully understood the test utils will fail to attach
-    //  the v-menu to the wgu-overviewmap-wrapper div element created
-    //  in the component.
-    const div = document.createElement('div');
-    div.id = 'wgu-overviewmap-wrapper';
-    document.body.appendChild(div);
+    let divElement;
 
     beforeEach(() => {
+      // Remarks: The following is necessary to avoid warnings.
+      //  For reasons not fully understood the test utils will fail to attach
+      //  the v-menu to the wgu-overviewmap-wrapper div element created
+      //  in the component.
+      divElement = document.createElement('div');
+      divElement.id = 'wgu-overviewmap-wrapper';
+      document.body.appendChild(divElement);
+
       comp = createWrapper(false);
       vm = comp.vm;
     });
@@ -76,6 +78,11 @@ describe('overviewmap/OverviewMap.vue', () => {
 
     afterEach(() => {
       comp.unmount();
+
+      if (divElement) {
+        divElement.remove();
+        divElement = undefined;
+      }
     });
   });
 });

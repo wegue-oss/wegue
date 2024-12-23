@@ -18,7 +18,7 @@ describe('AppFooter.vue', () => {
 
   // Inspect the raw component options
   it('is defined', () => {
-    expect(typeof AppFooter).to.not.equal('undefined');
+    expect(AppFooter).to.not.be.an('undefined');
   });
 
   describe('props', () => {
@@ -28,7 +28,12 @@ describe('AppFooter.vue', () => {
     });
 
     it('has correct default props', () => {
-      expect(vm.showCopyrightYear).to.equal(true);
+      expect(vm.showCopyrightYear).to.be.true;
+    });
+
+    it('has correct props', () => {
+      expect(vm.footerTextLeft).to.equal('my-text-left');
+      expect(vm.footerTextRight).to.equal('my-text-right');
     });
 
     afterEach(() => {

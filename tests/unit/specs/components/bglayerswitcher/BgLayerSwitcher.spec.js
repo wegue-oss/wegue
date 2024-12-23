@@ -51,7 +51,7 @@ describe('bglayerswitcher/BgLayerSwitcher.vue', () => {
     });
 
     it('has correct default data', () => {
-      expect(vm.open).to.equal(false);
+      expect(vm.open).to.be.false;
     });
 
     afterEach(() => {
@@ -93,6 +93,7 @@ describe('bglayerswitcher/BgLayerSwitcher.vue', () => {
     afterEach(() => {
       unbindMap();
       map = undefined;
+
       comp.unmount();
     });
   });
@@ -143,6 +144,7 @@ describe('bglayerswitcher/BgLayerSwitcher.vue', () => {
     afterEach(() => {
       unbindMap();
       map = undefined;
+
       comp.unmount();
 
       if (divElement) {
