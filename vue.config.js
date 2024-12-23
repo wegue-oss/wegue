@@ -56,6 +56,10 @@ module.exports = defineConfig({
     config.resolve.alias.set('vue', '@vue/compat');
     config.resolve.alias.set('APP', path.resolve(config.resolve.alias.get('@'), '../app'));
 
+    config.when(process.env.NODE_ENV === 'development', (config) =>
+      config.devtool('inline-cheap-module-source-map')
+    )
+
     config.module
       .rule('vue')
       .use('vue-loader')
