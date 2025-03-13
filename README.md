@@ -30,11 +30,11 @@ We look forward to your contributions!
 The lastest stable and released version stream is 2.x.
 
 The latest development points towards a Wegue version v3 supporting Vue 3. This development is reflected within the `master` branch.
-Herewith some breaking changes come along. In case you have to remain on the v2.x version of Wegue you can use the latest release [v2.1.0](https://github.com/wegue-oss/wegue/releases/tag/v2.1.0) or the maintenance development of v2 in the [v2 branch](https://github.com/wegue-oss/wegue/tree/v2). For a reasonable amount of time `v2` branch will be maintained. At least until there is an official `v3` release plus some additional buffer time.
+Herewith some breaking changes come along. In case you have to remain on the v2.x version of Wegue you can use the latest release [v2.1.0](https://github.com/wegue-oss/wegue/releases/tag/v2.1.0) or the maintenance development of v2 in the [v2 branch](https://github.com/wegue-oss/wegue/tree/v2). For a reasonable amount of time `v2` branch will be maintained, at least until there is an official `v3` release plus some additional buffer time.
 
 In case you want to upgrade an existing Wegue app from v2 to the current v3 development stream please have a look at the `upgrade-notes.md` file.
 
-We always try to have a robust state at the `master` branch, but be aware that breaking changes could come along. Especially in the phase of a major upgrade.
+We always try to have a robust state at the `master` branch, but be aware that breaking changes could come along, especially in the phase of a major upgrade.
 
 In case you have to remain on the 1.x version of Wegue you can use the latest release [v1.2.1](https://github.com/wegue-oss/wegue/releases/tag/v1.2.1) or the maintenance development of v1 in the [v1 branch](https://github.com/wegue-oss/wegue/tree/v1). For a reasonable amount of time `v1` branch will be maintained.
 
