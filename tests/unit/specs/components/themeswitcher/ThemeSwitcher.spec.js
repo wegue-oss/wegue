@@ -1,77 +1,63 @@
-import { createLocalVue, mount } from '@vue/test-utils';
-import ThemeSwitcher from '@/components/themeswitcher/ThemeSwitcher'
-import Vuetify from 'vuetify'
+import { mount } from '@vue/test-utils';
+import ThemeSwitcher from '@/components/themeswitcher/ThemeSwitcher';
+
+const defaultProps = {
+  moduleName: 'wgu-themeswitcher',
+  icon: 'md:dark_mode'
+}
+
+function createWrapper (props = defaultProps) {
+  return mount(ThemeSwitcher, {
+    props
+  });
+}
 
 describe('themeswitcher/ThemeSwitcher.vue', () => {
-  const localVue = createLocalVue();
-  let vuetify;
-
-  const defaultProps = {
-    moduleName: 'wgu-toolbar',
-    icon: 'dark_mode'
-  }
-
-  beforeEach(() => {
-    vuetify = new Vuetify()
-  });
+  let comp;
+  let vm;
+  let button;
 
   // Inspect the raw component options
   it('is defined', () => {
-    expect(typeof ThemeSwitcher).to.not.equal('undefined');
+    expect(ThemeSwitcher).to.not.be.an('undefined');
   });
 
-  describe('configured', () => {
-    let comp;
-
-    beforeEach(() => {
-      comp = mount(ThemeSwitcher, {
-        localVue,
-        vuetify,
-        propsData: {
-          ...defaultProps
-        }
-      });
-    });
-
-    it('has correct default props', () => {
-      expect(comp.vm.moduleName).to.equal('wgu-toolbar');
-      expect(comp.vm.icon).to.equal('dark_mode');
-    });
+  it('has a setup hook', () => {
+    expect(ThemeSwitcher.setup).to.be.a('function');
   });
 
   describe('theme switching', () => {
-    let comp, button;
-
-    before(() => {
-      comp = mount(ThemeSwitcher, {
-        localVue,
-        vuetify,
-        propsData: {
-          ...defaultProps
-        }
-      });
-
+    beforeEach(() => {
+      comp = createWrapper();
+      vm = comp.vm;
       button = comp.find('.v-btn');
     });
 
     it('start with light theme', () => {
-      expect(comp.vm.$vuetify.theme.dark).to.equal(false);
+      expect(vm.theme.global.name.value).to.equal('light');
     });
 
     it('switch to dark theme', async () => {
-      button.trigger('click');
+      await button.trigger('click');
 
-      await comp.vm.$nextTick();
-
-      expect(comp.vm.$vuetify.theme.dark).to.equal(true);
+      expect(vm.theme.global.name.value).to.equal('dark');
     });
 
     it('switch back to light theme', async () => {
-      button.trigger('click');
+      expect(vm.theme.global.name.value).to.equal('light');
 
-      await comp.vm.$nextTick();
+      await button.trigger('click');
 
-      expect(comp.vm.$vuetify.theme.dark).to.equal(false);
+      expect(vm.theme.global.name.value).to.equal('dark');
+
+      await button.trigger('click');
+
+      expect(vm.theme.global.name.value).to.equal('light');
+    });
+
+    afterEach(() => {
+      comp.vm.theme.global.name.value = 'light';
+      comp.unmount();
     });
   });
 });

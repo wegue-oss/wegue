@@ -1,7 +1,7 @@
-import Vue from 'vue';
 import { mount } from '@vue/test-utils';
 import Map from '@/components/ol/Map';
 import VectorLayer from 'ol/layer/Vector';
+
 const permalinkDef = {
   mapZoom: 2,
   mapCenter: [0, 0],
@@ -61,31 +61,38 @@ const permalinkDef = {
 
 document.location.hash = '';
 
+function createWrapper ($appConfig = {}) {
+  return mount(Map, {
+    global: {
+      mocks: {
+        $appConfig
+      }
+    }
+  });
+}
+
 describe('ol/Map.vue', () => {
+  let comp;
+  let vm;
+
   describe('data - Map NOT Provides PermalinkController when NOT defined', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      Vue.prototype.$appConfig = {};
-      comp = mount(Map);
+      comp = createWrapper();
       vm = comp.vm;
     });
 
     it('Map has NOT instantiated permalinkController', () => {
-      expect(vm.permalinkController).to.equal(undefined);
+      expect(vm.permalinkController).to.be.undefined;
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('data - Map Provides PermalinkController when defined', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      Vue.prototype.$appConfig = permalinkDef;
-      comp = mount(Map);
+      comp = createWrapper(permalinkDef);
       vm = comp.vm;
     });
 
@@ -94,52 +101,54 @@ describe('ol/Map.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('data - PermalinkController successfully setup', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      Vue.prototype.$appConfig = permalinkDef;
-      comp = mount(Map);
+      comp = createWrapper(permalinkDef);
       vm = comp.vm;
     });
 
     it('Setup permalinkController', () => {
-      expect(vm.permalinkController.shouldUpdate).equals(true);
+      expect(vm.permalinkController.shouldUpdate).to.be.true;
       expect(vm.map.getLayers().getLength()).to.equal(4);
+
       vm.permalinkController.unsubscribeLayers();
-      expect(vm.permalinkController.layerListeners.length).to.equal(0);
+
+      expect(vm.permalinkController.layerListeners).to.have.lengthOf(0);
+
       vm.permalinkController.subscribeLayers();
-      expect(vm.permalinkController.layerListeners.length).to.equal(4);
+
+      expect(vm.permalinkController.layerListeners).to.have.lengthOf(4);
     });
 
     it('Layer Listeners are (re)created when the layer stack changes', () => {
       vm.map.addLayer(new VectorLayer());
-      expect(vm.permalinkController.layerListeners.length).to.equal(5);
+
+      expect(vm.permalinkController.layerListeners).to.have.lengthOf(5);
       expect(vm.map.getLayers().getLength()).to.equal(5);
+
       vm.permalinkController.unsubscribeLayers();
-      expect(vm.permalinkController.layerListeners.length).to.equal(0);
+
+      expect(vm.permalinkController.layerListeners).to.have.lengthOf(0);
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('data - PermalinkController up to date with Map View', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      Vue.prototype.$appConfig = permalinkDef;
-      comp = mount(Map);
+      comp = createWrapper(permalinkDef);
       vm = comp.vm;
     });
 
     it('Setup and apply permalinkController - defaults', () => {
       vm.permalinkController.setup();
+
       expect(vm.permalinkController.getState().zoom).to.equal(permalinkDef.mapZoom);
       expect(vm.permalinkController.getParamStr()).to.equal('#z=2&c=0%2C0&r=0&l=osm-bg');
     });
@@ -151,29 +160,29 @@ describe('ol/Map.vue', () => {
       const newCenter = [1000000, 2000000];
       mapView.setZoom(newZoom);
       mapView.setCenter(newCenter);
+
       expect(vm.permalinkController.getState().zoom).to.equal(newZoom);
       // Map coordinates in Web Mercator converted to WGS84!
       expect(vm.permalinkController.getParamStr()).to.equal('#z=' + newZoom + '&c=8.9832%2C17.6789&r=0&l=osm-bg');
+
       // Make each Layer visible: must change param string to contain all Layers.
       vm.map.getLayers().forEach((layer) => {
         if (layer.getVisible() === false) {
           layer.setVisible(true);
         }
       });
+
       expect(vm.permalinkController.getParamStr()).to.equal('#z=' + newZoom + '&c=8.9832%2C17.6789&r=0&l=ahocevar-imagewms%2Cahocevar-wms%2Cosm-bg');
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('data - PermalinkController applied from document.location.hash/search', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      Vue.prototype.$appConfig = permalinkDef;
-      comp = mount(Map);
+      comp = createWrapper(permalinkDef);
       vm = comp.vm;
     });
 
@@ -181,6 +190,7 @@ describe('ol/Map.vue', () => {
       vm.permalinkController.setup();
       document.location.hash = '#z=4&c=4%2C52&r=0&l=osm-bg%2Cahocevar-wms';
       vm.permalinkController.apply();
+
       expect(vm.permalinkController.getState().zoom).to.equal(4);
       expect(vm.permalinkController.getParamStr()).to.equal(document.location.hash);
       // Map View should reflect hash string above (in Web Merc projection)
@@ -209,7 +219,7 @@ describe('ol/Map.vue', () => {
     // });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 });

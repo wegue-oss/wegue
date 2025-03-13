@@ -1,5 +1,4 @@
 <template>
-
   <wgu-module-card v-bind="$attrs"
       :moduleName="moduleName"
       class="wgu-measurewin"
@@ -24,8 +23,8 @@
 </template>
 
 <script>
-import ModuleCard from './../modulecore/ModuleCard';
-import { Mapable } from '../../mixins/Mapable';
+import ModuleCard from '../modulecore/ModuleCard';
+import { useMap } from '@/composables/Map';
 import MeasureTypeChooser from './MeasureTypeChooser';
 import MeasureResult from './MeasureResult';
 import OlMeasureController from './OlMeasureController';
@@ -38,11 +37,14 @@ export default {
     'wgu-measure-type-chooser': MeasureTypeChooser,
     'wgu-measure-result': MeasureResult
   },
-  mixins: [Mapable],
   props: {
-    icon: { type: String, required: false, default: 'photo_size_select_small' },
+    icon: { type: String, required: false, default: 'md:photo_size_select_small' },
     showAngleTool: { type: Boolean, required: false, default: false },
     iconsOnly: { type: Boolean, required: false, default: false }
+  },
+  setup () {
+    const { map, layers } = useMap();
+    return { map, layers };
   },
   data () {
     return {
@@ -58,6 +60,20 @@ export default {
     }
   },
   watch: {
+    map: {
+      handler (newMap, oldMap) {
+        if (newMap) {
+          this.onMapBound();
+          this.unbound = false;
+        } else {
+          if (oldMap) {
+            this.onMapUnbound();
+            this.unbound = true;
+          }
+        }
+      },
+      immediate: true
+    },
     measureType () {
       if (!this.olMapCtrl) {
         return;
@@ -69,10 +85,10 @@ export default {
   },
   methods: {
     /**
-       * (Un-)Register map interactions when the visibility of the module changes.
-       *
-       * @param  {boolean} visible New visibility state
-       */
+     * (Un-)Register map interactions when the visibility of the module changes.
+     *
+     * @param  {boolean} visible New visibility state
+     */
     show (visible) {
       if (!this.olMapCtrl) {
         return;
@@ -84,18 +100,18 @@ export default {
       }
     },
     /**
-       * Applies the changed measure value to this.measureType.
-       * Called as callback of MeasureTypeChooser
-       *
-       * @param  {String} newMeasureType New measure type
-       * @param  {String} oldMeasureType Old measure type
-       */
+     * Applies the changed measure value to this.measureType.
+     * Called as callback of MeasureTypeChooser
+     *
+     * @param  {String} newMeasureType New measure type
+     * @param  {String} oldMeasureType Old measure type
+     */
     applyMeasureType (newMeasureType, oldMeasureType) {
       this.measureType = newMeasureType;
     },
     /**
-       * This function is executed, after the map is bound (see mixins/Mapable)
-       */
+     * This function is executed, after the map is bound.
+     */
     onMapBound () {
       if (this.unbound) {
         return;
@@ -106,8 +122,8 @@ export default {
       this.olMapCtrl.createMeasureLayer();
     },
     /**
-       * This function is executed, after the map is bound (see mixins/Mapable)
-       */
+     * This function is executed, after the map is bound.
+     */
     onMapUnbound () {
       if (this.olMapCtrl) {
         this.olMapCtrl.destroy();
@@ -115,10 +131,10 @@ export default {
       }
     },
     /**
-       * Callback function executed when user sets a measure point on the map.
-       *
-       * @param  {ol/geom/Geometry} geom The geometry object of the map
-       */
+     * Callback function executed when user sets a measure point on the map.
+     *
+     * @param  {ol/geom/Geometry} geom The geometry object of the map
+     */
     onMeasureVertexSet (geom) {
       // wrap geom into object, otherwise the injection into childs does
       // not work. Maybe the OL object does not feel changed for Vue
@@ -127,5 +143,5 @@ export default {
       };
     }
   }
-}
+};
 </script>

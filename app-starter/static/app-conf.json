@@ -237,13 +237,13 @@
     "wgu-layerlist": {
       "target": "menu",
       "win": "floating",
-      "icon": "layers",
+      "icon": "md:layers",
       "draggable": false
     },
     "wgu-measuretool": {
       "target": "menu",
       "win": "floating",
-      "icon": "photo_size_select_small",
+      "icon": "md:photo_size_select_small",
       "draggable": false,
       "strokeColor": "#c62828",
       "fillColor": "rgba(198,40,40,0.2)",
@@ -255,7 +255,7 @@
     "wgu-infoclick": {
       "target": "menu",
       "win": "floating",
-      "icon": "info",
+      "icon": "md:info",
       "draggable": false,
       "initPos": {
         "left": 8,
@@ -291,19 +291,19 @@
     "wgu-helpwin": {
       "target": "toolbar",
       "win": "floating",
-      "icon": "help"
+      "icon": "md:help"
     },
     "wgu-geolocator": {
       "target": "toolbar"
     },
     "wgu-themeswitcher": {
       "target": "toolbar",
-      "icon": "dark_mode"
+      "icon": "md:dark_mode"
     },
     "wgu-attributetable": {
       "target": "menu",
       "win": "floating",
-      "icon": "table_chart",
+      "icon": "md:table_chart",
       "syncTableMapSelection": true
     },
     "wgu-localeswitcher": {
@@ -312,7 +312,7 @@
     "sample-module": {
       "target": "toolbar",
       "win": "floating",
-      "icon": "star",
+      "icon": "md:star",
       "closable": false
     }
   }

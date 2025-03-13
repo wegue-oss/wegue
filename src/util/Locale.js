@@ -1,4 +1,4 @@
-import ObjectUtil from './Object.js'
+import ObjectUtil from './Object.js';
 import UrlUtil from './Url.js';
 
 /**
@@ -68,7 +68,7 @@ const LocaleUtil = {
     const moduleDefaultExtractor = i => i.default;
 
     return LocaleUtil.importLocales(
-      require.context('vuetify/es5/locale', false, /[a-z0-9-_]+\.js$/i),
+      require.context('vuetify/lib/locale', false, /[a-z0-9-_]+\.mjs$/i),
       moduleDefaultExtractor
     );
   },
@@ -134,7 +134,7 @@ const LocaleUtil = {
     const isDefined =
       appConfig.lang &&
       appConfig.lang.fallback;
-    return isDefined ? appConfig.lang.fallback : Object.keys(LocaleUtil.supportedLanguageFallback)[0]
+    return isDefined ? appConfig.lang.fallback : Object.keys(LocaleUtil.supportedLanguageFallback)[0];
   },
 
   /**

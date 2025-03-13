@@ -1,6 +1,5 @@
 <template>
-
-  <v-list expand>
+  <v-list v-model:opened="openedListItems">
     <wgu-layerlistitem
       v-for="layer in displayedLayers"
       :key="layer.get('lid')"
@@ -8,36 +7,31 @@
       :mapView="map.getView()"
       :showLegends="showLegends"
       :showOpacityControls="showOpacityControls"
+      :openedListItems="openedListItems"
     />
   </v-list>
 </template>
 
 <script>
-import { Mapable } from '../../mixins/Mapable';
-import LayerListItem from './LayerListItem'
+import { useMap } from '@/composables/Map';
+import LayerListItem from './LayerListItem';
 
 export default {
   name: 'wgu-layerlist',
   components: {
     'wgu-layerlistitem': LayerListItem
   },
-  mixins: [Mapable],
   props: {
     showLegends: { type: Boolean, required: true },
     showOpacityControls: { type: Boolean, required: true }
   },
+  setup () {
+    const { map, layers } = useMap();
+    return { map, layers };
+  },
   data () {
     return {
-      layers: []
-    }
-  },
-  methods: {
-    /**
-     * This function is executed, after the map is bound (see mixins/Mapable).
-     * Bind to the layers from the OpenLayers map.
-     */
-    onMapBound () {
-      this.layers = this.map.getLayers().getArray();
+      openedListItems: []
     }
   },
   computed: {
@@ -51,5 +45,5 @@ export default {
         .reverse();
     }
   }
-}
+};
 </script>

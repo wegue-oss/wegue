@@ -225,7 +225,7 @@
     "wgu-layerlist": {
       "target": "menu",
       "win": "sidebar",
-      "icon": "layers",
+      "icon": "md:layers",
       "visible": true,
       "minimizable": true,
       "closable": false
@@ -233,7 +233,7 @@
     "wgu-measuretool": {
       "target": "menu",
       "win": "sidebar",
-      "icon": "photo_size_select_small",
+      "icon": "md:photo_size_select_small",
       "minimizable": true,
       "strokeColor": "#c62828",
       "fillColor": "rgba(198,40,40,0.2)",
@@ -245,7 +245,7 @@
     "wgu-infoclick": {
       "target": "menu",
       "win": "sidebar",
-      "icon": "info",
+      "icon": "md:info",
       "minimizable": true
     },
     "wgu-geocoder": {
@@ -272,19 +272,19 @@
     "wgu-helpwin": {
       "target": "toolbar",
       "win": "floating",
-      "icon": "help"
+      "icon": "md:help"
     },
     "wgu-geolocator": {
       "target": "toolbar"
     },
     "wgu-themeswitcher": {
       "target": "toolbar",
-      "icon": "dark_mode"
+      "icon": "md:dark_mode"
     },
     "wgu-attributetable": {
       "target": "menu",
       "win": "sidebar",
-      "icon": "table_chart",
+      "icon": "md:table_chart",
       "minimizable": true,
       "syncTableMapSelection": true
     },

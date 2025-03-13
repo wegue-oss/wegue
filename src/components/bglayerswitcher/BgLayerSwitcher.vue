@@ -1,19 +1,21 @@
 <template>
   <div id="wgu-bglayerswitcher-wrapper" v-if="show">
-    <v-menu offset-x nudge-right="15"
+    <v-menu
+      location="end"
+      offset="15"
       transition="scale-transition"
       :close-on-content-click="false"
       v-model="open"
       attach="#wgu-bglayerswitcher-wrapper"
       >
-      <template v-slot:activator="{on}">
+      <template v-slot:activator="{props}">
         <v-sheet class="wgu-map-button wgu-bglayerswitcher">
-          <v-btn v-on="on"
+          <v-btn v-bind="props"
             color="secondary"
-            fab
+            size="large"
+            :icon="icon"
             :title="$t('wgu-bglayerswitcher.title')"
             >
-            <v-icon color="onsecondary" medium>{{icon}}</v-icon>
           </v-btn>
         </v-sheet>
       </template>
@@ -29,7 +31,7 @@
 </template>
 
 <script>
-import { Mapable } from '../../mixins/Mapable';
+import { useMap } from '@/composables/Map';
 import BgLayerList from './BgLayerList';
 
 export default {
@@ -37,25 +39,18 @@ export default {
   components: {
     'wgu-bglayerlist': BgLayerList
   },
-  mixins: [Mapable],
   props: {
-    icon: { type: String, required: false, default: 'map' },
+    icon: { type: String, required: false, default: 'md:map' },
     imageWidth: { type: Number, required: false, default: 152 },
     imageHeight: { type: Number, required: false, default: 114 }
   },
+  setup () {
+    const { map, layers } = useMap();
+    return { map, layers };
+  },
   data () {
     return {
-      open: false,
-      layers: []
-    }
-  },
-  methods: {
-    /**
-     * This function is executed, after the map is bound (see mixins/Mapable).
-     * Bind to the layers from the OpenLayers map.
-     */
-    onMapBound () {
-      this.layers = this.map.getLayers().getArray();
+      open: false
     }
   },
   computed: {

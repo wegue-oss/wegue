@@ -1,36 +1,61 @@
+import { nextTick } from 'vue';
+import { shallowMount } from '@vue/test-utils';
 import AppLoadingMask from '@/components/AppLoadingMask';
 import { WguEventBus } from '@/WguEventBus';
-import { shallowMount } from '@vue/test-utils';
+
+function createWrapper () {
+  return shallowMount(AppLoadingMask);
+}
 
 describe('AppLoadingMask.vue', () => {
-  it('sets the correct default data', () => {
-    AppLoadingMask.$appConfig = {};
-    expect(typeof AppLoadingMask.data).to.equal('function');
-    const data = AppLoadingMask.data();
-    expect(data.show).to.equal(false);
+  let comp;
+  let vm;
+
+  it('is defined', () => {
+    expect(AppLoadingMask).to.not.be.an('undefined');
   });
 
-  describe('events', () => {
-    let comp;
-    let vm;
+  it('has a created hook', () => {
+    expect(AppLoadingMask.created).to.be.a('function');
+  });
+
+  describe('data', () => {
     beforeEach(() => {
-      comp = shallowMount(AppLoadingMask, {});
+      comp = createWrapper();
       vm = comp.vm;
     });
 
-    it('event "app-loading-mask-toggle" forces correct visibility', done => {
+    it('has correct default data', () => {
+      expect(vm.show).to.be.false;
+    });
+
+    afterEach(() => {
+      comp.unmount();
+    });
+  });
+
+  describe('events', () => {
+    beforeEach(() => {
+      comp = createWrapper();
+      vm = comp.vm;
+    });
+
+    it('event "app-loading-mask-toggle" forces correct visibility', async () => {
       // force showing by adding 'true' parameter
       WguEventBus.$emit('app-loading-mask-toggle', true);
-      vm.$nextTick(() => {
-        expect(vm.show).to.equal(true);
+      await nextTick();
 
-        // toggle visibility by skipping parameter
-        WguEventBus.$emit('app-loading-mask-toggle');
-        vm.$nextTick(() => {
-          expect(vm.show).to.equal(false);
-          done();
-        });
-      });
+      expect(vm.show).to.be.true;
+
+      // toggle visibility by skipping parameter
+      WguEventBus.$emit('app-loading-mask-toggle');
+      await nextTick();
+
+      expect(vm.show).to.be.false;
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 });

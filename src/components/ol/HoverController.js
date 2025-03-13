@@ -3,8 +3,8 @@ import ImageWMSSource from 'ol/source/ImageWMS';
 import VectorSource from 'ol/source/Vector';
 import VectorTileSource from 'ol/source/VectorTile';
 import WMSGetFeatureInfo from 'ol/format/WMSGetFeatureInfo';
-import { WguEventBus } from '../../WguEventBus';
-import ObjectUtil from '../../util/Object';
+import { WguEventBus } from '@/WguEventBus';
+import ObjectUtil from '@/util/Object';
 import axios from 'axios';
 
 export default class HoverController {
@@ -229,4 +229,4 @@ export default class HoverController {
     });
     me.activeOverlayId = overlayId;
   }
-}
+};

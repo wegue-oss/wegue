@@ -1,4 +1,6 @@
+import { toRaw } from 'vue';
 import { shallowMount } from '@vue/test-utils';
+import { bindMap, unbindMap } from '@/composables/Map';
 import LayerList from '@/components/layerlist/LayerList';
 import OlMap from 'ol/Map';
 import VectorLayer from 'ol/layer/Vector';
@@ -9,63 +11,85 @@ const moduleProps = {
   showOpacityControls: true
 };
 
+function createWrapper (props = moduleProps) {
+  return shallowMount(LayerList, {
+    props
+  });
+}
+
 describe('layerlist/LayerList.vue', () => {
+  let comp;
+  let vm;
+
   it('is defined', () => {
     expect(LayerList).to.not.be.an('undefined');
   });
 
-  describe('data', () => {
-    let comp;
-    let vm;
+  it('has a setup hook', () => {
+    expect(LayerList.setup).to.be.a('function');
+  });
+
+  describe('props', () => {
     beforeEach(() => {
-      comp = shallowMount(LayerList, {
-        propsData: moduleProps
-      });
+      comp = createWrapper();
+      vm = comp.vm;
+    });
+
+    it('has correct props', () => {
+      expect(toRaw(vm.showLegends)).to.be.true;
+      expect(toRaw(vm.showOpacityControls)).to.be.true;
+    });
+
+    afterEach(() => {
+      comp.unmount();
+    });
+  });
+
+  describe('data', () => {
+    beforeEach(() => {
+      comp = createWrapper();
       vm = comp.vm;
     });
 
     it('has correct default data', () => {
-      expect(typeof LayerList.data).to.equal('function');
-      expect(vm.layers).to.be.an('array');
-      expect(vm.layers.length).to.eql(0);
+      expect(vm.openedListItems).to.be.an('array').that.is.empty;
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('computed properties', () => {
-    let comp;
-    let vm;
+    let map;
+
     beforeEach(() => {
-      comp = shallowMount(LayerList, {
-        propsData: moduleProps
-      });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
     it('detects wanted layer items', () => {
       const layerIn = new VectorLayer({
+        lid: 'in',
         visible: true,
         displayInLayerList: true,
         source: new VectorSource()
       });
       const layerOut = new VectorLayer({
+        lid: 'out',
         visible: true,
         displayInLayerList: false,
         source: new VectorSource()
       });
-      const map = new OlMap({
+      map = new OlMap({
         layers: [layerIn, layerOut]
       });
-      vm.map = map;
-      vm.onMapBound();
+      bindMap(map);
 
-      expect(vm.displayedLayers.length).to.equal(1);
+      expect(vm.displayedLayers).to.have.lengthOf(1);
       const li = vm.displayedLayers[0];
-      expect(li).to.equal(layerIn);
-      expect(li.getVisible()).to.equal(true);
+      expect(toRaw(li)).to.equal(layerIn);
+      expect(li.getVisible()).to.be.true;
     });
 
     it('displayedLayers items are synced with the layer stack', () => {
@@ -73,33 +97,20 @@ describe('layerlist/LayerList.vue', () => {
       const map = new OlMap({
         layers: [layerIn]
       });
-      vm.map = map;
-      vm.onMapBound();
+      bindMap(map);
 
-      expect(vm.displayedLayers.length).to.equal(1);
+      expect(vm.displayedLayers).to.have.lengthOf(1);
 
       map.addLayer(new VectorLayer());
 
-      expect(vm.displayedLayers.length).to.equal(2);
+      expect(vm.displayedLayers).to.have.lengthOf(2);
     });
 
     afterEach(() => {
-      comp.destroy();
-    });
-  });
+      unbindMap();
+      map = undefined;
 
-  describe('methods', () => {
-    let comp;
-    let vm;
-    beforeEach(() => {
-      comp = shallowMount(LayerList, {
-        propsData: moduleProps
-      });
-      vm = comp.vm;
-    });
-
-    it('are implemented', () => {
-      expect(typeof vm.onMapBound).to.equal('function');
+      comp.unmount();
     });
   });
 });

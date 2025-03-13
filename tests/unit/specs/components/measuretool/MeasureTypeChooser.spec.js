@@ -1,50 +1,66 @@
+import { nextTick } from 'vue';
 import { shallowMount } from '@vue/test-utils';
 import MeasureTypeChooser from '@/components/measuretool/MeasureTypeChooser';
 
+function createWrapper () {
+  return shallowMount(MeasureTypeChooser);
+}
+
 describe('measuretool/MeasureTypeChooser.vue', () => {
+  let comp;
+  let vm;
+
   it('is defined', () => {
-    expect(typeof MeasureTypeChooser).to.not.equal('undefined');
+    expect(MeasureTypeChooser).to.not.be.an('undefined');
   });
 
   describe('props', () => {
-    let comp;
     beforeEach(() => {
-      comp = shallowMount(MeasureTypeChooser);
+      comp = createWrapper();
+      vm = comp.vm;
     });
 
     it('has correct default props', () => {
-      expect(comp.vm.measureType).to.equal('distance');
-      expect(comp.vm.showAngleTool).to.equal(false);
+      expect(vm.measureType).to.equal('distance');
+      expect(vm.showAngleTool).to.be.false;
+      expect(vm.iconsOnly).to.be.false;
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 
   describe('data', () => {
-    let comp;
     beforeEach(() => {
-      comp = shallowMount(MeasureTypeChooser);
+      comp = createWrapper();
+      vm = comp.vm;
     });
 
     it('has correct default data', () => {
-      expect(comp.vm.measureTypeData).to.equal('distance');
+      expect(vm.measureTypeData).to.equal('distance');
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 
   describe('watchers', () => {
-    let comp;
     beforeEach(() => {
-      comp = shallowMount(MeasureTypeChooser);
+      comp = createWrapper();
+      vm = comp.vm;
     });
 
-    it('watches measureTypeData fires event "wgu-measuretype-change"', done => {
-      let cnt = 0;
-      comp.vm.$on('wgu-measuretype-change', () => {
-        cnt++;
-      });
-      comp.vm.measureTypeData = 'kalle';
-      comp.vm.$nextTick(() => {
-        expect(cnt).to.equal(1);
-        done();
-      });
+    it('watcher measureTypeData fires event "wgu-measuretype-change"', async () => {
+      vm.measureTypeData = 'kalle';
+      await nextTick();
+
+      expect(comp.emitted()['wgu-measuretype-change']).to.have.lengthOf(1);
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 });

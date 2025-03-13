@@ -1,33 +1,32 @@
 <template>
-<span>
-   <v-btn @click="geolocateUserAndShowMarkerOnMap" icon
-      class="wgu-action-button"
-      color="onprimary"
-      :title="$t('wgu-geolocator.title')">
-      <v-icon v-if='this.isSearchingForGeolocation'>update</v-icon>
-      <v-icon v-else-if='this.isGeolocationAPIAvailable && (!this.isGeolocationFound)'>location_searching</v-icon>
-      <v-icon v-else-if='this.isGeolocationAPIAvailable && this.isGeolocationFound'>gps_fixed</v-icon>
-      <v-icon v-else>location_disabled</v-icon>
-    </v-btn>
-</span>
+  <span>
+    <v-btn @click="geolocateUserAndShowMarkerOnMap"
+        class="wgu-action-button"
+        :title="$t('wgu-geolocator.title')"
+        :icon="icon">
+      </v-btn>
+  </span>
 </template>
 
 <script>
-import { fromLonLat } from 'ol/proj'
-import Point from 'ol/geom/Point'
+import { useMap } from '@/composables/Map';
+import { fromLonLat } from 'ol/proj';
+import Point from 'ol/geom/Point';
 import Feature from 'ol/Feature';
-import { Vector as VectorLayer } from 'ol/layer'
-import { Vector as VectorSource } from 'ol/source'
+import { Vector as VectorLayer } from 'ol/layer';
+import { Vector as VectorSource } from 'ol/source';
 import { Fill, Style, Text } from 'ol/style';
-
-import { WguEventBus } from '../../WguEventBus'
-import ViewAnimationUtil from '../../util/ViewAnimation';
+import ViewAnimationUtil from '@/util/ViewAnimation';
 
 export default {
   name: 'wgu-geolocator',
   props: {
     markerColor: { type: String, required: false, default: 'blue' },
     markerText: { type: String, required: false, default: 'person_pin_circle' }
+  },
+  setup () {
+    const { map } = useMap(this);
+    return { map };
   },
   data: function () {
     return {
@@ -46,20 +45,13 @@ export default {
     }
   },
   created () {
-    const me = this;
-    WguEventBus.$on('ol-map-mounted', olMap => {
-      me.map = olMap;
-    });
     if (!navigator.geolocation) {
-      me.isGeolocationAPIAvailable = false;
+      this.isGeolocationAPIAvailable = false;
     } else {
-      me.isGeolocationAPIAvailable = true;
+      this.isGeolocationAPIAvailable = true;
     }
   },
   methods: {
-    /**
-     *
-     */
     createAndRemoveExistingLayer (layers, layerId) {
       // if the geolocationLayer is already included it has to be removed
       layers.remove(layers.getArray().filter(layer => layerId === (layer.get('lid')))[0]);
@@ -71,10 +63,6 @@ export default {
       layer.setProperties({ lid: layerId });
       return layer;
     },
-
-    /**
-     *
-     */
     geolocateUserAndShowMarkerOnMap () {
       if (this.isGeolocationAPIAvailable) {
         this.isSearchingForGeolocation = true;
@@ -95,7 +83,8 @@ export default {
             this.map.addLayer(geolocLayer);
 
             // zoom to geolocation position
-            ViewAnimationUtil.to(this.map.getView(), currentPosGeom);
+            const viewAnimationUtil = new ViewAnimationUtil(this.$appConfig);
+            viewAnimationUtil.to(this.map.getView(), currentPosGeom);
           } else {
             console.error('The map is not defined in the getCurrentPosition callback');
           }
@@ -114,8 +103,24 @@ export default {
         this.isGeolocationAPIAvailable = false;
       }
     }
+  },
+  computed: {
+    /**
+     * Reactive property to return the icon to be displayed in the menu bar.
+     */
+    icon () {
+      if (this.isSearchingForGeolocation) {
+        return 'md:update';
+      } else if (this.isGeolocationAPIAvailable && (!this.isGeolocationFound)) {
+        return 'md:location_searching';
+      } else if (this.isGeolocationAPIAvailable && this.isGeolocationFound) {
+        return 'md:gps_fixed';
+      } else {
+        return 'md:location_disabled';
+      }
+    }
   }
-}
+};
 </script>
 
 <style scoped>

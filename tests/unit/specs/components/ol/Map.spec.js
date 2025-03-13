@@ -1,5 +1,3 @@
-import Vue from 'vue';
-import Vuetify from 'vuetify'
 import { mount } from '@vue/test-utils';
 import Map from '@/components/ol/Map';
 import SelectInteraction from 'ol/interaction/Select';
@@ -14,73 +12,88 @@ const tileGridDefs = {
   }
 };
 
+function createWrapper ($appConfig = {}) {
+  return mount(Map, {
+    global: {
+      mocks: {
+        $appConfig
+      }
+    }
+  });
+}
+
 describe('ol/Map.vue', () => {
-  const vuetify = new Vuetify()
+  let comp;
+  let vm;
 
   // Inspect the raw component options
   it('is defined', () => {
-    expect(typeof Map).to.not.equal('undefined');
+    expect(Map).to.not.be.an('undefined');
   });
 
   it('has a mounted hook', () => {
-    expect(typeof Map.mounted).to.equal('function');
+    expect(Map.mounted).to.be.a('function');
+  });
+
+  it('has an unmounted hook', () => {
+    expect(Map.unmounted).to.be.a('function');
   });
 
   it('has a created hook', () => {
-    expect(typeof Map.created).to.equal('function');
+    expect(Map.created).to.be.a('function');
   });
 
   describe('props', () => {
-    let comp;
-    let vm;
+    const appConfig = { modules: {} };
+
     beforeEach(() => {
-      Vue.prototype.$appConfig = { modules: {} };
-      comp = mount(Map, { vuetify });
+      comp = createWrapper(appConfig);
       vm = comp.vm;
     });
 
     it('has correct default props', () => {
-      expect(vm.collapsibleAttribution).to.equal(false);
-      expect(vm.rotateableMap).to.equal(false);
+      expect(vm.collapsibleAttribution).to.be.false;
+      expect(vm.rotateableMap).to.be.false;
     });
 
     afterEach(() => {
-      comp.destroy();
-      Vue.prototype.$appConfig = undefined;
+      comp.unmount();
     });
   });
 
   describe('data', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      Vue.prototype.$appConfig = {};
-      comp = mount(Map, { vuetify });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
     it('has correct default data', () => {
-      expect(vm.permalink).to.equal(undefined);
-      expect(vm.zoom).to.equal(undefined);
-      expect(vm.center).to.equal(undefined);
+      expect(vm.zoom).to.be.undefined;
+      expect(vm.center).to.be.undefined;
+      expect(vm.projection).to.be.undefined;
+      expect(vm.projectionObj).to.be.null;
+      expect(vm.projectionDefs).to.be.undefined;
       expect(vm.tileGridDefs).to.be.empty;
       expect(vm.tileGrids).to.be.empty;
+      expect(vm.permalink).to.be.undefined;
+      expect(vm.mapGeodataDragDop).to.be.undefined;
+      expect(vm.dragDropLayerCreated).to.be.false;
+      expect(vm.formatMapping).to.be.an('object');
+      expect(Object.keys(vm.formatMapping)).to.have.lengthOf(5);
       expect(vm.map.getView().getProjection().getCode()).to.equal('EPSG:3857');
       expect(vm.map.getView().getProjection().getUnits()).to.equal('m');
     });
 
     afterEach(() => {
-      comp.destroy();
-      Vue.prototype.$appConfig = undefined;
+      comp.unmount();
     });
   });
 
   describe('data - TileGrid Definitions', () => {
-    let comp;
-    let vm;
+    const appConfig = { tileGridDefs };
+
     beforeEach(() => {
-      Vue.prototype.$appConfig = { tileGridDefs };
-      comp = mount(Map, { vuetify });
+      comp = createWrapper(appConfig);
       vm = comp.vm;
     });
 
@@ -92,26 +105,24 @@ describe('ol/Map.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
-      Vue.prototype.$appConfig = undefined;
+      comp.unmount();
     });
   });
 
   describe('data - Projection Definitions', () => {
-    let comp;
-    let vm;
+    const appConfig = {
+      mapProjection: {
+        code: 'EPSG:28992',
+        units: 'm',
+        extent: epsg28992Extent
+      },
+      projectionDefs: [
+        ['EPSG:28992', '+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.999908 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +towgs84=565.2369,50.0087,465.658,-0.406857330322398,0.350732676542563,-1.8703473836068,4.0812 +no_defs']
+      ]
+    };
+
     beforeEach(() => {
-      Vue.prototype.$appConfig = {
-        mapProjection: {
-          code: 'EPSG:28992',
-          units: 'm',
-          extent: epsg28992Extent
-        },
-        projectionDefs: [
-          ['EPSG:28992', '+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.999908 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +towgs84=565.2369,50.0087,465.658,-0.406857330322398,0.350732676542563,-1.8703473836068,4.0812 +no_defs']
-        ]
-      };
-      comp = mount(Map, { vuetify });
+      comp = createWrapper(appConfig);
       vm = comp.vm;
     });
 
@@ -125,17 +136,13 @@ describe('ol/Map.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
-      Vue.prototype.$appConfig = undefined;
+      comp.unmount();
     });
   });
 
   describe('data - Hover controller', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      Vue.prototype.$appConfig = {};
-      comp = mount(Map, { vuetify });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
@@ -144,33 +151,31 @@ describe('ol/Map.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
-      Vue.prototype.$appConfig = undefined;
+      comp.unmount();
     });
   });
 
   describe('methods', () => {
-    let comp;
-    let vm;
+    const appConfig = {
+      mapLayers: [{
+        type: 'OSM',
+        lid: 'osm-bg',
+        isBaseLayer: false,
+        visible: true,
+        selectable: true,
+        displayInLayerList: true
+      }]
+    };
+
     beforeEach(() => {
-      Vue.prototype.$appConfig = {
-        mapLayers: [{
-          type: 'OSM',
-          lid: 'osm-bg',
-          isBaseLayer: false,
-          visible: true,
-          selectable: true,
-          displayInLayerList: true
-        }]
-      };
-      comp = mount(Map, { vuetify });
+      comp = createWrapper(appConfig);
       vm = comp.vm;
     });
 
     it('createLayers returns always an array', () => {
       const layers = vm.createLayers();
-      expect(layers).to.be.an('array');
-      expect(layers.length).to.equal(1);
+
+      expect(layers).to.be.an('array').that.has.lengthOf(1);
     });
 
     it('createLayers registers a select interaction if configured', () => {
@@ -181,7 +186,8 @@ describe('ol/Map.vue', () => {
           selectIa = ia;
         }
       });
-      expect(typeof selectIa).to.not.equal('undefined');
+
+      expect(selectIa).to.not.be.undefined;
     });
 
     it('setOlButtonColor applies Vuetify color to OL buttons', () => {
@@ -204,17 +210,13 @@ describe('ol/Map.vue', () => {
       mockRotDiv.append(mockSubRotEl);
       document.body.append(mockRotDiv);
 
-      // set a vuetify color definition like 'secondary onsecondary--text'
-      const cssCls1 = 'secondary';
-      const cssCls2 = 'onsecondary--text';
+      // set a vuetify color definition like 'bg-secondary'
+      const cssCls = 'bg-secondary';
       vm.setOlButtonColor();
 
-      expect(mockSubZoomInEl.classList.contains(cssCls1)).to.equal(true);
-      expect(mockSubZoomInEl.classList.contains(cssCls2)).to.equal(true);
-      expect(mockSubZoomOutEl.classList.contains(cssCls1)).to.equal(true);
-      expect(mockSubZoomOutEl.classList.contains(cssCls2)).to.equal(true);
-      expect(mockSubRotEl.classList.contains(cssCls1)).to.equal(true);
-      expect(mockSubRotEl.classList.contains(cssCls2)).to.equal(true);
+      expect(mockSubZoomInEl.classList.contains(cssCls)).to.be.true;
+      expect(mockSubZoomOutEl.classList.contains(cssCls)).to.be.true;
+      expect(mockSubRotEl.classList.contains(cssCls)).to.be.true;
 
       // cleanup (otherwise follow up tests fail)
       mockZoomDiv.parentNode.removeChild(mockZoomDiv);
@@ -222,44 +224,43 @@ describe('ol/Map.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
-      Vue.prototype.$appConfig = undefined;
+      comp.unmount();
     });
   });
 
   describe('methods - TileGrids and Projections', () => {
-    let comp;
-    let vm;
+    const appConfig = {
+      mapZoom: 3,
+      mapCenter: [155000, 463000],
+      mapProjection: {
+        code: 'EPSG:28992',
+        units: 'm',
+        extent: epsg28992Extent
+      },
+      projectionDefs: [
+        ['EPSG:28992', '+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.999908 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +towgs84=565.2369,50.0087,465.658,-0.406857330322398,0.350732676542563,-1.8703473836068,4.0812 +no_defs']
+      ],
+      tileGridDefs,
+      mapLayers: [{
+        type: 'XYZ',
+        lid: 'brtachtergrondkaart',
+        url: 'https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/standaard/EPSG:28992/{z}/{x}/{y}.png',
+        projection: 'EPSG:28992',
+        tileGridRef: 'dutch_rd',
+        displayInLayerList: true,
+        visible: true
+      }]
+    };
+
     beforeEach(() => {
-      Vue.prototype.$appConfig = {
-        mapZoom: 3,
-        mapCenter: [155000, 463000],
-        mapProjection: {
-          code: 'EPSG:28992',
-          units: 'm',
-          extent: epsg28992Extent
-        },
-        projectionDefs: [
-          ['EPSG:28992', '+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.999908 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +towgs84=565.2369,50.0087,465.658,-0.406857330322398,0.350732676542563,-1.8703473836068,4.0812 +no_defs']
-        ],
-        tileGridDefs,
-        mapLayers: [{
-          type: 'XYZ',
-          lid: 'brtachtergrondkaart',
-          url: 'https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/standaard/EPSG:28992/{z}/{x}/{y}.png',
-          projection: 'EPSG:28992',
-          tileGridRef: 'dutch_rd',
-          displayInLayerList: true,
-          visible: true
-        }]
-      };
-      comp = mount(Map, { vuetify });
+      comp = createWrapper(appConfig);
       vm = comp.vm;
     });
 
     it('createLayers assigns TileGrid to Layer Sources', () => {
       const layers = vm.createLayers();
       const tileGrid = layers[0].getSource().getTileGrid();
+
       expect(tileGrid).to.be.not.empty;
       expect(tileGrid.getResolutions()[0]).to.equal(3440.640);
     });
@@ -267,12 +268,12 @@ describe('ol/Map.vue', () => {
     it('createLayers assigns Projection to Layer Sources', () => {
       const layers = vm.createLayers();
       const source = layers[0].getSource();
+
       expect(source.getProjection().getCode()).to.equal('EPSG:28992');
     });
 
     afterEach(() => {
-      comp.destroy();
-      Vue.prototype.$appConfig = undefined;
+      comp.unmount();
     });
   });
 });

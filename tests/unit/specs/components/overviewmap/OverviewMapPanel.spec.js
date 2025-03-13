@@ -1,4 +1,6 @@
+import { toRaw } from 'vue';
 import { shallowMount } from '@vue/test-utils';
+import { bindMap, unbindMap } from '@/composables/Map';
 import OverviewMapPanel from '@/components/overviewmap/OverviewMapPanel';
 import OlMap from 'ol/Map';
 import VectorLayer from 'ol/layer/Vector';
@@ -10,136 +12,127 @@ const moduleProps = {
   height: 178
 };
 
+function createWrapper (props = moduleProps) {
+  return shallowMount(OverviewMapPanel, {
+    props
+  });
+}
+
 describe('overviewmap/OverviewMapPanel.vue', () => {
+  let comp;
+  let vm;
+
   it('is defined', () => {
     expect(OverviewMapPanel).to.not.be.an('undefined');
+  });
+
+  it('has a setup hook', () => {
+    expect(OverviewMapPanel.setup).to.be.a('function');
   });
 
   it('has a mounted hook', () => {
     expect(OverviewMapPanel.mounted).to.be.a('function');
   });
 
+  it('has an unmounted hook', () => {
+    expect(OverviewMapPanel.unmounted).to.be.a('function');
+  });
+
   describe('props', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(OverviewMapPanel, {
-        propsData: moduleProps
-      });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
     it('has correct props', () => {
-      expect(vm.rotateWithView).to.equal(true);
+      expect(vm.rotateWithView).to.be.true;
       expect(vm.width).to.equal(164);
       expect(vm.height).to.equal(178);
     });
 
     afterEach(() => {
-      comp.destroy();
-    });
-  });
-
-  describe('data', () => {
-    let comp;
-    let vm;
-    beforeEach(() => {
-      comp = shallowMount(OverviewMapPanel, {
-        propsData: moduleProps
-      });
-      vm = comp.vm;
-    });
-
-    it('has correct default data', () => {
-      expect(typeof OverviewMapPanel.data).to.equal('function');
-      expect(vm.layers).to.be.an('array');
-      expect(vm.layers.length).to.eql(0);
-    });
-
-    afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('computed properties', () => {
-    let comp;
-    let vm;
+    let map;
+
     beforeEach(() => {
-      comp = shallowMount(OverviewMapPanel, {
-        propsData: moduleProps
-      });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
     it('detects selected base layer', () => {
       const layerIn = new VectorLayer({
+        lid: 'in',
         visible: true,
         isBaseLayer: true,
         source: new VectorSource()
       });
       const layerOut = new VectorLayer({
+        lid: 'out',
         visible: true,
         isBaseLayer: false,
         source: new VectorSource()
       });
-      const map = new OlMap({
+      map = new OlMap({
         layers: [layerIn, layerOut]
       });
-      vm.map = map;
-      vm.onMapBound();
+      bindMap(map);
 
-      expect(vm.selectedBgLayer).to.equal(layerIn);
+      expect(toRaw(vm.selectedBgLayer)).to.equal(layerIn);
     });
 
-    it('selectedBgLayer is synced with the layer stack', () => {
+    it('selectedBgLayer is synced with the layer stack', async () => {
       const layerIn = new VectorLayer({
+        lid: 'in',
         visible: true,
         isBaseLayer: true,
         source: new VectorSource()
       });
       const layerOut = new VectorLayer({
+        lid: 'out',
         visible: true,
         isBaseLayer: true,
         source: new VectorSource()
       });
-      const map = new OlMap({
+      map = new OlMap({
         layers: [layerIn]
       });
-      vm.map = map;
-      vm.onMapBound();
+      bindMap(map);
 
-      expect(vm.selectedBgLayer).to.equal(layerIn);
+      expect(toRaw(vm.selectedBgLayer)).to.equal(layerIn);
 
       layerIn.setVisible(false);
       map.addLayer(layerOut);
 
-      expect(vm.selectedBgLayer).to.equal(layerOut);
+      expect(toRaw(vm.selectedBgLayer)).to.equal(layerOut);
     });
 
     afterEach(() => {
-      comp.destroy();
+      unbindMap();
+      map = undefined;
+
+      comp.unmount();
     });
   });
 
   describe('methods', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(OverviewMapPanel, {
-        propsData: moduleProps
-      });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
     it('are implemented', () => {
-      expect(typeof vm.onMapBound).to.equal('function');
-      expect(typeof vm.onMapUnbound).to.equal('function');
-      expect(typeof vm.createOverviewMapCtrl).to.equal('function');
-      expect(typeof vm.destroyOverviewMapCtrl).to.equal('function');
+      expect(vm.onMapBound).to.be.a('function');
+      expect(vm.onMapUnbound).to.be.a('function');
+      expect(vm.createOverviewMapCtrl).to.be.a('function');
+      expect(vm.destroyOverviewMapCtrl).to.be.a('function');
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 });

@@ -1,89 +1,88 @@
 import { mount, shallowMount } from '@vue/test-utils';
-import Vuetify from 'vuetify';
 import OverviewMap from '@/components/overviewmap/OverviewMap';
 
+function createWrapper (stubChildrenComponents = true) {
+  if (stubChildrenComponents) {
+    return shallowMount(OverviewMap);
+  } else {
+    return mount(OverviewMap);
+  }
+}
+
 describe('overviewmap/OverviewMap.vue', () => {
-  const vuetify = new Vuetify();
+  let comp;
+  let vm;
 
   it('is defined', () => {
     expect(OverviewMap).to.not.be.an('undefined');
   });
 
   describe('props', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(OverviewMap, {
-        vuetify
-      });
-      vm = comp.vm
+      comp = createWrapper();
+      vm = comp.vm;
     });
 
     it('has correct default props', () => {
-      expect(vm.icon).to.equal('zoom_out_map');
-      expect(vm.visible).to.equal(true);
-      expect(vm.rotateWithView).to.equal(true);
+      expect(vm.icon).to.equal('md:zoom_out_map');
+      expect(vm.visible).to.be.true;
+      expect(vm.rotateWithView).to.be.true;
       expect(vm.width).to.equal(164);
       expect(vm.height).to.equal(178);
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('data', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(OverviewMap, {
-        vuetify
-      });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
     it('has correct default data', () => {
-      expect(vm.open).to.equal(true);
+      expect(vm.open).to.be.true;
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('user interactions', () => {
-    let comp;
-    let vm;
-
-    // Remarks: The following is necessary to avoid warnings.
-    //  For reasons not fully understood the test utils will fail to attach
-    //  the v-menu to the wgu-overviewmap-wrapper div element created
-    //  in the component.
-    const div = document.createElement('div');
-    div.id = 'wgu-overviewmap-wrapper';
-    document.body.appendChild(div);
+    let divElement;
 
     beforeEach(() => {
-      comp = mount(OverviewMap, {
-        vuetify
-      });
+      // Remarks: The following is necessary to avoid warnings.
+      //  For reasons not fully understood the test utils will fail to attach
+      //  the v-menu to the wgu-overviewmap-wrapper div element created
+      //  in the component.
+      divElement = document.createElement('div');
+      divElement.id = 'wgu-overviewmap-wrapper';
+      document.body.appendChild(divElement);
+
+      comp = createWrapper(false);
       vm = comp.vm;
     });
 
-    it('button click switches open', done => {
+    it('button click switches open', async () => {
       expect(vm.open).to.equal(true);
 
       const button = comp.findComponent({ name: 'v-btn' });
-      button.trigger('click');
+      await button.trigger('click');
 
-      vm.$nextTick(() => {
-        expect(vm.open).to.equal(false);
-        done();
-      });
+      expect(vm.open).to.equal(false);
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
+
+      if (divElement) {
+        divElement.remove();
+        divElement = undefined;
+      }
     });
   });
 });

@@ -7,11 +7,9 @@
     v-draggable-win="cardDraggable"
   >
     <v-img :src="backgroundImage">
-      <v-toolbar v-bind="toolbarAttr">
-        <v-icon color="onprimary" class="mr-4">{{ icon }}</v-icon>
-        <v-toolbar-title class="wgu-win-title">{{
-          $t(moduleName + '.title')
-        }}</v-toolbar-title>
+      <v-toolbar v-bind="toolbarAttr" class="px-4 py-0">
+        <v-icon :icon="icon"></v-icon>
+        <v-toolbar-title class="wgu-win-title" :text="$t(moduleName + '.title')"></v-toolbar-title>
         <v-spacer></v-spacer>
 
         <!-- Slot for optional window toolbar content -->
@@ -19,18 +17,16 @@
 
         <v-spacer></v-spacer>
         <v-btn
-          color="onprimary"
           v-if="minimizable"
           icon
-          small
+          size="small"
           @click="minimized = !minimized"
         >
-          <v-icon v-if="minimized">web_asset</v-icon>
-          <v-icon v-else>remove</v-icon>
+          <v-icon v-if="minimized" icon="md:web_asset"></v-icon>
+          <v-icon v-else icon="md:remove"></v-icon>
         </v-btn>
-        <v-btn color="onprimary" v-if="closable" icon small class="mr-0"
+        <v-btn v-if="closable" icon="md:close" class="mr-0"
           @click="toggleUi">
-          <v-icon>close</v-icon>
         </v-btn>
       </v-toolbar>
     </v-img>
@@ -43,8 +39,9 @@
 </template>
 
 <script>
-import { DraggableWin } from '../../directives/DraggableWin';
-import { WguEventBus } from '../../WguEventBus';
+import { DraggableWin } from '@/directives/DraggableWin';
+import { WguEventBus } from '@/WguEventBus';
+
 export default {
   name: 'wgu-module-card',
   inheritAttrs: false,
@@ -89,9 +86,10 @@ export default {
   },
   computed: {
     cardClasses () {
+      const inheritedClasses = this.$attrs.class ? [this.$attrs.class] : [];
       return this.win === 'floating'
-        ? ['wgu-module-card', 'wgu-floating']
-        : ['wgu-module-card', 'wgu-sidebar'];
+        ? ['wgu-module-card', 'wgu-floating', ...inheritedClasses]
+        : ['wgu-module-card', 'wgu-sidebar', ...inheritedClasses];
     },
     cardStyles () {
       return this.win === 'floating'
@@ -124,8 +122,7 @@ export default {
             color: 'transparent'
           }
         : {
-            color: 'primary',
-            class: 'onprimary--text'
+            color: 'primary'
           };
     }
   },

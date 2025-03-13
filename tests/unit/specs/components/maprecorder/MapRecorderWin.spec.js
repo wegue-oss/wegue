@@ -1,20 +1,30 @@
-import MapRecorderWin from '@/components/maprecorder/MapRecorderWin'
 import { shallowMount } from '@vue/test-utils';
+import { bindMap, unbindMap } from '@/composables/Map';
+import MapRecorderWin from '@/components/maprecorder/MapRecorderWin';
 import OlMap from 'ol/Map';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 
+function createWrapper () {
+  return shallowMount(MapRecorderWin);
+}
+
 describe('maprecorder/MapRecorderWin.vue', () => {
+  let comp;
+  let vm;
+
   it('is defined', () => {
     expect(MapRecorderWin).to.not.be.an('undefined');
   });
 
+  it('has a setup hook', () => {
+    expect(MapRecorderWin.setup).to.be.a('function');
+  });
+
   describe('props', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(MapRecorderWin);
-      vm = comp.vm
+      comp = createWrapper();
+      vm = comp.vm;
     });
 
     it('has correct default props', () => {
@@ -22,16 +32,14 @@ describe('maprecorder/MapRecorderWin.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('data', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(MapRecorderWin);
-      vm = comp.vm
+      comp = createWrapper();
+      vm = comp.vm;
     });
 
     it('has correct default data', () => {
@@ -39,33 +47,33 @@ describe('maprecorder/MapRecorderWin.vue', () => {
       expect(vm.mapCanvas).to.be.null;
       expect(vm.mapContext).to.be.null;
       expect(vm.recorder).to.be.null;
-      expect(vm.recording).to.equal(false);
+      expect(vm.recording).to.be.false;
       expect(vm.filename).to.be.undefined;
       expect(vm.frameRate).to.equal(25);
       expect(vm.videoMBitsPerSecond).to.equal(2.5);
       expect(vm.timerHandle).to.be.null;
-      expect(vm.error).to.equal(false);
+      expect(vm.error).to.be.false;
       // Supported codecs under chrome.
       expect(vm.mimeType).to.equal('video/webm');
-      expect(vm.mimeTypes.length).to.equal(3);
+      expect(vm.mimeTypes).to.have.lengthOf(3);
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('methods', () => {
-    let comp;
-    let vm;
+    let map;
+
     beforeEach(() => {
-      comp = shallowMount(MapRecorderWin);
-      vm = comp.vm
+      comp = createWrapper();
+      vm = comp.vm;
     });
 
     it('correct supported mime types under chrome', () => {
       const mimeTypes = vm.getSupportedMimeTypes();
-      expect(mimeTypes.length).to.equal(3);
+      expect(mimeTypes).to.have.lengthOf(3);
       expect(mimeTypes[0]).to.equal('video/webm');
       expect(mimeTypes[1]).to.equal('video/mp4');
       expect(mimeTypes[2]).to.equal('video/x-matroska');
@@ -76,33 +84,38 @@ describe('maprecorder/MapRecorderWin.vue', () => {
         visible: true,
         source: new VectorSource()
       });
-      const map = new OlMap({
+      map = new OlMap({
         layers: [layer]
       });
       map.setSize([1024, 768]);
-      vm.map = map;
+      bindMap(map);
 
       vm.startRecording();
+
       expect(vm.mapCanvas).not.to.be.null;
       expect(vm.mapCanvas.width).to.equal(1024);
       expect(vm.mapCanvas.height).to.equal(768);
       expect(vm.mapContext).not.to.be.null;
       expect(vm.recorder).not.to.be.null;
-      expect(vm.recording).to.equal(true);
+      expect(vm.recording).to.be.true;
       expect(vm.timerHandle).not.to.be.null;
-      expect(vm.error).to.equal(false);
+      expect(vm.error).to.be.false;
 
       vm.stopRecording();
+
       expect(vm.mapCanvas).to.be.null;
       expect(vm.mapContext).to.be.null;
       expect(vm.recorder).to.be.null;
-      expect(vm.recording).to.equal(false);
+      expect(vm.recording).to.be.false;
       expect(vm.timerHandle).to.be.null;
-      expect(vm.error).to.equal(false);
+      expect(vm.error).to.be.false;
     });
 
     afterEach(() => {
-      comp.destroy();
+      unbindMap();
+      map = undefined;
+
+      comp.unmount();
     });
   });
 });

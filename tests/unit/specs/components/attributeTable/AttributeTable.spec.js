@@ -1,104 +1,74 @@
-import Vue from 'vue';
-import Vuetify from 'vuetify'
-import AttributeTable from '@/components/attributeTable/AttributeTable';
-import { expect } from 'chai';
 import { shallowMount } from '@vue/test-utils';
+import AttributeTable from '@/components/attributeTable/AttributeTable';
 
-const appConfig = {
-  modules: {
-    'wgu-attributetable-win': {
-      syncTableMapSelection: true
-    }
-  }
-};
+function createWrapper () {
+  return shallowMount(AttributeTable);
+}
 
 describe('attributeTable/AttributeTable.vue', () => {
+  let comp;
+  let vm;
+
   it('is defined', () => {
-    expect(typeof AttributeTable).to.not.equal('undefined');
+    expect(AttributeTable).to.not.be.an('undefined');
+  });
+
+  it('has a setup hook', () => {
+    expect(AttributeTable.setup).to.be.a('function');
   });
 
   it('has a created hook', () => {
     expect(AttributeTable.created).to.be.a('function');
   });
 
-  it('sets the correct default data', () => {
-    expect(AttributeTable.data).to.be.a('function');
-    const defaultData = AttributeTable.data();
-    expect(defaultData).to.be.an('object');
-
-    expect(defaultData.headers).to.be.an('array');
-    expect(defaultData.headers.length).to.eql(0);
-
-    expect(defaultData.records).to.be.an('array');
-    expect(defaultData.records.length).to.eql(0);
-
-    expect(defaultData.features).to.be.an('array');
-    expect(defaultData.features.length).to.eql(0);
-
-    expect(defaultData.selectedRow).to.be.an('array');
-    expect(defaultData.selectedRow.length).to.eql(0);
-
-    expect(defaultData.layer).to.be.null;
-
-    expect(defaultData.loading).to.eql(true);
-
-    expect(defaultData.page).to.eql(1);
+  it('has a beforeUnmount hook', () => {
+    expect(AttributeTable.beforeUnmount).to.be.a('function');
   });
 
   describe('props', () => {
-    let comp;
-    let vuetify;
-
     beforeEach(() => {
-      Vue.prototype.$appConfig = appConfig;
-      vuetify = new Vuetify()
-
-      comp = shallowMount(AttributeTable, {
-        mocks: {
-          $vuetify: {
-            breakpoint: {
-              t: (val) => val
-            }
-          }
-        },
-        vuetify
-      });
+      comp = createWrapper();
+      vm = comp.vm;
     });
 
     it('has correct default props', () => {
-      expect(comp.vm.layerId).to.be.null;
-      expect(comp.vm.loadingText).to.not.be.null;
-      expect(comp.vm.uniqueRecordKeyName).to.not.be.null;
-
-      expect(comp.vm.rowsPerPage).to.be.a('number');
-      expect(comp.vm.tableHeight).to.be.a('number');
-      expect(comp.vm.syncTableMapSelection).to.be.a('boolean');
-      expect(comp.vm.forbiddenColumnNames).to.be.an.instanceof(Array);
+      expect(vm.layerId).to.be.null;
+      expect(vm.uniqueRecordKeyName).to.equal('fid');
+      expect(vm.rowsPerPage).to.equal(10);
+      expect(vm.tableHeight).to.equal(272);
+      expect(vm.syncTableMapSelection).to.be.true;
+      expect(vm.forbiddenColumnNames).to.be.an('array').that.has.lengthOf(2);
     });
 
     afterEach(() => {
-      comp.destroy();
-      Vue.prototype.$appConfig = undefined;
+      comp.unmount();
+    });
+  });
+
+  describe('data', () => {
+    beforeEach(() => {
+      comp = createWrapper();
+      vm = comp.vm;
+    });
+
+    it('has correct default data', () => {
+      expect(vm.headers).to.be.an('array').that.is.empty;
+      expect(vm.records).to.be.an('array').that.is.empty;
+      expect(vm.features).to.be.an('array').that.is.empty;
+      expect(vm.selectedRow).to.be.an('array').that.is.empty;
+      expect(vm.layer).to.be.null;
+      expect(vm.loading).to.be.true;
+      expect(vm.page).to.equal(1);
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 
   describe('methods', () => {
-    let comp;
-    let vm;
-    let vuetify;
     beforeEach(() => {
-      vuetify = new Vuetify()
-
-      comp = shallowMount(AttributeTable, {
-        mocks: {
-          $vuetify: {
-            breakpoint: {
-              t: (val) => val
-            }
-          }
-        },
-        vuetify
-      });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
@@ -107,10 +77,14 @@ describe('attributeTable/AttributeTable.vue', () => {
       expect(vm.getTableHeight).to.be.a('function');
       expect(vm.activateSelectRowOnMapClick).to.be.a('function');
       expect(vm.highlightRowFromSelectedFeature).to.be.a('function');
-      expect(vm.onRowClick).to.be.a('function');
+      expect(vm.onRowSelected).to.be.a('function');
       expect(vm.populateTable).to.be.a('function');
       expect(vm.prepareTableDataAndColumns).to.be.a('function');
       expect(vm.applyColumnMapping).to.be.a('function');
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 })

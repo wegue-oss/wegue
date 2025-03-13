@@ -8,12 +8,12 @@
 </template>
 
 <script>
-import { WguEventBus } from '../../WguEventBus'
-import { Mapable } from '../../mixins/Mapable';
+import { WguEventBus } from '@/WguEventBus';
+import { useMap } from '@/composables/Map';
 import Overlay from 'ol/Overlay';
+
 export default {
   name: 'wgu-map-overlay',
-  mixins: [Mapable],
   inheritAttrs: false,
   props: {
     overlayId: { type: String, required: true },
@@ -24,42 +24,46 @@ export default {
     autoPan: { type: Boolean, required: false, default: false },
     autoPanDuration: { type: Number, required: false, default: 0 }
   },
+  setup () {
+    const { map, layers } = useMap();
+    return { map, layers };
+  },
   data () {
     return {
       show: this.visible,
       position: this.coordinates,
-      olOverlay: null,
-      contentData: null
+      olOverlay: undefined,
+      contentData: {}
     }
   },
   /**
-     * Register for an event to update the overlays visiblity, position and content.
-     */
+   * Register for an event to update the overlays visiblity, position and content.
+   */
   created () {
     WguEventBus.$on(this.overlayId + '-update-overlay', this.onUpdateOverlay);
   },
   /**
-     * Destroy the overlay component.
-     */
-  destroyed () {
+   * Destroy the overlay component.
+   */
+  unmounted () {
     WguEventBus.$off(this.overlayId + '-update-overlay', this.onUpdateOverlay);
     this.destroyOlOverlay();
   },
   methods: {
     /**
-       * This function is executed, after the map is bound (see mixins/Mapable).
-       * Create the overlay if visible.
-       */
+     * This function is executed, after the map is bound.
+     * Create the overlay if visible.
+     */
     onMapBound () {
       if (this.show) {
         this.createOlOverlay();
       }
     },
     /**
-       * Event handler to update the overlays visibility, position and content.
-       * The derived class can receive the content inside it's slot scope, in case
-       * the overlay is populated with dynamic data.
-       */
+     * Event handler to update the overlays visibility, position and content.
+     * The derived class can receive the content inside it's slot scope, in case
+     * the overlay is populated with dynamic data.
+     */
     onUpdateOverlay (visible, position, data) {
       if (visible) {
         this.position = position;
@@ -68,8 +72,8 @@ export default {
       this.show = visible;
     },
     /**
-       * Creates the OpenLayers overlay control and adds it to the map.
-       */
+     * Creates the OpenLayers overlay control and adds it to the map.
+     */
     createOlOverlay () {
       if (!this.olOverlay) {
         const overlayContainer = this.$refs.overlayContainer;
@@ -89,19 +93,27 @@ export default {
       }
     },
     /**
-       * Destroys the OpenLayers overlay control and removes it from the map.
-       */
+     * Destroys the OpenLayers overlay control and removes it from the map.
+     */
     destroyOlOverlay () {
-      if (this.olOverlay) {
+      if (this.olOverlay && this.map) {
         this.map.removeOverlay(this.olOverlay);
         this.olOverlay = undefined;
       }
     }
   },
   watch: {
+    map: {
+      handler (newMap) {
+        if (newMap) {
+          this.onMapBound();
+        }
+      },
+      immediate: true
+    },
     /**
-       * Create / destroy the OpenLayers overlay control when the visibility toggles.
-       */
+     * Create / destroy the OpenLayers overlay control when the visibility toggles.
+     */
     show () {
       if (this.show) {
         this.createOlOverlay();
@@ -110,13 +122,13 @@ export default {
       }
     },
     /**
-       * Update the position of the OpenLayers overlay control.
-       */
+     * Update the position of the OpenLayers overlay control.
+     */
     position () {
       if (this.olOverlay) {
         this.olOverlay.setPosition(this.position);
       }
     }
   }
-}
+};
 </script>

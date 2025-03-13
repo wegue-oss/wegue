@@ -1,5 +1,5 @@
-import { shallowMount } from '@vue/test-utils';
-import Vuetify from 'vuetify';
+import { mount } from '@vue/test-utils';
+import { bindMap, unbindMap } from '@/composables/Map';
 import Geocoder from '@/components/geocoder/Geocoder';
 import { OpenStreetMap } from '@/components/geocoder/providers/osm';
 import { Photon } from '@/components/geocoder/providers/photon';
@@ -11,58 +11,79 @@ import { getTransform } from 'ol/proj';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
+function createWrapper (options = {}) {
+  return mount(Geocoder, options);
+}
+
 describe('geocoder/Geocoder.vue', () => {
-  const vuetify = new Vuetify();
+  let comp;
+  let vm;
 
   // Inspect the raw component options
   it('is defined', () => {
-    expect(Geocoder).to.not.be.undefined;
+    expect(Geocoder).to.not.be.an('undefined');
+  });
+
+  it('has a setup hook', () => {
+    expect(Geocoder.setup).to.be.a('function');
   });
 
   it('has a mounted hook', () => {
     expect(Geocoder.mounted).to.be.a('function');
   });
 
+  it('has an unmounted hook', () => {
+    expect(Geocoder.unmounted).to.be.a('function');
+  });
+
   describe('props', () => {
-    let comp;
     beforeEach(() => {
-      comp = shallowMount(Geocoder, {
-        vuetify
-      });
+      comp = createWrapper();
+      vm = comp.vm;
     });
 
     it('has correct default props', () => {
-      expect(comp.vm.icon).to.equal('search');
-      expect(comp.vm.rounded).to.be.true;
-      expect(comp.vm.autofocus).to.be.true;
-      expect(comp.vm.persistentHint).to.be.true;
+      expect(vm.icon).to.equal('md:search');
+      expect(vm.rounded).to.be.true;
+      expect(vm.autofocus).to.be.true;
+      expect(vm.clearable).to.be.true;
+      expect(vm.persistentHint).to.be.true;
+      expect(vm.debug).to.be.false;
+      expect(vm.minChars).to.equal(3);
+      expect(vm.queryDelay).to.equal(300);
+      expect(vm.provider).to.equal('osm');
+      expect(vm.providerOptions).to.be.an('object');
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 
   describe('default data and Provider', () => {
-    let comp;
-    let vm;
-
     beforeEach(() => {
-      comp = shallowMount(Geocoder, {
-        vuetify
-      });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
     it('has correct default data and Provider', () => {
+      expect(vm.results).to.be.null;
+      expect(vm.lastQueryStr).to.be.empty;
+      expect(vm.noFilter).to.be.true;
+      expect(vm.selecting).to.be.false;
+      expect(vm.selected).to.be.null;
       expect(vm.hideSearch).to.be.true;
-      expect(vm.minChars).to.equal(3);
-      expect(vm.queryDelay).to.equal(300);
+      expect(vm.timeout).to.be.null;
       expect(vm.geocoderController).to.not.be.undefined;
       expect(vm.geocoderController.provider instanceof OpenStreetMap).to.be.true;
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 
   describe('configured data and Provider - Photon', () => {
-    let comp;
-    let vm;
-
     beforeEach(() => {
       const moduleProps = {
         target: 'toolbar',
@@ -71,10 +92,8 @@ describe('geocoder/Geocoder.vue', () => {
         debug: false,
         provider: 'photon'
       };
-      comp = shallowMount(Geocoder, {
-        vuetify,
-        propsData: moduleProps
-      });
+
+      comp = createWrapper({ props: moduleProps });
       vm = comp.vm;
     });
 
@@ -85,12 +104,13 @@ describe('geocoder/Geocoder.vue', () => {
       expect(vm.geocoderController).to.not.be.undefined;
       expect(vm.geocoderController.provider instanceof Photon).to.be.true;
     });
+
+    afterEach(() => {
+      comp.unmount();
+    });
   });
 
   describe('configured data and Provider - OpenCage', () => {
-    let comp;
-    let vm;
-
     beforeEach(() => {
       const moduleProps = {
         target: 'toolbar',
@@ -99,10 +119,8 @@ describe('geocoder/Geocoder.vue', () => {
         debug: false,
         provider: 'opencage'
       };
-      comp = shallowMount(Geocoder, {
-        vuetify,
-        propsData: moduleProps
-      });
+
+      comp = createWrapper({ props: moduleProps });
       vm = comp.vm;
     });
 
@@ -113,11 +131,14 @@ describe('geocoder/Geocoder.vue', () => {
       expect(vm.geocoderController).to.not.be.undefined;
       expect(vm.geocoderController.provider instanceof OpenCage).to.be.true;
     });
+
+    afterEach(() => {
+      comp.unmount();
+    });
   });
 
   describe('methods - search', () => {
-    let comp;
-    let vm;
+    let map;
     let axiosMock;
     let onQueryResultsSpy;
     let onQueryErrorSpy;
@@ -182,10 +203,8 @@ describe('geocoder/Geocoder.vue', () => {
         queryDelay: 2,
         provider: 'osm'
       };
-      comp = shallowMount(Geocoder, {
-        vuetify,
-        propsData: moduleProps
-      });
+
+      comp = createWrapper({ props: moduleProps });
       vm = comp.vm;
 
       onQueryResultsSpy = sinon.replace(vm, 'onQueryResults', sinon.fake(vm.onQueryResults));
@@ -208,19 +227,21 @@ describe('geocoder/Geocoder.vue', () => {
       });
     });
 
-    it('search watcher assigns last query string', async () => {
+    it('search method assigns last query string', async () => {
       applyAxiosMock();
 
-      vm.search = queryString;
+      const comboBox = comp.findComponent({ name: 'v-combobox' });
+      comboBox.vm.$emit('update:search', queryString);
       await clock.tickAsync(200);
 
       expect(vm.lastQueryStr === queryString).to.equal(true);
     });
 
-    it('search watcher query with results', async () => {
+    it('search method query with results', async () => {
       applyAxiosMock();
 
-      vm.search = queryString;
+      const comboBox = comp.findComponent({ name: 'v-combobox' });
+      comboBox.vm.$emit('update:search', queryString);
       await clock.tickAsync(200);
 
       expect(vm.results).to.not.be.undefined;
@@ -228,23 +249,22 @@ describe('geocoder/Geocoder.vue', () => {
       expect(vm.results[0].address.road).to.equal('Heerstraße');
 
       // Items from query result should be assigned to combobox
-      const comboBox = comp.findComponent({ name: 'v-combobox' });
-      selectionItems = comboBox.vnode.data.attrs.items;
+      selectionItems = comboBox.props('items');
       expect(selectionItems).to.not.be.undefined;
       expect(selectionItems).to.have.length(vm.results.length);
     });
 
-    it('select items watcher assigns result and zooms/centers Map at result', async () => {
+    it('selected item watcher assigns result and zooms/centers Map at result', async () => {
       applyAxiosMock();
 
-      vm.map = new OlMap();
-      vm.search = queryString;
-      await clock.tickAsync(200);
+      map = new OlMap();
+      bindMap(map);
 
       const comboBox = comp.findComponent({ name: 'v-combobox' });
-      selectionItems = comboBox.vnode.data.attrs.items;
-      vm.selected = selectionItems[0];
-      await vm.$nextTick();
+      comboBox.vm.$emit('update:search', queryString);
+      await clock.tickAsync(200);
+      selectionItems = comboBox.props('items');
+      await comp.setData({ selected: selectionItems[0] });
 
       // Map center should be at coordinates from selected item
       const mapCenter = vm.map.getView().getCenter();
@@ -262,7 +282,8 @@ describe('geocoder/Geocoder.vue', () => {
     it('calls onQueryResults if fetch successful', async () => {
       applyAxiosMock();
 
-      vm.search = queryString;
+      const comboBox = comp.findComponent({ name: 'v-combobox' });
+      comboBox.vm.$emit('update:search', queryString);
       await clock.tickAsync(200);
 
       expect(onQueryResultsSpy).to.have.been.called;
@@ -271,13 +292,17 @@ describe('geocoder/Geocoder.vue', () => {
     it('calls onQueryError if error during fetch', async () => {
       applyAxiosMock(true);
 
-      vm.search = queryString;
+      const comboBox = comp.findComponent({ name: 'v-combobox' });
+      comboBox.vm.$emit('update:search', queryString);
       await clock.tickAsync(200);
 
       expect(onQueryErrorSpy).to.have.been.called;
     });
 
-    afterEach(function () {
+    afterEach(() => {
+      unbindMap();
+      map = undefined;
+
       if (axiosMock) {
         axiosMock.restore();
       }
@@ -289,13 +314,8 @@ describe('geocoder/Geocoder.vue', () => {
   });
 
   describe('user interactions for search activation', () => {
-    let comp;
-    let vm;
-
     beforeEach(() => {
-      comp = shallowMount(Geocoder, {
-        vuetify
-      });
+      comp = createWrapper({ attachTo: document.body });
       vm = comp.vm;
     });
 
@@ -313,32 +333,33 @@ describe('geocoder/Geocoder.vue', () => {
 
       // Initial state
       expect(vm.hideSearch).to.be.true;
-      expect(comboBox.attributes('hidden')).to.equal('true');
+      expect(comboBox.isVisible()).to.be.false;
 
       // Make visible
-      button.vm.$emit('click');
-      await vm.$nextTick();
+      await button.trigger('click');
 
       expect(vm.hideSearch).to.be.false;
-      // So looks like the 'hidden' attr is simply removed/added through toggle()!
-      expect(comboBox.attributes('hidden')).to.be.undefined;
+      expect(comboBox.isVisible()).to.be.true;
 
       // And hide
-      button.vm.$emit('click');
-      await vm.$nextTick();
+      await button.trigger('click');
 
       expect(vm.hideSearch).to.be.true;
-      expect(comboBox.attributes('hidden')).to.equal('true');
+      expect(comboBox.isVisible()).to.be.false;
     });
 
     it('search input string should trigger search', async () => {
       const queryString = 'heerstrasse 52 bonn';
 
       // Trigger watcher for search input string in combobox
-      vm.search = queryString;
-      await vm.$nextTick();
+      const comboBox = comp.findComponent({ name: 'v-combobox' });
+      comboBox.vm.$emit('update:search', queryString);
 
       expect(vm.lastQueryStr).to.equal(queryString);
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 });

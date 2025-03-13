@@ -1,19 +1,16 @@
 <template>
-
   <v-progress-circular
     v-if="visible"
     class="wgu-maploading-status"
-    :value="80"
+    :model-value="80"
     indeterminate
     color="secondary"
     >
   </v-progress-circular>
-
 </template>
 
 <script>
-
-import { Mapable } from '../../mixins/Mapable';
+import { useMap } from '@/composables/Map';
 import {
   Image as ImageSource, TileImage as TileImageSource,
   Vector as VectorSource, Cluster as ClusterSource
@@ -22,21 +19,33 @@ import LayerGroup from 'ol/layer/Group';
 
 export default {
   name: 'wgu-maploading-status',
-  mixins: [Mapable],
+  setup () {
+    const { map, layers } = useMap(this);
+    return { map, layers };
+  },
   data () {
     return {
       loading: 0,
       visible: false
     }
   },
+  watch: {
+    map: {
+      handler (newMap) {
+        if (newMap) {
+          this.onMapBound();
+        }
+      },
+      immediate: true
+    }
+  },
   methods: {
     /**
-     * This function is executed, after the map is bound (see mixins/Mapable)
+     * This function is executed, after the map is bound
      * and registers the current map layers.
      */
     onMapBound () {
-      const me = this;
-      me.registerLayers(me.map.getLayerGroup());
+      this.registerLayers(this.map.getLayerGroup());
     },
 
     /**
@@ -151,7 +160,7 @@ export default {
       this.registerLayers(evt.element);
     }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -1,9 +1,7 @@
-import Vue from 'vue'
-import { mount, shallowMount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
+import { createI18n } from 'vue-i18n';
 import LocaleSwitcher from '@/components/localeswitcher/LocaleSwitcher';
-import Vuetify from 'vuetify';
-
-const vuetify = new Vuetify();
+import i18nMessages from '@/locales/en.json';
 
 const appConfig = {
   lang: {
@@ -17,41 +15,65 @@ const appConfig = {
   }
 };
 
+function createWrapper ($appConfig = {}) {
+  const i18nInstance = createI18n({
+    legacy: false,
+    globalInjection: true,
+    locale: 'en',
+    fallbackLocale: 'en',
+    messages: { en: i18nMessages },
+    missingWarn: false,
+    fallbackWarn: false,
+    warnHtmlMessage: false
+  });
+
+  return mount(LocaleSwitcher, {
+    global: {
+      mocks: {
+        $appConfig
+      },
+      plugins: [i18nInstance]
+    }
+  });
+}
+
 describe('localeswitcher/LocaleSwitcher.vue', () => {
+  let comp;
+  let vm;
+
   it('is defined', () => {
     expect(LocaleSwitcher).to.not.be.an('undefined');
   });
 
+  it('has a setup hook', () => {
+    expect(LocaleSwitcher.setup).to.be.a('function');
+  });
+
   describe('props', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(LocaleSwitcher, { vuetify });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
     it('has correct default props', () => {
-      expect(vm.icon).to.equal('language');
+      expect(vm.icon).to.equal('md:language');
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('data', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      Vue.prototype.$appConfig = appConfig;
-      comp = shallowMount(LocaleSwitcher, { vuetify });
+      comp = createWrapper(appConfig);
       vm = comp.vm;
     });
 
     it('has correct default data', () => {
-      expect(typeof LocaleSwitcher.data).to.equal('function');
+      expect(vm.show).to.be.false;
       expect(vm.lang).to.be.an('object');
-      expect(Object.keys(vm.lang).length).to.eql(4);
+      expect(Object.keys(vm.lang)).to.have.lengthOf(4);
       expect(vm.lang.en).to.eql('English');
       expect(vm.lang.de).to.eql('Deutsch');
       expect(vm.lang.pt).to.eql('Portugues');
@@ -59,37 +81,34 @@ describe('localeswitcher/LocaleSwitcher.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('methods', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      Vue.prototype.$appConfig = appConfig;
-      comp = mount(LocaleSwitcher, {
-        vuetify
-      });
+      comp = createWrapper(appConfig);
       vm = comp.vm;
     });
 
     it('are implemented', () => {
-      expect(typeof vm.onItemClick).to.equal('function');
+      expect(vm.onItemClick).to.be.a('function');
     });
 
     it('onItemClick toggles language', () => {
       vm.onItemClick('de');
+
       expect(vm.$i18n.locale).to.equal('de');
-      expect(vm.$vuetify.lang.current).to.equal('de');
+      expect(vm.vuetifyLang).to.equal('de');
 
       vm.onItemClick('en');
+
       expect(vm.$i18n.locale).to.equal('en');
-      expect(vm.$vuetify.lang.current).to.equal('en');
+      expect(vm.vuetifyLang).to.equal('en');
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 });

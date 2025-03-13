@@ -41,16 +41,16 @@ Example:
   "themes": {    // Configuration for themes
     "light": {   // Light theme configuration
       "primary": "#af2622",
-      "onprimary": "#ffffff",
+      "on-primary": "#ffffff",
       "secondary": "#ec483b",
-      "onsecondary": "#ffffff",
+      "on-secondary": "#ffffff",
       "error": "#ff6f00"
     },
     "dark": {    // Dark theme configuration
       "primary": "#272727",
-      "onprimary": "#ffffff",
+      "on-primary": "#ffffff",
       "secondary": "#ea9b9b",
-      "onsecondary": "#272727",
+      "on-secondary": "#272727",
       "error": "#ff6f00"
     }
   }
@@ -73,8 +73,8 @@ In addition, Wegue also supports the following "on" colors:
 
 | Color         | Description         | Example       |
 | ------------- |:-------------------:| ------------- |
-| onprimary     | color over primary color   | typography/icons over primary color   |
-| onsecondary   | color over secondary color | typography/icons over secondary color |
+| on-primary     | color over primary color   | typography/icons over primary color   |
+| on-secondary   | color over secondary color | typography/icons over secondary color |
 
 Moreover, custom colors which are not listed in the Vuetify documentation can also be defined here. Lighten and darken variants will also be generated for them like for the default ones.
 
@@ -90,8 +90,8 @@ To simplify the theming configuration, if the "themes" property isn't configured
 | success       |  no | #4CAF50 |
 | warning       |  no | #FFC107 |
 | error         |  no | #FF5252 |
-| onprimary     |  no | white if primary is a dark color. <br/> black if primary is a light color     |
-| onsecondary   |  no | white if secondary is a dark color. <br/> black if secondary is a light color |
+| on-primary     |  no | white if primary is a dark color. <br/> black if primary is a light color     |
+| on-secondary   |  no | white if secondary is a dark color. <br/> black if secondary is a light color |
 
 #### Dark theme:
 
@@ -103,8 +103,8 @@ To simplify the theming configuration, if the "themes" property isn't configured
 | success       |  no | #4CAF50 |
 | warning       |  no | #FFC107 |
 | error         |  no | #FF5252 |
-| onprimary     |  no | white if primary is a dark color. <br/> black if primary is a light color     |
-| onsecondary   |  no | white if secondary is a dark color. <br/> black if secondary is a light color |
+| on-primary     |  no | white if primary is a dark color. <br/> black if primary is a light color     |
+| on-secondary   |  no | white if secondary is a dark color. <br/> black if secondary is a light color |
 
 Note that there is a clear asymmetry in the "light" and "dark" theme configuration. In the "light" theme, the primary color is mandatory and all the
 others are derived from that. In the "dark" theme, the predominant color must be a shade of black (to comply with the [material design specification](https://material.io/design/color/dark-theme.html)), so the primary color is locked to `#272727`. Therefore, in this case the colors are derived from the second predominant color.

@@ -1,10 +1,10 @@
-import { WguEventBus } from '@/WguEventBus'
+import HoverController from '@/components/ol/HoverController';
+import { WguEventBus } from '@/WguEventBus';
 import OlMap from 'ol/Map';
 import Feature from 'ol/Feature';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import Point from 'ol/geom/Point';
-import HoverController from '../../../../../src/components/ol/HoverController';
 
 // Test layers and feature
 const feat = new Feature({
@@ -23,16 +23,17 @@ const layerNonHoverable = new VectorLayer({
   source: new VectorSource({
     features: [feat]
   })
-})
+});
 
 describe('ol/HoverController.js', () => {
+  let comp;
+  let map;
+
   it('is defined', () => {
-    expect(typeof HoverController).to.not.equal(undefined);
+    expect(HoverController).to.not.be.an('undefined');
   });
 
   describe('data', () => {
-    let comp;
-    let map;
     beforeEach(() => {
       map = new OlMap({});
       comp = new HoverController(map);
@@ -40,12 +41,12 @@ describe('ol/HoverController.js', () => {
 
     it('has correct default data', () => {
       expect(comp.map).to.equal(map);
-      expect(comp.timerHandle).to.equal(null);
-      expect(comp.activeOverlayId).to.equal(null);
-      expect(comp.pendingRequestsAbortCtrl).to.equal(null);
-      expect(comp.conf.delay).to.equal(150)
-      expect(comp.conf.hideOnMousemove).to.equal(false)
-      expect(comp.conf.hoverOverlay).to.equal('wgu-hover-tooltip')
+      expect(comp.timerHandle).to.be.null;
+      expect(comp.activeOverlayId).to.be.null;
+      expect(comp.pendingRequestsAbortCtrl).to.be.null;
+      expect(comp.conf.delay).to.equal(150);
+      expect(comp.conf.hideOnMousemove).to.be.false;
+      expect(comp.conf.hoverOverlay).to.equal('wgu-hover-tooltip');
     });
 
     afterEach(() => {
@@ -54,8 +55,6 @@ describe('ol/HoverController.js', () => {
   });
 
   describe('user interactions', () => {
-    let comp;
-    let map;
     beforeEach(() => {
       map = new OlMap({});
       comp = new HoverController(map);
@@ -66,14 +65,14 @@ describe('ol/HoverController.js', () => {
       map.addLayer(layer);
       map.forEachLayerAtPixel = (pixel, callback, opts) => {
         callback(layer);
-      }
+      };
       map.getFeaturesAtPixel = (evt, opts) => {
         return [feat];
       };
 
       WguEventBus.$once('wgu-hover-tooltip-update-overlay', (visible, position, data) => {
-        expect(visible).to.equal(true);
-        expect(position).to.equal(undefined);
+        expect(visible).to.be.true;
+        expect(position).to.be.undefined;
         expect(data.feature).to.equal(feat);
         expect(data.layer).to.equal(layer);
         expect(data.hoverAttribute).to.equal('foo');
@@ -87,7 +86,7 @@ describe('ol/HoverController.js', () => {
       map.addLayer(layerNonHoverable);
       map.forEachLayerAtPixel = (pixel, callback, opts) => {
         callback(layerNonHoverable);
-      }
+      };
       map.getFeaturesAtPixel = (evt, opts) => {
         return [feat];
       };
@@ -99,7 +98,7 @@ describe('ol/HoverController.js', () => {
       comp.onPointerRest({ pixel: [0, 0] });
 
       setTimeout(() => {
-        expect(eventEmitted).to.equal(false);
+        expect(eventEmitted).to.be.false;
         done();
       }, 100);
     });
@@ -109,12 +108,12 @@ describe('ol/HoverController.js', () => {
       map.addLayer(layer);
       map.forEachLayerAtPixel = (pixel, callback, opts) => {
         callback(layer);
-      }
+      };
 
       WguEventBus.$once('wgu-hover-tooltip-update-overlay', (visible, position, data) => {
-        expect(visible).to.equal(false);
-        expect(position).to.equal(undefined);
-        expect(data).to.equal(undefined);
+        expect(visible).to.be.false;
+        expect(position).to.be.undefined;
+        expect(data).to.be.undefined;
         done();
       });
       comp.activeOverlayId = 'wgu-hover-tooltip';

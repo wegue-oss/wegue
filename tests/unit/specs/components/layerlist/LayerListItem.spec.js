@@ -1,3 +1,4 @@
+import { toRaw } from 'vue';
 import { shallowMount } from '@vue/test-utils';
 import LayerListItem from '@/components/layerlist/LayerListItem';
 import TileLayer from 'ol/layer/Tile';
@@ -5,6 +6,7 @@ import OSM from 'ol/source/OSM';
 import View from 'ol/View';
 
 const osmLayer = new TileLayer({
+  lid: 'osm',
   source: new OSM()
 });
 
@@ -18,128 +20,150 @@ const moduleProps = {
   mapView: view,
   layer: osmLayer,
   showLegends: true,
-  showOpacityControls: true
+  showOpacityControls: true,
+  openedListItems: []
 };
 
+function createWrapper (props = moduleProps) {
+  return shallowMount(LayerListItem, {
+    props
+  });
+}
+
 describe('layerlist/LayerListItem.vue', () => {
+  let comp;
+  let vm;
+
   it('is defined', () => {
     expect(LayerListItem).to.not.be.an('undefined');
   });
 
   describe('props', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(LayerListItem, {
-        propsData: moduleProps
-      });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
     it('has correct props', () => {
-      expect(vm.mapView).to.equal(view);
-      expect(vm.layer).to.equal(osmLayer);
-      expect(vm.showLegends).to.equal(true);
-      expect(vm.showOpacityControls).to.equal(true);
+      expect(toRaw(vm.mapView)).to.equal(view);
+      expect(toRaw(vm.layer)).to.equal(osmLayer);
+      expect(vm.showLegends).to.be.true;
+      expect(vm.showOpacityControls).to.be.true;
+      expect(vm.openedListItems).to.be.an('array').that.has.lengthOf(0);
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('data', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(LayerListItem, {
-        propsData: moduleProps
-      });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
     it('has correct default data', () => {
-      expect(vm.open).to.equal(false);
+      expect(vm.open).to.be.false;
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('methods', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(LayerListItem, {
-        propsData: moduleProps
-      });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
     it('are implemented', () => {
-      expect(typeof vm.onItemClick).to.equal('function');
+      expect(vm.onItemClick).to.be.a('function');
     });
 
     it('onItemClick toggles layer visibility', () => {
-      expect(osmLayer.getVisible()).to.equal(true);
+      expect(osmLayer.getVisible()).to.be.true;
+
       vm.onItemClick();
-      expect(osmLayer.getVisible()).to.equal(false);
+
+      expect(osmLayer.getVisible()).to.be.false;
+    });
+
+    afterEach(() => {
+      comp.unmount();
     });
   });
 
   describe('computed properties', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(LayerListItem, {
-        propsData: moduleProps
-      });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
     it('has correct showLegend property for layer', async () => {
-      expect(vm.showLegend).to.equal(false);
+      expect(vm.showLegend).to.be.false;
 
       const osmLayer2 = new TileLayer({
+        lid: 'osm2',
         source: new OSM(),
         legend: true
       });
       await comp.setProps({ layer: osmLayer2 });
-      expect(vm.showLegend).to.equal(true);
+
+      expect(vm.showLegend).to.be.true;
     });
 
     it('has correct showOpacityControl property for layer', async () => {
-      expect(vm.showOpacityControl).to.equal(false);
+      expect(vm.showOpacityControl).to.be.false;
 
       const osmLayer2 = new TileLayer({
+        lid: 'osm2',
         source: new OSM(),
         opacityControl: true
       });
       await comp.setProps({ layer: osmLayer2 });
-      expect(vm.showOpacityControl).to.equal(true);
+
+      expect(vm.showOpacityControl).to.be.true;
     });
 
     it('has correct showDetails property for layer', async () => {
-      expect(vm.showDetails).to.equal(false);
+      expect(vm.showDetails).to.be.false;
 
       const osmLayer2 = new TileLayer({
+        lid: 'osm2',
         source: new OSM(),
         legend: true
       });
       await comp.setProps({ layer: osmLayer2 });
-      expect(vm.showDetails).to.equal(true);
+
+      expect(vm.showDetails).to.be.true;
 
       const osmLayer3 = new TileLayer({
+        lid: 'osm3',
         source: new OSM(),
         opacityControl: true
       });
       comp.setProps({ layer: osmLayer3 });
-      expect(vm.showDetails).to.equal(true);
+
+      expect(vm.showDetails).to.be.true;
+    });
+
+    it('has correct layerLid property for layer', async () => {
+      expect(vm.layerLid).to.equal('osm');
+
+      const osmLayer2 = new TileLayer({
+        lid: 'osm2',
+        source: new OSM(),
+        legend: true
+      });
+      await comp.setProps({ layer: osmLayer2 });
+
+      expect(vm.layerLid).to.equal('osm2');
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 });

@@ -3,40 +3,41 @@ import OlMap from 'ol/Map';
 import VectorLayer from 'ol/layer/Vector';
 import DrawInteraction from 'ol/interaction/Draw';
 
-describe('measuretool/MeasureWin.vue', () => {
+describe('measuretool/OlMeasureController.js', () => {
+  let olmc;
+  let map;
+
   it('is defined', () => {
-    expect(typeof OlMeasureController).to.not.equal('undefined');
+    expect(OlMeasureController).to.not.be.an('undefined');
   });
 
   describe('methods', () => {
-    let olmc;
-    let map;
     beforeEach(() => {
       map = new OlMap({ interactions: [] });
       olmc = new OlMeasureController(map);
     });
 
     it('are implemented', () => {
-      expect(typeof olmc.createMeasureLayer).to.equal('function');
-      expect(typeof olmc.addInteraction).to.equal('function');
-      expect(typeof olmc.removeInteraction).to.equal('function');
+      expect(olmc.createMeasureLayer).to.be.a('function');
+      expect(olmc.addInteraction).to.be.a('function');
+      expect(olmc.removeInteraction).to.be.a('function');
     });
 
     it('createMeasureLayer creates and adds a vector layer to the map', () => {
       olmc.createMeasureLayer();
-      expect(map.getLayers().item(0) instanceof VectorLayer).to.equal(true);
+      expect(map.getLayers().item(0) instanceof VectorLayer).to.be.true;
     });
 
     it('addInteraction creates and adds a draw interaction to the map (distance)', () => {
       olmc.addInteraction('distance', () => undefined);
       expect(map.getInteractions().getLength()).to.equal(1);
-      expect(map.getInteractions().item(0) instanceof DrawInteraction).to.equal(true);
+      expect(map.getInteractions().item(0) instanceof DrawInteraction).to.be.true;
     });
 
     it('addInteraction creates and adds a draw interaction to the map (area)', () => {
       olmc.addInteraction('area', () => undefined);
       expect(map.getInteractions().getLength()).to.equal(1);
-      expect(map.getInteractions().item(0) instanceof DrawInteraction).to.equal(true);
+      expect(map.getInteractions().item(0) instanceof DrawInteraction).to.be.true;
     });
 
     it('addInteraction resets existing draw interaction on the map', () => {

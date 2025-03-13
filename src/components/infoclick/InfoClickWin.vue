@@ -1,5 +1,4 @@
 <template>
-
   <wgu-module-card v-bind="$attrs"
     :moduleName="moduleName"
     class="wgu-infoclick-win"
@@ -16,8 +15,20 @@
         </v-card-text>
         <v-card-actions v-show="attributeData">
           <v-spacer class="text-overline">{{ featureIdx + 1 }}/{{ numfeats }}: {{ layerName }}</v-spacer>
-          <v-btn v-show="numfeats > 1" x-small @click="prevFeat" ><v-icon>mdi-menu-left</v-icon></v-btn>
-          <v-btn v-show="numfeats > 1" x-small @click="nextFeat" ><v-icon>mdi-menu-right</v-icon></v-btn>
+          <v-btn v-show="numfeats > 1"
+            size="x-small"
+            variant="elevated"
+            @click="prevFeat"
+          >
+            <v-icon size="x-large">mdi-menu-left</v-icon>
+          </v-btn>
+          <v-btn v-show="numfeats > 1"
+            size="x-small"
+            variant="elevated"
+            @click="nextFeat"
+          >
+            <v-icon size="x-large">mdi-menu-right</v-icon>
+          </v-btn>
         </v-card-actions>
 
         <!-- feature property grid -->
@@ -51,7 +62,7 @@
 
       <v-card-actions>
         <v-btn
-          text color="secondary"
+          variant="text" color="secondary"
           v-if="this.attributeData && this.attributeData[mediaInfoLinkUrlProp]"
           :href="this.attributeData[mediaInfoLinkUrlProp]"
           target="_blank"
@@ -67,10 +78,10 @@
 
 <script>
 import ModuleCard from '../modulecore/ModuleCard';
-import { WguEventBus } from '../../WguEventBus.js';
+import { useMap } from '@/composables/Map';
 import PropertyTable from './PropertyTable';
 import CoordsTable from './CoordsTable';
-import MapInteractionUtil from '../../util/MapInteraction';
+import MapInteractionUtil from '@/util/MapInteraction';
 
 export default {
   name: 'wgu-infoclick-win',
@@ -81,12 +92,16 @@ export default {
     'wgu-coords-table': CoordsTable
   },
   props: {
-    icon: { type: String, required: false, default: 'info' },
+    icon: { type: String, required: false, default: 'md:info' },
     showMedia: { type: Boolean, required: false, default: false },
     // below props only have an effect if showMedia=true
     mediaInfoLinkUrlProp: { type: String, required: false },
     imageProp: { type: String, required: false },
     imageDescriptionProp: { type: String, required: false }
+  },
+  setup () {
+    const { map } = useMap(this);
+    return { map };
   },
   data: function () {
     return {
@@ -99,22 +114,12 @@ export default {
       numfeats: null
     }
   },
-  created () {
-    const me = this;
-    // Listen to the ol-map-mounted event and receive the OL map instance
-    WguEventBus.$on('ol-map-mounted', (olMap) => {
-      // make the OL map accessible in this component
-      me.map = olMap;
-    });
-  },
   methods: {
     registerMapClick (unregister) {
-      const me = this;
-
       if (unregister === true) {
-        me.map.un('singleclick', me.onMapClick);
+        this.map.un('singleclick', this.onMapClick);
       } else {
-        me.map.on('singleclick', me.onMapClick);
+        this.map.on('singleclick', this.onMapClick);
       }
     },
     /**
@@ -137,7 +142,7 @@ export default {
       if (this.features.length !== 0) {
         this.featureIdx = 0;
         this.numfeats = me.features.length;
-        this.viewProps(this.featureIdx)
+        this.viewProps(this.featureIdx);
       } else {
         this.attributeData = null;
       }
@@ -192,14 +197,13 @@ export default {
      * @param  {boolean} visible New visibility state
     */
     show (visible) {
-      const me = this;
       if (visible) {
-        me.registerMapClick();
+        this.registerMapClick();
       } else {
         // cleanup old data
-        me.registerMapClick(true);
-        me.attributeData = null;
-        me.coordsData = null;
+        this.registerMapClick(true);
+        this.attributeData = null;
+        this.coordsData = null;
       }
     }
   }
@@ -211,6 +215,7 @@ export default {
 
   .wgu-infoclick-win {
     width: 450px;
+    max-width: 100%;
   }
 
   .wgu-infoclick-win .v-card__title {

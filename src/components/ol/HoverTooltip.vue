@@ -20,11 +20,12 @@
 </template>
 
 <script>
-import MapOverlay from '../modulecore/MapOverlay.vue'
+import MapOverlay from '../modulecore/MapOverlay.vue';
+
 export default {
   name: 'wgu-hover-tooltip',
   components: {
     'wgu-map-overlay': MapOverlay
   }
-}
+};
 </script>

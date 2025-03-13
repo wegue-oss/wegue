@@ -1,17 +1,19 @@
 <template>
-
-  <v-overlay :value="show" :opacity="0.25">
+  <v-overlay
+    :model-value="show"
+    :opacity="0.25"
+    class="align-center justify-center"
+  >
     <v-progress-circular
       indeterminate
       color="primary"
     >
     </v-progress-circular>
   </v-overlay>
-
 </template>
 
 <script>
-import { WguEventBus } from '../WguEventBus';
+import { WguEventBus } from '@/WguEventBus';
 
 export default {
   name: 'wgu-app-loading-mask',
@@ -31,5 +33,5 @@ export default {
       }
     });
   }
-}
+};
 </script>

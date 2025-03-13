@@ -1,5 +1,3 @@
-import Vue from 'vue';
-
 /**
  * Directive to make a window component draggable by dragging it's header.
  * Proudly inspired by and most of the essential code taken from
@@ -25,7 +23,7 @@ export const DraggableWin = {
     initialZIndex: undefined
   },
 
-  bind (elmnt, binding, vnode) {
+  beforeMount (elmnt, binding, vnode) {
     if (binding.value === false) {
       // disable this directive if set to v-draggable-win="false"
       return;
@@ -139,9 +137,9 @@ export const DraggableWin = {
      * Event handler for mouse up.
      */
     function mouseup (e, el, _data) {
-      _data.down = false
+      _data.down = false;
       if (!_data.overlay) {
-        return
+        return;
       }
 
       _data.overlay.removeEventListener('mouseup', mouseup);
@@ -154,8 +152,8 @@ export const DraggableWin = {
 
       // preserve the current position as property of the vue / Wegue window
       // so it can be restored when the window is re-opened
-      vnode.componentInstance.$parent.top = (_data.draggerOffsetTop) + 'px';
-      vnode.componentInstance.$parent.left = (_data.draggerOffsetLeft) + 'px';
+      binding.instance.$parent.top = (_data.draggerOffsetTop) + 'px';
+      binding.instance.$parent.left = (_data.draggerOffsetLeft) + 'px';
     }
     DraggableWin.mouseup = mouseup;
 
@@ -222,6 +220,3 @@ export const DraggableWin = {
     }
   }
 };
-
-// Make directive available globally
-Vue.directive('draggable-win', DraggableWin);

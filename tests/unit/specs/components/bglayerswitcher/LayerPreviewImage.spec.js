@@ -1,13 +1,12 @@
+import { toRaw } from 'vue';
 import { shallowMount } from '@vue/test-utils';
 import LayerPreviewImage from '@/components/bglayerswitcher/LayerPreviewImage';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import View from 'ol/View';
-import Vuetify from 'vuetify';
-
-const vuetify = new Vuetify();
 
 const osmLayer = new TileLayer({
+  lid: 'osm',
   source: new OSM()
 });
 
@@ -22,66 +21,60 @@ const moduleProps = {
   layer: osmLayer,
   width: 152,
   height: 114,
-  previewIcon: 'map'
+  previewIcon: 'md:map'
 };
 
+function createWrapper (props = moduleProps) {
+  return shallowMount(LayerPreviewImage, {
+    props
+  });
+}
+
 describe('bglayerswitcher/LayerPreviewImage.vue', () => {
+  let comp;
+  let vm;
+
   it('is defined', () => {
     expect(LayerPreviewImage).to.not.be.an('undefined');
   });
 
   describe('props', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(LayerPreviewImage, {
-        propsData: moduleProps,
-        vuetify
-      });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
     it('has correct props', () => {
-      expect(vm.mapView).to.equal(view);
-      expect(vm.layer).to.equal(osmLayer);
+      expect(toRaw(vm.mapView)).to.equal(view);
+      expect(toRaw(vm.layer)).to.equal(osmLayer);
       expect(vm.width).to.equal(152);
       expect(vm.height).to.equal(114);
-      expect(vm.previewIcon).to.equal('map');
+      expect(vm.previewIcon).to.equal('md:map');
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('data', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(LayerPreviewImage, {
-        propsData: moduleProps,
-        vuetify
-      });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
     it('has correct default data', () => {
-      expect(vm.imgLoaded).to.equal(false);
+      expect(vm.imgLoaded).to.be.false;
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('computed properties', () => {
-    let comp;
-    let vm;
     beforeEach(() => {
-      comp = shallowMount(LayerPreviewImage, {
-        propsData: moduleProps,
-        vuetify
-      });
+      comp = createWrapper();
       vm = comp.vm;
     });
 
@@ -91,6 +84,7 @@ describe('bglayerswitcher/LayerPreviewImage.vue', () => {
 
     it('has correct previewURL for static layer image', async () => {
       const osmLayer2 = new TileLayer({
+        lid: 'osm2',
         source: new OSM(),
         previewImage: 'http://my-image.png'
       });
@@ -100,7 +94,7 @@ describe('bglayerswitcher/LayerPreviewImage.vue', () => {
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 });

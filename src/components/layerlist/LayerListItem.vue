@@ -2,25 +2,27 @@
   <!-- Show layer details -->
   <v-list-group
     v-if="showDetails"
-    v-model="open"
-    class="text--primary"
+    :value="layerLid"
+    class="text--primary wgu-layerlist-listgroup"
     >
-    <template v-slot:activator>
-      <v-list-item-action>
-        <v-checkbox
-          color="secondary"
-          hide-details
-          :input-value="layer.getVisible()"
-          @click.capture.stop="onItemClick()"
-        />
-      </v-list-item-action>
-      <v-list-item-title>
-        {{ layer.get('name') }}
-      </v-list-item-title>
+    <template v-slot:activator="{ props }">
+      <v-list-item
+        v-bind="props"
+        :title="layer.get('name')"
+        >
+        <template v-slot:prepend>
+          <v-list-item-action>
+            <v-checkbox-btn
+              color="secondary"
+              :model-value="layer.getVisible()"
+              @click.capture.stop="onItemClick()"
+            />
+          </v-list-item-action>
+        </template>
+      </v-list-item>
     </template>
     <v-list-item
       v-if="showOpacityControl"
-      class="overflow-visible"
     >
       <wgu-layeropacitycontrol
         :layer="layer"
@@ -33,7 +35,7 @@
       The legend image item is wrapped by an v-if block to avoid unneccesary image
       requests when the layer item is not expanded.
       -->
-      <wgu-layerlegendimage v-if="open"
+      <wgu-layerlegendimage v-if="openedListItems.includes(layerLid)"
         :layer="layer"
         :mapView="mapView"
       />
@@ -43,27 +45,24 @@
   <!-- Simple layer entry -->
   <v-list-item
     v-else
+    :title="layer.get('name')"
     class="wgu-layerlist-item"
     >
-    <v-list-item-action>
-      <v-checkbox
-        color="secondary"
-        hide-details
-        :input-value="layer.getVisible()"
-        @click.capture.stop="onItemClick(layer)"
-      />
-    </v-list-item-action>
-    <v-list-item-content>
-      <v-list-item-title>
-        {{ layer.get('name') }}
-      </v-list-item-title>
-    </v-list-item-content>
+    <template v-slot:prepend>
+      <v-list-item-action start>
+        <v-checkbox-btn
+          color="secondary"
+          :model-value="layer.getVisible()"
+          @click.capture.stop="onItemClick()"
+        />
+      </v-list-item-action>
+    </template>
   </v-list-item>
 </template>
 
 <script>
-import LayerLegendImage from './LayerLegendImage'
-import LayerOpacityControl from './LayerOpacityControl'
+import LayerLegendImage from './LayerLegendImage';
+import LayerOpacityControl from './LayerOpacityControl';
 
 export default {
   name: 'wgu-layerlistitem',
@@ -80,7 +79,8 @@ export default {
     layer: { type: Object, required: true },
     mapView: { type: Object, required: true },
     showLegends: { type: Boolean, required: true },
-    showOpacityControls: { type: Boolean, required: true }
+    showOpacityControls: { type: Boolean, required: true },
+    openedListItems: { types: Array, required: true }
   },
   methods: {
     /**
@@ -91,6 +91,9 @@ export default {
     }
   },
   computed: {
+    layerLid () {
+      return this.layer.get('lid');
+    },
     /**
      * Returns true, if the layer item should show an extension slider with layer details.
      */

@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import ModuleCard from './../modulecore/ModuleCard';
+import ModuleCard from '../modulecore/ModuleCard';
 
 export default {
   name: 'wgu-helpwin-win',
@@ -34,7 +34,7 @@ export default {
     'wgu-module-card': ModuleCard
   },
   props: {
-    icon: { type: String, required: false, default: 'help' },
+    icon: { type: String, required: false, default: 'md:help' },
     width: { type: Number, required: false, default: 300 }
   },
   data () {
@@ -42,10 +42,11 @@ export default {
       moduleName: 'wgu-helpwin'
     }
   }
-}
+};
 </script>
 
 <style scoped>
+
   /* TODO
     Generalize the positioning concept for windows,
     this interferes with positioning and draggable settings in the app.conf */
@@ -54,4 +55,5 @@ export default {
     top: 50% !important;
     transform: translate(-50%, -50%);
   }
+
 </style>

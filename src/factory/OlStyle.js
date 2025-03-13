@@ -55,7 +55,7 @@ export const OlStyleFactory = {
           anchorXUnits: styleConf.iconAnchorXUnits,
           anchorYUnits: styleConf.iconAnchorYUnits
         }))
-      })
+      });
     } else if (styleConf.radius) {
       pointStyle = new Style({
         image: new CircleStyle({
@@ -179,5 +179,4 @@ export const OlStyleFactory = {
       return style;
     }
   }
-
-}
+};

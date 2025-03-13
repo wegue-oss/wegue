@@ -1,21 +1,23 @@
 <script>
 // Control to switch between light and dark mode
-
 import ToggleButton from '../modulecore/ToggleButton.vue';
-import { ColorTheme } from '../../mixins/ColorTheme';
+import { useColorTheme } from '@/composables/ColorTheme';
+import { useTheme } from 'vuetify';
 
 export default {
   extends: ToggleButton,
-
   name: 'wgu-themeswitcher',
-  mixins: [ColorTheme],
-
+  setup () {
+    const theme = useTheme();
+    const { isDarkTheme, isPrimaryDark } = useColorTheme();
+    return { isDarkTheme, isPrimaryDark, theme };
+  },
   watch: {
     isDarkTheme: {
       // When dark theme changes via Vuetify
       handler: function (value) {
         // update toggle state of this tool
-        if (value !== this.show) {
+        if (value !== !!this.show) {
           this.show = value;
         }
       },
@@ -26,10 +28,9 @@ export default {
       // When dark theme changes via this tool
       handler: function (value) {
         // update Vuetify state
-        if (value !== this.$vuetify.theme.dark) {
-          // untoggled state of v-btn-toggle
-          // returns undefined, so we !!undefined
-          this.$vuetify.theme.dark = !!value;
+        const wantedTheme = value ? 'dark' : 'light';
+        if (wantedTheme !== this.theme.global.name.value) {
+          this.theme.global.name.value = wantedTheme;
         }
       }
     }

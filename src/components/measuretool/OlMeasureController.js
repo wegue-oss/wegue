@@ -146,4 +146,4 @@ export default class OlMeasureController {
       this.source.clear();
     }
   }
-}
+};

@@ -3,10 +3,8 @@
 </template>
 
 <script>
-
-import Vue from 'vue';
-import Map from 'ol/Map'
-import View from 'ol/View'
+import Map from 'ol/Map';
+import View from 'ol/View';
 import Attribution from 'ol/control/Attribution';
 import Zoom from 'ol/control/Zoom';
 import {
@@ -21,20 +19,17 @@ import { get as getProj } from 'ol/proj';
 import { GPX, GeoJSON, IGC, KML, TopoJSON } from 'ol/format';
 import { Vector as VectorLayer } from 'ol/layer';
 import { Vector as VectorSource } from 'ol/source';
-import proj4 from 'proj4'
-// import the app-wide EventBus
-import { WguEventBus } from '../../WguEventBus.js';
-import { LayerFactory } from '../../factory/Layer.js';
-import LayerUtil from '../../util/Layer';
+import proj4 from 'proj4';
+import { bindMap, unbindMap } from '@/composables/Map';
+import { LayerFactory } from '@/factory/Layer.js';
+import LayerUtil from '@/util/Layer';
 import PermalinkController from './PermalinkController';
 import HoverController from './HoverController';
-import MapInteractionUtil from '../../util/MapInteraction';
-import ViewAnimationUtil from '../../util/ViewAnimation';
-import { ColorTheme } from '../../mixins/ColorTheme'
+import MapInteractionUtil from '@/util/MapInteraction';
+import ViewAnimationUtil from '@/util/ViewAnimation';
 
 export default {
   name: 'wgu-map',
-  mixins: [ColorTheme],
   props: {
     collapsibleAttribution: { type: Boolean, default: false },
     rotateableMap: { type: Boolean, required: false, default: false }
@@ -63,9 +58,9 @@ export default {
   },
   mounted () {
     const me = this;
-    // Make the OL map accessible for Mapable mixin even 'ol-map-mounted' has
-    // already been fired. Don not use directly in cmps, use Mapable instead.
-    Vue.prototype.$map = me.map;
+    // Make the OL map accessible for useMap composable.
+    // Do not use directly in cmps, use composable instead.
+    bindMap(me.map);
 
     // Set the target for the OL canvas and tie it`s size to ol-map-container.
     // Remarks: 'ol-map-container' does not exist in the scope of the current unit test,
@@ -86,9 +81,6 @@ export default {
       container.tabIndex = '0';
     }
 
-    // Send the event 'ol-map-mounted' with the OL map as payload
-    WguEventBus.$emit('ol-map-mounted', me.map);
-
     // TODO
     //  Re-evaluate whether and if yes which of the following operations have to be deferred.
     //  If so, a better implementation could be to rely on this.$nextTick(), which currently causes trouble
@@ -98,34 +90,37 @@ export default {
       me.setOlButtonColor();
     }, 200);
   },
-  destroyed () {
+  unmounted () {
     // unregister resizing of the map
     if (this.resizeObserver) {
       this.resizeObserver.disconnect();
     }
 
-    // Send the event 'ol-map-unmounted' with the OL map as payload
-    WguEventBus.$emit('ol-map-unmounted', this.map);
+    unbindMap();
 
-    // Destroy controllers, remove map references
-    if (this.timerHandle) {
-      clearTimeout(this.timerHandle);
-    }
-    if (this.permalinkController) {
-      this.permalinkController.tearDown();
-      this.permalinkController = undefined;
-    }
-    if (this.hoverController) {
-      this.hoverController.destroy();
-      this.hoverController = undefined;
-    }
-    if (this.map) {
-      this.map.getLayers().clear();
-      this.map.getInteractions().clear();
-      this.map.getControls().clear();
-      this.map.getOverlays().clear();
-    }
-    this.map = undefined;
+    // End of function in setTimeout so the watchers on map can run before the map
+    // is effectively destroyed
+    setTimeout(() => {
+      // Destroy controllers, remove map references
+      if (this.timerHandle) {
+        clearTimeout(this.timerHandle);
+      }
+      if (this.permalinkController) {
+        this.permalinkController.tearDown();
+        this.permalinkController = undefined;
+      }
+      if (this.hoverController) {
+        this.hoverController.destroy();
+        this.hoverController = undefined;
+      }
+      if (this.map) {
+        this.map.getLayers().clear();
+        this.map.getInteractions().clear();
+        this.map.getControls().clear();
+        this.map.getOverlays().clear();
+      }
+      this.map = undefined;
+    }, 0);
   },
   created () {
     // make map rotateable according to property
@@ -230,7 +225,7 @@ export default {
             layer,
             lConf.selectStyle,
             lConf.doAppendSelectStyle
-          )
+          );
           // register/activate interaction on map
           me.map.addInteraction(selectClick);
         }
@@ -250,10 +245,10 @@ export default {
         this.updateLocalizedLayerProps(evt.element);
         layer.on('propertychange', evt => {
           if (evt.key === 'lid' || evt.key === 'langKey') {
-            this.updateLocalizedLayerProps(evt.target)
+            this.updateLocalizedLayerProps(evt.target);
           }
-        })
-      })
+        });
+      });
     },
 
     /**
@@ -278,7 +273,7 @@ export default {
      * Sets the background color of the OL buttons to the color property.
      */
     setOlButtonColor () {
-      const colors = 'secondary onsecondary--text'
+      const colors = 'bg-secondary';
 
       // apply vuetify color by transforming the color to the corresponding
       // CSS class (see https://vuetifyjs.com/en/framework/colors)
@@ -340,7 +335,8 @@ export default {
         ddSource.addFeatures(event.features);
 
         if (mapDdConf.zoomToData === true) {
-          ViewAnimationUtil.to(this.map.getView(), ddSource.getExtent());
+          const viewAnimationUtil = new ViewAnimationUtil(this.$appConfig);
+          viewAnimationUtil.to(this.map.getView(), ddSource.getExtent());
         }
       }, this);
 
@@ -410,12 +406,12 @@ export default {
       });
     }
   }
-
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+
   div.ol-zoom {
     top: auto;
     left: auto;
@@ -426,4 +422,5 @@ export default {
   div.ol-attribution.ol-uncollapsible {
     font-size: 10px;
   }
+
 </style>

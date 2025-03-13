@@ -7,8 +7,7 @@
 </template>
 
 <script>
-
-import LayerLegend from '../../util/LayerLegend';
+import LayerLegend from '@/util/LayerLegend';
 
 /**
  * Module for one legend element.
@@ -25,7 +24,6 @@ export default {
       viewResolutionChanged: undefined
     }
   },
-
   /**
    * Register for an event to update the legend on resolution change.
    */
@@ -40,7 +38,7 @@ export default {
   /**
    * Unregister the event fired on resolution change.
    */
-  destroyed () {
+  unmounted () {
     if (this.viewResolutionChanged) {
       this.mapView.un('change:resolution', this.viewResolutionChanged);
     }
@@ -58,5 +56,5 @@ export default {
         this.layer, this.resolution, options, this.layer.get('legendUrl'));
     }
   }
-}
+};
 </script>

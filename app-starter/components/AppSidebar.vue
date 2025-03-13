@@ -2,8 +2,6 @@
   <v-navigation-drawer
       class="wgu-app-sidebar"
       ref="sidebar"
-      app
-      clipped
       :width=sidebarWidth
       v-model="sidebarOpen"
       >
@@ -11,14 +9,13 @@
       <slot></slot>
       <!-- Sidebar toggle button -->
       <template v-slot:prepend>
-        <v-btn small
-          class="wgu-app-sidebar-toggle-btn px0"
-          absolute
-          top
+        <v-btn size="small"
+          class="wgu-app-sidebar-toggle-btn position-absolute px0"
+          location="top right"
           color="secondary"
           @click="sidebarOpen = !sidebarOpen">
-          <v-icon color="onsecondary" v-if="sidebarOpen">chevron_left</v-icon>
-          <v-icon color="onsecondary" v-else>chevron_right</v-icon>
+          <v-icon v-if="sidebarOpen">md:chevron_left</v-icon>
+          <v-icon v-else>md:chevron_right</v-icon>
         </v-btn>
       </template>
       <!-- Invisible sidebar resizer -->
@@ -30,8 +27,8 @@
 </template>
 
 <script>
-
-import { WguEventBus } from '../../src/WguEventBus';
+import { WguEventBus } from '@/WguEventBus';
+import { useGoTo } from 'vuetify';
 
 export default {
   name: 'wgu-app-sidebar',
@@ -43,6 +40,10 @@ export default {
     autoScroll: { type: Boolean, required: false, default: true },
     scrollDuration: { type: Number, required: false, default: 500 },
     resizable: { type: Boolean, required: false, default: false }
+  },
+  setup () {
+    const goTo = useGoTo();
+    return { goTo };
   },
   data () {
     return {
@@ -73,7 +74,7 @@ export default {
      */
     scrollTo (comp) {
       if (this.autoScroll) {
-        this.$vuetify.goTo(comp, {
+        this.goTo(comp, {
           container: '.wgu-app-sidebar > .v-navigation-drawer__content',
           duration: this.scrollDuration
         });
@@ -83,7 +84,7 @@ export default {
      * Resize the sidebar, if the 'resizable' option is enabled.
      */
     onResize () {
-      const sidebarEl = this.$refs.sidebar.$el;
+      const sidebarEl = this.$refs.sidebar.$el.nextSibling;
       sidebarEl.style.transition = 'initial';
 
       // Resize on mouse move
@@ -105,5 +106,5 @@ export default {
       document.addEventListener('mouseup', onMouseUp, { once: true });
     }
   }
-}
+};
 </script>

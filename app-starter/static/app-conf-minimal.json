@@ -47,8 +47,7 @@
     "wgu-helpwin": {
       "target": "toolbar",
       "win": "floating",
-      "icon": "help"
+      "icon": "md:help"
     }
   }
-
 }

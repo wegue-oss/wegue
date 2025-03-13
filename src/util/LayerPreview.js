@@ -6,10 +6,10 @@
  * For the original source of ol-ext see https://github.com/Viglino/ol-ext.
  */
 
-import TileSource from 'ol/source/Tile'
-import TileWMSSource from 'ol/source/TileWMS'
-import { containsCoordinate as extentContainsCoordinate } from 'ol/extent'
-import { transform as projTransform, /* get as getProjection, */ equivalent as projEquivalent } from 'ol/proj'
+import TileSource from 'ol/source/Tile';
+import TileWMSSource from 'ol/source/TileWMS';
+import { containsCoordinate as extentContainsCoordinate } from 'ol/extent';
+import { transform as projTransform, /* get as getProjection, */ equivalent as projEquivalent } from 'ol/proj';
 
 const TileSourcePreview = {
   /**
@@ -91,7 +91,7 @@ const LayerPreview = {
       if (source instanceof TileWMSSource) {
         return TileWMSSourcePreview.getUrl(source, coords, resolution, projection);
       } else if (source instanceof TileSource) {
-        return TileSourcePreview.getUrl(source, coords, resolution, projection)
+        return TileSourcePreview.getUrl(source, coords, resolution, projection);
       }
     } catch (e) {
       console.error('failed to create preview: ' + e);

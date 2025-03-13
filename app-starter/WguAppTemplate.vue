@@ -25,17 +25,17 @@
     <slot name="wgu-after-header" />
 
     <wgu-app-sidebar v-if="sidebarWins.length" v-bind="sidebarConfig">
-        <template v-for="(moduleWin, index) in sidebarWins">
+        <template v-for="(moduleWin, index) in sidebarWins" :key="index">
           <component
-            :is="moduleWin.type" :key="index"
             v-bind="moduleWin"
+            :is="moduleWin.type"
           />
       </template>
     </wgu-app-sidebar>
 
     <slot name="wgu-before-content" />
     <v-main app>
-      <v-container id="ol-map-container" fluid class="fill-height pa-0">
+      <v-container id="ol-map-container" fluid class="fill-height pa-0 position-relative">
         <wgu-map />
         <!-- layer loading indicator -->
         <wgu-maploading-status />
@@ -50,10 +50,10 @@
       </v-container>
     </v-main>
 
-    <template v-for="(moduleWin, index) in floatingWins">
+    <template v-for="(moduleWin, index) in floatingWins" :key="index">
       <component
-        :is="moduleWin.type" :key="index"
         v-bind="moduleWin"
+        :is="moduleWin.type"
       />
     </template>
 
@@ -77,25 +77,25 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import { WguEventBus } from '../src/WguEventBus'
-import OlMap from '../src/components/ol/Map'
-import HoverTooltip from '../src/components/ol/HoverTooltip'
-import AppHeader from './components/AppHeader'
-import AppFooter from './components/AppFooter'
-import AppSidebar from './components/AppSidebar'
-import AppLogo from '../src/components/AppLogo'
-import AppLoadingMask from '../src/components/AppLoadingMask'
-import BgLayerSwitcher from '../src/components/bglayerswitcher/BgLayerSwitcher.vue'
-import OverviewMap from '../src/components/overviewmap/OverviewMap.vue'
-import MeasureWin from '../src/components/measuretool/MeasureWin'
-import LayerListWin from '../src/components/layerlist/LayerListWin'
-import HelpWin from '../src/components/helpwin/HelpWin'
-import InfoClickWin from '../src/components/infoclick/InfoClickWin'
-import MapLoadingStatus from '../src/components/progress/MapLoadingStatus'
-import AttributeTableWin from '../src/components/attributeTable/AttributeTableWin.vue'
-import MapRecorderWin from '../src/components/maprecorder/MapRecorderWin'
-import SampleModuleWin from './components/SampleModule.vue'
+import { getCurrentInstance } from 'vue';
+import { WguEventBus } from '@/WguEventBus';
+import OlMap from '@/components/ol/Map';
+import HoverTooltip from '@/components/ol/HoverTooltip';
+import AppHeader from './components/AppHeader';
+import AppFooter from './components/AppFooter';
+import AppSidebar from './components/AppSidebar';
+import AppLogo from '@/components/AppLogo';
+import AppLoadingMask from '@/components/AppLoadingMask';
+import BgLayerSwitcher from '@/components/bglayerswitcher/BgLayerSwitcher.vue';
+import OverviewMap from '@/components/overviewmap/OverviewMap.vue';
+import MeasureWin from '@/components/measuretool/MeasureWin';
+import LayerListWin from '@/components/layerlist/LayerListWin';
+import HelpWin from '@/components/helpwin/HelpWin';
+import InfoClickWin from '@/components/infoclick/InfoClickWin';
+import MapLoadingStatus from '@/components/progress/MapLoadingStatus';
+import AttributeTableWin from '@/components/attributeTable/AttributeTableWin.vue';
+import MapRecorderWin from '@/components/maprecorder/MapRecorderWin';
+import SampleModuleWin from './components/SampleModule.vue';
 
 export default {
   name: 'wgu-app-tpl',
@@ -118,6 +118,10 @@ export default {
     'wgu-maprecorder-win': MapRecorderWin,
     'sample-module-win': SampleModuleWin
   },
+  setup () {
+    const vueInstance = getCurrentInstance();
+    return { vueInstance };
+  },
   data () {
     return {
       isEmbedded: false,
@@ -125,7 +129,7 @@ export default {
       overviewMapConfig: this.getOverviewMapConfig(),
       floatingWins: this.getModuleWinData('floating'),
       sidebarWins: this.getModuleWinData('sidebar'),
-      showCopyrightYear: Vue.prototype.$appConfig.showCopyrightYear
+      showCopyrightYear: this.$appConfig.showCopyrightYear
     }
   },
   created () {
@@ -143,7 +147,7 @@ export default {
     for (const key of Object.keys(refs)) {
       cmpLookup[key] = refs[key][0];
     }
-    Vue.prototype.cmpLookup = cmpLookup;
+    this.vueInstance.appContext.config.globalProperties.cmpLookup = cmpLookup;
     // inform registered cmps that the app is mounted and the dynamic
     // components are available
     WguEventBus.$emit('app-mounted');
@@ -154,7 +158,7 @@ export default {
        * @return {Object} Sidebar configuration object.
        */
     getSidebarConfig () {
-      const appConfig = Vue.prototype.$appConfig || {};
+      const appConfig = this.$appConfig || {};
       return appConfig.sidebar;
     },
     /**
@@ -162,7 +166,7 @@ export default {
        * @return {Object} Overview map configuration object.
        */
     getOverviewMapConfig () {
-      const appConfig = Vue.prototype.$appConfig || {};
+      const appConfig = this.$appConfig || {};
       return appConfig.overviewMap;
     },
     /**
@@ -175,7 +179,7 @@ export default {
        * @return {Array} module window configuration objects
        */
     getModuleWinData (target) {
-      const appConfig = Vue.prototype.$appConfig || {};
+      const appConfig = this.$appConfig || {};
       const modulesConfs = appConfig.modules || {};
       const moduleWins = [];
       for (const key of Object.keys(modulesConfs)) {
@@ -199,7 +203,7 @@ export default {
      * Sets the current i18n language to the global app language lookup.
      */
     setGlobalAppLang () {
-      Vue.prototype.$appLanguage = this.$i18n.locale;
+      this.vueInstance.appContext.config.globalProperties.$appLanguage = this.$i18n.locale;
     }
   },
   watch: {
@@ -211,5 +215,5 @@ export default {
       this.setDocumentTitle();
     }
   }
-}
+};
 </script>

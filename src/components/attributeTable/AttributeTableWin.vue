@@ -7,29 +7,26 @@
 
     <template v-slot:wgu-win-toolbar>
       <v-select
-        v-model="selLayer"
-        color="accent"
+        v-model="selLayerLid"
+        :color="isPrimaryDarkWithLightTheme ? 'white' : 'accent'"
         item-color="secondary"
-        :dark="isPrimaryDark"
-        filled
-        outlined
+        :theme="isDarkTheme ? 'dark' : 'light'"
+        variant="outlined"
         class="wgu-vector-layer-select wgu-solo-field"
-        :items="displayedLayers"
-        :item-text="item => item.get('name')"
+        :items="displayedItems"
         :menu-props="{
           bottom: true,
           'offset-y': true,
         }"
-        dense
-        return-object
+        density="compact"
         hide-details
         :label="$t('wgu-attributetable.selectorLabel')"
         ></v-select>
     </template>
 
     <wgu-attributetable
-      v-if="selLayer"
-      :layerId="selLayer.get('lid')"
+      v-if="selLayerLid"
+      :layerId="selLayerLid"
       :syncTableMapSelection="syncTableMapSelection"
     >
     </wgu-attributetable>
@@ -37,10 +34,10 @@
 </template>
 
 <script>
-import ModuleCard from './../modulecore/ModuleCard';
-import { Mapable } from '../../mixins/Mapable';
-import { ColorTheme } from '../../mixins/ColorTheme';
-import VectorLayer from 'ol/layer/Vector'
+import ModuleCard from '../modulecore/ModuleCard';
+import { useMap } from '@/composables/Map';
+import { useColorTheme } from '@/composables/ColorTheme';
+import VectorLayer from 'ol/layer/Vector';
 import AttributeTable from './AttributeTable';
 
 export default {
@@ -48,29 +45,24 @@ export default {
   inheritAttrs: false,
 
   props: {
-    icon: { type: String, required: false, default: 'table_chart' },
+    icon: { type: String, required: false, default: 'md:table_chart' },
     syncTableMapSelection: { type: Boolean, required: false, default: false }
+  },
+  setup () {
+    const { layers } = useMap();
+    const { isDarkTheme, isPrimaryDark, isPrimaryDarkWithLightTheme } = useColorTheme();
+
+    return { layers, isDarkTheme, isPrimaryDark, isPrimaryDarkWithLightTheme };
   },
   data () {
     return {
       moduleName: 'wgu-attributetable',
-      layers: [],
-      selLayer: null
+      selLayerLid: null
     }
   },
-  mixins: [Mapable, ColorTheme],
   components: {
     'wgu-module-card': ModuleCard,
     'wgu-attributetable': AttributeTable
-  },
-  methods: {
-    /**
-     * This function is executed, after the map is bound (see mixins/Mapable).
-     * Bind to the layers from the OpenLayers map.
-     */
-    onMapBound () {
-      this.layers = this.map.getLayers().getArray();
-    }
   },
   computed: {
     /**
@@ -84,6 +76,12 @@ export default {
           layer.get('lid') !== 'wgu-geolocator-layer'
         )
         .reverse();
+    },
+    /**
+     * Reactive property to return the items object to bind to the selection menu.
+     */
+    displayedItems () {
+      return this.displayedLayers.map((layer) => { return { title: layer.get('name'), value: layer.get('lid') } });
     }
   }
 };
@@ -98,7 +96,7 @@ export default {
   .wgu-attributetable-win.wgu-floating {
     top: inherit !important;
     position: relative;
-    bottom: 35px;
+    bottom: 40px;
   }
 
   @media only screen and (max-width: 600px) {

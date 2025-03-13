@@ -1,7 +1,8 @@
-import Projection from 'ol/proj/Projection';
-import { getTransform, transform } from 'ol/proj';
-import UrlUtil from '../../util/Url';
+import { isProxy, toRaw } from 'vue';
 import { applyTransform } from 'ol/extent';
+import { getTransform, transform } from 'ol/proj';
+import Projection from 'ol/proj/Projection';
+import UrlUtil from '@/util/Url';
 
 /**
  * Class holding the logic for permalinks.
@@ -121,7 +122,7 @@ export default class PermalinkController {
     }
     // Listen to each Layer's visibility changes.
     this.layerListeners.forEach((item) => {
-      item.layer.un(item.key.type, item.key.listener)
+      item.layer.un(item.key.type, item.key.listener);
     });
     this.layerListeners = [];
   }
@@ -193,7 +194,7 @@ export default class PermalinkController {
 
     // Permalink coordinates may have specific Projection like WGS84
     if (this.projection) {
-      center = transform(center, this.projection, mapView.getProjection())
+      center = transform(center, this.projection, mapView.getProjection());
     }
 
     mapView.setCenter(center);
@@ -209,7 +210,7 @@ export default class PermalinkController {
     const mapView = this.map.getView();
     // Permalink coordinates may have specific Projection like WGS84
     if (this.projection) {
-      extent = applyTransform(extent, getTransform(this.projection, mapView.getProjection()))
+      extent = applyTransform(extent, getTransform(this.projection, mapView.getProjection()));
     }
 
     // Fit the map in extent
@@ -282,6 +283,12 @@ export default class PermalinkController {
       center = transform(center, mapView.getProjection(), this.projection);
       extent = applyTransform(extent, getTransform(mapView.getProjection(), this.projection));
     }
+    // Since Vue3, center can be a Proxy instead of a raw value when a projection
+    // is defined in the configuration file. It would be best to find when
+    // and/or why map.projection gets proxied instead of using toRaw in the future...
+    if (isProxy(center)) {
+      center = toRaw(center);
+    }
     return {
       zoom: mapView.getZoom(),
       center,
@@ -307,4 +314,4 @@ export default class PermalinkController {
     // This changes the URL in address bar.
     window.history.pushState(this.getState(), 'map', this.getParamStr());
   }
-}
+};

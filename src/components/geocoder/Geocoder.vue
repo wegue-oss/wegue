@@ -1,54 +1,52 @@
 <template>
-<v-toolbar-items class="d-flex align-center justify-center">
-  <v-combobox
-    v-show="!hideSearch"
-    class="wgu-geocoder-combo wgu-solo-field"
-    outlined
-    dense
-    color="accent"
-    :dark="isPrimaryDark"
-    filled
-    return-object
-    hide-details
-    :no-filter="noFilter"
-    v-model="selected"
-    :autofocus="autofocus"
-    :items="resultItems"
-    :label="$t('wgu-geocoder.placeHolder')"
-    :clearable="clearable"
-    :persistent-hint="persistentHint"
-    :hidden="hideSearch"
-    :rounded="rounded"
-    :search-input.sync="search"
-  ></v-combobox>
+  <v-toolbar-items class="d-flex align-center justify-center">
+    <v-combobox
+      v-show="!hideSearch"
+      class="wgu-geocoder-combo wgu-solo-field"
+      variant="outlined"
+      density="compact"
+      width="320"
+      :list-props="{ nav: true, density: 'compact' }"
+      :color="isPrimaryDarkWithLightTheme ? 'white' : 'accent'"
+      :theme="isDarkTheme ? 'dark' : 'light'"
+      return-object
+      hide-details
+      :no-filter="noFilter"
+      v-model="selected"
+      :autofocus="autofocus"
+      :items="resultItems"
+      :label="$t('wgu-geocoder.placeHolder')"
+      :clearable="clearable"
+      :persistent-hint="persistentHint"
+      :rounded="rounded"
+      @update:search="search"
+    ></v-combobox>
 
-  <div>
+    <div>
 
-    <v-btn @click='toggle()'
-      color="onprimary"
-      icon
-      :title="$t('wgu-geocoder.title')">
-      <v-icon medium>{{icon}}</v-icon>
-    </v-btn>
+      <v-btn @click='toggle()'
+        :style="{ height: false }"
+        :icon="icon"
+        :title="$t('wgu-geocoder.title')">
+      </v-btn>
 
-  </div>
-</v-toolbar-items>
+    </div>
+  </v-toolbar-items>
 </template>
 
 <script>
-import { Mapable } from '../../mixins/Mapable';
-import { ColorTheme } from '../../mixins/ColorTheme';
+import { useMap } from '@/composables/Map';
+import { useColorTheme } from '@/composables/ColorTheme';
 import { GeocoderController } from './GeocoderController';
 import { applyTransform } from 'ol/extent';
 import { getTransform, fromLonLat } from 'ol/proj';
-import ViewAnimationUtil from '../../util/ViewAnimation';
+import ViewAnimationUtil from '@/util/ViewAnimation';
 import axios from 'axios';
 
 export default {
   name: 'wgu-geocoder-input',
-  mixins: [Mapable, ColorTheme],
   props: {
-    icon: { type: String, required: false, default: 'search' },
+    icon: { type: String, required: false, default: 'md:search' },
     rounded: { type: Boolean, required: false, default: true },
     autofocus: { type: Boolean, required: false, default: true },
     clearable: { type: Boolean, required: false, default: true },
@@ -58,14 +56,18 @@ export default {
     queryDelay: { type: Number, required: false, default: 300 },
     provider: { type: String, required: false, default: 'osm' },
     providerOptions: { type: Object, required: false, default: function () { return {}; } }
+  },
+  setup () {
+    const { map } = useMap();
+    const { isDarkTheme, isPrimaryDark, isPrimaryDarkWithLightTheme } = useColorTheme();
 
+    return { map, isDarkTheme, isPrimaryDark, isPrimaryDarkWithLightTheme };
   },
   data () {
     return {
       results: null,
       lastQueryStr: '',
       noFilter: true,
-      search: null,
       selecting: false,
       selected: null,
       hideSearch: true,
@@ -80,14 +82,26 @@ export default {
       }
       this.trace(`computed.resultItems() - cur results len=${this.results.length}`);
 
-      // Convert results to v-combobox (text, value) Items
+      // Convert results to v-combobox (title, value) Items
       this.results.forEach(result => {
         this.trace(`add to this.items: ${result.address.name}`);
-        items.push({ text: result.address.name, value: result });
+        items.push({ title: result.address.name, value: result });
       });
 
       return items;
     }
+  },
+  mounted () {
+    // Setup GeocoderController to which we delegate Provider and query-handling
+    this.geocoderController = new GeocoderController(this.provider, this.providerOptions);
+  },
+  unmounted () {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+      this.timeout = null;
+    }
+
+    this.geocoderController.destroy();
   },
   methods: {
     trace (str) {
@@ -104,7 +118,7 @@ export default {
       }
       this.timeout = setTimeout(() => {
         // Let Geocoder Provider do the query
-        // items (item.text fields) will be shown in combobox dropdown suggestions
+        // items (item.title fields) will be shown in combobox dropdown suggestions
         this.trace(`geocoderController.query: ${queryStr}`);
         this.geocoderController.query(queryStr)
           .then(results => this.onQueryResults(results))
@@ -132,9 +146,7 @@ export default {
       if (err) {
         this.trace(`onQueryResult error: ${err}`);
       }
-    }
-  },
-  watch: {
+    },
     // Input string value changed
     search (queryStr) {
       if (this.selecting) {
@@ -146,9 +158,8 @@ export default {
         // Query reset
         this.trace('queryStr none');
         this.results = null;
-        return
+        return;
       }
-
       // ASSERTION: queryStr is valid
       queryStr = queryStr.trim();
 
@@ -157,44 +168,35 @@ export default {
         this.querySelections(queryStr);
         this.lastQueryStr = queryStr;
       }
-    },
+    }
+  },
+  watch: {
     // User has selected entry from suggested items
     selected (item) {
-      if (!item || !Object.prototype.hasOwnProperty.call(item, 'text') || !Object.prototype.hasOwnProperty.call(item, 'value')) {
+      if (!item || !Object.prototype.hasOwnProperty.call(item, 'title') || !Object.prototype.hasOwnProperty.call(item, 'value')) {
         return;
       }
       this.selecting = true;
-      this.trace(`selected=${item.text}`);
+      this.trace(`selected=${item.title}`);
 
       // Position Map on result
       const result = item.value;
       const mapProjection = this.map.getView().getProjection();
+      const viewAnimationUtil = new ViewAnimationUtil(this.$appConfig);
 
       // Prefer zooming to bounding box if present in result
       if (Object.prototype.hasOwnProperty.call(result, 'boundingbox')) {
         // Result with bounding box.
         // bbox is in EPSG:4326, needs to be transformed to Map Projection (e.g. EPSG:3758)
         const extent = applyTransform(result.boundingbox, getTransform('EPSG:4326', mapProjection));
-        ViewAnimationUtil.to(this.map.getView(), extent);
+        viewAnimationUtil.to(this.map.getView(), extent);
       } else {
         // No bbox in result: center on lon/lat from result and zoom in
         const coords = fromLonLat([result.lon, result.lat], mapProjection);
-        ViewAnimationUtil.to(this.map.getView(), coords);
+        viewAnimationUtil.to(this.map.getView(), coords);
       }
       this.selecting = false;
     }
-  },
-  mounted () {
-    // Setup GeocoderController to which we delegate Provider and query-handling
-    this.geocoderController = new GeocoderController(this.provider, this.providerOptions);
-  },
-  destroyed () {
-    if (this.timeout) {
-      clearTimeout(this.timeout);
-      this.timeout = null;
-    }
-
-    this.geocoderController.destroy();
   }
-}
+};
 </script>

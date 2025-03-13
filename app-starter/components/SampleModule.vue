@@ -26,11 +26,12 @@
     </v-card-text>
   </wgu-module-card>
 </template>
+
 <script>
 // the module card is a the template for a typical Wegue module
-import ModuleCard from '../../src/components/modulecore/ModuleCard';
-// we import a so called "mixin" that helps us to interact with the map
-import { Mapable } from '../../src/mixins/Mapable';
+import ModuleCard from '@/components/modulecore/ModuleCard';
+// we import a so called "composable" that helps us to interact with the map
+import { useMap } from '@/composables/Map';
 // an OpenLayers helper function to display coordinates
 import { toStringXY } from 'ol/coordinate';
 // an OpenLayer helper function to transform coordinate reference systems
@@ -38,14 +39,17 @@ import { transform } from 'ol/proj.js';
 
 export default {
   name: 'sample-module',
-  // make sure to register the 'Mapable' mixin
-  mixins: [Mapable],
   inheritAttrs: false,
   components: {
     'wgu-module-card': ModuleCard
   },
   props: {
-    icon: { type: String, required: false, default: 'star' }
+    icon: { type: String, required: false, default: 'md:star' }
+  },
+  // make sure to call the 'useMap' composable and return its resulting bindings
+  setup () {
+    const { map, layers } = useMap();
+    return { map, layers };
   },
   // here we define variables that are used in the HTML above
   data () {
@@ -54,13 +58,24 @@ export default {
       center: ''
     };
   },
+  watch: {
+    map: {
+      handler (newMap) {
+        if (newMap) {
+          this.onMapBound();
+        }
+      },
+      immediate: true
+    }
+  },
   methods: {
     /**
      * This function is called once the map is bound to the application
      */
     onMapBound () {
-      // the mixin 'Mapable' provides access to our OpenLayer map
-      // via the variable 'this.map'
+      // the 'useMap' composable provides access to our OpenLayer map
+      // via its returned `map` binding. Returning this binding from
+      // the `setup` lifecycle hook makes it accessible via 'this.map'
       // here we get the 'view' from the map
       const view = this.map.getView();
       // we call the function to extract zoom and center from the map
@@ -100,12 +115,15 @@ export default {
   }
 };
 </script>
+
 <!-- Here we do the styling of our module -->
 <style scoped>
-/* our module has the class '.sample-module' and we reference it here */
-.sample-module.wgu-floating {
-  left: auto !important;
-  top: 300px !important;
-  right: 10px;
-}
+
+  /* our module has the class '.sample-module' and we reference it here */
+  .sample-module.wgu-floating {
+    left: auto !important;
+    top: 300px !important;
+    right: 10px;
+  }
+
 </style>

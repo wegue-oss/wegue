@@ -1,20 +1,20 @@
-import ColorUtil from './Color'
+import ColorUtil from './Color';
 
 // Macro for default color themes configuration
 const DEFAULT_THEMES = Object.freeze({
   light: {
     primary: '#af2622',
-    onprimary: '#ffffff',
+    'on-primary': '#ffffff',
     secondary: '#af2622',
-    onsecondary: '#ffffff',
+    'on-secondary': '#ffffff',
     anchor: '#af2622',
     error: '#ff6f00'
   },
   dark: {
     primary: '#272727',
-    onprimary: '#ffffff',
+    'on-primary': '#ffffff',
     secondary: '#ea9b9b',
-    onsecondary: '#272727',
+    'on-secondary': '#272727',
     anchor: '#ea9b9b',
     error: '#ff6f00'
   }
@@ -97,13 +97,13 @@ const ColorThemeUtil = {
     // set anchor to the light theme secondary
     merged.light.anchor = merged.light.secondary;
 
-    // set onprimary to user onprimary,
+    // set on-primary to user on-primary,
     // otherwise fallback to a color that contrasts with the primary
-    merged.light.onprimary = light.onprimary ? light.onprimary : contrastColor(merged.light.primary, LIGHT_WHITE, LIGHT_BLACK);
+    merged.light['on-primary'] = light['on-primary'] ? light['on-primary'] : contrastColor(merged.light.primary, LIGHT_WHITE, LIGHT_BLACK);
 
-    // set onprimary to user onsecondary,
+    // set on-primary to user on-secondary,
     // otherwise fallback to a color that contrasts with the secondary
-    merged.light.onsecondary = light.onsecondary ? light.onsecondary : contrastColor(merged.light.secondary, LIGHT_WHITE, LIGHT_BLACK);
+    merged.light['on-secondary'] = light['on-secondary'] ? light['on-secondary'] : contrastColor(merged.light.secondary, LIGHT_WHITE, LIGHT_BLACK);
 
     // set semantic colors,
     // otherwise fallback to light theme defaults
@@ -138,12 +138,12 @@ const ColorThemeUtil = {
     // set accent to secondary
     merged.dark.accent = dark.secondary;
 
-    // set onprimary to dark theme white
-    merged.dark.onprimary = DARK_WHITE;
+    // set on-primary to dark theme white
+    merged.dark['on-primary'] = DARK_WHITE;
 
-    // set onsecondary to user onsecondary,
+    // set on-secondary to user on-secondary,
     // otherwise fallback to a color that contrasts with secondary
-    merged.dark.onsecondary = dark.onsecondary ? dark.onsecondary : contrastColor(merged.dark.secondary, DARK_WHITE, DARK_BLACK);
+    merged.dark['on-secondary'] = dark['on-secondary'] ? dark['on-secondary'] : contrastColor(merged.dark.secondary, DARK_WHITE, DARK_BLACK);
 
     // set semantic colors,
     // otherwise fallback to dark theme defaults
@@ -171,7 +171,7 @@ const ColorThemeUtil = {
   buildTheme: function (inputConfig) {
     // If there is no input config, create it
     if (!inputConfig || typeof inputConfig !== 'object') {
-      inputConfig = { dark: false };
+      inputConfig = { defaultTheme: 'light' };
     }
 
     // If there is no input themes, create it
@@ -183,16 +183,31 @@ const ColorThemeUtil = {
     const outputConfig = {};
 
     // Apply start with dark theme
-    outputConfig.dark = !!inputConfig.dark;
+    outputConfig.defaultTheme = inputConfig.dark ? 'dark' : 'light';
 
     // Apply user theme or fallback to default
-    outputConfig.themes = ColorThemeUtil.mergeThemes(inputConfig.themes, DEFAULT_THEMES);
+    const mergedThemes = ColorThemeUtil.mergeThemes(inputConfig.themes, DEFAULT_THEMES);
+    outputConfig.themes = {
+      light: {
+        dark: false,
+        colors: mergedThemes.light
+      },
+      dark: {
+        dark: true,
+        colors: mergedThemes.dark
+      }
+    };
 
-    // Set customProperties.
-    // This creates css colors for each vuetify color class
-    outputConfig.options = {
-      customProperties: true
-    }
+    const lightColorsList = new Set(Object.keys(mergedThemes.light));
+    const darkColorsList = new Set(Object.keys(mergedThemes.dark));
+
+    // Set variations.
+    // This creates 5 lighten and 4 darken variants for some vuetify color class to keep same behaviour as in Vuetify2
+    outputConfig.variations = {
+      colors: lightColorsList.union(darkColorsList),
+      lighten: 5,
+      darken: 4
+    };
 
     return outputConfig;
   }

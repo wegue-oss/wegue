@@ -87,4 +87,4 @@ export class OpenStreetMap {
       return result;
     });
   }
-}
+};

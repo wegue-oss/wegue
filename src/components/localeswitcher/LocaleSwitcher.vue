@@ -1,20 +1,19 @@
 <template>
-  <v-menu offset-y nudge-bottom="15"
+  <v-menu
+      location="bottom"
+      offset="15"
       transition="scale-transition"
       v-model="show">
-      <template v-slot:activator="{ on, attrs}">
+      <template v-slot:activator="{ props}">
         <v-btn
+          v-bind="props"
           borderless
           dense
-          color="onprimary"
-          background-color="transparent"
           :title="$t('wgu-localeswitcher.title')"
           class="ma-2 wgu-menu-button"
           icon
-          v-on="on"
-          v-bind="attrs"
         >
-          <v-icon class="mr-1" medium>{{icon}}</v-icon>
+          <v-icon :icon="icon" class="mr-1"></v-icon>
           {{ $i18n.locale }}
         </v-btn>
       </template>
@@ -24,23 +23,28 @@
           v-for="langCode in Object.keys(lang)"
           :key="langCode"
           @click="onItemClick(langCode)">
-          <v-list-item-content>
+
             <v-list-item-title>
               {{ lang[langCode] }} ({{ langCode }})
             </v-list-item-title>
-          </v-list-item-content>
+
         </v-list-item>
       </v-list>
     </v-menu>
 </template>
 
 <script>
-import LocaleUtil from '../../util/Locale'
+import LocaleUtil from '@/util/Locale';
+import { useLocale } from 'vuetify';
 
 export default {
   name: 'wgu-localeswitcher',
   props: {
-    icon: { type: String, required: false, default: 'language' }
+    icon: { type: String, required: false, default: 'md:language' }
+  },
+  setup () {
+    const { current: vuetifyLang } = useLocale();
+    return { vuetifyLang };
   },
   data () {
     return {
@@ -53,8 +57,8 @@ export default {
      * Change the i18n and built-in vuetify locale.
      */
     onItemClick (langCode) {
-      this.$i18n.locale = this.$vuetify.lang.current = langCode;
+      this.$i18n.locale = this.vuetifyLang = langCode;
     }
   }
-}
+};
 </script>

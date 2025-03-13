@@ -1,7 +1,6 @@
 <template>
-
   <v-card-text class="px-0" v-if="show">
-    <v-simple-table class="wgu-proptable">
+    <v-table class="wgu-proptable">
       <tbody class="attr-tbody">
         <tr v-for="(value, key) in properties" :key="key">
           <td class="key-td">
@@ -11,7 +10,7 @@
           </td>
         </tr>
       </tbody>
-    </v-simple-table>
+    </v-table>
   </v-card-text>
 </template>
 
@@ -34,11 +33,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-.wgu-proptable {
-  word-break: break-word;
-}
 
-.wgu-proptable td.key-td {
-  width: 40%;
-}
+  .wgu-proptable {
+    word-break: break-word;
+  }
+
+  .wgu-proptable td.key-td {
+    width: 40%;
+  }
+
 </style>

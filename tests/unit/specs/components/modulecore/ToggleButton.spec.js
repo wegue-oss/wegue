@@ -1,12 +1,21 @@
 import { shallowMount } from '@vue/test-utils';
-import ToggleButton from '@/components/modulecore/ToggleButton'
+import ToggleButton from '@/components/modulecore/ToggleButton';
 
 const buttonProps = {
   moduleName: 'my-module',
   icon: 'my-icon'
+};
+
+function createWrapper (props = buttonProps) {
+  return shallowMount(ToggleButton, {
+    props
+  });
 }
 
 describe('modulecore/ToggleButton.vue', () => {
+  let comp;
+  let vm;
+
   // Inspect the raw component options
   it('is defined', () => {
     expect(ToggleButton).to.not.be.an('undefined');
@@ -17,60 +26,55 @@ describe('modulecore/ToggleButton.vue', () => {
   });
 
   describe('props', () => {
-    let comp;
     beforeEach(() => {
-      comp = shallowMount(ToggleButton, {
-        propsData: buttonProps
-      });
+      comp = createWrapper();
+      vm = comp.vm;
     });
 
     it('has correct default props', () => {
-      expect(comp.vm.visible).to.equal(false);
+      expect(vm.visible).to.be.false;
     });
 
     it('has correct props', () => {
-      expect(comp.vm.moduleName).to.equal('my-module');
-      expect(comp.vm.icon).to.equal('my-icon');
+      expect(vm.moduleName).to.equal('my-module');
+      expect(vm.icon).to.equal('my-icon');
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('data', () => {
-    let comp;
     beforeEach(() => {
-      comp = shallowMount(ToggleButton, {
-        propsData: buttonProps
-      });
+      comp = createWrapper();
+      vm = comp.vm;
     });
 
     it('has correct default data', () => {
-      expect(comp.vm.show).to.equal(false);
+      expect(vm.show).to.be.false;
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 
   describe('methods', () => {
-    let comp;
     beforeEach(() => {
-      comp = shallowMount(ToggleButton, {
-        propsData: buttonProps
-      });
+      comp = createWrapper();
+      vm = comp.vm;
     });
 
     it('toggleUi switches show', () => {
-      comp.vm.show = false;
-      comp.vm.toggleUi();
-      expect(comp.vm.show).to.equal(true);
+      vm.show = false;
+      vm.toggleUi();
+
+      expect(vm.show).to.be.true;
     });
 
     afterEach(() => {
-      comp.destroy();
+      comp.unmount();
     });
   });
 });

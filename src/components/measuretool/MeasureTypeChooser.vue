@@ -1,7 +1,12 @@
 <template>
-
-  <v-btn-toggle color="secondary" v-model="measureTypeData" mandatory>
-    <v-btn large value="distance">
+  <v-btn-toggle
+    color="secondary"
+    variant="outlined"
+    v-model="measureTypeData"
+    divided
+    mandatory
+    >
+    <v-btn size="large" value="distance">
       <v-icon>
         mdi-vector-polyline
       </v-icon>
@@ -9,7 +14,7 @@
         {{ $t("wgu-measuretool.distance") }}
       </span>
      </v-btn>
-     <v-btn large value="area">
+     <v-btn size="large" value="area">
       <v-icon>
         mdi-vector-square
       </v-icon>
@@ -17,7 +22,7 @@
         {{ $t("wgu-measuretool.area") }}
       </span>
      </v-btn>
-     <v-btn large value="angle" v-if="showAngleTool">
+     <v-btn size="large" value="angle" v-if="showAngleTool">
       <v-icon>
         mdi-vector-line
       </v-icon>
@@ -26,7 +31,6 @@
       </span>
     </v-btn>
   </v-btn-toggle>
-
 </template>
 
 <script>
@@ -48,7 +52,7 @@ export default {
       this.$emit('wgu-measuretype-change', newVal, oldVal);
     }
   }
-}
+};
 </script>
 
 <style>
