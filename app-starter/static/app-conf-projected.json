@@ -78,7 +78,7 @@
     {
       "type": "WFS",
       "lid": "dutch-nat-parks",
-      "url": "https://service.pdok.nl/rvo/nationaleparken/wfs/v2_0?",
+      "url": "https://service.pdok.nl/rvo/nationaleparken/wfs/v2_0",
       "typeName": "nationaleparken:nationaleparken",
       "version": "2.0.0",
       "maxFeatures": 10,

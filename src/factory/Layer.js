@@ -225,20 +225,23 @@ export const LayerFactory = {
 
     const vectorSource = new VectorSource({
       format: new this.formatMapping[lConf.format](lConf.formatConfig),
-      loader: (extent) => {
+      loader: (extent, resolution, projection, success, failure) => {
         // assemble WFS GetFeature request
-        const pre = lConf.url.includes('?') ? '&' : '?';
-        let wfsRequest = lConf.url + pre + 'service=WFS&' +
-          'version=' + lConf.version + '&request=GetFeature&' +
-          'typename=' + lConf.typeName + '&' +
-          'outputFormat=' + outputFormat + '&srsname=' + lConf.projection;
+        const params = {
+          service: 'WFS',
+          version: lConf.version,
+          request: 'GetFeature',
+          typename: lConf.typeName,
+          outputFormat,
+          srsname: lConf.projection
+        };
 
         // add WFS version dependent feature limitation
         if (Number.isInteger(parseInt(lConf.maxFeatures))) {
           if (lConf.version.startsWith('1.')) {
-            wfsRequest += '&maxFeatures=' + lConf.maxFeatures;
+            params.maxFeatures = lConf.maxFeatures;
           } else {
-            wfsRequest += '&count=' + lConf.maxFeatures;
+            params.count = lConf.maxFeatures;
           }
         }
         // add bbox filter
@@ -246,21 +249,24 @@ export const LayerFactory = {
           if (mapSrs !== lConf.projection) {
             extent = applyTransform(extent, getTransform(mapSrs, lConf.projection));
           }
-          wfsRequest += '&bbox=' + extent.join(',') + ',' + lConf.projection + '';
+          params.bbox = extent.join(',') + ',' + lConf.projection;
         }
 
         // load data from WFS, parse and add to vector source
         const request = {
           method: 'GET',
-          url: wfsRequest
+          url: lConf.url,
+          params
         };
         axios(request)
           .then(response => {
             const feats = vectorSource.getFormat().readFeatures(response.data);
             vectorSource.addFeatures(feats);
+            success(feats);
           })
           .catch(() => {
             vectorSource.removeLoadedExtent(extent);
+            failure();
           });
       },
       strategy: lConf.loadOnlyVisible !== false ? bboxStrategy : undefined

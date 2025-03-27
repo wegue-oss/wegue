@@ -15,6 +15,9 @@ import KmlFormat from 'ol/format/KML';
 import Map from 'ol/Map';
 import View from 'ol/View';
 
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
+
 describe('LayerFactory', () => {
   it('is defined', () => {
     expect(LayerFactory).to.not.be.an('undefined');
@@ -191,6 +194,111 @@ describe('LayerFactory', () => {
 
       expect(layer instanceof VectorTileLayer).to.be.true;
       expect(layer.getSource() instanceof VectorTileSource);
+    });
+  });
+
+  describe('WFS layer', () => {
+    describe('Events', () => {
+      let divElement;
+      let wfsLayer;
+      let axiosMock;
+      const layerURL = 'https://a-wfs-url.de';
+      const fetchResults = JSON.stringify({
+        type: 'FeatureCollection',
+        features: [
+          {
+            type: 'Feature',
+            id: '1',
+            geometry: {
+              type: 'Polygon',
+              coordinates: [[4.0, 51.0], [4.5, 50.5], [5.0, 51.0], [4.0, 51.0]]
+            }
+          }
+        ]
+      });
+
+      function createMapTargetElement () {
+        const targetElement = document.createElement('div');
+        targetElement.style.cssText = 'width:640px; height:480px';
+        return targetElement;
+      };
+
+      function applyAxiosMock (error = false) {
+        axiosMock = new MockAdapter(axios);
+        if (!error) {
+          axiosMock.onGet(layerURL).reply(200, fetchResults);
+        } else {
+          axiosMock.onGet(layerURL).networkError();
+        }
+      };
+
+      beforeEach(() => {
+        const layerConf = {
+          type: 'WFS',
+          lid: 'a-wfs',
+          url: layerURL,
+          typeName: 'foo:tn',
+          version: '2.0.0',
+          format: 'GeoJSON',
+          projection: 'EPSG:3857',
+          visible: false
+        };
+
+        divElement = createMapTargetElement();
+        document.body.append(divElement);
+
+        const olMap = new Map({
+          view: new View({
+            center: [0, 0],
+            zoom: 1
+          }),
+          layers: [],
+          target: divElement
+        });
+        wfsLayer = LayerFactory.createWfsLayer(layerConf, olMap);
+        olMap.addLayer(wfsLayer);
+      });
+
+      it('fires the featuresloadstart event when displayed', done => {
+        applyAxiosMock();
+
+        wfsLayer.getSource().on('featuresloadstart', () => {
+          done();
+        })
+
+        wfsLayer.setVisible(true);
+      });
+
+      it('fires the featuresloadend event when features retrieved', done => {
+        applyAxiosMock();
+
+        wfsLayer.getSource().on('featuresloadend', () => {
+          done();
+        })
+
+        wfsLayer.setVisible(true);
+      });
+
+      it('fires the featuresloaderror event when error during features retrieval', done => {
+        applyAxiosMock(true);
+
+        wfsLayer.getSource().on('featuresloaderror', () => {
+          done();
+        })
+
+        wfsLayer.setVisible(true);
+      });
+
+      afterEach(() => {
+        if (axiosMock) {
+          axiosMock.restore();
+        }
+
+        if (divElement) {
+          divElement.remove();
+          divElement = undefined;
+        }
+      });
     });
   });
 });
