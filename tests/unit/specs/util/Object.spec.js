@@ -75,4 +75,31 @@ describe('ObjectUtil', () => {
       '.array[1].prop'
     ]);
   });
+
+  it('getValueIgnoreCase returns correct results', () => {
+    const object = {
+      foo: 1,
+      BAR: 2,
+      KaLLe: 3
+    };
+
+    let result1 = ObjectUtil.getValueIgnoreCase(object, 'foo');
+    expect(result1).to.equal(1);
+    result1 = ObjectUtil.getValueIgnoreCase(object, 'FOO');
+    expect(result1).to.equal(1);
+    result1 = ObjectUtil.getValueIgnoreCase(object, 'fOO');
+    expect(result1).to.equal(1);
+    let result2 = ObjectUtil.getValueIgnoreCase(object, 'bar');
+    expect(result2).to.equal(2);
+    result2 = ObjectUtil.getValueIgnoreCase(object, 'BAR');
+    expect(result2).to.equal(2);
+    result2 = ObjectUtil.getValueIgnoreCase(object, 'bAr');
+    expect(result2).to.equal(2);
+    let result3 = ObjectUtil.getValueIgnoreCase(object, 'kalle');
+    expect(result3).to.equal(3);
+    result3 = ObjectUtil.getValueIgnoreCase(object, 'KALLE');
+    expect(result3).to.equal(3);
+    result3 = ObjectUtil.getValueIgnoreCase(object, 'kAlle');
+    expect(result3).to.equal(3);
+  });
 });
