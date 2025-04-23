@@ -4,6 +4,7 @@
 
 import TileWmsSource from 'ol/source/TileWMS';
 import ImageWmsSource from 'ol/source/ImageWMS';
+import ObjectUtil from './Object';
 
 const CustomLegend = {
   /**
@@ -45,6 +46,13 @@ const WMSSourceLegend = {
    * @returns {String} The legend URL.
    */
   getUrl (source, resolution, options) {
+    const wmsParams = source.getParams();
+    const wmsVersion = ObjectUtil.getValueIgnoreCase(wmsParams, 'VERSION') || '1.3.0';
+    // apply mandatory SLD_VERSION param for WMS 1.3.0 GetLegendGraphic request
+    if (wmsVersion === '1.3.0' && !ObjectUtil.getValueIgnoreCase(options, 'SLD_VERSION')) {
+      options.SLD_VERSION = '1.1.0';
+    }
+
     return source.getLegendUrl(resolution, options);
   }
 }

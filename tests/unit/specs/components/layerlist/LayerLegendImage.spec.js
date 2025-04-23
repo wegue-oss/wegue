@@ -144,7 +144,7 @@ describe('layerlist/LayerLegendImage.vue', () => {
       await comp.setProps({ layer: wmsLayer });
       expect(vm.legendURL).to.equal('https://ahocevar.com/geoserver/wms?' +
         'SERVICE=WMS&VERSION=1.3.0&REQUEST=GetLegendGraphic&FORMAT=image%2Fpng&LAYER=topp%3Astates&' +
-        'SCALE=139770566.00717944&language=en');
+        'SCALE=139770566.00717944&language=en&SLD_VERSION=1.1.0');
     });
 
     it('legendURL supports localization and scale', async () => {
@@ -152,19 +152,19 @@ describe('layerlist/LayerLegendImage.vue', () => {
 
       expect(vm.legendURL).to.equal('https://ahocevar.com/geoserver/wms?' +
         'SERVICE=WMS&VERSION=1.3.0&REQUEST=GetLegendGraphic&FORMAT=image%2Fpng&LAYER=topp%3Astates&' +
-        'SCALE=139770566.00717944&language=en');
+        'SCALE=139770566.00717944&language=en&SLD_VERSION=1.1.0');
 
       vm.$i18n.locale = 'de';
 
       expect(vm.legendURL).to.equal('https://ahocevar.com/geoserver/wms?' +
         'SERVICE=WMS&VERSION=1.3.0&REQUEST=GetLegendGraphic&FORMAT=image%2Fpng&LAYER=topp%3Astates&' +
-        'SCALE=139770566.00717944&language=de');
+        'SCALE=139770566.00717944&language=de&SLD_VERSION=1.1.0');
 
       view.setResolution(1000.0);
 
       expect(vm.legendURL).to.equal('https://ahocevar.com/geoserver/wms?' +
         'SERVICE=WMS&VERSION=1.3.0&REQUEST=GetLegendGraphic&FORMAT=image%2Fpng&LAYER=topp%3Astates&' +
-        'SCALE=3571428.571428572&language=de');
+        'SCALE=3571428.571428572&language=de&SLD_VERSION=1.1.0');
     });
 
     afterEach(() => {

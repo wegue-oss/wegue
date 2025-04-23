@@ -55,6 +55,34 @@ const ObjectUtil = {
       result.push(path);
     }
     return result;
+  },
+
+  /**
+   * Returns the value from an object using a case-insensitive key.
+   *
+   * @param {Object} obj The object to search in
+   * @param {String} key The key to retrieve value for
+   * @returns {*} The value for the given key or undefined, if not found
+   */
+  getValueIgnoreCase (obj, key) {
+    if (typeof obj !== 'object' || obj === null) {
+      console.warn('getValueIgnoreCase: First argument must be a valid object');
+      return;
+    }
+    if (typeof key !== 'string') {
+      console.warn('getValueIgnoreCase: Second argument must be a string');
+      return;
+    }
+
+    const lowerCaseKey = key.toLowerCase();
+
+    for (const objKey in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, objKey) && objKey.toLowerCase() === lowerCaseKey) {
+        return obj[objKey];
+      }
+    }
+
+    return undefined; // key not found
   }
 }
 
