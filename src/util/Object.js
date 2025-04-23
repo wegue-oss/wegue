@@ -61,7 +61,7 @@ const ObjectUtil = {
    * Returns the value from an object using a case-insensitive key.
    *
    * @param {Object} obj The object to search in
-   * @param {*} key The key to retrieve value for
+   * @param {String} key The key to retrieve value for
    * @returns {*} The value for the given key or undefined, if not found
    */
   getValueIgnoreCase (obj, key) {
