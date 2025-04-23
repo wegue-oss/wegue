@@ -76,7 +76,7 @@ describe('ol/Map.vue', () => {
       expect(vm.tileGridDefs).to.be.empty;
       expect(vm.tileGrids).to.be.empty;
       expect(vm.permalink).to.be.undefined;
-      expect(vm.mapGeodataDragDop).to.be.undefined;
+      expect(vm.mapGeodataDragDrop).to.be.undefined;
       expect(vm.dragDropLayerCreated).to.be.false;
       expect(vm.formatMapping).to.be.an('object');
       expect(Object.keys(vm.formatMapping)).to.have.lengthOf(5);

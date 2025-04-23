@@ -1,0 +1,80 @@
+{
+  "app": {
+    "title": "Vue.js / OpenLayers WebGIS",
+    "browserTitle": "Application de Démonstration Wegue",
+    "footerTextLeft": "Powered by <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>",
+    "footerTextRight": "meggsimum",
+    "logo": "Logo de l'Application"
+  },
+
+  "mapLayers": {
+    "wgu-drag-drop-layer" : {
+      "name": "Données Téléchargées"
+    },
+    "Shops": {
+      "name": "Magasins DaSchau"
+    },
+    "gas-wfs": {
+      "name": "Pompes à Essence WFS",
+      "attributions": "© <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a>-contributeurs"
+    },
+    "earthquakes": {
+      "name": "Tremblements de Terre 2012 (Mag 5)",
+      "attributions": "U.S. Geological Survey"
+    },
+    "ahocevar-wms": {
+      "name": "Tuiles WMS (ahocevar)"
+    },
+    "ahocevar-imagewms": {
+      "name": "Images WMS (ahocevar)"
+    },
+    "ahocevar-vectortiles": {
+      "name": "Couche de Tuiles Vectorielles"
+    },
+    "opentopomap": {
+      "name": "OpenTopoMap",
+      "attributions": "Données cartographiques: <a href=\"https://openstreetmap.org/copyright\">© OpenStreetMap</a>-contributeurs, SRTM | Représentation cartographique: © <a href=\"http://opentopomap.org/\">OpenTopoMap</a> (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC-BY-SA</a>)"
+    },
+    "osm-bg": {
+      "name": "OpenStreetMap",
+      "attributions": "© <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a>-contributeurs"
+    },
+    "dutch-nat-parks" : {
+      "name": "WFS (Parcs Nationaux Néerlandaiss PDOK)",
+      "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> par le Cadastre Néerlandais"
+    },
+    "pdok-natura2000-wms" : {
+      "name": "WMS - Zones Natura 2000 - PDOK",
+      "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> par le Cadastre Néerlandais"
+    },
+    "pdok-lufo-wms" : {
+      "name": "WMS - Orthophotos Néerlandaises - PDOK",
+      "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> par le Cadastre Néerlandais"
+    },
+    "brtachtergrondkaart" : {
+      "name": "WMTS - Fond de Plan Topographique - PDOK",
+      "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> par le Cadastre Néerlandais"
+    },
+    "terrestris-osm-wms" : {
+      "name": "OSM WMS",
+      "attributions": "<a href='https://www.openstreetmap.org/copyright' target='_blank'>© OpenStreetMap-contributeurs</a>"
+    },
+    "test_arcgisrest" : {
+      "name": "Couche test de tuiles Arcgis REST",
+      "attributions": "<a href='https://www.padovanet.it' target='_blank'>© Commune de Padova</a>"
+    }
+  },
+
+  "wgu-helpwin": {
+    "title": "À Propos de",
+    "textTitle": "À Propos de Wegue",
+    "htmlContent": "<b>WebGIS basé sur OpenLayers et Vue.js</b><br>Modèle et composants réutilisables pour applications de cartographie avec OpenLayers et Vue.js",
+    "infoLinkUrl": "http://wegue.org/",
+    "infoLinkText": "Plus d'informations"
+  },
+
+  "sample-module": {
+    "title": "Module d'Exemple",
+    "text": "Bonjour Wegue"
+  }
+}
