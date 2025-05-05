@@ -12,8 +12,6 @@
     <!-- slot to inject components after the title text -->
     <slot name="wgu-tb-after-title"></slot>
 
-    <v-spacer></v-spacer>
-
     <!-- slot to inject components before the auto-generated buttons (by config) -->
     <slot name="wgu-tb-before-auto-buttons"></slot>
 
