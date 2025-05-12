@@ -46,7 +46,10 @@ Module identifier: `wgu-geocoder`
 
 | Property           | Meaning   | Example |
 |--------------------|:---------:|---------|
-| rounded            | Adds a border radius to the input. | `"rounded": true` |
+| width              | The width of the text input field. | `"width": 400` |
+| minWidth          | The minimum width of the text input field. Only applies if the `width` property is not defined. Defaults to `175` | `"minWidth": 175` |
+| maxWidth          | The maximum width of the text input field. Only applies if the `width` property is not defined. Defaults to `300` | `"maxWidth": 300` |
+| rounded            | Adds a border radius to the text input field. | `"rounded": true` |
 | autofocus          | Enables autofocus  | `"autofocus": true` |
 | clearable          | Add input clear functionality.  | `"clearable": true` |
 | persistentHint     | Forces hint to always be visible.  | `"persistentHint": true` |
