@@ -44,6 +44,9 @@ describe('geocoder/Geocoder.vue', () => {
 
     it('has correct default props', () => {
       expect(vm.icon).to.equal('md:search');
+      expect(vm.width).to.be.undefined;
+      expect(vm.minWidth).to.equal(175);
+      expect(vm.maxWidth).to.equal(300);
       expect(vm.rounded).to.be.true;
       expect(vm.autofocus).to.be.true;
       expect(vm.clearable).to.be.true;
@@ -134,6 +137,61 @@ describe('geocoder/Geocoder.vue', () => {
 
     afterEach(() => {
       comp.unmount();
+    });
+  });
+
+  describe('configured width', () => {
+    describe('width property is not defined', () => {
+      beforeEach(() => {
+        const moduleProps = {
+          target: 'toolbar',
+          minWidth: 50,
+          maxWidth: 100
+        };
+
+        comp = createWrapper({ props: moduleProps });
+        vm = comp.vm;
+      });
+
+      it('combobox width is undefined', () => {
+        const comboBox = comp.findComponent({ name: 'v-combobox' });
+
+        expect(comboBox.props('width')).to.be.undefined;
+      });
+
+      it('combobox maxWidth and minWidth are assigned correctly', () => {
+        const comboBox = comp.findComponent({ name: 'v-combobox' });
+
+        expect(comboBox.props('maxWidth')).to.equal(100);
+        expect(comboBox.props('minWidth')).to.equal(50);
+      });
+    });
+
+    describe('width property is defined', () => {
+      beforeEach(() => {
+        const moduleProps = {
+          target: 'toolbar',
+          width: 75,
+          minWidth: 50,
+          maxWidth: 100
+        };
+
+        comp = createWrapper({ props: moduleProps });
+        vm = comp.vm;
+      });
+
+      it('combobox maxWidth and minWidth are undefined', () => {
+        const comboBox = comp.findComponent({ name: 'v-combobox' });
+
+        expect(comboBox.props('maxWidth')).to.be.undefined;
+        expect(comboBox.props('minWidth')).to.be.undefined;
+      });
+
+      it('combobox width is assigned correctly', () => {
+        const comboBox = comp.findComponent({ name: 'v-combobox' });
+
+        expect(comboBox.props('width')).to.equal(75);
+      });
     });
   });
 
