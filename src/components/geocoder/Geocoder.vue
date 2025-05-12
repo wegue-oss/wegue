@@ -5,8 +5,9 @@
       class="wgu-geocoder-combo wgu-solo-field"
       variant="outlined"
       density="compact"
-      min-width="175"
-      max-width="300"
+      :width="width"
+      :min-width="width ? undefined : minWidth"
+      :max-width="width ? undefined : maxWidth"
       :list-props="{ nav: true, density: 'compact' }"
       :color="isPrimaryDarkWithLightTheme ? 'white' : 'accent'"
       :theme="isDarkTheme ? 'dark' : 'light'"
@@ -48,6 +49,9 @@ export default {
   name: 'wgu-geocoder-input',
   props: {
     icon: { type: String, required: false, default: 'md:search' },
+    width: { type: Number, required: false, default: undefined },
+    minWidth: { type: Number, required: false, default: 175 },
+    maxWidth: { type: Number, required: false, default: 300 },
     rounded: { type: Boolean, required: false, default: true },
     autofocus: { type: Boolean, required: false, default: true },
     clearable: { type: Boolean, required: false, default: true },
