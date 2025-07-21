@@ -38,12 +38,12 @@ const IconUtil = {
    */
   importPathIcons () {
     const moduleDefaultExtractor = (i) => i.default;
-    const testExp = /custom-icons\/(?:.+\/)*([a-z0-9_-]+).js$/i;
+    const testExp = /custom-icons\/([\w-]+)\.js$/i;
 
     const context = require.context(
       '../../app',
       true,
-      /custom-icons\/(?:.+\/)*([a-z0-9_-]+).js$/i
+      /custom-icons\/([\w-]+)\.js$/i
     );
     const pathIcons = {};
     for (const key of context.keys()) {

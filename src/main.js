@@ -35,7 +35,7 @@ const appCtx = UrlUtil.getQueryParam('appCtx');
 let appCtxFile = '';
 if (appCtx) {
   // simple aproach to avoid path traversal
-  appCtxFile = '-' + appCtx.replace(/(\.\.[/])+/g, '');
+  appCtxFile = '-' + appCtx.replace(/(\.\.\/)+/g, '');
 }
 
 /**
