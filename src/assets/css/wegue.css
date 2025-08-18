@@ -88,6 +88,12 @@ html {
 	overflow-y: hidden;  
 }
 
+/* Teleport to overlay the map content from an application module. */
+#wgu-map-teleport * {
+  pointer-events: auto;
+  overflow: visible;
+}
+
 /*
   TODO Review ccs colorization.
   Used to force the on-primary color for solo fields (light theme only).
