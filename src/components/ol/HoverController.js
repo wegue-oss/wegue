@@ -108,7 +108,7 @@ export default class HoverController {
 
     // Acquire features for all layers.
     map.getLayers().forEach((layer) => {
-      if (!layer.get('hoverable')) {
+      if (!layer.get('hoverable') || !layer.isVisible()) {
         return;
       }
       const source = layer.getSource();
