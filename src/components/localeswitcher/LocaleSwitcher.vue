@@ -8,7 +8,7 @@
         <v-btn
           v-bind="props"
           borderless
-          dense
+          density="default"
           :title="$t('wgu-localeswitcher.title')"
           class="ma-2 wgu-menu-button"
           icon
