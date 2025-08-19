@@ -196,7 +196,19 @@ Additionally every configuration property of [`ol/style/Text`](https://openlayer
       "offsetY": 15,
       "align": "center"
     }
-  }
+  },
+  "columnMapping": {
+    "name": "Name",
+    "email": "Email",
+    "website": "Website"
+  },
+  "selectStyle": {
+    "radius": 10,
+    "strokeColor": "gray",
+    "strokeWidth": 5,
+    "fillColor": "rgb(255, 255, 0, 0.2)"
+  },
+  "doAppendSelectStyle": true
 }
 
 ```

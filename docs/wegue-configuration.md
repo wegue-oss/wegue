@@ -198,11 +198,12 @@ In a Layer configuration a specific tilegrid can be refered to as follows, using
     {
       "type": "XYZ",
       "lid": "brtachtergrondkaart",
-      "name": "WMTS - Topo Basemap - PDOK",
       "url": "https://service.pdok.nl/brt/achtergrondkaart/wmts/v2_0/standaard/EPSG:28992/{z}/{x}/{y}.png",
       "projection": "EPSG:28992",
       "tileGridRef": "dutch_rd",
-      "visible": true
+      "isBaseLayer": true,
+      "visible": true,
+      "crossOrigin": "anonymous"
     }
 ```
 
@@ -364,7 +365,7 @@ The `overviewMap` object supports the following properties:
 
 | Property           | Meaning   | Example |
 |--------------------|:---------:|---------|
-| icon               | Provide a customized map icon. Defaults to `zoom_out_map`.  | `"icon": "zoom_out_map"` |
+| icon               | Provide a customized map icon. Defaults to `md:zoom_out_map`.  | `"icon": "md:zoom_out_map"` |
 | visible            | Specifies whether the overviewMap appears in open or closed state on application start. Defaults to true. | `"visible": true` |
 | rotateWithView     | Whether the control view should rotate with the main map view. Defaults to true. | `"rotateWithView": true` |
 | width              | Width of the overview map panel in viewport coordinates. Defaults to 164px.  | `"width": 164` |
@@ -430,7 +431,9 @@ Example configurations can be found in the `app-starter/static` directory. Below
   "lang": {
     "supported": {
       "en": "English",
-      "de": "Deutsch"
+      "de": "Deutsch",
+      "pt": "Portugues",
+      "fr": "Français"
     },
     "fallback": "en"
   },
@@ -574,8 +577,30 @@ Example configurations can be found in the `app-starter/static` directory. Below
       "visible": false,
       "displayInLayerList": true,
       "legend": true,
-      "opacityControl": true
+      "opacityControl": true,
+      "crossOrigin": "anonymous"
     },
+
+    {
+      "type": "TILEARCGIS",
+      "lid": "test_arcgisrest",
+      "format": "image/jpeg",
+      "url": "https://cartografia.comune.padova.it/server/rest/services/topo/MapServer",
+      "params": {
+        "LAYERS":"show:3,16",
+        "TRANSPARENT": true
+      },
+      "transparent": true,
+      "projection": "EPSG:3003",
+      "attribution": "Comune di padova",
+      "isBaseLayer": false,
+      "visible": false,
+      "displayInLayerList": true,
+      "legend": false,
+      "opacityControl": true,
+      "crossOrigin": "anonymous"
+    },
+
     {
       "type": "IMAGEWMS",
       "lid": "ahocevar-imagewms",
@@ -589,7 +614,8 @@ Example configurations can be found in the `app-starter/static` directory. Below
       "isBaseLayer": false,
       "visible": false,
       "displayInLayerList": true,
-      "opacityControl": true
+      "opacityControl": true,
+      "crossOrigin": "anonymous"
     },
     {
       "type": "VECTORTILE",
@@ -629,13 +655,13 @@ Example configurations can be found in the `app-starter/static` directory. Below
     "wgu-layerlist": {
       "target": "menu",
       "win": "floating",
-      "icon": "layers",
+      "icon": "md:layers",
       "draggable": false
     },
     "wgu-measuretool": {
       "target": "menu",
       "win": "floating",
-      "icon": "photo_size_select_small",
+      "icon": "md:photo_size_select_small",
       "draggable": false,
       "strokeColor": "#c62828",
       "fillColor": "rgba(198,40,40,0.2)",
@@ -647,7 +673,7 @@ Example configurations can be found in the `app-starter/static` directory. Below
     "wgu-infoclick": {
       "target": "menu",
       "win": "floating",
-      "icon": "info",
+      "icon": "md:info",
       "draggable": false,
       "initPos": {
         "left": 8,
@@ -683,19 +709,19 @@ Example configurations can be found in the `app-starter/static` directory. Below
     "wgu-helpwin": {
       "target": "toolbar",
       "win": "floating",
-      "icon": "help"
+      "icon": "md:help"
     },
     "wgu-geolocator": {
       "target": "toolbar"
     },
     "wgu-themeswitcher": {
       "target": "toolbar",
-      "icon": "dark_mode"
+      "icon": "md:dark_mode"
     },
     "wgu-attributetable": {
       "target": "menu",
       "win": "floating",
-      "icon": "table_chart",
+      "icon": "md:table_chart",
       "syncTableMapSelection": true
     },
     "wgu-localeswitcher": {
@@ -704,7 +730,8 @@ Example configurations can be found in the `app-starter/static` directory. Below
     "sample-module": {
       "target": "toolbar",
       "win": "floating",
-      "icon": "star"
+      "icon": "md:star",
+      "closable": false
     }
   }
 }
