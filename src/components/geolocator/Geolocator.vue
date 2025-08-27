@@ -83,7 +83,7 @@ export default {
             this.map.addLayer(geolocLayer);
 
             // zoom to geolocation position
-            const viewAnimationUtil = new ViewAnimationUtil(this.$appConfig);
+            const viewAnimationUtil = new ViewAnimationUtil(this.$appConfig.viewAnimation);
             viewAnimationUtil.to(this.map.getView(), currentPosGeom);
           } else {
             console.error('The map is not defined in the getCurrentPosition callback');
