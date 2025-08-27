@@ -3,26 +3,31 @@ import { shallowMount } from '@vue/test-utils';
 import { createI18n } from 'vue-i18n';
 import LayerLegendImage from '@/components/layerlist/LayerLegendImage';
 import i18nMessages from '@/locales/en.json';
+import { LayerProxy } from '@/util/Layer';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import TileWmsSource from 'ol/source/TileWMS';
 import View from 'ol/View';
 
-const osmLayer = new TileLayer({
-  lid: 'osm',
-  source: new OSM()
-});
-
-const wmsLayer = new TileLayer({
-  lid: 'ahocevar-wms',
-  source: new TileWmsSource({
-    url: 'https://ahocevar.com/geoserver/wms',
-    params: {
-      LAYERS: 'topp:states',
-      TILED: true
-    }
+const osmLayer = new LayerProxy(
+  new TileLayer({
+    lid: 'osm',
+    source: new OSM()
   })
-});
+);
+
+const wmsLayer = new LayerProxy(
+  new TileLayer({
+    lid: 'ahocevar-wms',
+    source: new TileWmsSource({
+      url: 'https://ahocevar.com/geoserver/wms',
+      params: {
+        LAYERS: 'topp:states',
+        TILED: true
+      }
+    })
+  })
+)
 
 const view = new View({
   projection: 'EPSG:3857',
@@ -80,7 +85,7 @@ describe('layerlist/LayerLegendImage.vue', () => {
 
     it('has correct props', () => {
       expect(toRaw(vm.mapView)).to.equal(view);
-      expect(toRaw(vm.layer)).to.equal(osmLayer);
+      expect(vm.layer).to.equal(osmLayer);
     });
 
     afterEach(() => {
@@ -115,26 +120,30 @@ describe('layerlist/LayerLegendImage.vue', () => {
     });
 
     it('has correct legendURL for static legend URL', async () => {
-      const layer = new TileLayer({
-        lid: 'osm2',
-        source: new OSM(),
-        legendUrl: 'http://my-image.png'
-      });
+      const layer = new LayerProxy(
+        new TileLayer({
+          lid: 'osm2',
+          source: new OSM(),
+          legendUrl: 'http://my-image.png'
+        })
+      );
       await comp.setProps({ layer });
 
       expect(vm.legendURL).to.equal('http://my-image.png');
     });
 
     it('has correct legendURL for legend format URL', async () => {
-      const layer = new TileLayer({
-        lid: 'osm2',
-        source: new OSM(),
-        legendUrl: 'http://my-image.png?transparent={{TRANSPARENT}}&width={{WIDTH}}&SCALE={{SCALE}}&language={{LANGUAGE}}',
-        legendOptions: {
-          transparent: true,
-          width: 14
-        }
-      });
+      const layer = new LayerProxy(
+        new TileLayer({
+          lid: 'osm2',
+          source: new OSM(),
+          legendUrl: 'http://my-image.png?transparent={{TRANSPARENT}}&width={{WIDTH}}&SCALE={{SCALE}}&language={{LANGUAGE}}',
+          legendOptions: {
+            transparent: true,
+            width: 14
+          }
+        })
+      );
       await comp.setProps({ layer });
 
       expect(vm.legendURL).to.equal('http://my-image.png?transparent=true&width=14&SCALE=139770566.00717944&language=en');

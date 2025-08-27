@@ -1,14 +1,17 @@
 import { toRaw } from 'vue';
 import { shallowMount } from '@vue/test-utils';
 import LayerListItem from '@/components/layerlist/LayerListItem';
+import { LayerProxy } from '@/util/Layer';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import View from 'ol/View';
 
-const osmLayer = new TileLayer({
-  lid: 'osm',
-  source: new OSM()
-});
+const osmLayer = new LayerProxy(
+  new TileLayer({
+    lid: 'osm',
+    source: new OSM()
+  })
+);
 
 const view = new View({
   projection: 'EPSG:3857',
@@ -104,11 +107,13 @@ describe('layerlist/LayerListItem.vue', () => {
     it('has correct showLegend property for layer', async () => {
       expect(vm.showLegend).to.be.false;
 
-      const osmLayer2 = new TileLayer({
-        lid: 'osm2',
-        source: new OSM(),
-        legend: true
-      });
+      const osmLayer2 = new LayerProxy(
+        new TileLayer({
+          lid: 'osm2',
+          source: new OSM(),
+          legend: true
+        })
+      );
       await comp.setProps({ layer: osmLayer2 });
 
       expect(vm.showLegend).to.be.true;
@@ -117,11 +122,13 @@ describe('layerlist/LayerListItem.vue', () => {
     it('has correct showOpacityControl property for layer', async () => {
       expect(vm.showOpacityControl).to.be.false;
 
-      const osmLayer2 = new TileLayer({
-        lid: 'osm2',
-        source: new OSM(),
-        opacityControl: true
-      });
+      const osmLayer2 = new LayerProxy(
+        new TileLayer({
+          lid: 'osm2',
+          source: new OSM(),
+          opacityControl: true
+        })
+      );
       await comp.setProps({ layer: osmLayer2 });
 
       expect(vm.showOpacityControl).to.be.true;
@@ -130,20 +137,24 @@ describe('layerlist/LayerListItem.vue', () => {
     it('has correct showDetails property for layer', async () => {
       expect(vm.showDetails).to.be.false;
 
-      const osmLayer2 = new TileLayer({
-        lid: 'osm2',
-        source: new OSM(),
-        legend: true
-      });
+      const osmLayer2 = new LayerProxy(
+        new TileLayer({
+          lid: 'osm2',
+          source: new OSM(),
+          legend: true
+        })
+      );
       await comp.setProps({ layer: osmLayer2 });
 
       expect(vm.showDetails).to.be.true;
 
-      const osmLayer3 = new TileLayer({
-        lid: 'osm3',
-        source: new OSM(),
-        opacityControl: true
-      });
+      const osmLayer3 = new LayerProxy(
+        new TileLayer({
+          lid: 'osm3',
+          source: new OSM(),
+          opacityControl: true
+        })
+      );
       comp.setProps({ layer: osmLayer3 });
 
       expect(vm.showDetails).to.be.true;
@@ -152,11 +163,13 @@ describe('layerlist/LayerListItem.vue', () => {
     it('has correct layerLid property for layer', async () => {
       expect(vm.layerLid).to.equal('osm');
 
-      const osmLayer2 = new TileLayer({
-        lid: 'osm2',
-        source: new OSM(),
-        legend: true
-      });
+      const osmLayer2 = new LayerProxy(
+        new TileLayer({
+          lid: 'osm2',
+          source: new OSM(),
+          legend: true
+        })
+      );
       await comp.setProps({ layer: osmLayer2 });
 
       expect(vm.layerLid).to.equal('osm2');
