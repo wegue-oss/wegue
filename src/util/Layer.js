@@ -1,4 +1,5 @@
 import ViewAnimationUtil from './ViewAnimation';
+import { reactive, toRaw, markRaw } from 'vue'
 
 /**
  * Util class for OL layers
@@ -65,19 +66,29 @@ export default LayerUtil;
 export class LayerProxy {
   /**
    * @param {ol.layer.Base} layer OL layer
-   * @param {Array} properties An array of property key names which need to be
-   * accessed on the layer.
    */
-  constructor (layer, properties) {
-    this.layer = layer;
-    this.properties = {};
-    this.changeListeners = {};
-    properties.forEach(property => {
-      this.properties[property] = layer.get(property);
-      this.changeListeners[property] = () => {
-        this.properties[property] = layer.get(property);
-      };
-      layer.on(`change:${property}`, this.changeListeners[property]);
+  constructor (layer) {
+    this.layer = reactive(layer);
+    this.properties = reactive({});
+
+    // Set up listener to detect any property changes
+    this.propertyChangeListener = (event) => {
+      const key = event.key;
+      const value = this.layer.get(key);
+
+      if (value === undefined) {
+        if (key in this.properties) {
+          delete this.properties[key];
+        }
+      } else {
+        this.properties[key] = value;
+      }
+    }
+    this.layer.on('propertychange', this.propertyChangeListener);
+
+    // Track existing properties
+    Object.keys(layer.getProperties()).forEach(key => {
+      this.properties[key] = layer.get(key);
     });
 
     // Forward everything transparently to the underlying OL layer. The get()
@@ -85,7 +96,7 @@ export class LayerProxy {
     // Remarks: Neither set() nor setProperties() have to be handled. Property
     //  setters operate on the OL layer and then get synced into the proxy via
     //  observables.
-    return new Proxy(this, {
+    const proxy = new Proxy(this, {
       get: function (target, prop, receiver) {
         if (prop in target.layer && !['get', 'getProperties'].includes(prop)) {
           const p = target.layer[prop];
@@ -94,20 +105,22 @@ export class LayerProxy {
         return Reflect.get(target, prop, receiver);
       }
     });
+
+    // Avoid Vue wrapping the proxy again.
+    return markRaw(proxy);
   }
 
   /**
-   * Gets a value. The property name must be registered in the constructor.
-   * @param {String} property Key name.
+   * Gets a value of the layer.
+   * @param {String} key Key name.
    * @returns {String} Value.
    */
-  get (property) {
-    return this.properties[property];
+  get (key) {
+    return this.properties[key];
   }
 
   /**
-   * Get an object of all property names and values registered for in the
-   * constructor.
+   * Get all property names and values of the layer.
    * @returns {Object} Object.
    */
   getProperties () {
@@ -115,11 +128,11 @@ export class LayerProxy {
   }
 
   /**
-   * Get the OL layer object wrapped by this proxy.
+   * Get the raw OL layer object wrapped by this proxy.
    * @returns {ol.layer.Base} OL layer
    */
-  getLayer () {
-    return this.layer;
+  toRaw () {
+    return toRaw(this.layer);
   }
 
   /**
@@ -127,9 +140,7 @@ export class LayerProxy {
    * of scope to prevent dangling change notifications.
    */
   destroy () {
-    Object.keys(this.changeListeners).forEach(property => {
-      this.layer.un(`change:${property}`, this.changeListeners[property]);
-    });
+    this.layer.un('propertychange', this.propertyChangeListener);
   }
 }
 
@@ -140,25 +151,23 @@ export class LayerProxy {
 export class LayerCollectionProxy {
   /**
    * @param {ol.Collection<ol.layer.Base>} collection OL collection of layers
-   * @param {Array} properties An array of property key names which need to be
-   * accessed on the layers.
    */
-  constructor (collection, properties) {
-    this.collection = collection;
-    this.layerProxies = [];
+  constructor (collection) {
+    this.collection = reactive(collection);
+    this.layerProxies = reactive([]);
 
-    const createLayerProxy = (layer) => new LayerProxy(layer, properties);
+    const createLayerProxy = (layer) => new LayerProxy(layer);
 
     // Sync against the underlying collection while retaining the order of
     // elements.
     // Remarks: A layer proxy must be destroyed before it goes out of scope.
-    // To support reactivity the instance of layerProxies must be preserved and
-    // the length property may not be invoked - see
-    // https://v2.vuejs.org/v2/guide/reactivity.html#For-Arrays
+    // To minimize the overhead of creating layerProxies preserve existing
+    // instances by merging.
     this.syncLayers = () => {
       const newLayerProxies = [];
       this.collection.forEach(layer => {
-        let layerProxy = this.layerProxies.find(proxy => proxy.getLayer() === layer);
+        let layerProxy = this.layerProxies.find(
+          proxy => proxy.toRaw() === toRaw(layer));
         if (!layerProxy) {
           layerProxy = createLayerProxy(layer);
         }
@@ -187,7 +196,7 @@ export class LayerCollectionProxy {
     //  proxy via observables. The methods pop(), push(), remove(),
     //  removeAt(), setAt() will operate on OL base layer arguments. Therefore
     //  returned objects by these methods will not properly support reactivity.
-    return new Proxy(this, {
+    const proxy = new Proxy(this, {
       get: function (target, prop, receiver) {
         if (prop in target.collection &&
           !['forEach', 'getArray', 'item'].includes(prop)) {
@@ -197,6 +206,9 @@ export class LayerCollectionProxy {
         return Reflect.get(target, prop, receiver);
       }
     });
+
+    // Avoid Vue wrapping the proxy again.
+    return markRaw(proxy);
   }
 
   /**
@@ -227,11 +239,11 @@ export class LayerCollectionProxy {
   }
 
   /**
-   * Get the OL collection object wrapped by this proxy.
+   * Get the raw collection object wrapped by this proxy.
    * @returns {ol.Collection<ol.layer.Base>} OL collection of layers
    */
-  getCollection () {
-    return this.collection;
+  toRaw () {
+    return toRaw(this.collection);
   }
 
   /**
