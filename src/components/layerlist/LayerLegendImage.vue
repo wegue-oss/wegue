@@ -53,7 +53,8 @@ export default {
         ...this.layer.get('legendOptions')
       };
       return LayerLegend.getUrl(
-        this.layer, this.resolution, options, this.layer.get('legendUrl'));
+        this.layer.toRaw(), this.resolution, options,
+        this.layer.get('legendUrl'));
     }
   }
 };

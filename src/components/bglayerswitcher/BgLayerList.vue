@@ -78,7 +78,10 @@ export default {
      * Reactive property to return the OpenLayers layers marked as 'isBaseLayer'.
      */
     displayedLayers () {
-      return this.layers
+      if (!this.layers) {
+        return [];
+      }
+      return this.layers.getArray()
         .filter(layer => layer.get('isBaseLayer'))
         .reverse();
     },

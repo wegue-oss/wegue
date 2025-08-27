@@ -35,12 +35,15 @@ export default {
     }
   },
   computed: {
-    /**
-     * Reactive property to return the OpenLayers layers to be shown in the control.
-     * Remarks: The 'displayInLayerList' attribute should default to true per convention.
-     */
+  /**
+   * Reactive property to return the OpenLayers layers to be shown in the control.
+   * Remarks: The 'displayInLayerList' attribute should default to true per convention.
+   */
     displayedLayers () {
-      return this.layers
+      if (!this.layers) {
+        return [];
+      }
+      return this.layers.getArray()
         .filter(layer => layer.get('displayInLayerList') !== false && !layer.get('isBaseLayer'))
         .reverse();
     }

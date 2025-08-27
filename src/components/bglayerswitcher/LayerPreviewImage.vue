@@ -37,7 +37,7 @@ export default {
      */
     previewURL () {
       return this.layer.get('previewImage') || LayerPreview.getUrl(
-        this.layer,
+        this.layer.toRaw(),
         this.mapView.getCenter(),
         this.mapView.getResolution(),
         this.mapView.getProjection()

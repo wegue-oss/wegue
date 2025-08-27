@@ -69,9 +69,12 @@ export default {
      * Reactive property to return the OpenLayers vector layers to be shown in the selection menu.
      */
     displayedLayers () {
-      return this.layers
+      if (!this.layers) {
+        return [];
+      }
+      return this.layers.getArray()
         .filter(layer =>
-          layer instanceof VectorLayer &&
+          layer.toRaw() instanceof VectorLayer &&
           layer.get('lid') !== 'wgu-measure-layer' &&
           layer.get('lid') !== 'wgu-geolocator-layer'
         )
