@@ -31,7 +31,7 @@ Some changes must be done if you were using those functions directly inside your
   > `ViewAnimationUtil.to(this.map.getView(), foundFeature.getGeometry());`
 
   Should be replaced by:
-  > const viewAnimationUtil = new ViewAnimationUtil(this.$appConfig);  
+  > const viewAnimationUtil = new ViewAnimationUtil(this.$appConfig.viewAnimation);  
   viewAnimationUtil.to(this.map.getView(), foundFeature.getGeometry());
 - `Vue` instances can no longer be used to create an *event bus*. `WguEventBus` was rewritten to make use of `tiny-emitter` because of that. This should be fully transparent, however, some edge cases could be encountered if very specific usage is made of it.
 - `ColorTheme mixin` and `Mapable mixin` were rewritten as `composables`. What should be done to migrate those `mixins` to their `composable` counterparts is easier to see by example. Please take a look at the [ThemeSwitcher component](https://github.com/wegue-oss/wegue/blob/master/src/components/themeswitcher/ThemeSwitcher.vue) and the [BackgroundLayerSwitcher component](https://github.com/wegue-oss/wegue/blob/master/src/components/bglayerswitcher/BgLayerSwitcher.vue) respectively.  
