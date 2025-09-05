@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "@mdi/font": "^7.2.96",
+    "@vitejs/plugin-vue": "^6.0.1",
     "@vue/eslint-config-standard": "^8.0.1",
     "@vue/test-utils": "github:vuejs/test-utils#e3c88273ace7a0e1c5a5eaf8f7cd60c80f73e39c",
     "axios-mock-adapter": "^2.1.0",
@@ -56,7 +57,10 @@
     "roboto-fontface": "*",
     "sass-embedded": "^1.89.2",
     "sinon": "^19.0.2",
-    "sinon-chai": "^3.7.0"
+    "sinon-chai": "^3.7.0",
+    "vite": "^7.0.6",
+    "vite-plugin-vue-devtools": "^8.0.0",
+    "vite-plugin-vuetify": "^2.1.1"
   },
   "engines": {
     "node": ">= 20.19.0",
