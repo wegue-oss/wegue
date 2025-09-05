@@ -32,9 +32,6 @@ module.exports = {
     'arrow-spacing': process.env.NODE_ENV === 'development' ? 'warn' : 'error'
     /* eslint-enable quote-props */
   },
-  parserOptions: {
-    parser: '@babel/eslint-parser'
-  },
   overrides: [
     {
       files: [
@@ -42,7 +39,9 @@ module.exports = {
         '**/tests/unit/**/*.spec.{j,t}s?(x)'
       ],
       env: {
-        mocha: true
+        mocha: true,
+        node: true,
+        es2022: true
       }
     }
   ]
