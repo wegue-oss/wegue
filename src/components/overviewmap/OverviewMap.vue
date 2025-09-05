@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import OverviewMapPanel from './OverviewMapPanel';
+import OverviewMapPanel from './OverviewMapPanel.vue';
 
 export default {
   name: 'wgu-overviewmap',

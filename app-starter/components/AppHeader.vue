@@ -53,12 +53,12 @@
 </template>
 
 <script>
-import ToggleButton from '@/components/modulecore/ToggleButton';
-import ZoomToMaxExtentButton from '@/components/maxextentbutton/ZoomToMaxExtentButton';
-import Geocoder from '@/components/geocoder/Geocoder';
-import Geolocator from '@/components/geolocator/Geolocator';
-import LocaleSwitcher from '@/components/localeswitcher/LocaleSwitcher';
-import ThemeSwitcher from '@/components/themeswitcher/ThemeSwitcher';
+import ToggleButton from '@/components/modulecore/ToggleButton.vue';
+import ZoomToMaxExtentButton from '@/components/maxextentbutton/ZoomToMaxExtentButton.vue';
+import Geocoder from '@/components/geocoder/Geocoder.vue';
+import Geolocator from '@/components/geolocator/Geolocator.vue';
+import LocaleSwitcher from '@/components/localeswitcher/LocaleSwitcher.vue';
+import ThemeSwitcher from '@/components/themeswitcher/ThemeSwitcher.vue';
 
 export default {
   name: 'wgu-app-header',

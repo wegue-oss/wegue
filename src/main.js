@@ -10,7 +10,7 @@ import 'roboto-fontface/css/roboto/roboto-fontface.css';
 import '@mdi/font/css/materialdesignicons.css';
 import 'material-icons/iconfont/material-icons.css';
 import 'ol/ol.css';
-import WguApp from 'APP/WguApp';
+import WguApp from 'APP/WguApp.vue';
 import UrlUtil from './util/Url';
 import IconUtil from './util/Icon';
 import LocaleUtil from './util/Locale';
@@ -18,7 +18,7 @@ import ObjectUtil from './util/Object';
 import ColorThemeUtil from './util/ColorTheme';
 import axios from 'axios';
 
-require('./assets/css/wegue.css');
+import './assets/css/wegue.css';
 
 configureCompat({
   MODE: 3

@@ -1,5 +1,5 @@
-import ObjectUtil from './Object.js';
-import UrlUtil from './Url.js';
+import ObjectUtil from './Object';
+import UrlUtil from './Url';
 
 /**
  * Locale related utility methods.

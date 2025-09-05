@@ -135,7 +135,7 @@
 </template>
 
 <script>
-import ModuleCard from '../modulecore/ModuleCard';
+import ModuleCard from '../modulecore/ModuleCard.vue';
 import { useMap } from '@/composables/Map';
 import createCanvasRecorder from 'canvas-record';
 

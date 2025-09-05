@@ -1,7 +1,7 @@
 import SelectInteraction from 'ol/interaction/Select';
-import { WguEventBus } from '@/WguEventBus.js';
-import { OlStyleFactory } from '@/factory/OlStyle.js';
-import StyleUtil from './Style.js';
+import { WguEventBus } from '@/WguEventBus';
+import { OlStyleFactory } from '@/factory/OlStyle';
+import StyleUtil from './Style';
 
 const MapInteractionUtil = {
 

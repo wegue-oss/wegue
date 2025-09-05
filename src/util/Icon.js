@@ -1,4 +1,4 @@
-import ObjectUtil from './Object.js';
+import ObjectUtil from './Object';
 
 /**
  * Icon related utility methods.

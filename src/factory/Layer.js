@@ -1,7 +1,7 @@
 import { Image as ImageLayer, Tile as TileLayer } from 'ol/layer';
 import ImageWMS from 'ol/source/ImageWMS';
 import TileWmsSource from 'ol/source/TileWMS';
-import TileArcGISRest from 'ol/source/TileArcGISRest.js';
+import TileArcGISRest from 'ol/source/TileArcGISRest';
 import OsmSource from 'ol/source/OSM';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTileSource from 'ol/source/VectorTile';

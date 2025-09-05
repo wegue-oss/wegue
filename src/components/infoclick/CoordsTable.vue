@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { transform } from 'ol/proj.js';
+import { transform } from 'ol/proj';
 import { toStringHDMS } from 'ol/coordinate';
 
 export default {

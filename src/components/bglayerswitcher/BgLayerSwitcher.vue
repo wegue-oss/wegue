@@ -32,7 +32,7 @@
 
 <script>
 import { useMap } from '@/composables/Map';
-import BgLayerList from './BgLayerList';
+import BgLayerList from './BgLayerList.vue';
 
 export default {
   name: 'wgu-bglayerswitcher',
