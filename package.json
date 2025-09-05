@@ -58,8 +58,7 @@
     "karma-webpack": "5.0.0",
     "material-icons": "^1.13.9",
     "roboto-fontface": "*",
-    "sass": "^1.83.0",
-    "sass-loader": "^14.2.1",
+    "sass-embedded": "^1.89.2",
     "sinon": "^19.0.2",
     "sinon-chai": "^3.7.0"
   },
