@@ -12,11 +12,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "test": "cross-env NODE_ENV=test karma start tests/unit/karma.conf.js --single-run",
-    "lint": "vue-cli-service lint --no-fix *.js app src tests",
-    "lint:fix": "vue-cli-service lint *.js app src tests",
+    "lint": "eslint *.js app src tests",
+    "lint:fix": "eslint *.js app src tests --fix",
     "deploy": "gh-pages -d dist",
     "init:app": "node util/init-app.js"
   },
