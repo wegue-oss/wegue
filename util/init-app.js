@@ -1,4 +1,4 @@
-const copydir = require('copy-dir');
+import copydir from 'copy-dir';
 
 // keep add time and modify time
 // keep file mode
