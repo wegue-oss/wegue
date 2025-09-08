@@ -66,7 +66,7 @@
     {
       "type": "VECTOR",
       "lid": "Shops",
-      "url": "./static/data/shops-dannstadt.geojson",
+      "url": "data/shops-dannstadt.geojson",
       "formatConfig": {
       },
       "format": "GeoJSON",
@@ -133,7 +133,7 @@
     {
       "type": "VECTOR",
       "lid": "earthquakes",
-      "url": "./static/data/2012_Earthquakes_Mag5.kml",
+      "url": "data/2012_Earthquakes_Mag5.kml",
       "formatConfig": {
         "extractStyles": false
       },
@@ -143,7 +143,7 @@
       "hoverable": true,
       "hoverAttribute": "name",
       "style": {
-        "iconUrl": "./static/icon/circle.svg",
+        "iconUrl": "icon/circle.svg",
         "scale": 4,
         "anchor": [0.5, 37],
         "anchorXUnits": "fraction",

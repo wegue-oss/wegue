@@ -1,5 +1,3 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in vue.config.js with runtimeCompiler.
 import { configureCompat, createApp } from 'vue';
 import { createVuetify } from 'vuetify';
 import { md } from 'vuetify/iconsets/md';
@@ -230,7 +228,7 @@ const createAppInstance = function (appConfig) {
 };
 
 // Look in the static dir for an app-specific config file.
-const configFile = 'static/app-conf' + appCtxFile + '.json';
+const configFile = '/app-conf' + appCtxFile + '.json';
 const request = {
   method: 'GET',
   url: configFile

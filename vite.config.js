@@ -32,5 +32,6 @@ export default defineConfig({
       'APP': fileURLToPath(new URL('./app', import.meta.url)),
       vue: '@vue/compat'
     },
-  }
+  },
+  publicDir: 'app/static'
 })
