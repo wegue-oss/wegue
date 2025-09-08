@@ -25,9 +25,12 @@ configureCompat({
 })
 
 // try to load an optional app specific CSS file (set project-specific styles)
-try {
-  require('../app/static/css/app.css');
-} catch (e) { }
+const optionalCss = import.meta.glob('/app/static/css/*.css');
+const cssFileToLoad = '/app/static/css/app.css';
+
+if (optionalCss[cssFileToLoad]) {
+  optionalCss[cssFileToLoad]();
+}
 
 // Detect an URL parameter for a custom app context
 const appCtx = UrlUtil.getQueryParam('appCtx');
