@@ -1,3 +1,4 @@
+import { dirname, resolve } from 'node:path'
 import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
@@ -5,6 +6,8 @@ import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 
 import Vuetify from 'vite-plugin-vuetify'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -38,5 +41,13 @@ export default defineConfig({
       vue: '@vue/compat'
     },
   },
-  publicDir: 'app/static'
+  publicDir: 'app/static',
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+        embedded: resolve(__dirname, 'embedded.html')
+      }
+    }
+  }
 })
