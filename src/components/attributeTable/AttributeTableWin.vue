@@ -16,7 +16,7 @@
         :items="displayedItems"
         :menu-props="{
           bottom: true,
-          'offset-y': true,
+          'offset-y': true
         }"
         density="compact"
         hide-details

@@ -54,13 +54,13 @@ describe('infoclick/CoordsTable.vue', () => {
     });
 
     it('watches coordsData', async () => {
-      /* eslint-disable quote-props */
+      /* eslint-disable @stylistic/quote-props */
       const expextedCoordRows = {
         'MAP PROJ': '1.00 1.00',
         'WGS 84': '1.0000000° 1.0000000°',
         'HDMS': '1° N 1° E'
       };
-      /* eslint-enable quote-props */
+      /* eslint-enable @stylistic/quote-props */
       await comp.setProps({
         coordsData: {
           coordinate: [1, 1],

@@ -8,7 +8,7 @@
       v-model="open"
       attach="#wgu-bglayerswitcher-wrapper"
       >
-      <template v-slot:activator="{props}">
+      <template v-slot:activator="{ props }">
         <v-sheet class="wgu-map-button wgu-bglayerswitcher">
           <v-btn v-bind="props"
             color="secondary"

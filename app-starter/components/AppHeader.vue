@@ -26,7 +26,7 @@
     <slot name="wgu-tb-after-auto-buttons"></slot>
 
     <v-menu v-if="menuButtons.length" eager offset="15">
-      <template v-slot:activator="{props}">
+      <template v-slot:activator="{ props }">
 
       <v-btn v-bind="props"
         class="wgu-menu-button"

@@ -16,9 +16,9 @@
     :model-value="selectedRow"
     :page="page"
     :header-props="{
-      'class': 'wgu-attributetable-th'
+      class: 'wgu-attributetable-th'
     }"
-    :items-per-page-options="[{value: 10, title: '10'}]"
+    :items-per-page-options="[{ value: 10, title: '10' }]"
     @update:modelValue="onRowSelected"
     :item-value="uniqueRecordKeyName"
     :items-per-page="rowsPerPage"

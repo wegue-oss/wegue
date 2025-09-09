@@ -43,7 +43,7 @@ const LocaleUtil = {
     const jsonContentExtractor = i => i.default;
 
     // Load Wegue core language files.
-    const coreModules = import.meta.glob('../locales/[a-z0-9-_]+.json', { eager: true});
+    const coreModules = import.meta.glob('../locales/[a-z0-9-_]+.json', { eager: true });
     const i18nMessages = LocaleUtil.importLocales(coreModules, jsonContentExtractor);
 
     // Try to load optional app specific language files and merge contents.
