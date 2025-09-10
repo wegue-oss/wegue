@@ -222,7 +222,7 @@ const createAppInstance = function (appConfig) {
 };
 
 // Look in the static dir for an app-specific config file.
-const configFile = '/app-conf' + appCtxFile + '.json';
+const configFile = 'app-conf' + appCtxFile + '.json';
 const request = {
   method: 'GET',
   url: configFile
