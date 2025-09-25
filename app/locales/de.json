@@ -1,0 +1,75 @@
+{
+  "app": {
+    "title": "Vue.js / OpenLayers WebGIS",
+    "browserTitle": "Wegue Demo Anwendung",
+    "footerTextLeft": "Powered by <a href='https://meggsimum.de/wegue/' target='_blank'>Wegue WebGIS</a>",
+    "footerTextRight": "meggsimum",
+    "logo": "App Logo"
+  },
+
+  "mapLayers": {
+    "wgu-drag-drop-layer" : {
+      "name": "Hochgeladene Daten"
+    },
+    "Shops": {
+      "name": "Geschäfte DaSchau"
+    },
+    "gas-wfs": {
+      "name": "Tankstellen WFS",
+      "attributions": "© <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> Mitwirkende."
+    },
+    "earthquakes": {
+      "name": "Erdbeben 2012 (Mag 5)",
+      "attributions": "U.S. Geological Survey"
+    },
+    "ahocevar-wms": {
+      "name": "Tiled WMS (ahocevar)"
+    },
+    "ahocevar-imagewms": {
+      "name": "Image WMS (ahocevar)"
+    },
+    "ahocevar-vectortiles": {
+      "name": "Vector Tile Layer"
+    },
+    "opentopomap": {
+      "name": "OpenTopoMap",
+      "attributions": "Kartendaten: <a href=\"https://openstreetmap.org/copyright\">©OpenStreetMap</a>-Mitwirkende, SRTM | Kartendarstellung: © <a href=\"http://opentopomap.org/\">OpenTopoMap</a> (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC-BY-SA</a>)"
+    },
+    "osm-bg": {
+      "name": "OpenStreetMap"
+    },
+    "dutch-nat-parks" : {
+      "name": "WFS (Niederländische Nationalparks PDOK)",
+      "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> des Niederländischen Katasters"
+    },
+    "pdok-natura2000-wms" : {
+      "name": "WMS - Natura 2000 Gebiete - PDOK",
+	    "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> des Niederländischen Katasters"
+    },
+    "pdok-lufo-wms" : {
+      "name": "WMS - Niederländisches Luftbild - PDOK",
+      "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> des Niederländischen Katasters"
+    },
+    "brtachtergrondkaart" : {
+      "name": "WMTS - Topo Grundkarte - PDOK",
+      "attributions": "<a href='https://www.pdok.nl' target='_blank'>PDOK</a> des Niederländischen Katasters"
+    },
+    "terrestris-osm-wms" : {
+      "name": "OSM WMS",
+      "attributions": "<a href='https://www.openstreetmap.org/copyright' target='_blank'>© OpenStreetMap-Mitwirkende</a>"
+    }
+  },
+
+  "wgu-helpwin": {
+    "title": "Hilfe",
+    "textTitle": "Über Wegue",
+    "htmlContent": "<b>WebGIS basierend auf OpenLayers und Vue.js</b></br>Vorlagen und wiederverwertbare Komponenten für Web-Kartenanwendungen mit OpenLayers und Vue.js",
+    "infoLinkUrl": "http://wegue.org/",
+    "infoLinkText": "Mehr Informationen"
+  },
+
+  "sample-module": {
+    "title": "Beispiel Modul",
+    "text": "Hallo Wegue"
+  }
+}

@@ -108,7 +108,7 @@ const migrateAppConfig = function (appConfig) {
     'browserTitle': 'app.browserTitle',
     'footerTextLeft': 'app.footerTextLeft',
     'footerTextRight': 'app.footerTextRight',
-    'mapGeodataDragDop\\.layerName': 'mapLayers.wgu-drag-drop-layer.name',
+    'mapGeodataDragDrop\\.layerName': 'mapLayers.wgu-drag-drop-layer.name',
     'modules.\\.wgu-attributetable\\.selectorLabel': 'wgu-attributetable.selectorLabel',
     'modules\\.wgu-geocoder\\.placeHolder': 'wgu-geocoder.placeHolder',
     'modules\\.wgu-infoclick\\.mediaInfoLinkText': 'wgu-infoclick.mediaInfoLinkText',

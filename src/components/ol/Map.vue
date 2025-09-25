@@ -44,7 +44,7 @@ export default {
       tileGridDefs: this.$appConfig.tileGridDefs || {},
       tileGrids: {},
       permalink: this.$appConfig.permalink,
-      mapGeodataDragDop: this.$appConfig.mapGeodataDragDop,
+      mapGeodataDragDrop: this.$appConfig.mapGeodataDragDrop,
       // mapping format string to OL module / class
       formatMapping: {
         GPX,
@@ -130,7 +130,7 @@ export default {
     });
 
     // add geodata drag-drop support according to config
-    if (this.mapGeodataDragDop) {
+    if (this.mapGeodataDragDrop) {
       const dragAndDropInteraction = this.setupGeodataDragDrop();
       interactions.push(dragAndDropInteraction);
     }
@@ -301,7 +301,7 @@ export default {
      * features in a vector layer
      */
     setupGeodataDragDrop () {
-      const mapDdConf = this.mapGeodataDragDop;
+      const mapDdConf = this.mapGeodataDragDrop;
       const formats = mapDdConf.formats.filter(formatStr => {
         return this.formatMapping[formatStr];
       }).map(fs => {
