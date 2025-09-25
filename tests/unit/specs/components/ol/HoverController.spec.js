@@ -19,7 +19,7 @@ const layer = new VectorLayer({
     features: [feat]
   })
 });
-layer.isVisible = () => { return true; }
+layer.isVisible = () => { return true; };
 
 const layerNonHoverable = new VectorLayer({
   hoverable: false,
@@ -27,7 +27,7 @@ const layerNonHoverable = new VectorLayer({
     features: [feat]
   })
 });
-layerNonHoverable.isVisible = () => { return true; }
+layerNonHoverable.isVisible = () => { return true; };
 
 const layerNotVisible = new VectorLayer({
   hoverable: true,
@@ -36,7 +36,7 @@ const layerNotVisible = new VectorLayer({
     features: [feat]
   })
 });
-layerNotVisible.isVisible = () => { return false; }
+layerNotVisible.isVisible = () => { return false; };
 
 describe('ol/HoverController.js', () => {
   let comp;

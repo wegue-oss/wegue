@@ -13,7 +13,7 @@ class LayerLegend {
    * @param {Object} options  Application wide legend options.
    */
   constructor (options) {
-    this.options = options
+    this.options = options;
   }
 
   /**
