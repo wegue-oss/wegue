@@ -187,7 +187,7 @@ export default {
       // Position Map on result
       const result = item.value;
       const mapProjection = this.map.getView().getProjection();
-      const viewAnimationUtil = new ViewAnimationUtil(this.$appConfig);
+      const viewAnimationUtil = new ViewAnimationUtil(this.$appConfig.viewAnimation);
 
       // Prefer zooming to bounding box if present in result
       if (Object.prototype.hasOwnProperty.call(result, 'boundingbox')) {

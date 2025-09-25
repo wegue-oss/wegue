@@ -11,8 +11,16 @@ import { getTransform } from 'ol/proj';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-function createWrapper (options = {}) {
-  return mount(Geocoder, options);
+function createWrapper (props = {}, $appConfig = {}) {
+  return mount(Geocoder, {
+    props,
+    attachTo: document.body,
+    global: {
+      mocks: {
+        $appConfig
+      }
+    }
+  });
 }
 
 describe('geocoder/Geocoder.vue', () => {
@@ -96,7 +104,7 @@ describe('geocoder/Geocoder.vue', () => {
         provider: 'photon'
       };
 
-      comp = createWrapper({ props: moduleProps });
+      comp = createWrapper(moduleProps);
       vm = comp.vm;
     });
 
@@ -123,7 +131,7 @@ describe('geocoder/Geocoder.vue', () => {
         provider: 'opencage'
       };
 
-      comp = createWrapper({ props: moduleProps });
+      comp = createWrapper(moduleProps);
       vm = comp.vm;
     });
 
@@ -149,7 +157,7 @@ describe('geocoder/Geocoder.vue', () => {
           maxWidth: 100
         };
 
-        comp = createWrapper({ props: moduleProps });
+        comp = createWrapper(moduleProps);
         vm = comp.vm;
       });
 
@@ -176,7 +184,7 @@ describe('geocoder/Geocoder.vue', () => {
           maxWidth: 100
         };
 
-        comp = createWrapper({ props: moduleProps });
+        comp = createWrapper(moduleProps);
         vm = comp.vm;
       });
 
@@ -262,7 +270,7 @@ describe('geocoder/Geocoder.vue', () => {
         provider: 'osm'
       };
 
-      comp = createWrapper({ props: moduleProps });
+      comp = createWrapper(moduleProps);
       vm = comp.vm;
 
       onQueryResultsSpy = sinon.replace(vm, 'onQueryResults', sinon.fake(vm.onQueryResults));
@@ -373,7 +381,7 @@ describe('geocoder/Geocoder.vue', () => {
 
   describe('user interactions for search activation', () => {
     beforeEach(() => {
-      comp = createWrapper({ attachTo: document.body });
+      comp = createWrapper();
       vm = comp.vm;
     });
 

@@ -24,7 +24,7 @@ export default {
       // derive correct initial zoom and center
       const initialCenter = this.$appConfig.mapCenter;
       const initalZoom = this.$appConfig.mapZoom;
-      const viewAnimationUtil = new ViewAnimationUtil(this.$appConfig);
+      const viewAnimationUtil = new ViewAnimationUtil(this.$appConfig.viewAnimation);
       viewAnimationUtil.to(this.map.getView(), initialCenter, null, {
         zoom: initalZoom,
         maxZoom: initalZoom

@@ -335,7 +335,7 @@ export default {
         ddSource.addFeatures(event.features);
 
         if (mapDdConf.zoomToData === true) {
-          const viewAnimationUtil = new ViewAnimationUtil(this.$appConfig);
+          const viewAnimationUtil = new ViewAnimationUtil(this.$appConfig.viewAnimation);
           viewAnimationUtil.to(this.map.getView(), ddSource.getExtent());
         }
       }, this);
