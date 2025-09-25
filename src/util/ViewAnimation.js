@@ -13,13 +13,6 @@ class ViewAnimationUtil {
    * @param {Object} options  Application wide animation options.
    */
   constructor (options) {
-    // TODO For backward compatibility allow the full application context
-    //  here. Remove this in the next major release.
-    if (options?.viewAnimation) {
-      console.warn('Initializing ViewAnimationUtil with "$appConfig" is deprecated, ' +
-      'instead initialize with "$appConfig.viewAnimation"');
-      options = options.viewAnimation;
-    }
     this.options = options;
   }
 
