@@ -48,11 +48,12 @@ export default {
      * Returns a URL to the layers legend image.
      */
     legendURL () {
+      const legendUtil = new LayerLegend(this.$appConfig?.legend);
       const options = {
         language: this.$i18n.locale,
         ...this.layer.get('legendOptions')
       };
-      return LayerLegend.getUrl(
+      return legendUtil.getUrl(
         this.layer.toRaw(), this.resolution, options,
         this.layer.get('legendUrl'));
     }

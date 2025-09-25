@@ -60,7 +60,8 @@ const LocaleUtil = {
   },
 
   /**
-   * Import vuetify language files from 'node_modules/vuetify/es/locale'.
+   * Import vuetify language files from 'node_modules/vuetify/locale'
+   * (either *.js or *.mjs for older Vuetify 3 versions).
    *
    * @returns A container with message data. Key is the language code, value contains the messages.
    */
@@ -68,7 +69,7 @@ const LocaleUtil = {
     const moduleDefaultExtractor = i => i.default;
 
     return LocaleUtil.importLocales(
-      require.context('vuetify/lib/locale', false, /[a-z0-9-_]+\.mjs$/i),
+      require.context('vuetify/lib/locale', false, /[a-z0-9-_]+\.m?js$/i),
       moduleDefaultExtractor
     );
   },

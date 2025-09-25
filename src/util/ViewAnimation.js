@@ -8,11 +8,12 @@ import Geometry from 'ol/geom/Geometry';
  */
 class ViewAnimationUtil {
   /**
-   * Instantiates a view animation util object with current application configuration.
-   * @param {Object} appConfig  Current application configuration
+   * Instantiates a view animation util object with the animation object
+   * configured in the application context.
+   * @param {Object} options  Application wide animation options.
    */
-  constructor (appConfig) {
-    this.appConfig = appConfig
+  constructor (options) {
+    this.options = options;
   }
 
   /**
@@ -29,7 +30,7 @@ class ViewAnimationUtil {
       default: NoAnimation
     };
 
-    const animType = this.appConfig?.viewAnimation?.type;
+    const animType = this.options?.type;
     return animations[animType] || animations.default;
   }
 
@@ -42,7 +43,7 @@ class ViewAnimationUtil {
    * @private
    */
   getOptions (options) {
-    return options || this.appConfig?.viewAnimation?.options || {};
+    return options || this.options?.options || {};
   }
 
   /**

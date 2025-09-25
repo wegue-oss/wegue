@@ -1,6 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
 import { createI18n } from 'vue-i18n';
-import PortalVue from 'portal-vue';
 import i18nMessages from '@/locales/en.json';
 import WguAppTpl from 'APP/WguAppTemplate';
 
@@ -21,7 +20,7 @@ function createWrapper ($appConfig = {}) {
       mocks: {
         $appConfig
       },
-      plugins: [i18nInstance, PortalVue]
+      plugins: [i18nInstance]
     }
   });
 }

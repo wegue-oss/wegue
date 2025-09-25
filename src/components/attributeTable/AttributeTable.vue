@@ -251,7 +251,7 @@ export default {
       }
 
       // zoom to feature
-      const viewAnimationUtil = new ViewAnimationUtil(this.$appConfig);
+      const viewAnimationUtil = new ViewAnimationUtil(this.$appConfig.viewAnimation);
       viewAnimationUtil.to(this.map.getView(), foundFeature.getGeometry());
 
       // add to map selection

@@ -19,11 +19,11 @@ const extent = [966000, 6341000, 967000, 6342000];
 const coordinate = [966000, 6341000];
 
 function createViewAnimationUtil (animType) {
-  const $appConfig = {
-    viewAnimation: { type: animType, options }
+  const animOptions = {
+    type: animType, options
   };
 
-  return new ViewAnimationUtil($appConfig);
+  return new ViewAnimationUtil(animOptions);
 }
 
 describe('ViewAnimationUtil', () => {

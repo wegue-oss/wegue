@@ -88,6 +88,12 @@ html {
 	overflow-y: hidden;  
 }
 
+/* Teleport to overlay the map content from an application module. */
+#wgu-map-teleport * {
+  pointer-events: auto;
+  overflow: visible;
+}
+
 /*
   TODO Review ccs colorization.
   Used to force the on-primary color for solo fields (light theme only).
@@ -188,4 +194,55 @@ html {
   width: 5px;
   cursor: ew-resize;
   z-index: 10000;
+}
+
+/* Map vuetify utility classes for on-* theme tokens to theme colors. */
+.bg-on-primary {
+  background-color: rgb(var(--v-theme-on-primary)) !important;
+}
+.bg-on-secondary {
+  background-color: rgb(var(--v-theme-on-secondary)) !important;
+}
+.bg-on-surface {
+  background-color: rgb(var(--v-theme-on-surface)) !important;
+}
+.bg-on-background {
+  background-color: rgb(var(--v-theme-on-background)) !important;
+}
+.bg-on-error {
+  background-color: rgb(var(--v-theme-on-error)) !important;
+}
+.bg-on-warning {
+  background-color: rgb(var(--v-theme-on-warning)) !important;
+}
+.bg-on-success {
+  background-color: rgb(var(--v-theme-on-success)) !important;
+}
+.bg-on-info {
+  background-color: rgb(var(--v-theme-on-info)) !important;
+}
+
+.text-on-primary {
+  color: rgb(var(--v-theme-on-primary)) !important;
+}
+.text-on-secondary {
+  color: rgb(var(--v-theme-on-secondary)) !important;
+}
+.text-on-surface {
+  color: rgb(var(--v-theme-on-surface)) !important;
+}
+.text-on-background {
+  color: rgb(var(--v-theme-on-background)) !important;
+}
+.text-on-error {
+  color: rgb(var(--v-theme-on-error)) !important;
+}
+.text-on-warning {
+  color: rgb(var(--v-theme-on-warning)) !important;
+}
+.text-on-success {
+  color: rgb(var(--v-theme-on-success)) !important;
+}
+.text-on-info {
+  color: rgb(var(--v-theme-on-info)) !important;
 }

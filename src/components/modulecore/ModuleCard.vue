@@ -7,7 +7,7 @@
     v-draggable-win="cardDraggable"
   >
     <v-img :src="backgroundImage">
-      <v-toolbar v-bind="toolbarAttr" class="px-4 py-0">
+      <v-toolbar v-bind="toolbarAttr" class="px-4 py-0 text-on-primary">
         <v-icon :icon="icon"></v-icon>
         <v-toolbar-title class="wgu-win-title" :text="$t(moduleName + '.title')"></v-toolbar-title>
         <v-spacer></v-spacer>
@@ -117,7 +117,6 @@ export default {
     toolbarAttr () {
       return this.backgroundImage
         ? {
-            dark: true,
             flat: true,
             color: 'transparent'
           }
