@@ -40,8 +40,8 @@
         <!-- layer loading indicator -->
         <wgu-maploading-status />
         <slot name="wgu-after-map" />
-        <!-- Portal to overlay the map content from an application module -->
-        <portal-target name="map-overlay" />
+        <!-- Teleport to overlay the map content from an application module -->
+        <div id="wgu-map-teleport" />
         <wgu-app-logo />
         <wgu-bglayerswitcher />
         <wgu-overviewmap v-if="overviewMapConfig" v-bind="overviewMapConfig"/>

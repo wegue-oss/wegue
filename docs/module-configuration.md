@@ -20,7 +20,7 @@ The following properties can be applied to all module types:
 |--------------------|:---------:|---------|
 | **target**         | Where should the button to enable/disable the module be rendered. Valid options are `menu` or `toolbar` | `"target": "menu"` |
 | **win**            | Value to mark if the module has a window as sub component and where to show the module UI elements. Valid options are `floating` and `sidebar`. If the value is omitted, then the module is not associated with a window.  | `"win": "floating"` |
-| icon               | Provide a customized icon for the module. | `"icon": "info"` |
+| icon               | Provide a customized icon for the module. | `"icon": "md:info"` |
 | minimizable        | Indicates whether the module window can be minimized. Only applies if a module window is present as indicated by the `win` parameter. | `"minimizable": true` |
 | closable           | Indicates whether the module window can be closed by a "X" icon in the window's header bar. Only applies if a module window is present as indicated by the `win` parameter. | `"closable": false` |
 | backgroundImage    | Optional background image for the window header. Only applies if a module window is present as indicated by the `win` parameter. | `"backgroundImage": "static/icon/myImage.png"}` |

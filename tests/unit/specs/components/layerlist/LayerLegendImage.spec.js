@@ -35,7 +35,7 @@ const moduleProps = {
   layer: osmLayer
 };
 
-function createWrapper (props = moduleProps) {
+function createWrapper (props = moduleProps, $appConfig = {}) {
   const i18nInstance = createI18n({
     legacy: false,
     globalInjection: true,
@@ -51,7 +51,10 @@ function createWrapper (props = moduleProps) {
     props,
     attachTo: document.body,
     global: {
-      plugins: [i18nInstance]
+      plugins: [i18nInstance],
+      mocks: {
+        $appConfig
+      }
     }
   });
 }

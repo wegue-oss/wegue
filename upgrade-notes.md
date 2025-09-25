@@ -44,6 +44,14 @@ For basic usage, migrating from the `ColorTheme mixin` should be limited to remo
     > return { map, layers };
 
   Please also note that `onMapBound` and `onMapUnbound` are not fired anymore. If you'd like to work with them as before, you have to implement your own `watcher` on the `map` for that. You can refer to the [OverviewMapPanel component](https://github.com/wegue-oss/wegue/blob/master/src/components/overviewmap/OverviewMapPanel.vue) to get a full example.
+- `portal-vue` plugin has been replaced by the inbuilt Vue3 feature [Teleport](https://vuejs.org/guide/built-ins/teleport.html). The anchor element in the AppTemplate is now a `div` with the id `wgu-map-teleport` and the syntax to hook up a teleport template has slightly changed:
+    ```xml
+    <template>
+       <teleport to="#wgu-map-teleport">
+           <!-- content goes here -->
+       </teleport>
+    </template>
+    ```
 
 Currently, the `Vue migration build` is used instead of the native `Vue 3` build. Because of this, usage of features that have changed or been deprecated in `Vue 3` will emit runtime warnings. This can be really useful while migrating an application and ensure everything was dealt with properly.
 

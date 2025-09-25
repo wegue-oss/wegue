@@ -6,7 +6,6 @@ import { md } from 'vuetify/iconsets/md';
 import { aliases as defaultAliases, mdi } from 'vuetify/iconsets/mdi';
 import 'vuetify/styles';
 import { createI18nInstance } from './locales/wgu-i18n';
-import PortalVue from 'portal-vue';
 import 'roboto-fontface/css/roboto/roboto-fontface.css';
 import '@mdi/font/css/materialdesignicons.css';
 import 'material-icons/iconfont/material-icons.css';
@@ -209,7 +208,6 @@ const createAppInstance = function (appConfig) {
   const i18n = createVueI18nInstance(effectiveAppConfig);
 
   const app = createApp(WguApp);
-  app.use(PortalVue);
   app.use(vuetify);
   app.use(i18n);
 

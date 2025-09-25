@@ -7,6 +7,7 @@ import VectorSource from 'ol/source/Vector';
 import Point from 'ol/geom/Point';
 
 // Test layers and feature
+// The isVisible function of layers must be overwritten to prevent crashes.
 const feat = new Feature({
   foo: 'bar',
   geometry: new Point([0, 0])
@@ -18,12 +19,24 @@ const layer = new VectorLayer({
     features: [feat]
   })
 });
+layer.isVisible = () => { return true; };
+
 const layerNonHoverable = new VectorLayer({
   hoverable: false,
   source: new VectorSource({
     features: [feat]
   })
 });
+layerNonHoverable.isVisible = () => { return true; };
+
+const layerNotVisible = new VectorLayer({
+  hoverable: true,
+  hoverAttribute: 'foo',
+  source: new VectorSource({
+    features: [feat]
+  })
+});
+layerNotVisible.isVisible = () => { return false; };
 
 describe('ol/HoverController.js', () => {
   let comp;
@@ -86,6 +99,28 @@ describe('ol/HoverController.js', () => {
       map.addLayer(layerNonHoverable);
       map.forEachLayerAtPixel = (pixel, callback, opts) => {
         callback(layerNonHoverable);
+      };
+      map.getFeaturesAtPixel = (evt, opts) => {
+        return [feat];
+      };
+
+      let eventEmitted = false;
+      WguEventBus.$once('wgu-hover-tooltip-update-overlay', (visible, position, data) => {
+        eventEmitted = true;
+      });
+      comp.onPointerRest({ pixel: [0, 0] });
+
+      setTimeout(() => {
+        expect(eventEmitted).to.be.false;
+        done();
+      }, 100);
+    });
+
+    it('does not emit update-overlay event when non visible layer is hit', done => {
+      // Setup map and overwrite functions to simulate hitting a valid feature.
+      map.addLayer(layerNotVisible);
+      map.forEachLayerAtPixel = (pixel, callback, opts) => {
+        callback(layerNotVisible);
       };
       map.getFeaturesAtPixel = (evt, opts) => {
         return [feat];

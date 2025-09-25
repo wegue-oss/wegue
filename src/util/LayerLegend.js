@@ -6,6 +6,63 @@ import TileWmsSource from 'ol/source/TileWMS';
 import ImageWmsSource from 'ol/source/ImageWMS';
 import ObjectUtil from './Object';
 
+class LayerLegend {
+  /**
+   * Instantiates a layer legend object with the legend options configured
+   * in the application context.
+   * @param {Object} options  Application wide legend options.
+   */
+  constructor (options) {
+    this.options = options;
+  }
+
+  /**
+   * Merges the given legend options with the legend options configured
+   * in the application context. The provided options will take precedence.
+   * @param {Object} options Optional configuration params.
+   * @returns {Object} Merged configuration params.
+   */
+  getOptions (options) {
+    return {
+      ...this.options,
+      ...options
+    };
+  }
+
+  /**
+   * Returns a URL to the layers legend image.
+   * @param {ol.Layer} layer The layer to produce the legend for.
+   * @param {Number} resolution Resolution of the legend image.
+   * @param {Object} options Optional configuration params.
+   * @param {String} formatUrl A custom format URL.
+   * @returns {String} Legend URL or undefined if no legend can be produced.
+   */
+  getUrl (layer, resolution, options, formatUrl) {
+    const opts = this.getOptions(options);
+    const source = layer.getSource();
+
+    // If we cannot obtain a source, no legend can be produced.
+    if (!source) {
+      return undefined;
+    }
+
+    // If a formatUrl is provided, the legend is custom.
+    if (formatUrl) {
+      return CustomLegend.getUrl(source, resolution, opts, formatUrl);
+    }
+
+    // For WMS based sources, use the in-built legend URL formatter.
+    if (
+      source instanceof TileWmsSource ||
+      source instanceof ImageWmsSource
+    ) {
+      return WMSSourceLegend.getUrl(source, resolution, opts);
+    }
+
+    return undefined;
+  }
+}
+
 const CustomLegend = {
   /**
    * Returns a URL to the legend image.
@@ -54,55 +111,6 @@ const WMSSourceLegend = {
     }
 
     return source.getLegendUrl(resolution, options);
-  }
-}
-
-const LayerLegend = {
-  /**
-   * Merges the given legend options with the legend options configured
-   * in the application context. The provided options will take precedence.
-   * @param {Object} options Optional configuration params.
-   * @returns {Object} Merged configuration params.
-   */
-  getOptions (options) {
-    const appConfig = this.$appConfig;
-    return {
-      ...appConfig?.legend,
-      ...options
-    };
-  },
-
-  /**
-   * Returns a URL to the layers legend image.
-   * @param {ol.Layer} layer The layer to produce the legend for.
-   * @param {Number} resolution Resolution of the legend image.
-   * @param {Object} options Optional configuration params.
-   * @param {String} formatUrl A custom format URL.
-   * @returns {String} Legend URL or undefined if no legend can be produced.
-   */
-  getUrl (layer, resolution, options, formatUrl) {
-    const opts = this.getOptions(options);
-    const source = layer.getSource();
-
-    // If we cannot obtain a source, no legend can be produced.
-    if (!source) {
-      return undefined;
-    }
-
-    // If a formatUrl is provided, the legend is custom.
-    if (formatUrl) {
-      return CustomLegend.getUrl(source, resolution, opts, formatUrl);
-    }
-
-    // For WMS based sources, use the in-built legend URL formatter.
-    if (
-      source instanceof TileWmsSource ||
-      source instanceof ImageWmsSource
-    ) {
-      return WMSSourceLegend.getUrl(source, resolution, opts);
-    }
-
-    return undefined;
   }
 }
 
