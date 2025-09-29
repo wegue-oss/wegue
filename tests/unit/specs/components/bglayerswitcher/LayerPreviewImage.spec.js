@@ -1,14 +1,17 @@
 import { toRaw } from 'vue';
 import { shallowMount } from '@vue/test-utils';
 import LayerPreviewImage from '@/components/bglayerswitcher/LayerPreviewImage';
+import { LayerProxy } from '@/util/Layer';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import View from 'ol/View';
 
-const osmLayer = new TileLayer({
-  lid: 'osm',
-  source: new OSM()
-});
+const osmLayer = new LayerProxy(
+  new TileLayer({
+    lid: 'osm',
+    source: new OSM()
+  })
+)
 
 const view = new View({
   projection: 'EPSG:3857',
@@ -46,7 +49,7 @@ describe('bglayerswitcher/LayerPreviewImage.vue', () => {
 
     it('has correct props', () => {
       expect(toRaw(vm.mapView)).to.equal(view);
-      expect(toRaw(vm.layer)).to.equal(osmLayer);
+      expect(vm.layer).to.equal(osmLayer);
       expect(vm.width).to.equal(152);
       expect(vm.height).to.equal(114);
       expect(vm.previewIcon).to.equal('md:map');
@@ -83,11 +86,13 @@ describe('bglayerswitcher/LayerPreviewImage.vue', () => {
     });
 
     it('has correct previewURL for static layer image', async () => {
-      const osmLayer2 = new TileLayer({
-        lid: 'osm2',
-        source: new OSM(),
-        previewImage: 'http://my-image.png'
-      });
+      const osmLayer2 = new LayerProxy(
+        new TileLayer({
+          lid: 'osm2',
+          source: new OSM(),
+          previewImage: 'http://my-image.png'
+        })
+      );
 
       await comp.setProps({ layer: osmLayer2 });
       expect(vm.previewURL).to.equal('http://my-image.png');
