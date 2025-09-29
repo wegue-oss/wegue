@@ -18,10 +18,10 @@
             flat
             color="transparent"
           >
-          <v-list-subheader class="pl-4">
+          <v-card-subtitle class="mt-2">
             {{ $t('wgu-maprecorder.videoFormat') }}
-          </v-list-subheader>
-            <v-card-text class="pt-0">
+          </v-card-subtitle>
+            <v-card-text>
               <v-select
                   color="secondary"
                   item-color="secondary"
@@ -37,10 +37,10 @@
               </v-select>
             </v-card-text>
 
-            <v-list-subheader class="pl-4">
+            <v-card-subtitle class="mt-2">
               {{ $t('wgu-maprecorder.frameRate') }}
-            </v-list-subheader>
-            <v-card-text class="pt-0">
+            </v-card-subtitle>
+            <v-card-text>
               <v-slider
                   color="secondary"
                   prepend-icon="mdi-application-variable-outline"
@@ -53,10 +53,10 @@
               </v-slider>
             </v-card-text>
 
-            <v-list-subheader class="pl-4">
+            <v-card-subtitle class="mt-2">
               {{ $t('wgu-maprecorder.bitRate') }}
-            </v-list-subheader>
-            <v-card-text class="pt-0">
+            </v-card-subtitle>
+            <v-card-text>
               <v-slider
                   color="secondary"
                   prepend-icon="mdi-quality-high"
@@ -69,9 +69,9 @@
               </v-slider>
             </v-card-text>
 
-            <v-list-subheader class="pl-4">{{ $t('wgu-maprecorder.fileName') }}
-            </v-list-subheader>
-            <v-card-text class="pt-0">
+            <v-card-subtitle class="mt-2">{{ $t('wgu-maprecorder.fileName') }}
+            </v-card-subtitle>
+            <v-card-text>
               <v-text-field
                 color="secondary"
                 v-model="filename"
