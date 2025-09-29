@@ -11,12 +11,14 @@
         :title="layer.get('name')"
         >
         <template v-slot:prepend>
-          <v-checkbox-btn
-            color="secondary"
-            :model-value="layer.getVisible()"
-            @click.capture.stop="onItemClick()"
-            class="pr-2"
-          />
+          <v-list-item-action>
+            <v-checkbox-btn
+              color="secondary"
+              :model-value="layer.getVisible()"
+              @click.capture.stop="onItemClick()"
+              class="pr-2"
+            />
+          </v-list-item-action>
         </template>
       </v-list-item>
     </template>
