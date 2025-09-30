@@ -4,7 +4,7 @@ import { md } from 'vuetify/iconsets/md';
 import { aliases as defaultAliases, mdi } from 'vuetify/iconsets/mdi';
 import 'vuetify/styles';
 import { createI18nInstance } from './locales/wgu-i18n';
-import 'roboto-fontface/css/roboto/roboto-fontface.css';
+import 'unfonts.css';
 import '@mdi/font/css/materialdesignicons.css';
 import 'material-icons/iconfont/material-icons.css';
 import 'ol/ol.css';

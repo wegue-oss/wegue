@@ -6,6 +6,7 @@ import vue from '@vitejs/plugin-vue';
 import vueDevTools from 'vite-plugin-vue-devtools';
 
 import Vuetify from 'vite-plugin-vuetify';
+import Unfonts from 'unplugin-fonts/vite';
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
@@ -29,7 +30,18 @@ export default defineConfig(({ mode }) => {
         }
       }),
       vueDevTools(),
-      Vuetify()
+      Vuetify(),
+      Unfonts({
+        fontsource: {
+          families: [
+            {
+              name: 'Roboto',
+              weights: [100, 300, 400, 500, 700, 900],
+              styles: ['normal', 'italic']
+            }
+          ]
+        }
+      })
     ],
     optimizeDeps: {
       exclude: [
@@ -50,6 +62,16 @@ export default defineConfig(({ mode }) => {
     },
     preview: {
       open: '/index.html'
+    },
+    css: {
+      preprocessorOptions: {
+        sass: {
+          api: 'modern-compiler'
+        },
+        scss: {
+          api: 'modern-compiler'
+        }
+      }
     },
     build: {
       rollupOptions: {
