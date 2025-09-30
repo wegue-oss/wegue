@@ -45,6 +45,12 @@ export default defineConfig(({ mode }) => {
     },
     base: env.WGU_PUBLIC_PATH ?? '/',
     publicDir: 'app/static',
+    server: {
+      open: '/index.html'
+    },
+    preview: {
+      open: '/index.html'
+    },
     build: {
       rollupOptions: {
         input: {
