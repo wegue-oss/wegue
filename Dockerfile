@@ -1,15 +1,17 @@
 # Modeled from: https://vuejs.org/v2/cookbook/dockerize-vuejs-app.htm
 
 # build stage
-FROM node:lts-alpine as build-stage
+FROM node:lts-alpine AS build-stage
+ARG PUBLIC_PATH=/
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
+ENV WGU_PUBLIC_PATH=${PUBLIC_PATH}
 RUN npm run init:app && npm run build
 
 # production stage
-FROM nginx:stable-alpine as production-stage
+FROM nginx:stable-alpine AS production-stage
 LABEL maintainer="Just van den Broecke <https://github.com/justb4>"
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 EXPOSE 80
