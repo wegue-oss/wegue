@@ -15,7 +15,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "cross-env NODE_ENV=test karma start tests/unit/karma.conf.js --single-run",
+    "test": "cross-env NODE_ENV=test karma start tests/unit/karma.conf.cjs --single-run",
     "lint": "eslint *.js app src tests",
     "lint:fix": "eslint *.js app src tests --fix",
     "deploy": "gh-pages -d dist",
