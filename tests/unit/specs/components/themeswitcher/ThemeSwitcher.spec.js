@@ -56,7 +56,7 @@ describe('themeswitcher/ThemeSwitcher.vue', () => {
     });
 
     afterEach(() => {
-      comp.vm.theme.global.name.value = 'light';
+      comp.vm.theme.change('light');
       comp.unmount();
     });
   });
