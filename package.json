@@ -54,17 +54,22 @@
     "karma-coverage": "^2.2.1",
     "karma-mocha": "^2.0.1",
     "karma-sinon-chai": "^2.0.2",
-    "karma-sourcemap-loader": "^0.4.0",
     "karma-spec-reporter": "^0.0.36",
-    "karma-webpack": "5.0.0",
+    "karma-vite": "^1.0.5",
     "material-icons": "^1.13.9",
+    "mocha": "^11.7.3",
     "sass-embedded": "^1.89.2",
-    "sinon": "^19.0.2",
+    "sinon": "^21.0.0",
     "sinon-chai": "^3.7.0",
     "unplugin-fonts": "^1.4.0",
     "vite": "^7.0.6",
     "vite-plugin-vue-devtools": "^8.0.0",
     "vite-plugin-vuetify": "^2.1.1"
+  },
+  "overrides": {
+    "karma-vite": {
+      "vite": "^7.0.6"
+    }
   },
   "engines": {
     "node": ">= 20.19.0",
