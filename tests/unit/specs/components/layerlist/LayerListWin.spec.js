@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import LayerListWin from '@/components/layerlist/LayerListWin';
+import LayerListWin from '@/components/layerlist/LayerListWin.vue';
 
 function createWrapper () {
   return shallowMount(LayerListWin);

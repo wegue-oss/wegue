@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import PropertyTable from '@/components/infoclick/PropertyTable';
+import PropertyTable from '@/components/infoclick/PropertyTable.vue';
 
 function createWrapper () {
   return shallowMount(PropertyTable);

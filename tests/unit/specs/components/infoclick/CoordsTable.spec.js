@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import CoordsTable from '@/components/infoclick/CoordsTable';
+import CoordsTable from '@/components/infoclick/CoordsTable.vue';
 
 function createWrapper () {
   return shallowMount(CoordsTable);

@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import ThemeSwitcher from '@/components/themeswitcher/ThemeSwitcher';
+import ThemeSwitcher from '@/components/themeswitcher/ThemeSwitcher.vue';
 
 const defaultProps = {
   moduleName: 'wgu-themeswitcher',

@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import ModuleCard from '@/components/modulecore/ModuleCard';
+import ModuleCard from '@/components/modulecore/ModuleCard.vue';
 
 const moduleProps = {
   moduleName: 'my-module',

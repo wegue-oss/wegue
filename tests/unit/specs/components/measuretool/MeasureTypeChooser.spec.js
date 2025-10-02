@@ -1,6 +1,6 @@
 import { nextTick } from 'vue';
 import { shallowMount } from '@vue/test-utils';
-import MeasureTypeChooser from '@/components/measuretool/MeasureTypeChooser';
+import MeasureTypeChooser from '@/components/measuretool/MeasureTypeChooser.vue';
 
 function createWrapper () {
   return shallowMount(MeasureTypeChooser);

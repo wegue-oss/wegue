@@ -1,7 +1,7 @@
 import { toRaw } from 'vue';
 import { shallowMount } from '@vue/test-utils';
 import { bindMap, unbindMap } from '@/composables/Map';
-import LayerList from '@/components/layerlist/LayerList';
+import LayerList from '@/components/layerlist/LayerList.vue';
 import OlMap from 'ol/Map';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
