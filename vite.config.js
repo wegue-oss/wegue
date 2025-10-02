@@ -55,7 +55,7 @@ export default defineConfig(({ mode }) => {
         vue: '@vue/compat'
       }
     },
-    base: env.WGU_PUBLIC_PATH ?? '/',
+    base: (process.env.NODE_ENV !== 'test' && env?.WGU_PUBLIC_PATH) || '/',
     publicDir: 'app/static',
     server: {
       open: '/index.html'
