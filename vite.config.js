@@ -29,7 +29,7 @@ export default defineConfig(({ mode }) => {
           }
         }
       }),
-      vueDevTools(),
+      ...(process.env.NODE_ENV === 'test' ? [] : [vueDevTools()]),
       Vuetify(),
       Unfonts({
         fontsource: {
