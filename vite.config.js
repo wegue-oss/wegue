@@ -63,16 +63,6 @@ export default defineConfig(({ mode }) => {
     preview: {
       open: '/index.html'
     },
-    css: {
-      preprocessorOptions: {
-        sass: {
-          api: 'modern-compiler'
-        },
-        scss: {
-          api: 'modern-compiler'
-        }
-      }
-    },
     build: {
       rollupOptions: {
         input: {
