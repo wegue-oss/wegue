@@ -5,7 +5,7 @@
       :icon="icon"
       width=350>
 
-    <v-expansion-panels :multiple="true" :variant="accordion" class="overflow-y-auto">
+    <v-expansion-panels :multiple="true" variant="accordion" class="overflow-y-auto">
       <v-expansion-panel>
         <v-expansion-panel-title>
           <v-row align="center">
