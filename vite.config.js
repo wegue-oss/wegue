@@ -6,7 +6,6 @@ import vue from '@vitejs/plugin-vue';
 import vueDevTools from 'vite-plugin-vue-devtools';
 
 import Vuetify from 'vite-plugin-vuetify';
-import Unfonts from 'unplugin-fonts/vite';
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
@@ -30,18 +29,7 @@ export default defineConfig(({ mode }) => {
         }
       }),
       ...(process.env.NODE_ENV === 'test' ? [] : [vueDevTools()]),
-      Vuetify(),
-      Unfonts({
-        fontsource: {
-          families: [
-            {
-              name: 'Roboto',
-              weights: [100, 300, 400, 500, 700, 900],
-              styles: ['normal', 'italic']
-            }
-          ]
-        }
-      })
+      Vuetify()
     ],
     optimizeDeps: {
       exclude: [
