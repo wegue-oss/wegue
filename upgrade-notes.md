@@ -2,15 +2,32 @@
 
 ## v2 -> v3
 
-`Wegue` v3.x transited from `Vue 2` to `Vue 3` and from `Vuetify 2` to `Vuetify 3` which implies a lot of changes.
+`Wegue` v3.x transited from `Vue 2` to `Vue 3`, from `Vuetify 2` to `Vuetify 3` and from `Vue-CLI` to `Vite` which implies a lot of changes.
 
 `Wegue` team tried to introduce as few changes as possible to make the transition as smooth as it can be.  
 This means components are still written using the `Options API` for example.
 
-To be compatible with all the required dependencies, minimal `node` version was raised to `v18.19.0` while minimal `npm` version was also raised to `v10.2.3`.
+To be compatible with all the required dependencies, minimal `node` version was raised to `v20.19.0` while minimal `npm` version was also raised to `v10.8.2`.
 
-Changes that were applied on the files present in the [app-starter](https://github.com/wegue-oss/wegue/commits/master/app-starter) directory should also be applied to your custom files present in the `app` directory.  
-Don't forget to apply the changes made to the `.browserlistrc`, `.eslintrc.js` and `vue.config.js` files in the root directory too!
+Changes that were applied on the files present in the [app-starter](https://github.com/wegue-oss/wegue/commits/master/app-starter) directory should also be applied to your custom files present in the `app` directory.
+
+### Vite
+
+`Vue-CLI` toolchain was replaced by `Vite` which means `Webpack` is replaced by `esbuild` and `Rollup` behind the scenes which implies a lot of changes in the code and in the configuration files.
+
+Comparing changes applied on the components present in the [app-starter](https://github.com/wegue-oss/wegue/commits/master/app-starter) directory and looking at the [vite.config.js](https://github.com/wegue-oss/wegue/blob/master/vite.config.js) in the root folder should give you a good overview of what has to be done.  
+To have a broader view of the changes implied, you can also refer to the [how to migrate from Vue-CLI to Vite article](https://vueschool.io/articles/vuejs-tutorials/how-to-migrate-from-vue-cli-to-vite/) published on [VueSchool](https://vueschool.io/) website.
+
+Here is a list of the essentials which had to be adapted in the `Wegue` code regarding to `Vite` adoption:
+
+- Transpiling using `Babel` was removed, as support for legacy browsers. Configuration files such as `babel.config.js` and `.browserlistrc` have been removed. If this was important in your custom app, you can try and install the official [Vite legacy plugin](https://github.com/vitejs/vite/tree/main/packages/plugin-legacy) which will allow you to reintroduce transpiling and polyfilling during the build step.
+- `vue.config.js` file is now replaced by `vite.config.js`. Contents and syntax are completely different though so if you had to tune this file for your needs, please refer to the [Configuring Vite official page](https://vite.dev/config/) to find what has to be done.
+- Assets management works differently in `Vite` so you must use root absolute paths instead of relative path starting with `./static` when refering to files present in the `app/static`. This can impact your code and your configuration files. You can refer to the [app-conf.json file](https://github.com/wegue-oss/wegue/blob/master/app-starter/static/app-conf.json) as an example of how to adapt your asset paths.
+- The command used to run the dev build is now `npm run dev`.
+- A new `npm run preview` command was added which can be used to preview your build locally before uploading it to a server.
+- The main `HTML` template files which were present in the `public` subfolder are now in the root directory of your project. Please adapt them to the needs of your Wegue application.
+- If you used custom environment variables that needed to be present inside the produced bundle, you have to rename them so they start with `VITE_` instead of `VUE_APP_`.
+- As strongly recommended in [Vite official docs](https://vite.dev/config/shared-options.html#resolve-extensions), `.vue` files are not resolved anymore if the extension is omitted inside `import` statements. You should adapt all your components and unit tests or add `.vue` in the `resolve.extensions` config option in your `vite.config.js` file.
 
 ### Vue
 
@@ -57,7 +74,7 @@ Currently, the `Vue migration build` is used instead of the native `Vue 3` build
 
 `Vue migration build` compatibility with `Vue 2` can be configured to suit your needs during the migration phase.  
 Global configuration is made inside the [main.js file](https://github.com/wegue-oss/wegue/blob/master/src/main.js).  
-Options which are compiler-specific can be configured inside the [vue.config.js file](https://github.com/wegue-oss/wegue/blob/master/vue.config.js).
+Options which are compiler-specific can be configured inside the [vite.config.js file](https://github.com/wegue-oss/wegue/blob/master/vite.config.js).
 
 To get more information about this build and how to configure it, please refer to the official [Vue 3 Migration Guide](https://v3-migration.vuejs.org/migration-build).
 
@@ -84,15 +101,22 @@ Please update your app code and configuration files accordingly.
 
 `ESLint` and its associated plugins were upgraded to the following versions:
 
-- `eslint` => 8.57.x
-- `eslint-plugin-vue` => 9.32.x
+- `eslint` => 9.36.x
+- `eslint-plugin-vue` => 10.5.x
 - `eslint-plugin-vuetify` => 2.5.x
-- `eslint-config-standard` => 17.1.x
-- `@vue/eslint-config-standard` => 8.0.x
+- `@eslint/js` => 9.36.x
+- `@vue/eslint-config-standard` => 9.0.x
 
-As some linting rules were added or changed, you should expect to see error and warnings the first time you will build your updated `Wegue` app.  
+Many breaking changes are implied because of this upgrade. Please refer to the official [ESLint migration guide](https://eslint.org/docs/latest/use/migrate-to-9.0.0#breaking-changes-for-users) when you upgrade your `Wegue` app.
+
+Here are the two essential things which had to be adapted in the `Wegue` code regarding to the upgrade of `ESLint` to version 9.x:
+
+- The configuration file format has completely changed and now uses what is called the `flat config` format. If you used a custom configuration file, you can refer to the [Configuration Migration Guide](https://eslint.org/docs/latest/use/configure/migration-guide) to help you in the transition to this new file format.
+- `ESLint` has deprecated their formatting rules since version 8.53.0. To continue using those rules and receive future updates, [ESLint Stylistic](https://eslint.style/) was included. Because of this, all rules which were linked to formatting have changed names. For example, the `semi` rule is now called `@stylistic/semi`. If you used those rules in your custom application, please adapt your configuration file accordingly. You can refer to [this migration guide](https://eslint.org/docs/latest/use/configure/migration-guide) to guide you in this task.
+
+Even if you used the stock configuration files, as some linting rules were added or changed, you should expect to see error and warnings the first time you will build your updated `Wegue` app.  
 The majority of those can be fixed automatically by running the `npm run lint:fix` command.  
-If you want to momentarily bypass some advanced errors to test your upgraded app or want to adapt linting rules to better suit your preferences, you can modify the `.eslintrc.js` file as needed.
+If you want to momentarily bypass some advanced errors to test your upgraded app or want to adapt linting rules to better suit your preferences, you can modify the `eslint.config.js` file as needed.
 
 ## v1 -> v2
 
