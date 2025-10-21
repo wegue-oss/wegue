@@ -51,22 +51,12 @@
     "history": true
   },
 
-  "sidebar": {
-    "visible": true,
-    "width": 400,
-    "minWidth": 400,
-    "maxWidth": 600,
-    "autoScroll": true,
-    "scrollDuration": 500,
-    "resizable": true
-  },
-
   "mapLayers": [
 
     {
       "type": "VECTOR",
       "lid": "Shops",
-      "url": "data/shops-dannstadt.geojson",
+      "url": "./static/data/shops-dannstadt.geojson",
       "formatConfig": {
       },
       "format": "GeoJSON",
@@ -133,7 +123,7 @@
     {
       "type": "VECTOR",
       "lid": "earthquakes",
-      "url": "data/2012_Earthquakes_Mag5.kml",
+      "url": "./static/data/2012_Earthquakes_Mag5.kml",
       "formatConfig": {
         "extractStyles": false
       },
@@ -143,7 +133,7 @@
       "hoverable": true,
       "hoverAttribute": "name",
       "style": {
-        "iconUrl": "icon/circle.svg",
+        "iconUrl": "./static/icon/circle.svg",
         "scale": 4,
         "anchor": [0.5, 37],
         "anchorXUnits": "fraction",
@@ -172,11 +162,33 @@
       "opacityControl": true,
       "crossOrigin": "anonymous"
     },
+
+    {
+      "type": "TILEARCGIS",
+      "lid": "test_arcgisrest",
+      "format": "image/jpeg",
+      "url": "https://cartografia.comune.padova.it/server/rest/services/topo/MapServer",
+      "params": {
+        "LAYERS":"show:3,16",
+        "TRANSPARENT": true
+      },
+      "transparent": true,
+      "projection": "EPSG:3003",
+      "attribution": "Comune di padova",
+      "isBaseLayer": false,
+      "visible": false,
+      "displayInLayerList": true,
+      "legend": false,
+      "opacityControl": true,
+      "crossOrigin": "anonymous"
+    },
+
     {
       "type": "IMAGEWMS",
       "lid": "ahocevar-imagewms",
+      "ratio": 1.5,
       "format": "image/png",
-      "layers": "topp:states",
+      "layers": "ne:ne_10m_populated_places",
       "url": "https://ahocevar.com/geoserver/wms",
       "transparent": true,
       "projection": "EPSG:3857",
@@ -192,8 +204,8 @@
       "lid": "ahocevar-vectortiles",
       "url": "https://ahocevar.com/geoserver/gwc/service/tms/1.0.0/ne:ne_10m_admin_0_countries@EPSG%3A900913@pbf/{z}/{x}/{-y}.pbf",
       "format": "MVT",
-      "visible": false,
       "attribution": "Kindly provided by @ahocevar",
+      "visible": false,
       "opacityControl": true,
       "style": {
         "strokeColor": "gray",
@@ -224,17 +236,15 @@
   "modules": {
     "wgu-layerlist": {
       "target": "menu",
-      "win": "sidebar",
+      "win": "floating",
       "icon": "md:layers",
-      "visible": true,
-      "minimizable": true,
-      "closable": false
+      "draggable": false
     },
     "wgu-measuretool": {
       "target": "menu",
-      "win": "sidebar",
+      "win": "floating",
       "icon": "md:photo_size_select_small",
-      "minimizable": true,
+      "draggable": false,
       "strokeColor": "#c62828",
       "fillColor": "rgba(198,40,40,0.2)",
       "sketchStrokeColor": "rgba(198,40,40,0.8)",
@@ -244,9 +254,14 @@
     },
     "wgu-infoclick": {
       "target": "menu",
-      "win": "sidebar",
+      "win": "floating",
       "icon": "md:info",
-      "minimizable": true
+      "draggable": false,
+      "initPos": {
+        "left": 8,
+        "top": 74
+      },
+      "showMedia": false
     },
     "wgu-geocoder": {
       "target": "toolbar",
@@ -265,9 +280,13 @@
     },
     "wgu-maprecorder": {
       "target": "toolbar",
-      "win": "sidebar",
+      "win": "floating",
       "icon": "mdi-video",
-      "minimizable": true
+      "draggable": false,
+      "initPos": {
+        "left": 8,
+        "top": 230
+      }
     },
     "wgu-helpwin": {
       "target": "toolbar",
@@ -283,13 +302,18 @@
     },
     "wgu-attributetable": {
       "target": "menu",
-      "win": "sidebar",
+      "win": "floating",
       "icon": "md:table_chart",
-      "minimizable": true,
       "syncTableMapSelection": true
     },
     "wgu-localeswitcher": {
       "target": "toolbar"
+    },
+    "sample-module": {
+      "target": "toolbar",
+      "win": "floating",
+      "icon": "md:star",
+      "closable": false
     }
   }
 }

@@ -44,7 +44,7 @@ export default defineConfig(({ mode }) => {
       }
     },
     base: (process.env.NODE_ENV !== 'test' && env?.WGU_PUBLIC_PATH) || '/',
-    publicDir: 'app/static',
+    publicDir: 'app/public',
     server: {
       open: '/index.html'
     },
