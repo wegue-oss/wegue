@@ -22,7 +22,7 @@ const LocaleUtil = {
     const messages = {};
 
     for (const path in modules) {
-      const match = path.match(/([a-z0-9-_]+)\.(json|mjs|js)$/i);
+      const match = path.match(/.*\/(.+)\.(json|mjs|js)$/i);
       if (match) {
         const locale = match[1];
         messages[locale] = mappingFunc(modules[path]);
@@ -43,12 +43,12 @@ const LocaleUtil = {
     const jsonContentExtractor = i => i.default;
 
     // Load Wegue core language files.
-    const coreModules = import.meta.glob('../locales/[a-z0-9-_]+.json', { eager: true });
+    const coreModules = import.meta.glob('../locales/*.json', { eager: true });
     const i18nMessages = LocaleUtil.importLocales(coreModules, jsonContentExtractor);
 
     // Try to load optional app specific language files and merge contents.
     try {
-      const appModules = import.meta.glob('/app/locales/[a-z0-9-_]+.json', { eager: true });
+      const appModules = import.meta.glob('/app/locales/*.json', { eager: true });
       const i18nMessagesApp = LocaleUtil.importLocales(appModules, jsonContentExtractor);
       ObjectUtil.mergeDeep(i18nMessages, i18nMessagesApp);
     } catch (e) {
