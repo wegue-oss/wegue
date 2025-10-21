@@ -27,19 +27,12 @@ import ObjectUtil from './util/Object';
 import ColorThemeUtil from './util/ColorTheme';
 import axios from 'axios';
 
-import './assets/css/wegue.css';
+import './styles/wegue.css';
+import 'APP/styles/app.css';
 
 configureCompat({
   MODE: 3
 })
-
-// try to load an optional app specific CSS file (set project-specific styles)
-const optionalCss = import.meta.glob('/app/static/css/*.css');
-const cssFileToLoad = '/app/static/css/app.css';
-
-if (optionalCss[cssFileToLoad]) {
-  optionalCss[cssFileToLoad]();
-}
 
 // Detect an URL parameter for a custom app context
 const appCtx = UrlUtil.getQueryParam('appCtx');
