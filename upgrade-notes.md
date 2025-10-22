@@ -9,7 +9,11 @@ This means components are still written using the `Options API` for example.
 
 To be compatible with all the required dependencies, minimal `node` version was raised to `v20.19.0` while minimal `npm` version was also raised to `v10.8.2`.
 
-Changes that were applied on the files present in the [app-starter](https://github.com/wegue-oss/wegue/commits/master/app-starter) directory should also be applied to your custom files present in the `app` directory.
+Changes that were applied on the files present in the [app-starter](https://github.com/wegue-oss/wegue/commits/master/app-starter) directory should also be applied to your custom files present in the `app` directory.  
+Pay particular attention to these two points:
+
+  - The `app/static` directory should be renamed `app/public/static` 
+  - The `app/static/css` directory should be renamed `app/styles`
 
 ### Vite
 
@@ -22,10 +26,13 @@ Here is a list of the essentials which had to be adapted in the `Wegue` code reg
 
 - Transpiling using `Babel` was removed, as support for legacy browsers. Configuration files such as `babel.config.js` and `.browserlistrc` have been removed. If this was important in your custom app, you can try and install the official [Vite legacy plugin](https://github.com/vitejs/vite/tree/main/packages/plugin-legacy) which will allow you to reintroduce transpiling and polyfilling during the build step.
 - `vue.config.js` file is now replaced by `vite.config.js`. Contents and syntax are completely different though so if you had to tune this file for your needs, please refer to the [Configuring Vite official page](https://vite.dev/config/) to find what has to be done.
-- Assets management works differently in `Vite` so you must use root absolute paths instead of relative path starting with `./static` when refering to files present in the `app/static`. This can impact your code and your configuration files. You can refer to the [app-conf.json file](https://github.com/wegue-oss/wegue/blob/master/app-starter/static/app-conf.json) as an example of how to adapt your asset paths.
+- Assets management works differently in `Vite`. However, by renaming the `app/static` to `app/public/static`, this should be transparent without adapting anything.  
+In some edge cases it is possible that the path used to reference a static file should be changed and written as an absolute path as explained inside [Static Asset Handling](https://vite.dev/guide/assets.html#the-public-directory) on the `Vite` guide page. However, using something else than a relative path could break your application if using `WGU_PUBLIC_PATH`.
 - The command used to run the dev build is now `npm run dev`.
 - A new `npm run preview` command was added which can be used to preview your build locally before uploading it to a server.
-- The main `HTML` template files which were present in the `public` subfolder are now in the root directory of your project. Please adapt them to the needs of your Wegue application.
+- The main `HTML` template files which were present in the `public` subfolder are now in the root directory of your project. Please adapt them to the needs of your `Wegue` application.
+- `Vue-CLI` was making use of `html-webpack-plugin` to amend the main `HTML` template files during build. This kind of functionality is not included by default inside `Vite`.  
+If you were using some of these advanced functionalities and would like to keep something similar while migrating, you should consider installing and configuring a specific plugin such as [vite-plugin-html](https://github.com/vbenjs/vite-plugin-html).
 - If you used custom environment variables that needed to be present inside the produced bundle, you have to rename them so they start with `VITE_` instead of `VUE_APP_`.
 - As strongly recommended in [Vite official docs](https://vite.dev/config/shared-options.html#resolve-extensions), `.vue` files are not resolved anymore if the extension is omitted inside `import` statements. You should adapt all your components and unit tests or add `.vue` in the `resolve.extensions` config option in your `vite.config.js` file.
 
@@ -122,38 +129,38 @@ If you want to momentarily bypass some advanced errors to test your upgraded app
 
 ### Vue-CLI
 
-This lists some essentials, which had to be adapted in the Wegue code regarding to the upgrade to Vue-CLI in version 5.0.7:
+This lists some essentials, which had to be adapted in the `Wegue` code regarding to the upgrade to Vue-CLI in version 5.0.7:
 
 - The command used to run the dev build is now `npm run serve`.
 - Some new config files are present in the root directory. Take particular attention to `vue.config.js` used to configure the build process and `jsconfig.json` to configure `IDEs` integration.
 - The main `HTML` template files which were present in the root directory are now in a `public` subfolder. Please adapt them to the needs of your Wegue application.
-- The build configuration which was previously made inside the `build` and `config` directories should be placed in the `vue.config.js` file. Please adapt it to the needs of your Wegue application.  
+- The build configuration which was previously made inside the `build` and `config` directories should be placed in the `vue.config.js` file. Please adapt it to the needs of your `Wegue` application.  
 The original `build` and `config` directories can be removed once this is done.
 - Environment variables defined inside the `.env.js` files inside the `config` directory should be placed in `.env` files in the root directory.  
 `dev.env.js` should now be called `.env.development`, `prod.env.js` should now be called `.env.production` and `test.env.js` should now be called `.env.test`.  
-Please note than only `NODE_ENV`, `BASE_URL` and variables that start with `VUE_APP_` will be statically embedded into the client bundle. Please rename your variables in your Wegue application in case you use them after the build process.
+Please note than only `NODE_ENV`, `BASE_URL` and variables that start with `VUE_APP_` will be statically embedded into the client bundle. Please rename your variables in your `Wegue` application in case you use them after the build process.
 
-Please refer to the official [Vue-CLI Guide](https://cli.vuejs.org/guide/) and [vue.config.js reference](https://cli.vuejs.org/config/#vue-config-js) when you upgrade your Wegue app.
+Please refer to the official [Vue-CLI Guide](https://cli.vuejs.org/guide/) and [vue.config.js reference](https://cli.vuejs.org/config/#vue-config-js) when you upgrade your `Wegue` app.
 
-If you're using environment variables inside your Wegue app, please read [Vue-CLI's Modes and Environment Variables Guide](https://cli.vuejs.org/guide/mode-and-env.html) carefully before updating your app.
+If you're using environment variables inside your `Wegue` app, please read [Vue-CLI's Modes and Environment Variables Guide](https://cli.vuejs.org/guide/mode-and-env.html) carefully before updating your app.
 
-`Vue-CLI` uses `Webpack 5` and `webpack-chain 6.5.1` under the hood. Please refer to [Vue-CLI's Working with Webpack guide](https://cli.vuejs.org/guide/webpack.html), [Webpack configuration guide](https://webpack.js.org/configuration/) and [webpack-chain documentation](https://github.com/neutrinojs/webpack-chain/tree/v6.5.1) if advanced configuration is needed inside your Wegue app.
+`Vue-CLI` uses `Webpack 5` and `webpack-chain 6.5.1` under the hood. Please refer to [Vue-CLI's Working with Webpack guide](https://cli.vuejs.org/guide/webpack.html), [Webpack configuration guide](https://webpack.js.org/configuration/) and [webpack-chain documentation](https://github.com/neutrinojs/webpack-chain/tree/v6.5.1) if advanced configuration is needed inside your `Wegue` app.
 
 ### OpenLayers
 
-This lists some essentials, which had to be adapted in the Wegue code regarding to the upgrade to OpenLayers in version 7/8/9:
+This lists some essentials, which had to be adapted in the `Wegue` code regarding to the upgrade to OpenLayers in version 7/8/9:
 
 - OL `Overlay` no longer accepts `autoPanAnimation` as an option.
  Now the animation delay is passed as an object directly to the autoPan option.
 - `map.forEachLayerAtPixel()` is removed. Replaced with e.g. `map.getLayers().forEach()`.
 
-Please have a look at the official [OpenLayers upgrade notes](https://github.com/openlayers/openlayers/blob/main/changelog/upgrade-notes.md), when you upgrade your Wegue app. Especially look for any breaking change between OpenLayers v6.4.3 and the current OpenLayers version used in Wegue v2, see [package.json](https://github.com/wegue-oss/wegue/blob/master/package.json).
+Please have a look at the official [OpenLayers upgrade notes](https://github.com/openlayers/openlayers/blob/main/changelog/upgrade-notes.md), when you upgrade your `Wegue` app. Especially look for any breaking change between OpenLayers v6.4.3 and the current OpenLayers version used in `Wegue` v2, see [package.json](https://github.com/wegue-oss/wegue/blob/master/package.json).
 
 ### Vuetify
 
-This lists some essentials, which had to be adapted in the Wegue code regarding to the upgrade to Vuetify in version 2.6.15:
+This lists some essentials, which had to be adapted in the `Wegue` code regarding to the upgrade to Vuetify in version 2.6.15:
 
-- The component `<v-content>` was renamed to `<v-main>`. Please adapt this in the `WguAppTemplate.vue` file of your Wegue application.
+- The component `<v-content>` was renamed to `<v-main>`. Please adapt this in the `WguAppTemplate.vue` file of your `Wegue` application.
 
 ### MDI Icons
 
@@ -162,7 +169,7 @@ The MDI icon libraries used were upgraded to the following versions:
 - `@mdi/font` => 7.2.x
 - `material-icons` => 1.13.x
 
-Please refer to the [official changelog](https://pictogrammers.com/docs/library/mdi/releases/changelog/) for versions later than `5.9.55` and check if you are using `removed` or `renamed` icons. Those have to be adapted and/or replaced in your Wegue application.
+Please refer to the [official changelog](https://pictogrammers.com/docs/library/mdi/releases/changelog/) for versions later than `5.9.55` and check if you are using `removed` or `renamed` icons. Those have to be adapted and/or replaced in your `Wegue` application.
 
 ### ESLint
 
@@ -174,6 +181,6 @@ ESLint and its associated plugins were upgraded to the following versions:
 - `eslint-config-standard` => 16.0.x
 - `@vue/eslint-config-standard` => 6.1.x
 
-As lots of new linting rules were added, you should expect to see error and warnings the first time you will build your updated Wegue app.  
+As lots of new linting rules were added, you should expect to see error and warnings the first time you will build your updated `Wegue` app.  
 The majority of those can be fixed automatically by running the `npm run lint:fix` command.  
 If you want to momentarily bypass some advanced errors to test your upgraded app or want to adapt linting rules to better suit your preferences, you can modify the `.eslintrc.js` file as needed.
