@@ -13,7 +13,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm run lint && vite build",
     "preview": "vite preview",
     "test": "cross-env NODE_ENV=test karma start tests/unit/karma.conf.cjs --single-run",
     "lint": "eslint *.js app src tests",
@@ -36,6 +36,7 @@
   "devDependencies": {
     "@eslint/js": "^9.36.0",
     "@mdi/font": "^7.2.96",
+    "@nabla/vite-plugin-eslint": "^2.0.6",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/eslint-config-standard": "^9.0.1",
     "@vue/test-utils": "github:vuejs/test-utils#e3c88273ace7a0e1c5a5eaf8f7cd60c80f73e39c",

@@ -7,6 +7,8 @@ import vueDevTools from 'vite-plugin-vue-devtools';
 
 import Vuetify from 'vite-plugin-vuetify';
 
+import eslintPlugin from '@nabla/vite-plugin-eslint';
+
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
   const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -29,7 +31,10 @@ export default defineConfig(({ mode }) => {
         }
       }),
       ...(process.env.NODE_ENV === 'test' ? [] : [vueDevTools()]),
-      Vuetify()
+      Vuetify(),
+      eslintPlugin({
+        shouldLint: (path) => path.match(/\/(src|app)\/[^?]*\.(vue|svelte|m?[jt]sx?)$/)
+      })
     ],
     optimizeDeps: {
       exclude: [
