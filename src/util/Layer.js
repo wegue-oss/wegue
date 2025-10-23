@@ -68,8 +68,21 @@ export class LayerProxy {
    * @param {ol.layer.Base} layer OL layer
    */
   constructor (layer) {
-    this.layer = reactive(layer);
+    this.layer = layer;
     this.properties = reactive({});
+
+    // Map getXXX methods declared in ol/layer/Base to property keys.
+    // For mappings see ol/layer/Property.js.
+    this.getterMap = {
+      getOpacity: 'opacity',
+      getVisible: 'visible',
+      getExtent: 'extent',
+      getZIndex: 'zIndex',
+      getMaxResolution: 'maxResolution',
+      getMinResolution: 'minResolution',
+      getMaxZoom: 'maxZoom',
+      getMinZoom: 'minZoom'
+    };
 
     // Set up listener to detect any property changes
     this.propertyChangeListener = (event) => {
@@ -83,7 +96,7 @@ export class LayerProxy {
       } else {
         this.properties[key] = value;
       }
-    }
+    };
     this.layer.on('propertychange', this.propertyChangeListener);
 
     // Track existing properties
@@ -98,6 +111,13 @@ export class LayerProxy {
     //  observables.
     const proxy = new Proxy(this, {
       get: function (target, prop, receiver) {
+        // Intercept getXXX() calls and map to reactive properties
+        if (prop in target.getterMap) {
+          const key = target.getterMap[prop];
+          return () => target.get(key);
+        }
+
+        // Forward OL layer API calls except get/getProperties
         if (prop in target.layer && !['get', 'getProperties'].includes(prop)) {
           const p = target.layer[prop];
           return (typeof p === 'function') ? p.bind(target.layer) : p;
@@ -113,7 +133,7 @@ export class LayerProxy {
   /**
    * Gets a value of the layer.
    * @param {String} key Key name.
-   * @returns {String} Value.
+   * @returns {any} Value.
    */
   get (key) {
     return this.properties[key];
