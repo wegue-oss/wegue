@@ -219,6 +219,35 @@ describe('LayerProxy', () => {
       expect(proxy.getProperties()).to.deep.equal(layer.getProperties());
     });
 
+    it('getter methods reflect layer getter methods', () => {
+      expect(proxy.getOpacity()).to.eql(layer.getOpacity());
+      expect(proxy.getVisible()).to.eql(layer.getVisible());
+      expect(proxy.getExtent()).to.eql(layer.getExtent());
+      expect(proxy.getZIndex()).to.eql(layer.getZIndex());
+      expect(proxy.getMaxResolution()).to.eql(layer.getMaxResolution());
+      expect(proxy.getMinResolution()).to.eql(layer.getMinResolution());
+      expect(proxy.getMaxZoom()).to.eql(layer.getMaxZoom());
+      expect(proxy.getMinZoom()).to.eql(layer.getMinZoom());
+
+      layer.setOpacity(0.5);
+      layer.setVisible(false);
+      layer.setExtent([0, 0, 100, 100]);
+      layer.setZIndex(15);
+      layer.setMaxResolution(30);
+      layer.setMinResolution(5);
+      layer.setMaxZoom(10);
+      layer.setMinZoom(1);
+
+      expect(proxy.getOpacity()).to.eql(layer.getOpacity());
+      expect(proxy.getVisible()).to.eql(layer.getVisible());
+      expect(proxy.getExtent()).to.eql(layer.getExtent());
+      expect(proxy.getZIndex()).to.eql(layer.getZIndex());
+      expect(proxy.getMaxResolution()).to.eql(layer.getMaxResolution());
+      expect(proxy.getMinResolution()).to.eql(layer.getMinResolution());
+      expect(proxy.getMaxZoom()).to.eql(layer.getMaxZoom());
+      expect(proxy.getMinZoom()).to.eql(layer.getMinZoom());
+    });
+
     it('toRaw returns the raw layer', () => {
       expect(proxy.toRaw()).to.equal(layer);
     });
