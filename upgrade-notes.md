@@ -94,6 +94,10 @@ As some linting rules were added or changed, you should expect to see error and 
 The majority of those can be fixed automatically by running the `npm run lint:fix` command.  
 If you want to momentarily bypass some advanced errors to test your upgraded app or want to adapt linting rules to better suit your preferences, you can modify the `.eslintrc.js` file as needed.
 
+### Other Changes
+
+`mapGeodataDragDop` property of the main `Wegue` application configuration was renamed `mapGeodataDragDrop`. Please update your configuration files accordingly.
+
 ## v1 -> v2
 
 ### Vue-CLI
