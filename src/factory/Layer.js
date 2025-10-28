@@ -57,7 +57,7 @@ export const LayerFactory = {
    * Returns an OpenLayers layer instance due to given config.
    *
    * @param  {Object} lConf  Layer config object
-   * @param  {ol/Map} olMap  Optional OL map we work on
+   * @param  {ol/Map} [olMap]  Optional OL map, required for WFS layer only.
    * @return {ol/layer/Base} OL layer instance
    */
   getInstance (lConf, olMap) {

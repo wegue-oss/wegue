@@ -10,7 +10,7 @@ class ViewAnimationUtil {
   /**
    * Instantiates a view animation util object with the animation object
    * configured in the application context.
-   * @param {Object} options  Application wide animation options.
+   * @param {Object} [options] Optional application wide animation options.
    */
   constructor (options) {
     this.options = options;
@@ -38,7 +38,7 @@ class ViewAnimationUtil {
    * Returns the configuration object for the animation. If options have been provided by the caller,
    * these options will be returned, otherwise return the options configured in the application
    * context.
-   * @param {Object} options Optional configuration object for the animation.
+   * @param {Object} [options] Optional configuration object for the animation.
    * @returns An object containing the animation configuration.
    * @private
    */
@@ -51,8 +51,8 @@ class ViewAnimationUtil {
    * @param {ol.View} view The `ol.View` of the map.
    * @param {ol.Coordinate | ol.Extent | ol.geom.Geometry} destination
    *  The destination coordinate, point, geometry or extent to zoom to.
-   * @param {*} completionCallback An optional notification that the animation has completed.
-   * @param {*} options Optional configuration object for the animation.
+   * @param {*} [completionCallback] An optional notification that the animation has completed.
+   * @param {*} [options] Optional configuration object for the animation.
    */
   to (view, destination, completionCallback, options) {
     if (destination instanceof Point) {
@@ -72,8 +72,8 @@ class ViewAnimationUtil {
    * Zoom to the given location.
    * @param {ol.View} view The `ol.View` of the map.
    * @param {ol.Coordinate} location The destination center point to zoom to.
-   * @param {function(complete)} completionCallback An optional notification that the animation has completed.
-   * @param {Object} options Optional configuration object for the animation.
+   * @param {function(complete)} [completionCallback] An optional notification that the animation has completed.
+   * @param {Object} [options] Optional configuration object for the animation.
    */
   toLocation (view, location, completionCallback, options) {
     this.getAnimation().toLocation(view, location, completionCallback, this.getOptions(options));
@@ -83,8 +83,8 @@ class ViewAnimationUtil {
    * Zoom to the given extent.
    * @param {ol.View} view The `ol.View` of the map.
    * @param {ol.Extent} extent The destination extent to zoom to.
-   * @param {function(complete)} completionCallback An optional notification that the animation has completed.
-   * @param {Object} options Optional configuration object for the animation.
+   * @param {function(complete)} [completionCallback] An optional notification that the animation has completed.
+   * @param {Object} [options] Optional configuration object for the animation.
    */
   toExtent (view, extent, completionCallback, options) {
     this.getAnimation().toExtent(view, extent, completionCallback, this.getOptions(options));
@@ -100,10 +100,10 @@ const NoAnimation = {
    * Zoom to the given location by not using animations.
    * @param {ol.View} view The `ol.View` of the map.
    * @param {ol.Coordinate} location The destination center point to zoom to.
-   * @param {function(complete)} completionCallback An optional notification that the animation has completed.
+   * @param {function(complete)} [completionCallback] An optional notification that the animation has completed.
    * @param {Object} options Configuration object for the animation, supported attributes are:
-   * * {Number} zoom An optional final zoom level.
-   * * {Number} maxZoom An optional maximal zoom level.
+   * * {Number} [zoom] An optional final zoom level.
+   * * {Number} [maxZoom] An optional maximal zoom level.
    */
   toLocation (view, location, completionCallback, options) {
     // Set defaults if arguments are not provided.
@@ -117,9 +117,9 @@ const NoAnimation = {
    * Zoom to fit the given extentby not using animations.
    * @param {ol.View} view The `ol.View` of the map.
    * @param {ol.Extent} extent The destination extent to zoom to.
-   * @param {function(complete)} completionCallback An optional notification that the animation has completed.
+   * @param {function(complete)} [completionCallback] An optional notification that the animation has completed.
    * @param {Object} options Configuration object for the animation, supported attributes are:
-   * * {Number} maxZoom An optional maximal zoom level.
+   * * {Number} [maxZoom] An optional maximal zoom level.
    */
   toExtent (view, extent, completionCallback, options) {
     // Set defaults if arguments are not provided.
@@ -137,7 +137,7 @@ const NoAnimation = {
    * Move to the location.
    * @param {ol.View} view The `ol.View` of the map.
    * @param {ol.Coordinate} location The destination center point to zoom to.
-   * @param {function(complete)} completionCallback An optional notification that the animation has completed.
+   * @param {function(complete)} [completionCallback] An optional notification that the animation has completed.
    * @param {Number} zoom The final zoom level.
    * @param {Number} maxZoom The maximal zoom level.
    */
@@ -160,11 +160,11 @@ const PanAnimation = {
    * Zoom to the given location by using a "pan" animation.
    * @param {ol.View} view The `ol.View` of the map.
    * @param {ol.Coordinate} location The destination center point to zoom to.
-   * @param {function(complete)} completionCallback An optional notification that the animation has completed.
+   * @param {function(complete)} [completionCallback] An optional notification that the animation has completed.
    * @param {Object} options Configuration object for the animation, supported attributes are:
-   * * {Number} duration An optional animation duration.
-   * * {Number} zoom An optional final zoom level.
-   * * {Number} maxZoom An optional maximal zoom level.
+   * * {Number} [duration] An optional animation duration.
+   * * {Number} [zoom] An optional final zoom level.
+   * * {Number} [maxZoom] An optional maximal zoom level.
    */
   toLocation (view, location, completionCallback, options) {
     // Set defaults if arguments are not provided.
@@ -179,10 +179,10 @@ const PanAnimation = {
    * Zoom to fit the given extent by using a "pan" animation.
    * @param {ol.View} view The `ol.View` of the map.
    * @param {ol.Extent} extent The destination extent to zoom to.
-   * @param {function(complete)} completionCallback An optional notification that the animation has completed.
+   * @param {function(complete)} [completionCallback] An optional notification that the animation has completed.
    * @param {Object} options Configuration object for the animation, supported attributes are:
-   * * {Number} duration An optional animation duration.
-   * * {Number} maxZoom An optional maximal zoom level.
+   * * {Number} [duration] An optional animation duration.
+   * * {Number} [maxZoom] An optional maximal zoom level.
    */
   toExtent (view, extent, completionCallback, options) {
     // Set defaults if arguments are not provided.
@@ -201,7 +201,7 @@ const PanAnimation = {
    * Pan / zoom to the location.
    * @param {ol.View} view The `ol.View` of the map.
    * @param {ol.Coordinate} location The destination center point to zoom to.
-   * @param {function(complete)} completionCallback An optional notification that the animation has completed.
+   * @param {function(complete)} [completionCallback] An optional notification that the animation has completed.
    * @param {Number} duration The animation duration.
    * @param {Number} zoom The final zoom level.
    * @param {Number} maxZoom The maximal zoom level.
@@ -231,11 +231,11 @@ const FlyAnimation = {
    * Zoom to the given location by using a "fly" animation.
    * @param {ol.View} view The `ol.View` of the map.
    * @param {ol.Coordinate} location The destination center point to zoom to.
-   * @param {function(complete)} completionCallback An optional notification that the animation has completed.
+   * @param {function(complete)} [completionCallback] An optional notification that the animation has completed.
    * @param {Object} options Configuration object for the animation, supported attributes are:
-   * * {Number} duration An optional animation duration.
-   * * {Number} zoom An optional final zoom level.
-   * * {Number} maxZoom An optional maximal zoom level.
+   * * {Number} [duration] An optional animation duration.
+   * * {Number} [zoom] An optional final zoom level.
+   * * {Number} [maxZoom] An optional maximal zoom level.
    */
   toLocation (view, location, completionCallback, options) {
     // Set defaults if arguments are not provided.
@@ -256,10 +256,10 @@ const FlyAnimation = {
    * Zoom to fit the given extent by using a "fly" animation.
    * @param {ol.View} view The `ol.View` of the map.
    * @param {ol.Extent} extent The destination extent to zoom to.
-   * @param {function(complete)} completionCallback An optional notification that the animation has completed.
+   * @param {function(complete)} [completionCallback] An optional notification that the animation has completed.
    * @param {Object} options Configuration object for the animation, supported attributes are:
-   * * {Number} duration An optional animation duration.
-   * * {Number} maxZoom An optional maximal zoom level.
+   * * {Number} [duration] An optional animation duration.
+   * * {Number} [maxZoom] An optional maximal zoom level.
    */
   toExtent (view, extent, completionCallback, options) {
     // Set defaults if arguments are not provided.
@@ -285,7 +285,7 @@ const FlyAnimation = {
    * Zoom out then zoom in, while moving to the center location.
    * @param {ol.View} view The `ol.View` of the map.
    * @param {ol.Coordinate} location The destination center point to zoom to.
-   * @param {function(complete)} completionCallback An optional notification that the animation has completed.
+   * @param {function(complete)} [completionCallback] An optional notification that the animation has completed.
    * @param {Number} duration The animation duration.
    * @param {Number} zoomOut The zoom out level.
    * @param {Number} zoom The final zoom level.
@@ -333,11 +333,11 @@ const BounceAnimation =
    * Zoom to the given location by using a "bounce" animation.
    * @param {ol.View} view The `ol.View` of the map.
    * @param {ol.Coordinate} location The destination center point to zoom to.
-   * @param {function(complete)} completionCallback An optional notification that the animation has completed.
+   * @param {function(complete)} [completionCallback] An optional notification that the animation has completed.
    * @param {Object} options Configuration object for the animation, supported attributes are:
-   * * {Number} duration An optional animation duration.
-   * * {Number} zoom An optional final zoom level.
-   * * {Number} maxZoom An optional maximal zoom level.
+   * * {Number} [duration] An optional animation duration.
+   * * {Number} [zoom] An optional final zoom level.
+   * * {Number} [maxZoom] An optional maximal zoom level.
    */
   toLocation (view, location, completionCallback, options) {
     // Set defaults if arguments are not provided.
@@ -352,10 +352,10 @@ const BounceAnimation =
    * Zoom to fit the given extent by using a "bounce" animation.
    * @param {ol.View} view The `ol.View` of the map.
    * @param {ol.Extent} extent The destination extent to zoom to.
-   * @param {function(complete)} completionCallback An optional notification that the animation has completed.
+   * @param {function(complete)} [completionCallback] An optional notification that the animation has completed.
    * @param {Object} options Configuration object for the animation, supported attributes are:
-   * * {Number} duration An optional animation duration.
-   * * {Number} maxZoom An optional maximal zoom level.
+   * * {Number} [duration] An optional animation duration.
+   * * {Number} [maxZoom] An optional maximal zoom level.
    */
   toExtent (view, extent, completionCallback, options) {
     // Set defaults if arguments are not provided.
@@ -385,7 +385,7 @@ const BounceAnimation =
    * Zoom in or out, while moving to the center location.
    * @param {ol.View} view The `ol.View` of the map.
    * @param {ol.Coordinate} location The destination center point to zoom to.
-   * @param {function(complete)} completionCallback An optional notification that the animation has completed.
+   * @param {function(complete)} [completionCallback] An optional notification that the animation has completed.
    * @param {Number} duration The animation duration.
    * @param {Number} zoom The final zoom level.
    * @param {Number} maxZoom The maximal zoom level.
