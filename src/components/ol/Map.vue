@@ -375,7 +375,7 @@ export default {
      * property declared there will take precedence over the ones declared in the
      * language packs.
      *
-     * @param {ol.layer.Layer} OL layer instance
+     * @param {ol.layer.Layer} layer OL layer instance
      */
     updateLocalizedLayerProps (layer) {
       const langKey = layer.get('langKey') || layer.get('lid');

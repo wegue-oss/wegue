@@ -44,8 +44,6 @@ export default {
 
     /**
      * Registers the needed events on the map.
-     *
-     * @param  {ol/layer/Base | ol/layer/Group} layer Layer or group to register
      */
     registerMapEvents () {
       this.map.on('loadstart', this.showLoader);
