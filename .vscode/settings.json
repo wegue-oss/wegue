@@ -6,6 +6,16 @@
     "package.json": "package-lock.json, pnpm*, .yarnrc*, yarn*, .eslint*, eslint*, .oxlint*, oxlint*, .prettier*, prettier*, .editorconfig"
   },
   "editor.codeActionsOnSave": {
-    "source.fixAll": "explicit"
-  }
+    "source.fixAll": "explicit",
+    "source.fixAll.eslint": "never"
+  },
+  "eslint.nodePath": "./node_modules",
+  "eslint.workingDirectories": [
+    { "mode": "auto" }
+  ],
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "vue"
+  ]
 }
