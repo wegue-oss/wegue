@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { bindMap, unbindMap } from '@/composables/Map';
-import Geocoder from '@/components/geocoder/Geocoder';
+import Geocoder from '@/components/geocoder/Geocoder.vue';
 import { OpenStreetMap } from '@/components/geocoder/providers/osm';
 import { Photon } from '@/components/geocoder/providers/photon';
 import { OpenCage } from '@/components/geocoder/providers/opencage';

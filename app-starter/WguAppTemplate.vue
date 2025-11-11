@@ -79,22 +79,22 @@
 <script>
 import { getCurrentInstance } from 'vue';
 import { WguEventBus } from '@/WguEventBus';
-import OlMap from '@/components/ol/Map';
-import HoverTooltip from '@/components/ol/HoverTooltip';
-import AppHeader from './components/AppHeader';
-import AppFooter from './components/AppFooter';
-import AppSidebar from './components/AppSidebar';
-import AppLogo from '@/components/AppLogo';
-import AppLoadingMask from '@/components/AppLoadingMask';
+import OlMap from '@/components/ol/Map.vue';
+import HoverTooltip from '@/components/ol/HoverTooltip.vue';
+import AppHeader from './components/AppHeader.vue';
+import AppFooter from './components/AppFooter.vue';
+import AppSidebar from './components/AppSidebar.vue';
+import AppLogo from '@/components/AppLogo.vue';
+import AppLoadingMask from '@/components/AppLoadingMask.vue';
 import BgLayerSwitcher from '@/components/bglayerswitcher/BgLayerSwitcher.vue';
 import OverviewMap from '@/components/overviewmap/OverviewMap.vue';
-import MeasureWin from '@/components/measuretool/MeasureWin';
-import LayerListWin from '@/components/layerlist/LayerListWin';
-import HelpWin from '@/components/helpwin/HelpWin';
-import InfoClickWin from '@/components/infoclick/InfoClickWin';
-import MapLoadingStatus from '@/components/progress/MapLoadingStatus';
+import MeasureWin from '@/components/measuretool/MeasureWin.vue';
+import LayerListWin from '@/components/layerlist/LayerListWin.vue';
+import HelpWin from '@/components/helpwin/HelpWin.vue';
+import InfoClickWin from '@/components/infoclick/InfoClickWin.vue';
+import MapLoadingStatus from '@/components/progress/MapLoadingStatus.vue';
 import AttributeTableWin from '@/components/attributeTable/AttributeTableWin.vue';
-import MapRecorderWin from '@/components/maprecorder/MapRecorderWin';
+import MapRecorderWin from '@/components/maprecorder/MapRecorderWin.vue';
 import SampleModuleWin from './components/SampleModule.vue';
 
 export default {

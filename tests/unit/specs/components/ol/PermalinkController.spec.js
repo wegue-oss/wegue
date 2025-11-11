@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import Map from '@/components/ol/Map';
+import Map from '@/components/ol/Map.vue';
 import VectorLayer from 'ol/layer/Vector';
 
 const permalinkDef = {

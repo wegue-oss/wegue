@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import AttributeTable from '@/components/attributeTable/AttributeTable';
+import AttributeTable from '@/components/attributeTable/AttributeTable.vue';
 
 function createWrapper () {
   return shallowMount(AttributeTable);

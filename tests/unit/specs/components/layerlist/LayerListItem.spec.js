@@ -1,6 +1,6 @@
 import { toRaw } from 'vue';
 import { shallowMount } from '@vue/test-utils';
-import LayerListItem from '@/components/layerlist/LayerListItem';
+import LayerListItem from '@/components/layerlist/LayerListItem.vue';
 import { LayerProxy } from '@/util/Layer';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';

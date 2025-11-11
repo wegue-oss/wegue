@@ -15,7 +15,7 @@ export default class OverviewMapController {
    * Construction
    * @param {ol.Map} map OpenLayers map.
    * @param {HTMLElement} target The target container to render the control.
-   * @param {Object} config The overview map configuration object.
+   * @param {Object} [config] Optional overview map configuration object.
    */
   constructor (map, target, config) {
     this.map = map;

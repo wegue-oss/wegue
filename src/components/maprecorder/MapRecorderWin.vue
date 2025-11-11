@@ -5,7 +5,7 @@
       :icon="icon"
       width=350>
 
-    <v-expansion-panels :multiple="true" :variant="true ? 'accordion' : undefined" class="overflow-y-auto">
+    <v-expansion-panels :multiple="true" variant="accordion" class="overflow-y-auto">
       <v-expansion-panel>
         <v-expansion-panel-title>
           <v-row align="center">
@@ -18,14 +18,16 @@
             flat
             color="transparent"
           >
-          <div class="text-subtitle-2">{{ $t('wgu-maprecorder.videoFormat') }}</div>
-            <v-card-text class="pt-0">
+          <v-card-subtitle class="mt-2">
+            {{ $t('wgu-maprecorder.videoFormat') }}
+          </v-card-subtitle>
+            <v-card-text>
               <v-select
                   color="secondary"
                   item-color="secondary"
                   :menu-props="{
                     'offset-y': true,
-                    bottom: true,
+                    bottom: true
                   }"
                   v-model="mimeType"
                   :items="mimeTypes"
@@ -35,8 +37,10 @@
               </v-select>
             </v-card-text>
 
-            <div class="text-subtitle-2">{{ $t('wgu-maprecorder.frameRate') }}</div>
-            <v-card-text class="pt-0">
+            <v-card-subtitle class="mt-2">
+              {{ $t('wgu-maprecorder.frameRate') }}
+            </v-card-subtitle>
+            <v-card-text>
               <v-slider
                   color="secondary"
                   prepend-icon="mdi-application-variable-outline"
@@ -49,8 +53,10 @@
               </v-slider>
             </v-card-text>
 
-            <div class="text-subtitle-2">{{ $t('wgu-maprecorder.bitRate') }}</div>
-            <v-card-text class="pt-0">
+            <v-card-subtitle class="mt-2">
+              {{ $t('wgu-maprecorder.bitRate') }}
+            </v-card-subtitle>
+            <v-card-text>
               <v-slider
                   color="secondary"
                   prepend-icon="mdi-quality-high"
@@ -63,8 +69,9 @@
               </v-slider>
             </v-card-text>
 
-            <div class="text-subtitle-2">{{ $t('wgu-maprecorder.fileName') }}</div>
-            <v-card-text class="pt-0">
+            <v-card-subtitle class="mt-2">{{ $t('wgu-maprecorder.fileName') }}
+            </v-card-subtitle>
+            <v-card-text>
               <v-text-field
                 color="secondary"
                 v-model="filename"
@@ -128,7 +135,7 @@
 </template>
 
 <script>
-import ModuleCard from '../modulecore/ModuleCard';
+import ModuleCard from '../modulecore/ModuleCard.vue';
 import { useMap } from '@/composables/Map';
 import createCanvasRecorder from 'canvas-record';
 

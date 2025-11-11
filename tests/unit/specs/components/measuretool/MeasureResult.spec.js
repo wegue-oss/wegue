@@ -2,7 +2,7 @@ import { shallowMount } from '@vue/test-utils';
 import { createI18n } from 'vue-i18n';
 import i18nMessages from '@/locales/en.json';
 import { bindMap, unbindMap } from '@/composables/Map';
-import MeasureResult from '@/components/measuretool/MeasureResult';
+import MeasureResult from '@/components/measuretool/MeasureResult.vue';
 import PolygonGeom from 'ol/geom/Polygon';
 import LineStringGeom from 'ol/geom/LineString';
 import Map from 'ol/Map';

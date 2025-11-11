@@ -124,9 +124,9 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### ENV VARs
 
-Besides the environment variables supported by Vue CLI Wegue offers the following ENV VARs:
+Besides the environment variables supported by Vite, Wegue offers the following ENV VARs:
 
-- `WGU_PUBLIC_PATH` allows to modify the [publicPath](https://cli.vuejs.org/config/#publicpath) Vue CLI configuration, which is used in the production build. Default of `publicPath` is `'./'`.
+- `WGU_PUBLIC_PATH` allows to modify the [base](https://vite.dev/config/shared-options.html#base) Vite configuration, which is used in the production build. Default of `base` is `'/'`.
 
 ## Run with Docker
 

@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import AppFooter from 'APP/components/AppFooter';
+import AppFooter from 'APP/components/AppFooter.vue';
 
 const footerProps = {
   footerTextLeft: 'my-text-left',

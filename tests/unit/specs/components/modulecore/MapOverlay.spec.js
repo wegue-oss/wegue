@@ -1,7 +1,7 @@
 import { nextTick, toRaw } from 'vue';
 import { shallowMount } from '@vue/test-utils';
 import { bindMap, unbindMap } from '@/composables/Map';
-import MapOverlay from '@/components/modulecore/MapOverlay';
+import MapOverlay from '@/components/modulecore/MapOverlay.vue';
 import { WguEventBus } from '@/WguEventBus';
 import OlMap from 'ol/Map';
 import Feature from 'ol/Feature';

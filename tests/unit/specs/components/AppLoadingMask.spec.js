@@ -1,6 +1,6 @@
 import { nextTick } from 'vue';
 import { shallowMount } from '@vue/test-utils';
-import AppLoadingMask from '@/components/AppLoadingMask';
+import AppLoadingMask from '@/components/AppLoadingMask.vue';
 import { WguEventBus } from '@/WguEventBus';
 
 function createWrapper () {

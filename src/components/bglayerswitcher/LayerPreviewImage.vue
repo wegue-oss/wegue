@@ -3,8 +3,8 @@
       :src="previewURL"
       :width="width" :height="height"
       cover
-      v-on:load="imgLoaded=true"
-      v-on:error="imgLoaded=false"
+      v-on:load="imgLoaded = true"
+      v-on:error="imgLoaded = false"
       >
       <!-- Fallback if no preview image is available or the image can't be loaded. -->
       <v-row v-if="!previewURL || !imgLoaded"

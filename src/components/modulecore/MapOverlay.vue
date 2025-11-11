@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable-next-line vue/no-constant-condition -->
   <div v-show="false">
     <div ref="overlayContainer" >
       <!-- Default slot for overlay content -->

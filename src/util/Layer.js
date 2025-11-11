@@ -45,7 +45,7 @@ const LayerUtil = {
    *
    * @param  {ol.layer.Base} vecLayer OL vector layer
    * @param  {ol.Map} olMap           The map to perform the zoom on
-   * @param {Object} options          Optional animation configuration
+   * @param {Object} [options]        Optional animation configuration
    */
   zoomToLayerExtent (vecLayer, olMap, options) {
     if (!vecLayer || !vecLayer.getSource().getExtent || !olMap) {

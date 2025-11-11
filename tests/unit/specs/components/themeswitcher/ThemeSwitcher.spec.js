@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import ThemeSwitcher from '@/components/themeswitcher/ThemeSwitcher';
+import ThemeSwitcher from '@/components/themeswitcher/ThemeSwitcher.vue';
 
 const defaultProps = {
   moduleName: 'wgu-themeswitcher',
@@ -56,7 +56,7 @@ describe('themeswitcher/ThemeSwitcher.vue', () => {
     });
 
     afterEach(() => {
-      comp.vm.theme.global.name.value = 'light';
+      comp.vm.theme.change('light');
       comp.unmount();
     });
   });

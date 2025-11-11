@@ -16,6 +16,7 @@
               color="secondary"
               :model-value="layer.getVisible()"
               @click.capture.stop="onItemClick()"
+              class="pr-2"
             />
           </v-list-item-action>
         </template>
@@ -35,7 +36,8 @@
       The legend image item is wrapped by an v-if block to avoid unneccesary image
       requests when the layer item is not expanded.
       -->
-      <wgu-layerlegendimage v-if="openedListItems.includes(layerLid)"
+      <wgu-layerlegendimage class="pl-2"
+        v-if="openedListItems.includes(layerLid)"
         :layer="layer"
         :mapView="mapView"
       />
@@ -61,8 +63,8 @@
 </template>
 
 <script>
-import LayerLegendImage from './LayerLegendImage';
-import LayerOpacityControl from './LayerOpacityControl';
+import LayerLegendImage from './LayerLegendImage.vue';
+import LayerOpacityControl from './LayerOpacityControl.vue';
 
 export default {
   name: 'wgu-layerlistitem',

@@ -1,5 +1,5 @@
 import { mount, shallowMount } from '@vue/test-utils';
-import OverviewMap from '@/components/overviewmap/OverviewMap';
+import OverviewMap from '@/components/overviewmap/OverviewMap.vue';
 
 function createWrapper (stubChildrenComponents = true) {
   if (stubChildrenComponents) {

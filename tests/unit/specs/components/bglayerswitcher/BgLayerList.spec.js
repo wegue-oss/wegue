@@ -1,6 +1,6 @@
 import { shallowMount } from '@vue/test-utils';
 import { bindMap, unbindMap } from '@/composables/Map';
-import BgLayerList from '@/components/bglayerswitcher/BgLayerList';
+import BgLayerList from '@/components/bglayerswitcher/BgLayerList.vue';
 import OlMap from 'ol/Map';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';

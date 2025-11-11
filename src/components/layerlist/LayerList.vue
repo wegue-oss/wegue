@@ -14,7 +14,7 @@
 
 <script>
 import { useMap } from '@/composables/Map';
-import LayerListItem from './LayerListItem';
+import LayerListItem from './LayerListItem.vue';
 
 export default {
   name: 'wgu-layerlist',
