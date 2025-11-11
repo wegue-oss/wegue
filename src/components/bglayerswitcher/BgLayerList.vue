@@ -41,7 +41,7 @@
 
 <script>
 import { useMap } from '@/composables/Map';
-import LayerPreviewImage from './LayerPreviewImage';
+import LayerPreviewImage from './LayerPreviewImage.vue';
 
 export default {
   name: 'wgu-bglayerlist',

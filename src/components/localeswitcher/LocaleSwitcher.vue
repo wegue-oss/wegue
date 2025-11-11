@@ -4,7 +4,7 @@
       offset="15"
       transition="scale-transition"
       v-model="show">
-      <template v-slot:activator="{ props}">
+      <template v-slot:activator="{ props }">
         <v-btn
           v-bind="props"
           borderless

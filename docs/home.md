@@ -26,16 +26,22 @@ Initialize the Wegue app
 npm run init:app
 ```
 
-Serve with hot reload at [localhost:8081](http://localhost:8081)
+Serve with hot reload at [localhost:5173](http://localhost:5173)
 
 ```shell
-npm run serve
+npm run dev
 ```
 
 Build for production with minification
 
 ```shell
 npm run build
+```
+
+Serve minified build locally at [localhost:4173](http://localhost:4173)
+
+```shell
+npm run preview
 ```
 
 This [video tutorial](https://www.youtube.com/watch?v=9cq21F1x2sw) also walks you through the basics steps of setting up Wegue.

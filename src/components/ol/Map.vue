@@ -21,7 +21,7 @@ import { Vector as VectorLayer } from 'ol/layer';
 import { Vector as VectorSource } from 'ol/source';
 import proj4 from 'proj4';
 import { bindMap, unbindMap } from '@/composables/Map';
-import { LayerFactory } from '@/factory/Layer.js';
+import { LayerFactory } from '@/factory/Layer';
 import LayerUtil from '@/util/Layer';
 import PermalinkController from './PermalinkController';
 import HoverController from './HoverController';
@@ -375,7 +375,7 @@ export default {
      * property declared there will take precedence over the ones declared in the
      * language packs.
      *
-     * @param {ol.layer.Layer} OL layer instance
+     * @param {ol.layer.Layer} layer OL layer instance
      */
     updateLocalizedLayerProps (layer) {
       const langKey = layer.get('langKey') || layer.get('lid');

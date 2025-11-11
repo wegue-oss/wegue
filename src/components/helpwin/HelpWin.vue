@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import ModuleCard from '../modulecore/ModuleCard';
+import ModuleCard from '../modulecore/ModuleCard.vue';
 
 export default {
   name: 'wgu-helpwin-win',

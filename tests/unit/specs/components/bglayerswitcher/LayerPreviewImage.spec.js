@@ -1,6 +1,6 @@
 import { toRaw } from 'vue';
 import { shallowMount } from '@vue/test-utils';
-import LayerPreviewImage from '@/components/bglayerswitcher/LayerPreviewImage';
+import LayerPreviewImage from '@/components/bglayerswitcher/LayerPreviewImage.vue';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import View from 'ol/View';

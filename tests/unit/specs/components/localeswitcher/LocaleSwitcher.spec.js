@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import { createI18n } from 'vue-i18n';
-import LocaleSwitcher from '@/components/localeswitcher/LocaleSwitcher';
+import LocaleSwitcher from '@/components/localeswitcher/LocaleSwitcher.vue';
 import i18nMessages from '@/locales/en.json';
 
 const appConfig = {

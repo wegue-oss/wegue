@@ -16,7 +16,7 @@
         :items="displayedItems"
         :menu-props="{
           bottom: true,
-          'offset-y': true,
+          'offset-y': true
         }"
         density="compact"
         hide-details
@@ -34,11 +34,11 @@
 </template>
 
 <script>
-import ModuleCard from '../modulecore/ModuleCard';
+import ModuleCard from '../modulecore/ModuleCard.vue';
 import { useMap } from '@/composables/Map';
 import { useColorTheme } from '@/composables/ColorTheme';
 import VectorLayer from 'ol/layer/Vector';
-import AttributeTable from './AttributeTable';
+import AttributeTable from './AttributeTable.vue';
 
 export default {
   name: 'wgu-attributetable-win',

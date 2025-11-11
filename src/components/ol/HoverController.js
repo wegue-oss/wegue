@@ -28,7 +28,7 @@ export default class HoverController {
    * 'hoverAttribute' if the layer is configured as 'hoverable'
    *
    * @param {ol.Map} map OpenLayers map.
-   * @param {object} hoverConf Global configuration options.
+   * @param {object} [hoverConf] Optional global configuration options.
    */
   constructor (map, hoverConf) {
     const me = this;
@@ -162,7 +162,7 @@ export default class HoverController {
    * @param {ol.Map} map OpenLayers map.
    * @param {ol.layer.Tile | ol.layer.Image} layer The layer to acquire the features for.
    * @param {ol.Coordinate} coordinate The coordinate in map projection.
-   * @param {AbortController} abortCtrl An optional abort controller to abort the request.
+   * @param {AbortController} [abortCtrl] An optional abort controller to abort the request.
    * @returns {Promise<Array<ol.Feature>>}
    */
   getWMSFeaturesAsync (map, layer, coordinate, abortCtrl) {

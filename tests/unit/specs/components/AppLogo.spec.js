@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import AppLogo from '@/components/AppLogo';
+import AppLogo from '@/components/AppLogo.vue';
 
 function createWrapper ($appConfig = {}) {
   return shallowMount(AppLogo, {

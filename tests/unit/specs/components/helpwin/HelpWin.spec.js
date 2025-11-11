@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import HelpWin from '@/components/helpwin/HelpWin';
+import HelpWin from '@/components/helpwin/HelpWin.vue';
 
 const moduleProps = {
   icon: 'my-icon'

@@ -1,7 +1,7 @@
 import { nextTick, toRaw } from 'vue';
 import { shallowMount } from '@vue/test-utils';
 import { bindMap, unbindMap } from '@/composables/Map';
-import MeasureWin from '@/components/measuretool/MeasureWin';
+import MeasureWin from '@/components/measuretool/MeasureWin.vue';
 import OlMap from 'ol/Map';
 import LineStringGeom from 'ol/geom/LineString';
 

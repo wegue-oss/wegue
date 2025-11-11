@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import ToggleButton from '@/components/modulecore/ToggleButton';
+import ToggleButton from '@/components/modulecore/ToggleButton.vue';
 
 const buttonProps = {
   moduleName: 'my-module',

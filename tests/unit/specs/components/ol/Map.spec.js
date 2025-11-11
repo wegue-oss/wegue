@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import Map from '@/components/ol/Map';
+import Map from '@/components/ol/Map.vue';
 import SelectInteraction from 'ol/interaction/Select';
 
 // Used several times, so make const

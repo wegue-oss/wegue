@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils';
 import { createI18n } from 'vue-i18n';
 import i18nMessages from '@/locales/en.json';
-import WguAppTpl from 'APP/WguAppTemplate';
+import WguAppTpl from 'APP/WguAppTemplate.vue';
 
 function createWrapper ($appConfig = {}) {
   const i18nInstance = createI18n({
