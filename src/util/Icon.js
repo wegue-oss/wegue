@@ -1,4 +1,4 @@
-import ObjectUtil from './Object.js';
+import ObjectUtil from './Object';
 
 /**
  * Icon related utility methods.
@@ -38,17 +38,16 @@ const IconUtil = {
    */
   importPathIcons () {
     const moduleDefaultExtractor = (i) => i.default;
-    const testExp = /custom-icons\/(?:.+\/)*([a-z0-9_-]+).js$/i;
+    const testExp = /custom-icons\/(?:.+\/)*([a-z0-9_-]+)\.js$/i;
 
-    const context = require.context(
-      '../../app',
-      true,
-      /custom-icons\/(?:.+\/)*([a-z0-9_-]+).js$/i
-    );
+    const modules = import.meta.glob('/app/custom-icons/**/*.js', { eager: true });
     const pathIcons = {};
-    for (const key of context.keys()) {
-      const iconName = key.match(testExp)[1];
-      pathIcons[iconName] = moduleDefaultExtractor(context(key));
+    for (const path in modules) {
+      const match = path.match(testExp);
+      if (match) {
+        const iconName = match[1];
+        pathIcons[iconName] = moduleDefaultExtractor(modules[path]);
+      }
     }
 
     return pathIcons;

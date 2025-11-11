@@ -1,5 +1,5 @@
-import ObjectUtil from './Object.js';
-import UrlUtil from './Url.js';
+import ObjectUtil from './Object';
+import UrlUtil from './Url';
 
 /**
  * Locale related utility methods.
@@ -12,23 +12,24 @@ const LocaleUtil = {
   supportedLanguageFallback: { en: 'English' },
 
   /**
-   * Import a webpack context for language files and returns message content.
-   * @param {Object} context The webpack context returned by require.context.
-   * @param {Object} mappingFunc A function to extract messages from an item of the webpack context.
+   * Import a Vite glob context for language files and returns message content.
+   * @param {Object} modules The Vite import.meta.glob result.
+   * @param {Function} mappingFunc A function to extract messages from a module.
    *
    * @returns {Object} A container with message data. Key is the language code, value contains the messages.
    */
-  importLocales (context, mappingFunc) {
-    return context
-      .keys()
-      .map((key) => ({ key, locale: key.match(/[a-z0-9-_]+/i)[0] }))
-      .reduce(
-        (messages, { key, locale }) => ({
-          ...messages,
-          [locale]: mappingFunc(context(key))
-        }),
-        {}
-      );
+  importLocales (modules, mappingFunc) {
+    const messages = {};
+
+    for (const path in modules) {
+      const match = path.match(/.*\/(.+)\.(json|mjs|js)$/i);
+      if (match) {
+        const locale = match[1];
+        messages[locale] = mappingFunc(modules[path]);
+      }
+    }
+
+    return messages;
   },
 
   /**
@@ -39,19 +40,16 @@ const LocaleUtil = {
    * @returns  {Object} A container with message data. Key is the language code, value contains the messages.
    */
   importVueI18nLocales () {
-    const jsonContentExtractor = i => i;
+    const jsonContentExtractor = i => i.default;
 
     // Load Wegue core language files.
-    const i18nMessages = LocaleUtil.importLocales(
-      require.context('../locales', true, /[a-z0-9-_]+\.json$/i),
-      jsonContentExtractor
-    );
+    const coreModules = import.meta.glob('../locales/*.json', { eager: true });
+    const i18nMessages = LocaleUtil.importLocales(coreModules, jsonContentExtractor);
 
     // Try to load optional app specific language files and merge contents.
     try {
-      const i18nMessagesApp = LocaleUtil.importLocales(
-        require.context('../../app/locales', true, /[a-z0-9-_]+\.json$/i),
-        jsonContentExtractor);
+      const appModules = import.meta.glob('/app/locales/*.json', { eager: true });
+      const i18nMessagesApp = LocaleUtil.importLocales(appModules, jsonContentExtractor);
       ObjectUtil.mergeDeep(i18nMessages, i18nMessagesApp);
     } catch (e) {
     }
@@ -68,10 +66,16 @@ const LocaleUtil = {
   importVuetifyLocales () {
     const moduleDefaultExtractor = i => i.default;
 
-    return LocaleUtil.importLocales(
-      require.context('vuetify/lib/locale', false, /[a-z0-9-_]+\.m?js$/i),
-      moduleDefaultExtractor
+    const vuetifyModules = import.meta.glob(
+      [
+        '/node_modules/vuetify/lib/locale/*.js',
+        '/node_modules/vuetify/lib/locale/*.mjs',
+        '!/node_modules/vuetify/lib/locale/index.js',
+        '!/node_modules/vuetify/lib/locale/index.mjs'
+      ],
+      { eager: true }
     );
+    return LocaleUtil.importLocales(vuetifyModules, moduleDefaultExtractor);
   },
 
   /**

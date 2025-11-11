@@ -1,7 +1,7 @@
 import { nextTick } from 'vue';
 import { mount, shallowMount } from '@vue/test-utils';
 import { bindMap, unbindMap } from '@/composables/Map';
-import BgLayerSwitcher from '@/components/bglayerswitcher/BgLayerSwitcher';
+import BgLayerSwitcher from '@/components/bglayerswitcher/BgLayerSwitcher.vue';
 import OlMap from 'ol/Map';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';

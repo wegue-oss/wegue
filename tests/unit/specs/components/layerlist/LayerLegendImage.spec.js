@@ -1,7 +1,7 @@
 import { toRaw } from 'vue';
 import { shallowMount } from '@vue/test-utils';
 import { createI18n } from 'vue-i18n';
-import LayerLegendImage from '@/components/layerlist/LayerLegendImage';
+import LayerLegendImage from '@/components/layerlist/LayerLegendImage.vue';
 import i18nMessages from '@/locales/en.json';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';

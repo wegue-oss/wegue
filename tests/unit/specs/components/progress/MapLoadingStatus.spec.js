@@ -1,7 +1,7 @@
 import { nextTick } from 'vue';
 import { shallowMount } from '@vue/test-utils';
 import { bindMap, unbindMap } from '@/composables/Map';
-import MapLoadingStatus from '@/components/progress/MapLoadingStatus';
+import MapLoadingStatus from '@/components/progress/MapLoadingStatus.vue';
 import OlMap from 'ol/Map';
 import OlView from 'ol/View';
 import MapEvent from 'ol/MapEvent';

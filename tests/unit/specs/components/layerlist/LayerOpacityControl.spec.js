@@ -1,6 +1,6 @@
 import { toRaw } from 'vue';
 import { shallowMount } from '@vue/test-utils';
-import LayerOpacityControl from '@/components/layerlist/LayerOpacityControl';
+import LayerOpacityControl from '@/components/layerlist/LayerOpacityControl.vue';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 

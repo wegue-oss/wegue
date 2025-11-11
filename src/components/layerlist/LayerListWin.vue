@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import ModuleCard from '../modulecore/ModuleCard';
-import LayerList from './LayerList';
+import ModuleCard from '../modulecore/ModuleCard.vue';
+import LayerList from './LayerList.vue';
 
 export default {
   name: 'wgu-layerlist-win',

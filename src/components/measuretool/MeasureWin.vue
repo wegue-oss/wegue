@@ -23,10 +23,10 @@
 </template>
 
 <script>
-import ModuleCard from '../modulecore/ModuleCard';
+import ModuleCard from '../modulecore/ModuleCard.vue';
 import { useMap } from '@/composables/Map';
-import MeasureTypeChooser from './MeasureTypeChooser';
-import MeasureResult from './MeasureResult';
+import MeasureTypeChooser from './MeasureTypeChooser.vue';
+import MeasureResult from './MeasureResult.vue';
 import OlMeasureController from './OlMeasureController';
 
 export default {

@@ -1,7 +1,7 @@
 import { toRaw } from 'vue';
 import { shallowMount } from '@vue/test-utils';
 import { bindMap, unbindMap } from '@/composables/Map';
-import InfoClickWin from '@/components/infoclick/InfoClickWin';
+import InfoClickWin from '@/components/infoclick/InfoClickWin.vue';
 import OlMap from 'ol/Map';
 import Feature from 'ol/Feature';
 import VectorLayer from 'ol/layer/Vector';

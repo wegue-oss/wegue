@@ -16,7 +16,7 @@
 import { useMap } from '@/composables/Map';
 import AngleUtil from '@/util/Angle';
 import LineStringGeom from 'ol/geom/LineString';
-import { getArea, getLength } from 'ol/sphere.js';
+import { getArea, getLength } from 'ol/sphere';
 
 const EMPTY_RESULT_TEXT = ' -- ';
 

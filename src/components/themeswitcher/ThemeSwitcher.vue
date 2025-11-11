@@ -30,7 +30,7 @@ export default {
         // update Vuetify state
         const wantedTheme = value ? 'dark' : 'light';
         if (wantedTheme !== this.theme.global.name.value) {
-          this.theme.global.name.value = wantedTheme;
+          this.theme.change(wantedTheme);
         }
       }
     }

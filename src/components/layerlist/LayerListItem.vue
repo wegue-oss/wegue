@@ -63,8 +63,8 @@
 </template>
 
 <script>
-import LayerLegendImage from './LayerLegendImage';
-import LayerOpacityControl from './LayerOpacityControl';
+import LayerLegendImage from './LayerLegendImage.vue';
+import LayerOpacityControl from './LayerOpacityControl.vue';
 
 export default {
   name: 'wgu-layerlistitem',

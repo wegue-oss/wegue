@@ -77,10 +77,10 @@
 </template>
 
 <script>
-import ModuleCard from '../modulecore/ModuleCard';
+import ModuleCard from '../modulecore/ModuleCard.vue';
 import { useMap } from '@/composables/Map';
-import PropertyTable from './PropertyTable';
-import CoordsTable from './CoordsTable';
+import PropertyTable from './PropertyTable.vue';
+import CoordsTable from './CoordsTable.vue';
 import MapInteractionUtil from '@/util/MapInteraction';
 
 export default {

@@ -1,6 +1,6 @@
 import { shallowMount } from '@vue/test-utils';
 import { bindMap, unbindMap } from '@/composables/Map';
-import ZoomToMaxExtentButton from '@/components/maxextentbutton/ZoomToMaxExtentButton';
+import ZoomToMaxExtentButton from '@/components/maxextentbutton/ZoomToMaxExtentButton.vue';
 import OlMap from 'ol/Map';
 import OlView from 'ol/View';
 

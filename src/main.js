@@ -1,16 +1,25 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in vue.config.js with runtimeCompiler.
 import { configureCompat, createApp } from 'vue';
 import { createVuetify } from 'vuetify';
 import { md } from 'vuetify/iconsets/md';
 import { aliases as defaultAliases, mdi } from 'vuetify/iconsets/mdi';
 import 'vuetify/styles';
 import { createI18nInstance } from './locales/wgu-i18n';
-import 'roboto-fontface/css/roboto/roboto-fontface.css';
+import '@fontsource/roboto/100.css';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import '@fontsource/roboto/900.css';
+import '@fontsource/roboto/100-italic.css';
+import '@fontsource/roboto/300-italic.css';
+import '@fontsource/roboto/400-italic.css';
+import '@fontsource/roboto/500-italic.css';
+import '@fontsource/roboto/700-italic.css';
+import '@fontsource/roboto/900-italic.css';
 import '@mdi/font/css/materialdesignicons.css';
 import 'material-icons/iconfont/material-icons.css';
 import 'ol/ol.css';
-import WguApp from 'APP/WguApp';
+import WguApp from 'APP/WguApp.vue';
 import UrlUtil from './util/Url';
 import IconUtil from './util/Icon';
 import LocaleUtil from './util/Locale';
@@ -18,16 +27,12 @@ import ObjectUtil from './util/Object';
 import ColorThemeUtil from './util/ColorTheme';
 import axios from 'axios';
 
-require('./assets/css/wegue.css');
+import './styles/wegue.css';
+import 'APP/styles/app.css';
 
 configureCompat({
   MODE: 3
 })
-
-// try to load an optional app specific CSS file (set project-specific styles)
-try {
-  require('../app/static/css/app.css');
-} catch (e) { }
 
 // Detect an URL parameter for a custom app context
 const appCtx = UrlUtil.getQueryParam('appCtx');
@@ -101,8 +106,7 @@ const migrateAppConfig = function (appConfig) {
 
   // Create warnings for text based configuration properties,
   // which are no longer supported and have been moved to the language files.
-  /* eslint-disable no-useless-escape */
-  /* eslint-disable quote-props */
+  /* eslint-disable @stylistic/quote-props */
   const deprecatedTextProps = {
     'title': 'app.title',
     'browserTitle': 'app.browserTitle',
@@ -120,8 +124,7 @@ const migrateAppConfig = function (appConfig) {
     'modules\\.wgu-helpwin\\.infoLinkText': 'wgu-helpwin.infoLinkText',
     'modules\\..*\\.title': '<moduleName>.title'
   };
-  /* eslint-enable quote-props */
-  /* eslint-enable no-useless-escape */
+  /* eslint-enable @stylistic/quote-props */
 
   const configPaths = ObjectUtil.toPaths(appConfig);
   for (const path of configPaths) {
@@ -151,14 +154,12 @@ const migrateAppConfig = function (appConfig) {
 
   // Create warnings related to Vuetify color theme configuration,
   // which name have changed in Vuetify 3.x:
-  /* eslint-disable no-useless-escape */
   const deprecatedColorThemeProps = {
     'colorTheme\\.themes\\.light\\.onprimary': '.colorTheme.themes.light.on-primary',
     'colorTheme\\.themes\\.light\\.onsecondary': '.colorTheme.themes.light.on-secondary',
     'colorTheme\\.themes\\.dark\\.onprimary': '.colorTheme.themes.dark.on-primary',
     'colorTheme\\.themes\\.dark\\.onsecondary': '.colorTheme.themes.dark.on-secondary'
   };
-  /* eslint-enable no-useless-escape */
 
   for (const path of configPaths) {
     const match = Object.keys(deprecatedColorThemeProps).find(pattern => {
@@ -173,14 +174,12 @@ const migrateAppConfig = function (appConfig) {
 
   // Create warnings, if one of the color specific animation properties is declared,
   // which are no longer supported due to global view animation configuration.
-  /* eslint-disable no-useless-escape */
   const deprecatedAnimProps = {
     'modules\\.wgu-geolocator\\.zoomAnimation': 'viewAnimation.type',
     'modules\\.wgu-geolocator\\.zoomAnimationDuration': 'viewAnimation.options.duration',
     'modules\\.wgu-geolocator\\.maxZoom': 'viewAnimation.options.maxZoom',
     'modules\\.wgu-geocoder\\.selectZoom': 'viewAnimation.options.zoom'
   };
-  /* eslint-enable no-useless-escape */
 
   for (const path of configPaths) {
     const match = Object.keys(deprecatedAnimProps).find(pattern => {

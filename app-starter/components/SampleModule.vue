@@ -29,13 +29,13 @@
 
 <script>
 // the module card is a the template for a typical Wegue module
-import ModuleCard from '@/components/modulecore/ModuleCard';
+import ModuleCard from '@/components/modulecore/ModuleCard.vue';
 // we import a so called "composable" that helps us to interact with the map
 import { useMap } from '@/composables/Map';
 // an OpenLayers helper function to display coordinates
 import { toStringXY } from 'ol/coordinate';
 // an OpenLayer helper function to transform coordinate reference systems
-import { transform } from 'ol/proj.js';
+import { transform } from 'ol/proj';
 
 export default {
   name: 'sample-module',

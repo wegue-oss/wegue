@@ -5,7 +5,7 @@
       :icon="icon"
       width=350>
 
-    <v-expansion-panels :multiple="true" :variant="true ? 'accordion' : undefined" class="overflow-y-auto">
+    <v-expansion-panels :multiple="true" variant="accordion" class="overflow-y-auto">
       <v-expansion-panel>
         <v-expansion-panel-title>
           <v-row align="center">
@@ -27,7 +27,7 @@
                   item-color="secondary"
                   :menu-props="{
                     'offset-y': true,
-                    bottom: true,
+                    bottom: true
                   }"
                   v-model="mimeType"
                   :items="mimeTypes"
@@ -135,7 +135,7 @@
 </template>
 
 <script>
-import ModuleCard from '../modulecore/ModuleCard';
+import ModuleCard from '../modulecore/ModuleCard.vue';
 import { useMap } from '@/composables/Map';
 import createCanvasRecorder from 'canvas-record';
 

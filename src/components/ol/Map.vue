@@ -21,7 +21,7 @@ import { Vector as VectorLayer } from 'ol/layer';
 import { Vector as VectorSource } from 'ol/source';
 import proj4 from 'proj4';
 import { bindMap, unbindMap } from '@/composables/Map';
-import { LayerFactory } from '@/factory/Layer.js';
+import { LayerFactory } from '@/factory/Layer';
 import LayerUtil from '@/util/Layer';
 import PermalinkController from './PermalinkController';
 import HoverController from './HoverController';

@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import AppSidebar from 'APP/components/AppSidebar';
+import AppSidebar from 'APP/components/AppSidebar.vue';
 import { WguEventBus } from '@/WguEventBus';
 
 function createWrapper () {

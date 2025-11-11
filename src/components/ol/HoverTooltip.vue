@@ -10,7 +10,7 @@
     :autoPanDuration="250"
     positioning="top-center"
     :offset="[0, 20]"
-    v-slot="{feature, hoverAttribute}"
+    v-slot="{ feature, hoverAttribute }"
   >
     <v-sheet v-if="feature"
     class="pa-2 text-center" max-width=200 >

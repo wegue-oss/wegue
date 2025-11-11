@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import AppHeader from 'APP/components/AppHeader';
+import AppHeader from 'APP/components/AppHeader.vue';
 
 function createWrapper ($appConfig = {}) {
   return shallowMount(AppHeader, {
