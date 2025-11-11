@@ -1,4 +1,3 @@
-import { toRaw } from 'vue';
 import { shallowMount } from '@vue/test-utils';
 import { bindMap, unbindMap } from '@/composables/Map';
 import BgLayerList from '@/components/bglayerswitcher/BgLayerList.vue';
@@ -74,7 +73,7 @@ describe('bglayerswitcher/BgLayerList.vue', () => {
 
       expect(vm.displayedLayers).to.have.lengthOf(1);
       const li = vm.displayedLayers[0];
-      expect(toRaw(li)).to.equal(layerIn);
+      expect(li.toRaw()).to.equal(layerIn);
       expect(li.getVisible()).to.equal(true);
       expect(vm.selectedLid).to.equal(layerIn.get('lid'));
     });
