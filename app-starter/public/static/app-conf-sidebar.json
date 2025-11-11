@@ -22,8 +22,8 @@
 
   "mapZoom": 2,
   "mapCenter": [0, 0],
-  "mapGeodataDragDop": {
-    "formats": ["GeoJSON", "KML"],
+  "mapGeodataDragDrop": {
+    "formats": ["GeoJSON","KML"],
     "zoomToData": true,
     "replaceData": true,
     "displayInLayerList": true
