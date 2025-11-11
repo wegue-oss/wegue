@@ -74,8 +74,11 @@ export default class OlMeasureController {
     }
 
     const type = (measureType === 'area' ? 'Polygon' : 'LineString');
+    const leftClickOnly = (event) => event.originalEvent.button === 0;
+
     const draw = new DrawInteraction({
       source: me.source,
+      condition: leftClickOnly,
       type,
       maxPoints: measureType === 'angle' ? 2 : undefined,
       style: new Style({
