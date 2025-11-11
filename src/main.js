@@ -194,6 +194,12 @@ const migrateAppConfig = function (appConfig) {
     }
   };
 
+  // Warning for deprecated mapGeodataDragDop.
+  if (appConfig.mapGeodataDragDop) {
+    console.warn('The configuration path ".mapGeodataDragDop" is deprecated, ' +
+      'instead declare a path ".mapGeodataDragDrop"');
+  }
+
   return appConfig;
 }
 
