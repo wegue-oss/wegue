@@ -9,8 +9,8 @@ const MapInteractionUtil = {
    * Create a selectInteraction for a layer
    *
    * @param {ol.layer.Layer} layer The layer to create the interaction for
-   * @param {Object} [selectStyleConf] The configuration for the selection style
-   * @param {Boolean} [doAppendSelectStyle] If the selection style should be appended to the original style.
+   * @param {Object} [selectStyleConf] Optional configuration for the selection style
+   * @param {Boolean} doAppendSelectStyle Whether the selection style should be appended to the original style.
    *
    * @returns {ol.interaction.Select} The select interaction
    */

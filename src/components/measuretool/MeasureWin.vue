@@ -104,9 +104,8 @@ export default {
      * Called as callback of MeasureTypeChooser
      *
      * @param  {String} newMeasureType New measure type
-     * @param  {String} oldMeasureType Old measure type
      */
-    applyMeasureType (newMeasureType, oldMeasureType) {
+    applyMeasureType (newMeasureType) {
       this.measureType = newMeasureType;
     },
     /**

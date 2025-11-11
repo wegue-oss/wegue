@@ -165,7 +165,7 @@ const ColorThemeUtil = {
 
   /**
    * Builds the theme object used by Vuetify
-   * @param {Object} inputConfig user configuration from app-config
+   * @param {Object} [inputConfig] optional user configuration from app-config
    * @returns {Object} theme object
    */
   buildTheme: function (inputConfig) {

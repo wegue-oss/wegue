@@ -40,7 +40,7 @@ const UrlUtil = {
    * as JS object (key-value).
    * If querySearch is not provided it is derived from the current location.
    *
-   * @param  {String} querySearch Search part (querySearch) of an URL
+   * @param  {String} [querySearch] Optional search part (querySearch) of an URL
    * @return {Object} Key-value pairs of the URL parameters, may be empty {}.
    */
   getQueryParams (querySearch) {
@@ -60,7 +60,7 @@ const UrlUtil = {
    * as JS object (key-value).
    * If hash is not provided it is derived from the current location.
    *
-   * @param  {String} hash Search part (hash) of an URL
+   * @param  {String} [hash] Optional search part (hash) of an URL
    * @return {Object} Key-value pairs of the URL parameters
    */
   getHashParams (hash) {
@@ -76,7 +76,7 @@ const UrlUtil = {
    * If querySearch is not provided it is derived from the current location.
    *
    * @param  {String} param       The URL param name
-   * @param  {String} querySearch Search part (querySearch) of an URL
+   * @param  {String} [querySearch] Optional search part (querySearch) of an URL
    * @return {String}             Value of the given URL param
    */
   getQueryParam (param, querySearch) {

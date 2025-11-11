@@ -10,7 +10,7 @@ class LayerLegend {
   /**
    * Instantiates a layer legend object with the legend options configured
    * in the application context.
-   * @param {Object} options  Application wide legend options.
+   * @param {Object} [options] Optional application wide legend options.
    */
   constructor (options) {
     this.options = options;
@@ -19,7 +19,7 @@ class LayerLegend {
   /**
    * Merges the given legend options with the legend options configured
    * in the application context. The provided options will take precedence.
-   * @param {Object} options Optional configuration params.
+   * @param {Object} [options] Optional configuration params.
    * @returns {Object} Merged configuration params.
    */
   getOptions (options) {
@@ -33,8 +33,8 @@ class LayerLegend {
    * Returns a URL to the layers legend image.
    * @param {ol.Layer} layer The layer to produce the legend for.
    * @param {Number} resolution Resolution of the legend image.
-   * @param {Object} options Optional configuration params.
-   * @param {String} formatUrl A custom format URL.
+   * @param {Object} [options] Optional configuration params.
+   * @param {String} [formatUrl] An optional custom format URL.
    * @returns {String} Legend URL or undefined if no legend can be produced.
    */
   getUrl (layer, resolution, options, formatUrl) {
@@ -69,7 +69,7 @@ const CustomLegend = {
    * This replaces the parameter placeholders in formatUrl.
    * @param {ol.Source} source The source to produce the legend for.
    * @param {Number} resolution Resolution of the legend image.
-   * @param {Object} options Optional configuration params.
+   * @param {Object} [options] Optional configuration params.
    * @param {String} formatUrl  A custom format URL.
    * @returns {String} The legend URL.
    */
@@ -99,7 +99,7 @@ const WMSSourceLegend = {
    * Returns a URL to the legend image.
    * @param {ol.Source} source The source to produce the legend for.
    * @param {Number} resolution Resolution of the legend image.
-   * @param {Object} options Optional configuration params.
+   * @param {Object} [options] Optional configuration params.
    * @returns {String} The legend URL.
    */
   getUrl (source, resolution, options) {
