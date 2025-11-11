@@ -102,8 +102,8 @@ const NoAnimation = {
    * @param {ol.Coordinate} location The destination center point to zoom to.
    * @param {function(complete)} [completionCallback] An optional notification that the animation has completed.
    * @param {Object} options Configuration object for the animation, supported attributes are:
-   * * {Number} [zoom] An optional final zoom level.
-   * * {Number} [maxZoom] An optional maximal zoom level.
+   * @param {Number} [options.zoom] An optional final zoom level.
+   * @param {Number} [options.maxZoom] An optional maximal zoom level.
    */
   toLocation (view, location, completionCallback, options) {
     // Set defaults if arguments are not provided.
@@ -119,7 +119,7 @@ const NoAnimation = {
    * @param {ol.Extent} extent The destination extent to zoom to.
    * @param {function(complete)} [completionCallback] An optional notification that the animation has completed.
    * @param {Object} options Configuration object for the animation, supported attributes are:
-   * * {Number} [maxZoom] An optional maximal zoom level.
+   * @param {Number} [options.maxZoom] An optional maximal zoom level.
    */
   toExtent (view, extent, completionCallback, options) {
     // Set defaults if arguments are not provided.
@@ -162,9 +162,9 @@ const PanAnimation = {
    * @param {ol.Coordinate} location The destination center point to zoom to.
    * @param {function(complete)} [completionCallback] An optional notification that the animation has completed.
    * @param {Object} options Configuration object for the animation, supported attributes are:
-   * * {Number} [duration] An optional animation duration.
-   * * {Number} [zoom] An optional final zoom level.
-   * * {Number} [maxZoom] An optional maximal zoom level.
+   * @param {Number} [options.duration] An optional animation duration.
+   * @param {Number} [options.zoom] An optional final zoom level.
+   * @param {Number} [options.maxZoom] An optional maximal zoom level.
    */
   toLocation (view, location, completionCallback, options) {
     // Set defaults if arguments are not provided.
@@ -181,8 +181,8 @@ const PanAnimation = {
    * @param {ol.Extent} extent The destination extent to zoom to.
    * @param {function(complete)} [completionCallback] An optional notification that the animation has completed.
    * @param {Object} options Configuration object for the animation, supported attributes are:
-   * * {Number} [duration] An optional animation duration.
-   * * {Number} [maxZoom] An optional maximal zoom level.
+   * @param {Number} [options.duration] An optional animation duration.
+   * @param {Number} [options.maxZoom] An optional maximal zoom level.
    */
   toExtent (view, extent, completionCallback, options) {
     // Set defaults if arguments are not provided.
@@ -233,9 +233,9 @@ const FlyAnimation = {
    * @param {ol.Coordinate} location The destination center point to zoom to.
    * @param {function(complete)} [completionCallback] An optional notification that the animation has completed.
    * @param {Object} options Configuration object for the animation, supported attributes are:
-   * * {Number} [duration] An optional animation duration.
-   * * {Number} [zoom] An optional final zoom level.
-   * * {Number} [maxZoom] An optional maximal zoom level.
+   * @param {Number} [options.duration] - Configuration object for the animation.
+   * @param {Number} [options.zoom] - Optional final zoom level.
+   * @param {Number} [options.maxZoom] - Optional maximal zoom level.
    */
   toLocation (view, location, completionCallback, options) {
     // Set defaults if arguments are not provided.
@@ -258,8 +258,8 @@ const FlyAnimation = {
    * @param {ol.Extent} extent The destination extent to zoom to.
    * @param {function(complete)} [completionCallback] An optional notification that the animation has completed.
    * @param {Object} options Configuration object for the animation, supported attributes are:
-   * * {Number} [duration] An optional animation duration.
-   * * {Number} [maxZoom] An optional maximal zoom level.
+   * @param {Number} [options.duration] An optional animation duration.
+   * @param {Number} [options.maxZoom] An optional maximal zoom level.
    */
   toExtent (view, extent, completionCallback, options) {
     // Set defaults if arguments are not provided.
@@ -335,9 +335,9 @@ const BounceAnimation =
    * @param {ol.Coordinate} location The destination center point to zoom to.
    * @param {function(complete)} [completionCallback] An optional notification that the animation has completed.
    * @param {Object} options Configuration object for the animation, supported attributes are:
-   * * {Number} [duration] An optional animation duration.
-   * * {Number} [zoom] An optional final zoom level.
-   * * {Number} [maxZoom] An optional maximal zoom level.
+   * @param {Number} [options.duration] An optional animation duration.
+   * @param {Number} [options.zoom] An optional final zoom level.
+   * @param {Number} [options.maxZoom] An optional maximal zoom level.
    */
   toLocation (view, location, completionCallback, options) {
     // Set defaults if arguments are not provided.
@@ -354,8 +354,8 @@ const BounceAnimation =
    * @param {ol.Extent} extent The destination extent to zoom to.
    * @param {function(complete)} [completionCallback] An optional notification that the animation has completed.
    * @param {Object} options Configuration object for the animation, supported attributes are:
-   * * {Number} [duration] An optional animation duration.
-   * * {Number} [maxZoom] An optional maximal zoom level.
+   * @param {Number} [options.duration] An optional animation duration.
+   * @param {Number} [options.maxZoom] An optional maximal zoom level.
    */
   toExtent (view, extent, completionCallback, options) {
     // Set defaults if arguments are not provided.
