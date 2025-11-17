@@ -57,6 +57,10 @@
     "terrestris-osm-wms" : {
       "name": "WMS do OSM",
       "attributions": "<a href='https://www.openstreetmap.org/copyright' target='_blank'>© Colaboradores do OpenStreetMap</a>"
+    },
+    "test_arcgisrest" : {
+      "name": "Camada em mosaico de teste do ArcGIS REST",
+      "attributions": "<a href='https://www.padovanet.it' target='_blank'>© Município de Pádua</a>"
     }
   },
 

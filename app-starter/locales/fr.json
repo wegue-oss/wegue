@@ -60,8 +60,8 @@
       "attributions": "<a href='https://www.openstreetmap.org/copyright' target='_blank'>© OpenStreetMap-contributeurs</a>"
     },
     "test_arcgisrest" : {
-      "name": "Couche test de tuiles Arcgis REST",
-      "attributions": "<a href='https://www.padovanet.it' target='_blank'>© Commune de Padova</a>"
+      "name": "Couche test de tuiles ArcGIS REST",
+      "attributions": "<a href='https://www.padovanet.it' target='_blank'>© Commune de Padoue</a>"
     }
   },
 
