@@ -7,12 +7,14 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Build related
 node_modules
 .DS_Store
 dist
 dist-ssr
 coverage
 *.local
+.eslintcache
 
 /cypress/videos/
 /cypress/screenshots/
