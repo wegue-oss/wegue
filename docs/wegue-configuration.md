@@ -18,7 +18,7 @@ This describes the Wegue application configuration, which is modelled as JSON do
 | **mapZoom**        | Initial zoom level of the map | `"mapZoom": 2` |
 | **mapCenter**      | Initial center of the map in map projection | `"mapCenter": [0, 0]` |
 | mapProjection      | Configuration object for CRS / projection used for the map | see [mapProjection](wegue-configuration?id=mapprojection) |
-| mapGeodataDragDop  | Configuration object for geodata file drag/drop functionality on the map. Only by setting the config this function will be enabled. | see [mapGeodataDragDop](wegue-configuration?id=mapGeodataDragDop) |
+| mapGeodataDragDrop  | Configuration object for geodata file drag/drop functionality on the map. Only by setting the config this function will be enabled. | see [mapGeodataDragDrop](wegue-configuration?id=mapGeodataDragDrop) |
 | mapHover           | Configuration object containing application wide parameters for hover tooltips on the map. | see [mapHover](wegue-configuration?id=mapHover)
 | **modules**        | Array of module configuration objects | See [modules](module-configuration) |
 | **mapLayers**      | Array of map layer configuration objects | See [mapLayers](map-layer-configuration) |
@@ -207,9 +207,9 @@ In a Layer configuration a specific tilegrid can be refered to as follows, using
     }
 ```
 
-### mapGeodataDragDop
+### mapGeodataDragDrop
 
-Setting the property `mapGeodataDragDop` in the main Wegue configuration will enable geodata file drag/drop functionality on the map.
+Setting the property `mapGeodataDragDrop` in the main Wegue configuration will enable geodata file drag/drop functionality on the map.
 
 The following configurations can be set:
 
@@ -440,7 +440,7 @@ Example configurations can be found in the `app-starter/static` directory. Below
 
   "mapZoom": 2,
   "mapCenter": [0, 0],
-  "mapGeodataDragDop": {
+  "mapGeodataDragDrop": {
     "formats": ["GeoJSON", "KML"],
     "zoomToData": true,
     "replaceData": true,
