@@ -1,13 +1,15 @@
-import { toRaw } from 'vue';
 import { shallowMount } from '@vue/test-utils';
 import LayerOpacityControl from '@/components/layerlist/LayerOpacityControl.vue';
+import { LayerProxy } from '@/util/Layer';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 
-const osmLayer = new TileLayer({
-  lid: 'osm',
-  source: new OSM()
-});
+const osmLayer = new LayerProxy(
+  new TileLayer({
+    lid: 'osm',
+    source: new OSM()
+  })
+)
 
 const moduleProps = {
   layer: osmLayer
@@ -34,7 +36,7 @@ describe('layerlist/LayerOpacityControl.vue', () => {
     });
 
     it('has correct props', () => {
-      expect(toRaw(vm.layer)).to.equal(osmLayer);
+      expect(vm.layer).to.equal(osmLayer);
     });
 
     afterEach(() => {
