@@ -2,7 +2,7 @@
 
 # build stage
 FROM node:lts-alpine AS build-stage
-ARG PUBLIC_PATH=/
+ARG PUBLIC_PATH=./
 WORKDIR /app
 COPY package*.json ./
 RUN npm install

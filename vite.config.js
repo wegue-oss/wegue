@@ -57,7 +57,7 @@ export default defineConfig(({ mode }) => {
       }
     },
     // Apply the default deployment path if not specified or if running unit tests.
-    base: (process.env.NODE_ENV !== 'test' && env?.WGU_PUBLIC_PATH) || '/',
+    base: (process.env.NODE_ENV !== 'test' && env?.WGU_PUBLIC_PATH) || './',
     publicDir: 'app/public',
     server: {
       open: '/index.html'
