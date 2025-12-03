@@ -1,0 +1,6 @@
+$custom-font-family: Avenir, Helvetica, Arial, sans-serif;
+
+@use 'vuetify/settings' with (
+  $body-font-family: $custom-font-family,
+  $heading-font-family: $custom-font-family
+);

@@ -36,7 +36,11 @@ export default defineConfig(({ mode }) => {
       }),
       // Remove Vue DevTools plugin when building for unit tests.
       ...(process.env.NODE_ENV === 'test' ? [] : [vueDevTools()]),
-      Vuetify(),
+      Vuetify({
+        styles: {
+          configFile: 'app/styles/vuetify-settings.scss'
+        }
+      }),
       eslintPlugin({
         // Lint src and app directories.
         shouldLint: (path) => path.match(/\/(src|app)\/[^?]*\.(vue|svelte|m?[jt]sx?)$/)
