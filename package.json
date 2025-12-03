@@ -22,7 +22,6 @@
     "init:app": "node util/init-app.js"
   },
   "dependencies": {
-    "@fontsource/roboto": "^5.2.8",
     "@vue/compat": "^3.5.22",
     "axios": "^1.12.2",
     "canvas-record": "^3.1.0",
