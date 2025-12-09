@@ -231,7 +231,6 @@ export const LayerFactory = {
           service: 'WFS',
           version: lConf.version,
           request: 'GetFeature',
-          typename: lConf.typeName,
           outputFormat,
           srsname: lConf.projection
         };
@@ -240,8 +239,10 @@ export const LayerFactory = {
         if (Number.isInteger(parseInt(lConf.maxFeatures))) {
           if (lConf.version.startsWith('1.')) {
             params.maxFeatures = lConf.maxFeatures;
+            params.typename = lConf.typeName;
           } else {
             params.count = lConf.maxFeatures;
+            params.typeNames = lConf.typeName;
           }
         }
         // add bbox filter
