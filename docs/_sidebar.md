@@ -10,6 +10,7 @@
     - [Reusable Components](reusable-components.md)
     - [Language Packs](language-packs.md)
     - [Custom Icons](custom-icons.md)
+    - [Vuetify SASS Variables](vuetify-sass-variables.md)
 - [QGIS2Wegue](qgis_plugin.md)
 
 
