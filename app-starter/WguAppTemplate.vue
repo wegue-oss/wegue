@@ -186,7 +186,8 @@ export default {
         const moduleOpts = appConfig.modules[key];
         if (moduleOpts.win === target) {
           moduleWins.push({
-            type: key + '-win',
+            type: (moduleOpts.moduleType ?? key) + '-win',
+            moduleName: key,
             ...moduleOpts
           });
         }
