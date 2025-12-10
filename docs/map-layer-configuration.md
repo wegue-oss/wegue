@@ -55,8 +55,8 @@ The following properties can be applied to all map layer types
 | Property            |  Meaning  | Example |
 |---------------------|:---------:|---------|
 | **type**            | Indicator that the layer is a WFS-based vector layer, always `WFS` here  | `"type": "WFS"` |
-| **url**             | The URL to the Web Feature Service (WFS) | `"url": "https://ows.terrestris.de/geoserver/osm/wfs"` |
-| **typeName**        | The name of the FeatureType | `"typeName": "osm:osm-fuel"`|
+| **url**             | The URL to the Web Feature Service (WFS) | `"url": "https://sgx.geodatenzentrum.de/wfs_poi_open"` |
+| **typeName**        | The name of the FeatureType | `"typeName": "poi-open:flughaefen"`|
 | projection         |  The projection of the layer. Has to be defined in `projectionDefs` if not `EPSG:4326` or `EPSG:3857`. if not set the projection of the map is used | `"projection": "EPSG:3857"` |
 | style               | Object to define a rendering style for the features of the layer  | see [style](map-layer-configuration?id=style-for-vectorlayers) |
 | version             | The version of the WFS, defaults to `1.1.0` | `"version": "2.0.0"`|
