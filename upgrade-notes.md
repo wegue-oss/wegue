@@ -104,6 +104,15 @@ Take also note that the `accent` and `anchor` colors were removed while some oth
 For example, an icon which was defined as `export default 'M 23.16738,3.1894921 18.478314,20.810508 H ... L 20.847525,3.1894921 Z'` should now de defined as `export default 'svg:M 23.16738,3.1894921 18.478314,20.810508 H ... L 20.847525,3.1894921 Z'`. If this was defined inside a file called `app/custom-icons/WLetter.js`, it was displayed using `$vuetify.icons.WLetter` as a name. If the file name hasn't changed, it is now displayable using `$WLetter` as a name.  
 Please update your app code and configuration files accordingly.
 
+### Material Design Icons
+
+The `MDI` and `material-icons` icon libraries were upgraded to the following versions:
+
+- `@mdi/font` => 7.4.47
+- `material-icons` => 1.13.14
+
+Please refer to the [official changelog](https://pictogrammers.com/docs/library/mdi/releases/changelog/) for versions later than `7.2.96` and check if you are using `updated` icons. These have changed visually and may impact the appearance of your `Wegue` application.
+
 ### ESLint
 
 `ESLint` and its associated plugins were upgraded to the following versions:
