@@ -521,13 +521,14 @@ Example configurations can be found in the `app-starter/static` directory. Below
       "loadOnlyVisible": true,
       "visible": false,
       "selectable": true,
+      "columnMapping": {
+        "name": "Name",
+        "poi_id": "POI ID"
+      },
       "style": {
         "textIcon": "airplane_ticket",
         "font": "normal 30px Material Icons",
         "fillColor": "black"
-      },
-      "columnMapping": {
-        "name": "Name"
       },
       "selectStyle": {
         "textIcon": "airplane_ticket",

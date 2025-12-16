@@ -103,6 +103,10 @@
       "loadOnlyVisible": true,
       "visible": false,
       "selectable": true,
+      "columnMapping": {
+        "name": "Name",
+        "poi_id": "POI ID"
+      },
       "style": {
         "textIcon": "airplane_ticket",
         "font": "normal 30px Material Icons",
