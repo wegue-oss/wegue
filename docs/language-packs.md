@@ -108,9 +108,9 @@ Below is an example configuration for an English language pack.
     "Shops": {
       "name": "Shops DaSchau"
     },
-    "gas-wfs": {
-      "name": "Gas Stations WFS",
-      "attributions": "© <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors."
+    "airport-de-wfs": {
+      "name": "Airports Germany WFS",
+      "attributions": "© <a href=\"https://www.bkg.bund.de/\">BKG</a> <a href=\"https://www.govdata.de/dl-de/by-2-0\">dl-de/by-2-0</a> <a href=\"https://sg.geodatenzentrum.de/web_public/gdz/datenquellen/datenquellen_poi-open.pdf\">Data Sources</a>."
     },
     "earthquakes": {
       "name": "Earthquakes 2012 (Mag 5)",

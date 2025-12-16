@@ -511,29 +511,29 @@ Example configurations can be found in the `app-starter/static` directory. Below
     },
     {
       "type": "WFS",
-      "lid": "gas-wfs",
-      "url": "https://ows-demo.terrestris.de/geoserver/osm/wfs",
-      "typeName": "osm:osm-fuel",
+      "lid": "airport-de-wfs",
+      "url": "https://sgx.geodatenzentrum.de/wfs_poi_open",
+      "typeName": "poi-open:flughaefen",
       "version": "2.0.0",
-      "maxFeatures": 50,
-      "formatConfig": {
-      },
+      "maxFeatures": 75,
+      "formatConfig": {},
       "format": "GML3",
       "loadOnlyVisible": true,
       "visible": false,
       "selectable": true,
-      "style": {
-        "textIcon": "local_gas_station",
-        "font": "normal 30px Material Icons",
-        "fillColor": "blue"
-      },
       "columnMapping": {
-        "name": "Name"
+        "name": "Name",
+        "poi_id": "POI ID"
       },
-      "selectStyle": {
-        "textIcon": "star",
+      "style": {
+        "textIcon": "airplane_ticket",
         "font": "normal 30px Material Icons",
         "fillColor": "black"
+      },
+      "selectStyle": {
+        "textIcon": "airplane_ticket",
+        "font": "normal 30px Material Icons",
+        "fillColor": "blue"
       },
       "doAppendSelectStyle": false
     },

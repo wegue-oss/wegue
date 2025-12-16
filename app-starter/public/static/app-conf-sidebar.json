@@ -103,33 +103,31 @@
     },
     {
       "type": "WFS",
-      "lid": "gas-wfs",
-      "url": "https://ows-demo.terrestris.de/geoserver/osm/wfs",
-      "typeName": "osm:osm-fuel",
+      "lid": "airport-de-wfs",
+      "url": "https://sgx.geodatenzentrum.de/wfs_poi_open",
+      "typeName": "poi-open:flughaefen",
       "version": "2.0.0",
-      "maxFeatures": 50,
-      "formatConfig": {
-      },
+      "maxFeatures": 75,
+      "formatConfig": {},
       "format": "GML3",
       "loadOnlyVisible": true,
       "visible": false,
       "selectable": true,
       "style": {
-        "textIcon": "local_gas_station",
+        "textIcon": "airplane_ticket",
         "font": "normal 30px Material Icons",
-        "fillColor": "blue"
+        "fillColor": "black"
       },
       "columnMapping": {
         "name": "Name"
       },
       "selectStyle": {
-        "textIcon": "star",
+        "textIcon": "airplane_ticket",
         "font": "normal 30px Material Icons",
-        "fillColor": "black"
+        "fillColor": "blue"
       },
       "doAppendSelectStyle": false
     },
-
     {
       "type": "VECTOR",
       "lid": "earthquakes",
