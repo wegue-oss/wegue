@@ -23,11 +23,11 @@
   },
   "dependencies": {
     "@fontsource/roboto": "^5.2.8",
+    "@material-design-icons/font": "0.14.15",
     "@mdi/font": "7.4.47",
     "@vue/compat": "^3.5.22",
     "axios": "^1.12.2",
     "canvas-record": "^3.1.0",
-    "material-icons": "1.13.14",
     "ol": "10.2.1",
     "proj4": "2.9.0",
     "tiny-emitter": "^2.1.0",

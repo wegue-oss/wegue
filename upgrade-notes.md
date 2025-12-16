@@ -106,12 +106,15 @@ Please update your app code and configuration files accordingly.
 
 ### Material Design Icons
 
-The `MDI` and `material-icons` icon libraries were upgraded to the following versions:
+The `MDI` icon library was upgraded to its current latest version.  
+Please refer to the [official changelog](https://pictogrammers.com/docs/library/mdi/releases/changelog/) for versions later than `7.2.96` and check if you are using `updated` icons. These have changed visually and may impact the appearance of your `Wegue` application.
+
+The `material-icons` icon library was replaced by `@material-design-icons` which is a lighter version of the previously used one. The available icons set is exactly the same but only the `woff2` format is included.
+
+Current pinned versions are the following:
 
 - `@mdi/font` => 7.4.47
-- `material-icons` => 1.13.14
-
-Please refer to the [official changelog](https://pictogrammers.com/docs/library/mdi/releases/changelog/) for versions later than `7.2.96` and check if you are using `updated` icons. These have changed visually and may impact the appearance of your `Wegue` application.
+- `@material-design-icons/font` => 0.14.15
 
 ### ESLint
 
