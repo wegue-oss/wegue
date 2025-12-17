@@ -284,14 +284,19 @@ describe('geocoder/Geocoder.vue', () => {
       expect(vm.onQueryResults).to.be.a('function');
     });
 
-    it('GeoCoderController calls remote service', done => {
-      vm.geocoderController.query(queryString).then(results => {
-        expect(results).to.not.be.undefined;
-        expect(results).to.not.be.empty;
-        expect(results[0].address.road).to.equal('Heerstraße');
-        done();
-      });
-    });
+    it('GeoCoderController calls remote service', async function () {
+      try {
+        const result = await vm.geocoderController.query(queryString);
+        expect(result).to.not.be.undefined;
+        expect(result).to.not.be.empty;
+        expect(result[0].address.road).to.equal('Heerstraße');
+      } catch (error) {
+        if (error.code === 'ERR_NETWORK' || error.code === 'ECONNREFUSED' || error.message.includes('Network')) {
+          this.skip();
+        }
+        throw error; // real failures still fail the test
+      }
+    }).timeout(16000);
 
     it('search method assigns last query string', async () => {
       applyAxiosMock();

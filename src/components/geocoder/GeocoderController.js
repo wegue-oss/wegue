@@ -80,7 +80,8 @@ export class GeocoderController {
       method: 'GET',
       url: parameters.url,
       params: parameters.params,
-      signal: this.abortController?.signal
+      signal: this.abortController?.signal,
+      timeout: 15000
     };
 
     const response = await axios(request);
