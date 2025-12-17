@@ -57,7 +57,7 @@ Module identifier: `wgu-geocoder`
 | queryDelay         | Delay in MS before a query is triggered | `"queryDelay": 200` |
 | debug              | Boolean value to enable debug logs | `"debug": false` |
 | provider           | Key defining which geocoder provider should be used. Could be `osm`, `photon` or `opencage` | `"provider": "osm"` |
-| providerOptions    | Optional options which are passed to the geocoder provider | `"providerOptions": {"lang": "en-US", "countrycodes": "", "limit": 6}` |
+| providerOptions    | Optional options which are passed to the geocoder provider | `"providerOptions": {"lang": "en-US", "countrycodes": "", "limit": 6, timeout: 8000}` |
 
 ## GeoLocator
 
