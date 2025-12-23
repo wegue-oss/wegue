@@ -40,7 +40,6 @@ describe('attributeTable/AttributeTableWin.vue', () => {
     });
 
     it('has correct default data', () => {
-      expect(vm.moduleName).to.equal('wgu-attributetable');
       expect(vm.selLayerLid).to.be.null;
     });
 

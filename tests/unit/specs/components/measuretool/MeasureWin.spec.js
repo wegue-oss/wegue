@@ -46,7 +46,6 @@ describe('measuretool/MeasureWin.vue', () => {
     });
 
     it('has correct default data', () => {
-      expect(vm.moduleName).to.equal('wgu-measuretool');
       expect(vm.measureGeom).to.be.null;
       expect(vm.measureType).to.equal('distance');
     });

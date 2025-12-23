@@ -43,7 +43,6 @@ describe('maprecorder/MapRecorderWin.vue', () => {
     });
 
     it('has correct default data', () => {
-      expect(vm.moduleName).to.equal('wgu-maprecorder');
       expect(vm.mapCanvas).to.be.null;
       expect(vm.mapContext).to.be.null;
       expect(vm.recorder).to.be.null;

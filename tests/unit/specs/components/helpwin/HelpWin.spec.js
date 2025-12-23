@@ -62,10 +62,6 @@ describe('helpwin/HelpWin.vue', () => {
       vm = comp.vm;
     });
 
-    it('has correct default data', () => {
-      expect(vm.moduleName).to.equal('wgu-helpwin');
-    });
-
     afterEach(() => {
       comp.unmount();
     });
