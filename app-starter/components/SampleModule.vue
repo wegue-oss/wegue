@@ -7,7 +7,6 @@
   -->
   <wgu-module-card
     v-bind="$attrs"
-    moduleName="sample-module"
     class="sample-module"
     :icon="icon"
   >
