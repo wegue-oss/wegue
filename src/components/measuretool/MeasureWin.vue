@@ -1,6 +1,5 @@
 <template>
   <wgu-module-card v-bind="$attrs"
-      :moduleName="moduleName"
       class="wgu-measurewin"
       :icon="icon"
       v-on:visibility-change="show">
@@ -48,7 +47,6 @@ export default {
   },
   data () {
     return {
-      moduleName: 'wgu-measuretool',
       measureGeom: null,
       measureType: 'distance'
     }

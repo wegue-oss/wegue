@@ -1,6 +1,5 @@
 <template>
   <wgu-module-card v-bind="$attrs"
-    :moduleName="moduleName"
     class="wgu-infoclick-win"
     :icon="icon"
     v-on:visibility-change="show">
@@ -105,7 +104,6 @@ export default {
   },
   data: function () {
     return {
-      moduleName: 'wgu-infoclick',
       attributeData: null,
       coordsData: null,
       featureIdx: 0,

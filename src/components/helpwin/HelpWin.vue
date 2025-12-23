@@ -1,6 +1,5 @@
 <template>
   <wgu-module-card v-bind="$attrs"
-      :moduleName="moduleName"
       class="wgu-helpwin"
       :icon="icon"
       :width="width">
@@ -36,11 +35,6 @@ export default {
   props: {
     icon: { type: String, required: false, default: 'md:help' },
     width: { type: Number, required: false, default: 300 }
-  },
-  data () {
-    return {
-      moduleName: 'wgu-helpwin'
-    }
   }
 };
 </script>

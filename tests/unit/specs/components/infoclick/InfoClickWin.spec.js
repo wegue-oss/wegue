@@ -51,7 +51,6 @@ describe('infoclick/InfoClickWin.vue', () => {
     });
 
     it('has correct default data', () => {
-      expect(vm.moduleName).to.equal('wgu-infoclick');
       expect(vm.attributeData).to.be.null;
       expect(vm.coordsData).to.be.null;
       expect(vm.featureIdx).to.equal(0);
