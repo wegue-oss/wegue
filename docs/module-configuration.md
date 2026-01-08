@@ -52,6 +52,11 @@ In this configuration:
 If `moduleType` is omitted, Wegue assumes that the module identifier itself represents the module type.
 
 
+#### Note / Limitation:
+While Wegue supports configuring multiple instances of the same module type, stock Wegue components are not guaranteed to be designed for multi-instantiation. Some built-in modules may rely on shared state, global identifiers, or singleton assumptions and may behave incorrectly or unpredictably when instantiated multiple times.
+
+Multi-instantiation is therefore primarily intended for custom modules or stock modules that are explicitly designed and validated for this usage. When using multiple instances of a stock module, this behavior should be considered experimental unless otherwise documented.
+
 ### Common module properties
 
 The following properties can be applied to all module types:
