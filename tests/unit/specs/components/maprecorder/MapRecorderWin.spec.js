@@ -5,8 +5,14 @@ import OlMap from 'ol/Map';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 
-function createWrapper () {
-  return shallowMount(MapRecorderWin);
+const moduleProps = {
+  moduleName: 'wgu-maprecorder'
+};
+
+function createWrapper (props = moduleProps) {
+  return shallowMount(MapRecorderWin, {
+    props
+  });
 }
 
 describe('maprecorder/MapRecorderWin.vue', () => {

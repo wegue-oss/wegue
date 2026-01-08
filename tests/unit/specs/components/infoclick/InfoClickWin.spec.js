@@ -8,8 +8,14 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import Point from 'ol/geom/Point';
 
-function createWrapper () {
-  return shallowMount(InfoClickWin);
+const moduleProps = {
+  moduleName: 'wgu-infoclick'
+};
+
+function createWrapper (props = moduleProps) {
+  return shallowMount(InfoClickWin, {
+    props
+  });
 }
 
 describe('infoclick/InfoClickWin.vue', () => {

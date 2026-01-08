@@ -2,10 +2,15 @@ import { shallowMount } from '@vue/test-utils';
 import HelpWin from '@/components/helpwin/HelpWin.vue';
 
 const moduleProps = {
+  moduleName: 'wgu-helpwin'
+};
+
+const confModuleProps = {
+  moduleName: 'wgu-helpwin',
   icon: 'my-icon'
 };
 
-function createWrapper (props = {}, $appConfig = { modules: {} }) {
+function createWrapper (props = moduleProps, $appConfig = { modules: {} }) {
   return shallowMount(HelpWin, {
     props,
     global: {
@@ -43,7 +48,7 @@ describe('helpwin/HelpWin.vue', () => {
 
   describe('configured', () => {
     beforeEach(() => {
-      comp = createWrapper(moduleProps);
+      comp = createWrapper(confModuleProps);
       vm = comp.vm;
     });
 
