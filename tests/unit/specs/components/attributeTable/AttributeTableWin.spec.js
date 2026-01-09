@@ -1,8 +1,14 @@
 import { shallowMount } from '@vue/test-utils';
 import AttributeTableWin from '@/components/attributeTable/AttributeTableWin.vue';
 
-function createWrapper () {
-  return shallowMount(AttributeTableWin);
+const moduleProps = {
+  moduleName: 'wgu-attributetable'
+};
+
+function createWrapper (props = moduleProps) {
+  return shallowMount(AttributeTableWin, {
+    props
+  });
 }
 
 describe('attributeTable/AttributeTableWin.vue', () => {
@@ -40,7 +46,6 @@ describe('attributeTable/AttributeTableWin.vue', () => {
     });
 
     it('has correct default data', () => {
-      expect(vm.moduleName).to.equal('wgu-attributetable');
       expect(vm.selLayerLid).to.be.null;
     });
 

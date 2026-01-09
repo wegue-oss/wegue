@@ -1,6 +1,5 @@
 <template>
    <wgu-module-card v-bind="$attrs"
-      moduleName="wgu-layerlist"
       class="wgu-layerlist"
       :icon="icon"
       >

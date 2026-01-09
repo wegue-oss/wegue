@@ -1,6 +1,5 @@
 <template>
   <wgu-module-card v-bind="$attrs"
-      :moduleName="moduleName"
       class="wgu-maprecorder-win"
       :icon="icon"
       width=350>
@@ -156,7 +155,6 @@ export default {
     const mimeTypes = this.getSupportedMimeTypes();
 
     return {
-      moduleName: 'wgu-maprecorder',
       /**
        * Custom canvas element for drawing the OpenLayers map.
        */

@@ -5,8 +5,14 @@ import MeasureWin from '@/components/measuretool/MeasureWin.vue';
 import OlMap from 'ol/Map';
 import LineStringGeom from 'ol/geom/LineString';
 
-function createWrapper () {
-  return shallowMount(MeasureWin);
+const moduleProps = {
+  moduleName: 'wgu-measuretool'
+};
+
+function createWrapper (props = moduleProps) {
+  return shallowMount(MeasureWin, {
+    props
+  });
 }
 
 describe('measuretool/MeasureWin.vue', () => {
@@ -46,7 +52,6 @@ describe('measuretool/MeasureWin.vue', () => {
     });
 
     it('has correct default data', () => {
-      expect(vm.moduleName).to.equal('wgu-measuretool');
       expect(vm.measureGeom).to.be.null;
       expect(vm.measureType).to.equal('distance');
     });
