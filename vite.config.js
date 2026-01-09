@@ -9,6 +9,8 @@ import Vuetify from 'vite-plugin-vuetify';
 
 import eslintPlugin from '@nabla/vite-plugin-eslint';
 
+import mdiWoff2OnlyPlugin from './plugins/vite-plugin-mdi-woff2';
+
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
   const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -40,7 +42,8 @@ export default defineConfig(({ mode }) => {
       eslintPlugin({
         // Lint src and app directories.
         shouldLint: (path) => path.match(/\/(src|app)\/[^?]*\.(vue|svelte|m?[jt]sx?)$/)
-      })
+      }),
+      mdiWoff2OnlyPlugin()
     ],
     // Needed so vite-plugin-vuetify can process source code correctly.
     optimizeDeps: {
