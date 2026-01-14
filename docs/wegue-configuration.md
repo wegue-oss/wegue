@@ -147,6 +147,10 @@ In some cases, the primary/secondary color may collide with the semantic colors 
 
 The idea is the override the collided colors with a different tone that will deliver the same semantic feeling. As an example, the default color theme of Wegue is built based on a red tone, which collides with the semantic color for errors. To avoid collision, Wegue adapts the same strategy as in the [Crane material study](https://material.io/design/material-studies/crane.html#color) and sets an orange tone for errors.
 
+#### Advanced theme customization
+
+If changing the colour theme is not enough, Wegue allows you to customize the entire look and feel of Vuetify by redefining its internally used SASS variables. Details about this functionality and some examples can be found on [this dedicated page](vuetify-sass-variables?id=vuetify-sass-variables).
+
 ### projectionDefs
 
 The property `projectionDefs` is a nested array holding several [proj4js](https://proj4js.org) compatible projection definitions. For each array element the first item is the projection code and the second item is the [proj4](https://proj4.org) definition string. For example:

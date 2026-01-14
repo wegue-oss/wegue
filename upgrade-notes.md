@@ -10,10 +10,12 @@ This means components are still written using the `Options API` for example.
 To be compatible with all the required dependencies, minimal `node` version was raised to `v20.19.0` while minimal `npm` version was also raised to `v10.8.2`.
 
 Changes that were applied on the files present in the [app-starter](https://github.com/wegue-oss/wegue/commits/master/app-starter) directory should also be applied to your custom files present in the `app` directory.  
-Pay particular attention to these two points:
+Pay particular attention to these three points:
 
   - The `app/static` directory should be renamed `app/public/static` 
   - The `app/static/css` directory should be renamed `app/styles`
+  - A file named `app/styles/vuetify-settings.scss` must be present. The default minimal file can be found in the [`app-starter/styles` directory](https://github.com/wegue-oss/wegue/tree/master/app-starter/styles).  
+  For more details about its usage, please refer to the [Wegue documentation](https://wegue-oss.github.io/wegue/#/vuetify-sass-variables?id=vuetify-sass-variables).
 
 ### Vite
 
