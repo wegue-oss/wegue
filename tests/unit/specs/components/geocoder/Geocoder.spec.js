@@ -84,7 +84,7 @@ describe('geocoder/Geocoder.vue', () => {
       expect(vm.selecting).to.be.false;
       expect(vm.selected).to.be.null;
       expect(vm.hideSearch).to.be.true;
-      expect(vm.timeout).to.be.null;
+      expect(vm.debounceTimeout).to.be.null;
       expect(vm.geocoderController).to.not.be.undefined;
       expect(vm.geocoderController.provider instanceof OpenStreetMap).to.be.true;
     });

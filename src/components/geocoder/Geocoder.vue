@@ -76,7 +76,7 @@ export default {
       selecting: false,
       selected: null,
       hideSearch: true,
-      timeout: null
+      debounceTimeout: null
     }
   },
   computed: {
@@ -101,9 +101,9 @@ export default {
     this.geocoderController = new GeocoderController(this.provider, this.providerOptions);
   },
   unmounted () {
-    if (this.timeout) {
-      clearTimeout(this.timeout);
-      this.timeout = null;
+    if (this.debounceTimeout) {
+      clearTimeout(this.debounceTimeout);
+      this.debounceTimeout = null;
     }
 
     this.geocoderController.destroy();
@@ -118,10 +118,10 @@ export default {
     },
     // Query by string - should return list of selection items (adresses) for ComboBox
     querySelections (queryStr) {
-      if (this.timeout) {
-        clearTimeout(this.timeout);
+      if (this.debounceTimeout) {
+        clearTimeout(this.debounceTimeout);
       }
-      this.timeout = setTimeout(() => {
+      this.debounceTimeout = setTimeout(() => {
         // Let Geocoder Provider do the query
         // items (item.title fields) will be shown in combobox dropdown suggestions
         this.trace(`geocoderController.query: ${queryStr}`);
@@ -132,7 +132,7 @@ export default {
               this.onQueryError(err);
             }
           });
-        this.timeout = null;
+        this.debounceTimeout = null;
       }, this.queryDelay);
     },
     onQueryResults (results) {
