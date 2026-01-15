@@ -55,6 +55,7 @@ Module identifier: `wgu-geocoder`
 | persistentHint     | Forces hint to always be visible.  | `"persistentHint": true` |
 | minChars           | Minimum number of characters which has to be entered so the query is triggered  | `"minChars": 2` |
 | queryDelay         | Delay in MS before a query is triggered | `"queryDelay": 200` |
+| httpTimeout        | Timeout in MS for underlying HTTP request. Defaults to `15000`  | `"httpTimeout": 10000` |
 | debug              | Boolean value to enable debug logs | `"debug": false` |
 | provider           | Key defining which geocoder provider should be used. Could be `osm`, `photon` or `opencage` | `"provider": "osm"` |
 | providerOptions    | Optional options which are passed to the geocoder provider | `"providerOptions": {"lang": "en-US", "countrycodes": "", "limit": 6}` |

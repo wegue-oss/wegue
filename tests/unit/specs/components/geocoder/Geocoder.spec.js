@@ -62,6 +62,7 @@ describe('geocoder/Geocoder.vue', () => {
       expect(vm.debug).to.be.false;
       expect(vm.minChars).to.equal(3);
       expect(vm.queryDelay).to.equal(300);
+      expect(vm.httpTimeout).to.equal(15000);
       expect(vm.provider).to.equal('osm');
       expect(vm.providerOptions).to.be.an('object');
     });
@@ -100,6 +101,7 @@ describe('geocoder/Geocoder.vue', () => {
         target: 'toolbar',
         minChars: 5,
         queryDelay: 200,
+        httpTimeout: 10000,
         debug: false,
         provider: 'photon'
       };
@@ -112,6 +114,7 @@ describe('geocoder/Geocoder.vue', () => {
       expect(vm.hideSearch).to.be.true;
       expect(vm.minChars).to.equal(5);
       expect(vm.queryDelay).to.equal(200);
+      expect(vm.httpTimeout).to.equal(10000);
       expect(vm.geocoderController).to.not.be.undefined;
       expect(vm.geocoderController.provider instanceof Photon).to.be.true;
     });
@@ -127,6 +130,7 @@ describe('geocoder/Geocoder.vue', () => {
         target: 'toolbar',
         minChars: 6,
         queryDelay: 200,
+        httpTimeout: 10000,
         debug: false,
         provider: 'opencage'
       };
@@ -139,6 +143,7 @@ describe('geocoder/Geocoder.vue', () => {
       expect(vm.hideSearch).to.be.true;
       expect(vm.minChars).to.equal(6);
       expect(vm.queryDelay).to.equal(200);
+      expect(vm.httpTimeout).to.equal(10000);
       expect(vm.geocoderController).to.not.be.undefined;
       expect(vm.geocoderController.provider instanceof OpenCage).to.be.true;
     });

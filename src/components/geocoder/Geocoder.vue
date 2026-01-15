@@ -59,6 +59,7 @@ export default {
     debug: { type: Boolean, required: false, default: false },
     minChars: { type: Number, required: false, default: 3 },
     queryDelay: { type: Number, required: false, default: 300 },
+    httpTimeout: { type: Number, required: false, default: 15000 },
     provider: { type: String, required: false, default: 'osm' },
     providerOptions: { type: Object, required: false, default: function () { return {}; } }
   },
@@ -98,7 +99,7 @@ export default {
   },
   mounted () {
     // Setup GeocoderController to which we delegate Provider and query-handling
-    this.geocoderController = new GeocoderController(this.provider, this.providerOptions);
+    this.geocoderController = new GeocoderController(this.provider, this.providerOptions, this.httpTimeout);
   },
   unmounted () {
     if (this.debounceTimeout) {
