@@ -59,6 +59,7 @@ export default {
     debug: { type: Boolean, required: false, default: false },
     minChars: { type: Number, required: false, default: 3 },
     queryDelay: { type: Number, required: false, default: 300 },
+    httpTimeout: { type: Number, required: false, default: 15000 },
     provider: { type: String, required: false, default: 'osm' },
     providerOptions: { type: Object, required: false, default: function () { return {}; } }
   },
@@ -76,7 +77,7 @@ export default {
       selecting: false,
       selected: null,
       hideSearch: true,
-      timeout: null
+      debounceTimeout: null
     }
   },
   computed: {
@@ -98,12 +99,12 @@ export default {
   },
   mounted () {
     // Setup GeocoderController to which we delegate Provider and query-handling
-    this.geocoderController = new GeocoderController(this.provider, this.providerOptions);
+    this.geocoderController = new GeocoderController(this.provider, this.providerOptions, this.httpTimeout);
   },
   unmounted () {
-    if (this.timeout) {
-      clearTimeout(this.timeout);
-      this.timeout = null;
+    if (this.debounceTimeout) {
+      clearTimeout(this.debounceTimeout);
+      this.debounceTimeout = null;
     }
 
     this.geocoderController.destroy();
@@ -118,10 +119,10 @@ export default {
     },
     // Query by string - should return list of selection items (adresses) for ComboBox
     querySelections (queryStr) {
-      if (this.timeout) {
-        clearTimeout(this.timeout);
+      if (this.debounceTimeout) {
+        clearTimeout(this.debounceTimeout);
       }
-      this.timeout = setTimeout(() => {
+      this.debounceTimeout = setTimeout(() => {
         // Let Geocoder Provider do the query
         // items (item.title fields) will be shown in combobox dropdown suggestions
         this.trace(`geocoderController.query: ${queryStr}`);
@@ -132,7 +133,7 @@ export default {
               this.onQueryError(err);
             }
           });
-        this.timeout = null;
+        this.debounceTimeout = null;
       }, this.queryDelay);
     },
     onQueryResults (results) {
