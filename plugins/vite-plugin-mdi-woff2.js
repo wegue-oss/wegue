@@ -1,48 +1,56 @@
+import postcss from 'postcss';
+import fs from 'node:fs';
+
 export default function mdiWoff2OnlyPlugin (options) {
   return {
     name: 'mdi-woff2-only',
     enforce: 'pre',
-    transform (code, id) {
+    async transform (code, id) {
       if (!id.includes('node_modules/@mdi/font/css/materialdesignicons.css')) {
         return null;
       }
 
-      // Extract the WOFF2 url(...) format("woff2")
-      const woff2Match = code.match(
-        /url\((["'])\.\.\/fonts\/materialdesignicons-webfont\.woff2[^"']*\1\)\s+format\((["'])woff2\2\)/
-      )
-      if (woff2Match) {
-        // Replace the src: ...; lines to reference WOFF2 only
-        // But keep their number consistent to impact source map as less as possible
-        const woff2 = woff2Match[0];
-
-        const newCode = code.replace(
-          /@font-face\s*{([\s\S]*?)}/,
-          (match, inner) => {
-            const cleanedInner = inner
-              .split('\n')
-              .map((line) => {
-                if (!line.trim().startsWith('src:')) {
-                  return line;
-                }
-                if (!line.includes('woff2')) {
-                  return '';
-                } else {
-                  const indent = line.match(/^\s*/)[0];
-                  return `${indent}src: ${woff2};`;
-                }
-              }).join('\n');
-
-            return `@font-face {${cleanedInner}}`;
-          }
-        );
-
-        return {
-          code: newCode,
-          map: null
-        };
+      // Load original source map directly from node_modules
+      const mapPath = `${id}.map`;
+      let previousMap;
+      if (fs.existsSync(mapPath)) {
+        previousMap = fs.readFileSync(mapPath, 'utf-8');
       }
-      return null;
+
+      const result = await postcss([
+        {
+          postcssPlugin: 'remove-fonts-except-woff2',
+          AtRule: {
+            'font-face': (atRule) => {
+              atRule.walkDecls('src', (decl) => {
+                // Extract the WOFF2 url(...) if present inside the src declaration
+                const woff2Match = decl.value.match(/url\((["']?)([^"')]+\.woff2[^"')]*?)\1\)/);
+
+                if (woff2Match) {
+                  // Replace the src: ...; declaration to reference WOFF2 only
+                  decl.value = `url("${woff2Match[2]}") format("woff2")`;
+                } else {
+                  // Remove declaration completely if WOFF2 is not present
+                  decl.remove();
+                }
+              });
+            }
+          }
+        }
+      ]).process(code, {
+        from: id,
+        to: id,
+        map: {
+          inline: false,
+          annotation: false,
+          prev: previousMap
+        }
+      });
+
+      return {
+        code: result.css,
+        map: result.map.toJSON()
+      };
     }
   };
-};
+}
