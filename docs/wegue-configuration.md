@@ -109,6 +109,10 @@ To simplify the theming configuration, if the "themes" property isn't configured
 Note that there is a clear asymmetry in the "light" and "dark" theme configuration. In the "light" theme, the primary color is mandatory and all the
 others are derived from that. In the "dark" theme, the predominant color must be a shade of black (to comply with the [material design specification](https://material.io/design/color/dark-theme.html)), so the primary color is locked to `#272727`. Therefore, in this case the colors are derived from the second predominant color.
 
+#### Advanced theme customization
+
+If changing the color theme is not enough, Wegue allows you to customize the entire look and feel of Vuetify by redefining its internally used SASS variables. Details about this functionality and some examples can be found on [this dedicated page](vuetify-sass-variables?id=vuetify-sass-variables).
+
 #### Tips on creating a color theme
 
 In this section we offer a couple of tips on choosing colors for Wegue while meeting the [material design principles](https://material.io/design/color/the-color-system.html#color-usage-and-palettes) (hierarchy/legibility/expressiveness).
@@ -146,10 +150,6 @@ The rule of thumb is simple:
 In some cases, the primary/secondary color may collide with the semantic colors (information, success, warning, error). This is undesirable as the UI will not be able to sufficiently stand out relevant messages from the surrounding components.
 
 The idea is the override the collided colors with a different tone that will deliver the same semantic feeling. As an example, the default color theme of Wegue is built based on a red tone, which collides with the semantic color for errors. To avoid collision, Wegue adapts the same strategy as in the [Crane material study](https://material.io/design/material-studies/crane.html#color) and sets an orange tone for errors.
-
-#### Advanced theme customization
-
-If changing the colour theme is not enough, Wegue allows you to customize the entire look and feel of Vuetify by redefining its internally used SASS variables. Details about this functionality and some examples can be found on [this dedicated page](vuetify-sass-variables?id=vuetify-sass-variables).
 
 ### projectionDefs
 
