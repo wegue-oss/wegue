@@ -22,7 +22,6 @@
     "init:app": "node util/init-app.js"
   },
   "dependencies": {
-    "@fontsource/roboto": "^5.2.8",
     "@material-design-icons/font": "0.14.15",
     "@mdi/font": "7.4.47",
     "@vue/compat": "^3.5.22",
