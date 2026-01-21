@@ -41,9 +41,11 @@ export class GeocoderController {
    * @constructor
    * @param {String} providerName name of Provider.
    * @param {Object} options config options for Provider
+   * @param {Number} timeout Timeout in MS for HTTP request
    */
-  constructor (providerName, options) {
+  constructor (providerName, options, timeout) {
     this.options = options;
+    this.timeout = timeout;
     this.abortController = null;
 
     // Must have Provider class defined for name
@@ -80,7 +82,8 @@ export class GeocoderController {
       method: 'GET',
       url: parameters.url,
       params: parameters.params,
-      signal: this.abortController?.signal
+      signal: this.abortController?.signal,
+      timeout: this.timeout
     };
 
     const response = await axios(request);
