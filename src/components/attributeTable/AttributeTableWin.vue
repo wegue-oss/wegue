@@ -1,6 +1,5 @@
 <template>
   <wgu-module-card v-bind="$attrs"
-    :moduleName="moduleName"
     class="wgu-attributetable-win"
     :icon="icon"
   >
@@ -56,7 +55,6 @@ export default {
   },
   data () {
     return {
-      moduleName: 'wgu-attributetable',
       selLayerLid: null
     }
   },

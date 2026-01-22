@@ -37,44 +37,65 @@ describe('AppHeader.vue', () => {
   });
 
   describe('methods', () => {
-    const appConfig = {
-      modules: {
-        'wgu-infoclick': {
-          target: 'menu'
-        },
-        'wgu-zoomtomaxextent': {
-          target: 'toolbar'
+    it('getModuleButtons(\'menu\') returns correct data', () => {
+      // mock a module conf
+      const appConfig = {
+        modules: {
+          'wgu-infoclick': {
+            target: 'menu'
+          }
         }
-      }
-    };
-
-    beforeEach(() => {
+      };
       comp = createWrapper(appConfig);
       vm = comp.vm;
-    });
 
-    it('getModuleButtons(\'menu\') returns always an array', () => {
-      const moduleData = vm.getModuleButtons('menu');
-      expect(moduleData).to.be.an('array');
-    });
-
-    it('getModuleButtons(\'menu\') returns correct data', () => {
       const moduleData = vm.getModuleButtons('menu');
       expect(moduleData).to.be.an('array').that.has.lengthOf(1);
       expect(moduleData[0].type).to.equal('wgu-infoclick-btn');
       expect(moduleData[0].target).to.equal('menu');
     });
 
-    it('getModuleButtons(\'toolbar\') returns always an array', () => {
-      const moduleData = vm.getModuleButtons('toolbar');
-      expect(moduleData).to.be.an('array');
-    });
-
     it('getModuleButtons(\'toolbar\') returns correct data', () => {
+      // mock a module conf
+      const appConfig = {
+        modules: {
+          'wgu-zoomtomaxextent': {
+            target: 'toolbar'
+          }
+        }
+      };
+      comp = createWrapper(appConfig);
+      vm = comp.vm;
+
       const moduleData = vm.getModuleButtons('toolbar');
       expect(moduleData).to.be.an('array').that.has.lengthOf(1);
       expect(moduleData[0].type).to.equal('wgu-zoomtomaxextent-btn');
       expect(moduleData[0].target).to.equal('toolbar');
+    });
+
+    it('getModuleButtons supports multiple button instances', () => {
+      // mock a module conf
+      const appConfig = {
+        modules: {
+          'wgu-helpwin1': {
+            moduleType: 'wgu-helpwin',
+            target: 'toolbar'
+          },
+          'wgu-helpwin2': {
+            moduleType: 'wgu-helpwin',
+            target: 'toolbar'
+          }
+        }
+      };
+      comp = createWrapper(appConfig);
+      vm = comp.vm;
+
+      const moduleData = vm.getModuleButtons('toolbar');
+      expect(moduleData).to.be.an('array').that.has.lengthOf(2);
+      expect(moduleData[0].type).to.equal('wgu-helpwin-btn');
+      expect(moduleData[0].target).to.equal('toolbar');
+      expect(moduleData[1].type).to.equal('wgu-helpwin-btn');
+      expect(moduleData[1].target).to.equal('toolbar');
     });
 
     afterEach(() => {

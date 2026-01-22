@@ -4,15 +4,60 @@ JSON configuration objects for Wegue modules.
 
 ## General
 
-The `modules` object contains sub-objects, whereas the key is the identifier for the module and the value is the dedicated module configuration. For example:
+The `modules` object contains sub-objects, where the key is the identifier for the module instance and the value is the dedicated module configuration. For example:
 
 ```json
-  "wgu-layerlist": {
-    "target": "menu",
-    "win": "floating",
-    "draggable": false
-  }
+"wgu-layerlist": {
+  "target": "menu",
+  "win": "floating",
+  "draggable": false
+}
 ```
+
+### Module identifier and module type
+In general, the identifier specifies the type of module to be added.
+In the example above, Wegue will look for a Vue component matching the module type `wgu-layerlist` and automatically append the `-win` suffix when resolving the component name. Internally, this results in the component `wgu-layerlist-win`, which must be registered in the application, for example:
+
+```js
+import LayerListWin from '@/components/layerlist/LayerListWin.vue';
+
+components: {
+  'wgu-layerlist-win': LayerListWin
+}
+```
+This approach allows simple module definitions where the identifier directly maps to a single module instance.
+
+### Multiple instances of the same module type
+To allow multiple instances of the same module type, the module identifier can be chosen arbitrarily. In this case, the actual module type must be specified explicitly using the `moduleType` property.
+Example:
+```json
+"wgu-layerlist1": {
+  "moduleType": "wgu-layerlist",
+  "target": "menu",
+  "win": "floating",
+  "draggable": false
+},
+"wgu-layerlist2": {
+  "moduleType": "wgu-layerlist",
+  "target": "menu",
+  "win": "floating",
+  "draggable": false
+}
+```
+In this configuration:
+* `wgu-layerlist1` and `wgu-layerlist2` are instance identifiers.
+* Both instances reference the same module type via `"moduleType": "wgu-layerlist"`
+* Wegue will create two independent instances of the `wgu-layerlist` module.
+* Each instance has its own configuration, state, and window (if applicable)
+If `moduleType` is omitted, Wegue assumes that the module identifier itself represents the module type.
+
+
+#### Note / Limitation:
+While Wegue supports configuring multiple instances of the same module type, stock Wegue components are not guaranteed to be designed for multi-instantiation. Some built-in modules may rely on shared state, global identifiers, or singleton assumptions and may behave incorrectly or unpredictably when instantiated multiple times.
+
+Multi-instantiation is therefore primarily intended for custom modules or stock modules that are explicitly designed and validated for this usage. When using multiple instances of a stock module, this behavior should be considered experimental unless otherwise documented.
+
+### Common module properties
 
 The following properties can be applied to all module types:
 
@@ -20,6 +65,7 @@ The following properties can be applied to all module types:
 |--------------------|:---------:|---------|
 | **target**         | Where should the button to enable/disable the module be rendered. Valid options are `menu` or `toolbar` | `"target": "menu"` |
 | **win**            | Value to mark if the module has a window as sub component and where to show the module UI elements. Valid options are `floating` and `sidebar`. If the value is omitted, then the module is not associated with a window.  | `"win": "floating"` |
+| moduleType         | Optional module type. Required only if different from the module identifier (e.g. for multi-instantiation). | `"moduleType": "wgu-layerlist"` 
 | icon               | Provide a customized icon for the module. | `"icon": "md:info"` |
 | minimizable        | Indicates whether the module window can be minimized. Only applies if a module window is present as indicated by the `win` parameter. | `"minimizable": true` |
 | closable           | Indicates whether the module window can be closed by a "X" icon in the window's header bar. Only applies if a module window is present as indicated by the `win` parameter. | `"closable": false` |

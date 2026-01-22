@@ -99,7 +99,9 @@ export default {
         const moduleOpts = appConfig.modules[key];
         if (moduleOpts.target === target) {
           buttons.push({
-            type: moduleOpts.win ? 'wgu-toggle-btn' : key + '-btn',
+            type: moduleOpts.win
+              ? 'wgu-toggle-btn'
+              : (moduleOpts.moduleType ?? key) + '-btn',
             moduleName: key,
             ...moduleOpts
           });

@@ -8,8 +8,14 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import Point from 'ol/geom/Point';
 
-function createWrapper () {
-  return shallowMount(InfoClickWin);
+const moduleProps = {
+  moduleName: 'wgu-infoclick'
+};
+
+function createWrapper (props = moduleProps) {
+  return shallowMount(InfoClickWin, {
+    props
+  });
 }
 
 describe('infoclick/InfoClickWin.vue', () => {
@@ -51,7 +57,6 @@ describe('infoclick/InfoClickWin.vue', () => {
     });
 
     it('has correct default data', () => {
-      expect(vm.moduleName).to.equal('wgu-infoclick');
       expect(vm.attributeData).to.be.null;
       expect(vm.coordsData).to.be.null;
       expect(vm.featureIdx).to.equal(0);
