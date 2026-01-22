@@ -60,15 +60,4 @@ describe('helpwin/HelpWin.vue', () => {
       comp.unmount();
     });
   });
-
-  describe('data', () => {
-    beforeEach(() => {
-      comp = createWrapper();
-      vm = comp.vm;
-    });
-
-    afterEach(() => {
-      comp.unmount();
-    });
-  });
 });
