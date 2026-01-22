@@ -108,8 +108,7 @@ describe('WguAppTpl.vue', () => {
 
       const moduleData = vm.getModuleWinData('floating');
 
-      expect(moduleData).to.be.an('array');
-      expect(moduleData.length).to.equal(1);
+      expect(moduleData).to.be.an('array').that.has.lengthOf(1);
       expect(moduleData[0].type).to.equal('wgu-infoclick-win');
       expect(moduleData[0].target).to.equal('menu');
       expect(moduleData[0].draggable).to.be.false;
@@ -133,8 +132,7 @@ describe('WguAppTpl.vue', () => {
 
       const moduleData = vm.getModuleWinData('sidebar');
 
-      expect(moduleData).to.be.an('array');
-      expect(moduleData.length).to.equal(1);
+      expect(moduleData).to.be.an('array').that.has.lengthOf(1);
       expect(moduleData[0].type).to.equal('wgu-infoclick-win');
       expect(moduleData[0].target).to.equal('menu');
     });
@@ -162,8 +160,7 @@ describe('WguAppTpl.vue', () => {
 
       const moduleData = vm.getModuleWinData('floating');
 
-      expect(moduleData).to.be.an('array');
-      expect(moduleData.length).to.equal(2);
+      expect(moduleData).to.be.an('array').that.has.lengthOf(2);
       expect(moduleData[0].type).to.equal('wgu-helpwin-win');
       expect(moduleData[0].target).to.equal('toolbar');
       expect(moduleData[1].type).to.equal('wgu-helpwin-win');

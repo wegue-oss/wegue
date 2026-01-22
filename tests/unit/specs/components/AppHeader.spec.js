@@ -91,8 +91,7 @@ describe('AppHeader.vue', () => {
       vm = comp.vm;
 
       const moduleData = vm.getModuleButtons('toolbar');
-      expect(moduleData).to.be.an('array');
-      expect(moduleData.length).to.equal(2);
+      expect(moduleData).to.be.an('array').that.has.lengthOf(2);
       expect(moduleData[0].type).to.equal('wgu-helpwin-btn');
       expect(moduleData[0].target).to.equal('toolbar');
       expect(moduleData[1].type).to.equal('wgu-helpwin-btn');
