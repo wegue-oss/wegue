@@ -1,4 +1,5 @@
-import LayerUtil from '@/util/Layer';
+import LayerUtil, { LayerProxy, LayerCollectionProxy } from '@/util/Layer';
+
 import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
@@ -177,5 +178,188 @@ describe('LayerUtil', () => {
     expect(olMap.getView().getZoom()).to.equal(2);
     expect(olMap.getView().getCenter()[0]).to.equal(0);
     expect(olMap.getView().getCenter()[1]).to.equal(0);
+  });
+});
+
+describe('LayerProxy', () => {
+  it('is defined', () => {
+    expect(LayerProxy).to.not.be.an('undefined');
+  });
+
+  it('has the correct functions', () => {
+    expect(LayerProxy.prototype.get).to.be.a('function');
+    expect(LayerProxy.prototype.getProperties).to.be.a('function');
+    expect(LayerProxy.prototype.toRaw).to.be.a('function');
+    expect(LayerProxy.prototype.destroy).to.be.a('function');
+  });
+
+  describe('methods', () => {
+    let layer;
+    let proxy;
+
+    beforeEach(() => {
+      layer = new TileLayer({
+        foo: 'bar',
+        source: new OSM()
+      })
+      proxy = new LayerProxy(layer);
+    });
+
+    it('get reflects layer properties', () => {
+      expect(proxy.get('foo')).to.eql('bar');
+
+      layer.set('foo', 'bar2');
+      expect(proxy.get('foo')).to.eql('bar2');
+    });
+
+    it('getProperties reflects layer properties', () => {
+      expect(proxy.getProperties()).to.deep.equal(layer.getProperties());
+
+      layer.set('foo', 'bar2');
+      expect(proxy.getProperties()).to.deep.equal(layer.getProperties());
+    });
+
+    it('getter methods reflect layer getter methods', () => {
+      expect(proxy.getOpacity()).to.eql(layer.getOpacity());
+      expect(proxy.getVisible()).to.eql(layer.getVisible());
+      expect(proxy.getExtent()).to.eql(layer.getExtent());
+      expect(proxy.getZIndex()).to.eql(layer.getZIndex());
+      expect(proxy.getMaxResolution()).to.eql(layer.getMaxResolution());
+      expect(proxy.getMinResolution()).to.eql(layer.getMinResolution());
+      expect(proxy.getMaxZoom()).to.eql(layer.getMaxZoom());
+      expect(proxy.getMinZoom()).to.eql(layer.getMinZoom());
+
+      layer.setOpacity(0.5);
+      layer.setVisible(false);
+      layer.setExtent([0, 0, 100, 100]);
+      layer.setZIndex(15);
+      layer.setMaxResolution(30);
+      layer.setMinResolution(5);
+      layer.setMaxZoom(10);
+      layer.setMinZoom(1);
+
+      expect(proxy.getOpacity()).to.eql(layer.getOpacity());
+      expect(proxy.getVisible()).to.eql(layer.getVisible());
+      expect(proxy.getExtent()).to.eql(layer.getExtent());
+      expect(proxy.getZIndex()).to.eql(layer.getZIndex());
+      expect(proxy.getMaxResolution()).to.eql(layer.getMaxResolution());
+      expect(proxy.getMinResolution()).to.eql(layer.getMinResolution());
+      expect(proxy.getMaxZoom()).to.eql(layer.getMaxZoom());
+      expect(proxy.getMinZoom()).to.eql(layer.getMinZoom());
+    });
+
+    it('toRaw returns the raw layer', () => {
+      expect(proxy.toRaw()).to.equal(layer);
+    });
+
+    afterEach(() => {
+      proxy.destroy();
+    });
+  });
+});
+
+describe('LayerCollectionProxy', () => {
+  it('is defined', () => {
+    expect(LayerCollectionProxy).to.not.be.an('undefined');
+  });
+
+  it('has the correct functions', () => {
+    expect(LayerCollectionProxy.prototype.forEach).to.be.a('function');
+    expect(LayerCollectionProxy.prototype.getArray).to.be.a('function');
+    expect(LayerCollectionProxy.prototype.item).to.be.a('function');
+    expect(LayerCollectionProxy.prototype.toRaw).to.be.a('function');
+    expect(LayerCollectionProxy.prototype.destroy).to.be.a('function');
+  });
+
+  describe('methods', () => {
+    let collection;
+    let proxy;
+
+    const layer1 = new TileLayer({
+      foo: 'bar',
+      source: new OSM()
+    });
+    const layer2 = new TileLayer({
+      foo: 'bar2',
+      source: new OSM()
+    })
+    const layer3 = new TileLayer({
+      foo: 'bar3',
+      source: new OSM()
+    });
+
+    beforeEach(() => {
+      const map = new Map({
+        layers: [layer1, layer2]
+      });
+
+      collection = map.getLayers();
+      proxy = new LayerCollectionProxy(collection);
+    });
+
+    it('getArray reflects layer collection', () => {
+      const layerProxies = proxy.getArray();
+      const rawLayers = collection.getArray();
+
+      expect(layerProxies.length).to.equal(rawLayers.length);
+      for (let i = 0; i < rawLayers.length; i++) {
+        expect(layerProxies[i].toRaw()).to.equal(rawLayers[i]);
+      }
+
+      collection.push(layer3);
+      expect(layerProxies.length).to.equal(rawLayers.length);
+      for (let i = 0; i < rawLayers.length; i++) {
+        expect(layerProxies[i].toRaw()).to.equal(rawLayers[i]);
+      }
+    });
+
+    it('forEach reflects layer collection', () => {
+      const rawLayers = collection.getArray();
+      let layerProxies = [];
+
+      proxy.forEach(layerProxy => {
+        layerProxies.push(layerProxy);
+      });
+      expect(layerProxies.length).to.equal(rawLayers.length);
+
+      for (let i = 0; i < rawLayers.length; i++) {
+        expect(layerProxies[i].toRaw()).to.equal(rawLayers[i]);
+      }
+
+      layerProxies = [];
+      collection.push(layer3);
+
+      proxy.forEach(layerProxy => {
+        layerProxies.push(layerProxy);
+      });
+      expect(layerProxies.length).to.equal(rawLayers.length);
+
+      for (let i = 0; i < rawLayers.length; i++) {
+        expect(layerProxies[i].toRaw()).to.equal(rawLayers[i]);
+      }
+    });
+
+    it('item reflects layer collection', () => {
+      const rawLayers = collection.getArray();
+
+      for (let i = 0; i < rawLayers.length; i++) {
+        const layerProxy = proxy.item(i);
+        expect(layerProxy.toRaw()).to.equal(rawLayers[i]);
+      }
+
+      collection.push(layer3);
+      for (let i = 0; i < rawLayers.length; i++) {
+        const layerProxy = proxy.item(i);
+        expect(layerProxy.toRaw()).to.equal(rawLayers[i]);
+      }
+    });
+
+    it('toRaw returns the raw collection', () => {
+      expect(proxy.toRaw()).to.equal(collection);
+    });
+
+    afterEach(() => {
+      proxy.destroy();
+    });
   });
 });

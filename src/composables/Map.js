@@ -1,10 +1,11 @@
-import { ref, shallowRef, computed } from 'vue';
+import { shallowRef, computed } from 'vue';
+import { LayerCollectionProxy } from '@/util/Layer';
 
 /**
  * Composable which encapsulate OL map management.
  */
 const map = shallowRef();
-const layers = ref([]);
+const layers = shallowRef();
 
 /**
  * Init function of the composable.
@@ -13,11 +14,7 @@ const layers = ref([]);
  */
 export function bindMap (olMap) {
   map.value = olMap;
-  layers.value = map.value.getLayers().getArray();
-
-  map.value.getLayers().on('change:length', (event) => {
-    layers.value = [...event.target.getArray()];
-  });
+  layers.value = new LayerCollectionProxy(olMap.getLayers());
 };
 
 /**
@@ -26,7 +23,10 @@ export function bindMap (olMap) {
  * disable map and layers reactivity.
  */
 export function unbindMap () {
-  layers.value = [];
+  if (layers.value) {
+    layers.value.destroy();
+    layers.value = undefined;
+  }
   map.value = undefined;
 };
 
@@ -37,8 +37,6 @@ export function unbindMap () {
 export function useMap () {
   return {
     map: computed(() => map.value),
-    layers: computed(() => {
-      return layers.value;
-    })
+    layers: computed(() => layers.value)
   };
 };

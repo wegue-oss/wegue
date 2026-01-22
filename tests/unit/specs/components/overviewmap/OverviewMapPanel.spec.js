@@ -1,4 +1,3 @@
-import { toRaw } from 'vue';
 import { shallowMount } from '@vue/test-utils';
 import { bindMap, unbindMap } from '@/composables/Map';
 import OverviewMapPanel from '@/components/overviewmap/OverviewMapPanel.vue';
@@ -81,7 +80,7 @@ describe('overviewmap/OverviewMapPanel.vue', () => {
       });
       bindMap(map);
 
-      expect(toRaw(vm.selectedBgLayer)).to.equal(layerIn);
+      expect(vm.selectedBgLayer.toRaw()).to.equal(layerIn);
     });
 
     it('selectedBgLayer is synced with the layer stack', async () => {
@@ -102,12 +101,12 @@ describe('overviewmap/OverviewMapPanel.vue', () => {
       });
       bindMap(map);
 
-      expect(toRaw(vm.selectedBgLayer)).to.equal(layerIn);
+      expect(vm.selectedBgLayer.toRaw()).to.equal(layerIn);
 
       layerIn.setVisible(false);
       map.addLayer(layerOut);
 
-      expect(toRaw(vm.selectedBgLayer)).to.equal(layerOut);
+      expect(vm.selectedBgLayer.toRaw()).to.equal(layerOut);
     });
 
     afterEach(() => {
