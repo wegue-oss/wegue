@@ -4,7 +4,7 @@ JSON configuration objects for Wegue modules.
 
 ## General
 
-The modules object contains sub-objects, where the key is the identifier for the module instance and the value is the dedicated module configuration. For example:
+The `modules` object contains sub-objects, where the key is the identifier for the module instance and the value is the dedicated module configuration. For example:
 
 ```json
 "wgu-layerlist": {
