@@ -213,7 +213,7 @@ describe('geocoder/Geocoder.vue', () => {
     let axiosMock;
     let onQueryResultsSpy;
     let onQueryErrorSpy;
-    const osmURL = 'https://nominatim.openstreetmap.org/search';
+    const osmURL = new OpenStreetMap().settings.url;
     const fetchResults = JSON.stringify([
       {
         lon: '7.0928944',
