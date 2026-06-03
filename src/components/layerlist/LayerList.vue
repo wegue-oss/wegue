@@ -41,8 +41,7 @@ export default {
      */
     displayedLayers () {
       return this.layers
-        .filter(layer => layer.get('displayInLayerList') !== false && !layer.get('isBaseLayer'))
-        .reverse();
+        .filter(layer => layer.get('displayInLayerList') !== false && !layer.get('isBaseLayer'));
     }
   }
 };

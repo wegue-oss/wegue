@@ -66,7 +66,6 @@ export default {
     selectedBgLayer () {
       return this.layers
         .filter(layer => layer.get('isBaseLayer'))
-        .reverse()
         .find(layer => layer.getVisible());
     }
   },

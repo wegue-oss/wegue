@@ -203,7 +203,7 @@ export default {
       const layers = [];
       const appConfig = this.$appConfig;
       const mapLayersConfig = appConfig.mapLayers || [];
-      mapLayersConfig.reverse().forEach(function (lConf) {
+      mapLayersConfig.forEach(function (lConf) {
         // Some Layers may require a TileGrid object
         // Remarks: Passing null instead of undefined as parameters into the
         //  constructor of OpenLayers sources overwrites OpenLayers defaults.

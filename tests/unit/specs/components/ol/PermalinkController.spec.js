@@ -172,7 +172,7 @@ describe('ol/Map.vue', () => {
         }
       });
 
-      expect(vm.permalinkController.getParamStr()).to.equal('#z=' + newZoom + '&c=8.9832%2C17.6789&r=0&l=ahocevar-imagewms%2Cahocevar-wms%2Cosm-bg');
+      expect(vm.permalinkController.getParamStr()).to.equal('#z=' + newZoom + '&c=8.9832%2C17.6789&r=0&l=osm-bg%2Cahocevar-wms%2Cahocevar-imagewms');
     });
 
     afterEach(() => {

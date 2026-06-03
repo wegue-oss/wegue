@@ -79,8 +79,7 @@ export default {
      */
     displayedLayers () {
       return this.layers
-        .filter(layer => layer.get('isBaseLayer'))
-        .reverse();
+        .filter(layer => layer.get('isBaseLayer'));
     },
     /**
      * Reactive property to return the currently visible OpenLayers background layer ID.

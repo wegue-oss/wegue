@@ -72,8 +72,7 @@ export default {
           layer instanceof VectorLayer &&
           layer.get('lid') !== 'wgu-measure-layer' &&
           layer.get('lid') !== 'wgu-geolocator-layer'
-        )
-        .reverse();
+        );
     },
     /**
      * Reactive property to return the items object to bind to the selection menu.
