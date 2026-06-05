@@ -59,7 +59,10 @@ export default {
      * which is marked as 'isBaseLayer'.
      */
     show () {
-      return this.layers
+      if (!this.layers) {
+        return false;
+      }
+      return this.layers.getArray()
         .filter(layer => layer.get('isBaseLayer'))
         .length > 1;
     }

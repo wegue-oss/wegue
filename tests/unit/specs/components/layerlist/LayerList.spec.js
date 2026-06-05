@@ -88,7 +88,7 @@ describe('layerlist/LayerList.vue', () => {
 
       expect(vm.displayedLayers).to.have.lengthOf(1);
       const li = vm.displayedLayers[0];
-      expect(toRaw(li)).to.equal(layerIn);
+      expect(li.toRaw()).to.equal(layerIn);
       expect(li.getVisible()).to.be.true;
     });
 

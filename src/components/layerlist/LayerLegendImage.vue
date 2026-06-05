@@ -101,7 +101,8 @@ export default {
         ...this.layer.get('legendOptions')
       };
       return legendUtil.getUrl(
-        this.layer, this.resolution, options, this.layer.get('legendUrl'));
+        this.layer.toRaw(), this.resolution, options,
+        this.layer.get('legendUrl'));
     }
   },
   watch: {

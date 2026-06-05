@@ -45,6 +45,7 @@ export default {
       const panel = this.$refs.overviewmapPanel;
       if (this.map && panel && !this.overviewMap) {
         this.overviewMap = new OverviewMapController(this.map, panel.$el, this.$props);
+        this.overviewMap.setLayer(this.selectedBgLayer.toRaw());
       }
     },
     /**
@@ -64,7 +65,10 @@ export default {
      * this returns the first in the list of background layers.
      */
     selectedBgLayer () {
-      return this.layers
+      if (!this.layers) {
+        return {};
+      }
+      return this.layers.getArray()
         .filter(layer => layer.get('isBaseLayer'))
         .reverse()
         .find(layer => layer.getVisible());
@@ -86,9 +90,9 @@ export default {
     /**
      * Watch for background layer selection change.
      */
-    selectedBgLayer () {
+    selectedBgLayer (newLayer) {
       if (this.overviewMap) {
-        this.overviewMap.setLayer(this.selectedBgLayer);
+        this.overviewMap.setLayer(newLayer.toRaw());
       }
     }
   }
