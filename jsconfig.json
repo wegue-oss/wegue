@@ -1,9 +1,26 @@
 {
   "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "checkJs": true,
+
+    "baseUrl": ".",
+
     "paths": {
-      "@/*": ["./src/*"],
-      "APP/*": ["./app/*"]
+      "@/*": ["src/*"],
+      "APP/*": ["app/*"]
     }
   },
-  "exclude": ["app-starter", "dist", "node_modules"]
+  "include": [
+    "src/**/*.js",
+    "src/**/*.vue",
+    "app/**/*.js",
+    "app/**/*.vue"
+  ],
+  "exclude": [
+    "app-starter",
+    "dist",
+    "node_modules"
+  ]
 }
