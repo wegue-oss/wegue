@@ -96,8 +96,6 @@ export default class HoverController {
     const pixel = event.pixel;
     const coordinate = event.coordinate;
     const abortController = new AbortController();
-    const featureInfos = [];
-    let resetTooltip = true;
 
     // Cancel pending requests and create a new cancel token source which corresponds
     // to all async requests sent in this iteration.
@@ -106,39 +104,70 @@ export default class HoverController {
     }
     me.pendingRequestsAbortCtrl = abortController;
 
-    // Acquire features for all layers.
-    map.getLayers().forEach((layer) => {
-      if (!layer.get('hoverable') || !layer.isVisible()) {
-        return;
-      }
+    // Sort the layers by z-order.
+    // If z-index is equal, later layer in collection appears topmost.
+    const layers = map.getLayers().getArray()
+      .map((layer, index) => ({ layer, index }))
+      .filter(({ layer }) =>
+        layer.get('hoverable') && layer.isVisible()
+      )
+      .sort((a, b) => {
+        const zA = a.layer.getZIndex() ?? 0;
+        const zB = b.layer.getZIndex() ?? 0;
+
+        if (zA !== zB) {
+          return zB - zA;
+        }
+        return b.index - a.index;
+      });
+
+    // Obtain features for all layers.
+    const requests = layers.map(({ layer }) => {
       const source = layer.getSource();
+
       if (source instanceof TileWmsSource || source instanceof ImageWMSSource) {
-        resetTooltip = false;
-        me.getWMSFeaturesAsync(map, layer, coordinate, me.pendingRequestsAbortCtrl)
-          .then(function (features) {
-            featureInfos.push(...features.map((feat) => {
-              return { layer, feature: feat };
-            }));
-            me.displayTooltip(featureInfos, coordinate);
-          })
-          .catch(function (error) {
+        return me.getWMSFeaturesAsync(map, layer, coordinate, abortController)
+          .then(features => features.map(
+            feature => ({ layer, feature })
+          ))
+          .catch(error => {
             if (!axios.isCancel(error)) {
               console.error(error.message);
             }
-          })
-      } else if (source instanceof VectorSource || source instanceof VectorTileSource) {
-        resetTooltip = false;
-        const features = me.getVectorFeatures(map, layer, pixel);
-        featureInfos.push(...features.map((feat) => {
-          return { layer, feature: feat };
-        }));
-        me.displayTooltip(featureInfos, coordinate);
+            throw error;
+          });
       }
+
+      if (source instanceof VectorSource || source instanceof VectorTileSource) {
+        const features = me.getVectorFeatures(map, layer, pixel);
+        return Promise.resolve(
+          features.map(feature => ({ layer, feature }))
+        );
+      }
+
+      return Promise.resolve([]);
     });
 
-    if (resetTooltip) {
-      me.displayTooltip(null);
-    }
+    // Remarks:
+    // Promise.allSettled preserves the z-order of the requests array,
+    // regardless of which request finishes first.
+    // Ignore results from an outdated request cycle.
+    Promise.allSettled(requests).then(results => {
+      if (me.pendingRequestsAbortCtrl !== abortController) {
+        return;
+      }
+
+      const result = results.find(
+        result => result.status === 'fulfilled' &&
+          result.value.length > 0
+      );
+
+      if (result) {
+        me.displayTooltip(result.value, coordinate);
+      } else {
+        me.displayTooltip(null);
+      }
+    })
   }
 
   /**
